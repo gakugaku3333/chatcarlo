@@ -74,7 +74,9 @@ def cmd_run(args) -> int:
         n_histories = result.n_histories
         # scene.source.mas未指定時は1historyあたりの値のみ（相対値）を出力する。
         # mas指定時は実光子数でスケールした絶対値[Gy]・[pSv]も出す。
-        scale = (result.n_photons_real / n_histories) if result.n_photons_real is not None else None
+        # dose_per_history/h10_per_historyは既にn_historiesで割って「1光子あたり」に
+        # なっているので、ここでの係数は実光子数そのもの（n_historiesでは割らない）。
+        scale = result.n_photons_real if result.n_photons_real is not None else None
         dose_per_history = dose / n_histories
         h10_per_history = h10 / n_histories
         print(f"線量グリッド: shape={result.grid.shape}, "

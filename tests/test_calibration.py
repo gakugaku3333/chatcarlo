@@ -69,8 +69,43 @@ def test_run_transport_with_mas_calibrates():
     assert result.n_photons_real > 0
     assert np.isclose(result.n_photons_real, photon_count_through_field(scene.raw["source"]))
 
-    scale = result.n_photons_real / result.n_histories
+    # dose_per_history (=グリッド値/n_histories、1光子あたり) に n_photons_real を
+    # 掛けるだけで絶対値になる。n_historiesでさらに割ってはいけない
+    # （過去にここで二重に割るバグがあり、絶対値が桁で小さくなっていた。
+    # 本テストは符号・有限性しか見ておらず検出できなかったため、
+    # 下の桁チェックを追加した — [[lessons_learned]]参照）。
     total_kerma_per_history_MeV = result.grid.total_kerma_MeV() / result.n_histories
-    total_kerma_absolute_MeV = total_kerma_per_history_MeV * scale
+    total_kerma_absolute_MeV = total_kerma_per_history_MeV * result.n_photons_real
     assert total_kerma_absolute_MeV > 0
     assert np.isfinite(total_kerma_absolute_MeV)
+
+
+def test_calibrated_dose_matches_spekpy_kerma_order_of_magnitude():
+    """絶対値校正が正しい桁になっているかをSpekPyの自由空間カーマと突き合わせる。
+
+    水スラブ手前（線源からの距離=170cm、スラブは減弱・散乱源になるので厳密一致は
+    期待しないが、桁が合っていることを見る）でSpekPyが計算する自由空間カーマ
+    （mas=4での絶対値）と、viveMonteのボクセル線量タリー最大値を比較する。
+    """
+    import spekpy as sp
+
+    from vivemonte.geometry import Geometry
+    from vivemonte.transport import dose_map_Gy
+
+    raw = {"source": {**_BASE_SOURCE, "mas": 4.0}, "geometry": _BASE_GEOMETRY}
+    scene = validate_scene(raw)
+    result = run_transport(scene, n_histories=300_000, seed=1, dose_grid=True, grid_resolution_cm=1.0)
+
+    geometry = Geometry(scene.raw["geometry"])
+    dose_per_history_Gy = dose_map_Gy(result.grid, geometry) / result.n_histories
+    dose_absolute_Gy = dose_per_history_Gy * result.n_photons_real
+
+    s = sp.Spek(kvp=_BASE_SOURCE["kvp"], th=_BASE_SOURCE.get("anode_angle_deg", 12.0), z=170, mas=4.0)
+    s.filter("Al", _BASE_SOURCE["filtration_mm_al"])
+    expected_free_air_kerma_Gy = s.get_kerma() * 1e-6  # uGy -> Gy
+
+    # スラブ手前面はビルドアップ・後方散乱で自由空間カーマより高くなり得るし、
+    # 1cm粗さのボクセル境界には統計ノイズも乗る。ここは「桁が合っているか」
+    # （factor 50以内）だけを見るゲートで、1e6ずれるようなバグを検出できれば十分。
+    assert dose_absolute_Gy.max() > expected_free_air_kerma_Gy / 10
+    assert dose_absolute_Gy.max() < expected_free_air_kerma_Gy * 50
