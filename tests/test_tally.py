@@ -12,6 +12,7 @@ from __future__ import annotations
 
 import numpy as np
 
+from vivemonte.dose_coefficients import h_star_10_per_fluence
 from vivemonte.geometry import Geometry
 from vivemonte.tally import VoxelGrid, accumulate_track_length
 from vivemonte.transport import transport_photons
@@ -25,7 +26,7 @@ def test_accumulate_exact_energy_conservation():
     length_cm = np.full(n, 7.3)          # ボクセル境界をまたぐ長さ
     weight = np.full(n, 12.0)            # keV/cm
 
-    accumulate_track_length(grid, origin, direction, length_cm, weight, substep_cm=0.3)
+    accumulate_track_length(grid.kerma_keV, grid, origin, direction, length_cm, weight, substep_cm=0.3)
 
     expected_total = np.sum(length_cm * weight)
     assert np.isclose(grid.kerma_keV.sum(), expected_total, rtol=1e-9)
@@ -40,7 +41,7 @@ def test_accumulate_partial_out_of_grid():
     length_cm = np.full(n, 20.0)
     weight = np.full(n, 5.0)
 
-    accumulate_track_length(grid, origin, direction, length_cm, weight, substep_cm=0.5)
+    accumulate_track_length(grid.kerma_keV, grid, origin, direction, length_cm, weight, substep_cm=0.5)
 
     total_in_grid = np.sum(length_cm * weight) * (10.0 / 20.0)  # グリッド内は全長の半分
     assert grid.kerma_keV.sum() > 0
@@ -70,3 +71,60 @@ def test_grid_kerma_matches_collision_estimator():
 
     rel_diff = abs(tracklength_total_keV - collision_total_keV) / collision_total_keV
     assert rel_diff < 0.05
+
+
+def test_h10_accumulate_exact_track_length():
+    """H*(10)飛程積分も、カーマと同様にどのボクセルに割り振られようと
+    区間全体の値 Σ coeff*dl を過不足なく積算する（体積正規化前の生値で検証）。"""
+    grid = VoxelGrid.from_bbox(np.array([0.0, 0.0, 0.0]), np.array([10.0, 10.0, 10.0]), resolution_cm=1.0)
+    n = 500
+    origin = np.tile(np.array([0.5, 0.5, 0.0]), (n, 1))
+    direction = np.tile(np.array([0.0, 0.0, 1.0]), (n, 1))
+    length_cm = np.full(n, 7.3)
+    coeff = h_star_10_per_fluence(60.0)[0]  # pSv・cm²
+    weight = np.full(n, coeff)
+
+    accumulate_track_length(grid.h10_track_pSv_cm3, grid, origin, direction, length_cm, weight, substep_cm=0.3)
+
+    expected_total = np.sum(length_cm * weight)  # pSv・cm³
+    assert np.isclose(grid.h10_track_pSv_cm3.sum(), expected_total, rtol=1e-9)
+
+
+def test_h10_map_normalizes_by_voxel_volume():
+    """単一ボクセル内で全長Lを直進する光子束 -> H*(10) = N * h*(10)/Φ(E) * L / V の解析解と一致。"""
+    grid = VoxelGrid.from_bbox(np.array([0.0, 0.0, 0.0]), np.array([5.0, 5.0, 5.0]), resolution_cm=5.0)
+    n = 1000
+    length_cm = 3.0
+    energy_keV = 80.0
+    origin = np.tile(np.array([2.5, 2.5, 1.0]), (n, 1))
+    direction = np.tile(np.array([0.0, 0.0, 1.0]), (n, 1))
+    coeff = h_star_10_per_fluence(energy_keV)[0]
+    weight = np.full(n, coeff)
+
+    accumulate_track_length(grid.h10_track_pSv_cm3, grid, origin, direction,
+                             np.full(n, length_cm), weight, substep_cm=0.5)
+
+    expected_pSv = n * coeff * length_cm / grid.voxel_volume_cm3()
+    assert np.isclose(grid.h10_map_pSv().sum(), expected_pSv, rtol=1e-6)
+
+
+def test_run_transport_dose_grid_h10_finite_and_nonnegative():
+    """実シーンでの統合テスト: H*(10)グリッドがクラッシュせず有限・非負の値を返す。"""
+    from vivemonte.scene import validate_scene
+    from vivemonte.transport import run_transport
+
+    raw = {
+        "source": {"kvp": 100, "position": [0, -50, 0], "direction": [0, 1, 0],
+                    "field": {"size_cm": [30, 30], "sid_cm": 100}},
+        "geometry": [
+            {"name": "target", "shape": "box", "material": "water",
+             "center": [0, 0, 0], "size_cm": [20, 20, 20]},
+        ],
+    }
+    scene = validate_scene(raw)
+    assert scene.ok
+    result = run_transport(scene, n_histories=20_000, seed=1, dose_grid=True, grid_resolution_cm=5.0)
+    h10 = result.grid.h10_map_pSv()
+    assert np.all(np.isfinite(h10))
+    assert np.all(h10 >= 0)
+    assert h10.sum() > 0

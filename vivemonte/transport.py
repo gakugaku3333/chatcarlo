@@ -26,6 +26,7 @@ from dataclasses import dataclass, field
 
 import numpy as np
 
+from .dose_coefficients import h_star_10_per_fluence
 from .geometry import Geometry
 from .materials import density, linear_mu, mu_en_rho, mu_rho_parts
 from .tally import VoxelGrid, accumulate_track_length
@@ -223,7 +224,8 @@ def transport_photons(pos: np.ndarray, dirv: np.ndarray, energy: np.ndarray,
 
         if grid is not None:
             mu_en_linear = _mu_en_linear_batch(mat, e)
-            accumulate_track_length(grid, o, d, ds, e * mu_en_linear)
+            accumulate_track_length(grid.kerma_keV, grid, o, d, ds, e * mu_en_linear)
+            accumulate_track_length(grid.h10_track_pSv_cm3, grid, o, d, ds, h_star_10_per_fluence(e))
 
         pos[idx] = o + d * ds[:, None]
 

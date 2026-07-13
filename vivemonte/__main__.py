@@ -66,19 +66,24 @@ def cmd_run(args) -> int:
         import numpy as np
         geometry = Geometry(scene.raw["geometry"])
         dose = dose_map_Gy(result.grid, geometry)
+        h10 = result.grid.h10_map_pSv()
         n_histories = result.n_histories
-        # 1 historyあたりの線量に規格化 [Gy/history] — 実際の管電流時間積(mAs)への
+        # 1 historyあたりの値に規格化 — 実際の管電流時間積(mAs)への
         # 換算は別途、線源のフォトン数校正（未実装、次段）が必要
         dose_per_history = dose / n_histories
+        h10_per_history = h10 / n_histories
         print(f"線量グリッド: shape={result.grid.shape}, "
               f"resolution={result.grid.voxel_size_cm}cm")
-        print(f"  最大線量 [Gy/history]: {dose_per_history.max():.6g}")
+        print(f"  最大吸収線量 [Gy/history]: {dose_per_history.max():.6g}")
         print(f"  総カーマ: {result.grid.total_kerma_MeV():.6g} MeV "
               f"({result.grid.total_kerma_MeV() / n_histories * 1000:.6g} keV/history)")
+        print(f"  最大H*(10) [pSv/history]: {h10_per_history.max():.6g}")
         if args.dose_out:
             np.savez(args.dose_out,
                      dose_per_history_Gy=dose_per_history,
+                     h10_per_history_pSv=h10_per_history,
                      kerma_keV=result.grid.kerma_keV,
+                     h10_track_pSv_cm3=result.grid.h10_track_pSv_cm3,
                      origin_cm=result.grid.origin_cm,
                      voxel_size_cm=result.grid.voxel_size_cm,
                      shape=np.array(result.grid.shape))

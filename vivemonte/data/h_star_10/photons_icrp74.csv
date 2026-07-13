@@ -1,0 +1,28 @@
+# Photon ambient dose equivalent H*(10) per fluence, ICRP Publication 74 / ICRU Report 57
+# source: https://raw.githubusercontent.com/openmc-dev/openmc/develop/openmc/data/dose/icrp74/photons_H10.txt
+# energy_keV,h_star_10_pSv_cm2
+10,0.061
+15,0.83
+20,1.05
+30,0.81
+40,0.64
+50,0.55
+60,0.51
+80,0.53
+100,0.61
+150,0.89
+200,1.2
+300,1.8
+400,2.38
+500,2.93
+600,3.44
+800,4.38
+1000,5.2
+1500,6.9
+2000,8.6
+3000,11.1
+4000,13.4
+5000,15.5
+6000,17.6
+8000,21.6
+10000,25.6

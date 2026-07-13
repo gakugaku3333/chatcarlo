@@ -1,11 +1,12 @@
-"""ボクセル吸収線量タリー — 輸送ジオメトリーとは独立なグリッド。
+"""ボクセル吸収線量・周辺線量当量タリー — 輸送ジオメトリーとは独立なグリッド。
 
 輸送は解析面トラッキング（vivemonte/geometry.py, vivemonte/transport.py）
 で行い、スコアリングだけをこのモジュールの一様グリッドに刻む。
 
-track-length estimator（trackごとの飛程積分）でカーマを積算する:
-  K += E * (μen/ρ) * ρ * dl
-区間内はエネルギー・材料とも一定なので積分自体に離散化誤差はないが、
+track-length estimator（trackごとの飛程積分）で2種類の量を積算する:
+  カーマ:    K += E * (μen/ρ) * ρ * dl                      [keV]
+  H*(10):   H += (h*(10)/Φ)(E) * dl、後でボクセル体積で正規化   [pSv]
+どちらも区間内はエネルギー・材料とも一定なので積分自体に離散化誤差はないが、
 「その区間がどのボクセルに何cm分入っているか」の空間分配は
 サブステップ分割による近似（サブステップ長を細かくするほど厳密に収束）。
 電子飛程を無視するカーマ近似のため、カーマ＝吸収線量とみなす
@@ -26,10 +27,12 @@ class VoxelGrid:
     origin_cm: np.ndarray          # (3,) グリッド原点（最小コーナー）
     shape: tuple                   # (nx, ny, nz)
     voxel_size_cm: float
-    kerma_keV: np.ndarray = field(init=False)  # (nx,ny,nz) 積算カーマ [keV]
+    kerma_keV: np.ndarray = field(init=False)      # (nx,ny,nz) 積算カーマ [keV]
+    h10_track_pSv_cm3: np.ndarray = field(init=False)  # (nx,ny,nz) H*(10)飛程積分 [pSv・cm³]（体積正規化前）
 
     def __post_init__(self):
         self.kerma_keV = np.zeros(self.shape, dtype=float)
+        self.h10_track_pSv_cm3 = np.zeros(self.shape, dtype=float)
 
     @classmethod
     def from_bbox(cls, bbox_min: np.ndarray, bbox_max: np.ndarray, resolution_cm: float) -> "VoxelGrid":
@@ -65,15 +68,20 @@ class VoxelGrid:
         energy_J = self.kerma_keV * 1e-3 * _MEV_TO_JOULE
         return np.divide(energy_J, mass_kg, out=np.zeros_like(energy_J), where=mass_kg > 0)
 
+    def h10_map_pSv(self) -> np.ndarray:
+        """ボクセルごとの周辺線量当量H*(10) [pSv]（飛程積分をボクセル体積で正規化）。"""
+        return self.h10_track_pSv_cm3 / self.voxel_volume_cm3()
 
-def accumulate_track_length(grid: VoxelGrid, origin: np.ndarray, direction: np.ndarray,
-                             length_cm: np.ndarray, weight_keV_per_cm: np.ndarray,
+
+def accumulate_track_length(target: np.ndarray, grid: VoxelGrid, origin: np.ndarray,
+                             direction: np.ndarray, length_cm: np.ndarray, weight_per_cm: np.ndarray,
                              substep_cm: float | None = None, max_substeps: int = 40) -> None:
-    """区間(origin, direction, length_cm)ごとに weight_keV_per_cm * dl をグリッドへ積算する。
+    """区間(origin, direction, length_cm)ごとに weight_per_cm * dl を target グリッドへ積算する。
 
-    weight_keV_per_cm = E * (μen/ρ) * ρ は区間内で一定（材料・エネルギーとも不変の前提）。
+    target は grid.shape と同じ形の任意の量（カーマ・H*(10)飛程積分など）で、
+    weight_per_cm は区間内で一定（材料・エネルギーとも不変の前提）とする。
     区間をサブステップに等分し、各サブステップの中点が属するボクセルへ
-    weight_keV_per_cm * (length_cm/nsub) を加算する。
+    weight_per_cm * (length_cm/nsub) を加算する。
     """
     n = origin.shape[0]
     if n == 0:
@@ -89,7 +97,7 @@ def accumulate_track_length(grid: VoxelGrid, origin: np.ndarray, direction: np.n
 
     points = (origin[:, None, :] + direction[:, None, :]
               * (length_cm[:, None] * frac)[:, :, None])  # (n, max_n, 3)
-    sub_weight = weight_keV_per_cm * (length_cm / nsub)   # (n,)
+    sub_weight = weight_per_cm * (length_cm / nsub)       # (n,)
 
     points_flat = points.reshape(-1, 3)
     weight_flat = np.broadcast_to(sub_weight[:, None], (n, max_n)).reshape(-1)
@@ -101,4 +109,4 @@ def accumulate_track_length(grid: VoxelGrid, origin: np.ndarray, direction: np.n
     if len(idx) == 0:
         return
     flat_idx = np.ravel_multi_index((idx[:, 0], idx[:, 1], idx[:, 2]), grid.shape)
-    np.add.at(grid.kerma_keV.reshape(-1), flat_idx, weight_flat)
+    np.add.at(target.reshape(-1), flat_idx, weight_flat)
