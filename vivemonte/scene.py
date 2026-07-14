@@ -79,11 +79,22 @@ def validate_scene(raw: dict) -> Scene:
         if fld is None:
             errors.append(SceneError("source.field", "照射野 field がありません"))
         else:
-            size = fld.get("size_cm")
-            if not (isinstance(size, (list, tuple)) and len(size) == 2
-                    and all(isinstance(x, (int, float)) and x > 0 for x in size)):
-                errors.append(SceneError("source.field.size_cm",
-                              "照射野サイズは正の数値2要素 [幅, 高さ] で指定してください"))
+            fshape = fld.get("shape", "rect")
+            fld["shape"] = fshape
+            if fshape == "cone":
+                dia = fld.get("diameter_cm")
+                if not isinstance(dia, (int, float)) or dia <= 0:
+                    errors.append(SceneError("source.field.diameter_cm",
+                                  "cone照射野にはSID面での開口直径 diameter_cm（正の数値）が必要です"))
+            elif fshape == "rect":
+                size = fld.get("size_cm")
+                if not (isinstance(size, (list, tuple)) and len(size) == 2
+                        and all(isinstance(x, (int, float)) and x > 0 for x in size)):
+                    errors.append(SceneError("source.field.size_cm",
+                                  "照射野サイズは正の数値2要素 [幅, 高さ] で指定してください"))
+            else:
+                errors.append(SceneError("source.field.shape",
+                              f"shape={fshape!r} — rect（矩形、既定）/ cone（円錐、立体角一様）のいずれかです"))
             sid = fld.get("sid_cm")
             if not isinstance(sid, (int, float)) or sid <= 0:
                 errors.append(SceneError("source.field.sid_cm", "SID（焦点-照射野定義面距離）は正の数値です"))
@@ -107,6 +118,61 @@ def validate_scene(raw: dict) -> Scene:
                 errors.append(SceneError("source.mas", "mas（管電流時間積）は正の数値です"))
             else:
                 src["mas"] = float(mas)
+
+        ctdi = src.get("ctdi_vol_mGy")
+        if ctdi is not None:
+            if not isinstance(ctdi, (int, float)) or ctdi <= 0:
+                errors.append(SceneError("source.ctdi_vol_mGy",
+                              "ctdi_vol_mGy（コンソール表示のCTDIvol）は正の数値です"))
+            else:
+                src["ctdi_vol_mGy"] = float(ctdi)
+            if mas is not None:
+                errors.append(SceneError("source",
+                              "mas と ctdi_vol_mGy は同時に指定できません（絶対線量校正の基準が"
+                              "曖昧になります）。CTなら ctdi_vol_mGy、一般撮影なら mas を使ってください"))
+            if src.get("rotation") is None:
+                errors.append(SceneError("source.ctdi_vol_mGy",
+                              "CTDIvol校正には source.rotation（ガントリー回転）が必要です"))
+            ph = src.get("ctdi_phantom", "body")
+            src["ctdi_phantom"] = ph
+            if ph not in ("body", "head"):
+                errors.append(SceneError("source.ctdi_phantom",
+                              f"ctdi_phantom={ph!r} — body（Ø32cm）/ head（Ø16cm）のいずれかです"))
+
+        if src.get("heel_effect"):
+            ad = _vec3(src.get("anode_direction"), "source.anode_direction", errors,
+                       "陽極方向（heel_effect使用時は必須）")
+            if ad is not None and isinstance(src.get("direction"), list):
+                dv = src["direction"]  # 上で正規化済み
+                perp = [ad[k] - (ad[0] * dv[0] + ad[1] * dv[1] + ad[2] * dv[2]) * dv[k]
+                        for k in range(3)]
+                if math.sqrt(sum(x * x for x in perp)) < 1e-6:
+                    errors.append(SceneError("source.anode_direction",
+                                  "陽極方向がビーム中心軸と平行です。陽極-陰極軸は"
+                                  "中心軸に直交する成分を持つ必要があります"))
+
+        rot = src.get("rotation")
+        if rot is not None:
+            if not isinstance(rot, dict):
+                errors.append(SceneError("source.rotation", "rotation はマッピングで指定してください"))
+            else:
+                _vec3(rot.get("isocenter"), "source.rotation.isocenter", errors, "回転中心座標")
+                axis = rot.get("axis", "z")
+                rot["axis"] = axis
+                if axis not in VALID_AXES:
+                    errors.append(SceneError("source.rotation.axis", f"axis={axis!r} — x/y/zのいずれかです"))
+                n_angles = rot.get("n_angles")
+                if n_angles is not None and not (isinstance(n_angles, int) and n_angles >= 2):
+                    errors.append(SceneError("source.rotation.n_angles",
+                                  "n_angles（離散ガントリー角度数）は2以上の整数です。"
+                                  "省略時は連続一様（CTの連続曝射に対応、通常はこちらを推奨）"))
+                scan = rot.get("scan_length_cm")
+                if scan is not None:
+                    if not isinstance(scan, (int, float)) or scan <= 0:
+                        errors.append(SceneError("source.rotation.scan_length_cm",
+                                      "scan_length_cm（ヘリカルスキャン範囲）は正の数値です"))
+                    else:
+                        rot["scan_length_cm"] = float(scan)
 
     # ---- geometry ----
     geoms = raw.get("geometry")
@@ -168,11 +234,14 @@ def validate_scene(raw: dict) -> Scene:
 
 
 def field_corners(src: dict) -> list[list[float]]:
-    """照射野定義面（SID位置）における照射野4隅の座標を返す。"""
+    """照射野定義面（SID位置）における照射野の外周点を返す。
+
+    rect照射野は4隅、cone照射野は開口円周上の16点（描画用の多角形近似）。
+    """
     pos = src["position"]
     d = src["direction"]
-    w, h = src["field"]["size_cm"]
-    sid = src["field"]["sid_cm"]
+    fld = src["field"]
+    sid = fld["sid_cm"]
     # 中心軸に直交する基底ベクトル（uを水平寄り、vをその直交に取る）
     if abs(d[2]) < 0.999:
         u = [-d[1], d[0], 0.0]
@@ -182,6 +251,15 @@ def field_corners(src: dict) -> list[list[float]]:
     u = [x / n for x in u]
     v = [d[1] * u[2] - d[2] * u[1], d[2] * u[0] - d[0] * u[2], d[0] * u[1] - d[1] * u[0]]
     ctr = [pos[k] + d[k] * sid for k in range(3)]
+    if fld.get("shape", "rect") == "cone":
+        r = fld["diameter_cm"] / 2.0
+        pts = []
+        for i in range(16):
+            th = 2 * math.pi * i / 16
+            pts.append([ctr[k] + r * math.cos(th) * u[k] + r * math.sin(th) * v[k]
+                        for k in range(3)])
+        return pts
+    w, h = fld["size_cm"]
     corners = []
     for su, sv in ((-1, -1), (1, -1), (1, 1), (-1, 1)):
         corners.append([ctr[k] + su * w / 2 * u[k] + sv * h / 2 * v[k] for k in range(3)])

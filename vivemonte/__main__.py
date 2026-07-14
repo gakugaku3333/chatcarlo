@@ -106,8 +106,14 @@ def cmd_run(args) -> int:
         print(f"  {name}: {e_mev:.6g}")
 
     if result.n_photons_real is not None:
-        print(f"光子数校正: mAs={scene.raw['source']['mas']:g} で照射野を通過する実光子数 "
-              f"= {result.n_photons_real:.6g}")
+        src_cal = scene.raw["source"]
+        if src_cal.get("ctdi_vol_mGy") is not None:
+            print(f"線量校正: CTDIvol={src_cal['ctdi_vol_mGy']:g} mGy "
+                  f"（{src_cal.get('ctdi_phantom', 'body')}ファントム）基準の実効光子数 "
+                  f"= {result.n_photons_real:.6g}")
+        else:
+            print(f"光子数校正: mAs={src_cal['mas']:g} で照射野を通過する実光子数 "
+                  f"= {result.n_photons_real:.6g}")
 
     if args.dose_grid:
         import numpy as np
@@ -129,8 +135,9 @@ def cmd_run(args) -> int:
               f"({result.grid.total_kerma_MeV() / n_histories * 1000:.6g} keV/history)")
         print(f"  最大H*(10) [pSv/history]: {h10_per_history.max():.6g}")
         if scale is not None:
-            print(f"  最大吸収線量 [Gy]（mAs校正済み）: {(dose_per_history.max() * scale):.6g}")
-            print(f"  最大H*(10) [pSv]（mAs校正済み）: {(h10_per_history.max() * scale):.6g}")
+            cal = "CTDIvol校正済み" if scene.raw["source"].get("ctdi_vol_mGy") is not None else "mAs校正済み"
+            print(f"  最大吸収線量 [Gy]（{cal}）: {(dose_per_history.max() * scale):.6g}")
+            print(f"  最大H*(10) [pSv]（{cal}）: {(h10_per_history.max() * scale):.6g}")
 
         # 「最大」統計が非物理的な位置（背景=空気ボクセル）に落ちていないかを診断する。
         # 詳細はdocs/lessons_learned.md参照。

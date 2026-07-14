@@ -25,11 +25,11 @@ def select_quantity(npz, quantity: str):
     """
     if quantity == "dose":
         if "dose_Gy" in npz.files:
-            return npz["dose_Gy"], "Gy (mAs-calibrated)"
+            return npz["dose_Gy"], "Gy (calibrated)"
         return npz["dose_per_history_Gy"], "Gy/history"
     if quantity == "h10":
         if "h10_pSv" in npz.files:
-            return npz["h10_pSv"], "pSv (mAs-calibrated)"
+            return npz["h10_pSv"], "pSv (calibrated)"
         return npz["h10_per_history_pSv"], "pSv/history"
     raise ValueError(f"未知のquantity: {quantity!r}（'dose' または 'h10'）")
 

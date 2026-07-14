@@ -93,11 +93,41 @@ def scene_to_json(scene: Scene, trajectories: list[dict] | None = None) -> dict:
     src = raw["source"]
     corners = field_corners(src)
     pos = src["position"]
+    fld = src["field"]
+    if fld.get("shape", "rect") == "cone":
+        field_label = f"Ø{fld['diameter_cm']:g}"
+    else:
+        field_label = f"{fld['size_cm'][0]:g}×{fld['size_cm'][1]:g}"
     beam = {"source": pos, "corners": corners, "kvp": src["kvp"],
-            "field_size": src["field"]["size_cm"], "sid": src["field"]["sid_cm"]}
+            "field_label": field_label, "sid": fld["sid_cm"]}
+
+    rot = src.get("rotation")
+    ring_pts = []
+    if rot is not None:
+        iso = rot["isocenter"]
+        axis = {"x": 0, "y": 1, "z": 2}[rot["axis"]]
+        plane = [k for k in range(3) if k != axis]
+        r = math.dist([pos[k] for k in plane], [iso[k] for k in plane])
+        scan = rot.get("scan_length_cm") or 0.0
+        # ヘリカル時はスキャン範囲の両端に、アキシャル時はisocenter面にリングを描く
+        offsets = [-scan / 2, scan / 2] if scan > 0 else [0.0]
+        n_ring = 48
+        edges = []
+        for off in offsets:
+            ring = []
+            for k in range(n_ring + 1):
+                th = 2 * math.pi * k / n_ring
+                p = list(iso)
+                p[axis] += off
+                p[plane[0]] += r * math.cos(th)
+                p[plane[1]] += r * math.sin(th)
+                ring.append(p)
+            edges += [[ring[k], ring[k + 1]] for k in range(n_ring)]
+            ring_pts += ring
+        beam["rotation_ring"] = edges
 
     # シーン全体のバウンディング
-    pts = [pos] + corners
+    pts = [pos] + corners + ring_pts
     for o in objects:
         for e in o["edges"]:
             pts += e
@@ -266,14 +296,18 @@ function draw() {
 
   if (showBeam) {
     const b = DATA.beam;
-    for (const c of b.corners) seg(b.source, c, '#fbbf24', 1.2, [5, 4]);
-    for (let i = 0; i < 4; i++) seg(b.corners[i], b.corners[(i+1)%4], '#fbbf24', 2);
+    const nc = b.corners.length;
+    // 頂点→開口の母線: rectは4隅全部、cone(16点)は間引いて4本
+    const apex = nc > 4 ? b.corners.filter((c, i) => i % 4 === 0) : b.corners;
+    for (const c of apex) seg(b.source, c, '#fbbf24', 1.2, [5, 4]);
+    for (let i = 0; i < nc; i++) seg(b.corners[i], b.corners[(i+1)%nc], '#fbbf24', 2);
     poly(b.corners, '#fbbf24', 0.18);
+    if (b.rotation_ring) for (const e of b.rotation_ring) seg(e[0], e[1], '#fbbf24', 1, [2, 3]);
     const ps = project(b.source);
     if (ps) {
       ctx.fillStyle = '#fbbf24'; ctx.beginPath(); ctx.arc(ps[0], ps[1], 5, 0, 7); ctx.fill();
       ctx.font = 'bold 12px sans-serif';
-      ctx.fillText(`焦点 ${b.kvp} kV`, ps[0]+9, ps[1]+4);
+      ctx.fillText(`焦点 ${b.kvp} kV${b.rotation_ring ? '（回転近似）' : ''}`, ps[0]+9, ps[1]+4);
     }
   }
   if (ckTraj.checked && DATA.trajectories.length) {
@@ -327,7 +361,7 @@ function draw() {
   lg.innerHTML = '<b style="font-size:12px">材料</b><br>' +
     Object.entries(mats).map(([m, c]) =>
       `<span class="sw" style="background:${c}"></span>${m}`).join('<br>') +
-    `<br><span class="sw" style="background:#fbbf24"></span>X線ビーム（照射野 ${DATA.beam.field_size[0]}×${DATA.beam.field_size[1]} cm @ SID ${DATA.beam.sid} cm）`;
+    `<br><span class="sw" style="background:#fbbf24"></span>X線ビーム（照射野 ${DATA.beam.field_label} cm @ SID ${DATA.beam.sid} cm）`;
   if (DATA.trajectories.length) {
     lg.innerHTML += '<br><br><b style="font-size:12px">軌跡（' + DATA.trajectories.length + '光子）</b><br>' +
       '● 光電吸収　○ コンプトン　◇ レイリー　× 脱出<br>' +
