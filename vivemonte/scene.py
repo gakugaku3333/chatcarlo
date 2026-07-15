@@ -64,9 +64,41 @@ def validate_scene(raw: dict) -> Scene:
         errors.append(SceneError("source", "source セクションがありません"))
     else:
         kvp = src.get("kvp")
-        if not isinstance(kvp, (int, float)) or not (20 <= kvp <= 200):
+        spectrum = src.get("spectrum")
+        if spectrum is not None:
+            # 陽なスペクトル指定（単色ビーム等）。kvpベースのSpekPy生成を上書きする
+            # ため、kvp自体は不要（sample_spectrumがspectrumを優先する、spectrum.py参照）。
+            if not (isinstance(spectrum, list) and spectrum
+                    and all(isinstance(s, dict)
+                            and isinstance(s.get("energy_keV"), (int, float)) and s["energy_keV"] > 0
+                            and isinstance(s.get("weight"), (int, float)) and s["weight"] > 0
+                            for s in spectrum)):
+                errors.append(SceneError("source.spectrum",
+                              "spectrum は [{energy_keV: 正の数値, weight: 正の数値}, ...] の形式で"
+                              "指定してください（単色ビームなら1要素、例: "
+                              "[{energy_keV: 60, weight: 1.0}]）"))
+            # spectrumを上書きしても、mAs絶対校正（photon_count_through_field）と
+            # ヒール効果（heel_spectra_for_source）はkvpベースのSpekPy計算に固定されて
+            # おり、spectrumで指定した実際のエネルギーとは食い違う。相対値[Gy/history]
+            # のみのユースケースに限定する。
+            if src.get("mas") is not None:
+                errors.append(SceneError("source",
+                              "source.spectrum と source.mas は併用できません（mAs絶対校正は"
+                              "kvpベースのSpekPyフルエンスに固定されており、spectrumで上書きした"
+                              "実際のエネルギーと食い違います）。相対値[Gy/history]のみで良ければ"
+                              "masを外してください"))
+            if src.get("ctdi_vol_mGy") is not None:
+                errors.append(SceneError("source",
+                              "source.spectrum と source.ctdi_vol_mGy は併用できません（未対応の組み合わせ）"))
+            if src.get("heel_effect"):
+                errors.append(SceneError("source",
+                              "source.spectrum と source.heel_effect は併用できません（ヒール効果は"
+                              "kvpベースのSpekPy軸外スペクトルに固定されており、spectrumで上書きした"
+                              "実際のエネルギーには対応していません）"))
+        elif not isinstance(kvp, (int, float)) or not (20 <= kvp <= 200):
             errors.append(SceneError("source.kvp",
-                          f"管電圧 kvp={kvp!r} — 診断領域として 20〜200 kV の数値を指定してください"))
+                          f"管電圧 kvp={kvp!r} — 診断領域として 20〜200 kV の数値を指定してください"
+                          "（単色ビーム等、kvpを使わない場合は source.spectrum を指定してください）"))
         pos = _vec3(src.get("position"), "source.position", errors, "焦点位置")
         dirv = _vec3(src.get("direction"), "source.direction", errors, "中心軸方向")
         if dirv is not None:
