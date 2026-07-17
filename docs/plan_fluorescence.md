@@ -252,14 +252,19 @@ collision推定量とkerma推定量は定義上厳密に一致する量ではな
 を追加してこの欠落を解消（同条件で ON/OFF比2倍超を確認、全149件テスト通過）。
 条件解消済みのため最終判定は**合格**。
 
-### Phase 4 — EGS5相互検証（別セッション、vive-crosscheck で実施）
+### Phase 4 — EGS5相互検証（実施済み、2026-07-18）
 
-本計画書のスコープ外だが後続として登録:
-100 keV単色ビーム＋鉛スラブ透過のケースを、EGS5側 IEDGFL=1（K/L蛍光ON）
-で `vive-crosscheck` により突き合わせる。許容基準は crosscheck 側で事前登録。
-ChatCarloはK殻のみなので、EGS5のL蛍光分が系統差として出る可能性を
-事前登録文書に明記しておくこと（鉛L線は透過しないため透過線量比較なら
-差は小さいはず）。
+100 keV単色ビーム＋鉛スラブ(0.05cm)透過のケースを`vive-crosscheck`によりEGS5
+（IEDGFL、K/L蛍光ON）と突き合わせた。事前登録・比較表・監査結果は
+[docs/egs5_crosscheck/fluorescence/RESULTS.md](egs5_crosscheck/fluorescence/RESULTS.md)。
+
+総合判定は条件付き合格（主指標: 蛍光による透過エネルギー変化量Δの
+ChatCarlo/EGS5比0.9919、合格基準0.7〜1.3を明確に満たす）。副次的に、この
+検証の過程でChatCarlo側のK殻蛍光線リストの欠落（当初4線実装は鉛で
+実際には95.05%しかカバーしておらず、Kβ2系列以降(KN2/KN3/KO/KP、約5%)が
+欠落していた）をEGS5側の脱出光子スペクトルの未説明ピークから発見し、
+8線化（全元素で99.99%以上カバー）で修正した。`chatcarlo/materials.py:
+fluorescence_k_data`参照。
 
 ## 実行者（Sonnet）への注意
 

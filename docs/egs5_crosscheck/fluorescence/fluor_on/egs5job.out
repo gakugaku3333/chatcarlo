@@ -1,0 +1,165 @@
+ PEGS5-call comes next
+
+
+ inseed=           1      (seed for generating unique sequences of Ranlux)
+ ranlux luxury level set by rluxgo : 1     p=  48
+ ranlux initialized by rluxgo from seed           1
+
+ Start fluor_on
+ Call hatch to get cross-section data
+
+ HATCH-call comes next
+
+ RAYLEIGH OPTION REQUESTED FOR MEDIUM NUMBER  1
+
+ INCOHERENT OPTION REQUESTED FOR MEDIUM NUMBER  1
+
+ EGS SUCCESSFULLY 'HATCHED' FOR ONE MEDIUM.
+
+ Knock-on electrons can be created and any electron followed down to
+                                          0.010 MeV kinetic energy
+ Brem photons can be created and any photon followed down to
+                                          0.001 MeV
+
+ For 100.0 keV photons incident on 0.050cm of Pb with PCUT=0.001 MeV
+
+ Transmitted primaries (true, never sca   4.297%  ave energy=   0.10000 MeV
+
+ Fraction Rayleigh scattering (non-fluo   0.544%  ave energy=   0.09831 MeV
+
+ Fraction Compton scattering only (non-   0.463%  ave energy=   0.07818 MeV
+
+ Fraction fluorescence/photoelectric-de  25.667%  ave energy=   0.07545 MeV
+
+
+ Total escaped-photon energy (MeV, both directions)=  0.245596E+05
+ Total escaped-photon count=    309706.0
+ TOTAL ENERGY TRANSMISSION FRACTION=  0.245596
+
+
+ Escaped photons in 72-86 keV band (count)=    236194.0
+ FRACTION OF ESCAPED PHOTONS IN 72-86 keV BAND=  0.762639
+
+
+ Escaped-photon energy histogram (both directions), 1 keV bins:
+   bin-upper-edge(MeV)   counts
+    0.0010           0.0
+    0.0020           1.0
+    0.0030           0.0
+    0.0040           2.0
+    0.0050           1.0
+    0.0060           0.0
+    0.0070           2.0
+    0.0080           3.0
+    0.0090           6.0
+    0.0100          89.0
+    0.0110        2152.0
+    0.0120          42.0
+    0.0130        3078.0
+    0.0140         100.0
+    0.0150         294.0
+    0.0160         128.0
+    0.0170           4.0
+    0.0180           3.0
+    0.0190           2.0
+    0.0200           4.0
+    0.0210           9.0
+    0.0220           9.0
+    0.0230           4.0
+    0.0240           4.0
+    0.0250           8.0
+    0.0260           5.0
+    0.0270           7.0
+    0.0280           7.0
+    0.0290           7.0
+    0.0300           5.0
+    0.0310           9.0
+    0.0320           5.0
+    0.0330          10.0
+    0.0340          10.0
+    0.0350           4.0
+    0.0360           8.0
+    0.0370           5.0
+    0.0380           8.0
+    0.0390           4.0
+    0.0400           6.0
+    0.0410          11.0
+    0.0420          12.0
+    0.0430           5.0
+    0.0440          10.0
+    0.0450           5.0
+    0.0460           5.0
+    0.0470           7.0
+    0.0480           5.0
+    0.0490           6.0
+    0.0500           7.0
+    0.0510           6.0
+    0.0520           5.0
+    0.0530           7.0
+    0.0540          10.0
+    0.0550           7.0
+    0.0560           8.0
+    0.0570          31.0
+    0.0580          65.0
+    0.0590         193.0
+    0.0600         198.0
+    0.0610         195.0
+    0.0620         187.0
+    0.0630         178.0
+    0.0640         209.0
+    0.0650         200.0
+    0.0660         256.0
+    0.0670         254.0
+    0.0680         285.0
+    0.0690         291.0
+    0.0700         319.0
+    0.0710         310.0
+    0.0720         431.0
+    0.0730       65945.0
+    0.0740         796.0
+    0.0750      116486.0
+    0.0760         561.0
+    0.0770         511.0
+    0.0780         446.0
+    0.0790         418.0
+    0.0800         376.0
+    0.0810         308.0
+    0.0820         283.0
+    0.0830         213.0
+    0.0840         127.0
+    0.0850       48691.0
+    0.0860        1033.0
+    0.0870          71.0
+    0.0880       15158.0
+    0.0890          61.0
+    0.0900          13.0
+    0.0910          23.0
+    0.0920          20.0
+    0.0930          34.0
+    0.0940          37.0
+    0.0950          49.0
+    0.0960          63.0
+    0.0970          65.0
+    0.0980          69.0
+    0.0990          84.0
+    0.1000       48002.0
+    0.1010           0.0
+    0.1020           0.0
+    0.1030           0.0
+    0.1040           0.0
+    0.1050           0.0
+    0.1060           0.0
+    0.1070           0.0
+    0.1080           0.0
+    0.1090           0.0
+    0.1100           0.0
+    0.1110           0.0
+    0.1120           0.0
+    0.1130           0.0
+    0.1140           0.0
+    0.1150           0.0
+    0.1160           0.0
+    0.1170           0.0
+    0.1180           0.0
+    0.1190           0.0
+    0.1200           0.0

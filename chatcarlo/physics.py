@@ -159,7 +159,8 @@ def sample_fluorescence(materials: np.ndarray, e_keV: np.ndarray,
     2. E<=K吸収端 の光子はK殻蛍光を出せないため以降の判定をスキップ
     3. K殻イオン化確率 CS_Photo_Partial(Z,K,E)/CS_Photo(Z,E) で棄却
     4. K蛍光収率ω_Kで棄却
-    5. 有効な4線（KL2/KL3/KM2/KM3）から発生確率で線を抽選し、
+    5. 有効な8線（KL2/KL3/KM2/KM3/KN2/KN3/KO/KP、全元素で99.99%以上をカバー）
+       から発生確率で線を抽選し、
        線エネルギーが_FLUOR_CUTOFF_KEV未満なら放出しない（局所吸収扱い）
     """
     z_array = sample_photo_element(materials, e_keV, rng)

@@ -12,6 +12,15 @@
 原因未確定）を検出。vive-auditor独立監査で数値・判定は再現確認済み（条件付き合格）。
 詳細: [egs5_crosscheck/PDD_RESULTS.md](egs5_crosscheck/PDD_RESULTS.md)
 
+2026-07-18、K殻蛍光X線実装（`docs/plan_fluorescence.md`Phase 4）のEGS5相互検証を
+実施。100 keV鉛筆ビーム＋鉛スラブ0.05cmで、蛍光ON/OFF両条件・EGS5 IEDGFL付きの
+3者比較を行い、事前登録した主指標（蛍光による透過エネルギー変化量Δの比0.9919）で
+合格。副次指標（σ基準）はわずかに境界超過で条件付き合格。検証の過程で
+ChatCarlo側のK殻蛍光線リストの欠落（4線实装が実際は鉛で95.05%しかカバーして
+おらずKβ2系列以降が抜けていた）をEGS5の脱出光子スペクトルの未説明ピークから
+発見・修正（8線化、全元素で99.99%以上カバーに改善）。詳細:
+[egs5_crosscheck/fluorescence/RESULTS.md](egs5_crosscheck/fluorescence/RESULTS.md)
+
 **方針転換（2026-07-15、経緯）**: PHITSは国内でもライセンス申請から配布まで約3週間
 かかることが判明し、抄録締切（2026-07-17 12:00）に間に合わないため、即日入手可能な
 EGS5（KEK配布、登録不要、Stanford/SLACライセンス）にPhase 1相当を切り替えて実施した

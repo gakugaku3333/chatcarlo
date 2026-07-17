@@ -214,12 +214,19 @@ def fluorescence_k_data(z: int) -> tuple[float, float, np.ndarray, np.ndarray]:
     """K殻蛍光データ（xraylib、EPDLベース）。
 
     戻り値: (K吸収端 keV, K蛍光収率 ω_K, 線エネルギー配列 keV, 線発生確率配列)
-    線発生確率は有効な4線（Kα2/Kα1/Kβ1系列: KL2/KL3/KM2/KM3）のRadRateで
-    規格化した和=1の確率。線が存在しない（エラーまたは0を返す）場合はスキップし、
-    有効線が1本もなければ ω_K=0.0 として扱う（軽元素・K蛍光を実質無視できる場合）。
+    線発生確率は8線（Kα2/Kα1: KL2/KL3、Kβ3/Kβ1: KM2/KM3、Kβ2系列: KN2/KN3、
+    Kβ4・Kβ5相当の高殻由来分をまとめたKO_LINE/KP_LINE集計値）のRadRateで
+    規格化した和=1の確率。全元素でK放射遷移の99.99%以上をカバーする（xraylibで
+    Pb/W/Fe/Cu/Ca/Uにつき実測確認済み。当初KL2/KL3/KM2/KM3の4線のみだったが、
+    Pbで95.05%しかカバーしておらず、EGS5相互検証の脱出光子スペクトルに
+    88 keV付近の未説明ピークとして現れたことで発覚した欠落
+    — docs/egs5_crosscheck/fluorescence/RESULTS.md参照）。
+    線が存在しない（エラーまたは0を返す）場合はスキップし、有効線が1本も
+    なければ ω_K=0.0 として扱う（軽元素・K蛍光を実質無視できる場合）。
     """
     edge_keV = xraylib.EdgeEnergy(z, xraylib.K_SHELL)
-    lines = [xraylib.KL2_LINE, xraylib.KL3_LINE, xraylib.KM2_LINE, xraylib.KM3_LINE]
+    lines = [xraylib.KL2_LINE, xraylib.KL3_LINE, xraylib.KM2_LINE, xraylib.KM3_LINE,
+             xraylib.KN2_LINE, xraylib.KN3_LINE, xraylib.KO_LINE, xraylib.KP_LINE]
     energies = []
     rates = []
     for line in lines:
