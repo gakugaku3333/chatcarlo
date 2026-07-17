@@ -63,9 +63,8 @@ def test_fluorescence_occurs_above_k_edge():
     assert np.all(e_line[emit] < 100.0)
 
 
-def _thin_lead_slab_scene_arrays(n, energy_keV, seed):
+def _thin_lead_slab_scene_arrays(n, energy_keV, seed, thickness_cm=0.5):
     """薄い鉛スラブに垂直入射する単色光子束をtransport_photons直叩き用に組み立てる。"""
-    thickness_cm = 0.5
     geometry = Geometry([{
         "name": "slab", "shape": "box", "material": "lead",
         "center": [0.0, 0.0, 0.0],
@@ -117,3 +116,23 @@ def test_fluorescence_disabled_produces_no_events():
     pos, dirv, energy, geometry, rng = _thin_lead_slab_scene_arrays(n, 100.0, seed=9)
     result = transport_photons(pos, dirv, energy, geometry, rng, fluorescence_enabled=False)
     assert result.n_fluorescence == 0
+
+
+def test_escaped_spectrum_shows_fluorescence_peak():
+    """薄い鉛箔を透過した光子のスペクトルに、Pb Kα/Kβ蛍光ピーク帯(72-85 keV)由来の
+    光子が蛍光ONで顕著に増える（OFFではその帯は主にコンプトン散乱光子のみ）。"""
+    n = 200_000
+    thin_cm = 0.05  # 蛍光光子も透過しやすい薄さ
+    pos, dirv, energy, geometry, rng = _thin_lead_slab_scene_arrays(
+        n, 100.0, seed=10, thickness_cm=thin_cm)
+    result_on = transport_photons(pos, dirv, energy, geometry, rng, fluorescence_enabled=True)
+    frac_on = np.mean((result_on.final_energy[result_on.escaped] >= 72.0)
+                       & (result_on.final_energy[result_on.escaped] <= 85.0))
+
+    pos, dirv, energy, geometry, rng = _thin_lead_slab_scene_arrays(
+        n, 100.0, seed=10, thickness_cm=thin_cm)
+    result_off = transport_photons(pos, dirv, energy, geometry, rng, fluorescence_enabled=False)
+    frac_off = np.mean((result_off.final_energy[result_off.escaped] >= 72.0)
+                        & (result_off.final_energy[result_off.escaped] <= 85.0))
+
+    assert frac_on > frac_off * 2
