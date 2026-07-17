@@ -233,8 +233,7 @@ collision推定量とkerma推定量は定義上厳密に一致する量ではな
 **テスト結果**: 新規11件含め既存全148件（実装完了時点）が通過
 （`.venv/bin/python -m pytest tests/ -q`）。
 
-**Phase 4（EGS5相互検証）は未着手**。次のセッションで`vive-crosscheck`により
-実施する。
+**Phase 4（EGS5相互検証）は2026-07-18に実施済み**（詳細は下記Phase 4節参照）。
 
 ## 監査結果（vive-auditor、2026-07-17・条件付き合格→解消済み）
 
@@ -265,6 +264,17 @@ ChatCarlo/EGS5比0.9919、合格基準0.7〜1.3を明確に満たす）。副次
 欠落していた）をEGS5側の脱出光子スペクトルの未説明ピークから発見し、
 8線化（全元素で99.99%以上カバー）で修正した。`chatcarlo/materials.py:
 fluorescence_k_data`参照。
+
+**次セッションでの積み残し**: 今回検証したのは鉛・100 keV・0.05cm厚の1条件のみ。
+診断領域で実運用されうる材料のうち、蛍光カットオフ(5 keV)を超えKα1が実際に
+放出される材料は鉛以外に**copper（付加濾過として実際に使われる、
+Kα1=8.05 keV）**と**tungsten（X線管ターゲット材、K端69.5 keVで鉛に近い）**が
+ある（soft_tissue/bone/concrete/aluminumの主要構成元素はいずれもKα1が
+5 keV未満でこの実装が実質関与しない、既存の会話で確認済み）。この2材料での
+EGS5相互検証を次セッションで実施すること。実施時は
+[docs/lessons_learned.md](lessons_learned.md)のLATCH継承の節と
+`.claude/agents/egs5-operator.md`の該当節（IEDGFLがL殻も含む点含む）を
+必ず踏まえること。
 
 ## 実行者（Sonnet）への注意
 

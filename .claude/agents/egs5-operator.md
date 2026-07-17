@@ -94,6 +94,32 @@ pdftotext $EGS5/docs/pegs_user_manual.pdf - | grep -n -A15 "IBOUND"
   ChatCarloの `result.escaped & (result.n_scatter==0)` と同一の物理量。
 - 乱数シードはメイン中の `inseed`。再現性確認は同一seed2回実行で完全一致を見る。
 
+### ⚠️ K殻蛍光X線（IEDGFL）を有効にするときのLATCHの落とし穴
+
+**光電吸収で親光子が消滅し蛍光光子が生成される際、EGS5はLATCH変数を
+そのまま蛍光光子に引き継ぐ。** tutor5流のLATCH方式（一次/コンプトン/レイリー
+分類）をそのままIEDGFL有効なユーザーコードに流用すると、一度も散乱していない
+(LATCH=0)光子が光電吸収されて蛍光光子を放出した場合、その蛍光光子もLATCH=0の
+まま脱出し「一次透過」に誤分類される。100 keV鉛スラブ検証（ChatCarloの
+K殻蛍光実装とのcrosscheck、2026-07-18）で、蛍光ON条件の「一次透過率」が
+26.6%という明らかな異常値（真値は~4.3%）になって発覚した。
+
+**対応**: `iarg=19`（光電相互作用発生イベント、`egs5_user_manual.pdf` Table B.19）
+に対し親光子破壊前に専用LATCHビットを立てることで、蛍光光子への継承を検出し、
+蛍光/光電由来の光子を独立分類に分離する。
+
+**IEDGFLフラグの意味・スコープ**（`egs5_user_manual.pdf` Appendix B, COMMON EDGE2
+で確認済み）: K殻だけでなく**L殻蛍光も含む**。ChatCarloのK殻蛍光実装
+（[docs/plan_fluorescence.md](../../docs/plan_fluorescence.md)）と比較する際は、
+EGS5側にL殻分（低エネルギー、鉛のL線なら10.5–12.6 keV）が余分に乗る可能性を
+考慮すること（詳細: [docs/egs5_crosscheck/fluorescence/RESULTS.md](../../docs/egs5_crosscheck/fluorescence/RESULTS.md)）。
+
+**次にIEDGFL付きの検証を依頼されたら**（例: copper・tungstenでの追加crosscheck）、
+tutor7（100 keV鉛スラブ、IEDGFL使用例）を土台にする実績がある
+（`docs/egs5_crosscheck/fluorescence/fluor_on/fluor_on.f`参照）。上記のLATCH
+継承対策は主要評価量（脱出光子の全エネルギー透過率等、`iarg=3`の無条件加算）
+には影響しないが、「一次/散乱内訳」を診断出力に使うなら必ず組み込むこと。
+
 ## PEGS5入力（.inp）の要点
 
 実績のあるテンプレート（水、60 keV検証で使用）:
