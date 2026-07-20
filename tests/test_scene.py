@@ -38,6 +38,28 @@ def test_spectrum_malformed_rejected():
     assert any(e.path == "source.spectrum" for e in scene.errors)
 
 
+def test_spectrum_above_150kev_rejected():
+    """診断X線領域の上限150 keV超は断面積テーブル範囲外で輸送実行時に
+    エラーになるため、validate時にfail-fastで弾く
+    （docs/plan_transport_speedup.md、輸送カーネル高速化でテーブル化した際に
+    判明した回帰——以前はxraylib直呼びで上限が事実上無制限だった）。"""
+    scene = validate_scene(_src(spectrum=[{"energy_keV": 200.0, "weight": 1.0}]))
+    assert not scene.ok
+    assert any(e.path == "source.spectrum" for e in scene.errors)
+
+
+def test_spectrum_at_150kev_accepted():
+    """境界値150.0 keVちょうどは許容される（断面積テーブル上限と一致、境界含む）。"""
+    scene = validate_scene(_src(spectrum=[{"energy_keV": 150.0, "weight": 1.0}]))
+    assert scene.ok, scene.errors
+
+
+def test_kvp_above_150_rejected():
+    scene = validate_scene(_src(kvp=180.0))
+    assert not scene.ok
+    assert any("kvp" in e.path for e in scene.errors)
+
+
 def test_spectrum_with_mas_rejected():
     scene = validate_scene(_src(spectrum=[{"energy_keV": 60.0, "weight": 1.0}], mas=4.0))
     assert not scene.ok

@@ -77,6 +77,12 @@ def validate_scene(raw: dict) -> Scene:
                               "spectrum は [{energy_keV: 正の数値, weight: 正の数値}, ...] の形式で"
                               "指定してください（単色ビームなら1要素、例: "
                               "[{energy_keV: 60, weight: 1.0}]）"))
+            elif any(s["energy_keV"] > 150.0 for s in spectrum):
+                bad = max(s["energy_keV"] for s in spectrum)
+                errors.append(SceneError("source.spectrum",
+                              f"energy_keV={bad!r} keV は診断X線領域の上限150 keVを超えています"
+                              "（断面積テーブルの範囲外で輸送実行時にエラーになります。"
+                              "150 keV以下で指定してください）"))
             # spectrum指定時にkvpも残っていると、実輸送(sample_spectrum)はspectrumを
             # 使うのにpreview表示はkvp側を見てしまう食い違いの温床になる（監査所見）。
             # 曖昧さを許さず、spectrumのみの指定を必須にする。
@@ -102,9 +108,9 @@ def validate_scene(raw: dict) -> Scene:
                               "source.spectrum と source.heel_effect は併用できません（ヒール効果は"
                               "kvpベースのSpekPy軸外スペクトルに固定されており、spectrumで上書きした"
                               "実際のエネルギーには対応していません）"))
-        elif not isinstance(kvp, (int, float)) or not (20 <= kvp <= 200):
+        elif not isinstance(kvp, (int, float)) or not (20 <= kvp <= 150):
             errors.append(SceneError("source.kvp",
-                          f"管電圧 kvp={kvp!r} — 診断領域として 20〜200 kV の数値を指定してください"
+                          f"管電圧 kvp={kvp!r} — 診断領域として 20〜150 kV の数値を指定してください"
                           "（単色ビーム等、kvpを使わない場合は source.spectrum を指定してください）"))
         pos = _vec3(src.get("position"), "source.position", errors, "焦点位置")
         dirv = _vec3(src.get("direction"), "source.direction", errors, "中心軸方向")
