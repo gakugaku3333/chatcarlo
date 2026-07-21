@@ -101,6 +101,22 @@ def cmd_run(args) -> int:
     n_workers = args.workers
     if n_workers == 0:
         n_workers = os.cpu_count() or 1
+    if args.dose_grid and n_workers >= 2:
+        # 並列時はワーカーごとに線量グリッド2配列(float64)を持ち、親へpickleで
+        # 集約するため、メモリは概ね(ワーカー数+1)倍になる。部屋規模×細解像度では
+        # 容易に数GBを超える（例: chest_roomの1cm解像度で約1.6GB/ワーカー）ため
+        # 事前に見積もって警告する。
+        import numpy as np
+        from .tally import VoxelGrid
+        geometry_est = Geometry(scene.raw["geometry"])
+        grid_est = VoxelGrid.from_bbox(geometry_est.bbox_min, geometry_est.bbox_max,
+                                        args.resolution)
+        est_gb = int(np.prod(grid_est.shape)) * 8 * 2 * (n_workers + 1) / 1e9
+        if est_gb > 4.0:
+            print(f"[警告] --dose-grid（解像度{args.resolution}cm, グリッド形状"
+                  f"{grid_est.shape}）と--workers {n_workers}の併用で、線量グリッドの"
+                  f"メモリ使用量が概算{est_gb:.1f}GBに達します。解像度を粗くするか"
+                  f"workers数を減らすことを検討してください。")
     result = run_transport(scene, n_histories=int(args.n_histories), seed=args.seed,
                             dose_grid=args.dose_grid, grid_resolution_cm=args.resolution,
                             n_workers=n_workers)
@@ -257,7 +273,9 @@ def main() -> int:
                           "断面積テーブル構築の固定費（数百ms〜1秒程度）がかかるため、"
                           "n_historiesが小さいと逆に遅くなる場合がある。同一seedでも"
                           "workers数を変えると結果はビット一致しない（統計的には同等。"
-                          "docs/plan_phase3_parallel.md参照）")
+                          "docs/plan_phase3_parallel.md参照）。--dose-grid併用時は"
+                          "線量グリッドをワーカーごとに持つためメモリが(workers+1)倍"
+                          "になる点に注意（細解像度では数GB級、超過見込み時は警告を出す）")
     pr.set_defaults(func=cmd_run)
 
     ppl = sub.add_parser("plot", help="線量/H*(10)マップの断面図を生成")

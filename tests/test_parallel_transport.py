@@ -46,11 +46,17 @@ def test_parallel_statistically_equivalent_to_serial():
     serial = r_serial.energy_deposited_MeV
     parallel = r_parallel.energy_deposited_MeV
     assert set(serial) == set(parallel)
+    total = sum(serial.values())
     for name in serial:
-        # サンプル数40000での相対誤差は緩めの閾値(15%)で許容——ここは実装バグ
-        # (乱数ストリームの取り違え等)による系統的乖離の有無を見る粗いスモーク。
+        # ここは実装バグ(乱数ストリームの取り違え等)による系統的乖離の有無を見る
+        # 粗いスモークで、精密な統計検定ではない。閾値は付与エネルギーのシェアで
+        # 分ける: 主要材料(シェア3%以上)は統計揺らぎが小さいので15%、少量材料
+        # (air/leadはシェア~2%でn=40000だと相対揺らぎが実測6〜9%に達する)は30%
+        # ——複数seedでの実測に基づくマージン設定(docs/plan_phase3_parallel.md
+        # 事後レビュー参照)。
+        threshold = 0.15 if serial[name] / total >= 0.03 else 0.30
         rel = abs(serial[name] - parallel[name]) / max(serial[name], 1e-9)
-        assert rel < 0.15, f"{name}: serial={serial[name]}, parallel={parallel[name]}"
+        assert rel < threshold, f"{name}: serial={serial[name]}, parallel={parallel[name]}"
 
     assert abs(r_serial.fraction_absorbed - r_parallel.fraction_absorbed) < 0.05
     assert abs(r_serial.mean_scatter_events - r_parallel.mean_scatter_events) < 0.3

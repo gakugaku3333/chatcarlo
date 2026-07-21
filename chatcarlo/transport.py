@@ -331,8 +331,11 @@ def run_transport(scene, n_histories: int = 100_000, seed: int | None = None,
             futures = [pool.submit(_run_worker, scene.raw, counts[i], seed_seqs[i],
                                     batch_size, dose_grid, grid_resolution_cm)
                        for i in range(n_workers) if counts[i] > 0]
-            for fut in futures:
+            # ワーカー番号順（as_completed順ではない）に消費する: 浮動小数点加算の
+            # 順序を固定し、同一(seed, n_workers)の完全再現を保つため。
+            for i, fut in enumerate(futures):
                 r = fut.result()
+                futures[i] = None  # 消費済み結果（dose_grid時はグリッド配列ごと）の参照を落としGC可能にする
                 for name, e_keV in r["energy_deposited"].items():
                     energy_deposited[name] = energy_deposited.get(name, 0.0) + e_keV
                 n_absorbed += r["n_absorbed"]
