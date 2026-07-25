@@ -1,7 +1,7 @@
 # 計画: 統計不確かさの一級市民化 — ボクセル相対誤差マップの標準搭載
 
-作成日: 2026-07-22 / ステータス: **Phase 0・1・2 実装・検証完了。Phase 3（CLI/plot出力）
-以降は未着手** / 実行担当: Claude
+作成日: 2026-07-22 / ステータス: **Phase 0・1・2・3 実装・検証完了。Phase 4（実測・
+文書化・crosscheckスクリプト置き換え）は未着手** / 実行担当: Claude
 
 親コンテキスト: [[future-directions]]の優先候補2（「1の高速化 → 2の統計の見える化 →
 3のタリー精密化」の2番目）。候補1（高速化）は`docs/plan_transport_speedup.md`・
@@ -524,14 +524,77 @@ MCNP流の目安（R<0.05: 一般に信頼できる / 0.05–0.10: おおむね�
 `--dose-grid --resolution 5` workers=1 で 27.57s→27.67s（**+0.4%**、
 Phase 4の受入基準+10%に対し十分小さい）。
 
-### 次のステップ
-
-Phase 3（CLI出力: `run --dose-grid`の最大値へのR・寄与バッチ数の並記、
-`diagnostics.py`への`unreliable_max_warning`追加、npz出力へのRマップ追加、
-`plot --quantity relerr-dose/relerr-h10`の追加）が次の着手点。
-なお`--no-uncertainty`フラグ自体は上記レビューでPhase 2へ前倒し済み。
-
 **Phase 4へ申し送り（レビューで新たに認識した測定項目）**: 並列時に
 ワーカーが親へ返す配列が2枚→5枚（16→36バイト/ボクセル）に増えたため、
 pickleの転送量とピークメモリのスパイクが増える。Phase 4のメモリ実測では
 壁時間だけでなく**ワーカーごとのRSSと集約時のスパイク**も採ること。
+
+### Phase 3: 出力層（2026-07-26）
+
+設計判断どおり実装:
+
+1. **`diagnostics.py`に3つの純関数を追加**:
+   - `unreliable_max_warning(R, n_hit_batches, n_batches)` — R>0.10 または
+     寄与バッチ割合<25%のどちらかで警告（設計判断7の「Rは必要条件であって
+     十分条件ではない」を両条件で強制。寄与バッチ割合が低ければRが小さくても
+     警告する——ここがこの機能の要）。
+   - `batch_shortage_message(n_batches, n_histories, batch_size)` — M<2のとき、
+     実際の設定値から`-n`・`--batch-size`の具体的な提案値を計算して埋め込む
+     （固定文言にしない。既定n=1e5では"M=1 / -nを4e+06以上 / --batch-sizeを
+     5000以下に"という具体的な数値が出る）。
+   - `grid_reliability_summary(R, n_batches_hit, n_batches)` — グリッド全体の
+     「R<0.10のボクセル割合」（R算出可能なボクセルが分母）と
+     「寄与バッチ0（未到達）のボクセル割合」（全ボクセルが分母、Rの算出可否に
+     関わらず定義できる）を返す。
+2. **`__main__.py` cmd_run**: 最大吸収線量・最大H\*(10)にRと寄与バッチ数を並記
+   （M>=2のときのみ）。材料別吸収エネルギーにも`± SEM (相対x.xx%)`を付記。
+   グリッド統計要約行（線量R<0.10・H\*(10)R<0.10・寄与バッチ0未到達の3つの
+   割合）と、両者それぞれの`unreliable_max_warning`を追加。`--no-uncertainty`
+   時は「無効化されています」と一度だけ明示、M<2時は`batch_shortage_message`を
+   出す。設計判断3で申し送られていた`--batch-size`CLIオプションもここで追加
+   （既定200,000は変えず、helpに「変えるとビット一致しなくなる」旨を明記）。
+3. **npz出力**: `track_uncertainty`時のみ`rel_err_dose`/`rel_err_h10`/
+   `sem_dose_per_history_Gy`/`sem_h10_per_history_pSv`/`n_batches`/
+   `n_batches_hit`を追加保存。SEMは`R * mean`で計算（設計判断5: Rは密度・校正
+   係数などの決定的定数倍に対して不変なので、カーマ由来のRをそのままdose/h10の
+   相対誤差として使い回せる——kerma_relative_error()を絶対値換算後の量に
+   再計算し直す必要がない）。既存キーは変更なし。
+4. **`plotting.py`**: `select_quantity`に`relerr-dose`/`relerr-h10`を追加
+   （校正なし、線形0〜0.5クリップ、`cividis`——dose/h10の`inferno`とは別配色）。
+   寄与バッチ0のボクセルはR値の色ではなく別途グレーでマスクする専用描画関数
+   `_draw_relerr_slice`を追加（設計判断7の運用強制）。中心断面は対応する
+   dose/h10自体の最大値ボクセルを使う（R自体の最大値は「まだ大きな寄与を
+   引いていないノイズ」であることが多く中心として無意味なため）。旧npz
+   （`rel_err_dose`や`n_batches_hit`が無い）を渡すと、対処法つきの`ValueError`
+   で親切に落ちる。
+
+**検証結果**:
+- 新規テスト29件（`tests/test_dose_diagnostics.py`に8件、`tests/test_plotting.py`
+  に6件、新規`tests/test_cli_uncertainty.py`に4件、既存フィクスチャ拡張分含む）
+  ＋既存276件、計305件全通過。
+- `tests/test_cli_uncertainty.py`は`cmd_run`/`cmd_plot`を`argparse.Namespace`
+  経由で直接呼び出すCLIスモークテスト——M>=2でR・寄与バッチ数・グリッド統計
+  要約行が出ること、`--no-uncertainty`でそれらが完全に消えnpzキーも書かれない
+  こと、M<2で`batch_shortage_message`の具体的な数値が出ること、`run`が書いた
+  npzをそのまま`plot --quantity relerr-dose`に渡して図が生成できることを
+  それぞれ確認。
+- **実地確認（chest_room.yaml, n=1e6, resolution=5cm, batch-size=50000→M=20）**:
+  最大吸収線量R=0.015・最大H\*(10)R=0.002（どちらも寄与バッチ20/20——ただし
+  これらは点線源近傍/背景空気ボクセルで、既存の`background_medium_warning`/
+  `near_source_air_warning`が別途「非物理的な位置」と警告する。**Rが低くても
+  物理的な妥当性の警告とは独立**であることが実地でも確認できた）。グリッド
+  全体では線量R<0.10 3.3%・H\*(10)R<0.10 4.2%・寄与バッチ0（未到達）36.4%——
+  n=1e6・resolution5cmでもグリッドの大部分がまだ統計不足であることが、この
+  機能で初めて定量的に見えるようになった。`plot --quantity relerr-dose`の
+  図で、鉛遮蔽（操作室）背後を含む照射野外の広い領域が寄与バッチ0（グレー）で
+  塗り分けられ、ビーム経路のみ低R（濃い青）になることを目視確認——この機能の
+  存在理由そのものが実データで可視化できた。
+
+**Phase 4へ申し送り**: 壁時間オーバーヘッド実測（Phase 0ベースラインとの比較、
+受入基準+10%）・README/CLAUDE.mdの解釈ガイド追記・
+`run_chatcarlo_pdd60.py`の手書きSEM計算を`chatcarlo.tally`の公開関数に
+置き換える作業は本フェーズでは未着手のまま。
+
+### 次のステップ
+
+Phase 4（実測・検証・文書化）が次の着手点——上記「Phase 4へ申し送り」を参照。

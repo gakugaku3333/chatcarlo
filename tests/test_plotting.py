@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import numpy as np
+import pytest
 
 from chatcarlo.plotting import extent_cm, max_voxel_index, plot_dose_npz
 
@@ -93,3 +94,91 @@ def test_plot_dose_npz_prefers_calibrated_keys(tmp_path):
     ok = plot_dose_npz(str(tmp_path / "dose_cal.npz"), str(out_path))
     assert ok is True
     assert out_path.stat().st_size > 0
+
+
+# --- Phase 3 (docs/plan_statistical_uncertainty.md): relerr-dose / relerr-h10 ---
+
+
+def _write_npz_with_uncertainty(path, dose, rel_err_dose, rel_err_h10, n_batches_hit,
+                                 origin_cm=(0.0, 0.0, 0.0), voxel_size_cm=1.0):
+    shape = np.array(dose.shape)
+    np.savez(path, dose_per_history_Gy=dose,
+              h10_per_history_pSv=dose * 1000.0,
+              rel_err_dose=rel_err_dose, rel_err_h10=rel_err_h10,
+              n_batches_hit=n_batches_hit, n_batches=np.array(20),
+              origin_cm=np.array(origin_cm, dtype=float),
+              voxel_size_cm=voxel_size_cm, shape=shape)
+
+
+def test_plot_relerr_dose_writes_png(tmp_path):
+    dose = np.zeros((6, 6, 6))
+    dose[2, 3, 4] = 1e-8
+    rel_err_dose = np.full((6, 6, 6), np.nan)
+    rel_err_dose[2, 3, 4] = 0.05
+    rel_err_h10 = rel_err_dose.copy()
+    n_hit = np.zeros((6, 6, 6), dtype=np.int32)
+    n_hit[2, 3, 4] = 20
+    npz_path = tmp_path / "dose.npz"
+    _write_npz_with_uncertainty(npz_path, dose, rel_err_dose, rel_err_h10, n_hit)
+
+    out_path = tmp_path / "relerr.png"
+    ok = plot_dose_npz(str(npz_path), str(out_path), quantity="relerr-dose")
+    assert ok is True
+    assert out_path.stat().st_size > 0
+
+
+def test_plot_relerr_h10_writes_png(tmp_path):
+    dose = np.zeros((6, 6, 6))
+    dose[1, 1, 1] = 1e-8
+    rel_err_dose = np.full((6, 6, 6), np.nan)
+    rel_err_h10 = rel_err_dose.copy()
+    rel_err_h10[1, 1, 1] = 0.12
+    n_hit = np.zeros((6, 6, 6), dtype=np.int32)
+    n_hit[1, 1, 1] = 20
+    npz_path = tmp_path / "dose.npz"
+    _write_npz_with_uncertainty(npz_path, dose, rel_err_dose, rel_err_h10, n_hit)
+
+    out_path = tmp_path / "relerr_h10.png"
+    ok = plot_dose_npz(str(npz_path), str(out_path), quantity="relerr-h10")
+    assert ok is True
+    assert out_path.stat().st_size > 0
+
+
+def test_plot_relerr_all_nan_returns_false(tmp_path):
+    """統計未到達（R全nan）ボクセルのみのグリッドではクラッシュせずFalseを返す。"""
+    dose = np.zeros((5, 5, 5))
+    rel_err = np.full((5, 5, 5), np.nan)
+    n_hit = np.zeros((5, 5, 5), dtype=np.int32)
+    npz_path = tmp_path / "dose_allnan.npz"
+    _write_npz_with_uncertainty(npz_path, dose, rel_err, rel_err, n_hit)
+
+    out_path = tmp_path / "relerr_allnan.png"
+    ok = plot_dose_npz(str(npz_path), str(out_path), quantity="relerr-dose")
+    assert ok is False
+    assert not out_path.exists()
+
+
+def test_plot_relerr_missing_key_raises_friendly_error(tmp_path):
+    """--no-uncertaintyで生成した（統計キーの無い）旧形式.npzへの親切なエラー。"""
+    dose = np.zeros((4, 4, 4))
+    dose[1, 1, 1] = 1e-8
+    npz_path = tmp_path / "dose_no_uncertainty.npz"
+    _write_npz(npz_path, dose)  # rel_err_dose等を含まない既存フォーマット
+
+    with pytest.raises(ValueError, match="rel_err_dose"):
+        plot_dose_npz(str(npz_path), str(tmp_path / "out.png"), quantity="relerr-dose")
+
+
+def test_plot_relerr_missing_n_batches_hit_raises_friendly_error(tmp_path):
+    """rel_err_doseキーはあるがn_batches_hitが無い（想定外に壊れた）npzへのエラー。"""
+    dose = np.zeros((4, 4, 4))
+    dose[1, 1, 1] = 1e-8
+    rel_err = np.full((4, 4, 4), np.nan)
+    rel_err[1, 1, 1] = 0.03
+    npz_path = tmp_path / "dose_partial.npz"
+    np.savez(npz_path, dose_per_history_Gy=dose, h10_per_history_pSv=dose * 1000.0,
+              rel_err_dose=rel_err, rel_err_h10=rel_err,
+              origin_cm=np.zeros(3), voxel_size_cm=1.0, shape=np.array(dose.shape))
+
+    with pytest.raises(ValueError, match="n_batches_hit"):
+        plot_dose_npz(str(npz_path), str(tmp_path / "out.png"), quantity="relerr-dose")

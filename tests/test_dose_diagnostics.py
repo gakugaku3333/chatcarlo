@@ -11,12 +11,15 @@ pSv値になっていた。吸収線量の最大値も、患者体表のすぐ�
 from __future__ import annotations
 
 import numpy as np
+import pytest
 
 from chatcarlo.geometry import Geometry
 from chatcarlo.scene import validate_scene
 from chatcarlo.tally import VoxelGrid
-from chatcarlo.diagnostics import (background_medium_warning, dose_map_Gy,
-                                    max_voxel_position_cm, near_source_air_warning)
+from chatcarlo.diagnostics import (background_medium_warning, batch_shortage_message,
+                                    dose_map_Gy, grid_reliability_summary,
+                                    max_voxel_position_cm, near_source_air_warning,
+                                    unreliable_max_warning)
 from chatcarlo.transport import run_transport
 
 _BASE_SOURCE = {
@@ -160,3 +163,60 @@ def test_dose_max_voxel_inside_all_water_grid_does_not_trigger_warning():
 
     assert material == "water"
     assert background_medium_warning(material, geometry.background) is None
+
+
+# --- Phase 3 (docs/plan_statistical_uncertainty.md): 統計信頼性の警告関数 ---
+
+
+def test_unreliable_max_warning_silent_when_r_low_and_hit_fraction_high():
+    assert unreliable_max_warning(R=0.02, n_hit_batches=48, n_batches=50) is None
+
+
+def test_unreliable_max_warning_fires_on_high_r():
+    msg = unreliable_max_warning(R=0.25, n_hit_batches=48, n_batches=50)
+    assert msg is not None
+    assert "R=0.250" in msg
+
+
+def test_unreliable_max_warning_fires_on_low_hit_fraction_even_if_r_looks_small():
+    """設計判断7: 寄与バッチ数が少ないとRは楽観バイアスで小さく出る——
+    R自体が小さくてもhit_fractionが閾値未満なら警告する（偽の安心を防ぐ）。"""
+    msg = unreliable_max_warning(R=0.01, n_hit_batches=2, n_batches=50)
+    assert msg is not None
+    assert "2/50" in msg
+
+
+def test_unreliable_max_warning_silent_when_n_batches_zero():
+    assert unreliable_max_warning(R=float("nan"), n_hit_batches=0, n_batches=0) is None
+
+
+def test_batch_shortage_message_none_when_m_sufficient():
+    assert batch_shortage_message(n_batches=20, n_histories=4_000_000, batch_size=200_000) is None
+
+
+def test_batch_shortage_message_computes_actionable_numbers():
+    """既定設定（n=1e5, batch_size=200,000 -> M=1）で、-nと--batch-sizeの
+    具体的な提案値が実際の設定値から計算されていること（固定文言ではない）。"""
+    msg = batch_shortage_message(n_batches=1, n_histories=100_000, batch_size=200_000)
+    assert msg is not None
+    assert "M=1" in msg
+    assert "4e+06" in msg or "4,000,000" in msg  # batch_size*20
+    assert "5000" in msg  # ceil(n_histories/20)
+
+
+def test_grid_reliability_summary_counts_low_r_and_unreached_fractions():
+    R = np.array([0.01, 0.02, 0.5, np.nan])
+    n_hit = np.array([10, 10, 10, 0])
+    summary = grid_reliability_summary(R, n_hit, n_batches=10)
+    # 非nanは3つ、うちR<0.10は2つ -> 2/3
+    assert summary["frac_low_r"] == pytest.approx(2 / 3)
+    # 全4ボクセル中1つがhit=0 -> 1/4
+    assert summary["frac_unreached"] == pytest.approx(0.25)
+
+
+def test_grid_reliability_summary_all_nan_gives_nan_frac_low_r():
+    R = np.full(4, np.nan)
+    n_hit = np.zeros(4, dtype=int)
+    summary = grid_reliability_summary(R, n_hit, n_batches=0)
+    assert np.isnan(summary["frac_low_r"])
+    assert summary["frac_unreached"] == pytest.approx(1.0)

@@ -60,6 +60,10 @@ python3 -m venv .venv
 # cross-section slices through a dose/H*(10) map (default: 3 planes through the max-value voxel)
 .venv/bin/python -m chatcarlo plot dose.npz --scene examples/chest_room.yaml -o maps.png
 
+# relative-error map (R) for the same run — see "Statistical uncertainty" below.
+# Requires a .npz written without --no-uncertainty.
+.venv/bin/python -m chatcarlo plot dose.npz --scene examples/chest_room.yaml --quantity relerr-dose -o relerr.png
+
 # tests (spot-checked against published NIST reference values)
 .venv/bin/python -m pytest tests/ -q
 ```
@@ -144,6 +148,26 @@ mAs double-division bug writeup in [docs/lessons_learned.md](docs/lessons_learne
 covered by a regression test in `tests/test_materials.py`. Re-fetch data with `scripts/fetch_nist_xaamdi.py` /
 `scripts/fetch_h_star_10.py`, never by hand-typing values.
 
+**Statistical uncertainty is a first-class output, not an afterthought** ([tally.py](chatcarlo/tally.py),
+[docs/plan_statistical_uncertainty.md](docs/plan_statistical_uncertainty.md), Phase 0-3 complete). Batch statistics
+(batch ≡ transport batch, `batch_size` histories) give an unbiased relative-error estimator R = SEM/mean per voxel
+and per material, on by default (`track_uncertainty=True`), toggled off with `run --no-uncertainty`. The estimator
+uses a snapshot-diff accumulator so totals are bit-identical whether tracking is on or off — turning it on never
+changes a physics result, only adds `kerma_sum2`/`h10_sum2`/`n_batches_hit` arrays alongside the existing tally.
+`run --dose-grid` prints R and contributing-batch-count next to the max dose/H\*(10), plus a grid-wide reliability
+summary; `--dose-out`'s `.npz` carries `rel_err_dose`/`rel_err_h10`/`sem_*`/`n_batches`/`n_batches_hit`; `plot
+--quantity relerr-dose`/`relerr-h10` renders it (linear 0–0.5, distinct colormap from dose/H\*(10), voxels with
+zero contributing batches masked in grey rather than colored — see "Rの解釈ガイド" below on why that mask matters).
+With the default `-n 1e5` and `batch_size` 200,000, M=1 batch and R comes back as an actionable "increase -n or
+lower --batch-size" message rather than a silent NaN — this is intentional (see plan doc design judgment 3), not a
+bug to "fix" by raising the default n_histories.
+
+**R interpretation guide (necessary, not sufficient)**: R<0.05 generally trustworthy, 0.05–0.10 reasonably
+trustworthy, 0.10–0.20 questionable, >0.20 meaningless (MCNP convention). **Low R alone does not mean a voxel's
+value is reliable** — a voxel with very few contributing batches can show a deceptively small R (it just hasn't
+drawn a large contribution yet). Always check the contributing-batch-count alongside R; `plot`'s grey mask and
+`diagnostics.unreliable_max_warning` both encode this rule so it isn't only documentation.
+
 ## Known sharp edges (read before trusting "max dose"/"max H*(10)" output)
 
 `chatcarlo run --dose-grid`'s reported max absorbed dose / max H*(10) can still land in a non-physical spot: a
@@ -161,6 +185,14 @@ from `max_substeps` clamping on long segments, not yet independently re-verified
 only fire when the max lands on `background`/air, so they don't catch this class of issue when both neighboring
 voxels are legitimately the declared material — treat single-voxel maxima at declared-material boundaries with
 the same caution. Full writeup: [docs/lessons_learned.md](docs/lessons_learned.md).
+
+**Now that R (relative error) is available, use it to triage the "does the max grow as resolution gets finer"
+question before assuming it's the extreme-value-statistics pathology above**: if the max-value voxel's R is high
+or its contributing-batch-count is low, the apparent growth may simply be statistical noise from an
+under-sampled voxel, not a systematic tally artifact — re-run at higher `-n` (or lower `--batch-size`) before
+concluding anything about `max_substeps`. This re-verification itself is still open (see
+[docs/plan_statistical_uncertainty.md](docs/plan_statistical_uncertainty.md) Phase 4 / [[future-directions]]
+candidate 3).
 
 ## Scene files
 

@@ -129,8 +129,10 @@ def cmd_animate(args) -> int:
 
 
 def cmd_run(args) -> int:
-    from .diagnostics import (background_medium_warning, dose_map_Gy,
-                               max_voxel_position_cm, near_source_air_warning)
+    from .diagnostics import (background_medium_warning, batch_shortage_message,
+                               dose_map_Gy, grid_reliability_summary,
+                               max_voxel_position_cm, near_source_air_warning,
+                               unreliable_max_warning)
     from .geometry import Geometry
     from .scene import load_scene
     from .transport import run_transport
@@ -148,6 +150,7 @@ def cmd_run(args) -> int:
     if n_workers == 0:
         n_workers = os.cpu_count() or 1
     track_uncertainty = not args.no_uncertainty
+    n_histories_int = int(args.n_histories)
     if args.dose_grid and n_workers >= 2:
         # 並列時はワーカーごとに線量グリッドを持ち、親へpickleで集約するため、
         # メモリは概ね(ワーカー数+1)倍になる。部屋規模×細解像度では容易に数GBを
@@ -173,7 +176,8 @@ def cmd_run(args) -> int:
             print(f"[警告] --dose-grid（解像度{args.resolution}cm, グリッド形状"
                   f"{grid_est.shape}）と--workers {n_workers}の併用で、線量グリッドの"
                   f"メモリ使用量が概算{est_gb:.1f}GBに達します。{hint}")
-    result = run_transport(scene, n_histories=int(args.n_histories), seed=args.seed,
+    result = run_transport(scene, n_histories=n_histories_int, seed=args.seed,
+                            batch_size=args.batch_size,
                             dose_grid=args.dose_grid, grid_resolution_cm=args.resolution,
                             n_workers=n_workers, track_uncertainty=track_uncertainty)
     print(f"histories: {result.n_histories:,}")
@@ -181,8 +185,24 @@ def cmd_run(args) -> int:
     print(f"脱出割合: {result.fraction_escaped:.4f}")
     print(f"平均相互作用回数/光子: {result.mean_scatter_events:.4f}")
     print(f"蛍光X線放出イベント数: {result.n_fluorescence:,}")
+
+    if not track_uncertainty:
+        print("統計誤差: --no-uncertainty により無効化されています"
+              "（材料別SEM・グリッドの相対誤差マップは出力されません）。")
+    else:
+        shortage = batch_shortage_message(result.n_batches, n_histories_int, args.batch_size)
+        if shortage:
+            print(f"統計誤差: {shortage}")
+
+    show_scalar_stats = track_uncertainty and result.n_batches >= 2
     print("材料別吸収エネルギー [MeV/history合計]:")
     for name, e_mev in sorted(result.energy_deposited_MeV.items(), key=lambda kv: -kv[1]):
+        if show_scalar_stats:
+            r = result.energy_deposited_rel_err.get(name, float("nan"))
+            sem = result.energy_deposited_sem_MeV.get(name, float("nan"))
+            if r == r:  # not nan（材料の真の付与エネルギーがゼロでない）
+                print(f"  {name}: {e_mev:.6g}  (± {sem:.3g} MeV, 相対 {r * 100:.2f}%)")
+                continue
         print(f"  {name}: {e_mev:.6g}")
 
     if result.n_photons_real is not None:
@@ -208,16 +228,53 @@ def cmd_run(args) -> int:
         scale = result.n_photons_real if result.n_photons_real is not None else None
         dose_per_history = dose / n_histories
         h10_per_history = h10 / n_histories
+
+        # R_dose≡R_kerma・R_h10≡R_h10track（docs/plan_statistical_uncertainty.md設計判断5、
+        # いずれも決定的な定数倍のため）。track_uncertainty=Falseや M<2 でもnanで安全に返る。
+        grid_n_batches = result.grid.n_batches if track_uncertainty else 0
+        dose_R = result.grid.kerma_relative_error()
+        h10_R = result.grid.h10_relative_error()
+        n_hit = (result.grid.n_batches_hit if track_uncertainty
+                 else np.zeros(result.grid.shape, dtype=np.int32))
+        show_grid_stats = track_uncertainty and grid_n_batches >= 2
+        dose_idx = np.unravel_index(int(np.argmax(dose_per_history)), dose_per_history.shape)
+        h10_idx = np.unravel_index(int(np.argmax(h10_per_history)), h10_per_history.shape)
+
         print(f"線量グリッド: shape={result.grid.shape}, "
               f"resolution={result.grid.voxel_size_cm}cm")
-        print(f"  最大吸収線量 [Gy/history]: {dose_per_history.max():.6g}")
+
+        dose_line = f"  最大吸収線量 [Gy/history]: {dose_per_history.max():.6g}"
+        if show_grid_stats:
+            dose_line += (f"  (相対誤差 R={float(dose_R[dose_idx]):.3f}, "
+                          f"寄与バッチ {int(n_hit[dose_idx])}/{grid_n_batches})")
+        print(dose_line)
+
         print(f"  総カーマ: {result.grid.total_kerma_MeV():.6g} MeV "
               f"({result.grid.total_kerma_MeV() / n_histories * 1000:.6g} keV/history)")
-        print(f"  最大H*(10) [pSv/history]: {h10_per_history.max():.6g}")
+
+        h10_line = f"  最大H*(10) [pSv/history]: {h10_per_history.max():.6g}"
+        if show_grid_stats:
+            h10_line += (f"  (相対誤差 R={float(h10_R[h10_idx]):.3f}, "
+                         f"寄与バッチ {int(n_hit[h10_idx])}/{grid_n_batches})")
+        print(h10_line)
+
         if scale is not None:
             cal = "CTDIvol校正済み" if scene.raw["source"].get("ctdi_vol_mGy") is not None else "mAs校正済み"
             print(f"  最大吸収線量 [Gy]（{cal}）: {(dose_per_history.max() * scale):.6g}")
             print(f"  最大H*(10) [pSv]（{cal}）: {(h10_per_history.max() * scale):.6g}")
+
+        if show_grid_stats:
+            summary = grid_reliability_summary(dose_R, n_hit, grid_n_batches)
+            h10_summary = grid_reliability_summary(h10_R, n_hit, grid_n_batches)
+            print(f"  グリッド統計: 線量R<0.10 {summary['frac_low_r'] * 100:.1f}% / "
+                  f"H*(10)R<0.10 {h10_summary['frac_low_r'] * 100:.1f}% / "
+                  f"寄与バッチ0（未到達） {summary['frac_unreached'] * 100:.1f}%")
+            dose_reliab = unreliable_max_warning(float(dose_R[dose_idx]), int(n_hit[dose_idx]), grid_n_batches)
+            if dose_reliab:
+                print(f"[警告] 最大吸収線量: {dose_reliab}")
+            h10_reliab = unreliable_max_warning(float(h10_R[h10_idx]), int(n_hit[h10_idx]), grid_n_batches)
+            if h10_reliab:
+                print(f"[警告] 最大H*(10): {h10_reliab}")
 
         # 「最大」統計が非物理的な位置（背景=空気ボクセル）に落ちていないかを診断する。
         # 詳細はdocs/lessons_learned.md参照。
@@ -248,6 +305,15 @@ def cmd_run(args) -> int:
             if scale is not None:
                 save_kwargs["dose_Gy"] = dose_per_history * scale
                 save_kwargs["h10_pSv"] = h10_per_history * scale
+            if track_uncertainty:
+                # SEM = R * mean。Rは量の換算（密度・校正係数）に対して不変な決定的
+                # 定数倍のため（設計判断5）、絶対値・相対値どちらの出力にもこのまま使える。
+                save_kwargs["rel_err_dose"] = dose_R
+                save_kwargs["rel_err_h10"] = h10_R
+                save_kwargs["sem_dose_per_history_Gy"] = dose_R * dose_per_history
+                save_kwargs["sem_h10_per_history_pSv"] = h10_R * h10_per_history
+                save_kwargs["n_batches"] = np.array(grid_n_batches)
+                save_kwargs["n_batches_hit"] = n_hit
             np.savez(args.dose_out, **save_kwargs)
             print(f"線量グリッドを書き出しました: {args.dose_out}")
     return 0
@@ -331,6 +397,13 @@ def main() -> int:
     pr.add_argument("--dose-grid", action="store_true", help="ボクセル吸収線量タリーを有効化")
     pr.add_argument("--resolution", type=float, default=5.0, help="線量グリッド解像度[cm]（既定5cm）")
     pr.add_argument("--dose-out", help="線量グリッドを.npzに書き出すパス")
+    pr.add_argument("--batch-size", type=int, default=200_000,
+                     help="統計バッチ＝輸送バッチのhistory数（既定200,000）。"
+                          "統計バッチ数M=ceil(n_histories/batch_size)が2未満だと"
+                          "相対誤差Rが推定できない（nanになり、対処法がメッセージで"
+                          "出る）ため、小さいnで統計を見たい場合に下げる。"
+                          "同一seedでもbatch_sizeを変えると結果はビット一致しない"
+                          "（乱数の消費ブロック長が変わるため。統計的には同等）。")
     pr.add_argument("--no-uncertainty", action="store_true",
                      help="統計不確かさ（相対誤差マップ・材料別SEM）の積算を無効化する。"
                           "既定は有効。--dose-grid併用時は線量グリッドのメモリが"
@@ -352,7 +425,10 @@ def main() -> int:
     ppl.add_argument("npz")
     ppl.add_argument("-o", "--out")
     ppl.add_argument("--scene", help="指定するとジオメトリー輪郭を断面に重ねる")
-    ppl.add_argument("--quantity", choices=["dose", "h10"], default="dose")
+    ppl.add_argument("--quantity", choices=["dose", "h10", "relerr-dose", "relerr-h10"],
+                      default="dose",
+                      help="relerr-*は相対誤差Rマップ（統計未到達ボクセルは別色でマスク）。"
+                           "--no-uncertaintyで生成した.npzには無い")
     ppl.add_argument("--axis", choices=["x", "y", "z"], default=None,
                       help="未指定なら最大値ボクセルを通る3断面（既定）")
     ppl.add_argument("--pos", type=float, default=None, help="--axis指定時の断面位置[cm]")
