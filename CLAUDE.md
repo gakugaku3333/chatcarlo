@@ -121,11 +121,26 @@ uniform grid independently of the transport geometry, purely for scoring. Two in
 cross-validated against each other in [tests/test_tally.py](tests/test_tally.py): a collision estimator
 (`energy_deposited`, scored at interaction points) and a track-length kerma estimator (path-integral over the
 grid). H*(10) is a fluence-based protection quantity (different from kerma), computed by normalizing the
-track-length integral by voxel volume (`VoxelGrid.h10_map_pSv`). `accumulate_track_length` splits each flight
-segment into substeps and scores a **stratified random point within each substep** (not the substep midpoint) —
-this makes the spatial-binning step an unbiased estimator regardless of substep length, which matters when many
-segments start exactly on a voxel boundary (e.g. a `field.shape: parallel` beam entering a phantom face); see
-lessons_learned for the bug this replaced. Before K-shell fluorescence was modeled, the two estimators disagreed
+track-length integral by voxel volume (`VoxelGrid.h10_map_pSv`). `accumulate_track_length` computes, for each
+flight segment, the **exact analytic overlap length with every voxel it crosses** (a 3D grid-traversal/DDA
+generalizing the single-box `_segment_box_overlap_cm` used and audited in the EGS5 crosscheck scripts to a
+segment that crosses an arbitrary number of voxels) — no random sampling, no discretization, zero spatial-binning
+variance. This replaced an earlier substep+stratified-random-point Monte Carlo scheme (itself a fix for a
+decisive-midpoint scheme that systematically under-scored voxels when many segments started exactly on a voxel
+boundary, e.g. a `field.shape: parallel` beam entering a phantom face — see lessons_learned for that bug); the
+exact method has no such boundary-phase artifact by construction and needed no `max_substeps` clamp. **This is
+slower than the old clamped-substep method** — measured with a git-worktree A/B against the pre-replacement
+commit (`0157179`), single-worker `--dose-grid` runs were ~1.6–2.5× slower at `--resolution` 5cm/2cm/1cm, and
+~4.7× slower at the default `--batch-size` (200,000) with a 2cm grid and n=2e5 (cost grows superlinearly with
+batch size, likely the `np.lexsort` inside `_segment_grid_traversal`) — extrapolating to the Phase 0 baseline
+condition (chest_room, n=1e6, res=5cm, 27.57s) suggests roughly 28s→49s. Physics results (total kerma, per-material
+energy) are bit-identical old vs new; only wall-time regressed. Optimizing this (e.g. replacing the lexsort with a
+per-segment sort) is an open follow-up — see
+[docs/speedup_baseline/tally_exact_resolution_growth.txt](docs/speedup_baseline/tally_exact_resolution_growth.txt).
+The exact method also reaches a somewhat larger voxel set than the old one (same chest_room scene, same seed:
+442,111→477,913 nonzero voxels, +8.1%) since it catches thin corner/edge crossings the substep sampling could
+miss — this shows up as a slightly higher `n_batches_hit` count on marginal voxels and does not change any
+total. Before K-shell fluorescence was modeled, the two estimators disagreed
 by design in high-Z materials — the collision estimator deposited the full photoelectric energy locally while
 NIST μen/ρ (used by the track-length estimator) already subtracts the mean fluorescence escape fraction. Modeling
 fluorescence brought the two into much closer agreement for lead (spot-checked with a 100 keV beam into a thick
@@ -176,26 +191,34 @@ due to backscatter. The CLI detects and prints a `[警告]` when this happens
 (`background_medium_warning`/`near_source_air_warning` in diagnostics.py). For a real exposure-point estimate (patient
 surface, operator position, etc.), lay a fine grid directly at that position rather than trusting the global max.
 
-A related but distinct effect: at fine resolution (≲0.5cm) the reported max can still grow as resolution gets
-finer. This is **not** the same bug as a since-fixed systematic bias where flight segments starting exactly on a
-voxel boundary (all photons of a `field.shape: parallel` beam, for instance) were under-scored in that boundary
+A related but distinct effect: at fine resolution the reported max can still grow as resolution gets finer, then
+plateau. This is **not** the same bug as a since-fixed systematic bias where flight segments starting exactly on
+a voxel boundary (all photons of a `field.shape: parallel` beam, for instance) were under-scored in that boundary
 voxel — that one was a real bug in the track-length tally's substep scoring and is fixed (see
-`accumulate_track_length` above). The residual fine-resolution growth is believed to be extreme-value statistics
-from `max_substeps` clamping on long segments, not yet independently re-verified below ~1cm. Both warnings above
-only fire when the max lands on `background`/air, so they don't catch this class of issue when both neighboring
-voxels are legitimately the declared material — treat single-voxel maxima at declared-material boundaries with
-the same caution. Full writeup: [docs/lessons_learned.md](docs/lessons_learned.md).
+`accumulate_track_length` above). **Re-verified 2026-07-26** after replacing the tally with the exact
+analytic-overlap method (which removed the `max_substeps` clamp entirely): the growth-then-plateau is **not** a
+`max_substeps` artifact — a side-by-side run of the old (clamped-substep) and new (exact) tally at the same
+resolutions down to 0.0625cm agreed within statistical noise at every point (the old method only carried a
+somewhat larger R, from its own extra spatial-sampling variance, not a different mean). The actual mechanism is
+ordinary voxel-averaging of a spatially-varying but *finite-width* beam/field: while the voxel is larger than the
+field's local transverse footprint, the peak per-voxel density keeps rising as the voxel shrinks; once the voxel
+becomes smaller than that footprint, the value plateaus. Widening the field by 4× moved the plateau's onset
+resolution by almost exactly 4× coarser, confirming the mechanism quantitatively. This is physically correct
+behavior, not a tally bug. Raw data, the pre-registered hypotheses, and the widened-field confirmation run are in
+[docs/speedup_baseline/tally_exact_resolution_growth.txt](docs/speedup_baseline/tally_exact_resolution_growth.txt).
+**Not covered by this re-verification**: a true point-source r→0 singularity (evaluating literally adjacent to
+the source position, where the beam footprint itself collapses toward zero) — the scenario used to probe this
+turned out to still have a finite (if small) footprint at the tested distance, so it exercised the same
+finite-footprint mechanism rather than the singularity `near_source_air_warning` is meant to catch. That specific
+case remains untested and open. Both warnings above only fire when the max lands on `background`/air, so they
+don't catch this class of issue when both neighboring voxels are legitimately the declared material — treat
+single-voxel maxima at declared-material boundaries with the same caution. Full writeup:
+[docs/lessons_learned.md](docs/lessons_learned.md).
 
-**Now that R (relative error) is available, use it to triage the "does the max grow as resolution gets finer"
-question before assuming it's the extreme-value-statistics pathology above**: if the max-value voxel's R is high
-or its contributing-batch-count is low, the apparent growth may simply be statistical noise from an
-under-sampled voxel, not a systematic tally artifact — re-run at higher `-n` (or lower `--batch-size`) before
-concluding anything about `max_substeps`. This re-verification itself is still open — Phase 4 of
-[docs/plan_statistical_uncertainty.md](docs/plan_statistical_uncertainty.md) built and confirmed the R tooling
-itself (memory formula, 1/√N scaling, estimator-swap equivalence all verified; the ON/OFF wall-time cost came
-back below this machine's measurement floor at `--workers 1`, and is unresolved at `--workers 4`), but did not
-use it to re-run this specific `max_substeps` question. That re-verification is tracked separately under
-[[future-directions]] candidate 3.
+**R (relative error) still matters for triage**: if the max-value voxel's R is high or its contributing-batch-count
+is low, an apparent resolution-to-resolution change may simply be statistical noise from an under-sampled voxel,
+not the finite-footprint mechanism above — re-run at higher `-n` (or lower `--batch-size`) before drawing
+conclusions from a single run.
 
 ## Scene files
 

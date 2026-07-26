@@ -207,20 +207,19 @@ class TestVoxelGridUncertainty:
         return VoxelGrid.from_bbox(np.array([0.0, 0.0, 0.0]), np.array([10.0, 10.0, 10.0]),
                                     resolution_cm=1.0, track_uncertainty=track_uncertainty)
 
-    def _score_one_batch(self, grid, rng, n, weight_value):
+    def _score_one_batch(self, grid, n, weight_value):
         origin = np.tile(np.array([0.5, 0.5, 0.0]), (n, 1))
         direction = np.tile(np.array([0.0, 0.0, 1.0]), (n, 1))
         length_cm = np.full(n, 3.0)
         weight = np.full(n, weight_value)
-        accumulate_track_length(grid.kerma_keV, grid, origin, direction, length_cm, weight, rng)
-        accumulate_track_length(grid.h10_track_pSv_cm3, grid, origin, direction, length_cm, weight, rng)
+        accumulate_track_length(grid.kerma_keV, grid, origin, direction, length_cm, weight)
+        accumulate_track_length(grid.h10_track_pSv_cm3, grid, origin, direction, length_cm, weight)
 
     def test_end_batch_noop_when_disabled(self):
         """track_uncertainty=False（既定）ではend_batchを呼んでも何も起きない
         （既存の呼び出し元に非侵襲、というPhase 1の非侵襲性の要件）。"""
         grid = self._grid(track_uncertainty=False)
-        rng = np.random.default_rng(0)
-        self._score_one_batch(grid, rng, n=100, weight_value=5.0)
+        self._score_one_batch(grid, n=100, weight_value=5.0)
         grid.end_batch(100)
         assert grid.kerma_sum2 is None
         assert grid.n_batches == 0
@@ -234,15 +233,13 @@ class TestVoxelGridUncertainty:
         n_batch_count = 5
 
         grid_off = self._grid(track_uncertainty=False)
-        rng_off = np.random.default_rng(1)
         for _ in range(n_batch_count):
-            self._score_one_batch(grid_off, rng_off, n_per_batch, weight_value=7.0)
+            self._score_one_batch(grid_off, n_per_batch, weight_value=7.0)
             grid_off.end_batch(n_per_batch)  # track_uncertainty=Falseなのでno-op
 
         grid_on = self._grid(track_uncertainty=True)
-        rng_on = np.random.default_rng(1)
         for _ in range(n_batch_count):
-            self._score_one_batch(grid_on, rng_on, n_per_batch, weight_value=7.0)
+            self._score_one_batch(grid_on, n_per_batch, weight_value=7.0)
             grid_on.end_batch(n_per_batch)
 
         assert np.array_equal(grid_off.kerma_keV, grid_on.kerma_keV)
@@ -314,10 +311,20 @@ class TestVoxelGridUncertainty:
         assert 0.6 < r_fine / r_coarse < 1.7, f"fine={r_fine:.5f}, coarse={r_coarse:.5f}"
 
     def test_relative_error_finite_and_hit_count_tracked(self):
+        """R・寄与バッチ数が正しく積算されることの確認。
+
+        解析的重なり長方式（乱数不使用）では同一ジオメトリの区間は毎バッチ
+        決定論的に同じ寄与を返すため、weight_valueを完全に固定すると
+        バッチ間分散がゼロになりR=0（有限値だが実質を失う）になってしまう。
+        ここではバッチごとにweight_valueを変えて「本物の変動があるときに
+        R>0として検出できる」ことまで確認する（accumulate_track_length自体の
+        乱数除去に伴うテスト意図の変更、[[lessons_learned]]参照）。
+        """
         grid = self._grid(track_uncertainty=True)
         rng = np.random.default_rng(2)
         for _ in range(10):
-            self._score_one_batch(grid, rng, n=500, weight_value=4.0)
+            weight_value = 4.0 + rng.normal(scale=0.3)
+            self._score_one_batch(grid, n=500, weight_value=weight_value)
             grid.end_batch(500)
 
         assert grid.n_batches == 10
@@ -326,8 +333,8 @@ class TestVoxelGridUncertainty:
         r_kerma = grid.kerma_relative_error()
         r_h10 = grid.h10_relative_error()
         hit_voxel = tuple(np.argwhere(grid.kerma_keV > 0)[0])
-        assert np.isfinite(r_kerma[hit_voxel])
-        assert np.isfinite(r_h10[hit_voxel])
+        assert np.isfinite(r_kerma[hit_voxel]) and r_kerma[hit_voxel] > 0
+        assert np.isfinite(r_h10[hit_voxel]) and r_h10[hit_voxel] > 0
         assert grid.n_batches_hit[hit_voxel] > 0
 
         untouched = tuple(np.argwhere(grid.kerma_keV == 0)[0])

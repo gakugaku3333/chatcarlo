@@ -7,9 +7,15 @@ track-length estimator（trackごとの飛程積分）で2種類の量を積算�
   カーマ:    K += E * (μen/ρ) * ρ * dl                      [keV]
   H*(10):   H += (h*(10)/Φ)(E) * dl、後でボクセル体積で正規化   [pSv]
 どちらも区間内はエネルギー・材料とも一定なので積分自体に離散化誤差はない。
-「その区間がどのボクセルに何cm分入っているか」の空間分配は層化乱数点による
-モンテカルロ分配で、任意のサブステップ長で不偏（期待値＝厳密な重なり長。
-サブステップ長は分散にのみ影響する。accumulate_track_lengthのdocstring参照）。
+「その区間がどのボクセルに何cm分入っているか」の空間分配は、区間と各軸の
+ボクセル境界面との交差点を解析的に列挙する厳密グリッド走査（3D DDA、
+docs/egs5_crosscheck/run_chatcarlo_bsf60.py等の`_segment_box_overlap_cm`
+（単一直方体との厳密重なり長）を、グリッド全体を横切る一般の区間へ拡張したもの）
+で行う。乱数を一切使わず、各ボクセルへの重なり長は浮動小数点誤差を除いて厳密。
+以前は区間をサブステップに分割し層化乱数点で分配するモンテカルロ方式だったが
+（不偏だが空間分配自体に分散があり、`max_substeps`クランプも必要だった）、
+解析的重なり長方式に置き換えて空間分配の分散をゼロにした
+（docs/plan_statistical_uncertainty.md 候補3、docs/lessons_learned.md参照）。
 電子飛程を無視するカーマ近似のため、カーマ＝吸収線量とみなす
 （README/[[lessons_learned]]の設計判断と同じ割り切り）。
 """
@@ -245,49 +251,141 @@ class ScalarMoments:
         self.n_histories += other_n_histories
 
 
+_EPS_PLANE = 1e-7  # ボクセル境界面インデックス(実数)を整数面とみなす許容誤差（単位: 面間隔=1）
+
+
+def _segment_grid_traversal(grid: VoxelGrid, origin: np.ndarray, direction: np.ndarray,
+                             length_cm: np.ndarray):
+    """区間群とグリッドの厳密な交差分解: 戻り値は (seg_id, voxel_idx(nx,ny,nz), overlap_cm)。
+
+    各区間をグリッドのボクセル境界面との交点で分割し、生じる各部分区間について
+    「どのボクセルか（部分区間の中点で判定）」と「厳密な重なり長」を返す。
+    区間の始点・終点をまたぐ境界面はもちろん、区間の一部だけがグリッド内にある
+    場合も先にAABBとの交差区間[t_enter,t_exit]へ厳密にクリップしてから走査するので、
+    グリッド外の部分は最初から計算に含まれない。
+
+    ラグド配列（区間ごとに交差数が異なる）を`np.repeat`/累積和で構築し、
+    「最長区間に合わせて全区間を密にパディングする」方式を避けている
+    （疎な解像度でも1区間が数百〜数千回交差しうるため、密パディングだと
+    区間数×最大交差数でメモリが吹き飛ぶ。docs/plan_statistical_uncertainty.md
+    候補3の設計上の注意点）。
+    """
+    n = origin.shape[0]
+    h = grid.voxel_size_cm
+    lo = grid.origin_cm
+    shape = np.asarray(grid.shape)
+    hi = lo + shape * h
+
+    t_enter = np.zeros(n)
+    t_exit = length_cm.astype(float).copy()
+    for k in range(3):
+        dk = direction[:, k]
+        ok = origin[:, k]
+        parallel = np.abs(dk) < 1e-12
+        dk_safe = np.where(parallel, 1.0, dk)
+        ta = (lo[k] - ok) / dk_safe
+        tb = (hi[k] - ok) / dk_safe
+        tmin_k = np.where(parallel, -np.inf, np.minimum(ta, tb))
+        tmax_k = np.where(parallel, np.inf, np.maximum(ta, tb))
+        outside_slab = parallel & ((ok < lo[k]) | (ok > hi[k]))
+        tmin_k = np.where(outside_slab, np.inf, tmin_k)
+        tmax_k = np.where(outside_slab, -np.inf, tmax_k)
+        t_enter = np.maximum(t_enter, tmin_k)
+        t_exit = np.minimum(t_exit, tmax_k)
+
+    active = np.where(t_exit > t_enter)[0]
+    if len(active) == 0:
+        return (np.empty(0, dtype=np.int64), np.empty((0, 3), dtype=np.int64), np.empty(0))
+
+    o = origin[active]
+    d = direction[active]
+    t_enter = t_enter[active]
+    t_exit = t_exit[active]
+    m = len(active)
+
+    # 各軸ごとに、区間内(t_enter,t_exit)にある「内部」境界面のインデックス範囲を求める。
+    # 境界面mはx = lo[k] + m*hにある。区間の端がちょうど境界面上に乗る場合
+    # （区間の始点/終点自体を規定した軸）はEPS_PLANEで除外し、重複ゼロ長区間を作らない。
+    counts = np.zeros((3, m), dtype=np.int64)
+    m_lo_all = np.zeros((3, m), dtype=np.int64)
+    d_safe_all = np.zeros((3, m))
+    for k in range(3):
+        dk = d[:, k]
+        parallel = np.abs(dk) < 1e-12
+        dk_safe = np.where(parallel, 1.0, dk)
+        x_enter = o[:, k] + t_enter * dk
+        x_exit = o[:, k] + t_exit * dk
+        p_enter = (x_enter - lo[k]) / h
+        p_exit = (x_exit - lo[k]) / h
+        p_small = np.minimum(p_enter, p_exit)
+        p_big = np.maximum(p_enter, p_exit)
+        m_lo_k = np.ceil(p_small + _EPS_PLANE).astype(np.int64)
+        m_hi_k = np.floor(p_big - _EPS_PLANE).astype(np.int64)
+        cnt_k = np.clip(m_hi_k - m_lo_k + 1, 0, None)
+        cnt_k = np.where(parallel, 0, cnt_k)
+        counts[k] = cnt_k
+        m_lo_all[k] = m_lo_k
+        d_safe_all[k] = dk_safe
+
+    t_parts = [t_enter, t_exit]
+    seg_parts = [np.arange(m), np.arange(m)]
+    for k in range(3):
+        cnt_k = counts[k]
+        total_k = int(cnt_k.sum())
+        if total_k == 0:
+            continue
+        seg_id_k = np.repeat(np.arange(m), cnt_k)
+        starts_k = np.cumsum(cnt_k) - cnt_k
+        offset_k = np.arange(total_k) - np.repeat(starts_k, cnt_k)
+        m_idx_k = m_lo_all[k][seg_id_k] + offset_k
+        t_k = (lo[k] + m_idx_k * h - o[seg_id_k, k]) / d_safe_all[k][seg_id_k]
+        t_parts.append(t_k)
+        seg_parts.append(seg_id_k)
+
+    all_t = np.concatenate(t_parts)
+    all_seg = np.concatenate(seg_parts)
+    order = np.lexsort((all_t, all_seg))  # 主キー: セグメント（lexsortの最終引数）、副キー: t
+    sorted_t = all_t[order]
+    sorted_seg = all_seg[order]
+
+    same_seg = sorted_seg[1:] == sorted_seg[:-1]
+    overlap = np.where(same_seg, sorted_t[1:] - sorted_t[:-1], 0.0)
+    keep = overlap > 0
+    if not np.any(keep):
+        return (np.empty(0, dtype=np.int64), np.empty((0, 3), dtype=np.int64), np.empty(0))
+
+    seg_for_interval = sorted_seg[:-1][keep]
+    mid_t = ((sorted_t[:-1] + sorted_t[1:]) / 2.0)[keep]
+    overlap = overlap[keep]
+
+    points = o[seg_for_interval] + d[seg_for_interval] * mid_t[:, None]
+    idx, in_grid = grid.voxel_index(points)
+    idx, overlap, seg_for_interval = idx[in_grid], overlap[in_grid], seg_for_interval[in_grid]
+
+    return (active[seg_for_interval], idx, overlap)
+
+
 def accumulate_track_length(target: np.ndarray, grid: VoxelGrid, origin: np.ndarray,
-                             direction: np.ndarray, length_cm: np.ndarray, weight_per_cm: np.ndarray,
-                             rng: np.random.Generator,
-                             substep_cm: float | None = None, max_substeps: int = 40) -> None:
+                             direction: np.ndarray, length_cm: np.ndarray,
+                             weight_per_cm: np.ndarray) -> None:
     """区間(origin, direction, length_cm)ごとに weight_per_cm * dl を target グリッドへ積算する。
 
     target は grid.shape と同じ形の任意の量（カーマ・H*(10)飛程積分など）で、
     weight_per_cm は区間内で一定（材料・エネルギーとも不変の前提）とする。
-    区間をサブステップに等分し、各サブステップ内の一様乱数点（層化サンプリング）が
-    属するボクセルへ weight_per_cm * (length_cm/nsub) を加算する。
-
-    乱数点を使う理由: 以前はサブステップの中点（決定的）を使っていたが、
-    区間の始点がボクセル境界ちょうどに揃う条件（例: parallel照射野で全光子が
-    ファントム前面から出発）では量子化誤差の位相が全区間で同期し、表面ボクセルで
-    約-3%の系統的過小評価になる（独立監査で発見）。層化乱数点なら任意のボクセルに
-    対して期待値が厳密な幾何学的重なり長に一致する（不偏推定量）。
-    rng は輸送用と別のストリームを渡すこと（タリーが輸送の乱数列を消費して
-    物理結果を変えないため — transport_photons が spawn で自動生成する）。
+    各区間とグリッドのボクセル境界面との交点を解析的に求め（`_segment_grid_traversal`）、
+    各ボクセルへ weight_per_cm * (厳密な重なり長) を加算する——乱数を一切使わない
+    決定論的な処理で、空間分配自体の分散はゼロ（docs/plan_statistical_uncertainty.md
+    候補3。旧実装はサブステップ+層化乱数点によるモンテカルロ分配で、不偏だが
+    空間分配に伴う分散があり`max_substeps`クランプも必要だった。単一直方体との
+    厳密重なり長を計算する`_segment_box_overlap_cm`（EGS5相互検証スクリプト、
+    vive-auditor監査済み）を、グリッド全体を貫く一般の区間へ一般化したもの）。
     """
     n = origin.shape[0]
     if n == 0:
         return
-    if substep_cm is None:
-        substep_cm = grid.voxel_size_cm / 2.0
-    nsub = np.clip(np.ceil(length_cm / substep_cm).astype(int), 1, max_substeps)
-    max_n = int(nsub.max())
-
-    j = np.arange(max_n)
-    frac = (j[None, :] + rng.random((n, max_n))) / nsub[:, None]  # (n, max_n) 層化乱数点
-    valid = j[None, :] < nsub[:, None]                   # (n, max_n)
-
-    points = (origin[:, None, :] + direction[:, None, :]
-              * (length_cm[:, None] * frac)[:, :, None])  # (n, max_n, 3)
-    sub_weight = weight_per_cm * (length_cm / nsub)       # (n,)
-
-    points_flat = points.reshape(-1, 3)
-    weight_flat = np.broadcast_to(sub_weight[:, None], (n, max_n)).reshape(-1)
-    valid_flat = valid.reshape(-1)
-
-    idx, in_grid = grid.voxel_index(points_flat)
-    keep = valid_flat & in_grid
-    idx, weight_flat = idx[keep], weight_flat[keep]
-    if len(idx) == 0:
+    seg_id, idx, overlap = _segment_grid_traversal(grid, origin, direction, length_cm)
+    if len(seg_id) == 0:
         return
+    weight_flat = weight_per_cm[seg_id] * overlap
     flat_idx = np.ravel_multi_index((idx[:, 0], idx[:, 1], idx[:, 2]), grid.shape)
     np.add.at(target.reshape(-1), flat_idx, weight_flat)

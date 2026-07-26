@@ -14,15 +14,22 @@ docs/egs5_crosscheck/bsf60_NOTES.md）と同一幾何・物理条件でBSFを計
 
 ## なぜ既定の --dose-grid（VoxelGrid）を使わないか
 
-VoxelGrid.accumulate_track_length は飛行区間をサブステップ分割して積算するが、
-分割数は `substep_cm` あたり最大40分割に打ち切られる（chatcarlo/tally.py）。
-今回のスコア層は厚さ0.2cmしかないのに対し、水60 keVの平均自由行程は約5cmで、
-1回目の飛行区間の多くはその何倍も長い。長い区間を高々40分割すると、0.2cm厚の
-層に落ちる分割点がわずか1〜2個になり、真の重なり長（連続値）が粗い整数個の
-分割単位に丸められる（CLAUDE.mdの「解像度を細かくするほど値が増大する」という
-既知の境界効果と同根の問題）。
+**注記（2026-07-26更新）**: 本節はもともと「VoxelGrid.accumulate_track_length は
+飛行区間をサブステップ分割して積算し`substep_cm`あたり最大40分割に打ち切られる
+ため、厚さ0.2cmの薄いスコア層では真の重なり長が粗い分割単位に丸められる」と
+説明していたが、`accumulate_track_length`はその後（2026-07-26）サブステップ方式
+から解析的重なり長方式（3D DDA、離散化なし・`max_substeps`クランプなし）に
+置き換わっており、この技術的理由はもう当てはまらない
+（`docs/speedup_baseline/tally_exact_resolution_growth.txt`、CLAUDE.md参照）。
+それでも本スクリプトが独自実装を保っている理由は別にある: (1) EGS5側の
+ausgabビン境界に完全一致させる任意の軸並行直方体1つとの重なりだけを計算すれば
+足り、`VoxelGrid`の一様グリッド構造（境界margin込みのbbox・多ボクセル管理）は
+不要な複雑さになる、(2) EGS5と同じ**史ごと**のΣx・Σx²モーメント統計（batch_size=1
+規約）を`TrajectoryRecorder`のphoton_idから直接求めるほうが、`VoxelGrid`の
+バッチ単位R推定より本検証の目的（EGS5との史単位の直接比較）に合う。
+以下は元の実装記録（技術的に有効な部分のみ残す）。
 
-そこで本スクリプトでは TrajectoryRecorder が記録する生の飛行区間
+本スクリプトでは TrajectoryRecorder が記録する生の飛行区間
 （開始点・終了点・区間内一定のエネルギー）から、スコア領域（軸並行の直方体）
 との厳密な解析的重なり長を計算する（区間ごとに1回のtの範囲計算、離散化なし）。
 これは薄層カーマのtrack-length推定量として離散化誤差を持たない。副産物として

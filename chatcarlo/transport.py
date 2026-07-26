@@ -99,16 +99,13 @@ def transport_photons(pos: np.ndarray, dirv: np.ndarray, energy: np.ndarray,
                        geometry: Geometry, rng: np.random.Generator,
                        grid: VoxelGrid | None = None,
                        recorder: TrajectoryRecorder | None = None,
-                       tally_rng: np.random.Generator | None = None,
                        fluorescence_enabled: bool = True) -> BatchResult:
     """光源サンプリングとは独立な輸送カーネル本体（テストで直接叩ける）。
 
     pos/dirv/energy は呼び出し側の配列を破壊的に更新する。
     grid を渡すと、各飛行区間ごとにカーマのtrack-length estimatorを
-    ボクセルグリッドへ積算する（chatcarlo/tally.py参照）。タリーの層化
-    サンプリングにはtally_rng（未指定ならrngからspawnで決定的に導出）を使う。
-    spawnは輸送の乱数列を消費しないため、grid有無で輸送結果（吸収/脱出・
-    相互作用サンプリング）は同一seedならビット一致のまま変わらない。
+    ボクセルグリッドへ積算する（chatcarlo/tally.py参照。解析的重なり長方式で
+    乱数を使わないため輸送の乱数列には一切影響しない）。
     recorder を渡すと、各飛行区間を可視化用に記録する（既定Noneで無効、
     乱数を一切消費しないため同一seedでの輸送結果に影響しない）。
     fluorescence_enabled=True（既定）では光電吸収イベントでK殻蛍光X線の
@@ -117,8 +114,6 @@ def transport_photons(pos: np.ndarray, dirv: np.ndarray, energy: np.ndarray,
     （docs/plan_fluorescence.md参照）。Falseなら従来どおり全量その場で
     局所吸収する。
     """
-    if grid is not None and tally_rng is None:
-        tally_rng = rng.spawn(1)[0]
     n = pos.shape[0]
     alive = np.ones(n, dtype=bool)
     tau = -np.log(rng.random(n))
@@ -143,9 +138,9 @@ def transport_photons(pos: np.ndarray, dirv: np.ndarray, energy: np.ndarray,
 
         if grid is not None:
             mu_en_linear = _mu_en_linear_batch(mat, e)
-            accumulate_track_length(grid.kerma_keV, grid, o, d, ds, e * mu_en_linear, tally_rng)
+            accumulate_track_length(grid.kerma_keV, grid, o, d, ds, e * mu_en_linear)
             accumulate_track_length(grid.h10_track_pSv_cm3, grid, o, d, ds,
-                                     h_star_10_per_fluence(e), tally_rng)
+                                     h_star_10_per_fluence(e))
 
         pos[idx] = ends
 
