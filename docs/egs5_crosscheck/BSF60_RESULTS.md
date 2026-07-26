@@ -1,5 +1,11 @@
 # EGS5相互検証結果（Phase 2a、後方散乱係数BSF、60 keV単色）
 
+> ⚠️ **既知の staleness（2026-07-26追記）**: 本ページのChatCarlo側数値は
+> `d597c66`（2026-07-17）以前の生成。以降にK殻蛍光X線（`b732d35`）・断面積の
+> テーブル化＋補間（`34a6313`）・レイリー/コンプトン再設計（`e99a2b0`）が
+> 入っており、現在のコードで再実行すると数値は変わる（未再検証）。
+> 経緯と対処方針は[PDD_RESULTS.md](PDD_RESULTS.md)冒頭の同注記を参照。
+
 作成日: 2026-07-15 / 更新: 2026-07-17（保留を解消、合格）。
 [plan_egs5_crosscheck.md](../plan_egs5_crosscheck.md) Phase 2aの結果。
 EGS5側の詳細セットアップは[bsf60_NOTES.md](bsf60_NOTES.md)
