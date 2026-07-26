@@ -19,8 +19,30 @@ Phase 2a（BSF、docs/egs5_crosscheck/run_chatcarlo_bsf60.py）と同一の手�
   |y|<=1cm、x方向を-8〜8cmの範囲で1cm刻み16ビン
   （表面近傍ビンはPDDの第1ビンと共通、10cm深ビンはPDDの第10ビンと共通）
 
-出力は各ビンの吸収線量カーマ [Gy/history]（史ごとのΣx・Σx²から標準誤差を計算、
-バッチ平均法ではない）。1 keV/g = 1.602176634e-13 Gy。
+出力は各ビンの吸収線量カーマ [Gy/history]。標準誤差はdocs/plan_statistical_uncertainty.md
+Phase 4で`chatcarlo.tally`の公開推定器（`standard_error`/`relative_error`）に置き換えた
+（旧: `arr_keV.std(ddof=1)/sqrt(N)`の手書き計算を各ビンの全history配列に対して実行）。
+史ごとの寄与を1historyこそが1バッチという規約（batch_size=1）でΣS_b・ΣS_b²だけ
+実行時に積算するため、旧実装が確保していた「ビン数×N_TOTAL」の全history配列
+（このスクリプトの規模で約1.2GB）を持たずに済む。batch_size=1では
+σ̂²=(Q-T²/N)/(M-1)が`std(ddof=1)**2`と数式的に厳密一致する
+（docs/plan_statistical_uncertainty.md Phase 1のブルートフォース照合と同じ根拠）。
+1 keV/g = 1.602176634e-13 Gy。
+
+⚠️ **チェックイン済みの`chatcarlo_pdd60_results.json`／`run_chatcarlo_pdd60.log`は
+このスクリプトの現行版が生成したものではない**。両者はコミット`d597c66`
+（2026-07-17）時点のスクリプト＋当時のtransport.pyで生成された対の成果物で、
+以降にChatCarlo側の物理（K殻蛍光X線`b732d35`、断面積テーブル化＋補間`34a6313`、
+レイリー/コンプトン再設計`e99a2b0`）と本スクリプトのSEM計算（本ファイルの
+上記変更）の両方が変わっている。現行版で再実行すると数値は変わる（平均線量で
+最大2.6%、2026-07-26実測）。JSONを更新するときはEGS5側の再実行と
+`PDD_RESULTS.md`の記載値更新までを一括で行うこと——JSONだけ差し替えると
+`compare_pdd60_incoh0/1.py`が描く図と`PDD_RESULTS.md`本文の数値が
+サイレントに食い違う。
+
+実行方法（リポジトリルートから。chatcarloはpip install されていないため
+PYTHONPATHが要る）:
+    PYTHONPATH=. .venv/bin/python docs/egs5_crosscheck/run_chatcarlo_pdd60.py
 """
 from __future__ import annotations
 
@@ -30,6 +52,7 @@ import numpy as np
 
 from chatcarlo.geometry import Geometry
 from chatcarlo.materials import density, mu_en_rho
+from chatcarlo.tally import relative_error, standard_error
 from chatcarlo.transport import transport_photons
 from chatcarlo.trajectory import TrajectoryRecorder
 
@@ -111,7 +134,10 @@ def main() -> None:
     }])
 
     rng = np.random.default_rng(SEED)
-    per_history = {name: np.zeros(N_TOTAL) for name, _, _ in bins}
+    # batch_size=1規約: T=ΣS_b=Σx_i、Q=ΣS_b²/n_b=Σx_i²（n_b=1のため）。
+    # n_batches=n_histories=N_TOTALとしてstandard_error/relative_errorへ渡す。
+    T = {name: 0.0 for name, _, _ in bins}
+    Q = {name: 0.0 for name, _, _ in bins}
     done = 0
     while done < N_TOTAL:
         n = min(N_BATCH, N_TOTAL - done)
@@ -133,7 +159,8 @@ def main() -> None:
             contrib_keV = overlap_cm[hit] * seg_energy[hit] * mu_en_linear[hit]
             batch_local = np.zeros(n)
             np.add.at(batch_local, photon_ids[hit], contrib_keV)
-            per_history[name][done:done + n] = batch_local
+            T[name] += float(batch_local.sum())
+            Q[name] += float((batch_local ** 2).sum())
 
         done += n
         print(f"  {done}/{N_TOTAL} histories 完了", flush=True)
@@ -142,12 +169,11 @@ def main() -> None:
     for name, lo, hi in bins:
         vol_cm3 = float(np.prod(hi - lo))
         mass_g = density("water") * vol_cm3
-        arr_keV = per_history[name]
-        mean_keV = arr_keV.mean()
-        sem_keV = arr_keV.std(ddof=1) / np.sqrt(N_TOTAL)
+        mean_keV = T[name] / N_TOTAL
+        sem_keV = float(standard_error(T[name], Q[name], N_TOTAL, N_TOTAL))
+        rel_err = float(relative_error(T[name], Q[name], N_TOTAL, N_TOTAL))
         mean_gy = (mean_keV / mass_g) * KEV_PER_G_TO_GY
         sem_gy = (sem_keV / mass_g) * KEV_PER_G_TO_GY
-        rel_err = sem_gy / mean_gy if mean_gy > 0 else float("nan")
         results[name] = {
             "lo_cm": lo.tolist(), "hi_cm": hi.tolist(), "mass_g": mass_g,
             "mean_Gy_per_history": mean_gy, "sem_Gy_per_history": sem_gy,

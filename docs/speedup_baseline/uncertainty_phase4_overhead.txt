@@ -1,0 +1,124 @@
+統計不確かさの一級市民化 Phase 4: オーバーヘッド実測の生データ (2026-07-26)
+=========================================================================
+
+環境: Apple Silicon, 8論理コア, macOS。Phase 0 (uncertainty_phase0_baseline.txt,
+      2026-07-22) と同一マシンだが別セッション・別日。
+対象: docs/plan_statistical_uncertainty.md 受入基準8（壁時間+10%以内）の判定。
+
+結論を先に:
+  - 受入基準8は「Phase 0で固定した絶対壁時間しきい値（条件1<=30.3s /
+    条件2<=90.6s）」という事前登録された形では**判定不能**だった。
+    同一コードでもセッション間・負荷状態で壁時間が10〜27%動くため。
+  - 統計機構ON/OFFのコストは、条件1では**測定分解能以下**（下記(B)）。
+  - 条件2（workers=4）は熱ドリフト・スリープにより**未決着**（下記(C)(D)）。
+  - 経緯と教訓: docs/lessons_learned.md「統計不確かさPhase 4: ベースライン比較は
+    同一セッション内A/Bで機構起因分を分離する」
+
+比較対象の「真のベースライン」:
+  統計機構が存在しないコミット e99a2b0（統計コードが入る 4eb5f45 の直前）を
+  git worktree に展開して同一 .venv で実行した。track_uncertainty の文字列が
+  tally.py / transport.py のいずれにも存在しないことを確認済み。
+
+
+## (A) 初回の素朴な単発測定 — 後に「ノイズ以下の点推定」と判明
+
+条件1 (chest_room.yaml, n=1e6, --dose-grid --resolution 5, workers=1):
+  統計ON  30.26s   peak mem 1,979,844,552 B
+  統計OFF 28.79s   peak mem 1,935,001,520 B
+条件2 (同, n=1e7, workers=4):
+  統計ON  101.75s  peak mem (親) 496,632,672 B
+  統計OFF 101.05s  peak mem (親) 434,946,888 B
+
+このとき「同一セッション内ON/OFF差は条件2で+0.7%、条件1で+5.1%」と報告したが、
+各条件1回測定であり、(B)のとおり両方ともノイズだった。
+
+
+## (B) 条件1: 3arm インターリーブ 3反復（壁時間、マシン安定状態）★主要な根拠
+
+実行順は各repで baseline -> unc_off -> unc_on。
+コマンド: python -m chatcarlo run examples/chest_room.yaml -n 1e6 --seed 42 \
+              --dose-grid --resolution 5 --workers 1 [--no-uncertainty]
+
+  rep, arm,                      real_sec
+  1,   baseline_no_stats_code,   28.51
+  1,   current_uncertainty_off,  29.76
+  1,   current_uncertainty_on,   29.02
+  2,   baseline_no_stats_code,   27.68
+  2,   current_uncertainty_off,  28.50
+  2,   current_uncertainty_on,   28.34
+  3,   baseline_no_stats_code,   27.98
+  3,   current_uncertainty_off,  28.03
+  3,   current_uncertainty_on,   28.62
+
+  arm                       mean     SD
+  baseline (統計コード無し)  28.06s   0.42
+  current --no-uncertainty  28.76s   0.89
+  current 統計ON            28.66s   0.34
+
+  同一rep内の ON - OFF 差: -0.74s / -0.16s / +0.59s
+    → 平均 -0.10s (-0.4%)、SD 0.67s、**符号が揃わない**
+    → 統計機構のコストは測定分解能以下。
+  統計ON vs 真のベースライン: +2.2%（run-to-runばらつき約2.0%と同程度）
+  同一コード(baseline)の Phase 0記録 27.57s → 今回 28.06s = +1.8%
+    → 別セッション間の絶対値比較が成立しないことの直接証拠。
+
+
+## (C) 条件2: 3arm インターリーブ 2反復（壁時間）— 外れ値で判定不能
+
+  rep, arm,                      real_sec
+  1,   baseline_no_stats_code,     97.30
+  1,   current_uncertainty_off,   106.05
+  1,   current_uncertainty_on,    432.67   <- 異常値
+  2,   baseline_no_stats_code,   1080.23   <- 異常値
+  2,   current_uncertainty_off,   119.02
+  2,   current_uncertainty_on,    133.14
+
+  432.67s / 1080.23s は作業中のマシンスリープと符合（同セッション中、
+  別の測定でも real 642s / user 6.17s という乖離を観測している）。
+  壁時間はこの環境では信頼できない。
+
+  参考: 別ブロックで測った baseline 単独 2反復 = 93.19s / 92.17s (mean 92.68s)。
+  ただし(A)のON/OFFとは測定ブロックが違うため、直接比較してはいけない
+  （まさにこのPhaseで戒めた誤りにあたる）。
+
+
+## (D) 条件1: CPU時間(user+sys)での再測定 — 熱ドリフトで中断
+
+スリープに強い指標としてCPU時間へ切り替えたが、持続負荷でマシンが熱劣化し、
+判定に使えなかった。
+
+  cond1 rep1 baseline  real=28.95s cpu=28.83s
+  cond1 rep1 unc_off   real=32.70s cpu=32.53s
+  cond1 rep1 unc_on    real=36.20s cpu=36.12s
+  cond1 rep2 baseline  real=36.76s cpu=36.66s   <- rep1 baseline の +27.2%
+
+  同一の baseline コードが連続する2反復で 28.83s -> 36.66s と単調劣化。
+  かつ rep1 内の baseline -> off -> on の単調増加が**実行順序と完全に一致**
+  しており、熱ドリフトと arm 効果が交絡している（arm順序を固定して回した
+  計測設計そのものの欠陥）。ここで中断。
+
+  → 今後この種の測定をするときは (i) 同一セッション内ペア比較で基準を定義、
+    (ii) 反復回数と許容ばらつきを事前に決める、(iii) arm順序を反転/ランダム化
+    して熱ドリフトと交絡させない、の3点を計測設計に必ず入れること。
+
+
+## (E) メモリ: 設計判断6の見積り（36バイト/voxel増分）の裏取り
+
+グリッドメモリが支配的になる細解像度条件で測る必要がある。
+条件: chest_room.yaml, n=1e5, --dose-grid --resolution 2, workers=1
+      グリッド形状 (250, 250, 198) = 12,375,000 voxel
+
+  統計OFF peak memory footprint  2,767,112,640 B
+  統計ON  peak memory footprint  3,234,695,928 B
+  差 467,583,288 B / 12,375,000 voxel = 37.78 バイト/voxel
+  設計判断6の見積り 36 バイト/voxel（kerma_sum2 + h10_sum2 + n_batches_hit(int32)
+  + スナップショット2枚）と 5% 以内で一致 → 裏取り成功。
+
+  注意: このOFF側の実行は壁時間がスリープで汚染されている（real 642s /
+  user 6.17s）。ピークメモリはスリープの影響を受けないため値は有効だが、
+  **同じ実行から壁時間を読んではいけない**。
+
+  既定解像度（n=1e6, resolution=5cm, 790,000 voxel）での同じ引き算は
+  86.7バイト/voxel相当となりノイズが大きい（輸送側の光子バッチバッファ等が
+  グリッド差分に対して無視できないため）。理論値検証は対象量が支配的になる
+  条件を選んで測ること。

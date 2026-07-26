@@ -37,6 +37,10 @@ python3 -m venv .venv
 
 # 線量/H*(10)マップの断面図（既定: 最大値ボクセルを通る3断面＋ジオメトリー輪郭）
 .venv/bin/python -m chatcarlo plot dose.npz --scene examples/chest_room.yaml -o maps.png
+
+# 相対誤差Rマップ（--dose-out書き出し時のみ。統計未到達ボクセルは灰色で塗り分け）
+.venv/bin/python -m chatcarlo plot dose.npz --scene examples/chest_room.yaml \
+    --quantity relerr-dose -o relerr.png
 ```
 
 `.claude/skills/vive-check/` に、上記4コマンドを「ジオメトリー確認→軌跡確認→
@@ -97,6 +101,27 @@ track-length estimator（グリッド）の**2つの独立推定量が統計誤�
 求める（`VoxelGrid.h10_map_pSv`）。線量は既定で`Gy/history`・`pSv/history`
 単位で出力し、`source.mas`指定時はSpekPyの絶対フルエンスで実際の
 `Gy`・`pSv`に校正する（`chatcarlo/source.py: photon_count_through_field`）。
+
+## 統計不確かさ（相対誤差R）
+
+`--dose-grid`は既定でボクセルごとの相対誤差R（=SEM/平均値）を推定する
+（`docs/plan_statistical_uncertainty.md`）。transportバッチ（history数の区切り）
+ごとの寄与和・寄与和二乗を蓄積し不偏推定するバッチ統計方式で、乱数は一切
+消費しない。統計機構のON/OFFで線量・H*(10)の結果は常にビット一致する
+（`--no-uncertainty`は表示を省くだけで、値そのものは変わらない）。
+
+**Rの解釈の目安**（MCNP流）: R<0.05は概ね信頼できる、0.05〜0.10はまずまず、
+0.10〜0.20は疑わしい、0.20超は無意味。ただし**Rが小さいことは必要条件であって
+十分条件ではない**——寄与バッチ数が少ないボクセルは、まだ大きな寄与を引いて
+いないだけで偶然Rが小さく出る楽観バイアスを持つ。`run --dose-grid`は最大値に
+Rと寄与バッチ数を必ず並記し、`plot --quantity relerr-dose`/`relerr-h10`は
+寄与バッチ0のボクセルをRの値に関係なく灰色で塗り分ける。**Rと寄与バッチ数は
+セットで見ること。**
+
+既定の`-n 1e5`・`--batch-size 200,000`ではバッチ数M=1（統計推定不可）になる
+——これは意図的な既定値で、統計を見たい場合は`-n`を増やすか`--batch-size`を
+下げる。M<2のときは黙ってnanを出さず、実際の設定値から計算した具体的な
+対処法をメッセージで表示する。
 
 ## 断面積データの出どころ
 
@@ -173,3 +198,9 @@ Hp(10,0°)・実効線量E(AP)と数値的にほぼ一致することが知ら�
       非対応。線エネルギー5 keV未満はK端超でも局所吸収扱い。データは全てxraylib
       〈EdgeEnergy/FluorYield/RadRate/LineEnergy/CS_Photo_Partial、EPDLベース〉。
       計画: [docs/plan_fluorescence.md](docs/plan_fluorescence.md)）
+- [x] 統計不確かさの一級市民化（バッチ統計による相対誤差R、`run --dose-grid`が
+      最大値にRと寄与バッチ数を並記、`plot --quantity relerr-dose`/`relerr-h10`が
+      マップを描画。ON/OFFで結果は常にビット一致。
+      計画: [docs/plan_statistical_uncertainty.md](docs/plan_statistical_uncertainty.md)）
+- [x] 教育用の光子軌跡アニメーション（`chatcarlo animate`。orbit/relay/
+      first-personカメラ、時間圧縮＋相互作用時のスローモーション、HUD）

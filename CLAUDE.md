@@ -149,7 +149,7 @@ covered by a regression test in `tests/test_materials.py`. Re-fetch data with `s
 `scripts/fetch_h_star_10.py`, never by hand-typing values.
 
 **Statistical uncertainty is a first-class output, not an afterthought** ([tally.py](chatcarlo/tally.py),
-[docs/plan_statistical_uncertainty.md](docs/plan_statistical_uncertainty.md), Phase 0-3 complete). Batch statistics
+[docs/plan_statistical_uncertainty.md](docs/plan_statistical_uncertainty.md), Phase 0-4 complete). Batch statistics
 (batch ≡ transport batch, `batch_size` histories) give an unbiased relative-error estimator R = SEM/mean per voxel
 and per material, on by default (`track_uncertainty=True`), toggled off with `run --no-uncertainty`. The estimator
 uses a snapshot-diff accumulator so totals are bit-identical whether tracking is on or off — turning it on never
@@ -190,9 +190,12 @@ the same caution. Full writeup: [docs/lessons_learned.md](docs/lessons_learned.m
 question before assuming it's the extreme-value-statistics pathology above**: if the max-value voxel's R is high
 or its contributing-batch-count is low, the apparent growth may simply be statistical noise from an
 under-sampled voxel, not a systematic tally artifact — re-run at higher `-n` (or lower `--batch-size`) before
-concluding anything about `max_substeps`. This re-verification itself is still open (see
-[docs/plan_statistical_uncertainty.md](docs/plan_statistical_uncertainty.md) Phase 4 / [[future-directions]]
-candidate 3).
+concluding anything about `max_substeps`. This re-verification itself is still open — Phase 4 of
+[docs/plan_statistical_uncertainty.md](docs/plan_statistical_uncertainty.md) built and confirmed the R tooling
+itself (memory formula, 1/√N scaling, estimator-swap equivalence all verified; the ON/OFF wall-time cost came
+back below this machine's measurement floor at `--workers 1`, and is unresolved at `--workers 4`), but did not
+use it to re-run this specific `max_substeps` question. That re-verification is tracked separately under
+[[future-directions]] candidate 3.
 
 ## Scene files
 
