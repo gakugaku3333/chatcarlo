@@ -1,121 +1,263 @@
-"""Phase B-1a: per-historyスカラー輸送カーネルの実現性プローブ（Numba njit）。
+"""Phase B-1: per-history輸送カーネル（Numba njit、tallyなしパス）。
 
-docs/plan_chatcarlo_speedup_post_egs5.md のPhase B設計に基づく。**これはB-1の
-最終実装ではなくスループット計測専用のプローブ**——アドバイザーレビューの助言に
-従い、まず「per-historyスカラーループをコンパイルすれば1.5M histories/sに届く
-のか」だけを最小コストで確認してから、物理的完全性（蛍光・多材料・多形状）を
-順に積み増す方針にした。
+docs/plan_chatcarlo_speedup_post_egs5.md のPhase B設計に基づく。B-1a（
+`chatcarlo/kernel.py`の初版、コミット履歴参照）で「per-historyスカラー
+ループをコンパイルすれば1.5M histories/sの目標に届くのか」だけを
+最小コスト（water単色・box1個・背景真空・蛍光無効）で確認し、premise確認は
+合格だった。本バージョン（B-1b）はその簡略化を全て解消する:
 
-**このプローブの意図的な簡略化（B-1bで解消する）**:
-- 材料は`water`単色（box 1個）のみ。box外の背景は真空として扱う（μ=0で
-  相互作用させない）——本番シーン（`water60_free`等）はbackground="air"だが、
-  境界マージンは0.01cmとごく薄く寄与が無視できる領域であり、スループット
-  プローブとしては許容する（統計的クロスチェックはB-1bで背景を正しく
-  扱ってから行う）。
-- K殻蛍光は無効固定（`fluorescence_enabled=False`相当）。xraylibの
-  `CS_Photo_Partial`呼び出しがnjit内で使えない（B-0で確認済み）ため、
-  テーブル化が必要——このプローブでは後回しにした。
-- 元素間でエネルギー格子が同一であることを要求する（`bake_material_tables`が
-  検証）。water(H,O)は両元素とも吸収端が格子下限1 keV未満のため成立するが、
-  重元素を含む材料は非対応（Step 1と同じ制約、docs/plan_chatcarlo_speedup_post_egs5.md
-  Step 1参照）。
-- 乱数はプローブ全体で単一の`np.random.seed()`のみ（historyをまたいでMT19937
-  ストリームを継続する、単一スレッド前提）。チャンク単位の決定的シード
-  （B-0で確定した設計）はprange並列化を実装するB-1bで導入する。
+1. **多材料対応**: 材料は`chatcarlo.materials.element_composition`が返す
+   任意の元素構成（重元素含む）を、材料コード配列でN個まで焼き込む。
+   元素ごとのエネルギー格子は材料間は元より**元素間でも共有を仮定しない**
+   （B-1aの「water(H,O)は偶然grid一致」という前提をここでは置かない——
+   airのAr(Z=18)は吸収端補強点により2031点の非等間隔格子になり、H/N/O
+   (2000点・等間隔)と混在する。`_element_index_frac`が対数等間隔なら算術
+   ±1補正、非等間隔ならsearchsorted相当の二分探索にフォールバックする、
+   元素単位の判定——`materials._element_interp_index_frac`と同じ設計）。
+2. **多形状（box複数）対応**: シーンはbox物体を複数持て、`geometry.Geometry`
+   と同じ「リスト後方が優先」規則・世界境界脱出規則で解析面トラッキングする
+   （cylinder/sphereはB-1c、計画書参照、未対応）。
+3. **K殻蛍光**: `physics.sample_fluorescence`のロジックを、xraylibの
+   `CS_Photo_Partial`呼び出し（njit内で不可、B-0で確認済み）をエネルギー格子上に
+   事前テーブル化したK殻イオン化分率で置き換えて再現する。
+4. **prange並列化＋チャンク単位の決定的シード**: B-0で確定した設計
+   （`SeedSequence.spawn`でチャンクごとの整数シードをnjitの外で生成し、
+   各prange反復の先頭で`np.random.seed(derived_seed)`する）を実装。
+   同一(seed, n_chunks)なら再現するが、n_chunksを変えると別ストリーム分割に
+   なるため統計的にのみ同等（`--workers`と同じ制約、意図した設計）。
 
-物理サンプリングのロジックは`chatcarlo/physics.py`のベクトル化実装
-（`sample_compton_bound`・`sample_rayleigh_cos_theta`・`transport_photons`の
-主ループ）をスカラー・njit向けに書き直したもので、アルゴリズムは同一
-（Kahn型棄却法+S(Z,q)追加棄却、2段階レイリー逆変換+角度棄却、解析面
-トラッキング）。乱数消費順序・アルゴリズム自体はレガシーMT19937を使う都合上
-ベクトル化参照実装（PCG64）とビット一致しない——Phase Bはそもそもビット一致を
-要求せず統計的クロスチェックで検証する設計（計画書「Phase Bの検証戦略」）。
+**乱数はレガシーMT19937（njit内で使える唯一のAPI）、ベクトル化参照実装
+（`transport.transport_photons`、PCG64）とはビット一致しない**——Phase Bは
+そもそもビット一致を要求せず統計的クロスチェックで検証する設計
+（計画書「Phase Bの検証戦略」）。統計的クロスチェック本体は
+`docs/speedup_baseline/kernel_crosscheck.py`（層1）。
 """
 from __future__ import annotations
 
+import functools
 import math
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 
 import numpy as np
-from numba import njit
+import xraylib
+from numba import njit, prange
 
-from .materials import (_element_xs_tables, density, element_composition,
+from .materials import (_element_energy_grid_kev, _element_xs_tables, density,
+                         element_composition, fluorescence_k_data,
                          incoherent_sq_table, rayleigh_cumulative_table)
 
 _MEC2_KEV = 511.0
 _HC_KEV_ANGSTROM = 12.3984193
+_FLUOR_CUTOFF_KEV = 5.0  # physics.py の _FLUOR_CUTOFF_KEV と同値
 _BOUNDARY_EPS = 1e-6
 _BOX_EPS = 1e-12
 _NUDGE = 1e-6
+_MAX_LINES = 8  # physics.sample_fluorescence が抽選する8線（KL2..KP_LINE）と同数
+_N_INCOH = 2000  # materials.incoherent_sq_table の既定n（元素によらず一定）
+_N_RAYL = 2000   # materials.rayleigh_cumulative_table の既定n（同上）
+
+
+@functools.lru_cache(maxsize=None)
+def _k_shell_table_for_element(z: int):
+    """元素zのK殻蛍光データ＋K殻イオン化分率テーブルを、この元素の断面積格子
+    （`_element_energy_grid_kev(z)`）上に焼く。
+
+    physics.sample_fluorescence が光電吸収イベントごとにxraylibへライブで
+    問い合わせている`CS_Photo_Partial(Z,K,E)/CS_Photo(Z,E)`比を、njit内から
+    呼べる形にするため事前計算する（B-0で確認済み: xraylib呼び出しはnjit内で
+    失敗する）。lru_cacheで元素ごとに1回だけ計算する（吸収端未満の格子点は
+    ゼロのまま——`sample_fluorescence`と同じくE<=edgeでは蛍光を出さない）。
+    """
+    edge_keV, omega_k, line_energies, line_probs = fluorescence_k_data(z)
+    grid = _element_energy_grid_kev(z)
+    k_frac = np.zeros_like(grid)
+    if omega_k > 0.0 and line_energies.size > 0 and line_energies.max() >= _FLUOR_CUTOFF_KEV:
+        for i, ek in enumerate(grid):
+            if ek <= edge_keV:
+                continue
+            try:
+                cs_photo = xraylib.CS_Photo(z, float(ek))
+                cs_k = xraylib.CS_Photo_Partial(z, xraylib.K_SHELL, float(ek))
+            except ValueError:
+                continue
+            if cs_photo > 0.0:
+                k_frac[i] = cs_k / cs_photo
+    return edge_keV, omega_k, line_energies, line_probs, k_frac
+
+
+def _bake_single_material(name: str) -> dict:
+    """材料1個分の元素別データを、パディング前のリスト形式で集める。"""
+    comp = element_composition(name)
+    zs, fracs = [], []
+    log_e, photo, compt, rayl = [], [], [], []
+    step, n_grid = [], []
+    incoh_q, incoh_s, rayl_x, rayl_a = [], [], [], []
+    k_edge, k_omega, k_line_e, k_line_p, n_lines, k_frac = [], [], [], [], [], []
+    for z, f in comp:
+        t = _element_xs_tables(z)
+        zs.append(z)
+        fracs.append(f)
+        log_e.append(t["log_e"])
+        photo.append(t["photo"])
+        compt.append(t["compt"])
+        rayl.append(t["rayl"])
+        step.append(t["uniform_step"] if t["uniform_step"] is not None else -1.0)
+        n_grid.append(len(t["log_e"]))
+        q_grid, s_grid = incoherent_sq_table(z)
+        incoh_q.append(q_grid)
+        incoh_s.append(s_grid)
+        x_grid, a_grid = rayleigh_cumulative_table(z)
+        rayl_x.append(x_grid)
+        rayl_a.append(a_grid)
+        edge, omega, line_e, line_p, kf = _k_shell_table_for_element(z)
+        k_edge.append(edge)
+        k_omega.append(omega)
+        k_line_e.append(line_e)
+        k_line_p.append(line_p)
+        n_lines.append(len(line_e))
+        k_frac.append(kf)
+    return dict(n_elem=len(comp), zs=zs, fracs=fracs, log_e=log_e, photo=photo, compt=compt,
+                rayl=rayl, step=step, n_grid=n_grid, incoh_q=incoh_q, incoh_s=incoh_s,
+                rayl_x=rayl_x, rayl_a=rayl_a, k_edge=k_edge, k_omega=k_omega,
+                k_line_e=k_line_e, k_line_p=k_line_p, n_lines=n_lines, k_frac=k_frac,
+                density=density(name))
 
 
 @dataclass
-class MaterialTables:
-    """water専用に焼いた元素別断面積テーブル（B-1aは単一材料のみ対応）。"""
-    n_elem: int
-    zs: np.ndarray            # (n_elem,) int64
-    fracs: np.ndarray         # (n_elem,) float64 質量分率
-    log_e_grid: np.ndarray    # (n_grid,) 元素間で共有（要検証）
-    step: float               # 対数等間隔ステップ幅
-    photo_tab: np.ndarray     # (n_elem, n_grid) log(光電cs[cm2/g])
-    compt_tab: np.ndarray     # (n_elem, n_grid) log(コンプトンcs[cm2/g])
-    rayl_tab: np.ndarray      # (n_elem, n_grid) log(レイリーcs[cm2/g])
-    incoh_q: np.ndarray       # (n_elem, n_incoh) S(Z,q)テーブルのq格子
-    incoh_s: np.ndarray       # (n_elem, n_incoh) S(Z,q)
-    rayl_x: np.ndarray        # (n_elem, n_rayl) レイリー累積テーブルのx=q^2格子
-    rayl_a: np.ndarray        # (n_elem, n_rayl) 累積A(x)
-    density_g_cm3: float
+class SceneMaterialTables:
+    """N材料分の元素別データを固定形状ndarrayへパディングして焼いたもの。
 
-
-def bake_material_tables(material: str) -> MaterialTables:
-    """材料の元素別断面積テーブルをカーネル用の固定長ndarrayに焼く。
-
-    B-1aは軽元素（対数等間隔格子・かつ元素間でグリッドが完全一致）のみ対応
-    （water=H,Oで検証済み、chatcarlo/materials.pyの`_uniform_log_step`/
-    `_element_energy_grid_kev`参照）。この前提が崩れる材料（重元素を含む・
-    格子が元素間で不一致）は明示的にValueErrorで弾く——プローブの結果を
-    間違った前提のまま拡大解釈しないため。
+    材料コードはmaterial_namesのindex（0起点）。全ての(材料,元素)配列は
+    (n_materials, max_elem, ...)形状にパディングされ、実際の要素数は
+    n_elem[材料]・n_grid[材料,元素]で境界を示す——パディング部分は
+    ルックアップのクリップ範囲外なので参照されない。
     """
-    comp = element_composition(material)
-    n_elem = len(comp)
-    zs = np.array([z for z, _ in comp], dtype=np.int64)
-    fracs = np.array([f for _, f in comp], dtype=np.float64)
+    material_names: list[str]
+    n_elem: np.ndarray        # (n_mat,) int64
+    zs: np.ndarray            # (n_mat, max_elem) int64
+    fracs: np.ndarray         # (n_mat, max_elem) float64
+    log_e: np.ndarray         # (n_mat, max_elem, max_grid) float64
+    step: np.ndarray          # (n_mat, max_elem) float64（-1.0なら非等間隔=bisect）
+    n_grid: np.ndarray        # (n_mat, max_elem) int64
+    photo: np.ndarray         # (n_mat, max_elem, max_grid) float64 log(cs)
+    compt: np.ndarray         # 同上
+    rayl: np.ndarray          # 同上
+    incoh_q: np.ndarray       # (n_mat, max_elem, 2000)
+    incoh_s: np.ndarray       # (n_mat, max_elem, 2000)
+    rayl_x: np.ndarray        # (n_mat, max_elem, 2000)
+    rayl_a: np.ndarray        # (n_mat, max_elem, 2000)
+    k_edge: np.ndarray        # (n_mat, max_elem)
+    k_omega: np.ndarray       # (n_mat, max_elem)
+    k_line_e: np.ndarray      # (n_mat, max_elem, 8)
+    k_line_p: np.ndarray      # (n_mat, max_elem, 8)
+    n_lines: np.ndarray       # (n_mat, max_elem) int64
+    k_frac: np.ndarray        # (n_mat, max_elem, max_grid)
+    density_g_cm3: np.ndarray  # (n_mat,)
 
-    base_log_e = None
-    step = None
-    photo_rows, compt_rows, rayl_rows = [], [], []
-    incoh_q_rows, incoh_s_rows = [], []
-    rayl_x_rows, rayl_a_rows = [], []
-    for z in zs.tolist():
-        t = _element_xs_tables(z)
-        if t["uniform_step"] is None:
-            raise ValueError(
-                f"材料'{material}'の元素Z={z}は非等間隔格子——B-1aプローブは非対応"
-                "（軽元素のみ対応、docs/plan_chatcarlo_speedup_post_egs5.md Step 1参照）")
-        if base_log_e is None:
-            base_log_e = t["log_e"]
-            step = t["uniform_step"]
-        elif t["log_e"].shape != base_log_e.shape or not np.allclose(t["log_e"], base_log_e):
-            raise ValueError(
-                f"材料'{material}'は元素間でエネルギー格子が一致しない——B-1aプローブは非対応")
-        photo_rows.append(t["photo"])
-        compt_rows.append(t["compt"])
-        rayl_rows.append(t["rayl"])
-        q_grid, s_grid = incoherent_sq_table(int(z))
-        incoh_q_rows.append(q_grid)
-        incoh_s_rows.append(s_grid)
-        x_grid, a_grid = rayleigh_cumulative_table(int(z))
-        rayl_x_rows.append(x_grid)
-        rayl_a_rows.append(a_grid)
+    def code(self, name: str) -> int:
+        return self.material_names.index(name)
 
-    return MaterialTables(
-        n_elem=n_elem, zs=zs, fracs=fracs,
-        log_e_grid=base_log_e, step=float(step),
-        photo_tab=np.stack(photo_rows), compt_tab=np.stack(compt_rows),
-        rayl_tab=np.stack(rayl_rows),
-        incoh_q=np.stack(incoh_q_rows), incoh_s=np.stack(incoh_s_rows),
-        rayl_x=np.stack(rayl_x_rows), rayl_a=np.stack(rayl_a_rows),
-        density_g_cm3=density(material),
+
+def bake_scene_materials(material_names: list[str]) -> SceneMaterialTables:
+    """材料名のリストをカーネル用の固定長ndarrayに焼く（重元素・非等間隔格子・
+    元素混在も対応、B-1aの「軽元素かつ元素間共有格子」制約を解消）。
+    """
+    raw = [_bake_single_material(n) for n in material_names]
+    n_materials = len(raw)
+    max_elem = max(r["n_elem"] for r in raw)
+    max_grid = max(len(g) for r in raw for g in r["log_e"])
+
+    n_elem = np.zeros(n_materials, dtype=np.int64)
+    zs = np.zeros((n_materials, max_elem), dtype=np.int64)
+    fracs = np.zeros((n_materials, max_elem))
+    log_e = np.zeros((n_materials, max_elem, max_grid))
+    step = np.full((n_materials, max_elem), -1.0)
+    n_grid = np.zeros((n_materials, max_elem), dtype=np.int64)
+    photo = np.zeros((n_materials, max_elem, max_grid))
+    compt = np.zeros((n_materials, max_elem, max_grid))
+    rayl = np.zeros((n_materials, max_elem, max_grid))
+    incoh_q = np.zeros((n_materials, max_elem, _N_INCOH))
+    incoh_s = np.zeros((n_materials, max_elem, _N_INCOH))
+    rayl_x = np.zeros((n_materials, max_elem, _N_RAYL))
+    rayl_a = np.zeros((n_materials, max_elem, _N_RAYL))
+    k_edge = np.zeros((n_materials, max_elem))
+    k_omega = np.zeros((n_materials, max_elem))
+    k_line_e = np.zeros((n_materials, max_elem, _MAX_LINES))
+    k_line_p = np.zeros((n_materials, max_elem, _MAX_LINES))
+    n_lines = np.zeros((n_materials, max_elem), dtype=np.int64)
+    k_frac = np.zeros((n_materials, max_elem, max_grid))
+    density_g_cm3 = np.zeros(n_materials)
+
+    for mi, r in enumerate(raw):
+        n_elem[mi] = r["n_elem"]
+        density_g_cm3[mi] = r["density"]
+        for ei in range(r["n_elem"]):
+            g = r["n_grid"][ei]
+            zs[mi, ei] = r["zs"][ei]
+            fracs[mi, ei] = r["fracs"][ei]
+            log_e[mi, ei, :g] = r["log_e"][ei]
+            if g < max_grid:
+                log_e[mi, ei, g:] = r["log_e"][ei][-1]
+            step[mi, ei] = r["step"][ei]
+            n_grid[mi, ei] = g
+            photo[mi, ei, :g] = r["photo"][ei]
+            compt[mi, ei, :g] = r["compt"][ei]
+            rayl[mi, ei, :g] = r["rayl"][ei]
+            incoh_q[mi, ei, :] = r["incoh_q"][ei]
+            incoh_s[mi, ei, :] = r["incoh_s"][ei]
+            rayl_x[mi, ei, :] = r["rayl_x"][ei]
+            rayl_a[mi, ei, :] = r["rayl_a"][ei]
+            k_edge[mi, ei] = r["k_edge"][ei]
+            k_omega[mi, ei] = r["k_omega"][ei]
+            nl = r["n_lines"][ei]
+            n_lines[mi, ei] = nl
+            k_line_e[mi, ei, :nl] = r["k_line_e"][ei]
+            k_line_p[mi, ei, :nl] = r["k_line_p"][ei]
+            k_frac[mi, ei, :g] = r["k_frac"][ei]
+
+    return SceneMaterialTables(
+        material_names=list(material_names), n_elem=n_elem, zs=zs, fracs=fracs,
+        log_e=log_e, step=step, n_grid=n_grid, photo=photo, compt=compt, rayl=rayl,
+        incoh_q=incoh_q, incoh_s=incoh_s, rayl_x=rayl_x, rayl_a=rayl_a,
+        k_edge=k_edge, k_omega=k_omega, k_line_e=k_line_e, k_line_p=k_line_p,
+        n_lines=n_lines, k_frac=k_frac, density_g_cm3=density_g_cm3,
+    )
+
+
+@dataclass
+class SceneGeometry:
+    """box物体のリスト（リスト後方優先）＋背景材料＋世界境界（Geometry.bbox_min/max
+    と同じ既定margin加算）を、カーネル用の固定形状ndarrayに焼いたもの。
+    """
+    n_boxes: int
+    box_center: np.ndarray     # (n_boxes, 3)
+    box_half: np.ndarray       # (n_boxes, 3)
+    box_material: np.ndarray   # (n_boxes,) int64 材料コード
+    background_material: int
+    world_center: np.ndarray   # (3,)
+    world_half: np.ndarray     # (3,)
+
+
+def bake_box_scene(boxes: list[dict], background: str, tables: SceneMaterialTables,
+                    bbox_margin_cm: float = 50.0) -> SceneGeometry:
+    """`geometry.Geometry`と同じ規則（box物体のみ、cylinder/sphereはB-1c未対応）
+    でシーンをカーネル用に焼く。boxes: [{"center":(x,y,z),"size_cm":(sx,sy,sz),
+    "material":name}, ...]。
+    """
+    n = len(boxes)
+    centers = np.array([b["center"] for b in boxes], dtype=np.float64)
+    halves = np.array([np.asarray(b["size_cm"], dtype=np.float64) / 2.0 for b in boxes])
+    mat_codes = np.array([tables.code(b["material"]) for b in boxes], dtype=np.int64)
+    los = centers - halves
+    his = centers + halves
+    bbox_min = los.min(axis=0) - bbox_margin_cm
+    bbox_max = his.max(axis=0) + bbox_margin_cm
+    world_center = (bbox_min + bbox_max) / 2.0
+    world_half = (bbox_max - bbox_min) / 2.0
+    return SceneGeometry(
+        n_boxes=n, box_center=centers, box_half=halves, box_material=mat_codes,
+        background_material=tables.code(background), world_center=world_center,
+        world_half=world_half,
     )
 
 
@@ -124,8 +266,8 @@ def _lerp_lookup(x_grid, y_grid, x):
     """1本の昇順格子上での二分探索＋線形補間（境界はクランプ）。
 
     Compton用S(Z,q)テーブル・Rayleigh用累積テーブル（順変換・逆変換とも）で
-    共有する唯一のルックアップ実装（アドバイザー助言: 手書きバリアントを
-    増やすとそこに符号ミスが混入するため、1本にまとめて使い回す）。
+    共有する唯一のルックアップ実装（手書きバリアントを増やすとそこに符号
+    ミスが混入するため、1本にまとめて使い回す）。
     """
     n = x_grid.shape[0]
     if x <= x_grid[0]:
@@ -148,66 +290,58 @@ def _lerp_lookup(x_grid, y_grid, x):
 
 
 @njit(cache=True)
-def _arith_index_frac(log_e_grid, step, log_eq):
-    """chatcarlo.materials._element_interp_index_frac のスカラー・±1補正版。
+def _element_index_frac(log_e_row, step, n_grid_actual, log_eq):
+    """元素1個分のエネルギー格子上での区分線形補間インデックス・重み。
 
-    searchsorted+clipと厳密に同じインデックスを返すことがベクトル化版で
-    フルグリッド突き合わせテスト済み（tests/test_materials.py）——同じ±1
-    補正ロジックをそのままスカラーに移植する。
+    `materials._element_interp_index_frac`のスカラー版: 格子が対数等間隔
+    （step>0）なら算術±1補正、非等間隔（step<0、重元素の吸収端補強格子）なら
+    searchsorted+clip相当の二分探索（`materials._element_interp_index_frac`の
+    フォールバック経路と同一の選択則）。`n_grid_actual`はパディング前の実際の
+    格子長——パディング領域を探索範囲に含めないための境界（bake_scene_materials
+    参照）。
     """
-    hi = log_e_grid.shape[0] - 1
-    idx = int((log_eq - log_e_grid[0]) / step) + 1
-    if idx < 1:
-        idx = 1
-    if idx > hi:
-        idx = hi
-    if log_eq <= log_e_grid[idx - 1]:
-        idx -= 1
+    hi = n_grid_actual - 1
+    if step > 0.0:
+        idx = int((log_eq - log_e_row[0]) / step) + 1
         if idx < 1:
             idx = 1
-    if log_e_grid[idx] < log_eq:
-        idx += 1
         if idx > hi:
             idx = hi
-    x0 = log_e_grid[idx - 1]
-    x1 = log_e_grid[idx]
+        if log_eq <= log_e_row[idx - 1]:
+            idx -= 1
+            if idx < 1:
+                idx = 1
+        if log_e_row[idx] < log_eq:
+            idx += 1
+            if idx > hi:
+                idx = hi
+    else:
+        lo_i = 0
+        hi_i = n_grid_actual
+        while lo_i < hi_i:
+            mid = (lo_i + hi_i) // 2
+            if log_e_row[mid] < log_eq:
+                lo_i = mid + 1
+            else:
+                hi_i = mid
+        idx = lo_i
+        if idx < 1:
+            idx = 1
+        if idx > hi:
+            idx = hi
+    x0 = log_e_row[idx - 1]
+    x1 = log_e_row[idx]
     frac = (log_eq - x0) / (x1 - x0)
     return idx, frac
-
-
-@njit(cache=True)
-def _mu_and_parts_scalar(e, n_elem, fracs, log_e_grid, step, photo_tab, compt_tab, rayl_tab,
-                          density_g_cm3, photo_e, compt_e, rayl_e):
-    """透過光子1個の(μ[1/cm], 光電/コンプトン/レイリー質量減弱係数和[cm2/g])。
-
-    photo_e/compt_e/rayl_e は呼び出し側が確保した長さn_elemの作業配列
-    （後段の元素抽選で再利用するため、ここで書き込んで返す）。
-    """
-    log_eq = math.log(e)
-    idx, frac = _arith_index_frac(log_e_grid, step, log_eq)
-    tot_photo = 0.0
-    tot_compt = 0.0
-    tot_rayl = 0.0
-    for i in range(n_elem):
-        p = math.exp(photo_tab[i, idx - 1] + frac * (photo_tab[i, idx] - photo_tab[i, idx - 1]))
-        c = math.exp(compt_tab[i, idx - 1] + frac * (compt_tab[i, idx] - compt_tab[i, idx - 1]))
-        r = math.exp(rayl_tab[i, idx - 1] + frac * (rayl_tab[i, idx] - rayl_tab[i, idx - 1]))
-        photo_e[i] = p
-        compt_e[i] = c
-        rayl_e[i] = r
-        tot_photo += fracs[i] * p
-        tot_compt += fracs[i] * c
-        tot_rayl += fracs[i] * r
-    mu = (tot_photo + tot_compt + tot_rayl) * density_g_cm3
-    return mu, tot_photo, tot_compt, tot_rayl
 
 
 @njit(cache=True)
 def _select_element(n_elem, fracs, cs_e, total):
     """元素別断面積(fracs[i]*cs_e[i])に比例する重みで元素indexを1個抽選する。
 
-    `physics.sample_compton_element`/`sample_rayleigh_element`と同じ選択則
-    （質量分率×断面積で規格化した累積分布からの逆変換）のスカラー版。
+    `physics.sample_compton_element`/`sample_rayleigh_element`/
+    `sample_photo_element`と同じ選択則（質量分率×断面積で規格化した累積分布
+    からの逆変換）のスカラー版。
     """
     target = np.random.random() * total
     cum = 0.0
@@ -219,10 +353,189 @@ def _select_element(n_elem, fracs, cs_e, total):
 
 
 @njit(cache=True)
-def _intersect_box_scalar(ox, oy, oz, dx, dy, dz, hx, hy, hz):
-    """原点中心・半径(hx,hy,hz)の軸平行boxとレイの交差（entry,exit,hit）。
+def _mu_and_parts_scalar(e, mat_idx, n_elem_arr, fracs_arr, log_e_arr, step_arr, n_grid_arr,
+                          photo_arr, compt_arr, rayl_arr, density_arr,
+                          photo_e, compt_e, rayl_e, idx_e, frac_e):
+    """材料mat_idxの透過光子1個の(μ[1/cm], 光電/コンプトン/レイリー質量減弱係数和[cm2/g])。
 
-    chatcarlo.geometry._intersect_box のスカラー版（3軸のスラブ交差判定）。
+    元素ごとに独立したエネルギー格子ルックアップを行う（B-1aの「元素間で
+    格子共有」という前提をここでは置かない——air中のAr(Z=18)はH/N/O等と
+    格子が異なる、上のモジュールdocstring参照）。photo_e/compt_e/rayl_e/
+    idx_e/frac_eは呼び出し側が確保した長さmax_elemの作業配列（後段の元素
+    抽選・K殻蛍光サンプリングで同じ(idx,frac)を再利用するため書き込んで返す
+    ——二重導出を避ける、B-1aレビュー指摘と同じ理由）。
+    """
+    n_elem = n_elem_arr[mat_idx]
+    log_eq = math.log(e)
+    tot_photo = 0.0
+    tot_compt = 0.0
+    tot_rayl = 0.0
+    for i in range(n_elem):
+        idx, frac = _element_index_frac(log_e_arr[mat_idx, i], step_arr[mat_idx, i],
+                                         n_grid_arr[mat_idx, i], log_eq)
+        idx_e[i] = idx
+        frac_e[i] = frac
+        p = math.exp(photo_arr[mat_idx, i, idx - 1]
+                      + frac * (photo_arr[mat_idx, i, idx] - photo_arr[mat_idx, i, idx - 1]))
+        c = math.exp(compt_arr[mat_idx, i, idx - 1]
+                      + frac * (compt_arr[mat_idx, i, idx] - compt_arr[mat_idx, i, idx - 1]))
+        r = math.exp(rayl_arr[mat_idx, i, idx - 1]
+                      + frac * (rayl_arr[mat_idx, i, idx] - rayl_arr[mat_idx, i, idx - 1]))
+        photo_e[i] = p
+        compt_e[i] = c
+        rayl_e[i] = r
+        fr = fracs_arr[mat_idx, i]
+        tot_photo += fr * p
+        tot_compt += fr * c
+        tot_rayl += fr * r
+    mu = (tot_photo + tot_compt + tot_rayl) * density_arr[mat_idx]
+    return mu, tot_photo, tot_compt, tot_rayl
+
+
+@njit(cache=True)
+def _sample_fluorescence_scalar(mat_idx, elem_i, e_kev, idx, frac,
+                                 k_edge_arr, k_omega_arr, k_frac_arr, k_line_e_arr,
+                                 k_line_p_arr, n_lines_arr):
+    """physics.sample_fluorescence のスカラー版（K殻蛍光の放出可否・線エネルギー）。
+
+    idx/fracは光電相互作用元素選択のために`_mu_and_parts_scalar`が既に求めた
+    この元素のエネルギー格子インデックスをそのまま使う（同じ理由で二重導出
+    しない）。K殻イオン化分率`k_frac_arr`は`_k_shell_table_for_element`が
+    xraylib.CS_Photo_Partial/CS_Photo比を事前に焼いたテーブル
+    （njit内でxraylibを直接呼べないため、B-0で確認済みの制約）。
+    """
+    edge = k_edge_arr[mat_idx, elem_i]
+    if e_kev <= edge:
+        return False, 0.0
+    omega = k_omega_arr[mat_idx, elem_i]
+    if omega <= 0.0:
+        return False, 0.0
+    kf0 = k_frac_arr[mat_idx, elem_i, idx - 1]
+    kf1 = k_frac_arr[mat_idx, elem_i, idx]
+    k_frac = kf0 + frac * (kf1 - kf0)
+    if np.random.random() >= k_frac:
+        return False, 0.0
+    if np.random.random() >= omega:
+        return False, 0.0
+    n = n_lines_arr[mat_idx, elem_i]
+    r = np.random.random()
+    cum = 0.0
+    chosen = n - 1
+    for j in range(n):
+        cum += k_line_p_arr[mat_idx, elem_i, j]
+        if r <= cum:
+            chosen = j
+            break
+    e_line = k_line_e_arr[mat_idx, elem_i, chosen]
+    if e_line < _FLUOR_CUTOFF_KEV:
+        return False, 0.0
+    return True, e_line
+
+
+@njit(cache=True)
+def _sample_compton_bound_scalar(mat_idx, e_kev, n_elem, fracs_arr, zs_arr, incoh_q_arr,
+                                  incoh_s_arr, compt_e_work, tot_compt):
+    """physics.sample_compton_bound のスカラー版（Kahn型棄却＋S(Z,q)/Z追加棄却）。
+
+    元素選択は呼び出し側で既に求めたcompt_e_work・tot_compt（`_mu_and_parts_scalar`
+    が同じエネルギーで既に計算済みの値）をそのまま使う——独立再計算による
+    二重導出を避ける（B-1aレビューで訂正した設計をそのまま踏襲）。
+    """
+    elem_i = _select_element(n_elem, fracs_arr[mat_idx], compt_e_work, tot_compt)
+    z_val = float(zs_arr[mat_idx, elem_i])
+    alpha = e_kev / _MEC2_KEV
+    eps_min = 1.0 / (1.0 + 2.0 * alpha)
+    envelope = 1.0 / eps_min + eps_min
+    while True:
+        xi1 = np.random.random()
+        xi2 = np.random.random()
+        eps_p = eps_min + xi1 * (1.0 - eps_min)
+        cos_p = 1.0 - (1.0 / eps_p - 1.0) / alpha
+        sin2_p = 1.0 - cos_p * cos_p
+        g = 1.0 / eps_p + eps_p - sin2_p
+        if xi2 * envelope > g:
+            continue
+        cc = cos_p
+        if cc > 1.0:
+            cc = 1.0
+        if cc < -1.0:
+            cc = -1.0
+        theta_p = math.acos(cc)
+        q_p = e_kev * math.sin(theta_p / 2.0) / _HC_KEV_ANGSTROM
+        s_over_z = _lerp_lookup(incoh_q_arr[mat_idx, elem_i], incoh_s_arr[mat_idx, elem_i], q_p) / z_val
+        xi3 = np.random.random()
+        if xi3 <= s_over_z:
+            return eps_p, cos_p, elem_i
+
+
+@njit(cache=True)
+def _sample_rayleigh_cos_theta_scalar(mat_idx, e_kev, n_elem, fracs_arr, rayl_x_arr, rayl_a_arr,
+                                       rayl_e_work, tot_rayl):
+    """physics.sample_rayleigh_cos_theta のスカラー版（2段階逆変換＋角度棄却）。
+
+    元素選択は`_mu_and_parts_scalar`が同じエネルギーで既に求めたrayl_e_work・
+    tot_rayl を再利用する（`_sample_compton_bound_scalar`と同じ理由）。
+    """
+    elem_i = _select_element(n_elem, fracs_arr[mat_idx], rayl_e_work, tot_rayl)
+    x_max = (e_kev / _HC_KEV_ANGSTROM) ** 2
+    while True:
+        a_cut = _lerp_lookup(rayl_x_arr[mat_idx, elem_i], rayl_a_arr[mat_idx, elem_i], x_max)
+        xi1 = np.random.random()
+        x_val = _lerp_lookup(rayl_a_arr[mat_idx, elem_i], rayl_x_arr[mat_idx, elem_i], xi1 * a_cut)
+        if x_val > x_max:
+            x_val = x_max
+        cos_c = 1.0 - 2.0 * x_val / x_max
+        if cos_c > 1.0:
+            cos_c = 1.0
+        if cos_c < -1.0:
+            cos_c = -1.0
+        xi2 = np.random.random()
+        if xi2 <= (1.0 + cos_c * cos_c) / 2.0:
+            return cos_c, elem_i
+
+
+@njit(cache=True)
+def _scatter_direction_scalar(dx, dy, dz, cos_theta):
+    """physics.scatter_direction のスカラー版。方位角は一様抽選。"""
+    sin_theta = math.sqrt(max(1.0 - cos_theta * cos_theta, 0.0))
+    phi = np.random.random() * 2.0 * math.pi
+    if abs(dz) < 0.999:
+        upx, upy, upz = 0.0, 0.0, 1.0
+    else:
+        upx, upy, upz = 1.0, 0.0, 0.0
+    ux = upy * dz - upz * dy
+    uy = upz * dx - upx * dz
+    uz = upx * dy - upy * dx
+    un = math.sqrt(ux * ux + uy * uy + uz * uz)
+    ux /= un
+    uy /= un
+    uz /= un
+    vx = dy * uz - dz * uy
+    vy = dz * ux - dx * uz
+    vz = dx * uy - dy * ux
+    cphi = math.cos(phi)
+    sphi = math.sin(phi)
+    nx = sin_theta * cphi * ux + sin_theta * sphi * vx + cos_theta * dx
+    ny = sin_theta * cphi * uy + sin_theta * sphi * vy + cos_theta * dy
+    nz = sin_theta * cphi * uz + sin_theta * sphi * vz + cos_theta * dz
+    nn = math.sqrt(nx * nx + ny * ny + nz * nz)
+    return nx / nn, ny / nn, nz / nn
+
+
+@njit(cache=True)
+def _isotropic_direction_scalar():
+    """physics.isotropic_direction のスカラー版（蛍光X線の放出方向）。"""
+    cos_theta = np.random.random() * 2.0 - 1.0
+    sin_theta = math.sqrt(max(1.0 - cos_theta * cos_theta, 0.0))
+    phi = np.random.random() * 2.0 * math.pi
+    return sin_theta * math.cos(phi), sin_theta * math.sin(phi), cos_theta
+
+
+@njit(cache=True)
+def _intersect_box_scalar(ox, oy, oz, dx, dy, dz, hx, hy, hz):
+    """box中心を原点とした相対座標(ox,oy,oz)でのbox交差（entry,exit,hit）。
+
+    `geometry._intersect_box`のスカラー版（3軸のスラブ交差判定）。
     """
     t_enter = -np.inf
     t_exit = np.inf
@@ -260,22 +573,43 @@ def _intersect_box_scalar(ox, oy, oz, dx, dy, dz, hx, hy, hz):
 
 
 @njit(cache=True)
-def _next_boundary_scalar(ox, oy, oz, dx, dy, dz, hx, hy, hz, whx, why, whz):
-    """geometry.Geometry.next_boundary のスカラー版（単一box専用）。
+def _material_at_scalar(x, y, z, n_boxes, box_center, box_half, box_material, background_code):
+    """`geometry.Geometry.material_at`のスカラー版（リスト後方優先、既定background）。"""
+    mat = background_code
+    for bi in range(n_boxes):
+        cx = box_center[bi, 0]
+        cy = box_center[bi, 1]
+        cz = box_center[bi, 2]
+        hx = box_half[bi, 0]
+        hy = box_half[bi, 1]
+        hz = box_half[bi, 2]
+        if abs(x - cx) <= hx and abs(y - cy) <= hy and abs(z - cz) <= hz:
+            mat = box_material[bi]
+    return mat
 
-    戻り値: (次の境界までの距離t, 世界脱出かどうか)。box自体の境界（材料が
-    変わる点）と、box+marginで作る世界境界の両方を判定し、世界境界の方が
-    近ければ脱出とする（Geometry.next_boundaryと同じ規則）。
-    """
-    t_enter, t_exit, hit = _intersect_box_scalar(ox, oy, oz, dx, dy, dz, hx, hy, hz)
+
+@njit(cache=True)
+def _next_boundary_scalar(x, y, z, dx, dy, dz, n_boxes, box_center, box_half,
+                           world_center, world_half):
+    """`geometry.Geometry.next_boundary`のスカラー版（box複数対応）。"""
     t_obj = np.inf
-    if hit:
-        if t_enter > _BOUNDARY_EPS:
-            t_obj = t_enter
-        if t_exit > _BOUNDARY_EPS and t_exit < t_obj:
-            t_obj = t_exit
+    for bi in range(n_boxes):
+        cx = box_center[bi, 0]
+        cy = box_center[bi, 1]
+        cz = box_center[bi, 2]
+        hx = box_half[bi, 0]
+        hy = box_half[bi, 1]
+        hz = box_half[bi, 2]
+        t_enter, t_exit, hit = _intersect_box_scalar(x - cx, y - cy, z - cz, dx, dy, dz, hx, hy, hz)
+        if hit:
+            if t_enter > _BOUNDARY_EPS and t_enter < t_obj:
+                t_obj = t_enter
+            if t_exit > _BOUNDARY_EPS and t_exit < t_obj:
+                t_obj = t_exit
 
-    _, t_exit_w, hit_w = _intersect_box_scalar(ox, oy, oz, dx, dy, dz, whx, why, whz)
+    _, t_exit_w, hit_w = _intersect_box_scalar(
+        x - world_center[0], y - world_center[1], z - world_center[2],
+        dx, dy, dz, world_half[0], world_half[1], world_half[2])
     t_exit_world = t_exit_w if hit_w else np.inf
 
     escape = t_exit_world <= t_obj
@@ -284,131 +618,43 @@ def _next_boundary_scalar(ox, oy, oz, dx, dy, dz, hx, hy, hz, whx, why, whz):
 
 
 @njit(cache=True)
-def _scatter_direction_scalar(dx, dy, dz, cos_theta):
-    """physics.scatter_direction のスカラー版。方位角は一様抽選。"""
-    sin_theta = math.sqrt(max(1.0 - cos_theta * cos_theta, 0.0))
-    phi = np.random.random() * 2.0 * math.pi
-    if abs(dz) < 0.999:
-        upx, upy, upz = 0.0, 0.0, 1.0
-    else:
-        upx, upy, upz = 1.0, 0.0, 0.0
-    # u = up x d
-    ux = upy * dz - upz * dy
-    uy = upz * dx - upx * dz
-    uz = upx * dy - upy * dx
-    un = math.sqrt(ux * ux + uy * uy + uz * uz)
-    ux /= un
-    uy /= un
-    uz /= un
-    # v = d x u
-    vx = dy * uz - dz * uy
-    vy = dz * ux - dx * uz
-    vz = dx * uy - dy * ux
-    cphi = math.cos(phi)
-    sphi = math.sin(phi)
-    nx = sin_theta * cphi * ux + sin_theta * sphi * vx + cos_theta * dx
-    ny = sin_theta * cphi * uy + sin_theta * sphi * vy + cos_theta * dy
-    nz = sin_theta * cphi * uz + sin_theta * sphi * vz + cos_theta * dz
-    nn = math.sqrt(nx * nx + ny * ny + nz * nz)
-    return nx / nn, ny / nn, nz / nn
-
-
-@njit(cache=True)
-def _sample_compton_bound_scalar(e_kev, n_elem, fracs, zs, incoh_q, incoh_s, compt_e_work, tot_compt):
-    """physics.sample_compton_bound のスカラー版（Kahn型棄却＋S(Z,q)/Z追加棄却）。
-
-    元素選択は呼び出し側で既に求めたcompt_e_work（各元素の断面積）とtot_compt
-    （`_mu_and_parts_scalar`が同じエネルギーで既に計算済みの合計）をそのまま
-    使う——ここで`tot_compt`を独立に再計算すると、同じ量を2箇所で別々に
-    導出することになり、将来どちらかだけ変更されて静かに食い違うリスクが
-    生まれる（レビューで指摘、lessons_learnedの「二重導出」系の教訓と同型）。
-    S(Z,q)/Zの割り算は選ばれた元素の実際の原子番号`zs[elem_i]`を使う
-    （割り算対象を1.0に固定するのは物理的に誤り——旧稿のバグをレビューで訂正）。
-    """
-    elem_i = _select_element(n_elem, fracs, compt_e_work, tot_compt)
-    z_val = float(zs[elem_i])
-    alpha = e_kev / _MEC2_KEV
-    eps_min = 1.0 / (1.0 + 2.0 * alpha)
-    envelope = 1.0 / eps_min + eps_min
-    while True:
-        xi1 = np.random.random()
-        xi2 = np.random.random()
-        eps_p = eps_min + xi1 * (1.0 - eps_min)
-        cos_p = 1.0 - (1.0 / eps_p - 1.0) / alpha
-        sin2_p = 1.0 - cos_p * cos_p
-        g = 1.0 / eps_p + eps_p - sin2_p
-        if xi2 * envelope > g:
-            continue
-        cc = cos_p
-        if cc > 1.0:
-            cc = 1.0
-        if cc < -1.0:
-            cc = -1.0
-        theta_p = math.acos(cc)
-        q_p = e_kev * math.sin(theta_p / 2.0) / _HC_KEV_ANGSTROM
-        s_over_z = _lerp_lookup(incoh_q[elem_i], incoh_s[elem_i], q_p) / z_val
-        xi3 = np.random.random()
-        if xi3 <= s_over_z:
-            return eps_p, cos_p, elem_i
-
-
-@njit(cache=True)
-def _sample_rayleigh_cos_theta_scalar(e_kev, n_elem, fracs, rayl_x, rayl_a, rayl_e_work, tot_rayl):
-    """physics.sample_rayleigh_cos_theta のスカラー版（2段階逆変換＋角度棄却）。
-
-    元素選択は`_mu_and_parts_scalar`が同じエネルギーで既に求めたrayl_e_workと
-    tot_rayl（合計）をそのまま再利用する（`_sample_compton_bound_scalar`と
-    同じ理由——二重導出を避ける）。
-    """
-    elem_i = _select_element(n_elem, fracs, rayl_e_work, tot_rayl)
-    x_max = (e_kev / _HC_KEV_ANGSTROM) ** 2
-    while True:
-        a_cut = _lerp_lookup(rayl_x[elem_i], rayl_a[elem_i], x_max)
-        xi1 = np.random.random()
-        x_val = _lerp_lookup(rayl_a[elem_i], rayl_x[elem_i], xi1 * a_cut)
-        if x_val > x_max:
-            x_val = x_max
-        cos_c = 1.0 - 2.0 * x_val / x_max
-        if cos_c > 1.0:
-            cos_c = 1.0
-        if cos_c < -1.0:
-            cos_c = -1.0
-        xi2 = np.random.random()
-        if xi2 <= (1.0 + cos_c * cos_c) / 2.0:
-            return cos_c
-
-
-@njit(cache=True)
 def _transport_one(energy0_kev, ox, oy, oz, dx, dy, dz,
-                    hx, hy, hz, whx, why, whz,
-                    n_elem, zs, fracs, log_e_grid, step, density_g_cm3,
-                    photo_tab, compt_tab, rayl_tab, incoh_q, incoh_s, rayl_x, rayl_a):
-    """1光子をtransport_photons(transport.py)の主ループと同一アルゴリズムで
-    吸収/脱出まで追跡する（box 1個・材料water固定・box外は真空・蛍光無効の
-    B-1aプローブ版）。
+                    n_boxes, box_center, box_half, box_material, background_material,
+                    world_center, world_half,
+                    n_elem_arr, zs_arr, fracs_arr, log_e_arr, step_arr, n_grid_arr, density_arr,
+                    photo_arr, compt_arr, rayl_arr, incoh_q_arr, incoh_s_arr, rayl_x_arr, rayl_a_arr,
+                    k_edge_arr, k_omega_arr, k_frac_arr, k_line_e_arr, k_line_p_arr, n_lines_arr,
+                    max_elem, fluorescence_enabled):
+    """1光子を`transport_photons`(transport.py)の主ループと同一アルゴリズムで
+    吸収/脱出まで追跡する。box複数・材料複数・K殻蛍光対応（B-1b）。
 
-    戻り値: (n_scatter, absorbed, escaped, final_energy_kev, energy_deposited_kev)。
+    戻り値: (n_scatter, absorbed, escaped, final_energy_kev, energy_deposited_kev,
+    n_fluorescence)。
     """
     x, y, z = ox, oy, oz
+    dirx, diry, dirz = dx, dy, dz
     e = energy0_kev
     tau = -math.log(np.random.random())
     n_scatter = 0
+    n_fluorescence = 0
     energy_deposited = 0.0
-    photo_e = np.empty(n_elem)
-    compt_e = np.empty(n_elem)
-    rayl_e = np.empty(n_elem)
+    photo_e = np.empty(max_elem)
+    compt_e = np.empty(max_elem)
+    rayl_e = np.empty(max_elem)
+    idx_e = np.empty(max_elem, dtype=np.int64)
+    frac_e = np.empty(max_elem)
 
     while True:
-        inside = (abs(x) <= hx) and (abs(y) <= hy) and (abs(z) <= hz)
-        if inside:
-            mu, tot_photo, tot_compt, tot_rayl = _mu_and_parts_scalar(
-                e, n_elem, fracs, log_e_grid, step, photo_tab, compt_tab, rayl_tab,
-                density_g_cm3, photo_e, compt_e, rayl_e)
-        else:
-            mu = 0.0
-            tot_photo = tot_compt = tot_rayl = 0.0
+        mat_idx = _material_at_scalar(x, y, z, n_boxes, box_center, box_half,
+                                       box_material, background_material)
+        mu, tot_photo, tot_compt, tot_rayl = _mu_and_parts_scalar(
+            e, mat_idx, n_elem_arr, fracs_arr, log_e_arr, step_arr, n_grid_arr,
+            photo_arr, compt_arr, rayl_arr, density_arr,
+            photo_e, compt_e, rayl_e, idx_e, frac_e)
 
-        t_boundary, escape = _next_boundary_scalar(x, y, z, dx, dy, dz, hx, hy, hz, whx, why, whz)
+        t_boundary, escape = _next_boundary_scalar(x, y, z, dirx, diry, dirz,
+                                                    n_boxes, box_center, box_half,
+                                                    world_center, world_half)
         mu_safe = mu if mu > 0.0 else 1e-30
         tau_to_boundary = mu * t_boundary
         will_interact = tau < tau_to_boundary
@@ -417,17 +663,17 @@ def _transport_one(energy0_kev, ox, oy, oz, dx, dy, dz,
             ds = tau / mu_safe
         else:
             ds = t_boundary
-        x += dx * ds
-        y += dy * ds
-        z += dz * ds
+        x += dirx * ds
+        y += diry * ds
+        z += dirz * ds
 
         if not will_interact:
             tau -= tau_to_boundary
-            x += dx * _NUDGE
-            y += dy * _NUDGE
-            z += dz * _NUDGE
+            x += dirx * _NUDGE
+            y += diry * _NUDGE
+            z += dirz * _NUDGE
             if escape:
-                return n_scatter, False, True, e, energy_deposited
+                return n_scatter, False, True, e, energy_deposited, n_fluorescence
             continue
 
         n_scatter += 1
@@ -437,55 +683,134 @@ def _transport_one(energy0_kev, ox, oy, oz, dx, dy, dz,
         p_compt = tot_compt / tot
 
         if r_type < p_photo:
-            energy_deposited += e
-            return n_scatter, True, False, e, energy_deposited
-
-        if r_type < p_photo + p_compt:
+            n_elem = n_elem_arr[mat_idx]
+            elem_i = _select_element(n_elem, fracs_arr[mat_idx], photo_e, tot_photo)
+            emit = False
+            e_line = 0.0
+            if fluorescence_enabled:
+                emit, e_line = _sample_fluorescence_scalar(
+                    mat_idx, elem_i, e, idx_e[elem_i], frac_e[elem_i],
+                    k_edge_arr, k_omega_arr, k_frac_arr, k_line_e_arr, k_line_p_arr, n_lines_arr)
+            if emit:
+                energy_deposited += e - e_line
+                n_fluorescence += 1
+                dirx, diry, dirz = _isotropic_direction_scalar()
+                e = e_line
+                tau = -math.log(np.random.random())
+            else:
+                energy_deposited += e
+                return n_scatter, True, False, e, energy_deposited, n_fluorescence
+        elif r_type < p_photo + p_compt:
             eps_c, cos_c, _elem = _sample_compton_bound_scalar(
-                e, n_elem, fracs, zs, incoh_q, incoh_s, compt_e, tot_compt)
+                mat_idx, e, n_elem_arr[mat_idx], fracs_arr, zs_arr, incoh_q_arr, incoh_s_arr,
+                compt_e, tot_compt)
             e_new = e * eps_c
             energy_deposited += e - e_new
-            dx, dy, dz = _scatter_direction_scalar(dx, dy, dz, cos_c)
+            dirx, diry, dirz = _scatter_direction_scalar(dirx, diry, dirz, cos_c)
             e = e_new
             tau = -math.log(np.random.random())
         else:
-            cos_c = _sample_rayleigh_cos_theta_scalar(e, n_elem, fracs, rayl_x, rayl_a, rayl_e, tot_rayl)
-            dx, dy, dz = _scatter_direction_scalar(dx, dy, dz, cos_c)
+            cos_c, _elem = _sample_rayleigh_cos_theta_scalar(
+                mat_idx, e, n_elem_arr[mat_idx], fracs_arr, rayl_x_arr, rayl_a_arr, rayl_e, tot_rayl)
+            dirx, diry, dirz = _scatter_direction_scalar(dirx, diry, dirz, cos_c)
             tau = -math.log(np.random.random())
-        # レイリー・コンプトン散乱後は光子が生き残るのでreturnせずループを継続
-        # （n_scatter・energy_depositedは次回の境界/相互作用判定に持ち越す）。
+        # 光電(蛍光放出時)・コンプトン・レイリーいずれも光子が生き残るので
+        # returnせずループを継続する。
 
 
-@njit(cache=True)
-def _run_batch_scalar(n_histories, base_seed, energy0_kev, ox, oy, oz, dx, dy, dz,
-                       hx, hy, hz, whx, why, whz,
-                       n_elem, zs, fracs, log_e_grid, step, density_g_cm3,
-                       photo_tab, compt_tab, rayl_tab, incoh_q, incoh_s, rayl_x, rayl_a):
-    """single-threadでn_histories回`_transport_one`を回す（B-1aは並列化前）。
+@njit(cache=True, parallel=True)
+def _run_batch_scalar(n_histories, n_chunks, chunk_seeds, chunk_offsets, chunk_counts,
+                       energy0_kev, ox, oy, oz, dx, dy, dz,
+                       n_boxes, box_center, box_half, box_material, background_material,
+                       world_center, world_half,
+                       n_elem_arr, zs_arr, fracs_arr, log_e_arr, step_arr, n_grid_arr, density_arr,
+                       photo_arr, compt_arr, rayl_arr, incoh_q_arr, incoh_s_arr, rayl_x_arr, rayl_a_arr,
+                       k_edge_arr, k_omega_arr, k_frac_arr, k_line_e_arr, k_line_p_arr, n_lines_arr,
+                       max_elem, fluorescence_enabled):
+    """`_transport_one`をn_histories回、n_chunks個のチャンクにprange分割して回す。
 
-    乱数は`np.random.seed(base_seed)`をバッチ先頭で1回だけ呼び、以降は
-    MT19937ストリームをhistoryをまたいで継続する——ベクトル化参照実装が
-    1本のGeneratorをバッチ全体で使い回すのと同じ発想（`transport_photons`の
-    `rng`引数）。チャンク単位の決定的シード割り当て（B-0で確定した設計、
-    prange並列化用）はこのプローブでは未実装——B-1bでprange対応時に導入する。
+    乱数再現性設計（B-0で確定）: `SeedSequence.spawn`で生成した決定的な
+    整数シード(chunk_seeds)を、各チャンク（=各prangeスレッド反復）の先頭で
+    `np.random.seed()`する。同一(seed, n_chunks)の組では再現するが、n_chunksを
+    変えるとチャンク分割自体が変わるため他のn_chunksとはビット一致しない
+    （既存`--workers`と同じ制約、計画書参照）。n_chunks=1でシングルスレッド
+    実行になる（parallel=True自体のスレッド起動オーバーヘッドはprange範囲が
+    1個のときも僅かに残るため、B-1aのシングルスレッド専用ループとの比較は
+    別途行う）。
     """
-    np.random.seed(base_seed)
     n_scatter = np.zeros(n_histories, dtype=np.int64)
     absorbed = np.zeros(n_histories, dtype=np.bool_)
     escaped = np.zeros(n_histories, dtype=np.bool_)
     final_energy = np.zeros(n_histories, dtype=np.float64)
     energy_deposited = np.zeros(n_histories, dtype=np.float64)
-    for i in range(n_histories):
-        ns, ab, es, fe, ed = _transport_one(
-            energy0_kev, ox, oy, oz, dx, dy, dz, hx, hy, hz, whx, why, whz,
-            n_elem, zs, fracs, log_e_grid, step, density_g_cm3,
-            photo_tab, compt_tab, rayl_tab, incoh_q, incoh_s, rayl_x, rayl_a)
-        n_scatter[i] = ns
-        absorbed[i] = ab
-        escaped[i] = es
-        final_energy[i] = fe
-        energy_deposited[i] = ed
-    return n_scatter, absorbed, escaped, final_energy, energy_deposited
+    n_fluorescence = np.zeros(n_histories, dtype=np.int64)
+
+    for c in prange(n_chunks):
+        np.random.seed(chunk_seeds[c])
+        start = chunk_offsets[c]
+        cnt = chunk_counts[c]
+        for k in range(cnt):
+            i = start + k
+            ns, ab, es, fe, ed, nf = _transport_one(
+                energy0_kev, ox, oy, oz, dx, dy, dz,
+                n_boxes, box_center, box_half, box_material, background_material,
+                world_center, world_half,
+                n_elem_arr, zs_arr, fracs_arr, log_e_arr, step_arr, n_grid_arr, density_arr,
+                photo_arr, compt_arr, rayl_arr, incoh_q_arr, incoh_s_arr, rayl_x_arr, rayl_a_arr,
+                k_edge_arr, k_omega_arr, k_frac_arr, k_line_e_arr, k_line_p_arr, n_lines_arr,
+                max_elem, fluorescence_enabled)
+            n_scatter[i] = ns
+            absorbed[i] = ab
+            escaped[i] = es
+            final_energy[i] = fe
+            energy_deposited[i] = ed
+            n_fluorescence[i] = nf
+    return n_scatter, absorbed, escaped, final_energy, energy_deposited, n_fluorescence
+
+
+def _chunk_plan(n_histories: int, n_chunks: int, seed) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
+    """n_historiesをn_chunks個にできるだけ均等分割し、チャンクごとの決定的な
+    整数シードを`SeedSequence.spawn`で生成する（njitの外、B-0で確定した設計）。
+    """
+    n_chunks = max(1, min(n_chunks, n_histories))
+    counts = np.full(n_chunks, n_histories // n_chunks, dtype=np.int64)
+    counts[: n_histories % n_chunks] += 1
+    offsets = np.concatenate([[0], np.cumsum(counts)[:-1]]).astype(np.int64)
+    children = np.random.SeedSequence(seed).spawn(n_chunks)
+    seeds = np.array([int(c.generate_state(1)[0]) for c in children], dtype=np.int64)
+    return seeds, offsets, counts
+
+
+@dataclass
+class KernelBatchResult:
+    n_scatter: np.ndarray
+    absorbed: np.ndarray
+    escaped: np.ndarray
+    final_energy: np.ndarray
+    energy_deposited: np.ndarray
+    n_fluorescence: np.ndarray
+
+
+def run_batch(tables: SceneMaterialTables, geom: SceneGeometry, energy0_kev: float,
+              origin: tuple[float, float, float], direction: tuple[float, float, float],
+              n_histories: int, seed: int, n_chunks: int = 1,
+              fluorescence_enabled: bool = True) -> KernelBatchResult:
+    """カーネル本体を1バッチ実行する低レベルAPI（tallyなし、B-2で統合予定）。"""
+    max_elem = tables.zs.shape[1]
+    chunk_seeds, chunk_offsets, chunk_counts = _chunk_plan(n_histories, n_chunks, seed)
+    (n_scatter, absorbed, escaped, final_energy, energy_deposited, n_fluorescence) = _run_batch_scalar(
+        n_histories, len(chunk_seeds), chunk_seeds, chunk_offsets, chunk_counts,
+        energy0_kev, origin[0], origin[1], origin[2], direction[0], direction[1], direction[2],
+        geom.n_boxes, geom.box_center, geom.box_half, geom.box_material, geom.background_material,
+        geom.world_center, geom.world_half,
+        tables.n_elem, tables.zs, tables.fracs, tables.log_e, tables.step, tables.n_grid,
+        tables.density_g_cm3, tables.photo, tables.compt, tables.rayl,
+        tables.incoh_q, tables.incoh_s, tables.rayl_x, tables.rayl_a,
+        tables.k_edge, tables.k_omega, tables.k_frac, tables.k_line_e, tables.k_line_p, tables.n_lines,
+        max_elem, fluorescence_enabled)
+    return KernelBatchResult(n_scatter=n_scatter, absorbed=absorbed, escaped=escaped,
+                              final_energy=final_energy, energy_deposited=energy_deposited,
+                              n_fluorescence=n_fluorescence)
 
 
 @dataclass
@@ -498,48 +823,48 @@ class ProbeResult:
     fraction_escaped: float
     mean_scatter_events: float
     energy_deposited_keV: float
+    n_fluorescence: int
 
 
 def run_water_slab_probe(thickness_cm: float, energy_kev: float, n_histories: int,
-                          seed: int = 1, warmup_histories: int = 1000) -> ProbeResult:
-    """water60_free等のスラブシナリオ（box 1個・鉛筆ビーム垂直入射）を
-    `_run_batch_scalar`カーネルで実行し、スループット[histories/s]を計測する。
+                          seed: int = 1, warmup_histories: int = 1000, n_chunks: int = 1,
+                          fluorescence_enabled: bool = True,
+                          background: str = "air") -> ProbeResult:
+    """water60_free等のスラブシナリオ（box1個・鉛筆ビーム垂直入射）をB-1b
+    カーネルで実行し、スループット[histories/s]を計測する。
 
-    B-1a限定の簡略化（モジュールdocstring参照: 背景真空・蛍光無効・単一材料）
-    を明示した上で使うこと——`transport_photons`との統計的クロスチェックは
-    まだ行っていない。`warmup_histories`は初回JIT compileを計測対象から
-    除外するための空撃ち（B-0実測: cache=True初回コンパイルは約0.3秒、
-    計測対象に含めると especially小n・大nどちらでもスループットの解釈を誤る）。
+    B-1aと異なり、既定で背景は本番と同じ"air"・K殻蛍光も既定で有効
+    （`transport_photons`のデフォルト`fluorescence_enabled=True`と同じ）——
+    `docs/speedup_baseline/kernel_crosscheck.py`の統計的クロスチェックと
+    同じ条件で速度も測れるようにするため。
     """
-    tables = bake_material_tables("water")
+    tables = bake_scene_materials(["water", background])
     margin = 0.01
     hx, hy, hz = thickness_cm / 2.0, 50.0, 50.0
-    whx, why, whz = hx + margin, hy + margin, hz + margin
-    ox, oy, oz = -hx - margin, 0.0, 0.0
-    ddx, ddy, ddz = 1.0, 0.0, 0.0
-
-    common_args = (energy_kev, ox, oy, oz, ddx, ddy, ddz, hx, hy, hz, whx, why, whz,
-                   tables.n_elem, tables.zs, tables.fracs, tables.log_e_grid, tables.step,
-                   tables.density_g_cm3, tables.photo_tab, tables.compt_tab, tables.rayl_tab,
-                   tables.incoh_q, tables.incoh_s, tables.rayl_x, tables.rayl_a)
+    boxes = [{"center": (0.0, 0.0, 0.0), "size_cm": (thickness_cm, 100.0, 100.0), "material": "water"}]
+    geom = bake_box_scene(boxes, background=background, tables=tables, bbox_margin_cm=margin)
+    origin = (-hx - margin, 0.0, 0.0)
+    direction = (1.0, 0.0, 0.0)
 
     # JITコンパイル（+ファイルキャッシュ書き込み）を計測対象から除外するための空撃ち。
-    _run_batch_scalar(warmup_histories, 0, *common_args)
+    run_batch(tables, geom, energy_kev, origin, direction, warmup_histories, seed=0,
+              n_chunks=n_chunks, fluorescence_enabled=fluorescence_enabled)
 
     import time
     t0 = time.perf_counter()
-    n_scatter, absorbed, escaped, final_energy, energy_deposited = _run_batch_scalar(
-        n_histories, seed, *common_args)
+    r = run_batch(tables, geom, energy_kev, origin, direction, n_histories, seed=seed,
+                  n_chunks=n_chunks, fluorescence_enabled=fluorescence_enabled)
     wall_s = time.perf_counter() - t0
 
-    uncollided = float(np.sum(escaped & (n_scatter == 0))) / n_histories
+    uncollided = float(np.sum(r.escaped & (r.n_scatter == 0))) / n_histories
     return ProbeResult(
         n_histories=n_histories,
         wall_s=wall_s,
         histories_per_s=n_histories / wall_s,
         uncollided_frac=uncollided,
-        fraction_absorbed=float(np.sum(absorbed)) / n_histories,
-        fraction_escaped=float(np.sum(escaped)) / n_histories,
-        mean_scatter_events=float(np.sum(n_scatter)) / n_histories,
-        energy_deposited_keV=float(np.sum(energy_deposited)),
+        fraction_absorbed=float(np.sum(r.absorbed)) / n_histories,
+        fraction_escaped=float(np.sum(r.escaped)) / n_histories,
+        mean_scatter_events=float(np.sum(r.n_scatter)) / n_histories,
+        energy_deposited_keV=float(np.sum(r.energy_deposited)),
+        n_fluorescence=int(np.sum(r.n_fluorescence)),
     )

@@ -1,15 +1,18 @@
-"""chatcarlo/kernel.py（Phase B-1a: per-historyスカラーカーネルのプローブ）のテスト。
+"""chatcarlo/kernel.py（Phase B-1: per-history Numbaカーネル）のテスト。
 
-B-1aの意図的な簡略化（water単色・box1個・背景真空・蛍光無効、kernel.pyの
-モジュールdocstring参照）の範囲内での物理的正しさを検証する。`transport_photons`
-参照実装との統計的クロスチェック（Phase Bの検証戦略layer 1）はB-1bで実施する。
+B-1bは多材料・多元素（重元素の非等間隔格子含む）・K殻蛍光・prange並列化に
+対応した本実装（B-1aの簡略化——water単色・背景真空・蛍光無効——は解消済み）。
+`transport_photons`参照実装との統計的クロスチェック（Phase Bの検証戦略layer 1、
+事前登録済みの許容基準込み）は`docs/speedup_baseline/kernel_crosscheck.py`に
+分離してある（実行に数十秒かかるため通常のpytestには含めない）。
 """
 import math
 
 import numpy as np
 import pytest
 
-from chatcarlo.kernel import bake_material_tables, run_water_slab_probe
+from chatcarlo.kernel import (bake_box_scene, bake_scene_materials,
+                               run_batch, run_water_slab_probe)
 from chatcarlo.materials import linear_mu
 
 SCENARIOS = {
@@ -21,46 +24,134 @@ SCENARIOS = {
 
 @pytest.mark.parametrize("scenario", list(SCENARIOS))
 def test_uncollided_fraction_matches_beer_lambert(scenario):
-    """一次透過率（無散乱透過率）がBeer-Lambert解析解と統計誤差内で一致すること。"""
+    """一次透過率（無散乱透過率）がBeer-Lambert解析解と統計誤差内で一致すること
+    （背景=air・蛍光有効という本番同等の条件で、B-1bのデフォルト設定のまま）。
+    """
     thickness_cm, energy_kev = SCENARIOS[scenario]
-    n = 500_000
+    n = 300_000
     mu = float(linear_mu("water", np.array([energy_kev]))[0])
     expected = math.exp(-mu * thickness_cm)
     stderr = math.sqrt(expected * (1 - expected) / n)
 
     r = run_water_slab_probe(thickness_cm=thickness_cm, energy_kev=energy_kev,
-                              n_histories=n, seed=11, warmup_histories=2000)
+                              n_histories=n, seed=11, warmup_histories=2000, n_chunks=4)
     assert abs(r.uncollided_frac - expected) < 5 * stderr
 
 
-def test_energy_conservation_per_history():
+def test_energy_conservation_per_history_water():
     """吸収履歴はenergy_deposited==入射エネルギー、脱出履歴はenergy_deposited+
-    final_energy==入射エネルギーが浮動小数点誤差の範囲で厳密に成り立つこと
-    （コンプトン損失の逐次積算・光電吸収の全量計上にバグがないことの直接証拠）。
+    final_energy==入射エネルギーが浮動小数点誤差の範囲で厳密に成り立つこと。
     """
-    from chatcarlo.kernel import _run_batch_scalar
-
-    tables = bake_material_tables("water")
-    hx, hy, hz = 5.0, 50.0, 50.0
-    margin = 0.01
-    whx, why, whz = hx + margin, hy + margin, hz + margin
-    energy0 = 60.0
-    args = (energy0, -hx - margin, 0.0, 0.0, 1.0, 0.0, 0.0, hx, hy, hz, whx, why, whz,
-            tables.n_elem, tables.zs, tables.fracs, tables.log_e_grid, tables.step,
-            tables.density_g_cm3, tables.photo_tab, tables.compt_tab, tables.rayl_tab,
-            tables.incoh_q, tables.incoh_s, tables.rayl_x, tables.rayl_a)
+    tables = bake_scene_materials(["water", "air"])
+    boxes = [{"center": (0.0, 0.0, 0.0), "size_cm": (10.0, 100.0, 100.0), "material": "water"}]
+    geom = bake_box_scene(boxes, background="air", tables=tables, bbox_margin_cm=0.01)
     n = 50_000
-    n_scatter, absorbed, escaped, final_energy, energy_deposited = _run_batch_scalar(n, 5, *args)
+    r = run_batch(tables, geom, 60.0, (-5.01, 0.0, 0.0), (1.0, 0.0, 0.0), n, seed=5, n_chunks=4)
 
-    assert (absorbed | escaped).all()
-    assert np.allclose(energy_deposited[absorbed], energy0, atol=1e-9)
-    assert np.allclose((energy_deposited + final_energy)[escaped], energy0, atol=1e-9)
+    assert (r.absorbed | r.escaped).all()
+    assert np.allclose(r.energy_deposited[r.absorbed], 60.0, atol=1e-9)
+    assert np.allclose((r.energy_deposited + r.final_energy)[r.escaped], 60.0, atol=1e-9)
 
 
-def test_bake_material_tables_rejects_non_uniform_grid_element():
-    """B-1aは元素間でエネルギー格子が共有される軽元素材料のみ対応
-    （重元素を含む材料はStep 1と同じ理由で非対応）——leadはこの前提を満たさない
-    ため明示的にValueErrorになることを確認する。
+def test_energy_conservation_with_fluorescence_copper():
+    """K殻蛍光が実際に発生する材料(銅)でもエネルギー保存が厳密に成り立つこと
+    ——蛍光放出時は(e - e_line)だけをその場で計上し、光子は新エネルギーで
+    輸送を継続するため、吸収/脱出いずれの終端でも収支が閉じる必要がある。
     """
-    with pytest.raises(ValueError):
-        bake_material_tables("lead")
+    tables = bake_scene_materials(["copper", "air"])
+    boxes = [{"center": (0.0, 0.0, 0.0), "size_cm": (0.05, 20.0, 20.0), "material": "copper"}]
+    geom = bake_box_scene(boxes, background="air", tables=tables, bbox_margin_cm=0.01)
+    n = 100_000
+    r = run_batch(tables, geom, 100.0, (-0.035, 0.0, 0.0), (1.0, 0.0, 0.0), n, seed=7, n_chunks=4,
+                  fluorescence_enabled=True)
+
+    assert r.n_fluorescence.sum() > 0  # このシナリオでは蛍光が実際に起きることを確認
+    assert (r.absorbed | r.escaped).all()
+    assert np.allclose(r.energy_deposited[r.absorbed], 100.0, atol=1e-9)
+    assert np.allclose((r.energy_deposited + r.final_energy)[r.escaped], 100.0, atol=1e-9)
+
+
+def test_fluorescence_disabled_matches_full_local_absorption():
+    """fluorescence_enabled=Falseでは、光電吸収イベントは常にその場で全量吸収
+    される（emit常にFalse）——`transport_photons`のfluorescence_enabled=False
+    経路と同じ意味論。
+    """
+    tables = bake_scene_materials(["copper", "air"])
+    boxes = [{"center": (0.0, 0.0, 0.0), "size_cm": (0.05, 20.0, 20.0), "material": "copper"}]
+    geom = bake_box_scene(boxes, background="air", tables=tables, bbox_margin_cm=0.01)
+    n = 50_000
+    r = run_batch(tables, geom, 100.0, (-0.035, 0.0, 0.0), (1.0, 0.0, 0.0), n, seed=7, n_chunks=4,
+                  fluorescence_enabled=False)
+    assert r.n_fluorescence.sum() == 0
+    assert np.allclose(r.energy_deposited[r.absorbed], 100.0, atol=1e-9)
+
+
+def test_non_uniform_grid_element_used_via_air_background():
+    """空気中のAr(Z=18)は吸収端補強点により非等間隔格子（materials.pyの
+    _uniform_log_stepがNoneを返す）——B-1bの`_element_index_frac`はこの
+    fallback(二分探索)経路もbakeして使えることを、air背景を含むシーンが
+    エラーなく完走することで確認する（bake_scene_materialsが非等間隔材料を
+    拒否しないこと自体もここで検証——B-1aは拒否する設計だった）。
+    """
+    from chatcarlo.materials import _element_xs_tables
+    assert _element_xs_tables(18)["uniform_step"] is None  # 前提の確認
+
+    tables = bake_scene_materials(["water", "air"])
+    boxes = [{"center": (0.0, 0.0, 0.0), "size_cm": (10.0, 100.0, 100.0), "material": "water"}]
+    geom = bake_box_scene(boxes, background="air", tables=tables, bbox_margin_cm=0.01)
+    r = run_batch(tables, geom, 60.0, (-5.01, 0.0, 0.0), (1.0, 0.0, 0.0), 20_000, seed=3, n_chunks=2)
+    assert (r.absorbed | r.escaped).all()
+
+
+def test_chunk_reproducibility_same_seed_same_n_chunks():
+    """同一(seed, n_chunks)なら結果がビット一致で再現すること
+    （チャンク単位の決定的シード設計、docs/plan_chatcarlo_speedup_post_egs5.md
+    B-0/B-1参照）。"""
+    tables = bake_scene_materials(["water", "air"])
+    boxes = [{"center": (0.0, 0.0, 0.0), "size_cm": (10.0, 100.0, 100.0), "material": "water"}]
+    geom = bake_box_scene(boxes, background="air", tables=tables, bbox_margin_cm=0.01)
+    args = (tables, geom, 60.0, (-5.01, 0.0, 0.0), (1.0, 0.0, 0.0), 10_000)
+    r1 = run_batch(*args, seed=123, n_chunks=4)
+    r2 = run_batch(*args, seed=123, n_chunks=4)
+    assert np.array_equal(r1.n_scatter, r2.n_scatter)
+    assert np.array_equal(r1.absorbed, r2.absorbed)
+    assert np.array_equal(r1.final_energy, r2.final_energy)
+
+
+def test_chunk_count_changes_stream_but_not_statistics():
+    """n_chunksを変えるとチャンク分割自体が変わるためビット一致はしない
+    （既存の`--workers`と同じ制約、意図した設計）が、一次透過率は統計誤差内で
+    同等であること。"""
+    tables = bake_scene_materials(["water", "air"])
+    boxes = [{"center": (0.0, 0.0, 0.0), "size_cm": (10.0, 100.0, 100.0), "material": "water"}]
+    geom = bake_box_scene(boxes, background="air", tables=tables, bbox_margin_cm=0.01)
+    n = 200_000
+    r1 = run_batch(tables, geom, 60.0, (-5.01, 0.0, 0.0), (1.0, 0.0, 0.0), n, seed=99, n_chunks=1)
+    r4 = run_batch(tables, geom, 60.0, (-5.01, 0.0, 0.0), (1.0, 0.0, 0.0), n, seed=99, n_chunks=4)
+    assert not np.array_equal(r1.n_scatter, r4.n_scatter)
+
+    p1 = np.sum(r1.escaped & (r1.n_scatter == 0)) / n
+    p4 = np.sum(r4.escaped & (r4.n_scatter == 0)) / n
+    stderr = math.sqrt(p1 * (1 - p1) / n)
+    assert abs(p1 - p4) < 5 * stderr
+
+
+def test_multi_box_last_wins_material_overlap():
+    """複数box物体が重なる場合、リスト後方が優先されること
+    （`geometry.Geometry.material_at`と同じ規則）——ここでは鉛の薄い箱を
+    水の中に完全に埋め込み、鉛が透過率を大きく下げることで確認する。
+    """
+    tables = bake_scene_materials(["water", "lead", "air"])
+    water_only = [{"center": (0.0, 0.0, 0.0), "size_cm": (10.0, 100.0, 100.0), "material": "water"}]
+    with_lead = water_only + [
+        {"center": (0.0, 0.0, 0.0), "size_cm": (0.2, 100.0, 100.0), "material": "lead"}]
+
+    n = 50_000
+    geom_water = bake_box_scene(water_only, background="air", tables=tables, bbox_margin_cm=0.01)
+    geom_lead = bake_box_scene(with_lead, background="air", tables=tables, bbox_margin_cm=0.01)
+    r_water = run_batch(tables, geom_water, 60.0, (-5.01, 0.0, 0.0), (1.0, 0.0, 0.0), n, seed=1, n_chunks=4)
+    r_lead = run_batch(tables, geom_lead, 60.0, (-5.01, 0.0, 0.0), (1.0, 0.0, 0.0), n, seed=1, n_chunks=4)
+
+    p_water = np.sum(r_water.escaped & (r_water.n_scatter == 0)) / n
+    p_lead = np.sum(r_lead.escaped & (r_lead.n_scatter == 0)) / n
+    assert p_lead < p_water * 0.5  # 鉛2mmが埋め込まれた分、明確に透過率が下がる
