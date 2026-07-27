@@ -138,16 +138,43 @@ O(n)スキャンし、fancy indexで100MB級配列にgather/scatterする」。�
 per-historyスカラーループをコンパイルするしかない。コンセプト（冒頭の改訂注記）
 により、これはもはや設計思想上の障害ではない。
 
-### B-0: 実現性ゲート（最初に必ず確認）
+### B-0: 実現性ゲート【完了・通過】
 
-- **Numba×numpy互換性**: 現環境はPython 3.11.13 / numpy **2.4.6**（かなり新しい）。
-  Numbaはnumpy追従が遅れる傾向があるため、まず`.venv`に`pip install numba`して
-  import・`@njit`・`np.random.Generator`受け渡しが通るかを確認する。通らなければ
-  選択肢は (a)numpyをNumba対応版まで下げる（他依存: xraylib/scipy/spekpyとの整合
-  確認要）、(b)Cython、(c)C拡張。**この確認結果次第でB-1以降の技術選定が変わる**
-  ので、ゲートを通してから設計を確定する。
-- Numbaが通る場合の追加確認: `cache=True`でJITコンパイル結果がディスクキャッシュ
-  され、CLI起動ごとの再コンパイル（数秒）が初回のみになること。
+**結果: Numba採用で確定。** `pip install numba`が想定外に素直に通った——
+`numba==0.66.0`の依存制約は`numpy<2.5,>=1.22`で、現環境のnumpy 2.4.6を
+そのまま満たした（numpyダウングレードは不要、他依存パッケージへの影響なし）。
+
+確認できたこと（実測、`/private/tmp/.../scratchpad/numba_gate.py`,`numba_gate2.py`）:
+
+- `@njit`スカラーループ・`@njit(parallel=True)`＋`prange`とも正常動作。
+- `cache=True`は初回0.344s（コンパイル込み）、2回目以降0.005秒
+  （ディスクキャッシュ有効、ただし`-c`の対話実行では効かず、ファイル実行が必要）。
+- 実行環境のスレッド数: `numba.get_num_threads()` = 8（Apple Silicon実機）。
+- `xraylib.CS_Photo`等のnjit内呼び出しは想定通り失敗（`TypingError`）——B-1の
+  設計方針どおり、材料データは事前にプレーンなndarrayへ焼き込む必要がある
+  ことを実測で裏付けた。
+
+**重要な設計変更が必要と判明した点（乱数の再現性）**: 当初案の
+「`SeedSequence.spawn`で独立ストリームを割り当て、チャンク→ストリーム対応を
+決定的にする」は、`np.random.default_rng`（PCG64、Generatorオブジェクト）を
+前提にしていたが、**njit内から呼べるのはレガシーの`np.random.seed`/
+`np.random.random`のみ**（PCG64のGeneratorオブジェクトはnjit内に渡せない・
+呼べない）。実測では`prange`ループ内で`np.random.seed(t)`をループ変数tごとに
+呼ぶと各スレッドが独立した系列になることを確認した（レガシーMT19937ベース）。
+したがって:
+
+- 乱数アルゴリズムがベクトル化参照実装（PCG64）とカーネル（レガシーMT19937＋
+  スレッドごとのシード）で**必然的に異なる**。もともとPhase Bはビット一致を
+  諦めて統計的クロスチェックに切り替える設計（計画書「Phase Bの検証戦略」参照）
+  だったので、この差自体は許容範囲内——ただし「乱数アルゴリズムが違う」ことを
+  検証戦略に明記しておく必要がある（今回追記）。
+- 再現性の設計は「チャンク番号→シード整数」の決定的な対応表を用意し、
+  `np.random.seed(derived_seed)`をprangeの各反復（＝チャンク）の先頭で呼ぶ
+  方式に変更する。`SeedSequence.spawn`はこの決定的シード整数の生成に
+  （njitの外で）使えるので、設計自体は活きるが「Generatorを直接渡す」から
+  「シード整数だけ渡す」に変える。
+
+**選定確定**: Cython・C拡張の検討は不要。B-1はNumbaで実装する。
 
 ### B-1: 輸送カーネル本体（tallyなしパス）
 
