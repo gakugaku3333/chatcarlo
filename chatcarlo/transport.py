@@ -20,7 +20,8 @@ import numpy as np
 
 from .dose_coefficients import h_star_10_per_fluence
 from .geometry import Geometry
-from .materials import density, material_groups, mu_en_rho, mu_rho_parts
+from .materials import (density, material_code_name, material_groups, mu_en_rho,
+                        mu_rho_parts)
 from .physics import (isotropic_direction, sample_compton_bound,
                        sample_fluorescence, sample_rayleigh_cos_theta,
                        sample_rayleigh_element, scatter_direction)
@@ -126,7 +127,14 @@ def transport_photons(pos: np.ndarray, dirv: np.ndarray, energy: np.ndarray,
     while np.any(alive):
         idx = np.where(alive)[0]
         o, d, e = pos[idx], dirv[idx], energy[idx]
-        mat = geometry.material_at(o)
+        # material_atではなくmaterial_codes_at（int16コード）を使う——
+        # object配列のtolist()/文字列比較というホットパスのコストを避ける
+        # （docs/plan_chatcarlo_speedup_post_egs5.md Step 2）。下流の
+        # material_groups/mu_rho_parts等はコードのまま渡しても、
+        # material_groupsが内部で名前に戻すので透過的に動く。recorder
+        # （trace/animate専用、既定Noneで輸送のホットパスには影響しない）
+        # だけは名前文字列を期待するので、その呼び出し直前でのみ変換する。
+        mat = geometry.material_codes_at(o)
         mu, parts_full = _mu_and_parts_batch(mat, e)
         t_boundary, escape = geometry.next_boundary(o, d)
         mu_safe = np.where(mu > 0, mu, 1e-30)
@@ -222,7 +230,8 @@ def transport_photons(pos: np.ndarray, dirv: np.ndarray, energy: np.ndarray,
                 event[photo_positions_full[is_fluor[is_photo]]] = "fluorescence"
                 event[interact_positions[is_compt]] = "compton"
                 event[interact_positions[is_rayl]] = "rayleigh"
-            recorder.record(idx, o, ends, e, event, material=mat)
+            mat_names = np.array([material_code_name(c) for c in mat], dtype=object)
+            recorder.record(idx, o, ends, e, event, material=mat_names)
 
     return BatchResult(n_scatter=n_scatter, absorbed=absorbed, escaped=escaped,
                         final_energy=energy, energy_deposited=energy_deposited,

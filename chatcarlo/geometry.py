@@ -14,6 +14,8 @@ from dataclasses import dataclass, field
 
 import numpy as np
 
+from .materials import material_code
+
 _AXES = {"x": 0, "y": 1, "z": 2}
 
 
@@ -209,6 +211,22 @@ class Geometry:
             m = self._contains(g, points)
             if np.any(m):
                 mat[m] = g["material"]
+        return mat
+
+    def material_codes_at(self, points: np.ndarray) -> np.ndarray:
+        """点(N,3) -> 材料整数コードの配列(N,)。material_atのホットパス版。
+
+        材料の判定ロジック（リスト後方優先・既定background）はmaterial_atと
+        完全に同一で、返す表現だけが`materials.material_code`のint16コード。
+        object配列の確保と後段のPython文字列比較を避ける
+        （docs/plan_chatcarlo_speedup_post_egs5.md Step 2）。コードから名前へは
+        `materials.material_code_name`で戻せる。
+        """
+        mat = np.full(points.shape[0], material_code(self.background), dtype=np.int16)
+        for g in self.geoms:
+            m = self._contains(g, points)
+            if np.any(m):
+                mat[m] = material_code(g["material"])
         return mat
 
     def next_boundary(self, o: np.ndarray, d: np.ndarray, eps: float = 1e-6):

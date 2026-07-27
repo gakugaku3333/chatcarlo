@@ -125,3 +125,40 @@ def test_uniform_step_detection():
         assert _element_xs_tables(z)["uniform_step"] is not None
     for z in (13, 20, 29, 74, 82):  # Al, Ca, Cu, W, Pb — 吸収端補強で非等間隔
         assert _element_xs_tables(z)["uniform_step"] is None
+
+
+# --- 材料の整数コード化（docs/plan_chatcarlo_speedup_post_egs5.md Step 2）---
+
+def test_material_groups_int_codes_match_string_groups_and_order():
+    """material_groupsへint16コード配列を渡した場合、文字列配列を渡した場合と
+    完全に同じ(名前, マスク)列を同じ順序で返すこと。
+
+    採番順（コード値の大小）が実行順に依存しうる（プロセス内で最初に登場した
+    材料からインターンされるため）一方、グループの処理順は乱数消費順序を
+    決める（レイリー元素抽選等が依存する、docstring参照）。コード値順で
+    ソートすると採番順＝結果になり、同一seedでも走らせるたびに結果が
+    変わる回帰を招く——この不変条件をここで固定する。
+    """
+    from chatcarlo.materials import material_code, material_groups
+
+    # わざと文字列ソート順とは逆順にインターンし、採番順とソート順が
+    # 一致しない状況を作る（これがずれても結果が変わらないことを確認したい）。
+    for name in ("bone", "water", "air", "lead"):
+        material_code(name)
+
+    names = np.array(["lead", "water", "air", "bone", "water", "air"], dtype=object)
+    codes = np.array([material_code(n) for n in names], dtype=np.int16)
+
+    expected = [(name, names == name) for name in sorted(set(names.tolist()))]
+    actual = list(material_groups(codes))
+
+    assert [name for name, _ in actual] == [name for name, _ in expected]
+    for (name_a, mask_a), (name_e, mask_e) in zip(actual, expected):
+        assert name_a == name_e
+        assert np.array_equal(mask_a, mask_e)
+
+
+def test_material_code_roundtrip():
+    from chatcarlo.materials import material_code, material_code_name
+    for name in ("water", "air", "lead", "bone", "soft_tissue"):
+        assert material_code_name(material_code(name)) == name

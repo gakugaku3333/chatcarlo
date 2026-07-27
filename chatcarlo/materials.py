@@ -546,9 +546,42 @@ def material_groups(names: np.ndarray):
     set()の反復順は文字列ハッシュのランダム化でプロセスごとに変わるため、
     グループ順に依存して乱数を消費する処理（レイリー元素抽選など）が
     未ソートだと同一seedでも実行ごとに結果が変わってしまう。
+
+    整数コード配列（`material_code`でインターンしたもの、輸送ホットパスは
+    `Geometry.material_codes_at`が生成）も受け付ける——object配列の
+    tolist()＋Python文字列比較を避けるため。その場合も**グループの処理順は
+    名前のソート順**（コード値順ではない）にする——上記の乱数消費順序を
+    コード化前とビット一致で揃えるための必須条件。
     """
-    for name in sorted(set(names.tolist())):
-        yield name, names == name
+    if names.dtype.kind in "iu":
+        for code in sorted(np.unique(names).tolist(), key=material_code_name):
+            yield material_code_name(code), names == code
+    else:
+        for name in sorted(set(names.tolist())):
+            yield name, names == name
+
+
+# 材料名 <-> 整数コードのプロセス内インターン表。コード値そのものに意味は
+# 持たせない（挿入順で採番）——グループ処理順はmaterial_groupsが名前で
+# ソートし直すので、採番順が結果に影響することはない
+# （docs/plan_chatcarlo_speedup_post_egs5.md Step 2）。
+_MATERIAL_CODES: dict[str, int] = {}
+_MATERIAL_NAMES: list[str] = []
+
+
+def material_code(name: str) -> int:
+    """材料名を小さな整数コードにインターンする。"""
+    code = _MATERIAL_CODES.get(name)
+    if code is None:
+        code = len(_MATERIAL_NAMES)
+        _MATERIAL_CODES[name] = code
+        _MATERIAL_NAMES.append(name)
+    return code
+
+
+def material_code_name(code: int) -> str:
+    """整数コードを材料名に戻す。"""
+    return _MATERIAL_NAMES[code]
 
 
 def linear_mu(material: str, energies_keV) -> np.ndarray:
