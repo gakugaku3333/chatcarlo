@@ -314,18 +314,17 @@ def _scatter_direction_scalar(dx, dy, dz, cos_theta):
 
 
 @njit(cache=True)
-def _sample_compton_bound_scalar(e_kev, n_elem, fracs, zs, incoh_q, incoh_s, compt_e_work):
+def _sample_compton_bound_scalar(e_kev, n_elem, fracs, zs, incoh_q, incoh_s, compt_e_work, tot_compt):
     """physics.sample_compton_bound のスカラー版（Kahn型棄却＋S(Z,q)/Z追加棄却）。
 
-    元素選択は呼び出し側で既に求めたcompt_e_work（各元素の断面積）を使う
-    （`_mu_and_parts_scalar`が同じエネルギーで既に計算済みの値を再利用し、
-    断面積テーブルへの再アクセスを避ける——ベクトル化参照実装と同じ考え方）。
+    元素選択は呼び出し側で既に求めたcompt_e_work（各元素の断面積）とtot_compt
+    （`_mu_and_parts_scalar`が同じエネルギーで既に計算済みの合計）をそのまま
+    使う——ここで`tot_compt`を独立に再計算すると、同じ量を2箇所で別々に
+    導出することになり、将来どちらかだけ変更されて静かに食い違うリスクが
+    生まれる（レビューで指摘、lessons_learnedの「二重導出」系の教訓と同型）。
     S(Z,q)/Zの割り算は選ばれた元素の実際の原子番号`zs[elem_i]`を使う
     （割り算対象を1.0に固定するのは物理的に誤り——旧稿のバグをレビューで訂正）。
     """
-    tot_compt = 0.0
-    for i in range(n_elem):
-        tot_compt += fracs[i] * compt_e_work[i]
     elem_i = _select_element(n_elem, fracs, compt_e_work, tot_compt)
     z_val = float(zs[elem_i])
     alpha = e_kev / _MEC2_KEV
@@ -354,15 +353,13 @@ def _sample_compton_bound_scalar(e_kev, n_elem, fracs, zs, incoh_q, incoh_s, com
 
 
 @njit(cache=True)
-def _sample_rayleigh_cos_theta_scalar(e_kev, n_elem, fracs, rayl_x, rayl_a, rayl_e_work):
+def _sample_rayleigh_cos_theta_scalar(e_kev, n_elem, fracs, rayl_x, rayl_a, rayl_e_work, tot_rayl):
     """physics.sample_rayleigh_cos_theta のスカラー版（2段階逆変換＋角度棄却）。
 
-    元素選択は`_mu_and_parts_scalar`が同じエネルギーで既に求めたrayl_e_workを
-    再利用する（`_sample_compton_bound_scalar`と同じ理由）。
+    元素選択は`_mu_and_parts_scalar`が同じエネルギーで既に求めたrayl_e_workと
+    tot_rayl（合計）をそのまま再利用する（`_sample_compton_bound_scalar`と
+    同じ理由——二重導出を避ける）。
     """
-    tot_rayl = 0.0
-    for i in range(n_elem):
-        tot_rayl += fracs[i] * rayl_e_work[i]
     elem_i = _select_element(n_elem, fracs, rayl_e_work, tot_rayl)
     x_max = (e_kev / _HC_KEV_ANGSTROM) ** 2
     while True:
@@ -445,14 +442,14 @@ def _transport_one(energy0_kev, ox, oy, oz, dx, dy, dz,
 
         if r_type < p_photo + p_compt:
             eps_c, cos_c, _elem = _sample_compton_bound_scalar(
-                e, n_elem, fracs, zs, incoh_q, incoh_s, compt_e)
+                e, n_elem, fracs, zs, incoh_q, incoh_s, compt_e, tot_compt)
             e_new = e * eps_c
             energy_deposited += e - e_new
             dx, dy, dz = _scatter_direction_scalar(dx, dy, dz, cos_c)
             e = e_new
             tau = -math.log(np.random.random())
         else:
-            cos_c = _sample_rayleigh_cos_theta_scalar(e, n_elem, fracs, rayl_x, rayl_a, rayl_e)
+            cos_c = _sample_rayleigh_cos_theta_scalar(e, n_elem, fracs, rayl_x, rayl_a, rayl_e, tot_rayl)
             dx, dy, dz = _scatter_direction_scalar(dx, dy, dz, cos_c)
             tau = -math.log(np.random.random())
         # レイリー・コンプトン散乱後は光子が生き残るのでreturnせずループを継続
