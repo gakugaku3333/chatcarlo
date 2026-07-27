@@ -71,6 +71,13 @@
       integer i,j,ncase
       character*24 medarr(1)
 
+!     Speed-comparison instrumentation (docs/plan_speed_comparison_egs5.md
+!     Phase 1): wall-clock timing around the shower loop only, via
+!     SYSTEM_CLOCK (wall-clock, matching ChatCarlo's time.perf_counter --
+!     not CPU_TIME). Does not affect physics/RNG stream.
+      integer*8 clock_start,clock_end,clock_rate,clock_max
+      real*8 wall_seconds
+
 !     ----------
 !     Open files
 !     ----------
@@ -236,9 +243,17 @@
 !-----------------------------------------------------------------------
 ! Initiate the shower ncase times
       ncase=500000
+!     Speed-comparison instrumentation: wall-clock timing brackets the
+!     shower loop only (excludes PEGS5/HATCH/init/output above and below).
+      call system_clock(count=clock_start,count_rate=clock_rate,
+     *                   count_max=clock_max)
       do i=1,NCASE
         call shower(iqin,ein,xin,yin,zin,uin,vin,win,irin,wtin)
       end do
+      call system_clock(count=clock_end)
+      wall_seconds = dble(clock_end-clock_start)/dble(clock_rate)
+      write(6,165) ncase, wall_seconds
+165   format(/' TIMING: ncase=',I8,' wall_seconds=',F12.3/)
 
 !-----------------------------------------------------------------------
 ! Step 9:  Output-of-results

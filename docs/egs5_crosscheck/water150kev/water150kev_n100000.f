@@ -1,21 +1,23 @@
 !***********************************************************************
 !
-!                     ******************
-!                     *                *
-!                     *  water20kev.f  *
-!                     *                *
-!                     ******************
+!                     *******************
+!                     *                 *
+!                     *  water150kev.f  *
+!                     *                 *
+!                     *******************
 !
-!  ChatCarlo cross-check: primary-transmission energy dependence, low
-!  end (20 keV). Water slab, thickness 1.5 cm, single-energy 20 keV
-!  pencil beam normally incident, vacuum boundary. Built from
-!  docs/egs5_crosscheck/water60_bound/water60.f (itself tutor5.f),
-!  changing only ein 0.060->0.020 MeV, zbound 10.0->1.5 cm, ncase kept
-!  at 500000 (same as 60 keV Phase 1). Physics settings (IBOUND=1,
+!  ChatCarlo cross-check: primary-transmission energy dependence, high
+!  end (150 keV). Water slab, thickness 10 cm (same as 60 keV Phase 1),
+!  single-energy 150 keV pencil beam normally incident, vacuum
+!  boundary. Built from docs/egs5_crosscheck/water60_bound/water60.f
+!  (itself tutor5.f), changing only ein 0.060->0.150 MeV, ncase kept at
+!  500000 (same as 60 keV Phase 1), and ENER cutoffs raised in the
+!  .inp (UE/UP) to stay above the 150 keV incident photon and the
+!  maximum Compton-electron kinetic energy. Physics settings (IBOUND=1,
 !  IRAYL=1, INCOH=0, ICPROF=0) kept identical to water60_bound to match
 !  the established Phase-1 pattern. RHO=1.0 explicit in .inp (not the
 !  template default 1.001) to match ChatCarlo's water density exactly.
-!  Pre-registration: docs/egs5_crosscheck/water20kev/PREREGISTRATION.md
+!  Pre-registration: docs/egs5_crosscheck/water150kev/PREREGISTRATION.md
 !
 !  The following units are used: unit 6 for output
 !***********************************************************************
@@ -157,12 +159,12 @@
 !-----------------------------------------------------------------------
 ! Step 4:  Determination-of-incident-particle-parameters
 !-----------------------------------------------------------------------
-! Define initial variables for 20 keV beam of photons normally incident
+! Define initial variables for 150 keV beam of photons normally incident
 ! on the slab
       iqin=0
 !     Incident photons
-!             20 keV
-      ein=0.020
+!             150 keV
+      ein=0.150
       xin=0.0
       yin=0.0
       zin=0.0
@@ -218,8 +220,8 @@
 !-----------------------------------------------------------------------
 ! Step 6:  Initialization-for-howfar
 !-----------------------------------------------------------------------
-      zbound=1.5
-!     Plate is 1.5 cm thick
+      zbound=10.0
+!     Plate is 10.0 cm thick
 
 !-----------------------------------------------------------------------
 ! Step 7:  Initialization-for-ausgab
@@ -240,7 +242,7 @@
 ! Step 8:  Shower-call
 !-----------------------------------------------------------------------
 ! Initiate the shower ncase times
-      ncase=500000
+      ncase=100000
 !     Speed-comparison instrumentation: wall-clock timing brackets the
 !     shower loop only (excludes PEGS5/HATCH/init/output above and below).
       call system_clock(count=clock_start,count_rate=clock_rate,

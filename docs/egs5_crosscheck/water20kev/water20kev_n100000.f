@@ -240,7 +240,7 @@
 ! Step 8:  Shower-call
 !-----------------------------------------------------------------------
 ! Initiate the shower ncase times
-      ncase=500000
+      ncase=100000
 !     Speed-comparison instrumentation: wall-clock timing brackets the
 !     shower loop only (excludes PEGS5/HATCH/init/output above and below).
       call system_clock(count=clock_start,count_rate=clock_rate,

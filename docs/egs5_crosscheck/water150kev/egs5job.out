@@ -19,6 +19,9 @@
  Brem photons can be created and any photon followed down to
                                           0.010 MeV
 
+ TIMING: ncase=  500000 wall_seconds=       0.329
+
+
  For 150.0 keV photons incident on10.0cm of H2O with PCUT=0.010 MeV
 
  Transmitted primaries=                   22.26%  ave energy=     0.150 MeV
