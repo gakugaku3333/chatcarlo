@@ -1,6 +1,10 @@
 # 計画: EGS5速度比較を踏まえたChatCarloの高速化
 
-作成日: 2026-07-27 / ステータス: **計画中（Phase Aのうち旧Step 1は実測プロトタイプ済み・未実装）** / 実行担当: Claude
+作成日: 2026-07-27 / ステータス: **Phase A完了（Step 1・Step 2とも実装・ビット一致検証・
+テスト320件通過済み、コミット`c0e1683`・`077c29e`）。合成した高速化（両Stepの実測比を
+掛け合わせ）は water20kev 1.443x / water60_free 1.418x / water150kev 1.459x /
+chest_room（本番経路）1.198x——計画時点の見積もり「約1.4〜1.5倍」を達成。
+次はPhase B（コンパイル済みper-historyカーネル）。** / 実行担当: Claude
 
 親コンテキスト: [docs/egs5_crosscheck/speed_comparison/RESULTS.md](egs5_crosscheck/speed_comparison/RESULTS.md)
 でEGS5がper-history約4.3〜5.8倍速いと判明した。その差の内訳をプロファイルで特定し、
