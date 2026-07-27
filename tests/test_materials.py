@@ -79,3 +79,49 @@ def test_water_hvl_at_60kev_sanity():
 def test_unknown_material_raises_helpful_error():
     with pytest.raises(ValueError, match="候補"):
         mu_rho("unobtanium", 60.0)
+
+
+# --- 算術インデックス化（docs/plan_chatcarlo_speedup_post_egs5.md Step 1）の同一性検証 ---
+
+def _index_frac_by_searchsorted(z, e):
+    """置き換え前の参照実装（searchsorted版）。同一性テストの基準として保持する。"""
+    from chatcarlo.materials import _element_xs_tables
+    g = _element_xs_tables(z)["log_e"]
+    q = np.log(e)
+    idx = np.clip(np.searchsorted(g, q), 1, len(g) - 1)
+    return idx, (q - g[idx - 1]) / (g[idx] - g[idx - 1])
+
+
+@pytest.mark.parametrize("z", [1, 6, 7, 8, 13, 20, 29, 74, 82])
+def test_interp_index_identical_to_searchsorted(z):
+    """算術インデックス＋±1補正がsearchsorted+clipと厳密同一であること。
+
+    ランダム査問に加え、最も危険な「格子点ちょうど」の査問（浮動小数点の
+    丸めで算術候補が±1ずれうる点）を全格子点について突き合わせる。
+    fracまでビット一致を要求する——輸送の物理結果ビット一致はこれに依存する。
+    """
+    from chatcarlo.materials import _element_interp_index_frac, _element_xs_tables
+    g = _element_xs_tables(z)["log_e"]
+    rng = np.random.default_rng(z)
+    queries = [
+        np.exp(rng.uniform(g[0], g[-1], 20000)),      # ランダム
+        np.exp(g),                                     # 全格子点ちょうど
+        np.exp(g[1:-1]) * (1 + 1e-15),                 # 格子点の直上
+        np.exp(g[1:-1]) * (1 - 1e-15),                 # 格子点の直下
+        np.array([np.exp(g[0]), np.exp(g[-1])]),       # 両端
+    ]
+    for e in queries:
+        e = np.clip(e, np.exp(g[0]), np.exp(g[-1]))
+        idx_new, frac_new = _element_interp_index_frac(z, e)
+        idx_ref, frac_ref = _index_frac_by_searchsorted(z, e)
+        assert np.array_equal(idx_new, idx_ref)
+        assert np.array_equal(frac_new, frac_ref)
+
+
+def test_uniform_step_detection():
+    """軽元素（吸収端<1 keV）は算術パス、吸収端補強点を持つ元素はフォールバック。"""
+    from chatcarlo.materials import _element_xs_tables
+    for z in (1, 6, 7, 8):    # H, C, N, O — 水・軟部組織・空気の主成分
+        assert _element_xs_tables(z)["uniform_step"] is not None
+    for z in (13, 20, 29, 74, 82):  # Al, Ca, Cu, W, Pb — 吸収端補強で非等間隔
+        assert _element_xs_tables(z)["uniform_step"] is None

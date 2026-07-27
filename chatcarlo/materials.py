@@ -222,23 +222,61 @@ def _element_xs_tables(z: int) -> dict[str, np.ndarray]:
         "photo": np.log(photo),
         "compt": np.log(compt),
         "rayl": np.log(rayl),
+        "uniform_step": _uniform_log_step(log_e),
     }
+
+
+def _uniform_log_step(log_e: np.ndarray) -> float | None:
+    """格子が対数等間隔とみなせるならそのステップ幅を、そうでなければNoneを返す。
+
+    「等間隔とみなせる」の基準は装飾的なallcloseではなく、算術インデックス
+    `(log E − log E₀)/step` の丸め誤差込みの推定が真のインデックスから±1以内に
+    収まること（最大偏差<0.45格子）——これが成り立てば後段の±1補正
+    （_element_interp_index_frac参照）でsearchsortedと厳密に同じ結果になる。
+    吸収端補強点を持つ元素（Z≥11程度、_element_energy_grid_kev参照）は
+    非等間隔なのでNoneになり、searchsortedフォールバックが使われる。
+    """
+    n = len(log_e)
+    if n < 2:
+        return None
+    step = (log_e[-1] - log_e[0]) / (n - 1)
+    deviation = np.abs(log_e - (log_e[0] + np.arange(n) * step)) / step
+    return float(step) if deviation.max() < 0.45 else None
 
 
 def _element_interp_index_frac(z: int, e: np.ndarray):
     """元素zの格子上での区分線形補間インデックス・重みを求める（光電/コンプトン/
-    レイリーで共通のエネルギー格子を使うため、この検索(searchsorted)を1回だけ
-    行い3種で使い回せば、np.interpを3回呼ぶより高速——同じ査問配列に対する
-    探索を重複させないため）。
+    レイリーで共通のエネルギー格子を使うため、この検索を1回だけ行い3種で
+    使い回す——同じ査問配列に対する探索を重複させないため）。
+
+    格子が対数等間隔の元素（吸収端が格子範囲1 keV未満にある軽元素——水・軟部
+    組織・空気の主成分H/C/N/O等）では、二分探索(searchsorted)の代わりに
+    算術インデックス＋±1補正を使う（docs/plan_chatcarlo_speedup_post_egs5.md
+    Step 1、water系3シナリオで1.15〜1.23倍を実測）。補正2段は算術候補が真の
+    挿入点から±1以内（_uniform_log_stepが保証）である限り、境界・格子点上の
+    査問を含む全ケースでsearchsorted+clipと厳密に同じインデックスを返す——
+    物理結果のビット一致はこの同一性に依存しているので、緩めないこと
+    （tests/test_materials.pyのフルグリッド突き合わせテストで固定済み）。
+    吸収端補強点を持つ非等間隔格子の元素（Z≥11程度）はsearchsortedのまま。
     """
     if e.min() < _XS_GRID_MIN_KEV or e.max() > _XS_GRID_MAX_KEV:
         raise ValueError(
             f"エネルギー {e.min():.3g}〜{e.max():.3g} keV は断面積テーブル範囲 "
             f"[{_XS_GRID_MIN_KEV:.3g}, {_XS_GRID_MAX_KEV:.3g}] keV 外です")
-    log_e_grid = _element_xs_tables(z)["log_e"]
+    tables = _element_xs_tables(z)
+    log_e_grid = tables["log_e"]
+    hi = len(log_e_grid) - 1
     log_e_query = np.log(e)
-    idx = np.searchsorted(log_e_grid, log_e_query)
-    idx = np.clip(idx, 1, len(log_e_grid) - 1)
+    step = tables["uniform_step"]
+    if step is not None:
+        idx = ((log_e_query - log_e_grid[0]) / step).astype(np.intp) + 1
+        np.clip(idx, 1, hi, out=idx)
+        idx -= log_e_query <= log_e_grid[idx - 1]
+        np.clip(idx, 1, hi, out=idx)
+        idx += log_e_grid[idx] < log_e_query
+        np.clip(idx, 1, hi, out=idx)
+    else:
+        idx = np.clip(np.searchsorted(log_e_grid, log_e_query), 1, hi)
     x0 = log_e_grid[idx - 1]
     x1 = log_e_grid[idx]
     frac = (log_e_query - x0) / (x1 - x0)
