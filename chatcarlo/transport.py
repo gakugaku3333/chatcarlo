@@ -27,7 +27,7 @@ from .physics import (isotropic_direction, sample_compton_bound,
 from .source import photon_count_through_field, sample_source_photons
 from .spectrum import export_caches as _export_spectrum_caches
 from .spectrum import import_caches as _import_spectrum_caches
-from .tally import ScalarMoments, VoxelGrid, accumulate_track_length
+from .tally import ScalarMoments, VoxelGrid, accumulate_track_length_multi
 from .trajectory import TrajectoryRecorder
 
 
@@ -138,9 +138,10 @@ def transport_photons(pos: np.ndarray, dirv: np.ndarray, energy: np.ndarray,
 
         if grid is not None:
             mu_en_linear = _mu_en_linear_batch(mat, e)
-            accumulate_track_length(grid.kerma_keV, grid, o, d, ds, e * mu_en_linear)
-            accumulate_track_length(grid.h10_track_pSv_cm3, grid, o, d, ds,
-                                     h_star_10_per_fluence(e))
+            accumulate_track_length_multi(
+                ((grid.kerma_keV, e * mu_en_linear),
+                 (grid.h10_track_pSv_cm3, h_star_10_per_fluence(e))),
+                grid, o, d, ds)
 
         pos[idx] = ends
 

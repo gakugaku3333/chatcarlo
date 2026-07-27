@@ -252,14 +252,60 @@ class ScalarMoments:
 
 
 _EPS_PLANE = 1e-7  # ボクセル境界面インデックス(実数)を整数面とみなす許容誤差（単位: 面間隔=1）
+# Step 0のプロファイル（docs/plan_tally_speedup.md）で、区間群の交差点総数Nが
+# 数百万を超えるとnp.lexsortのコストが急激に悪化する（キャッシュに載らなくなる）
+# ことを確認した。1チャンクあたりの交差点総数をこの値以下に抑えることで、
+# 各チャンクのソート対象配列がL3キャッシュに収まりやすい範囲に留める。
+_CHUNK_TARGET_INTERSECTIONS = 1_000_000
 
 
-def _segment_grid_traversal(grid: VoxelGrid, origin: np.ndarray, direction: np.ndarray,
-                             length_cm: np.ndarray):
-    """区間群とグリッドの厳密な交差分解: 戻り値は (seg_id, voxel_idx(nx,ny,nz), overlap_cm)。
+def _argsort_within_segment(all_t: np.ndarray, all_seg: np.ndarray,
+                             t_enter_c: np.ndarray, t_exit_c: np.ndarray) -> np.ndarray:
+    """`np.lexsort((all_t, all_seg))`と同じ並び順（セグメント昇順→セグメント内t昇順）を、
+    単一キーの`np.argsort`1回で求める（docs/plan_tally_speedup.md Step 3）。
+
+    lexsortは内部的に2回のソートパスを行うため、Step 0のプロファイルで確認した
+    通りコストの大半（全体の84%）を占めていた。各交点をセグメント内の
+    正規化位置frac=(t-t_enter)/(t_exit-t_enter)∈[0,1]に変換し、
+    key = seg + 0.5*frac という単一のfloat64キーにまとめれば、キーの整数部が
+    セグメント番号、小数部（0〜0.5の範囲に収まる）がセグメント内の順序を
+    表す。0.5倍しているのは、frac=1.0（区間終点ちょうど）のセグメントiの
+    キーがi+1.0となり、次のセグメントi+1のfrac=0.0のキー（i+1.0）と衝突する
+    ことを避けるため——0.5倍しておけば同じセグメント内のキーは[seg, seg+0.5]に
+    収まり、次のセグメントの範囲[seg+1, seg+1.5]との間に0.5の隙間ができる。
+
+    精度: このキーはfloat64なので、絶対精度（ULP）はキーの大きさ、つまり
+    セグメント番号segの大きさにほぼ比例する（seg付近でのULP ≈ seg * 2^-52）。
+    セグメント内の2交点t1, t2(t1<t2)の差Δt=t2-t1が
+    Δt < 2 * seg * 2^-52 * span（spanはそのセグメントのt_exit-t_enter）
+    程度より小さいと、丸めでキーが一致し順序が不定になり得る——実際に
+    seg〜10^5でΔt〜1e-10（cm単位で0.1Å相当）以下の場合に衝突を確認した
+    （seg〜10^3では同じΔtでも衝突しない。ULPがsegに比例するため）。
+    ただし衝突してもその影響は、同一セグメント内で物理的に区別不能なほど
+    近接した2交点をどちらが先か入れ替えるだけであり、下流の重なり長計算
+    （`_segment_grid_traversal_accumulate`のsame_seg/overlap判定）への影響は
+    2000回のランダム試行で相対誤差0（測定分解能以下）だった——セグメント
+    *境界*での衝突（frac=1.0とfrac=0.0が一致するケース、0.5倍で回避）とは
+    異なり、セグメント*内*の極近接ペアの衝突は物理的に無意味な誤差しか
+    生まない。なお_EPS_PLANE(1e-7)は本関数のキーとは別の量（ボクセル境界面
+    インデックスの許容誤差、単位は面間隔=1）なので、両者を直接比較することは
+    できない。境界collisionの回避（0.5倍スケーリング）はtests/test_tally.pyの
+    専用テストで検証しているが、セグメント内極近接ペアの衝突自体は
+    テストで直接カバーしていない（上記の通り実害がないため）。
+    """
+    span = t_exit_c[all_seg] - t_enter_c[all_seg]
+    frac = (all_t - t_enter_c[all_seg]) / span
+    key = all_seg.astype(np.float64) + 0.5 * frac
+    return np.argsort(key)
+
+
+def _segment_grid_traversal_accumulate(grid: VoxelGrid, origin: np.ndarray, direction: np.ndarray,
+                                        length_cm: np.ndarray, target_weight_pairs) -> None:
+    """区間群とグリッドの厳密な交差分解を行い、得られた(seg_id, voxel_idx, overlap_cm)を
+    その場で`target_weight_pairs`の各(target, weight_per_cm)へ`np.add.at`する。
 
     各区間をグリッドのボクセル境界面との交点で分割し、生じる各部分区間について
-    「どのボクセルか（部分区間の中点で判定）」と「厳密な重なり長」を返す。
+    「どのボクセルか（部分区間の中点で判定）」と「厳密な重なり長」を求める。
     区間の始点・終点をまたぐ境界面はもちろん、区間の一部だけがグリッド内にある
     場合も先にAABBとの交差区間[t_enter,t_exit]へ厳密にクリップしてから走査するので、
     グリッド外の部分は最初から計算に含まれない。
@@ -269,6 +315,14 @@ def _segment_grid_traversal(grid: VoxelGrid, origin: np.ndarray, direction: np.n
     （疎な解像度でも1区間が数百〜数千回交差しうるため、密パディングだと
     区間数×最大交差数でメモリが吹き飛ぶ。docs/plan_statistical_uncertainty.md
     候補3の設計上の注意点）。
+
+    交差点をチャンク分割して処理した各チャンクの結果を、以前は全チャンク分
+    `np.concatenate`してから一括で`np.add.at`していた（`docs/plan_tally_speedup.md`
+    Step 2実装時）。これはnp.lexsortのキャッシュ崖は避けられたが、チャンク結果を
+    全て溜め込むためピークメモリはチャンク化前と変わらなかった（`/furikaeri`で
+    指摘、Step 2の受入基準「ワーカーあたりピークメモリを半減」が未達と判明）。
+    本関数はチャンクごとに`np.add.at`まで完結させ、次のチャンクへ進む前に
+    その結果配列を破棄することでピークメモリをチャンクサイズ程度に抑える。
     """
     n = origin.shape[0]
     h = grid.voxel_size_cm
@@ -295,7 +349,7 @@ def _segment_grid_traversal(grid: VoxelGrid, origin: np.ndarray, direction: np.n
 
     active = np.where(t_exit > t_enter)[0]
     if len(active) == 0:
-        return (np.empty(0, dtype=np.int64), np.empty((0, 3), dtype=np.int64), np.empty(0))
+        return
 
     o = origin[active]
     d = direction[active]
@@ -327,42 +381,80 @@ def _segment_grid_traversal(grid: VoxelGrid, origin: np.ndarray, direction: np.n
         m_lo_all[k] = m_lo_k
         d_safe_all[k] = dk_safe
 
-    t_parts = [t_enter, t_exit]
-    seg_parts = [np.arange(m), np.arange(m)]
-    for k in range(3):
-        cnt_k = counts[k]
-        total_k = int(cnt_k.sum())
-        if total_k == 0:
+    # 交差点総数（区間の始点・終点2点＋各軸の内部境界面通過数）をセグメント順の
+    # 累積和にし、np.lexsortに渡す配列サイズが_CHUNK_TARGET_INTERSECTIONSを
+    # 超えないようセグメント列をチャンクに分割する（Step 0のプロファイルで確認した
+    # キャッシュに載らなくなることによる急激な悪化を避けるため）。チャンク境界で
+    # セグメントを割らない（1セグメントの交点は必ず同一チャンク内で処理する）ので、
+    # 各セグメントの結果はチャンク分割しない場合と完全に同じ計算になる。
+    total_per_seg = counts.sum(axis=0) + 2
+    cum_total = np.cumsum(total_per_seg)
+    total_all = int(cum_total[-1])
+    if total_all <= _CHUNK_TARGET_INTERSECTIONS:
+        chunk_ends = np.array([m])
+    else:
+        n_full_chunks = total_all // _CHUNK_TARGET_INTERSECTIONS
+        thresholds = np.arange(1, n_full_chunks + 1) * _CHUNK_TARGET_INTERSECTIONS
+        boundaries = np.searchsorted(cum_total, thresholds, side="left") + 1
+        boundaries = np.clip(boundaries, 1, m)
+        boundaries = np.unique(boundaries)
+        if boundaries[-1] != m:
+            boundaries = np.append(boundaries, m)
+        chunk_ends = boundaries
+    chunk_starts = np.concatenate(([0], chunk_ends[:-1]))
+
+    for chunk_lo, chunk_hi in zip(chunk_starts, chunk_ends):
+        m_c = int(chunk_hi - chunk_lo)
+        o_c = o[chunk_lo:chunk_hi]
+        d_c = d[chunk_lo:chunk_hi]
+        t_enter_c = t_enter[chunk_lo:chunk_hi]
+        t_exit_c = t_exit[chunk_lo:chunk_hi]
+        counts_c = counts[:, chunk_lo:chunk_hi]
+        m_lo_c = m_lo_all[:, chunk_lo:chunk_hi]
+        d_safe_c = d_safe_all[:, chunk_lo:chunk_hi]
+
+        t_parts = [t_enter_c, t_exit_c]
+        seg_parts = [np.arange(m_c), np.arange(m_c)]
+        for k in range(3):
+            cnt_k = counts_c[k]
+            total_k = int(cnt_k.sum())
+            if total_k == 0:
+                continue
+            seg_id_k = np.repeat(np.arange(m_c), cnt_k)
+            starts_k = np.cumsum(cnt_k) - cnt_k
+            offset_k = np.arange(total_k) - np.repeat(starts_k, cnt_k)
+            m_idx_k = m_lo_c[k][seg_id_k] + offset_k
+            t_k = (lo[k] + m_idx_k * h - o_c[seg_id_k, k]) / d_safe_c[k][seg_id_k]
+            t_parts.append(t_k)
+            seg_parts.append(seg_id_k)
+
+        all_t = np.concatenate(t_parts)
+        all_seg = np.concatenate(seg_parts)
+        order = _argsort_within_segment(all_t, all_seg, t_enter_c, t_exit_c)
+        sorted_t = all_t[order]
+        sorted_seg = all_seg[order]
+
+        same_seg = sorted_seg[1:] == sorted_seg[:-1]
+        overlap_c = np.where(same_seg, sorted_t[1:] - sorted_t[:-1], 0.0)
+        keep = overlap_c > 0
+        if not np.any(keep):
             continue
-        seg_id_k = np.repeat(np.arange(m), cnt_k)
-        starts_k = np.cumsum(cnt_k) - cnt_k
-        offset_k = np.arange(total_k) - np.repeat(starts_k, cnt_k)
-        m_idx_k = m_lo_all[k][seg_id_k] + offset_k
-        t_k = (lo[k] + m_idx_k * h - o[seg_id_k, k]) / d_safe_all[k][seg_id_k]
-        t_parts.append(t_k)
-        seg_parts.append(seg_id_k)
 
-    all_t = np.concatenate(t_parts)
-    all_seg = np.concatenate(seg_parts)
-    order = np.lexsort((all_t, all_seg))  # 主キー: セグメント（lexsortの最終引数）、副キー: t
-    sorted_t = all_t[order]
-    sorted_seg = all_seg[order]
+        seg_for_interval = sorted_seg[:-1][keep]
+        mid_t = ((sorted_t[:-1] + sorted_t[1:]) / 2.0)[keep]
+        overlap_c = overlap_c[keep]
 
-    same_seg = sorted_seg[1:] == sorted_seg[:-1]
-    overlap = np.where(same_seg, sorted_t[1:] - sorted_t[:-1], 0.0)
-    keep = overlap > 0
-    if not np.any(keep):
-        return (np.empty(0, dtype=np.int64), np.empty((0, 3), dtype=np.int64), np.empty(0))
+        points = o_c[seg_for_interval] + d_c[seg_for_interval] * mid_t[:, None]
+        idx_c, in_grid = grid.voxel_index(points)
+        idx_c, overlap_c, seg_for_interval = idx_c[in_grid], overlap_c[in_grid], seg_for_interval[in_grid]
+        if len(seg_for_interval) == 0:
+            continue
 
-    seg_for_interval = sorted_seg[:-1][keep]
-    mid_t = ((sorted_t[:-1] + sorted_t[1:]) / 2.0)[keep]
-    overlap = overlap[keep]
-
-    points = o[seg_for_interval] + d[seg_for_interval] * mid_t[:, None]
-    idx, in_grid = grid.voxel_index(points)
-    idx, overlap, seg_for_interval = idx[in_grid], overlap[in_grid], seg_for_interval[in_grid]
-
-    return (active[seg_for_interval], idx, overlap)
+        seg_id_c = active[chunk_lo + seg_for_interval]
+        flat_idx_c = np.ravel_multi_index((idx_c[:, 0], idx_c[:, 1], idx_c[:, 2]), grid.shape)
+        for target, weight_per_cm in target_weight_pairs:
+            weight_flat_c = weight_per_cm[seg_id_c] * overlap_c
+            np.add.at(target.reshape(-1), flat_idx_c, weight_flat_c)
 
 
 def accumulate_track_length(target: np.ndarray, grid: VoxelGrid, origin: np.ndarray,
@@ -372,20 +464,33 @@ def accumulate_track_length(target: np.ndarray, grid: VoxelGrid, origin: np.ndar
 
     target は grid.shape と同じ形の任意の量（カーマ・H*(10)飛程積分など）で、
     weight_per_cm は区間内で一定（材料・エネルギーとも不変の前提）とする。
-    各区間とグリッドのボクセル境界面との交点を解析的に求め（`_segment_grid_traversal`）、
-    各ボクセルへ weight_per_cm * (厳密な重なり長) を加算する——乱数を一切使わない
+    各区間とグリッドのボクセル境界面との交点を解析的に求め
+    （`_segment_grid_traversal_accumulate`）、各ボクセルへ
+    weight_per_cm * (厳密な重なり長) を加算する——乱数を一切使わない
     決定論的な処理で、空間分配自体の分散はゼロ（docs/plan_statistical_uncertainty.md
     候補3。旧実装はサブステップ+層化乱数点によるモンテカルロ分配で、不偏だが
     空間分配に伴う分散があり`max_substeps`クランプも必要だった。単一直方体との
     厳密重なり長を計算する`_segment_box_overlap_cm`（EGS5相互検証スクリプト、
     vive-auditor監査済み）を、グリッド全体を貫く一般の区間へ一般化したもの）。
     """
+    accumulate_track_length_multi(((target, weight_per_cm),), grid, origin, direction, length_cm)
+
+
+def accumulate_track_length_multi(target_weight_pairs, grid: VoxelGrid, origin: np.ndarray,
+                                   direction: np.ndarray, length_cm: np.ndarray) -> None:
+    """`accumulate_track_length`の複数target版: 同一区間集合に対する交差分解
+    （`_segment_grid_traversal_accumulate`、コスト全体の大半を占めるnp.lexsortを含む——
+    docs/plan_tally_speedup.md Step 0のプロファイル参照）を1回だけ計算し、
+    複数の(target, weight_per_cm)ペアへそれぞれ積算する。
+
+    transport.pyがkerma用・H*(10)用に同一(origin, direction, length_cm)で
+    accumulate_track_lengthを2回呼んでいた（交差分解を2回計算、うち最大級の
+    呼び出しは1回あたり約13秒×2）のを1回にまとめるための関数。各targetへの
+    加算順序はaccumulate_track_lengthを個別に2回呼んだ場合と同一（チャンク→
+    区間の処理順そのままにtargetごとの`np.add.at`を呼ぶだけ）なので、既存の
+    ビット一致保証は変わらない。
+    """
     n = origin.shape[0]
     if n == 0:
         return
-    seg_id, idx, overlap = _segment_grid_traversal(grid, origin, direction, length_cm)
-    if len(seg_id) == 0:
-        return
-    weight_flat = weight_per_cm[seg_id] * overlap
-    flat_idx = np.ravel_multi_index((idx[:, 0], idx[:, 1], idx[:, 2]), grid.shape)
-    np.add.at(target.reshape(-1), flat_idx, weight_flat)
+    _segment_grid_traversal_accumulate(grid, origin, direction, length_cm, target_weight_pairs)

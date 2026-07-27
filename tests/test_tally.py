@@ -14,8 +14,18 @@ import numpy as np
 
 from chatcarlo.dose_coefficients import h_star_10_per_fluence
 from chatcarlo.geometry import Geometry
-from chatcarlo.tally import VoxelGrid, accumulate_track_length
+from chatcarlo.tally import VoxelGrid, accumulate_track_length, _argsort_within_segment
 from chatcarlo.transport import transport_photons
+
+
+def _lexsort_within_segment_reference(all_t: np.ndarray, all_seg: np.ndarray) -> np.ndarray:
+    """`_argsort_within_segment`（単一キーargsort、docs/plan_tally_speedup.md Step 3）
+    が置き換えた旧方式（np.lexsort）そのものをテスト用オラクルとして再現する。
+
+    本番コード（chatcarlo/tally.py）には存在しない——このファイル固有の
+    検証専用ヘルパー。
+    """
+    return np.lexsort((all_t, all_seg))
 
 
 def test_accumulate_exact_energy_conservation():
@@ -192,6 +202,105 @@ def test_matches_fine_substep_reference_voxel_by_voxel():
     tol = weight.max() * substep_cm * 5
     assert np.max(np.abs(exact[hit] - reference[hit])) < tol
     assert np.isclose(exact.sum(), reference.sum(), rtol=1e-3)
+
+
+def _overlap_per_segment_via_same_seg_logic(order, all_t, all_seg, n_seg):
+    """`_segment_grid_traversal`本体と全く同じsame_seg/overlap計算を再現し、
+    セグメントごとの重なり長の合計を返す（テスト用）。orderが正しく
+    「セグメント昇順→セグメント内t昇順」になっていない限り、
+    same_seg判定がセグメント境界を誤検出し、一部のセグメントで
+    合計重なり長がspanより小さくなる（＝実害のある破損）。
+    """
+    sorted_t = all_t[order]
+    sorted_seg = all_seg[order]
+    same_seg = sorted_seg[1:] == sorted_seg[:-1]
+    overlap = np.where(same_seg, sorted_t[1:] - sorted_t[:-1], 0.0)
+    seg_for_interval = sorted_seg[:-1]
+    totals = np.zeros(n_seg)
+    np.add.at(totals, seg_for_interval, overlap)
+    return totals
+
+
+def test_argsort_within_segment_handles_adjacent_segment_boundary_collision():
+    """docs/plan_tally_speedup.md Step 3: セグメントiの終点(frac=1.0)とセグメント
+    i+1の始点(frac=0.0)がちょうど同じt値を持つとき、正規化キーseg+fracを
+    0.5倍せずそのまま使うと両者のキーが数値的に衝突し(i+1.0 == (i+1)+0.0)、
+    argsortの並び順が不定になってセグメント境界そのものが壊れる——
+    `_segment_grid_traversal_accumulate`本体が行うsame_seg判定（隣接要素の
+    セグメント一致で重なり長を計算する）が誤動作し、衝突した2セグメントの
+    重なり長が本来のspanより小さく（最悪ゼロに）計算されてしまう。
+
+    この破損は「各セグメントに属する値だけを取り出して昇順か見る」検証では
+    検出できない（all_seg[order]によるラベル再割り当てはどんな並び順に対しても
+    自明に成り立つため）。実際の破損箇所であるsame_seg/overlap計算をこのテストでも
+    再現し、重なり長の合計がspanと一致するかで検証する。
+
+    衝突ペアを1組（セグメント2個）だけにすると、numpyのargsortのタイの崩し方が
+    たまたま正しい順序を再現してしまい、0.5倍を外すミューテーションを検出でき
+    ないことが分かった（ミューテーション試験で確認）。隣接する20セグメントを
+    鎖状に全て衝突させることで、タイの崩れ方が偶然一致し続ける確率を下げ、
+    確実に検出できるようにしている（同じくミューテーション試験で確認済み）。
+    """
+    n_seg = 20
+    # seg[i]のt_exitとseg[i+1]のt_enterが鎖状にちょうど一致する連続衝突ケース。
+    t_enter_c = np.arange(n_seg, dtype=float) * 10.0
+    t_exit_c = t_enter_c + 10.0
+    all_t = np.empty(2 * n_seg)
+    all_seg = np.empty(2 * n_seg, dtype=np.int64)
+    all_t[0::2] = t_enter_c
+    all_t[1::2] = t_exit_c
+    all_seg[0::2] = np.arange(n_seg)
+    all_seg[1::2] = np.arange(n_seg)
+
+    order = _argsort_within_segment(all_t, all_seg, t_enter_c, t_exit_c)
+    totals = _overlap_per_segment_via_same_seg_logic(order, all_t, all_seg, n_seg)
+
+    np.testing.assert_allclose(totals, t_exit_c - t_enter_c)
+
+
+def test_argsort_within_segment_matches_lexsort_reference_fuzz():
+    """新しい単一キーargsort方式が、旧lexsort方式と同じセグメント境界検出
+    （`_segment_grid_traversal`本体のsame_seg/overlap計算）を与えることを
+    ランダムデータで確認する（docs/plan_tally_speedup.md Step 3）。
+    セグメント数・1セグメントあたりの交点数を無作為化し、境界collisionが
+    起きやすいよう一部セグメントの終点/始点を意図的に一致させたケースも混ぜる。
+    各セグメントの重なり長合計が真のspanと一致するかで、境界破損の有無を検証する
+    （前段の失敗から学んだ通り、ラベル再割り当てベースの検証では破損を検出できない
+    ため、実際の下流ロジックを再現して検証する）。
+    """
+    rng = np.random.default_rng(42)
+    n_seg = 500
+
+    t_enter_c = np.sort(rng.uniform(0.0, 1000.0, size=n_seg))
+    span = rng.uniform(0.5, 20.0, size=n_seg)
+
+    # 意図的にseg[i]のt_exitとseg[i+1]のt_enterを一致させるケースを混ぜる
+    # （t_exitはt_enter確定後にspanを足して求めるので、この時点で調整する）。
+    collide_idx = rng.choice(n_seg - 1, size=n_seg // 10, replace=False)
+    t_enter_c[collide_idx + 1] = t_enter_c[collide_idx] + span[collide_idx]
+
+    t_exit_c = t_enter_c + span
+    true_span = t_exit_c - t_enter_c
+
+    all_t_parts = []
+    all_seg_parts = []
+    for i in range(n_seg):
+        n_pts = rng.integers(2, 30)
+        pts = rng.uniform(t_enter_c[i], t_exit_c[i], size=n_pts - 2)
+        pts = np.concatenate(([t_enter_c[i]], pts, [t_exit_c[i]]))
+        all_t_parts.append(pts)
+        all_seg_parts.append(np.full(n_pts, i))
+    all_t = np.concatenate(all_t_parts)
+    all_seg = np.concatenate(all_seg_parts)
+
+    order_new = _argsort_within_segment(all_t, all_seg, t_enter_c, t_exit_c)
+    order_ref = _lexsort_within_segment_reference(all_t, all_seg)
+
+    totals_new = _overlap_per_segment_via_same_seg_logic(order_new, all_t, all_seg, n_seg)
+    totals_ref = _overlap_per_segment_via_same_seg_logic(order_ref, all_t, all_seg, n_seg)
+
+    np.testing.assert_allclose(totals_new, true_span, rtol=1e-12)
+    np.testing.assert_allclose(totals_ref, true_span, rtol=1e-12)
 
 
 def test_run_transport_dose_grid_h10_finite_and_nonnegative():

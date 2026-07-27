@@ -128,15 +128,35 @@ segment that crosses an arbitrary number of voxels) — no random sampling, no d
 variance. This replaced an earlier substep+stratified-random-point Monte Carlo scheme (itself a fix for a
 decisive-midpoint scheme that systematically under-scored voxels when many segments started exactly on a voxel
 boundary, e.g. a `field.shape: parallel` beam entering a phantom face — see lessons_learned for that bug); the
-exact method has no such boundary-phase artifact by construction and needed no `max_substeps` clamp. **This is
-slower than the old clamped-substep method** — measured with a git-worktree A/B against the pre-replacement
-commit (`0157179`), single-worker `--dose-grid` runs were ~1.6–2.5× slower at `--resolution` 5cm/2cm/1cm, and
-~4.7× slower at the default `--batch-size` (200,000) with a 2cm grid and n=2e5 (cost grows superlinearly with
-batch size, likely the `np.lexsort` inside `_segment_grid_traversal`) — extrapolating to the Phase 0 baseline
-condition (chest_room, n=1e6, res=5cm, 27.57s) suggests roughly 28s→49s. Physics results (total kerma, per-material
-energy) are bit-identical old vs new; only wall-time regressed. Optimizing this (e.g. replacing the lexsort with a
-per-segment sort) is an open follow-up — see
-[docs/speedup_baseline/tally_exact_resolution_growth.txt](docs/speedup_baseline/tally_exact_resolution_growth.txt).
+exact method has no such boundary-phase artifact by construction and needed no `max_substeps` clamp. **This was
+initially slower than the old clamped-substep method** (up to ~4.7× at the default `--batch-size` 200,000 with a
+2cm grid and n=2e5) but has since been fixed — see [docs/plan_tally_speedup.md](docs/plan_tally_speedup.md)
+(Phase 0-3 complete). Phase-by-phase profiling at the regression condition found `np.lexsort` inside
+`_segment_grid_traversal` responsible for 84.1% of wall time, and confirmed (contrary to an earlier hedge in this
+file) that the cost really was dominated by the sort itself rather than by memory-bandwidth-bound gathers — an
+isolated benchmark showed `np.lexsort`'s per-element cost roughly tripling once the array exceeds ~2–4M elements
+(a cache cliff), and the largest single traversal call in the regression condition (200,000 segments → ~18M
+intersection points) was being computed **twice** (once each for kerma and H\*(10), on identical geometry).
+Four fixes landed: (1) `accumulate_track_length_multi` shares one traversal between kerma and H\*(10) instead of
+computing it twice; (2) `_segment_grid_traversal_accumulate` (renamed from `_segment_grid_traversal`) chunks
+segments so no single sort call exceeds `_CHUNK_TARGET_INTERSECTIONS` (1,000,000), keeping each chunk's sort
+arrays cache-resident; (3) the sort itself was replaced with a single-key `np.argsort`
+(`_argsort_within_segment`, key = segment_id + 0.5×fractional-position) instead of the two-pass `np.lexsort`,
+with a dedicated fuzz test (`tests/test_tally.py`) verifying it reproduces the same segment/overlap decomposition
+— including a boundary-collision edge case (two segments' t-values landing exactly on each other) the 0.5 scaling
+exists specifically to avoid; (4) each chunk's `np.add.at` now runs immediately (instead of concatenating all
+chunks' results before one final scatter-add) — a `/furikaeri` self-review caught that fix (2)'s own pre-registered
+memory acceptance criterion had been left unmeasured, and the concatenate-then-add-at design meant chunking hadn't
+actually reduced peak memory at all. All four changes are bit-identical with the pre-fix code (verified via
+git-worktree A/B against commit `0c97ab4`). Net result (measured with the single consistent script
+`docs/speedup_baseline/tally_speedup_timing.py`, since the memory figures originally reported for this regression
+turned out not to reproduce under that script and were corrected — see the file for the discrepancy): the
+regression condition (chest_room, `--dose-grid`, res=2cm, n=2e5, batch=2e5) went from ~26.5s/4.59GB down to
+**~5.5s/~1.7GB**, actually *beating* the original substep method's ~5.9s/2.31GB on both wall-time and peak memory
+(interleaved 2–3-rep A/B, alternating arm order, values stable across repeats). Per-history cost is now flat
+across batch sizes (was 40µs→149µs superlinear, now ~28–36µs regardless of batch size). Physics results (total
+kerma, per-material energy) remain bit-identical throughout — only wall-time/memory changed. Full profiling data
+and methodology, plus the reusable measurement scripts: [docs/speedup_baseline/tally_exact_resolution_growth.txt](docs/speedup_baseline/tally_exact_resolution_growth.txt).
 The exact method also reaches a somewhat larger voxel set than the old one (same chest_room scene, same seed:
 442,111→477,913 nonzero voxels, +8.1%) since it catches thin corner/edge crossings the substep sampling could
 miss — this shows up as a slightly higher `n_batches_hit` count on marginal voxels and does not change any
