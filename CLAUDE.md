@@ -96,6 +96,14 @@ any object is `background` (default air).
 trajectory recording for `trace` in [trajectory.py](chatcarlo/trajectory.py); dose-map conversion and the
 non-physical-max warnings in [diagnostics.py](chatcarlo/diagnostics.py).
 
+**Experimental parallel implementation (not yet wired into the CLI)**: [kernel.py](chatcarlo/kernel.py) is a
+from-scratch Numba-compiled per-history scalar transport kernel (Phase B of
+[docs/plan_chatcarlo_speedup_post_egs5.md](docs/plan_chatcarlo_speedup_post_egs5.md); box-shaped geometry only,
+no cylinder/sphere yet). `transport.py` remains the production path and the permanent reference implementation
+that `kernel.py` is statistically cross-checked against (RNG algorithms differ — MT19937 vs PCG64 — so bit-identity
+is not the verification method; see the plan doc's "Phase Bの検証戦略"). Before extending or duplicating
+transport logic, check whether it already exists in `kernel.py`.
+
 **Physics**: photoelectric / Compton (bound Compton — free-electron Klein-Nishina via Kahn rejection sampling,
 then an additional S(Z,q)/Z rejection from the incoherent scattering function via `xraylib.SF_Compt`; compounds
 sampled by mass-fraction-weighted element pick, same pattern as Rayleigh, before the angular distribution) /
