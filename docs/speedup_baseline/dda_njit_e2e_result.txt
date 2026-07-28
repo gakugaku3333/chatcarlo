@@ -1,0 +1,52 @@
+mode: correctness
+adapter accumulation into nonzero targets: PASS
+adapter empty input: PASS
+monkey-patch restoration after intentional exception: PASS
+one_batch_200000/kerma_keV: PASS nonzero=PASS max_abs=0 max_rel=0
+one_batch_200000/h10_track_pSv_cm3: PASS nonzero=PASS max_abs=0 max_rel=0
+one_batch_200000/KernelBatchResult.n_scatter: PASS
+one_batch_200000/KernelBatchResult.absorbed: PASS
+one_batch_200000/KernelBatchResult.escaped: PASS
+one_batch_200000/KernelBatchResult.final_energy: PASS
+one_batch_200000/KernelBatchResult.energy_deposited: PASS
+one_batch_200000/KernelBatchResult.n_fluorescence: PASS
+remainder_batches_60000/kerma_keV: PASS nonzero=PASS max_abs=0 max_rel=0
+remainder_batches_60000/h10_track_pSv_cm3: PASS nonzero=PASS max_abs=0 max_rel=0
+remainder_batches_60000/KernelBatchResult.n_scatter: PASS
+remainder_batches_60000/KernelBatchResult.absorbed: PASS
+remainder_batches_60000/KernelBatchResult.escaped: PASS
+remainder_batches_60000/KernelBatchResult.final_energy: PASS
+remainder_batches_60000/KernelBatchResult.energy_deposited: PASS
+remainder_batches_60000/KernelBatchResult.n_fluorescence: PASS
+correctness overall: PASS
+mode: timing
+end-to-end definition: kernel.run_dose_grid overall; excludes CLI startup, scene loading, and bake_scene_materials
+timing-wrapper overhead: one perf_counter pair per DDA call (one call per batch), expected negligible
+warmup: A then B, n_histories=2000
+rep=1 order=AB E2E_A=0.554781458 DDA_in_A=0.418278958 residual_A=0.136502500 calls_A=1 E2E_B=0.203777542 DDA_in_B=0.070123959 residual_B=0.133653583 calls_B=1 speedup=2.722486
+rep=2 order=BA E2E_A=0.517244709 DDA_in_A=0.387068375 residual_A=0.130176334 calls_A=1 E2E_B=0.204999417 DDA_in_B=0.070192625 residual_B=0.134806792 calls_B=1 speedup=2.523152
+rep=3 order=AB E2E_A=0.502940625 DDA_in_A=0.372562125 residual_A=0.130378500 calls_A=1 E2E_B=0.199219750 DDA_in_B=0.070954041 residual_B=0.128265709 calls_B=1 speedup=2.524552
+rep=4 order=BA E2E_A=0.503814500 DDA_in_A=0.376415000 residual_A=0.127399500 calls_A=1 E2E_B=0.197339875 DDA_in_B=0.070824333 residual_B=0.126515542 calls_B=1 speedup=2.553029
+rep=5 order=AB E2E_A=0.501122583 DDA_in_A=0.373580833 residual_A=0.127541750 calls_A=1 E2E_B=0.201619875 DDA_in_B=0.070662583 residual_B=0.130957292 calls_B=1 speedup=2.485482
+rep=6 order=BA E2E_A=0.552550708 DDA_in_A=0.423874125 residual_A=0.128676583 calls_A=1 E2E_B=0.199535458 DDA_in_B=0.071057167 residual_B=0.128478291 calls_B=1 speedup=2.769186
+rep=7 order=AB E2E_A=0.510997875 DDA_in_A=0.381745333 residual_A=0.129252542 calls_A=1 E2E_B=0.199909417 DDA_in_B=0.070804000 residual_B=0.129105417 calls_B=1 speedup=2.556147
+rep=8 order=BA E2E_A=0.515537125 DDA_in_A=0.379913750 residual_A=0.135623375 calls_A=1 E2E_B=0.196290333 DDA_in_B=0.070416875 residual_B=0.125873458 calls_B=1 speedup=2.626401
+E2E_A: min=0.501122583 median=0.513267500 max=0.554781458
+DDA_in_A: min=0.372562125 median=0.380829541 max=0.423874125
+residual_A: min=0.127399500 median=0.129714438 max=0.136502500
+E2E_B: min=0.196290333 median=0.199722438 max=0.204999417
+DDA_in_B: min=0.070123959 median=0.070733292 max=0.071057167
+residual_B: min=0.125873458 median=0.128791854 max=0.134806792
+per-repetition speedups: 2.722486, 2.523152, 2.524552, 2.553029, 2.485482, 2.769186, 2.556147, 2.626401
+S_E2E_measured=2.569904
+fixed_prediction=2.721000
+same-run decomposition prediction=2.560605
+measured/fixed_prediction=0.944470
+median E2E_A vs reported 0.538 s: 0.513267500 / 0.538000000
+median residual change B-A=-0.000922584s (-0.711% of residual_A)
+all 8 repetitions E2E_B < E2E_A: True
+adoption gate: 高速化を達成
+post-replacement bottleneck candidate: residual_B (transport, segment-buffer allocation/concatenation, and weight calculation collectively); no further profiling is in scope
+process ru_maxrss reference=1125564416
+memory note: process-lifetime cumulative peak only; no arm-wise claim
+chest_room end-to-end: not measurable because kernel supports boxes only

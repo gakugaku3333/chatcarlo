@@ -1,0 +1,413 @@
+tolerances: single atol=5e-12 rtol=5e-12; aggregate atol=2e-10 rtol=2e-12
+axis0_-1/kerma: voxel=PASS nonzero=PASS sum=PASS max_abs=0.000e+00 max_rel=0.000e+00
+axis0_-1/H10: voxel=PASS nonzero=PASS sum=PASS max_abs=0.000e+00 max_rel=0.000e+00
+axis0_+1/kerma: voxel=PASS nonzero=PASS sum=PASS max_abs=0.000e+00 max_rel=0.000e+00
+axis0_+1/H10: voxel=PASS nonzero=PASS sum=PASS max_abs=0.000e+00 max_rel=0.000e+00
+axis1_-1/kerma: voxel=PASS nonzero=PASS sum=PASS max_abs=0.000e+00 max_rel=0.000e+00
+axis1_-1/H10: voxel=PASS nonzero=PASS sum=PASS max_abs=0.000e+00 max_rel=0.000e+00
+axis1_+1/kerma: voxel=PASS nonzero=PASS sum=PASS max_abs=0.000e+00 max_rel=0.000e+00
+axis1_+1/H10: voxel=PASS nonzero=PASS sum=PASS max_abs=0.000e+00 max_rel=0.000e+00
+axis2_-1/kerma: voxel=PASS nonzero=PASS sum=PASS max_abs=0.000e+00 max_rel=0.000e+00
+axis2_-1/H10: voxel=PASS nonzero=PASS sum=PASS max_abs=0.000e+00 max_rel=0.000e+00
+axis2_+1/kerma: voxel=PASS nonzero=PASS sum=PASS max_abs=0.000e+00 max_rel=0.000e+00
+axis2_+1/H10: voxel=PASS nonzero=PASS sum=PASS max_abs=0.000e+00 max_rel=0.000e+00
+outside-through/kerma: voxel=PASS nonzero=PASS sum=PASS max_abs=0.000e+00 max_rel=0.000e+00
+outside-through/H10: voxel=PASS nonzero=PASS sum=PASS max_abs=0.000e+00 max_rel=0.000e+00
+outside-only/kerma: voxel=PASS nonzero=PASS sum=PASS max_abs=0.000e+00 max_rel=0.000e+00
+outside-only/H10: voxel=PASS nonzero=PASS sum=PASS max_abs=0.000e+00 max_rel=0.000e+00
+inside-only/kerma: voxel=PASS nonzero=PASS sum=PASS max_abs=0.000e+00 max_rel=0.000e+00
+inside-only/H10: voxel=PASS nonzero=PASS sum=PASS max_abs=0.000e+00 max_rel=0.000e+00
+outer-start/kerma: voxel=PASS nonzero=PASS sum=PASS max_abs=0.000e+00 max_rel=0.000e+00
+outer-start/H10: voxel=PASS nonzero=PASS sum=PASS max_abs=0.000e+00 max_rel=0.000e+00
+outer-end/kerma: voxel=PASS nonzero=PASS sum=PASS max_abs=0.000e+00 max_rel=0.000e+00
+outer-end/H10: voxel=PASS nonzero=PASS sum=PASS max_abs=0.000e+00 max_rel=0.000e+00
+inner-start/kerma: voxel=PASS nonzero=PASS sum=PASS max_abs=0.000e+00 max_rel=0.000e+00
+inner-start/H10: voxel=PASS nonzero=PASS sum=PASS max_abs=0.000e+00 max_rel=0.000e+00
+inner-end/kerma: voxel=PASS nonzero=PASS sum=PASS max_abs=0.000e+00 max_rel=0.000e+00
+inner-end/H10: voxel=PASS nonzero=PASS sum=PASS max_abs=0.000e+00 max_rel=0.000e+00
+face-parallel/kerma: voxel=PASS nonzero=PASS sum=PASS max_abs=0.000e+00 max_rel=0.000e+00
+face-parallel/H10: voxel=PASS nonzero=PASS sum=PASS max_abs=0.000e+00 max_rel=0.000e+00
+hi-face-parallel/kerma: voxel=PASS nonzero=PASS sum=PASS max_abs=0.000e+00 max_rel=0.000e+00
+hi-face-parallel/H10: voxel=PASS nonzero=PASS sum=PASS max_abs=0.000e+00 max_rel=0.000e+00
+edge/kerma: voxel=PASS nonzero=PASS sum=PASS max_abs=0.000e+00 max_rel=0.000e+00
+edge/H10: voxel=PASS nonzero=PASS sum=PASS max_abs=0.000e+00 max_rel=0.000e+00
+vertex/kerma: voxel=PASS nonzero=PASS sum=PASS max_abs=0.000e+00 max_rel=0.000e+00
+vertex/H10: voxel=PASS nonzero=PASS sum=PASS max_abs=0.000e+00 max_rel=0.000e+00
+zero-components/kerma: voxel=PASS nonzero=PASS sum=PASS max_abs=0.000e+00 max_rel=0.000e+00
+zero-components/H10: voxel=PASS nonzero=PASS sum=PASS max_abs=0.000e+00 max_rel=0.000e+00
+below-parallel-eps/kerma: voxel=PASS nonzero=PASS sum=PASS max_abs=0.000e+00 max_rel=0.000e+00
+below-parallel-eps/H10: voxel=PASS nonzero=PASS sum=PASS max_abs=0.000e+00 max_rel=0.000e+00
+above-parallel-eps/kerma: voxel=PASS nonzero=PASS sum=PASS max_abs=0.000e+00 max_rel=0.000e+00
+above-parallel-eps/H10: voxel=PASS nonzero=PASS sum=PASS max_abs=0.000e+00 max_rel=0.000e+00
+zero-length/kerma: voxel=PASS nonzero=PASS sum=PASS max_abs=0.000e+00 max_rel=0.000e+00
+zero-length/H10: voxel=PASS nonzero=PASS sum=PASS max_abs=0.000e+00 max_rel=0.000e+00
+tiny/kerma: voxel=PASS nonzero=PASS sum=PASS max_abs=0.000e+00 max_rel=0.000e+00
+tiny/H10: voxel=PASS nonzero=PASS sum=PASS max_abs=0.000e+00 max_rel=0.000e+00
+one-voxel/kerma: voxel=PASS nonzero=PASS sum=PASS max_abs=0.000e+00 max_rel=0.000e+00
+one-voxel/H10: voxel=PASS nonzero=PASS sum=PASS max_abs=0.000e+00 max_rel=0.000e+00
+long-1200/kerma: voxel=PASS nonzero=PASS sum=PASS max_abs=0.000e+00 max_rel=0.000e+00
+long-1200/H10: voxel=PASS nonzero=PASS sum=PASS max_abs=0.000e+00 max_rel=0.000e+00
+same-voxel-multiweight/kerma: voxel=PASS nonzero=PASS sum=PASS max_abs=0.000e+00 max_rel=0.000e+00
+same-voxel-multiweight/H10: voxel=PASS nonzero=PASS sum=PASS max_abs=0.000e+00 max_rel=0.000e+00
+water60_free_endpoint_near_plane: PASS; voxel(1,25,24)=0
+boundary-near-fuzz: PASS endpoint=3000 clipped=1500 near-tie=500 (interval-by-interval)
+random-fuzz-6000/kerma: voxel=PASS nonzero=PASS sum=PASS max_abs=0.000e+00 max_rel=0.000e+00
+random-fuzz-6000/H10: voxel=PASS nonzero=PASS sum=PASS max_abs=0.000e+00 max_rel=0.000e+00
+chest_room-derived/kerma: voxel=PASS nonzero=PASS sum=PASS max_abs=0.000e+00 max_rel=0.000e+00
+chest_room-derived/H10: voxel=PASS nonzero=PASS sum=PASS max_abs=0.000e+00 max_rel=0.000e+00
+CORRECTNESS: PASS
+rep0 order=numpy/njit numpy=0.390060s njit=0.070100s
+rep1 order=njit/numpy numpy=0.371751s njit=0.069873s
+rep2 order=numpy/njit numpy=0.374521s njit=0.070282s
+rep3 order=njit/numpy numpy=0.371407s njit=0.070148s
+rep4 order=numpy/njit numpy=0.396602s njit=0.070832s
+rep5 order=njit/numpy numpy=0.464511s njit=0.070235s
+rep6 order=numpy/njit numpy=0.422234s njit=0.070791s
+rep7 order=njit/numpy numpy=0.381539s njit=0.070572s
+scenario=water60_free segments=1022763 median_numpy=0.385799s median_njit=0.070258s dda_speedup=5.491x
+gate_A=PASS
+integrated_reproduction=0.600014s (kernel+existing DDA, one run, sanity only)
+registered_reference: total=0.538s dda=0.402s residual=0.136s
+amdahl_predicted_end_to_end=2.572x gate_B=FAIL
+decision=DO_NOT_PROCEED
+........................................................................ [ 21%]
+........................................................................ [ 43%]
+.......F.FFFF........................................................... [ 64%]
+..................................F.F..F................................ [ 86%]
+..............................................                           [100%]
+=================================== FAILURES ===================================
+___________________ test_same_seed_same_workers_reproducible ___________________
+
+    def test_same_seed_same_workers_reproducible():
+        """同一(seed, workers=2)なら2回の実行がビット一致する。"""
+>       r1 = run_transport(_SCENE, n_histories=8000, seed=123, n_workers=2)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_parallel_transport.py:20: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+chatcarlo/transport.py:416: in run_transport
+    with concurrent.futures.ProcessPoolExecutor(max_workers=n_workers) as pool:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/opt/homebrew/Cellar/python@3.11/3.11.13/Frameworks/Python.framework/Versions/3.11/lib/python3.11/concurrent/futures/process.py:654: in __init__
+    _check_system_limits()
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def _check_system_limits():
+        global _system_limits_checked, _system_limited
+        if _system_limits_checked:
+            if _system_limited:
+                raise NotImplementedError(_system_limited)
+        _system_limits_checked = True
+        try:
+            import multiprocessing.synchronize
+        except ImportError:
+            _system_limited = (
+                "This Python build lacks multiprocessing.synchronize, usually due "
+                "to named semaphores being unavailable on this platform."
+            )
+            raise NotImplementedError(_system_limited)
+        try:
+>           nsems_max = os.sysconf("SC_SEM_NSEMS_MAX")
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           PermissionError: [Errno 1] Operation not permitted
+
+/opt/homebrew/Cellar/python@3.11/3.11.13/Frameworks/Python.framework/Versions/3.11/lib/python3.11/concurrent/futures/process.py:597: PermissionError
+_______________ test_parallel_statistically_equivalent_to_serial _______________
+
+    def test_parallel_statistically_equivalent_to_serial():
+        """workers=1とworkers=2は異なる乱数ストリームを使うためビット不一致だが、
+        材料別付与エネルギーは統計的に同等（大きな乖離がない）こと。"""
+        n = 40000
+        r_serial = run_transport(_SCENE, n_histories=n, seed=99, n_workers=1)
+>       r_parallel = run_transport(_SCENE, n_histories=n, seed=99, n_workers=2)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_parallel_transport.py:44: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+chatcarlo/transport.py:416: in run_transport
+    with concurrent.futures.ProcessPoolExecutor(max_workers=n_workers) as pool:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/opt/homebrew/Cellar/python@3.11/3.11.13/Frameworks/Python.framework/Versions/3.11/lib/python3.11/concurrent/futures/process.py:654: in __init__
+    _check_system_limits()
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def _check_system_limits():
+        global _system_limits_checked, _system_limited
+        if _system_limits_checked:
+            if _system_limited:
+                raise NotImplementedError(_system_limited)
+        _system_limits_checked = True
+        try:
+            import multiprocessing.synchronize
+        except ImportError:
+            _system_limited = (
+                "This Python build lacks multiprocessing.synchronize, usually due "
+                "to named semaphores being unavailable on this platform."
+            )
+            raise NotImplementedError(_system_limited)
+        try:
+>           nsems_max = os.sysconf("SC_SEM_NSEMS_MAX")
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           PermissionError: [Errno 1] Operation not permitted
+
+/opt/homebrew/Cellar/python@3.11/3.11.13/Frameworks/Python.framework/Versions/3.11/lib/python3.11/concurrent/futures/process.py:597: PermissionError
+___________________ test_parallel_dose_grid_merge_consistent ___________________
+
+    def test_parallel_dose_grid_merge_consistent():
+        """workers=2でdose_grid=Trueのとき、各ワーカーのkerma/H*(10)配列が正しく
+        加算マージされていること（総カーマが材料別付与エネルギー総和と整合するオーダー
+        であることを見る、collision推定量とtrack-length推定量の相互検証の並列版）。"""
+        n = 20000
+>       r = run_transport(_SCENE, n_histories=n, seed=11, n_workers=2,
+                           dose_grid=True, grid_resolution_cm=10.0)
+
+tests/test_parallel_transport.py:70: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+chatcarlo/transport.py:416: in run_transport
+    with concurrent.futures.ProcessPoolExecutor(max_workers=n_workers) as pool:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/opt/homebrew/Cellar/python@3.11/3.11.13/Frameworks/Python.framework/Versions/3.11/lib/python3.11/concurrent/futures/process.py:654: in __init__
+    _check_system_limits()
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def _check_system_limits():
+        global _system_limits_checked, _system_limited
+        if _system_limits_checked:
+            if _system_limited:
+                raise NotImplementedError(_system_limited)
+        _system_limits_checked = True
+        try:
+            import multiprocessing.synchronize
+        except ImportError:
+            _system_limited = (
+                "This Python build lacks multiprocessing.synchronize, usually due "
+                "to named semaphores being unavailable on this platform."
+            )
+            raise NotImplementedError(_system_limited)
+        try:
+>           nsems_max = os.sysconf("SC_SEM_NSEMS_MAX")
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           PermissionError: [Errno 1] Operation not permitted
+
+/opt/homebrew/Cellar/python@3.11/3.11.13/Frameworks/Python.framework/Versions/3.11/lib/python3.11/concurrent/futures/process.py:597: PermissionError
+____________ test_parallel_heel_effect_reproducible_and_consistent _____________
+
+    def test_parallel_heel_effect_reproducible_and_consistent():
+        """ヒール効果（SpekPy軸外スペクトルをビン数分呼ぶ、単純kvpより固定費が
+        重い経路）でも並列化が正しく動くこと——warm-upによるスペクトルキャッシュ
+        共有(_warm_spectrum_cache)が効く主眼のケース。"""
+        n = 5000
+>       r1 = run_transport(_HEEL_SCENE, n_histories=n, seed=7, n_workers=4)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_parallel_transport.py:107: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+chatcarlo/transport.py:416: in run_transport
+    with concurrent.futures.ProcessPoolExecutor(max_workers=n_workers) as pool:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/opt/homebrew/Cellar/python@3.11/3.11.13/Frameworks/Python.framework/Versions/3.11/lib/python3.11/concurrent/futures/process.py:654: in __init__
+    _check_system_limits()
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def _check_system_limits():
+        global _system_limits_checked, _system_limited
+        if _system_limits_checked:
+            if _system_limited:
+                raise NotImplementedError(_system_limited)
+        _system_limits_checked = True
+        try:
+            import multiprocessing.synchronize
+        except ImportError:
+            _system_limited = (
+                "This Python build lacks multiprocessing.synchronize, usually due "
+                "to named semaphores being unavailable on this platform."
+            )
+            raise NotImplementedError(_system_limited)
+        try:
+>           nsems_max = os.sysconf("SC_SEM_NSEMS_MAX")
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           PermissionError: [Errno 1] Operation not permitted
+
+/opt/homebrew/Cellar/python@3.11/3.11.13/Frameworks/Python.framework/Versions/3.11/lib/python3.11/concurrent/futures/process.py:597: PermissionError
+__________________ test_warm_up_cache_does_not_change_physics __________________
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x114399d10>
+
+    def test_warm_up_cache_does_not_change_physics(monkeypatch):
+        """スペクトルキャッシュのwarm-up最適化が物理結果をビット単位で変えないこと
+        （中核の正当性主張の回帰ガード）。warm-upを無効化して各ワーカーが自前で
+        SpekPyを計算する旧挙動と、warm-up経由でキャッシュを配布する現挙動が、
+        同一(seed, workers)で完全一致することを確認する。SpekPyは決定的・pickleは
+        float無損失なので、両者は一致するはず。"""
+        import chatcarlo.transport as transport_mod
+    
+>       r_warm = run_transport(_SCENE, n_histories=20000, seed=42, n_workers=4)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_parallel_transport.py:123: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+chatcarlo/transport.py:416: in run_transport
+    with concurrent.futures.ProcessPoolExecutor(max_workers=n_workers) as pool:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/opt/homebrew/Cellar/python@3.11/3.11.13/Frameworks/Python.framework/Versions/3.11/lib/python3.11/concurrent/futures/process.py:654: in __init__
+    _check_system_limits()
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def _check_system_limits():
+        global _system_limits_checked, _system_limited
+        if _system_limits_checked:
+            if _system_limited:
+                raise NotImplementedError(_system_limited)
+        _system_limits_checked = True
+        try:
+            import multiprocessing.synchronize
+        except ImportError:
+            _system_limited = (
+                "This Python build lacks multiprocessing.synchronize, usually due "
+                "to named semaphores being unavailable on this platform."
+            )
+            raise NotImplementedError(_system_limited)
+        try:
+>           nsems_max = os.sysconf("SC_SEM_NSEMS_MAX")
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           PermissionError: [Errno 1] Operation not permitted
+
+/opt/homebrew/Cellar/python@3.11/3.11.13/Frameworks/Python.framework/Versions/3.11/lib/python3.11/concurrent/futures/process.py:597: PermissionError
+______ test_totals_bit_identical_regardless_of_track_uncertainty_parallel ______
+
+    def test_totals_bit_identical_regardless_of_track_uncertainty_parallel():
+        """並列パス（workers>=2）でも同様にビット一致する
+        （ワーカー側のend_batchもtotalへの書き込みを一切行わないため）。"""
+>       r_on = run_transport(_SCENE, n_histories=16000, seed=9, n_workers=2, dose_grid=True,
+                              grid_resolution_cm=5.0, track_uncertainty=True)
+
+tests/test_uncertainty_transport.py:58: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+chatcarlo/transport.py:416: in run_transport
+    with concurrent.futures.ProcessPoolExecutor(max_workers=n_workers) as pool:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/opt/homebrew/Cellar/python@3.11/3.11.13/Frameworks/Python.framework/Versions/3.11/lib/python3.11/concurrent/futures/process.py:654: in __init__
+    _check_system_limits()
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def _check_system_limits():
+        global _system_limits_checked, _system_limited
+        if _system_limits_checked:
+            if _system_limited:
+                raise NotImplementedError(_system_limited)
+        _system_limits_checked = True
+        try:
+            import multiprocessing.synchronize
+        except ImportError:
+            _system_limited = (
+                "This Python build lacks multiprocessing.synchronize, usually due "
+                "to named semaphores being unavailable on this platform."
+            )
+            raise NotImplementedError(_system_limited)
+        try:
+>           nsems_max = os.sysconf("SC_SEM_NSEMS_MAX")
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           PermissionError: [Errno 1] Operation not permitted
+
+/opt/homebrew/Cellar/python@3.11/3.11.13/Frameworks/Python.framework/Versions/3.11/lib/python3.11/concurrent/futures/process.py:597: PermissionError
+_______ test_same_seed_workers_reproducible_including_uncertainty_stats ________
+
+    def test_same_seed_workers_reproducible_including_uncertainty_stats():
+        """同一(seed, workers)なら、totalだけでなく統計量（sum2・n_batches）も
+        2回の実行でビット一致する（並列集約の加算順序がワーカー番号順で固定されて
+        いることの確認、plan_phase3_parallel.mdの既存契約の統計版）。"""
+>       r1 = run_transport(_SCENE, n_histories=8000, seed=123, n_workers=2, dose_grid=True,
+                            grid_resolution_cm=5.0, track_uncertainty=True)
+
+tests/test_uncertainty_transport.py:83: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+chatcarlo/transport.py:416: in run_transport
+    with concurrent.futures.ProcessPoolExecutor(max_workers=n_workers) as pool:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/opt/homebrew/Cellar/python@3.11/3.11.13/Frameworks/Python.framework/Versions/3.11/lib/python3.11/concurrent/futures/process.py:654: in __init__
+    _check_system_limits()
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def _check_system_limits():
+        global _system_limits_checked, _system_limited
+        if _system_limits_checked:
+            if _system_limited:
+                raise NotImplementedError(_system_limited)
+        _system_limits_checked = True
+        try:
+            import multiprocessing.synchronize
+        except ImportError:
+            _system_limited = (
+                "This Python build lacks multiprocessing.synchronize, usually due "
+                "to named semaphores being unavailable on this platform."
+            )
+            raise NotImplementedError(_system_limited)
+        try:
+>           nsems_max = os.sysconf("SC_SEM_NSEMS_MAX")
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           PermissionError: [Errno 1] Operation not permitted
+
+/opt/homebrew/Cellar/python@3.11/3.11.13/Frameworks/Python.framework/Versions/3.11/lib/python3.11/concurrent/futures/process.py:597: PermissionError
+______________ test_parallel_relative_error_same_order_as_serial _______________
+
+    def test_parallel_relative_error_same_order_as_serial():
+        """workers=1とworkers>=2で、同一n_historiesにおけるRが同オーダーであること
+        （異なる乱数ストリーム・端数バッチの丸め方が違うため厳密一致は要求しない、
+        plan_phase3_parallel.mdの「統計的同等」契約の延長）。"""
+        voxel = _max_voxel_index()
+        r_serial = run_transport(_SCENE, n_histories=40_000, seed=7, dose_grid=True,
+                                  grid_resolution_cm=5.0, batch_size=2000, track_uncertainty=True,
+                                  n_workers=1)
+>       r_parallel = run_transport(_SCENE, n_histories=40_000, seed=7, dose_grid=True,
+                                    grid_resolution_cm=5.0, batch_size=2000, track_uncertainty=True,
+                                    n_workers=2)
+
+tests/test_uncertainty_transport.py:156: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+chatcarlo/transport.py:416: in run_transport
+    with concurrent.futures.ProcessPoolExecutor(max_workers=n_workers) as pool:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/opt/homebrew/Cellar/python@3.11/3.11.13/Frameworks/Python.framework/Versions/3.11/lib/python3.11/concurrent/futures/process.py:654: in __init__
+    _check_system_limits()
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def _check_system_limits():
+        global _system_limits_checked, _system_limited
+        if _system_limits_checked:
+            if _system_limited:
+                raise NotImplementedError(_system_limited)
+        _system_limits_checked = True
+        try:
+            import multiprocessing.synchronize
+        except ImportError:
+            _system_limited = (
+                "This Python build lacks multiprocessing.synchronize, usually due "
+                "to named semaphores being unavailable on this platform."
+            )
+            raise NotImplementedError(_system_limited)
+        try:
+>           nsems_max = os.sysconf("SC_SEM_NSEMS_MAX")
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           PermissionError: [Errno 1] Operation not permitted
+
+/opt/homebrew/Cellar/python@3.11/3.11.13/Frameworks/Python.framework/Versions/3.11/lib/python3.11/concurrent/futures/process.py:597: PermissionError
+=============================== warnings summary ===============================
+tests/test_heel_effect.py::test_anode_cutoff_warns_and_still_samples
+  /Users/oishifamily/Projects/viveMonte/.venv/lib/python3.11/site-packages/spekpy/SpekTools.py:216: UserWarning: Zero emission for the user's geometrical inputs
+    warnings.warn('Zero emission for the user\'s geometrical inputs')
+
+tests/test_spectrum.py::test_fallback_spectrum_used_when_spekpy_unavailable
+  /Users/oishifamily/Projects/viveMonte/tests/test_spectrum.py:54: UserWarning: spekpy が見つからないためKramers則の粗い近似スペクトルを使用します。`pip install spekpy` を推奨します。
+    e, w = spectrum._default_spectrum(kvp=100.0, filtration_mm_al=2.5, anode_angle_deg=12.0)
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED tests/test_parallel_transport.py::test_same_seed_same_workers_reproducible
+FAILED tests/test_parallel_transport.py::test_parallel_statistically_equivalent_to_serial
+FAILED tests/test_parallel_transport.py::test_parallel_dose_grid_merge_consistent
+FAILED tests/test_parallel_transport.py::test_parallel_heel_effect_reproducible_and_consistent
+FAILED tests/test_parallel_transport.py::test_warm_up_cache_does_not_change_physics
+FAILED tests/test_uncertainty_transport.py::test_totals_bit_identical_regardless_of_track_uncertainty_parallel
+FAILED tests/test_uncertainty_transport.py::test_same_seed_workers_reproducible_including_uncertainty_stats
+FAILED tests/test_uncertainty_transport.py::test_parallel_relative_error_same_order_as_serial
+8 failed, 326 passed, 2 warnings in 76.45s (0:01:16)
