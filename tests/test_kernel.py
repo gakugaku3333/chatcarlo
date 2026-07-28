@@ -2,8 +2,13 @@
 
 B-1bは多材料・多元素（重元素の非等間隔格子含む）・K殻蛍光・prange並列化に
 対応した本実装（B-1aの簡略化——water単色・背景真空・蛍光無効——は解消済み）。
+B-2は`--dose-grid`相当のtrack-lengthタリー統合（カーネルは区間を吐き出すだけで、
+線量換算・グリッド分配は既存の監査済み`tally.accumulate_track_length_multi`を
+再利用、`run_batch_with_tally`/`run_dose_grid`）。
+
 `transport_photons`参照実装との統計的クロスチェック（Phase Bの検証戦略layer 1、
-事前登録済みの許容基準込み）は`docs/speedup_baseline/kernel_crosscheck.py`に
+事前登録済みの許容基準込み。B-2のグリッド合計カーマ/H*(10)クロスチェックも同様）は
+`docs/speedup_baseline/kernel_crosscheck.py`・`kernel_dose_grid_crosscheck.py`に
 分離してある（実行に数十秒かかるため通常のpytestには含めない）。
 """
 import math
@@ -12,8 +17,10 @@ import numpy as np
 import pytest
 
 from chatcarlo.kernel import (bake_box_scene, bake_scene_materials,
-                               run_batch, run_water_slab_probe)
+                               run_batch, run_batch_with_tally, run_dose_grid,
+                               run_water_slab_probe)
 from chatcarlo.materials import linear_mu
+from chatcarlo.tally import VoxelGrid
 
 SCENARIOS = {
     "water20kev": (1.5, 20.0),
@@ -155,3 +162,83 @@ def test_multi_box_last_wins_material_overlap():
     p_water = np.sum(r_water.escaped & (r_water.n_scatter == 0)) / n
     p_lead = np.sum(r_lead.escaped & (r_lead.n_scatter == 0)) / n
     assert p_lead < p_water * 0.5  # 鉛2mmが埋め込まれた分、明確に透過率が下がる
+
+
+def _water_scene():
+    tables = bake_scene_materials(["water", "air"])
+    boxes = [{"center": (0.0, 0.0, 0.0), "size_cm": (10.0, 100.0, 100.0), "material": "water"}]
+    geom = bake_box_scene(boxes, background="air", tables=tables, bbox_margin_cm=0.01)
+    return tables, geom
+
+
+def _water_bbox():
+    return (np.array([-5.01, -50.01, -50.01]), np.array([5.01, 50.01, 50.01]))
+
+
+def test_tally_variant_matches_reference_variant():
+    """`_transport_one_tally`（B-2、区間記録つき）は`_transport_one`（B-1b、
+    タリーなし、三層検証済み）と輸送結果（区間を除く全戻り値）が同一seedで
+    厳密に一致すること——タリー記録はRNGを消費しない副作用であるべき、という
+    設計上の要件をコードに固定するテスト（2つの実装をコピーして作った以上、
+    将来どちらかだけ変更されて物理ロジックがズレるのを検出する番犬テスト）。
+    """
+    tables, geom = _water_scene()
+    lo, hi = _water_bbox()
+    grid = VoxelGrid.from_bbox(lo, hi, resolution_cm=2.0)
+    n = 20_000
+    r_plain = run_batch(tables, geom, 60.0, (-5.01, 0.0, 0.0), (1.0, 0.0, 0.0), n, seed=17, n_chunks=4)
+    r_tally = run_batch_with_tally(tables, geom, 60.0, (-5.01, 0.0, 0.0), (1.0, 0.0, 0.0), n, seed=17,
+                                    grid=grid, n_chunks=4, max_segments_per_history=16)
+
+    assert np.array_equal(r_plain.n_scatter, r_tally.n_scatter)
+    assert np.array_equal(r_plain.absorbed, r_tally.absorbed)
+    assert np.array_equal(r_plain.escaped, r_tally.escaped)
+    assert np.array_equal(r_plain.final_energy, r_tally.final_energy)
+    assert np.array_equal(r_plain.energy_deposited, r_tally.energy_deposited)
+    assert np.array_equal(r_plain.n_fluorescence, r_tally.n_fluorescence)
+    assert grid.kerma_keV.sum() > 0  # タリー自体も何かしら積算されていること
+
+
+def test_dose_grid_overflow_raises_actionable_error():
+    """区間バッファ容量(max_segments_per_history)が明らかに不足していれば、
+    タリーを黙って欠落させずValueErrorになること。
+    """
+    tables, geom = _water_scene()
+    lo, hi = _water_bbox()
+    grid = VoxelGrid.from_bbox(lo, hi, resolution_cm=2.0)
+    with pytest.raises(ValueError):
+        run_batch_with_tally(tables, geom, 60.0, (-5.01, 0.0, 0.0), (1.0, 0.0, 0.0), 5_000, seed=1,
+                              grid=grid, n_chunks=2, max_segments_per_history=1)
+
+
+def test_dose_grid_kerma_order_of_magnitude_matches_collision_estimator():
+    """track-length推定量(グリッド合計カーマ)とcollision推定量
+    (`energy_deposited`合計)は異なる推定量だが、水（高Z材料ではない）では
+    近い値になるはず——極端な桁違い(単位換算バグ等)を検出する粗いチェック。
+    厳密な統計的一致は`docs/speedup_baseline/kernel_dose_grid_crosscheck.py`
+    （参照実装とのクロスチェック）で担保する。
+    """
+    tables, geom = _water_scene()
+    lo, hi = _water_bbox()
+    grid = VoxelGrid.from_bbox(lo, hi, resolution_cm=2.0)
+    n = 100_000
+    r = run_batch_with_tally(tables, geom, 60.0, (-5.01, 0.0, 0.0), (1.0, 0.0, 0.0), n, seed=3,
+                              grid=grid, n_chunks=4, max_segments_per_history=16)
+    total_kerma = grid.kerma_keV.sum()
+    total_collision = r.energy_deposited.sum()
+    assert total_kerma > 0
+    assert 0.5 < total_kerma / total_collision < 2.0
+
+
+def test_run_dose_grid_batches_without_crashing():
+    """`run_dose_grid`のbatch_size分割ラッパーが正しい件数を返し、
+    グリッドへタリーが積算されること。"""
+    tables, geom = _water_scene()
+    lo, hi = _water_bbox()
+    grid = VoxelGrid.from_bbox(lo, hi, resolution_cm=2.0)
+    n = 30_000
+    r = run_dose_grid(tables, geom, 60.0, (-5.01, 0.0, 0.0), (1.0, 0.0, 0.0), n, seed=9, grid=grid,
+                       batch_size=10_000, n_chunks=4, max_segments_per_history=16)
+    assert len(r.absorbed) == n
+    assert (r.absorbed | r.escaped).all()
+    assert grid.kerma_keV.sum() > 0

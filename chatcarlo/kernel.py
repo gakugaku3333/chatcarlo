@@ -42,9 +42,12 @@ import numpy as np
 import xraylib
 from numba import njit, prange
 
+from .dose_coefficients import h_star_10_per_fluence
 from .materials import (_element_energy_grid_kev, _element_xs_tables, density,
                          element_composition, fluorescence_k_data,
-                         incoherent_sq_table, rayleigh_cumulative_table)
+                         incoherent_sq_table, material_groups, mu_en_rho,
+                         rayleigh_cumulative_table)
+from .tally import VoxelGrid, accumulate_track_length_multi
 
 _MEC2_KEV = 511.0
 _HC_KEV_ANGSTROM = 12.3984193
@@ -718,6 +721,142 @@ def _transport_one(energy0_kev, ox, oy, oz, dx, dy, dz,
         # returnせずループを継続する。
 
 
+@njit(cache=True)
+def _transport_one_tally(energy0_kev, ox, oy, oz, dx, dy, dz,
+                          n_boxes, box_center, box_half, box_material, background_material,
+                          world_center, world_half,
+                          n_elem_arr, zs_arr, fracs_arr, log_e_arr, step_arr, n_grid_arr, density_arr,
+                          photo_arr, compt_arr, rayl_arr, incoh_q_arr, incoh_s_arr, rayl_x_arr, rayl_a_arr,
+                          k_edge_arr, k_omega_arr, k_frac_arr, k_line_e_arr, k_line_p_arr, n_lines_arr,
+                          max_elem, fluorescence_enabled,
+                          seg_o, seg_d, seg_ds, seg_e, seg_mat, seg_start, seg_capacity):
+    """`_transport_one`と物理的に同一のアルゴリズムだが、飛行区間(o, d, ds, e, mat)を
+    B-2のタリー統合用に呼び出し側バッファへ書き出す（B-2設計(b): カーネルは区間を
+    吐き出すだけで、線量換算・グリッド分配は既存の監査済み`tally.accumulate_track_length_multi`
+    に委ねる——計画書「B-2: タリー統合」参照）。
+
+    区間の記録はRNGを一切消費しない副作用であり物理には影響しない（`transport_photons`の
+    dose_grid引数と同じ性質）。`_transport_one`をそのまま再利用せずここに複製したのは、
+    タリーなし経路（B-1bで三層検証済み）を一切変更しないため——両者の物理ロジックが
+    将来ズレないことは`tests/test_kernel.py`の`test_tally_variant_matches_reference_variant`
+    で同一seed・同一シナリオの輸送結果（区間を除く全戻り値）が完全一致することを検証する。
+
+    seg_o/seg_d/seg_ds/seg_e/seg_matはこのチャンク専用の作業配列（呼び出し側が
+    `_run_batch_scalar_tally`でチャンクごとに切り出して渡す、他チャンクと共有しない
+    ためprangeでのデータ競合が原理的に起きない設計）。seg_startは呼び出し時点での
+    書き込み位置、戻り値のseg_countはこの履歴で書き込んだ後の位置。容量
+    （seg_capacity、`max_segments_per_history`から呼び出し側が見積もる）を超えたら
+    それ以降の区間は記録せず（輸送自体は継続する）overflow=Trueを返す——黙って
+    タリーを欠落させるのではなく、呼び出し側で検知してエラーにするための明示的な
+    信号（`docs/lessons_learned.md`の「黙って一部を捨てるな」系の教訓と同じ設計判断）。
+    """
+    x, y, z = ox, oy, oz
+    dirx, diry, dirz = dx, dy, dz
+    e = energy0_kev
+    tau = -math.log(np.random.random())
+    n_scatter = 0
+    n_fluorescence = 0
+    energy_deposited = 0.0
+    photo_e = np.empty(max_elem)
+    compt_e = np.empty(max_elem)
+    rayl_e = np.empty(max_elem)
+    idx_e = np.empty(max_elem, dtype=np.int64)
+    frac_e = np.empty(max_elem)
+    seg_idx = seg_start
+    overflow = False
+
+    while True:
+        mat_idx = _material_at_scalar(x, y, z, n_boxes, box_center, box_half,
+                                       box_material, background_material)
+        mu, tot_photo, tot_compt, tot_rayl = _mu_and_parts_scalar(
+            e, mat_idx, n_elem_arr, fracs_arr, log_e_arr, step_arr, n_grid_arr,
+            photo_arr, compt_arr, rayl_arr, density_arr,
+            photo_e, compt_e, rayl_e, idx_e, frac_e)
+
+        t_boundary, escape = _next_boundary_scalar(x, y, z, dirx, diry, dirz,
+                                                    n_boxes, box_center, box_half,
+                                                    world_center, world_half)
+        mu_safe = mu if mu > 0.0 else 1e-30
+        tau_to_boundary = mu * t_boundary
+        will_interact = tau < tau_to_boundary
+
+        if will_interact:
+            ds = tau / mu_safe
+        else:
+            ds = t_boundary
+
+        if ds > 0.0:
+            if seg_idx < seg_capacity:
+                seg_o[seg_idx, 0] = x
+                seg_o[seg_idx, 1] = y
+                seg_o[seg_idx, 2] = z
+                seg_d[seg_idx, 0] = dirx
+                seg_d[seg_idx, 1] = diry
+                seg_d[seg_idx, 2] = dirz
+                seg_ds[seg_idx] = ds
+                seg_e[seg_idx] = e
+                seg_mat[seg_idx] = mat_idx
+                seg_idx += 1
+            else:
+                overflow = True
+
+        x += dirx * ds
+        y += diry * ds
+        z += dirz * ds
+
+        if not will_interact:
+            tau -= tau_to_boundary
+            x += dirx * _NUDGE
+            y += diry * _NUDGE
+            z += dirz * _NUDGE
+            if escape:
+                return (n_scatter, False, True, e, energy_deposited, n_fluorescence,
+                        seg_idx, overflow)
+            continue
+
+        n_scatter += 1
+        r_type = np.random.random()
+        tot = tot_photo + tot_compt + tot_rayl
+        p_photo = tot_photo / tot
+        p_compt = tot_compt / tot
+
+        if r_type < p_photo:
+            n_elem = n_elem_arr[mat_idx]
+            elem_i = _select_element(n_elem, fracs_arr[mat_idx], photo_e, tot_photo)
+            emit = False
+            e_line = 0.0
+            if fluorescence_enabled:
+                emit, e_line = _sample_fluorescence_scalar(
+                    mat_idx, elem_i, e, idx_e[elem_i], frac_e[elem_i],
+                    k_edge_arr, k_omega_arr, k_frac_arr, k_line_e_arr, k_line_p_arr, n_lines_arr)
+            if emit:
+                energy_deposited += e - e_line
+                n_fluorescence += 1
+                dirx, diry, dirz = _isotropic_direction_scalar()
+                e = e_line
+                tau = -math.log(np.random.random())
+            else:
+                energy_deposited += e
+                return (n_scatter, True, False, e, energy_deposited, n_fluorescence,
+                        seg_idx, overflow)
+        elif r_type < p_photo + p_compt:
+            eps_c, cos_c, _elem = _sample_compton_bound_scalar(
+                mat_idx, e, n_elem_arr[mat_idx], fracs_arr, zs_arr, incoh_q_arr, incoh_s_arr,
+                compt_e, tot_compt)
+            e_new = e * eps_c
+            energy_deposited += e - e_new
+            dirx, diry, dirz = _scatter_direction_scalar(dirx, diry, dirz, cos_c)
+            e = e_new
+            tau = -math.log(np.random.random())
+        else:
+            cos_c, _elem = _sample_rayleigh_cos_theta_scalar(
+                mat_idx, e, n_elem_arr[mat_idx], fracs_arr, rayl_x_arr, rayl_a_arr, rayl_e, tot_rayl)
+            dirx, diry, dirz = _scatter_direction_scalar(dirx, diry, dirz, cos_c)
+            tau = -math.log(np.random.random())
+        # 光電(蛍光放出時)・コンプトン・レイリーいずれも光子が生き残るので
+        # returnせずループを継続する。
+
+
 @njit(cache=True, parallel=True)
 def _run_batch_scalar(n_histories, n_chunks, chunk_seeds, chunk_offsets, chunk_counts,
                        energy0_kev, ox, oy, oz, dx, dy, dz,
@@ -768,6 +907,67 @@ def _run_batch_scalar(n_histories, n_chunks, chunk_seeds, chunk_offsets, chunk_c
     return n_scatter, absorbed, escaped, final_energy, energy_deposited, n_fluorescence
 
 
+@njit(cache=True, parallel=True)
+def _run_batch_scalar_tally(n_histories, n_chunks, chunk_seeds, chunk_offsets, chunk_counts,
+                             energy0_kev, ox, oy, oz, dx, dy, dz,
+                             n_boxes, box_center, box_half, box_material, background_material,
+                             world_center, world_half,
+                             n_elem_arr, zs_arr, fracs_arr, log_e_arr, step_arr, n_grid_arr, density_arr,
+                             photo_arr, compt_arr, rayl_arr, incoh_q_arr, incoh_s_arr, rayl_x_arr, rayl_a_arr,
+                             k_edge_arr, k_omega_arr, k_frac_arr, k_line_e_arr, k_line_p_arr, n_lines_arr,
+                             max_elem, fluorescence_enabled,
+                             seg_o, seg_d, seg_ds, seg_e, seg_mat, seg_capacity_per_chunk):
+    """`_run_batch_scalar`のB-2版: 各チャンクが自分専用の区間バッファ
+    `seg_o[c]`/`seg_d[c]`/`seg_ds[c]`/`seg_e[c]`/`seg_mat[c]`（形状
+    (n_chunks, seg_capacity_per_chunk, ...)）だけに書き込むため、prangeの
+    複数チャンクが同時に走ってもデータ競合が起きない（共有カウンタへの
+    アトミック加算が不要な設計——B-1bの乱数チャンク分割と同じ「チャンクは
+    互いに完全独立」という原則をタリー用バッファにも適用した）。
+
+    戻り値に各チャンクの実際の書き込み件数(seg_count_per_chunk)とオーバーフロー
+    フラグ(seg_overflow_per_chunk)を含む——呼び出し側(`run_batch_with_tally`)が
+    これを見て有効な区間だけを`accumulate_track_length_multi`に渡し、
+    オーバーフローがあれば明示的にエラーにする。
+    """
+    n_scatter = np.zeros(n_histories, dtype=np.int64)
+    absorbed = np.zeros(n_histories, dtype=np.bool_)
+    escaped = np.zeros(n_histories, dtype=np.bool_)
+    final_energy = np.zeros(n_histories, dtype=np.float64)
+    energy_deposited = np.zeros(n_histories, dtype=np.float64)
+    n_fluorescence = np.zeros(n_histories, dtype=np.int64)
+    seg_count_per_chunk = np.zeros(n_chunks, dtype=np.int64)
+    seg_overflow_per_chunk = np.zeros(n_chunks, dtype=np.bool_)
+
+    for c in prange(n_chunks):
+        np.random.seed(chunk_seeds[c])
+        start = chunk_offsets[c]
+        cnt = chunk_counts[c]
+        seg_idx = 0
+        overflow_c = False
+        for k in range(cnt):
+            i = start + k
+            (ns, ab, es, fe, ed, nf, seg_idx, ov) = _transport_one_tally(
+                energy0_kev, ox, oy, oz, dx, dy, dz,
+                n_boxes, box_center, box_half, box_material, background_material,
+                world_center, world_half,
+                n_elem_arr, zs_arr, fracs_arr, log_e_arr, step_arr, n_grid_arr, density_arr,
+                photo_arr, compt_arr, rayl_arr, incoh_q_arr, incoh_s_arr, rayl_x_arr, rayl_a_arr,
+                k_edge_arr, k_omega_arr, k_frac_arr, k_line_e_arr, k_line_p_arr, n_lines_arr,
+                max_elem, fluorescence_enabled,
+                seg_o[c], seg_d[c], seg_ds[c], seg_e[c], seg_mat[c], seg_idx, seg_capacity_per_chunk)
+            n_scatter[i] = ns
+            absorbed[i] = ab
+            escaped[i] = es
+            final_energy[i] = fe
+            energy_deposited[i] = ed
+            n_fluorescence[i] = nf
+            overflow_c = overflow_c or ov
+        seg_count_per_chunk[c] = seg_idx
+        seg_overflow_per_chunk[c] = overflow_c
+    return (n_scatter, absorbed, escaped, final_energy, energy_deposited, n_fluorescence,
+            seg_count_per_chunk, seg_overflow_per_chunk)
+
+
 def _chunk_plan(n_histories: int, n_chunks: int, seed) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
     """n_historiesをn_chunks個にできるだけ均等分割し、チャンクごとの決定的な
     整数シードを`SeedSequence.spawn`で生成する（njitの外、B-0で確定した設計）。
@@ -795,7 +995,8 @@ def run_batch(tables: SceneMaterialTables, geom: SceneGeometry, energy0_kev: flo
               origin: tuple[float, float, float], direction: tuple[float, float, float],
               n_histories: int, seed: int, n_chunks: int = 1,
               fluorescence_enabled: bool = True) -> KernelBatchResult:
-    """カーネル本体を1バッチ実行する低レベルAPI（tallyなし、B-2で統合予定）。"""
+    """カーネル本体を1バッチ実行する低レベルAPI（tallyなし）。`--dose-grid`相当の
+    タリー込み実行は`run_batch_with_tally`を使う（B-2、下記）。"""
     max_elem = tables.zs.shape[1]
     chunk_seeds, chunk_offsets, chunk_counts = _chunk_plan(n_histories, n_chunks, seed)
     (n_scatter, absorbed, escaped, final_energy, energy_deposited, n_fluorescence) = _run_batch_scalar(
@@ -811,6 +1012,135 @@ def run_batch(tables: SceneMaterialTables, geom: SceneGeometry, energy0_kev: flo
     return KernelBatchResult(n_scatter=n_scatter, absorbed=absorbed, escaped=escaped,
                               final_energy=final_energy, energy_deposited=energy_deposited,
                               n_fluorescence=n_fluorescence)
+
+
+def run_batch_with_tally(tables: SceneMaterialTables, geom: SceneGeometry, energy0_kev: float,
+                          origin: tuple[float, float, float], direction: tuple[float, float, float],
+                          n_histories: int, seed: int, grid: VoxelGrid, n_chunks: int = 1,
+                          fluorescence_enabled: bool = True,
+                          max_segments_per_history: int = 16) -> KernelBatchResult:
+    """B-2: `--dose-grid`相当のtrack-lengthタリー込みでカーネルを1バッチ実行する。
+
+    設計(b)（計画書「B-2: タリー統合」で選定）: カーネルは飛行区間
+    (o, d, ds, e, mat)をチャンクごとの専用バッファへ吐き出すだけで、線量
+    換算・グリッドへの空間分配は`chatcarlo.tally.accumulate_track_length_multi`
+    （既存の監査済み実装、`_segment_grid_traversal_accumulate`の厳密DDA）に
+    そのまま委ねる。カーネル内でDDAを再実装する設計(a)より検証コストが低い
+    ——線量計算のロジック自体は既存の監査・テスト済みコードを1行も変えずに
+    再利用しており、新規に検証が必要なのは「カーネルが正しい区間を吐き出す
+    こと」だけになる（`tests/test_kernel.py`の
+    `test_tally_variant_matches_reference_variant`が保証）。
+
+    `max_segments_per_history`はチャンクごとの区間バッファ容量を
+    `max(chunk_counts) * max_segments_per_history`で見積もるための係数
+    ——診断領域での典型的な散乱回数（mean_scatter_events、数〜十数回程度）
+    に対して十分な安全マージンを既定値16に取っている。超過した場合は
+    タリーを黙って欠落させず`ValueError`にする（このバッチの寄与は一切
+    積算しない）——欠落を検知せず一部だけ積算すると線量が系統的に過小評価
+    される、検出困難なバグになるため。
+    """
+    max_elem = tables.zs.shape[1]
+    chunk_seeds, chunk_offsets, chunk_counts = _chunk_plan(n_histories, n_chunks, seed)
+    n_chunks_actual = len(chunk_seeds)
+    seg_capacity_per_chunk = int(chunk_counts.max()) * max_segments_per_history
+
+    seg_o = np.zeros((n_chunks_actual, seg_capacity_per_chunk, 3))
+    seg_d = np.zeros((n_chunks_actual, seg_capacity_per_chunk, 3))
+    seg_ds = np.zeros((n_chunks_actual, seg_capacity_per_chunk))
+    seg_e = np.zeros((n_chunks_actual, seg_capacity_per_chunk))
+    seg_mat = np.zeros((n_chunks_actual, seg_capacity_per_chunk), dtype=np.int64)
+
+    (n_scatter, absorbed, escaped, final_energy, energy_deposited, n_fluorescence,
+     seg_count_per_chunk, seg_overflow_per_chunk) = _run_batch_scalar_tally(
+        n_histories, n_chunks_actual, chunk_seeds, chunk_offsets, chunk_counts,
+        energy0_kev, origin[0], origin[1], origin[2], direction[0], direction[1], direction[2],
+        geom.n_boxes, geom.box_center, geom.box_half, geom.box_material, geom.background_material,
+        geom.world_center, geom.world_half,
+        tables.n_elem, tables.zs, tables.fracs, tables.log_e, tables.step, tables.n_grid,
+        tables.density_g_cm3, tables.photo, tables.compt, tables.rayl,
+        tables.incoh_q, tables.incoh_s, tables.rayl_x, tables.rayl_a,
+        tables.k_edge, tables.k_omega, tables.k_frac, tables.k_line_e, tables.k_line_p, tables.n_lines,
+        max_elem, fluorescence_enabled,
+        seg_o, seg_d, seg_ds, seg_e, seg_mat, seg_capacity_per_chunk)
+
+    if np.any(seg_overflow_per_chunk):
+        raise ValueError(
+            f"タリー用の区間バッファが不足しました(max_segments_per_history="
+            f"{max_segments_per_history}、チャンクあたり容量{seg_capacity_per_chunk})。"
+            "max_segments_per_historyを増やすか、n_histories/n_chunksを小さくして"
+            "再実行してください。このバッチのタリー寄与は積算していません。")
+
+    seg_o_parts, seg_d_parts, seg_ds_parts, seg_e_parts, seg_mat_parts = [], [], [], [], []
+    for c in range(n_chunks_actual):
+        cnt = int(seg_count_per_chunk[c])
+        if cnt == 0:
+            continue
+        seg_o_parts.append(seg_o[c, :cnt])
+        seg_d_parts.append(seg_d[c, :cnt])
+        seg_ds_parts.append(seg_ds[c, :cnt])
+        seg_e_parts.append(seg_e[c, :cnt])
+        seg_mat_parts.append(seg_mat[c, :cnt])
+
+    if seg_o_parts:
+        seg_o_all = np.concatenate(seg_o_parts)
+        seg_d_all = np.concatenate(seg_d_parts)
+        seg_ds_all = np.concatenate(seg_ds_parts)
+        seg_e_all = np.concatenate(seg_e_parts)
+        seg_mat_all = np.concatenate(seg_mat_parts)
+
+        mat_names = np.array(tables.material_names, dtype=object)[seg_mat_all]
+        mu_en_linear = np.zeros(len(seg_e_all))
+        for name, m in material_groups(mat_names):
+            mu_en_linear[m] = mu_en_rho(name, seg_e_all[m]) * density(name)
+
+        accumulate_track_length_multi(
+            ((grid.kerma_keV, seg_e_all * mu_en_linear),
+             (grid.h10_track_pSv_cm3, h_star_10_per_fluence(seg_e_all))),
+            grid, seg_o_all, seg_d_all, seg_ds_all)
+
+    return KernelBatchResult(n_scatter=n_scatter, absorbed=absorbed, escaped=escaped,
+                              final_energy=final_energy, energy_deposited=energy_deposited,
+                              n_fluorescence=n_fluorescence)
+
+
+def run_dose_grid(tables: SceneMaterialTables, geom: SceneGeometry, energy0_kev: float,
+                   origin: tuple[float, float, float], direction: tuple[float, float, float],
+                   n_histories: int, seed: int, grid: VoxelGrid, batch_size: int = 200_000,
+                   n_chunks: int = 1, fluorescence_enabled: bool = True,
+                   max_segments_per_history: int = 16) -> KernelBatchResult:
+    """`run_batch_with_tally`をbatch_size単位で繰り返し呼ぶ高レベルAPI。
+
+    `transport._run_batches`と同じ理由（区間バッファのピークメモリを
+    `n_histories`ではなく`batch_size`規模に抑える）でバッチ分割する
+    ——計画書のB-2節が指摘する「区間バッファのメモリを食う」という懸念への
+    直接の対応。バッチごとの乱数シードは`SeedSequence.spawn`で決定的に導出する
+    （B-0/B-1と同じ階層的シード設計）。
+    """
+    n_batches = math.ceil(n_histories / batch_size)
+    batch_seed_seqs = np.random.SeedSequence(seed).spawn(n_batches)
+
+    n_scatter_parts, absorbed_parts, escaped_parts = [], [], []
+    final_energy_parts, energy_deposited_parts, n_fluorescence_parts = [], [], []
+    remaining = n_histories
+    for b in range(n_batches):
+        n = min(batch_size, remaining)
+        remaining -= n
+        batch_seed = int(batch_seed_seqs[b].generate_state(1)[0])
+        r = run_batch_with_tally(tables, geom, energy0_kev, origin, direction, n, batch_seed, grid,
+                                  n_chunks=n_chunks, fluorescence_enabled=fluorescence_enabled,
+                                  max_segments_per_history=max_segments_per_history)
+        n_scatter_parts.append(r.n_scatter)
+        absorbed_parts.append(r.absorbed)
+        escaped_parts.append(r.escaped)
+        final_energy_parts.append(r.final_energy)
+        energy_deposited_parts.append(r.energy_deposited)
+        n_fluorescence_parts.append(r.n_fluorescence)
+
+    return KernelBatchResult(
+        n_scatter=np.concatenate(n_scatter_parts), absorbed=np.concatenate(absorbed_parts),
+        escaped=np.concatenate(escaped_parts), final_energy=np.concatenate(final_energy_parts),
+        energy_deposited=np.concatenate(energy_deposited_parts),
+        n_fluorescence=np.concatenate(n_fluorescence_parts))
 
 
 @dataclass
