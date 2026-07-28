@@ -337,6 +337,9 @@ background="air"——B-1aの下駄を履いた数値ではなく本番相当の
 
 設計(b)（カーネルは飛行区間(o, d, ds, e, mat)を吐き出し、既存の監査済み
 `tally.accumulate_track_length_multi`にバッチで渡す）を選定・実装した。
+後日、同じシグネチャと境界セマンティクスを持つ
+`tally_njit.accumulate_track_length_multi_njit`を既定経路として組み込み、
+`use_njit_dda=False`で従来のnumpy参照実装へ切り戻せる構成にした。
 選定理由: 既存のDDA実装（`docs/plan_tally_speedup.md`で`np.lexsort`のキャッシュ
 崖・二重計算・チャンク化不足という3つの実バグを踏んで26.5s→5.5sまで詰めた
 経緯があり、CLAUDE.mdに複数の過去バグ——決定的中点法の系統的過小スコア・

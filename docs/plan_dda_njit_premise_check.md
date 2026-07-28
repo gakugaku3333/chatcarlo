@@ -157,3 +157,32 @@ end-to-end測定はwater60_free、N=200,000、`batch_size=200_000`、
 正しさ・速度測定の全生出力は
 `docs/speedup_baseline/dda_njit_premise_check_result.txt`と
 `docs/speedup_baseline/dda_njit_e2e_result.txt`に記録した。
+
+### kernel.py恒久組み込み後
+
+`chatcarlo/tally_njit.py`へ境界修正後のスカラーDDAを移設し、
+`kernel.run_batch_with_tally` / `run_dose_grid`の
+`use_njit_dda=True`既定経路として恒久組み込みした。`False`では従来のnumpy
+参照実装へ切り戻せる。
+
+water60_free、N=200,000、resolution=2cmの直接A/Bでは、1バッチ
+（`batch_size=200_000`）と複数・端数バッチ（`batch_size=60_000`）の双方で、
+kerma・H\*(10)グリッドと`KernelBatchResult`全6配列が`np.array_equal`で一致した。
+
+同じ条件をAB/BA交互に8反復した本番引数経路のend-to-end再測定結果:
+
+- numpy (`use_njit_dda=False`): min 0.507760625s、median 0.516252230s、
+  max 0.551558125s
+- njit (`use_njit_dda=True`): min 0.197448500s、median 0.202292374s、
+  max 0.269662833s
+- 反復ごとの速度比:
+  `2.619678, 2.564341, 2.470462, 2.521338, 2.543524, 1.923508, 2.551472, 2.585708`
+- 8反復すべてでnjit経路が高速、中央値比`2.552010 > 1.0`のため採用ゲートPASS。
+
+モンキーパッチ経由の既報中央値2.569904倍との差は約0.70%であり、大きな乖離は
+ない。今回のスクリプトは本番の`use_njit_dda`引数を直接使用し、DDA単体の
+計時用モンキーパッチは行っていない。
+
+pytest全体は342 passed、8 failed、2 warnings。8件は既知の並列テストと完全に
+一致し、すべて`os.sysconf("SC_SEM_NSEMS_MAX")`に対する
+`PermissionError: [Errno 1] Operation not permitted`だった。

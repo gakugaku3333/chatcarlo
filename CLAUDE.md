@@ -27,7 +27,7 @@ shielding decisions (see the warning banner in [README.md](README.md)).
 ```bash
 # setup (venv is project-local, per the parent Projects/CLAUDE.md rule — don't pip install globally)
 python3 -m venv .venv
-.venv/bin/pip install numpy pyyaml matplotlib xraylib pytest spekpy scipy
+.venv/bin/pip install numpy pyyaml matplotlib xraylib pytest spekpy scipy numba
 
 # validate a scene (physical sanity checks, not just schema)
 .venv/bin/python -m chatcarlo validate examples/chest_room.yaml
@@ -103,7 +103,10 @@ non-physical-max warnings in [diagnostics.py](chatcarlo/diagnostics.py).
 **Experimental parallel implementation (not yet wired into the CLI)**: [kernel.py](chatcarlo/kernel.py) is a
 from-scratch Numba-compiled per-history scalar transport kernel (Phase B of
 [docs/plan_chatcarlo_speedup_post_egs5.md](docs/plan_chatcarlo_speedup_post_egs5.md); box-shaped geometry only,
-no cylinder/sphere yet). `transport.py` remains the production path and the permanent reference implementation
+no cylinder/sphere yet). Its dose-grid path uses the Numba scalar DDA in
+[tally_njit.py](chatcarlo/tally_njit.py) by default, with the audited NumPy
+`tally.accumulate_track_length_multi` retained as the `use_njit_dda=False` reference/fallback.
+`transport.py` remains the production path and the permanent reference implementation
 that `kernel.py` is statistically cross-checked against (RNG algorithms differ — MT19937 vs PCG64 — so bit-identity
 is not the verification method; see the plan doc's "Phase Bの検証戦略"). Before extending or duplicating
 transport logic, check whether it already exists in `kernel.py`.

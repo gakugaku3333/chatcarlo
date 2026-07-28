@@ -47,7 +47,8 @@ from .materials import (_element_energy_grid_kev, _element_xs_tables, density,
                          element_composition, fluorescence_k_data,
                          incoherent_sq_table, material_groups, mu_en_rho,
                          rayleigh_cumulative_table)
-from .tally import VoxelGrid, accumulate_track_length_multi
+from . import tally, tally_njit
+from .tally import VoxelGrid
 
 _MEC2_KEV = 511.0
 _HC_KEV_ANGSTROM = 12.3984193
@@ -1018,14 +1019,17 @@ def run_batch_with_tally(tables: SceneMaterialTables, geom: SceneGeometry, energ
                           origin: tuple[float, float, float], direction: tuple[float, float, float],
                           n_histories: int, seed: int, grid: VoxelGrid, n_chunks: int = 1,
                           fluorescence_enabled: bool = True,
-                          max_segments_per_history: int = 16) -> KernelBatchResult:
+                          max_segments_per_history: int = 16,
+                          use_njit_dda: bool = True) -> KernelBatchResult:
     """B-2: `--dose-grid`相当のtrack-lengthタリー込みでカーネルを1バッチ実行する。
 
     設計(b)（計画書「B-2: タリー統合」で選定）: カーネルは飛行区間
     (o, d, ds, e, mat)をチャンクごとの専用バッファへ吐き出すだけで、線量
-    換算・グリッドへの空間分配は`chatcarlo.tally.accumulate_track_length_multi`
-    （既存の監査済み実装、`_segment_grid_traversal_accumulate`の厳密DDA）に
-    そのまま委ねる。カーネル内でDDAを再実装する設計(a)より検証コストが低い
+    換算・グリッドへの空間分配は既定で
+    `chatcarlo.tally_njit.accumulate_track_length_multi_njit`に委ね、
+    `use_njit_dda=False`では監査済みnumpy参照実装
+    `chatcarlo.tally.accumulate_track_length_multi`へ切り戻す。
+    カーネル内でDDAを実行する設計(a)より検証コストが低い
     ——線量計算のロジック自体は既存の監査・テスト済みコードを1行も変えずに
     再利用しており、新規に検証が必要なのは「カーネルが正しい区間を吐き出す
     こと」だけになる（`tests/test_kernel.py`の
@@ -1093,7 +1097,9 @@ def run_batch_with_tally(tables: SceneMaterialTables, geom: SceneGeometry, energ
         for name, m in material_groups(mat_names):
             mu_en_linear[m] = mu_en_rho(name, seg_e_all[m]) * density(name)
 
-        accumulate_track_length_multi(
+        accumulator = (tally_njit.accumulate_track_length_multi_njit
+                       if use_njit_dda else tally.accumulate_track_length_multi)
+        accumulator(
             ((grid.kerma_keV, seg_e_all * mu_en_linear),
              (grid.h10_track_pSv_cm3, h_star_10_per_fluence(seg_e_all))),
             grid, seg_o_all, seg_d_all, seg_ds_all)
@@ -1107,7 +1113,8 @@ def run_dose_grid(tables: SceneMaterialTables, geom: SceneGeometry, energy0_kev:
                    origin: tuple[float, float, float], direction: tuple[float, float, float],
                    n_histories: int, seed: int, grid: VoxelGrid, batch_size: int = 200_000,
                    n_chunks: int = 1, fluorescence_enabled: bool = True,
-                   max_segments_per_history: int = 16) -> KernelBatchResult:
+                   max_segments_per_history: int = 16,
+                   use_njit_dda: bool = True) -> KernelBatchResult:
     """`run_batch_with_tally`をbatch_size単位で繰り返し呼ぶ高レベルAPI。
 
     `transport._run_batches`と同じ理由（区間バッファのピークメモリを
@@ -1128,7 +1135,8 @@ def run_dose_grid(tables: SceneMaterialTables, geom: SceneGeometry, energy0_kev:
         batch_seed = int(batch_seed_seqs[b].generate_state(1)[0])
         r = run_batch_with_tally(tables, geom, energy0_kev, origin, direction, n, batch_seed, grid,
                                   n_chunks=n_chunks, fluorescence_enabled=fluorescence_enabled,
-                                  max_segments_per_history=max_segments_per_history)
+                                  max_segments_per_history=max_segments_per_history,
+                                  use_njit_dda=use_njit_dda)
         n_scatter_parts.append(r.n_scatter)
         absorbed_parts.append(r.absorbed)
         escaped_parts.append(r.escaped)
