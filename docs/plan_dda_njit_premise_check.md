@@ -186,3 +186,124 @@ kerma・H\*(10)グリッドと`KernelBatchResult`全6配列が`np.array_equal`�
 pytest全体は342 passed、8 failed、2 warnings。8件は既知の並列テストと完全に
 一致し、すべて`os.sysconf("SC_SEM_NSEMS_MAX")`に対する
 `PermissionError: [Errno 1] Operation not permitted`だった。
+
+### residual_Bの内訳プロファイル（Codex実装・Claude独立検証）
+
+「置換後の最大成分はresidual_Bである。内訳は今回プロファイルしていない」
+（上記「### 修正後」節）を受けた別タスクとして、`run_batch_with_tally`
+（use_njit_dda=True経路）の内部処理を`docs/speedup_baseline/residual_b_breakdown_profile.py`
+で直接呼び出し、ステップごとに`time.perf_counter()`計測した
+（本番コードは変更していない。読み取り専用でimportして中身を再構成しただけ）。
+water60_free、N=200,000、resolution=2cm、batch_size=200,000、n_chunks=8、
+seed=20260728、8反復（Codex実行1回・Claude独立再実行1回、いずれも定性的に一致）。
+
+Claude独立再実行の中央値（秒）:
+
+| ステップ | 中央値 |
+| --- | ---: |
+| chunk_plan + buffer確保 | 0.002658 |
+| transport（`_run_batch_scalar_tally`、njit並列） | 0.059517 |
+| overflow検査 | 0.000025 |
+| concatenate（5配列） | 0.002063 |
+| **重み計算**（`mu_en_rho`×2材料＋`h_star_10_per_fluence`＋`mat_names`構築） | **0.069011** |
+| （参考）DDA accumulator | 0.069175 |
+
+`non_DDA_including_transport`（=E2E_B − DDA_in_B相当の再構成値）median 0.134957s
+は既報residual_B median 0.128792sと+4.79%で近い（測定境界がモンキーパッチなし・
+直接ステップ呼び出しに変わったことによる差として妥当な範囲）。
+
+**次のボトルネック候補は重み計算であり、transportではない**（重み計算median
+0.069s > transport median 0.060s、Codex実行・Claude再実行の両方で同じ順序）。
+
+原因候補（Claude確認済み、未修正）: `kernel.py:1095`の
+`mat_names = np.array(tables.material_names, dtype=object)[seg_mat_all]`が、
+njit輸送本体から直接出てくる整数材料コード配列`seg_mat_all`（int64）を
+わざわざオブジェクト配列の文字列へ変換してから`material_groups`に渡している。
+`material_groups`（`chatcarlo/materials.py:541`）自身のdocstringには
+「整数コード配列も受け付ける——object配列のtolist()＋Python文字列比較を
+避けるため」という高速経路が既に実装済みだが、`kernel.py`側がこの高速経路を
+使わず、わざわざ低速経路（object配列のtolist()+set()+文字列等価比較）を
+踏んでいる。`seg_mat_all`を変換せずそのまま`material_groups`へ渡す
+（ループ内で名前が必要なら`material_code_name(code)`を使う、既存の高速経路と
+同じパターン）ことで、この変換・低速経路コストを削減できる可能性がある
+——ただし本タスクはプロファイルの範囲であり、この修正は実装していない。
+
+生ログ: `docs/speedup_baseline/residual_b_breakdown_result.txt`（Codex実行分）。
+Claude独立再実行はターミナル出力のみで別途保存していないが、中央値は上表の
+とおりCodex実行分（transport 0.057s、重み計算 0.069s）と一致した。
+`.venv/bin/python -m pytest tests/test_kernel.py -q`は14 passed（Claude自身で再実行し確認）。
+
+### material_groupsを経由しないシーンローカル材料コード高速経路
+
+承認済み計画
+`docs/ai/plans/2026-07-29-material-groups-fast-path-kernel.md`に従い、
+`kernel._compute_tally_weights`を追加した。`seg_mat_all`をobject材料名配列へ
+変換せず、シーンローカルコードを直接グループ化する。旧実装との浮動小数点
+演算順（`mu_en_rho * density`を配列へ格納後、energyを乗算）は維持した。
+実装開始時HEADは`73aa899afac2779af3ae6c911aeaa6c54549df86`。
+
+別subprocess・別worktreeでの正しさ比較（water60_free、N=200,000、
+resolution=2cm）は、1バッチ（200,000）と複数・端数バッチ（60k×3+20k）
+の双方でkerma/H\*(10)グリッドがshape・dtype・値とも完全一致
+（最大絶対差0）。water/lead/airの3材料条件も完全一致し、実区間数は
+water 541,510、lead 141,815、air 266,753で全材料が実際に通過された。
+
+固定された同一segment入力を使う重み計算AB/BA交互8反復では:
+
+- 旧実装: min 0.070075625s、median 0.071086000s、max 0.072513500s
+- 新実装: min 0.048440584s、median 0.048789730s、max 0.049838000s
+- 反復ごとの旧/新比:
+  `1.440597, 1.472879, 1.442041, 1.411566, 1.433409, 1.441808, 1.496958, 1.488239`
+- 比の中央値1.441925で、事前登録した性能ゲート1.20以上をPASS。
+- 探索的成分中央値はobject配列構築0.003868834s、旧set grouping
+  0.007085834s、新`np.unique` grouping 0.004951041s、
+  補間＋mask fill 0.059018604s（`np.unique`はgrouping側に含む）。
+
+旧/new worktreeのend-to-end AB/BA交互8反復（同一arm内でDDAを個別計測）:
+
+| 指標 | min (s) | median (s) | max (s) |
+| --- | ---: | ---: | ---: |
+| old E2E | 0.202969000 | 0.206909333 | 0.215715375 |
+| old DDA_in | 0.068936250 | 0.069432959 | 0.070747792 |
+| old residual_B | 0.133368166 | 0.137453062 | 0.146242750 |
+| new E2E | 0.183021500 | 0.189902000 | 0.193815875 |
+| new DDA_in | 0.068843000 | 0.069508146 | 0.072072250 |
+| new residual_B | 0.113639083 | 0.120184792 | 0.124855084 |
+
+反復ごとのresidual_B旧/新比は
+`1.172142, 1.141848, 1.193820, 1.083775, 1.204509, 1.078530, 1.207583, 1.171300`、
+E2E旧/新比は
+`1.114813, 1.088613, 1.117906, 1.050371, 1.129518, 1.050951, 1.112386, 1.112991`。
+`tests/test_kernel.py`は23 passed。
+
+#### Claude独立検証
+
+Codexは実装完了時、`pytest tests/ -q`がサンドボックス側で3回とも20%・95件通過
+表示のまま終了サマリを出さず終了し、「既知8件以外にfailureがないか確認できて
+いない」と正直に報告（機械的事実と原因説明を分けて自己申告する姿勢どおり）。
+Claudeが同一コマンドを自分の環境で実行したところ、**359 passed, 0 failed**
+（既知の8件のsandbox制約由来failureも含めて今回は1件も再現しなかった）で
+完走し、この未確認事項を解消した。
+
+そのほか以下をすべてClaude自身の環境で再実行し、Codexの報告と定性的に一致
+することを確認した:
+- `tests/test_kernel.py -v`: 23 passed（自分で再実行して確認）。
+- `git diff --stat`: `chatcarlo/kernel.py`・`tests/test_kernel.py`・
+  本ファイルの3件のみ変更、対象範囲外ファイルは無傷。
+- `kernel.py`の差分をコードレビュー: `_compute_tally_weights`が
+  `material_groups`を一切参照していないこと、ndim/dtype/長さ/範囲外コード
+  の契約チェックが計画どおり実装されていることを確認。
+- `material_weights_worktree_compare.py --mode correctness`: 自分で再実行し、
+  1バッチ・端数バッチ・3材料の全条件でkerma/H\*(10)最大絶対差0、3材料の
+  区間数もwater 541,510／lead 141,815／air 266,753とCodex報告値と完全一致。
+- `material_weights_worktree_compare.py --mode timing`: 自分で再実行し、
+  8反復全てでE2E比・residual_B比とも新実装が高速（E2E比中央値約1.146、
+  residual_B比中央値約1.219）。個別の秒数はCodex実行分と多少異なるが
+  （測定ノイズの範囲、両実行とも同じ結論）、8反復全勝という定性的結論は一致。
+- `residual_b_breakdown_profile.py`（重み計算単体のAB/BA、8反復）: 自分で
+  再実行し、旧median 0.069360020s・新median 0.047984042s・比の中央値
+  1.445952でCodex報告値（1.441925）と近い。性能ゲート（>=1.20）PASSを
+  独立に確認。
+- `dda_njit_e2e_benchmark --mode correctness`: PASS（全差0）を確認。
+
+受入条件は全項目Claude独立検証済みでPASS。計画の状態は`implemented`とする。

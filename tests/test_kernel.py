@@ -12,14 +12,17 @@ B-2は`--dose-grid`相当のtrack-lengthタリー統合（カーネルは区間�
 分離してある（実行に数十秒かかるため通常のpytestには含めない）。
 """
 import math
+from types import SimpleNamespace
 
 import numpy as np
 import pytest
 
-from chatcarlo.kernel import (bake_box_scene, bake_scene_materials,
+import chatcarlo.kernel as kernel_mod
+from chatcarlo.kernel import (_compute_tally_weights, bake_box_scene, bake_scene_materials,
                                run_batch, run_batch_with_tally, run_dose_grid,
                                run_water_slab_probe)
-from chatcarlo.materials import linear_mu
+from chatcarlo.dose_coefficients import h_star_10_per_fluence
+from chatcarlo.materials import density, linear_mu, material_groups, mu_en_rho
 from chatcarlo.tally import VoxelGrid
 
 SCENARIOS = {
@@ -27,6 +30,115 @@ SCENARIOS = {
     "water60_free": (10.0, 60.0),
     "water150kev": (10.0, 150.0),
 }
+
+
+def _legacy_tally_weights(tables, material_codes, energies):
+    names = np.array(tables.material_names, dtype=object)[material_codes]
+    mu_en_linear = np.zeros(len(energies))
+    for name, mask in material_groups(names):
+        mu_en_linear[mask] = mu_en_rho(name, energies[mask]) * density(name)
+    return energies * mu_en_linear, h_star_10_per_fluence(energies)
+
+
+def _weight_tables(material_names):
+    return SimpleNamespace(material_names=list(material_names))
+
+
+@pytest.mark.parametrize("dtype", [np.int32, np.int64])
+def test_compute_tally_weights_empty(dtype):
+    tables = _weight_tables(["water", "air"])
+    got = _compute_tally_weights(
+        tables, np.array([], dtype=dtype), np.array([], dtype=np.float64))
+    for weights in got:
+        assert weights.shape == (0,)
+        assert weights.dtype == np.float64
+
+
+def test_compute_tally_weights_rejects_invalid_contract_inputs():
+    tables = _weight_tables(["water", "air"])
+    with pytest.raises(ValueError):
+        _compute_tally_weights(tables, np.array([0]), np.array([60.0, 70.0]))
+    with pytest.raises(ValueError):
+        _compute_tally_weights(tables, np.array([[0]]), np.array([60.0]))
+    with pytest.raises(ValueError):
+        _compute_tally_weights(tables, np.array([0]), np.array([[60.0]]))
+    for invalid in (np.array([0.0, 1.0]), np.array([True, False])):
+        with pytest.raises(TypeError):
+            _compute_tally_weights(tables, invalid, np.array([60.0, 70.0]))
+    for invalid in (np.array([-1]), np.array([2])):
+        with pytest.raises(ValueError):
+            _compute_tally_weights(tables, invalid, np.array([60.0]))
+    with pytest.raises(ValueError):
+        _compute_tally_weights(
+            _weight_tables([]), np.array([0]), np.array([60.0]))
+
+
+@pytest.mark.parametrize(
+    "names,codes,energies",
+    [
+        (["water"], [0, 0, 0], [60.0, 60.0, 60.0]),
+        (["water"], [0, 0, 0], [20.0, 60.0, 120.0]),
+        (["water", "air"], [0, 1, 0, 1, 0], [20.0, 30.0, 60.0, 90.0, 120.0]),
+        (["water", "air", "lead"], [2, 0, 1, 2, 0], [30.0, 40.0, 60.0, 80.0, 120.0]),
+    ],
+)
+def test_compute_tally_weights_bit_exact_with_legacy(names, codes, energies):
+    tables = _weight_tables(names)
+    material_codes = np.asarray(codes, dtype=np.int64)
+    segment_energies = np.asarray(energies, dtype=np.float64)
+    codes_before = material_codes.copy()
+    energies_before = segment_energies.copy()
+    expected = _legacy_tally_weights(tables, material_codes, segment_energies)
+    got = _compute_tally_weights(tables, material_codes, segment_energies)
+    assert all(np.array_equal(a, b) for a, b in zip(got, expected))
+    assert all(a.shape == segment_energies.shape and a.dtype == np.float64 for a in got)
+    assert np.array_equal(material_codes, codes_before)
+    assert np.array_equal(segment_energies, energies_before)
+    if len(set(codes)) == 1 and len(set(energies)) == 1:
+        assert got[0].min() == got[0].max()
+        assert got[1].min() == got[1].max()
+
+
+def test_compute_tally_weights_uses_scene_local_name_order_and_int32():
+    energies = np.array([60.0, 60.0])
+    codes64 = np.array([0, 1], dtype=np.int64)
+    water_air = _compute_tally_weights(
+        _weight_tables(["water", "air"]), codes64, energies)
+    air_water = _compute_tally_weights(
+        _weight_tables(["air", "water"]), codes64, energies)
+    int32 = _compute_tally_weights(
+        _weight_tables(["water", "air"]), codes64.astype(np.int32), energies)
+    assert np.array_equal(water_air[0], air_water[0][::-1])
+    assert np.array_equal(water_air[1], air_water[1])
+    assert all(np.array_equal(a, b) for a, b in zip(water_air, int32))
+
+
+def test_multi_material_tally_grid_matches_legacy_weights(monkeypatch):
+    tables = bake_scene_materials(["water", "lead", "air"])
+    boxes = [
+        {"center": (0.0, 0.0, 0.0), "size_cm": (10.0, 20.0, 20.0),
+         "material": "water"},
+        {"center": (0.0, 0.0, 0.0), "size_cm": (0.02, 20.0, 20.0),
+         "material": "lead"},
+    ]
+    geom = bake_box_scene(
+        boxes, background="air", tables=tables, bbox_margin_cm=0.01)
+    lo = np.array([-5.01, -10.01, -10.01])
+    grid_new = VoxelGrid.from_bbox(
+        lo, np.array([5.01, 10.01, 10.01]), resolution_cm=2.0)
+    grid_old = VoxelGrid.from_bbox(
+        lo, np.array([5.01, 10.01, 10.01]), resolution_cm=2.0)
+    arguments = (
+        tables, geom, 60.0, (-5.01, 0.0, 0.0), (1.0, 0.0, 0.0), 20_000)
+    run_batch_with_tally(
+        *arguments, seed=29, grid=grid_new, n_chunks=4, use_njit_dda=False)
+    monkeypatch.setattr(kernel_mod, "_compute_tally_weights",
+                        _legacy_tally_weights)
+    run_batch_with_tally(
+        *arguments, seed=29, grid=grid_old, n_chunks=4, use_njit_dda=False)
+    assert np.array_equal(grid_new.kerma_keV, grid_old.kerma_keV)
+    assert np.array_equal(
+        grid_new.h10_track_pSv_cm3, grid_old.h10_track_pSv_cm3)
 
 
 @pytest.mark.parametrize("scenario", list(SCENARIOS))

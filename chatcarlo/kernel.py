@@ -45,7 +45,7 @@ from numba import njit, prange
 from .dose_coefficients import h_star_10_per_fluence
 from .materials import (_element_energy_grid_kev, _element_xs_tables, density,
                          element_composition, fluorescence_k_data,
-                         incoherent_sq_table, material_groups, mu_en_rho,
+                         incoherent_sq_table, mu_en_rho,
                          rayleigh_cumulative_table)
 from . import tally, tally_njit
 from .tally import VoxelGrid
@@ -1015,6 +1015,42 @@ def run_batch(tables: SceneMaterialTables, geom: SceneGeometry, energy0_kev: flo
                               n_fluorescence=n_fluorescence)
 
 
+def _compute_tally_weights(
+        tables: SceneMaterialTables,
+        seg_mat_all: np.ndarray,
+        seg_e_all: np.ndarray) -> tuple[np.ndarray, np.ndarray]:
+    """シーンローカル材料コードと区間エネルギーからタリー重みを返す。"""
+    if seg_mat_all.ndim != 1 or seg_e_all.ndim != 1:
+        raise ValueError("seg_mat_all and seg_e_all must be one-dimensional")
+    if seg_mat_all.dtype.kind not in "iu":
+        raise TypeError("seg_mat_all must have an integer dtype")
+    if len(seg_mat_all) != len(seg_e_all):
+        raise ValueError("seg_mat_all and seg_e_all must have equal lengths")
+
+    mu_en_linear = np.empty(len(seg_e_all), dtype=np.float64)
+    h10_weights = np.empty(len(seg_e_all), dtype=np.float64)
+    if len(seg_mat_all) == 0:
+        return mu_en_linear, h10_weights
+
+    n_materials = len(tables.material_names)
+    if np.any(seg_mat_all < 0) or np.any(seg_mat_all >= n_materials):
+        raise ValueError("seg_mat_all contains an out-of-range material code")
+
+    codes = np.unique(seg_mat_all)
+    codes_by_name = sorted(
+        (int(code) for code in codes),
+        key=lambda code: tables.material_names[code],
+    )
+    for code in codes_by_name:
+        mask = seg_mat_all == code
+        name = tables.material_names[code]
+        mu_en_linear[mask] = (
+            mu_en_rho(name, seg_e_all[mask]) * density(name))
+    kerma_weights = seg_e_all * mu_en_linear
+    h10_weights[:] = h_star_10_per_fluence(seg_e_all)
+    return kerma_weights, h10_weights
+
+
 def run_batch_with_tally(tables: SceneMaterialTables, geom: SceneGeometry, energy0_kev: float,
                           origin: tuple[float, float, float], direction: tuple[float, float, float],
                           n_histories: int, seed: int, grid: VoxelGrid, n_chunks: int = 1,
@@ -1092,16 +1128,14 @@ def run_batch_with_tally(tables: SceneMaterialTables, geom: SceneGeometry, energ
         seg_e_all = np.concatenate(seg_e_parts)
         seg_mat_all = np.concatenate(seg_mat_parts)
 
-        mat_names = np.array(tables.material_names, dtype=object)[seg_mat_all]
-        mu_en_linear = np.zeros(len(seg_e_all))
-        for name, m in material_groups(mat_names):
-            mu_en_linear[m] = mu_en_rho(name, seg_e_all[m]) * density(name)
+        kerma_weights, h10_weights = _compute_tally_weights(
+            tables, seg_mat_all, seg_e_all)
 
         accumulator = (tally_njit.accumulate_track_length_multi_njit
                        if use_njit_dda else tally.accumulate_track_length_multi)
         accumulator(
-            ((grid.kerma_keV, seg_e_all * mu_en_linear),
-             (grid.h10_track_pSv_cm3, h_star_10_per_fluence(seg_e_all))),
+            ((grid.kerma_keV, kerma_weights),
+             (grid.h10_track_pSv_cm3, h10_weights)),
             grid, seg_o_all, seg_d_all, seg_ds_all)
 
     return KernelBatchResult(n_scatter=n_scatter, absorbed=absorbed, escaped=escaped,

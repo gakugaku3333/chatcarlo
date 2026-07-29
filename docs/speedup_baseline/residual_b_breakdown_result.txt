@@ -1,0 +1,37 @@
+residual_B breakdown profile
+condition: water60_free N=200000 resolution_cm=2.0 batch_size=200000 n_chunks=8 seed=20260728
+timing boundary: direct reconstruction of kernel.run_batch_with_tally(use_njit_dda=True); make_water_case is outside the timer
+step 4 overflow_check is measured separately and included in residual_B_reconstructed
+warmup: one full path with n_histories=2000; output discarded
+rep=1 chunk_plan=0.000064541 buffer_allocation=0.000016875 step_1+2=0.000081416 transport=0.062005375 overflow_check=0.000028625 concatenate=0.010986792 weight_calculation=0.078453917 dda_accumulator=0.071302916 residual_B_reconstructed=0.089550750 non_DDA_including_transport=0.151556125 total_E2E_B_equivalent=0.222859041
+rep=2 chunk_plan=0.000075958 buffer_allocation=0.034047625 step_1+2=0.034123583 transport=0.060450542 overflow_check=0.000059750 concatenate=0.002111666 weight_calculation=0.069892500 dda_accumulator=0.068420625 residual_B_reconstructed=0.106187499 non_DDA_including_transport=0.166638041 total_E2E_B_equivalent=0.235058666
+rep=3 chunk_plan=0.000082667 buffer_allocation=0.007731583 step_1+2=0.007814250 transport=0.063295625 overflow_check=0.000025583 concatenate=0.001950042 weight_calculation=0.068796417 dda_accumulator=0.071005750 residual_B_reconstructed=0.078586292 non_DDA_including_transport=0.141881917 total_E2E_B_equivalent=0.212887667
+rep=4 chunk_plan=0.000074417 buffer_allocation=0.003412666 step_1+2=0.003487083 transport=0.073366625 overflow_check=0.000026209 concatenate=0.001984458 weight_calculation=0.071245125 dda_accumulator=0.072230042 residual_B_reconstructed=0.076742875 non_DDA_including_transport=0.150109500 total_E2E_B_equivalent=0.222339542
+rep=5 chunk_plan=0.000077000 buffer_allocation=0.002869250 step_1+2=0.002946250 transport=0.075762167 overflow_check=0.000028500 concatenate=0.001922833 weight_calculation=0.073630500 dda_accumulator=0.071806917 residual_B_reconstructed=0.078528083 non_DDA_including_transport=0.154290250 total_E2E_B_equivalent=0.226097167
+rep=6 chunk_plan=0.000091959 buffer_allocation=0.002744625 step_1+2=0.002836584 transport=0.072985041 overflow_check=0.000026417 concatenate=0.002006333 weight_calculation=0.071900250 dda_accumulator=0.069377209 residual_B_reconstructed=0.076769584 non_DDA_including_transport=0.149754625 total_E2E_B_equivalent=0.219131834
+rep=7 chunk_plan=0.000081959 buffer_allocation=0.002874750 step_1+2=0.002956709 transport=0.064944875 overflow_check=0.000022583 concatenate=0.001888375 weight_calculation=0.067451458 dda_accumulator=0.069060834 residual_B_reconstructed=0.072319125 non_DDA_including_transport=0.137264000 total_E2E_B_equivalent=0.206324834
+rep=8 chunk_plan=0.000066166 buffer_allocation=0.003337084 step_1+2=0.003403250 transport=0.058186958 overflow_check=0.000023125 concatenate=0.001925000 weight_calculation=0.068687625 dda_accumulator=0.069541167 residual_B_reconstructed=0.074039000 non_DDA_including_transport=0.132225958 total_E2E_B_equivalent=0.201767125
+
+summary (seconds, 8 repetitions)
+component                               min       median          max
+------------------------------ ------------ ------------ ------------
+chunk_plan                      0.000064541  0.000076479  0.000091959
+buffer_allocation               0.000016875  0.003105917  0.034047625
+step_1+2                        0.000081416  0.003179979  0.034123583
+transport                       0.058186958  0.064120250  0.075762167
+overflow_check                  0.000022583  0.000026313  0.000059750
+concatenate                     0.001888375  0.001967250  0.010986792
+weight_calculation              0.067451458  0.070568812  0.078453917
+dda_accumulator                 0.068420625  0.070273458  0.072230042
+residual_B_reconstructed        0.072319125  0.077648834  0.106187499
+non_DDA_including_transport     0.132225958  0.149932062  0.166638041
+total_E2E_B_equivalent          0.201767125  0.220735688  0.235058666
+
+comparison with previously reported medians
+E2E_B: reconstructed_median=0.220735688 reported_median=0.199722438 difference=+0.021013250 relative_error=+10.521% LARGE_DIVERGENCE
+residual_B: reconstructed_median=0.077648834 reported_median=0.128791854 difference=-0.051143020 relative_error=-39.710% LARGE_DIVERGENCE
+definition note: requested residual_B_reconstructed excludes transport, whereas the previously reported residual_B=E2E_B-DDA_in_B includes it
+reported-compatible non_DDA_including_transport: reconstructed_median=0.149932062 reported_median=0.128791854 difference=+0.021140208 relative_error=+16.414% LARGE_DIVERGENCE
+DDA_in_B: reconstructed_median=0.070273458 reported_median=0.070733292 difference=-0.000459834 relative_error=-0.650%
+warning: at least one reconstructed median differs from the reported value by more than 10%; the measurement boundary uses direct step calls without the prior timing monkey-patch
+次のボトルネック候補: weight_calculation
