@@ -438,6 +438,24 @@ EGS5相互検証で見る**という役割分担にした。詳細は
 CT回転/ヘリカル/ヒール効果・mAs/CTDIvol校正・cylinder/sphere形状・`--workers`並列との
 統合・R/SEMの実出力・`--engine auto`。いずれもPhase 2以降のスコープ。
 
+### Phase 2 kernel統計不確かさ配線【完了・2026-08-01】
+
+計画書: [docs/ai/plans/2026-08-01-kernel-uncertainty-phase2.md](ai/plans/2026-08-01-kernel-uncertainty-phase2.md)。
+`_run_kernel_batches`を既存numpy参照実装と同じ順序で、バッチ単体の材料別寄与に
+`ScalarMoments.add_batch(..., n)`、続いて`grid.end_batch(n)`を呼ぶよう配線した。最終端数も
+実際のhistory数を渡す。`--engine kernel`のR/SEM強制無効化と警告を除去し、`--no-uncertainty`
+は従来どおり統計出力を無効化する。
+
+検証では統計ON/OFFの材料別エネルギー・kerma・H*(10)がビット一致し、端数バッチ
+（2,500=1,000+1,000+500）および`kernel_chunks=4`の統計配線も確認した。独立6 seed・
+各50,000 historiesでnumpy/kernelの水・鉛の材料別R平均は結合4σ以内だった。変異検証では
+`end_batch`呼び出し削除で端数配線/CLI統計出力テストが失敗し、`add_batch`へ`n=1`を渡す変異で
+端数n検証が失敗した。
+
+性能はwater_phantom_pdd_ocr、n=1e6、batch-size=50,000、resolution=2cm、kernel chunks=1で、
+同一Pythonセッション内のON/OFF交互3反復を比較した。ON 2.6130s（中央値、2.5659/2.6130/2.6558）、
+OFF 2.6054s（中央値、2.5723/2.6093/2.6054）、差+0.30%は反復内のばらつき以下のため**測定分解能以下**。
+
 ### Phase Bの検証戦略（ビット一致が使えない）
 
 per-historyループは乱数の消費順序がベクトル化実装と根本的に異なるため、

@@ -452,5 +452,6 @@
 - `--workers`マルチプロセスとkernel経路の統合
 - `--engine kernel`での統計不確かさ（R・SEM）の実際の出力
   （`grid.end_batch()`統合は将来のPhase 2）
+  → Phase 2（`2026-08-01-kernel-uncertainty-phase2.md`）で解消。
 - `--engine auto`のような自動選択モード
 - kernel.py自体のさらなる高速化（DDA再実装等）

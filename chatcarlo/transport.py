@@ -16,7 +16,6 @@ from __future__ import annotations
 
 from dataclasses import dataclass, field
 import math
-import warnings
 
 import numpy as np
 
@@ -287,7 +286,8 @@ def _kernel_material_names(scene, geometry: Geometry) -> list[str]:
 
 def _run_kernel_batches(scene, n_histories: int, seed: int | None, batch_size: int,
                         grid: VoxelGrid | None, n_chunks: int,
-                        fluorescence_enabled: bool, max_segments_per_history: int) -> dict:
+                        fluorescence_enabled: bool, max_segments_per_history: int,
+                        energy_moments: ScalarMoments | None = None) -> dict:
     from .kernel import (bake_box_scene, bake_scene_materials, run_batch_origins,
                          run_batch_with_tally_origins)
 
@@ -319,7 +319,12 @@ def _run_kernel_batches(scene, n_histories: int, seed: int | None, batch_size: i
             result = run_batch_with_tally_origins(
                 tables, geom, float(energies[0]), origins, tuple(directions[0]), kernel_seed,
                 grid, n_chunks, fluorescence_enabled, max_segments_per_history)
+        batch_energy = dict(zip(names, result.energy_deposited_by_material))
         energy += result.energy_deposited_by_material
+        if energy_moments is not None:
+            energy_moments.add_batch(batch_energy, n)
+        if grid is not None:
+            grid.end_batch(n)
         n_absorbed += int(np.sum(result.absorbed))
         n_escaped += int(np.sum(result.escaped))
         scatter_sum += int(np.sum(result.n_scatter))
@@ -464,9 +469,6 @@ def run_transport(scene, n_histories: int = 100_000, seed: int | None = None,
             raise ValueError(reason)
         if kernel_chunks < 0:
             raise ValueError("--kernel-chunks は0以上で指定してください")
-        if track_uncertainty:
-            warnings.warn("kernel engine では統計不確かさ追跡を無効化します", stacklevel=2)
-            track_uncertainty = False
         if kernel_chunks == 0:
             from numba import get_num_threads
             kernel_chunks = min(get_num_threads(), 8)
@@ -480,7 +482,8 @@ def run_transport(scene, n_histories: int = 100_000, seed: int | None = None,
 
     if engine == "kernel":
         agg = _run_kernel_batches(scene, n_histories, seed, batch_size, grid, kernel_chunks,
-                                  fluorescence_enabled, kernel_max_segments_per_history)
+                                  fluorescence_enabled, kernel_max_segments_per_history,
+                                  energy_moments)
     elif n_workers <= 1:
         rng = np.random.default_rng(seed)
         agg = _run_batches(src, geometry, rng, n_histories, batch_size, grid, fluorescence_enabled,

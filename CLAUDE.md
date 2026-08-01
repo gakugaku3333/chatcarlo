@@ -54,7 +54,8 @@ python3 -m venv .venv
 
 # opt-in Numba kernel engine (Phase 1: box-only + monochromatic source.spectrum + parallel field +
 # effective workers=1; ~2.4x faster on water_phantom_pdd_ocr at n=1e6). Incompatible scenes fail fast
-# with a specific reason rather than silently falling back. Uncertainty (R/SEM) is force-disabled here.
+# with a specific reason rather than silently falling back. R/SEM uncertainty is supported by default;
+# use --no-uncertainty to disable it.
 .venv/bin/python -m chatcarlo run examples/water_phantom_pdd_ocr.yaml --engine kernel -n 1e6 --seed 42
 
 # photon trajectory 3D visualization (small n; overlays onto the preview HTML template)
@@ -118,7 +119,7 @@ transport logic, check whether it already exists in `kernel.py`.
 
 `chatcarlo run --engine kernel` is an opt-in Phase 1 adapter for box-only, monochromatic,
 parallel-field scenes with one effective worker. It samples source origins through the existing
-`sample_source_photons` path, but disables uncertainty tracking; `--engine numpy` remains the default.
+`sample_source_photons` path and supports the same batch R/SEM tracking as numpy; `--engine numpy` remains the default.
 
 **Physics**: photoelectric / Compton (bound Compton — free-electron Klein-Nishina via Kahn rejection sampling,
 then an additional S(Z,q)/Z rejection from the incoherent scattering function via `xraylib.SF_Compt`; compounds

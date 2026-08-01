@@ -156,9 +156,6 @@ def cmd_run(args) -> int:
         print("[エラー] --kernel-chunks は0以上で指定してください", file=sys.stderr)
         return 1
     track_uncertainty = not args.no_uncertainty
-    if engine == "kernel" and track_uncertainty:
-        print("[警告] kernel engine では統計不確かさ追跡を無効化します")
-        track_uncertainty = False
     n_histories_int = int(args.n_histories)
     if args.dose_grid and n_workers >= 2:
         # 並列時はワーカーごとに線量グリッドを持ち、親へpickleで集約するため、

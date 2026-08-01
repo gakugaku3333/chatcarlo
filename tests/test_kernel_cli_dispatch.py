@@ -10,6 +10,7 @@ import pytest
 from chatcarlo.kernel import bake_box_scene, bake_scene_materials, run_batch_origins
 from chatcarlo.scene import validate_scene
 from chatcarlo.source import sample_source_photons
+from chatcarlo.tally import ScalarMoments, VoxelGrid
 from chatcarlo.transport import (_kernel_material_names, _run_kernel_batches,
                                  run_transport)
 
@@ -276,3 +277,135 @@ def test_cli_kernel_last_batch_effective_chunks(monkeypatch, capsys):
         n_fluorescence=0, n_batches=0, energy_deposited_MeV={}, n_photons_real=None))
     assert cli.cmd_run(_cli_args(n_histories=250_000, batch_size=200_000, kernel_chunks=100_000)) == 0
     assert "最終バッチ実効値=50000" in capsys.readouterr().out
+
+
+def test_kernel_uncertainty_totals_are_bit_identical_on_off():
+    scene = _lead_scene()
+    common = dict(n_histories=2_500, seed=91, batch_size=1_000, dose_grid=True,
+                  grid_resolution_cm=4, engine="kernel", kernel_chunks=1)
+    on = run_transport(scene, track_uncertainty=True, **common)
+    off = run_transport(scene, track_uncertainty=False, **common)
+    assert on.energy_deposited_MeV == off.energy_deposited_MeV
+    assert np.array_equal(on.grid.kerma_keV, off.grid.kerma_keV)
+    assert np.array_equal(on.grid.h10_track_pSv_cm3, off.grid.h10_track_pSv_cm3)
+
+
+def test_kernel_scalar_sem_matches_batch_values_bruteforce(monkeypatch):
+    """M=6の実際のkernelバッチ寄与から独立にSEMを再計算して照合する。"""
+    captured = []
+    original = ScalarMoments.add_batch
+
+    def record(self, batch_values, n):
+        captured.append((dict(batch_values), n))
+        original(self, batch_values, n)
+
+    monkeypatch.setattr(ScalarMoments, "add_batch", record)
+    result = run_transport(_lead_scene(), n_histories=6_000, seed=23, batch_size=1_000,
+                           engine="kernel", kernel_chunks=1, track_uncertainty=True)
+    assert len(captured) == 6
+    for name, total_mev in result.energy_deposited_MeV.items():
+        values = np.array([batch.get(name, 0.0) for batch, _ in captured])
+        ns = np.array([n for _, n in captured])
+        total = values.sum()
+        q = np.sum(values ** 2 / ns)
+        expected_sem_mev = np.sqrt((q - total ** 2 / ns.sum()) / (len(values) - 1) / ns.sum()) / 1_000.0
+        assert np.isclose(result.energy_deposited_sem_MeV[name], expected_sem_mev, rtol=1e-12)
+        assert np.isclose(total_mev, total / 1_000.0, rtol=1e-12)
+
+
+def test_kernel_terminal_batch_n_reaches_both_uncertainty_accumulators(monkeypatch):
+    """端数500がadd_batch/end_batch双方に届く。両方の削除・n→1変異を検出する。"""
+    add_ns, end_ns = [], []
+    original_add = ScalarMoments.add_batch
+    original_end = VoxelGrid.end_batch
+
+    def record_add(self, batch_values, n):
+        add_ns.append(n)
+        original_add(self, batch_values, n)
+
+    def record_end(self, n):
+        end_ns.append(n)
+        original_end(self, n)
+
+    monkeypatch.setattr(ScalarMoments, "add_batch", record_add)
+    monkeypatch.setattr(VoxelGrid, "end_batch", record_end)
+    result = run_transport(_scene(), n_histories=2_500, seed=27, batch_size=1_000,
+                           dose_grid=True, grid_resolution_cm=4, engine="kernel",
+                           kernel_chunks=1, track_uncertainty=True)
+    assert add_ns == [1_000, 1_000, 500]
+    assert end_ns == [1_000, 1_000, 500]
+    assert result.n_batches == 3
+    assert result.grid.n_batches == 3
+    assert result.grid.n_histories == 2_500
+
+
+def test_kernel_chunks_with_terminal_batch_reproduces_uncertainty_stats():
+    scene = _lead_scene()
+    common = dict(n_histories=2_500, seed=37, batch_size=1_000, dose_grid=True,
+                  grid_resolution_cm=4, engine="kernel", kernel_chunks=4)
+    on = run_transport(scene, track_uncertainty=True, **common)
+    off = run_transport(scene, track_uncertainty=False, **common)
+    repeat = run_transport(scene, track_uncertainty=True, **common)
+    assert on.energy_deposited_MeV == off.energy_deposited_MeV
+    assert np.array_equal(on.grid.kerma_keV, off.grid.kerma_keV)
+    assert np.array_equal(on.grid.h10_track_pSv_cm3, off.grid.h10_track_pSv_cm3)
+    assert np.array_equal(on.grid.kerma_sum2, repeat.grid.kerma_sum2)
+    assert np.array_equal(on.grid.h10_sum2, repeat.grid.h10_sum2)
+
+
+def test_kernel_numpy_six_seed_relative_errors_agree_within_four_sigma():
+    """Rの平均を独立6 seedで比較する。4σ差ならこのテストを失敗させて停止する。"""
+    scene = _lead_scene()
+    kwargs = dict(n_histories=_CROSSCHECK_HISTORIES, batch_size=10_000,
+                  track_uncertainty=True)
+    numpy_runs = [run_transport(scene, seed=s, engine="numpy", **kwargs) for s in range(71, 77)]
+    kernel_runs = [run_transport(scene, seed=s, engine="kernel", kernel_chunks=1, **kwargs)
+                   for s in range(71, 77)]
+    for material in ("water", "lead"):
+        numpy_r = [r.energy_deposited_rel_err[material] for r in numpy_runs]
+        kernel_r = [r.energy_deposited_rel_err[material] for r in kernel_runs]
+        _assert_six_seed_agreement(numpy_r, kernel_r)
+
+
+def test_cli_kernel_no_uncertainty_omits_statistics_keys(tmp_path, monkeypatch, capsys):
+    from chatcarlo import __main__ as cli
+    monkeypatch.setattr("chatcarlo.scene.load_scene", lambda _: _scene())
+    output = tmp_path / "kernel_no_uncertainty.npz"
+    assert cli.cmd_run(_cli_args(n_histories=1_000, batch_size=500, dose_grid=True,
+                                 no_uncertainty=True, dose_out=str(output))) == 0
+    out = capsys.readouterr().out
+    assert "--no-uncertainty により無効化されています" in out
+    assert "(相対誤差 R=" not in out
+    with np.load(output) as npz:
+        for key in ("rel_err_dose", "rel_err_h10", "sem_dose_per_history_Gy",
+                    "sem_h10_per_history_pSv", "n_batches", "n_batches_hit"):
+            assert key not in npz.files
+
+
+def test_cli_kernel_dose_grid_writes_statistics_and_plots_relerr(tmp_path, monkeypatch, capsys):
+    from chatcarlo import __main__ as cli
+    monkeypatch.setattr("chatcarlo.scene.load_scene", lambda _: _scene())
+    output = tmp_path / "kernel_uncertainty.npz"
+    assert cli.cmd_run(_cli_args(n_histories=1_000, batch_size=500, dose_grid=True,
+                                 no_uncertainty=False, dose_out=str(output))) == 0
+    out = capsys.readouterr().out
+    assert "(相対誤差 R=" in out
+    assert "グリッド統計:" in out
+    with np.load(output) as npz:
+        for key in ("rel_err_dose", "rel_err_h10", "sem_dose_per_history_Gy",
+                    "sem_h10_per_history_pSv", "n_batches", "n_batches_hit"):
+            assert key in npz.files
+    relerr = tmp_path / "kernel_relerr.png"
+    assert cli.cmd_plot(argparse.Namespace(npz=str(output), out=str(relerr), scene=None,
+                                            quantity="relerr-dose", axis=None, pos=None)) == 0
+    assert relerr.exists() and relerr.stat().st_size > 0
+
+
+def test_cli_kernel_m1_prints_batch_shortage_message(monkeypatch, capsys):
+    from chatcarlo import __main__ as cli
+    monkeypatch.setattr("chatcarlo.scene.load_scene", lambda _: _scene())
+    assert cli.cmd_run(_cli_args(n_histories=500, batch_size=1_000,
+                                 no_uncertainty=False)) == 0
+    out = capsys.readouterr().out
+    assert "バッチ数が不足しています" in out
+    assert "M=1" in out
