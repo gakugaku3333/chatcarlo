@@ -969,6 +969,286 @@ def _run_batch_scalar_tally(n_histories, n_chunks, chunk_seeds, chunk_offsets, c
             seg_count_per_chunk, seg_overflow_per_chunk)
 
 
+@njit(cache=True)
+def _transport_one_origins(energy0_kev, origins, history_index, dx, dy, dz,
+                           n_boxes, box_center, box_half, box_material, background_material,
+                           world_center, world_half,
+                           n_elem_arr, zs_arr, fracs_arr, log_e_arr, step_arr, n_grid_arr, density_arr,
+                           photo_arr, compt_arr, rayl_arr, incoh_q_arr, incoh_s_arr, rayl_x_arr, rayl_a_arr,
+                           k_edge_arr, k_omega_arr, k_frac_arr, k_line_e_arr, k_line_p_arr, n_lines_arr,
+                           max_elem, fluorescence_enabled, material_energy):
+    """CLI adapter variant of `_transport_one` for per-history origins.
+
+    `material_energy` belongs exclusively to the enclosing prange chunk.
+    """
+    x, y, z = origins[history_index, 0], origins[history_index, 1], origins[history_index, 2]
+    dirx, diry, dirz, e = dx, dy, dz, energy0_kev
+    tau = -math.log(np.random.random())
+    n_scatter = 0
+    n_fluorescence = 0
+    photo_e = np.empty(max_elem)
+    compt_e = np.empty(max_elem)
+    rayl_e = np.empty(max_elem)
+    idx_e = np.empty(max_elem, dtype=np.int64)
+    frac_e = np.empty(max_elem)
+    while True:
+        mat_idx = _material_at_scalar(x, y, z, n_boxes, box_center, box_half, box_material, background_material)
+        mu, tot_photo, tot_compt, tot_rayl = _mu_and_parts_scalar(
+            e, mat_idx, n_elem_arr, fracs_arr, log_e_arr, step_arr, n_grid_arr,
+            photo_arr, compt_arr, rayl_arr, density_arr, photo_e, compt_e, rayl_e, idx_e, frac_e)
+        t_boundary, escape = _next_boundary_scalar(x, y, z, dirx, diry, dirz, n_boxes, box_center, box_half, world_center, world_half)
+        mu_safe = mu if mu > 0.0 else 1e-30
+        tau_to_boundary = mu * t_boundary
+        will_interact = tau < tau_to_boundary
+        ds = tau / mu_safe if will_interact else t_boundary
+        x += dirx * ds
+        y += diry * ds
+        z += dirz * ds
+        if not will_interact:
+            tau -= tau_to_boundary
+            x += dirx * _NUDGE
+            y += diry * _NUDGE
+            z += dirz * _NUDGE
+            if escape:
+                return n_scatter, False, True, e, n_fluorescence
+            continue
+        n_scatter += 1
+        r_type = np.random.random()
+        tot = tot_photo + tot_compt + tot_rayl
+        p_photo = tot_photo / tot
+        p_compt = tot_compt / tot
+        if r_type < p_photo:
+            n_elem = n_elem_arr[mat_idx]
+            elem_i = _select_element(n_elem, fracs_arr[mat_idx], photo_e, tot_photo)
+            emit = False
+            e_line = 0.0
+            if fluorescence_enabled:
+                emit, e_line = _sample_fluorescence_scalar(
+                    mat_idx, elem_i, e, idx_e[elem_i], frac_e[elem_i],
+                    k_edge_arr, k_omega_arr, k_frac_arr, k_line_e_arr, k_line_p_arr, n_lines_arr)
+            if emit:
+                material_energy[mat_idx] += e - e_line
+                n_fluorescence += 1
+                dirx, diry, dirz = _isotropic_direction_scalar()
+                e = e_line
+                tau = -math.log(np.random.random())
+            else:
+                material_energy[mat_idx] += e
+                return n_scatter, True, False, e, n_fluorescence
+        elif r_type < p_photo + p_compt:
+            eps_c, cos_c, _elem = _sample_compton_bound_scalar(
+                mat_idx, e, n_elem_arr[mat_idx], fracs_arr, zs_arr, incoh_q_arr, incoh_s_arr, compt_e, tot_compt)
+            e_new = e * eps_c
+            material_energy[mat_idx] += e - e_new
+            dirx, diry, dirz = _scatter_direction_scalar(dirx, diry, dirz, cos_c)
+            e = e_new
+            tau = -math.log(np.random.random())
+        else:
+            cos_c, _elem = _sample_rayleigh_cos_theta_scalar(
+                mat_idx, e, n_elem_arr[mat_idx], fracs_arr, rayl_x_arr, rayl_a_arr, rayl_e, tot_rayl)
+            dirx, diry, dirz = _scatter_direction_scalar(dirx, diry, dirz, cos_c)
+            tau = -math.log(np.random.random())
+
+
+@njit(cache=True, parallel=True)
+def _run_batch_scalar_origins(n_histories, n_chunks, chunk_seeds, chunk_offsets, chunk_counts,
+                              energy0_kev, origins, dx, dy, dz,
+                              n_boxes, box_center, box_half, box_material, background_material,
+                              world_center, world_half,
+                              n_elem_arr, zs_arr, fracs_arr, log_e_arr, step_arr, n_grid_arr, density_arr,
+                              photo_arr, compt_arr, rayl_arr, incoh_q_arr, incoh_s_arr, rayl_x_arr, rayl_a_arr,
+                              k_edge_arr, k_omega_arr, k_frac_arr, k_line_e_arr, k_line_p_arr, n_lines_arr,
+                              max_elem, fluorescence_enabled, material_energy_per_chunk):
+    n_scatter = np.zeros(n_histories, dtype=np.int64)
+    absorbed = np.zeros(n_histories, dtype=np.bool_)
+    escaped = np.zeros(n_histories, dtype=np.bool_)
+    final_energy = np.zeros(n_histories, dtype=np.float64)
+    n_fluorescence = np.zeros(n_histories, dtype=np.int64)
+    for c in prange(n_chunks):
+        np.random.seed(chunk_seeds[c])
+        for k in range(chunk_counts[c]):
+            i = chunk_offsets[c] + k
+            ns, ab, es, fe, nf = _transport_one_origins(
+                energy0_kev, origins, i, dx, dy, dz, n_boxes, box_center, box_half, box_material, background_material,
+                world_center, world_half, n_elem_arr, zs_arr, fracs_arr, log_e_arr, step_arr, n_grid_arr, density_arr,
+                photo_arr, compt_arr, rayl_arr, incoh_q_arr, incoh_s_arr, rayl_x_arr, rayl_a_arr,
+                k_edge_arr, k_omega_arr, k_frac_arr, k_line_e_arr, k_line_p_arr, n_lines_arr,
+                max_elem, fluorescence_enabled, material_energy_per_chunk[c])
+            n_scatter[i], absorbed[i], escaped[i], final_energy[i], n_fluorescence[i] = ns, ab, es, fe, nf
+    return n_scatter, absorbed, escaped, final_energy, n_fluorescence
+
+
+@dataclass
+class KernelOriginBatchResult:
+    n_scatter: np.ndarray
+    absorbed: np.ndarray
+    escaped: np.ndarray
+    final_energy: np.ndarray
+    energy_deposited_by_material: np.ndarray
+    n_fluorescence: np.ndarray
+
+
+def run_batch_origins(tables: SceneMaterialTables, geom: SceneGeometry, energy0_kev: float,
+                      origins: np.ndarray, direction: tuple[float, float, float], seed: int,
+                      n_chunks: int = 1, fluorescence_enabled: bool = True) -> KernelOriginBatchResult:
+    """CLI-only origin-array adapter; leaves the established public batch APIs untouched."""
+    n_histories = len(origins)
+    chunk_seeds, chunk_offsets, chunk_counts = _chunk_plan(n_histories, n_chunks, seed)
+    per_chunk = np.zeros((len(chunk_seeds), len(tables.material_names)), dtype=np.float64)
+    values = _run_batch_scalar_origins(
+        n_histories, len(chunk_seeds), chunk_seeds, chunk_offsets, chunk_counts,
+        energy0_kev, np.asarray(origins, dtype=np.float64), direction[0], direction[1], direction[2],
+        geom.n_boxes, geom.box_center, geom.box_half, geom.box_material, geom.background_material,
+        geom.world_center, geom.world_half,
+        tables.n_elem, tables.zs, tables.fracs, tables.log_e, tables.step, tables.n_grid, tables.density_g_cm3,
+        tables.photo, tables.compt, tables.rayl, tables.incoh_q, tables.incoh_s, tables.rayl_x, tables.rayl_a,
+        tables.k_edge, tables.k_omega, tables.k_frac, tables.k_line_e, tables.k_line_p, tables.n_lines,
+        tables.zs.shape[1], fluorescence_enabled, per_chunk)
+    return KernelOriginBatchResult(*values[:4], per_chunk.sum(axis=0), values[4])
+
+
+@njit(cache=True)
+def _transport_one_tally_origins(energy0_kev, origins, history_index, dx, dy, dz,
+                                 n_boxes, box_center, box_half, box_material, background_material,
+                                 world_center, world_half,
+                                 n_elem_arr, zs_arr, fracs_arr, log_e_arr, step_arr, n_grid_arr, density_arr,
+                                 photo_arr, compt_arr, rayl_arr, incoh_q_arr, incoh_s_arr, rayl_x_arr, rayl_a_arr,
+                                 k_edge_arr, k_omega_arr, k_frac_arr, k_line_e_arr, k_line_p_arr, n_lines_arr,
+                                 max_elem, fluorescence_enabled, material_energy,
+                                 seg_o, seg_d, seg_ds, seg_e, seg_mat, seg_start, seg_capacity):
+    x, y, z = origins[history_index, 0], origins[history_index, 1], origins[history_index, 2]
+    dirx, diry, dirz, e = dx, dy, dz, energy0_kev
+    tau = -math.log(np.random.random())
+    n_scatter = 0
+    n_fluorescence = 0
+    photo_e = np.empty(max_elem); compt_e = np.empty(max_elem); rayl_e = np.empty(max_elem)
+    idx_e = np.empty(max_elem, dtype=np.int64); frac_e = np.empty(max_elem)
+    seg_idx = seg_start
+    overflow = False
+    while True:
+        mat_idx = _material_at_scalar(x, y, z, n_boxes, box_center, box_half, box_material, background_material)
+        mu, tot_photo, tot_compt, tot_rayl = _mu_and_parts_scalar(
+            e, mat_idx, n_elem_arr, fracs_arr, log_e_arr, step_arr, n_grid_arr,
+            photo_arr, compt_arr, rayl_arr, density_arr, photo_e, compt_e, rayl_e, idx_e, frac_e)
+        t_boundary, escape = _next_boundary_scalar(x, y, z, dirx, diry, dirz, n_boxes, box_center, box_half, world_center, world_half)
+        mu_safe = mu if mu > 0.0 else 1e-30
+        tau_to_boundary = mu * t_boundary
+        will_interact = tau < tau_to_boundary
+        ds = tau / mu_safe if will_interact else t_boundary
+        if ds > 0.0:
+            if seg_idx < seg_capacity:
+                seg_o[seg_idx, 0], seg_o[seg_idx, 1], seg_o[seg_idx, 2] = x, y, z
+                seg_d[seg_idx, 0], seg_d[seg_idx, 1], seg_d[seg_idx, 2] = dirx, diry, dirz
+                seg_ds[seg_idx], seg_e[seg_idx], seg_mat[seg_idx] = ds, e, mat_idx
+                seg_idx += 1
+            else:
+                overflow = True
+        x += dirx * ds; y += diry * ds; z += dirz * ds
+        if not will_interact:
+            tau -= tau_to_boundary
+            x += dirx * _NUDGE; y += diry * _NUDGE; z += dirz * _NUDGE
+            if escape:
+                return n_scatter, False, True, e, n_fluorescence, seg_idx, overflow
+            continue
+        n_scatter += 1
+        r_type = np.random.random()
+        tot = tot_photo + tot_compt + tot_rayl
+        p_photo, p_compt = tot_photo / tot, tot_compt / tot
+        if r_type < p_photo:
+            elem_i = _select_element(n_elem_arr[mat_idx], fracs_arr[mat_idx], photo_e, tot_photo)
+            emit = False; e_line = 0.0
+            if fluorescence_enabled:
+                emit, e_line = _sample_fluorescence_scalar(
+                    mat_idx, elem_i, e, idx_e[elem_i], frac_e[elem_i],
+                    k_edge_arr, k_omega_arr, k_frac_arr, k_line_e_arr, k_line_p_arr, n_lines_arr)
+            if emit:
+                material_energy[mat_idx] += e - e_line
+                n_fluorescence += 1
+                dirx, diry, dirz = _isotropic_direction_scalar()
+                e = e_line; tau = -math.log(np.random.random())
+            else:
+                material_energy[mat_idx] += e
+                return n_scatter, True, False, e, n_fluorescence, seg_idx, overflow
+        elif r_type < p_photo + p_compt:
+            eps_c, cos_c, _elem = _sample_compton_bound_scalar(
+                mat_idx, e, n_elem_arr[mat_idx], fracs_arr, zs_arr, incoh_q_arr, incoh_s_arr, compt_e, tot_compt)
+            e_new = e * eps_c
+            material_energy[mat_idx] += e - e_new
+            dirx, diry, dirz = _scatter_direction_scalar(dirx, diry, dirz, cos_c)
+            e = e_new; tau = -math.log(np.random.random())
+        else:
+            cos_c, _elem = _sample_rayleigh_cos_theta_scalar(
+                mat_idx, e, n_elem_arr[mat_idx], fracs_arr, rayl_x_arr, rayl_a_arr, rayl_e, tot_rayl)
+            dirx, diry, dirz = _scatter_direction_scalar(dirx, diry, dirz, cos_c)
+            tau = -math.log(np.random.random())
+
+
+@njit(cache=True, parallel=True)
+def _run_batch_scalar_tally_origins(n_histories, n_chunks, chunk_seeds, chunk_offsets, chunk_counts,
+                                    energy0_kev, origins, dx, dy, dz,
+                                    n_boxes, box_center, box_half, box_material, background_material,
+                                    world_center, world_half,
+                                    n_elem_arr, zs_arr, fracs_arr, log_e_arr, step_arr, n_grid_arr, density_arr,
+                                    photo_arr, compt_arr, rayl_arr, incoh_q_arr, incoh_s_arr, rayl_x_arr, rayl_a_arr,
+                                    k_edge_arr, k_omega_arr, k_frac_arr, k_line_e_arr, k_line_p_arr, n_lines_arr,
+                                    max_elem, fluorescence_enabled, material_energy_per_chunk,
+                                    seg_o, seg_d, seg_ds, seg_e, seg_mat, seg_capacity_per_chunk):
+    n_scatter = np.zeros(n_histories, dtype=np.int64); absorbed = np.zeros(n_histories, dtype=np.bool_)
+    escaped = np.zeros(n_histories, dtype=np.bool_); final_energy = np.zeros(n_histories, dtype=np.float64)
+    n_fluorescence = np.zeros(n_histories, dtype=np.int64)
+    seg_count_per_chunk = np.zeros(n_chunks, dtype=np.int64); seg_overflow_per_chunk = np.zeros(n_chunks, dtype=np.bool_)
+    for c in prange(n_chunks):
+        np.random.seed(chunk_seeds[c]); seg_idx = 0; overflow_c = False
+        for k in range(chunk_counts[c]):
+            i = chunk_offsets[c] + k
+            ns, ab, es, fe, nf, seg_idx, ov = _transport_one_tally_origins(
+                energy0_kev, origins, i, dx, dy, dz, n_boxes, box_center, box_half, box_material, background_material,
+                world_center, world_half, n_elem_arr, zs_arr, fracs_arr, log_e_arr, step_arr, n_grid_arr, density_arr,
+                photo_arr, compt_arr, rayl_arr, incoh_q_arr, incoh_s_arr, rayl_x_arr, rayl_a_arr,
+                k_edge_arr, k_omega_arr, k_frac_arr, k_line_e_arr, k_line_p_arr, n_lines_arr,
+                max_elem, fluorescence_enabled, material_energy_per_chunk[c],
+                seg_o[c], seg_d[c], seg_ds[c], seg_e[c], seg_mat[c], seg_idx, seg_capacity_per_chunk)
+            n_scatter[i], absorbed[i], escaped[i], final_energy[i], n_fluorescence[i] = ns, ab, es, fe, nf
+            overflow_c = overflow_c or ov
+        seg_count_per_chunk[c], seg_overflow_per_chunk[c] = seg_idx, overflow_c
+    return n_scatter, absorbed, escaped, final_energy, n_fluorescence, seg_count_per_chunk, seg_overflow_per_chunk
+
+
+def run_batch_with_tally_origins(tables: SceneMaterialTables, geom: SceneGeometry, energy0_kev: float,
+                                 origins: np.ndarray, direction: tuple[float, float, float], seed: int,
+                                 grid: VoxelGrid, n_chunks: int = 1, fluorescence_enabled: bool = True,
+                                 max_segments_per_history: int = 16) -> KernelOriginBatchResult:
+    n_histories = len(origins)
+    chunk_seeds, chunk_offsets, chunk_counts = _chunk_plan(n_histories, n_chunks, seed)
+    n_chunks_actual = len(chunk_seeds)
+    capacity = int(chunk_counts.max()) * max_segments_per_history
+    seg_o = np.zeros((n_chunks_actual, capacity, 3)); seg_d = np.zeros((n_chunks_actual, capacity, 3))
+    seg_ds = np.zeros((n_chunks_actual, capacity)); seg_e = np.zeros((n_chunks_actual, capacity))
+    seg_mat = np.zeros((n_chunks_actual, capacity), dtype=np.int64)
+    per_chunk = np.zeros((n_chunks_actual, len(tables.material_names)))
+    values = _run_batch_scalar_tally_origins(
+        n_histories, n_chunks_actual, chunk_seeds, chunk_offsets, chunk_counts, energy0_kev,
+        np.asarray(origins, dtype=np.float64), direction[0], direction[1], direction[2],
+        geom.n_boxes, geom.box_center, geom.box_half, geom.box_material, geom.background_material, geom.world_center, geom.world_half,
+        tables.n_elem, tables.zs, tables.fracs, tables.log_e, tables.step, tables.n_grid, tables.density_g_cm3,
+        tables.photo, tables.compt, tables.rayl, tables.incoh_q, tables.incoh_s, tables.rayl_x, tables.rayl_a,
+        tables.k_edge, tables.k_omega, tables.k_frac, tables.k_line_e, tables.k_line_p, tables.n_lines,
+        tables.zs.shape[1], fluorescence_enabled, per_chunk, seg_o, seg_d, seg_ds, seg_e, seg_mat, capacity)
+    n_scatter, absorbed, escaped, final_energy, n_fluorescence, seg_count, overflow = values
+    if np.any(overflow):
+        raise ValueError("タリー用の区間バッファが不足しました")
+    parts = [int(seg_count[c]) for c in range(n_chunks_actual)]
+    if sum(parts):
+        o = np.concatenate([seg_o[c, :parts[c]] for c in range(n_chunks_actual) if parts[c]])
+        d = np.concatenate([seg_d[c, :parts[c]] for c in range(n_chunks_actual) if parts[c]])
+        ds = np.concatenate([seg_ds[c, :parts[c]] for c in range(n_chunks_actual) if parts[c]])
+        e = np.concatenate([seg_e[c, :parts[c]] for c in range(n_chunks_actual) if parts[c]])
+        m = np.concatenate([seg_mat[c, :parts[c]] for c in range(n_chunks_actual) if parts[c]])
+        kerma_weights, h10_weights = _compute_tally_weights(tables, m, e)
+        tally_njit.accumulate_track_length_multi_njit(((grid.kerma_keV, kerma_weights), (grid.h10_track_pSv_cm3, h10_weights)), grid, o, d, ds)
+    return KernelOriginBatchResult(n_scatter, absorbed, escaped, final_energy, per_chunk.sum(axis=0), n_fluorescence)
+
+
 def _chunk_plan(n_histories: int, n_chunks: int, seed) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
     """n_historiesをn_chunks個にできるだけ均等分割し、チャンクごとの決定的な
     整数シードを`SeedSequence.spawn`で生成する（njitの外、B-0で確定した設計）。

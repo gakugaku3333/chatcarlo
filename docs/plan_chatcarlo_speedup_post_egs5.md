@@ -395,6 +395,49 @@ background="air"——B-1aの下駄を履いた数値ではなく本番相当の
 既に`np.argsort`等でかなり最適化されている）。本計画のスコープでは着手せず、
 将来の別計画として切り出す。
 
+### Phase 1 CLI接続【完了・2026-08-01】
+
+計画書: [docs/ai/plans/2026-08-01-kernel-cli-wiring-phase1.md](ai/plans/2026-08-01-kernel-cli-wiring-phase1.md)
+（Codexレビュー5回・人間承認・Codex実装・Claude独立検証のcodex-kyodo手順で実施）。
+
+`chatcarlo run --engine kernel` を、boxのみ・単色 `source.spectrum`・parallel照射野・
+`mas`/`ctdi_vol_mGy`/`heel_effect`/`rotation` 未指定・実効worker 1 のシーンに限定して
+opt-in接続した（既定は `--engine numpy` のまま）。外側の `transport.py` バッチループが
+既存 `sample_source_photons` で面上originを生成し（線源分布の解釈は`source.py`に委譲、
+二重実装しない）、`SeedSequence`の独立した兄弟ストリームを物理kernelへ渡す。
+既存の `run_batch`/`run_batch_with_tally`/`run_dose_grid`/`KernelBatchResult` APIは
+**一切変更せず**、CLI専用のorigin配列入力関数を追加する形にした（既存テストが無変更で
+全通過することがこの制約の担保）。材料別集計は`prange`のデータ競合を避けるため
+chunkごとの`(n_chunks, n_materials)`配列に書き、Python側で固定順に集約する。
+kernel経路はPhase 2まで統計不確かさ（R・SEM）を出力しない（`--dose-grid`の有無に
+よらず強制無効化し警告する）。新規CLIオプション: `--engine`, `--kernel-chunks`,
+`--kernel-max-segments-per-history`。
+
+**実測（Claudeの独立検証、2026-08-01）**:
+- 速度: `water_phantom_pdd_ocr.yaml` n=1e6 でkernel **1.32秒** vs numpy **3.17秒**
+  （約2.4倍。いずれもJITウォームアップ後の計測）。
+- 物理の一致: 同シーン（水+鉛の重なりbox、100 keV、蛍光on）で **n=1e6・独立6シード**の
+  numpy/kernel比較は水 **+0.038%（0.53σ）**・鉛 **−0.047%（0.88σ）**・空気
+  **−0.398%（0.38σ）**——系統差なし。n=2e5・12シードでも水+0.016%（0.13σ）／
+  鉛+0.006%（0.07σ）。低統計（n=2,000）では空気に−4.6%が見えたが、nを上げると
+  0.4%へ収束したのでノイズと確定した。
+- 全テスト通過（新規`tests/test_kernel_cli_dispatch.py` 15件を含む）。
+
+**受入テストの検出力について（重要、この種のテストを書く/読むときの前提）**:
+新規クロスチェックテストの`n_histories`は当初2,000で、「6シード・結合4σ」という
+受入基準を形式的には満たしていたが、**ミューテーション検証で検出限界が水8.9%・
+鉛5.9%しかないことが判明した**（コンプトン沈着を意図的に1%過小にする変異が素通り）。
+50,000へ引き上げて検出限界0.7〜1.2%に改善し、配線バグの類（per-chunk集約の破壊、
+kernel経路だけ蛍光を握り潰す変異）は確実に検出できることを同じミューテーションで
+確認した。ただし1%粒度の系統差は依然この単体テストでは捕捉できない
+（必要なのはn=1e6規模で、単体テストの実行時間では非現実的）——**その粒度は
+EGS5相互検証で見る**という役割分担にした。詳細は
+`tests/test_kernel_cli_dispatch.py`の`_CROSSCHECK_HISTORIES`のコメント。
+
+**Phase 1でやっていないこと**: 分光スペクトル（`source.kvp`）・rect/cone発散照射野・
+CT回転/ヘリカル/ヒール効果・mAs/CTDIvol校正・cylinder/sphere形状・`--workers`並列との
+統合・R/SEMの実出力・`--engine auto`。いずれもPhase 2以降のスコープ。
+
 ### Phase Bの検証戦略（ビット一致が使えない）
 
 per-historyループは乱数の消費順序がベクトル化実装と根本的に異なるため、

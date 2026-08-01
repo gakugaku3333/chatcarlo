@@ -149,7 +149,16 @@ def cmd_run(args) -> int:
     n_workers = args.workers
     if n_workers == 0:
         n_workers = os.cpu_count() or 1
+    engine = getattr(args, "engine", "numpy")
+    kernel_chunks = getattr(args, "kernel_chunks", 0)
+    kernel_max_segments = getattr(args, "kernel_max_segments_per_history", 16)
+    if kernel_chunks < 0:
+        print("[エラー] --kernel-chunks は0以上で指定してください", file=sys.stderr)
+        return 1
     track_uncertainty = not args.no_uncertainty
+    if engine == "kernel" and track_uncertainty:
+        print("[警告] kernel engine では統計不確かさ追跡を無効化します")
+        track_uncertainty = False
     n_histories_int = int(args.n_histories)
     if args.dose_grid and n_workers >= 2:
         # 並列時はワーカーごとに線量グリッドを持ち、親へpickleで集約するため、
@@ -176,10 +185,25 @@ def cmd_run(args) -> int:
             print(f"[警告] --dose-grid（解像度{args.resolution}cm, グリッド形状"
                   f"{grid_est.shape}）と--workers {n_workers}の併用で、線量グリッドの"
                   f"メモリ使用量が概算{est_gb:.1f}GBに達します。{hint}")
-    result = run_transport(scene, n_histories=n_histories_int, seed=args.seed,
-                            batch_size=args.batch_size,
-                            dose_grid=args.dose_grid, grid_resolution_cm=args.resolution,
-                            n_workers=n_workers, track_uncertainty=track_uncertainty)
+    try:
+        result = run_transport(scene, n_histories=n_histories_int, seed=args.seed,
+                               batch_size=args.batch_size,
+                               dose_grid=args.dose_grid, grid_resolution_cm=args.resolution,
+                               n_workers=n_workers, track_uncertainty=track_uncertainty,
+                               engine=engine, kernel_chunks=kernel_chunks,
+                               kernel_max_segments_per_history=kernel_max_segments)
+    except ValueError as exc:
+        message = str(exc)
+        if engine == "kernel" and args.dose_grid and "区間バッファ" in message:
+            message += " --kernel-max-segments-per-history を増やして再実行してください。"
+        print(f"[エラー] {message}", file=sys.stderr)
+        return 1
+    if engine == "kernel":
+        import numba
+        configured = kernel_chunks or min(numba.get_num_threads(), 8)
+        final_batch_histories = n_histories_int % args.batch_size or min(args.batch_size, n_histories_int)
+        effective = min(configured, final_batch_histories)
+        print(f"kernel chunks: 設定値={configured}, 最終バッチ実効値={effective}")
     print(f"histories: {result.n_histories:,}")
     print(f"吸収（光電）割合: {result.fraction_absorbed:.4f}")
     print(f"脱出割合: {result.fraction_escaped:.4f}")
@@ -419,6 +443,12 @@ def main() -> int:
                           "docs/plan_phase3_parallel.md参照）。--dose-grid併用時は"
                           "線量グリッドをワーカーごとに持つためメモリが(workers+1)倍"
                           "になる点に注意（細解像度では数GB級、超過見込み時は警告を出す）")
+    pr.add_argument("--engine", choices=["numpy", "kernel"], default="numpy",
+                    help="輸送エンジン（既定numpy、kernelは単色parallel・box限定のopt-in）")
+    pr.add_argument("--kernel-chunks", type=int, default=0,
+                    help="kernelのNumbaチャンク数（0=自動、既定はmin(numba threads, 8)）")
+    pr.add_argument("--kernel-max-segments-per-history", type=int, default=16,
+                    help="kernel dose-grid用の履歴あたり区間バッファ上限（既定16）")
     pr.set_defaults(func=cmd_run)
 
     ppl = sub.add_parser("plot", help="線量/H*(10)マップの断面図を生成")

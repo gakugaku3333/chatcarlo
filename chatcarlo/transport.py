@@ -15,6 +15,8 @@ Woodcock delta-trackingの仮想衝突は不要（空気の広い空間で無駄
 from __future__ import annotations
 
 from dataclasses import dataclass, field
+import math
+import warnings
 
 import numpy as np
 
@@ -259,6 +261,74 @@ class TransportResult:
     energy_deposited_rel_err: dict = field(default_factory=dict)
 
 
+def kernel_engine_compatible(scene, n_workers: int) -> tuple[bool, str]:
+    """Return whether the opt-in Numba adapter supports this scene."""
+    raw = scene.raw
+    src = raw["source"]
+    if any(g.get("shape") != "box" for g in raw["geometry"]):
+        return False, "kernel engine は geometry がすべて box のシーンだけに対応しています"
+    spectrum = src.get("spectrum")
+    if not isinstance(spectrum, list) or len(spectrum) != 1 or src.get("kvp") is not None:
+        return False, "kernel engine は source.spectrum 1要素の単色ビームだけに対応しています"
+    if src.get("field", {}).get("shape") != "parallel":
+        return False, "kernel engine は source.field.shape: parallel だけに対応しています"
+    for key in ("mas", "ctdi_vol_mGy", "heel_effect", "rotation"):
+        if src.get(key) is not None and src.get(key) is not False:
+            return False, f"kernel engine は source.{key} を指定したシーンに対応していません"
+    if n_workers != 1:
+        return False, "kernel engine は実効 workers=1 だけに対応しています"
+    return True, ""
+
+
+def _kernel_material_names(scene, geometry: Geometry) -> list[str]:
+    """Kernel material-table order: box appearance order then background, deduplicated."""
+    return list(dict.fromkeys([g["material"] for g in scene.raw["geometry"]] + [geometry.background]))
+
+
+def _run_kernel_batches(scene, n_histories: int, seed: int | None, batch_size: int,
+                        grid: VoxelGrid | None, n_chunks: int,
+                        fluorescence_enabled: bool, max_segments_per_history: int) -> dict:
+    from .kernel import (bake_box_scene, bake_scene_materials, run_batch_origins,
+                         run_batch_with_tally_origins)
+
+    src = scene.raw["source"]
+    geometry = Geometry(scene.raw["geometry"])
+    names = _kernel_material_names(scene, geometry)
+    tables = bake_scene_materials(names)
+    boxes = [{"center": g["center"], "size_cm": g["size_cm"], "material": g["material"]}
+             for g in scene.raw["geometry"]]
+    geom = bake_box_scene(boxes, geometry.background, tables)
+    n_batches = math.ceil(n_histories / batch_size)
+    batch_seqs = np.random.SeedSequence(seed).spawn(n_batches)
+    energy = np.zeros(len(names))
+    n_absorbed = n_escaped = scatter_sum = n_fluorescence = 0
+    remaining = n_histories
+    for batch_seq in batch_seqs:
+        n = min(batch_size, remaining)
+        remaining -= n
+        source_seq, kernel_seq = batch_seq.spawn(2)
+        origins, directions, energies = sample_source_photons(src, n, np.random.default_rng(source_seq))
+        if not (np.all(energies == energies[0]) and np.all(directions == directions[0])):
+            raise RuntimeError("kernel engine の単色平行ビーム前提に反する線源サンプルです")
+        kernel_seed = int(kernel_seq.generate_state(1)[0])
+        if grid is None:
+            result = run_batch_origins(tables, geom, float(energies[0]), origins,
+                                       tuple(directions[0]), kernel_seed, n_chunks,
+                                       fluorescence_enabled)
+        else:
+            result = run_batch_with_tally_origins(
+                tables, geom, float(energies[0]), origins, tuple(directions[0]), kernel_seed,
+                grid, n_chunks, fluorescence_enabled, max_segments_per_history)
+        energy += result.energy_deposited_by_material
+        n_absorbed += int(np.sum(result.absorbed))
+        n_escaped += int(np.sum(result.escaped))
+        scatter_sum += int(np.sum(result.n_scatter))
+        n_fluorescence += int(np.sum(result.n_fluorescence))
+    return {"energy_deposited": dict(zip(names, energy)), "n_absorbed": n_absorbed,
+            "n_escaped": n_escaped, "scatter_sum": scatter_sum,
+            "n_fluorescence": n_fluorescence}
+
+
 def _run_batches(src: dict, geometry: Geometry, rng: np.random.Generator, n_histories: int,
                   batch_size: int, grid: "VoxelGrid | None", fluorescence_enabled: bool,
                   track_uncertainty: bool = False) -> dict:
@@ -363,7 +433,8 @@ def _run_worker(scene_raw: dict, n_histories: int, seed_seq: np.random.SeedSeque
 def run_transport(scene, n_histories: int = 100_000, seed: int | None = None,
                    batch_size: int = 200_000, dose_grid: bool = False,
                    grid_resolution_cm: float = 5.0, n_workers: int = 1,
-                   track_uncertainty: bool = True) -> TransportResult:
+                   track_uncertainty: bool = True, engine: str = "numpy",
+                   kernel_chunks: int = 0, kernel_max_segments_per_history: int = 16) -> TransportResult:
     """n_workers=1（既定）は直列実行で、並列化前と完全にビット一致するコードパスを通る。
 
     n_workers>=2 は `np.random.SeedSequence.spawn` でワーカー別乱数ストリームを
@@ -385,6 +456,20 @@ def run_transport(scene, n_histories: int = 100_000, seed: int | None = None,
     ワーカー番号順に合成する（`ScalarMoments.merge_from`／グリッド配列は
     既存のkerma_keV等と同じ加算パターン）。
     """
+    if engine not in ("numpy", "kernel"):
+        raise ValueError(f"unknown engine: {engine}")
+    if engine == "kernel":
+        ok, reason = kernel_engine_compatible(scene, n_workers)
+        if not ok:
+            raise ValueError(reason)
+        if kernel_chunks < 0:
+            raise ValueError("--kernel-chunks は0以上で指定してください")
+        if track_uncertainty:
+            warnings.warn("kernel engine では統計不確かさ追跡を無効化します", stacklevel=2)
+            track_uncertainty = False
+        if kernel_chunks == 0:
+            from numba import get_num_threads
+            kernel_chunks = min(get_num_threads(), 8)
     src = scene.raw["source"]
     geometry = Geometry(scene.raw["geometry"])
     grid = (VoxelGrid.from_bbox(geometry.bbox_min, geometry.bbox_max, grid_resolution_cm,
@@ -393,7 +478,10 @@ def run_transport(scene, n_histories: int = 100_000, seed: int | None = None,
     fluorescence_enabled = scene.raw.get("physics", {}).get("fluorescence", True)
     energy_moments = ScalarMoments() if track_uncertainty else None
 
-    if n_workers <= 1:
+    if engine == "kernel":
+        agg = _run_kernel_batches(scene, n_histories, seed, batch_size, grid, kernel_chunks,
+                                  fluorescence_enabled, kernel_max_segments_per_history)
+    elif n_workers <= 1:
         rng = np.random.default_rng(seed)
         agg = _run_batches(src, geometry, rng, n_histories, batch_size, grid, fluorescence_enabled,
                             track_uncertainty=track_uncertainty)
@@ -447,7 +535,9 @@ def run_transport(scene, n_histories: int = 100_000, seed: int | None = None,
     # が指定されていればそちらを優先。なければmAs+SpekPyフルエンス基準。
     # ワーカーseedとは無関係にマスターseedで親プロセス側で1回だけ計算する
     # （設計判断6, plan_phase3_parallel.md — ここをワーカー側に移すと校正が変わる）。
-    if src.get("ctdi_vol_mGy") is not None:
+    if engine == "kernel":
+        n_photons_real = None
+    elif src.get("ctdi_vol_mGy") is not None:
         from .ctdi import effective_histories_from_ctdi
         n_photons_real = effective_histories_from_ctdi(src, seed=seed)
     elif src.get("mas") is not None:
