@@ -130,11 +130,19 @@ class Geometry:
     geoms: list[dict]
     background: str = "air"
     bbox_margin_cm: float = 50.0
+    detector_plane: object | None = None
     bbox_min: np.ndarray = field(init=False)
     bbox_max: np.ndarray = field(init=False)
+    tally_bbox_min: np.ndarray = field(init=False)
+    tally_bbox_max: np.ndarray = field(init=False)
 
     def __post_init__(self):
-        self.bbox_min, self.bbox_max = self._compute_bbox()
+        self.tally_bbox_min, self.tally_bbox_max = self._compute_bbox()
+        self.bbox_min, self.bbox_max = self.tally_bbox_min.copy(), self.tally_bbox_max.copy()
+        if self.detector_plane is not None:
+            corners = self.detector_plane.corners_cm()
+            self.bbox_min = np.minimum(self.bbox_min, corners.min(axis=0) - self.bbox_margin_cm)
+            self.bbox_max = np.maximum(self.bbox_max, corners.max(axis=0) + self.bbox_margin_cm)
 
     def _shape_bbox(self, g):
         c = np.asarray(g["center"], dtype=float)

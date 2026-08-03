@@ -29,6 +29,14 @@ _MEV_TO_JOULE = 1.602176634e-13
 _G_TO_KG = 1e-3
 
 
+def accumulate_moment_and_snapshot(total, prev, sum2, n_histories_in_batch):
+    """Accumulate delta²/n and copy ``total`` into an already allocated snapshot."""
+    delta = total - prev
+    sum2 += delta ** 2 / n_histories_in_batch
+    np.copyto(prev, total)
+    return delta
+
+
 @dataclass
 class VoxelGrid:
     origin_cm: np.ndarray          # (3,) グリッド原点（最小コーナー）
@@ -85,17 +93,13 @@ class VoxelGrid:
             # ボクセルあたり16バイトが完全な死蔵になる。
             self._kerma_prev = np.zeros(self.shape, dtype=float)
             self._h10_prev = np.zeros(self.shape, dtype=float)
-        delta_kerma = self.kerma_keV - self._kerma_prev
-        delta_h10 = self.h10_track_pSv_cm3 - self._h10_prev
-        self.kerma_sum2 += delta_kerma ** 2 / n_histories_in_batch
-        self.h10_sum2 += delta_h10 ** 2 / n_histories_in_batch
+        delta_kerma = accumulate_moment_and_snapshot(self.kerma_keV, self._kerma_prev, self.kerma_sum2, n_histories_in_batch)
+        delta_h10 = accumulate_moment_and_snapshot(self.h10_track_pSv_cm3, self._h10_prev, self.h10_sum2, n_histories_in_batch)
         # μen/ρ・h*(10)/Φはいずれの材料・エネルギーでも正なので、ある区間が
         # 触れるボクセル集合はkerma・h10で本来同一（設計判断6）。ORで両者を拾う。
         self.n_batches_hit += ((delta_kerma != 0) | (delta_h10 != 0)).astype(np.int32)
         # copy()ではなくcopytoで既存バッファを再利用する（バッチごとにグリッド
         # 2枚分を確保・解放し直すのを避ける。細解像度では1枚790MB級になる）。
-        np.copyto(self._kerma_prev, self.kerma_keV)
-        np.copyto(self._h10_prev, self.h10_track_pSv_cm3)
         self.n_batches += 1
         self.n_histories += n_histories_in_batch
 

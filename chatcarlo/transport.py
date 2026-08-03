@@ -30,6 +30,7 @@ from .source import photon_count_through_field, sample_source_photons
 from .spectrum import export_caches as _export_spectrum_caches
 from .spectrum import import_caches as _import_spectrum_caches
 from .tally import ScalarMoments, VoxelGrid, accumulate_track_length_multi
+from .detector import DetectorPlane, DetectorTally, classify
 from .trajectory import TrajectoryRecorder
 
 
@@ -95,13 +96,17 @@ class BatchResult:
     final_energy: np.ndarray    # (N,) keV
     energy_deposited: dict = field(default_factory=dict)  # 材料名 -> keV
     n_fluorescence: int = 0     # K殻蛍光X線を放出したイベント数
+    detected: np.ndarray | None = None
+    n_compton_rayleigh: np.ndarray | None = None
+    had_fluorescence: np.ndarray | None = None
 
 
 def transport_photons(pos: np.ndarray, dirv: np.ndarray, energy: np.ndarray,
                        geometry: Geometry, rng: np.random.Generator,
                        grid: VoxelGrid | None = None,
                        recorder: TrajectoryRecorder | None = None,
-                       fluorescence_enabled: bool = True) -> BatchResult:
+                       fluorescence_enabled: bool = True,
+                       detector_tally: DetectorTally | None = None) -> BatchResult:
     """光源サンプリングとは独立な輸送カーネル本体（テストで直接叩ける）。
 
     pos/dirv/energy は呼び出し側の配列を破壊的に更新する。
@@ -122,6 +127,9 @@ def transport_photons(pos: np.ndarray, dirv: np.ndarray, energy: np.ndarray,
     n_scatter = np.zeros(n, dtype=int)
     absorbed = np.zeros(n, dtype=bool)
     escaped = np.zeros(n, dtype=bool)
+    detected = np.zeros(n, dtype=bool)
+    n_compton_rayleigh = np.zeros(n, dtype=int)
+    had_fluorescence = np.zeros(n, dtype=bool)
     energy_deposited: dict = {}
     n_fluorescence = 0
 
@@ -143,6 +151,11 @@ def transport_photons(pos: np.ndarray, dirv: np.ndarray, energy: np.ndarray,
         will_interact = tau[idx] < tau_to_boundary
 
         ds = np.where(will_interact, tau[idx] / mu_safe, t_boundary)
+        if detector_tally is not None:
+            t_det, iu, iv, hit_det = detector_tally.plane.intersect_segments(o, d, ds)
+            ds = np.where(hit_det, t_det, ds)
+        else:
+            hit_det = np.zeros(len(idx), dtype=bool)
         ends = o + d * ds[:, None]
 
         if grid is not None:
@@ -154,7 +167,7 @@ def transport_photons(pos: np.ndarray, dirv: np.ndarray, energy: np.ndarray,
 
         pos[idx] = ends
 
-        noninteract = ~will_interact
+        noninteract = (~will_interact) & (~hit_det)
         gidx = idx[noninteract]
         tau[gidx] -= tau_to_boundary[noninteract]
         pos[gidx] += dirv[gidx] * 1e-6
@@ -162,7 +175,7 @@ def transport_photons(pos: np.ndarray, dirv: np.ndarray, energy: np.ndarray,
         alive[esc_now] = False
         escaped[esc_now] = True
 
-        interact = will_interact
+        interact = will_interact & (~hit_det)
         iidx = idx[interact]
         if len(iidx) > 0:
             mat_i = mat[interact]
@@ -195,6 +208,7 @@ def transport_photons(pos: np.ndarray, dirv: np.ndarray, energy: np.ndarray,
                 emit_idx = photo_idx[emit]
                 if len(emit_idx) > 0:
                     n_fluorescence += len(emit_idx)
+                    had_fluorescence[emit_idx] = True
                     energy[emit_idx] = e_line[emit]
                     dirv[emit_idx] = isotropic_direction(len(emit_idx), rng)
                     tau[emit_idx] = -np.log(rng.random(len(emit_idx)))
@@ -212,6 +226,7 @@ def transport_photons(pos: np.ndarray, dirv: np.ndarray, energy: np.ndarray,
                 energy[compt_idx] = e_new
                 tau[compt_idx] = -np.log(rng.random(len(compt_idx)))
                 n_scatter[compt_idx] += 1
+                n_compton_rayleigh[compt_idx] += 1
 
             rayl_idx = iidx[is_rayl]
             if len(rayl_idx) > 0:
@@ -220,10 +235,24 @@ def transport_photons(pos: np.ndarray, dirv: np.ndarray, energy: np.ndarray,
                 dirv[rayl_idx] = scatter_direction(dirv[rayl_idx], cos_theta, rng)
                 tau[rayl_idx] = -np.log(rng.random(len(rayl_idx)))
                 n_scatter[rayl_idx] += 1
+                n_compton_rayleigh[rayl_idx] += 1
+
+        if detector_tally is not None and np.any(hit_det):
+            gidx_hit = idx[hit_det]
+            cats = classify(n_compton_rayleigh[gidx_hit], had_fluorescence[gidx_hit])
+            hu, hv = iu[hit_det], iv[hit_det]
+            energies = e[hit_det]
+            np.add.at(detector_tally.category_fluence, (cats, hu, hv), energies / detector_tally.plane.pixel_area_cm2)
+            np.add.at(detector_tally.photon_count, (hu, hv), 1.0)
+            np.add.at(detector_tally.energy_sum_keV, (hu, hv), energies)
+            np.add.at(detector_tally.energy_sum2_keV2, (hu, hv), energies ** 2)
+            alive[gidx_hit] = False
+            detected[gidx_hit] = True
 
         if recorder is not None:
             event = np.full(len(idx), "boundary", dtype=object)
             event[noninteract & escape] = "escape"
+            event[hit_det] = "detected"
             if len(iidx) > 0:
                 interact_positions = np.where(interact)[0]
                 photo_positions_full = interact_positions[is_photo]
@@ -236,7 +265,8 @@ def transport_photons(pos: np.ndarray, dirv: np.ndarray, energy: np.ndarray,
 
     return BatchResult(n_scatter=n_scatter, absorbed=absorbed, escaped=escaped,
                         final_energy=energy, energy_deposited=energy_deposited,
-                        n_fluorescence=n_fluorescence)
+                        n_fluorescence=n_fluorescence, detected=detected,
+                        n_compton_rayleigh=n_compton_rayleigh, had_fluorescence=had_fluorescence)
 
 
 @dataclass
@@ -258,6 +288,7 @@ class TransportResult:
     n_batches: int = 0
     energy_deposited_sem_MeV: dict = field(default_factory=dict)
     energy_deposited_rel_err: dict = field(default_factory=dict)
+    detector: DetectorTally | None = None
 
 
 def kernel_engine_compatible(scene, n_workers: int) -> tuple[bool, str]:
@@ -336,7 +367,7 @@ def _run_kernel_batches(scene, n_histories: int, seed: int | None, batch_size: i
 
 def _run_batches(src: dict, geometry: Geometry, rng: np.random.Generator, n_histories: int,
                   batch_size: int, grid: "VoxelGrid | None", fluorescence_enabled: bool,
-                  track_uncertainty: bool = False) -> dict:
+                  track_uncertainty: bool = False, detector_tally: DetectorTally | None = None) -> dict:
     """(材料別付与エネルギー, 吸収数, 脱出数, 散乱回数総和, 蛍光放出数)を1本の乱数列で積算する。
 
     直列実行・並列ワーカーの両方から共有される内側ループ本体（数値ロジックは
@@ -362,13 +393,15 @@ def _run_batches(src: dict, geometry: Geometry, rng: np.random.Generator, n_hist
         remaining -= n
         pos, dirv, energy = sample_source_photons(src, n, rng)
         result = transport_photons(pos, dirv, energy, geometry, rng, grid=grid,
-                                    fluorescence_enabled=fluorescence_enabled)
+                                    fluorescence_enabled=fluorescence_enabled, detector_tally=detector_tally)
         for name, e_keV in result.energy_deposited.items():
             energy_deposited[name] = energy_deposited.get(name, 0.0) + e_keV
         if track_uncertainty:
             energy_moments.add_batch(result.energy_deposited, n)
         if grid is not None:
             grid.end_batch(n)
+        if detector_tally is not None:
+            detector_tally.end_batch(n)
         n_fluorescence += result.n_fluorescence
         n_absorbed += int(np.sum(result.absorbed))
         n_escaped += int(np.sum(result.escaped))
@@ -389,6 +422,7 @@ def _run_batches(src: dict, geometry: Geometry, rng: np.random.Generator, n_hist
         "energy_moments": energy_moments.as_moments() if track_uncertainty else None,
         "scalar_n_batches": energy_moments.n_batches if track_uncertainty else 0,
         "scalar_n_histories": energy_moments.n_histories if track_uncertainty else 0,
+        "detector": detector_tally,
     }
 
 
@@ -411,7 +445,8 @@ def _warm_spectrum_cache(src: dict) -> tuple[dict, dict]:
 
 def _run_worker(scene_raw: dict, n_histories: int, seed_seq: np.random.SeedSequence,
                  batch_size: int, dose_grid: bool, grid_resolution_cm: float,
-                 spectrum_caches: tuple[dict, dict] | None, track_uncertainty: bool = False) -> dict:
+                 spectrum_caches: tuple[dict, dict] | None, track_uncertainty: bool = False,
+                 detector: DetectorPlane | None = None, detector_roi: tuple | None = None) -> dict:
     """並列ワーカーのエントリポイント（ProcessPoolExecutorでpickleされるためモジュール
     トップレベル関数にしてある）。sceneオブジェクトではなくraw dictだけを受け取り、
     Geometry/VoxelGridはワーカー内で再構築する（設計判断5, plan_phase3_parallel.md）。
@@ -426,20 +461,22 @@ def _run_worker(scene_raw: dict, n_histories: int, seed_seq: np.random.SeedSeque
         _import_spectrum_caches(*spectrum_caches)
     rng = np.random.default_rng(seed_seq)
     src = scene_raw["source"]
-    geometry = Geometry(scene_raw["geometry"])
-    grid = (VoxelGrid.from_bbox(geometry.bbox_min, geometry.bbox_max, grid_resolution_cm,
+    geometry = Geometry(scene_raw["geometry"], detector_plane=detector)
+    grid = (VoxelGrid.from_bbox(geometry.tally_bbox_min, geometry.tally_bbox_max, grid_resolution_cm,
                                  track_uncertainty=track_uncertainty)
             if dose_grid else None)
     fluorescence_enabled = scene_raw.get("physics", {}).get("fluorescence", True)
+    detector_tally = DetectorTally(detector, track_uncertainty, detector_roi) if detector is not None else None
     return _run_batches(src, geometry, rng, n_histories, batch_size, grid, fluorescence_enabled,
-                         track_uncertainty=track_uncertainty)
+                         track_uncertainty=track_uncertainty, detector_tally=detector_tally)
 
 
 def run_transport(scene, n_histories: int = 100_000, seed: int | None = None,
                    batch_size: int = 200_000, dose_grid: bool = False,
                    grid_resolution_cm: float = 5.0, n_workers: int = 1,
                    track_uncertainty: bool = True, engine: str = "numpy",
-                   kernel_chunks: int = 0, kernel_max_segments_per_history: int = 16) -> TransportResult:
+                   kernel_chunks: int = 0, kernel_max_segments_per_history: int = 16,
+                   detector: DetectorPlane | None = None, detector_roi: tuple | None = None) -> TransportResult:
     """n_workers=1（既定）は直列実行で、並列化前と完全にビット一致するコードパスを通る。
 
     n_workers>=2 は `np.random.SeedSequence.spawn` でワーカー別乱数ストリームを
@@ -463,6 +500,10 @@ def run_transport(scene, n_histories: int = 100_000, seed: int | None = None,
     """
     if engine not in ("numpy", "kernel"):
         raise ValueError(f"unknown engine: {engine}")
+    if detector is None and detector_roi is not None:
+        raise ValueError("detector_roiにはdetectorの指定が必要です")
+    if engine == "kernel" and detector is not None:
+        raise ValueError("kernel engine は detector を指定したシーンに対応していません")
     if engine == "kernel":
         ok, reason = kernel_engine_compatible(scene, n_workers)
         if not ok:
@@ -473,12 +514,13 @@ def run_transport(scene, n_histories: int = 100_000, seed: int | None = None,
             from numba import get_num_threads
             kernel_chunks = min(get_num_threads(), 8)
     src = scene.raw["source"]
-    geometry = Geometry(scene.raw["geometry"])
-    grid = (VoxelGrid.from_bbox(geometry.bbox_min, geometry.bbox_max, grid_resolution_cm,
+    geometry = Geometry(scene.raw["geometry"], detector_plane=detector)
+    grid = (VoxelGrid.from_bbox(geometry.tally_bbox_min, geometry.tally_bbox_max, grid_resolution_cm,
                                  track_uncertainty=track_uncertainty)
             if dose_grid else None)
     fluorescence_enabled = scene.raw.get("physics", {}).get("fluorescence", True)
     energy_moments = ScalarMoments() if track_uncertainty else None
+    detector_tally = DetectorTally(detector, track_uncertainty, detector_roi) if detector is not None else None
 
     if engine == "kernel":
         agg = _run_kernel_batches(scene, n_histories, seed, batch_size, grid, kernel_chunks,
@@ -487,7 +529,7 @@ def run_transport(scene, n_histories: int = 100_000, seed: int | None = None,
     elif n_workers <= 1:
         rng = np.random.default_rng(seed)
         agg = _run_batches(src, geometry, rng, n_histories, batch_size, grid, fluorescence_enabled,
-                            track_uncertainty=track_uncertainty)
+                            track_uncertainty=track_uncertainty, detector_tally=detector_tally)
         if track_uncertainty:
             energy_moments.merge_from(agg["energy_moments"], agg["scalar_n_batches"], agg["scalar_n_histories"])
     else:
@@ -507,7 +549,7 @@ def run_transport(scene, n_histories: int = 100_000, seed: int | None = None,
         with concurrent.futures.ProcessPoolExecutor(max_workers=n_workers) as pool:
             futures = [pool.submit(_run_worker, scene.raw, counts[i], seed_seqs[i],
                                     batch_size, dose_grid, grid_resolution_cm, spectrum_caches,
-                                    track_uncertainty)
+                                    track_uncertainty, detector, detector_roi)
                        for i in range(n_workers) if counts[i] > 0]
             # ワーカー番号順（as_completed順ではない）に消費する: 浮動小数点加算の
             # 順序を固定し、同一(seed, n_workers)の完全再現を保つため。
@@ -531,6 +573,8 @@ def run_transport(scene, n_histories: int = 100_000, seed: int | None = None,
                         grid.n_histories += r["grid_n_histories"]
                 if track_uncertainty:
                     energy_moments.merge_from(r["energy_moments"], r["scalar_n_batches"], r["scalar_n_histories"])
+                if detector_tally is not None:
+                    detector_tally.merge_from(r["detector"])
         agg = {"energy_deposited": energy_deposited, "n_absorbed": n_absorbed,
                "n_escaped": n_escaped, "scatter_sum": scatter_sum, "n_fluorescence": n_fluorescence}
 
@@ -569,4 +613,5 @@ def run_transport(scene, n_histories: int = 100_000, seed: int | None = None,
         n_batches=n_batches,
         energy_deposited_sem_MeV=energy_deposited_sem_MeV,
         energy_deposited_rel_err=energy_deposited_rel_err,
+        detector=detector_tally,
     )

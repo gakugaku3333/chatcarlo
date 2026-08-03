@@ -104,7 +104,10 @@ any object is `background` (default air).
 [spectrum.py](chatcarlo/spectrum.py); source/field sampling and the mAs photon-count calibration in
 [source.py](chatcarlo/source.py); interaction angle/energy sampling in [physics.py](chatcarlo/physics.py);
 trajectory recording for `trace` in [trajectory.py](chatcarlo/trajectory.py); dose-map conversion and the
-non-physical-max warnings in [diagnostics.py](chatcarlo/diagnostics.py).
+non-physical-max warnings in [diagnostics.py](chatcarlo/diagnostics.py); the terminal planar detector tally
+(primary/scatter discrimination for the scatter-correction research line) in [detector.py](chatcarlo/detector.py) —
+see [docs/plan_scatter_correction_feasibility.md](docs/plan_scatter_correction_feasibility.md) and
+[docs/ai/plans/2026-08-03-scatter-phase0-detector-tally.md](docs/ai/plans/2026-08-03-scatter-phase0-detector-tally.md).
 
 **Experimental parallel implementation**: [kernel.py](chatcarlo/kernel.py) is a
 from-scratch Numba-compiled per-history scalar transport kernel (Phase B of
