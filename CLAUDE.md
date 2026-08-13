@@ -124,6 +124,17 @@ transport logic, check whether it already exists in `kernel.py`.
 parallel-field scenes with one effective worker. It samples source origins through the existing
 `sample_source_photons` path and supports the same batch R/SEM tracking as numpy; `--engine numpy` remains the default.
 
+**GPU speed ceiling (measured, not `kernel.py`-related)**: before committing to a CUDA port of
+`kernel.py` (a hypothetical "route 2"), [docs/gpu_speedup/route1_mcgpu/RESULTS.md](docs/gpu_speedup/route1_mcgpu/RESULTS.md)
+measured an *existing, unmodified* diagnostic-energy GPU code (DIDSR/MCGPUv1.3_PCD) on a free Colab
+Tesla T4 to get a real number for "how much would GPU buy us." Sustained throughput was ≈70M
+histories/s (with a ≈190M cold-start peak that decays within a few consecutive same-size runs —
+mechanism not established), which is **≈8× the existing 8-process EGS5 baseline**, not the ≈46×
+a naive single-thread comparison would suggest. Read together with the ~10× cumulative EGS5-side
+ceiling already measured (compiler flags + process parallelism + RNG replacement,
+[docs/egs5_crosscheck/speed_comparison/RESULTS.md](docs/egs5_crosscheck/speed_comparison/RESULTS.md)),
+GPU headroom beyond an already-parallelized CPU is roughly one order of magnitude, not two.
+
 **Physics**: photoelectric / Compton (bound Compton — free-electron Klein-Nishina via Kahn rejection sampling,
 then an additional S(Z,q)/Z rejection from the incoherent scattering function via `xraylib.SF_Compt`; compounds
 sampled by mass-fraction-weighted element pick, same pattern as Rayleigh, before the angular distribution) /

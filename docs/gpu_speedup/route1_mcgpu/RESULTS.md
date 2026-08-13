@@ -111,8 +111,11 @@ behaviour — the PCD-specific energy-binned output path is never exercised.
 
 ## P3 — throughput measurement (T4, executed after P2 passed)
 
-One warm-up per N (excluded from the table) plus three retained repeats.
-Kernel time is MC-GPU's own `>>> Time spent in the Monte Carlo transport only:` report
+One warm-up per N plus three retained repeats. The warm-up rows were originally dropped
+(the notebook discards `timed_run()`'s return value for them, so they never reached
+`p3_measurements.json`); they are recovered from `execution.log` and reported below,
+because they turned out to carry the information that settles how the spread should be
+read. Kernel time is MC-GPU's own `>>> Time spent in the Monte Carlo transport only:` report
 line — a host-side timer MC-GPU itself brackets around the CUDA kernel launch, printed
 with 3 decimal places. End-to-end is process wall clock measured by the notebook.
 `context_init_and_io_residual_s` = end-to-end − kernel, bundling host I/O + CUDA context
@@ -131,6 +134,35 @@ overhead would bias the timing under measurement).
 | 1e8 | 1 | 0.811 | 123.30 M | 1.7772 | 56.269 M | 0.9662 | 0.1262682 | 0.0002631 | 8.13e6 | 1 % → 87 % |
 | 1e8 | 2 | 1.430 | 69.93 M | 1.7010 | 58.788 M | 0.2710 | 0.1262682 | 0.0002631 | 8.50e6 | 87 % → 59 % |
 | 1e8 | 3 | 1.431 | 69.88 M | 1.7057 | 58.628 M | 0.2747 | 0.1262682 | 0.0002631 | 8.47e6 | 59 % → 47 % |
+
+**All 15 runs of the session, from MC-GPU's own three internal timers** (recovered from
+`execution.log`, 2026-08-13 post-review; `total = transport + init/report`, all printed by
+MC-GPU itself). The warm-up rows and the `total`/`init+report` split are not in
+`p3_measurements.json` and were missing from the first version of this file:
+
+| run (execution order) | total s | transport s | init+report s | transport hist/s |
+|---|---:|---:|---:|---:|
+| P1 smoke (1e5) | 0.488 | 0.001 | 0.487 | — |
+| P2 air (1e6) | 0.411 | 0.002 | 0.410 | — |
+| P2 water (1e7) | 0.472 | 0.191 | 0.280 | — |
+| 1e6 warm-up | 0.270 | 0.022 | 0.247 | 45.45 M |
+| 1e6 r1 / r2 / r3 | 0.261 / 0.275 / 0.289 | 0.022 / 0.020 / 0.021 | 0.239 / 0.255 / 0.268 | 45.45 / 50.00 / 47.62 M |
+| 1e7 warm-up | 0.466 | 0.168 | 0.298 | 59.52 M |
+| 1e7 r1 / r2 / r3 | 0.384 / 0.417 / 0.330 | 0.116 / 0.142 / 0.050 | 0.269 / 0.275 / 0.280 | 86.21 / 70.42 / 200.00 M |
+| **1e8 warm-up** | 0.796 | **0.529** | 0.267 | **189.04 M** |
+| **1e8 r1 / r2 / r3** | 1.072 / 1.676 / 1.678 | **0.811 / 1.430 / 1.431** | 0.261 / 0.246 / 0.247 | 123.30 / 69.93 / 69.88 M |
+
+Two things this table shows that the nine-row table above cannot:
+
+- MC-GPU's **own `init+report` timer is essentially constant** (0.239–0.298 s across every
+  run from 1e6 to 1e8). That is the trustworthy figure for MC-GPU-internal fixed cost.
+  The notebook's `context_init_and_io_residual_s` column is noisier because it also
+  contains process spawn, CUDA driver init and Drive-backed file I/O — for `1e8 r1` that
+  extra process-level cost was ~0.7 s, against ~0.03 s for r2/r3.
+- The N=1e8 slowdown is **real transport time, not timer mis-attribution**: MC-GPU's own
+  `total` rises monotonically (0.796 → 1.072 → 1.676 → 1.678) while its `init+report`
+  stays flat. (The notebook's end-to-end column happens to look flat at N=1e8 only
+  because r1's extra ~0.7 s of process overhead offset its shorter transport.)
 
 Medians and ranges over the three retained repeats:
 
@@ -170,38 +202,61 @@ Colab's CPU is deliberately **not** used as a denominator):
 
 ### Reliability of the kernel-time numbers (read before quoting any speed-up)
 
-**The kernel-time medians are not trustworthy at better than roughly a factor of two.**
-Three concrete problems, all visible in the table above:
+**Revised 2026-08-13 after a post-audit review recovered the warm-up runs from
+`execution.log`.** Two earlier framings of this section are now withdrawn: it is *not*
+"two random outliers", and the uncertainty is *not* a symmetric 70–90 M hist/s band.
+Both were artefacts of reasoning from the nine rows in `p3_measurements.json` alone.
 
-1. **The medians are non-monotonic in N.** N=1e7 gives 86.21 M hist/s but N=1e8 gives
-   69.93 M hist/s. If the kernel's throughput were stable, the larger N should be at
-   least as fast (fixed per-launch costs amortize further), so the ordering is
-   physically implausible and indicates timing noise rather than a real N-dependence.
-2. **Two single-repeat outliers exist, but which side is biased is not resolved.**
-   N=1e7 repeat 3 (0.050 s vs 0.116/0.142 s in repeats 1–2) and N=1e8 repeat 1
-   (0.811 s vs 1.430/1.431 s in repeats 2–3) are each ~2–3× faster than their siblings.
-   **Correction (post-audit, 2026-08-13)**: an earlier draft of this section treated
-   these two as the outliers to discard and named N=1e8's remaining pair (which agree to
-   0.07%: 1.430 vs 1.431 s) as "the best-supported point." An independent audit pointed
-   out this is not the only reading: the two excluded runs are exactly the two whose
-   `gpu_before` utilization read 1% (idle before the run started), while the two runs
-   used to support the N=1e8 median started at 59% and 87% utilization (busy). It is
-   equally plausible that the idle-start runs are the clean, uncontended measurements and
-   the busy-start runs are the ones inflated by contention on a shared free-tier GPU —
-   the opposite of what the original wording implied. **This measurement alone cannot
-   decide which direction is correct.** The honest statement is: T4 kernel-time
-   throughput for this scenario sits somewhere in a 70–90 M hist/s range with roughly a
-   factor-of-two uncertainty, and resolving which end is the true uncontended rate would
-   need more repeats on a dedicated (non-shared) GPU, which is out of this plan's scope.
-3. **Timer quantization matters at small N but does not explain the outliers.** MC-GPU
-   prints the transport time to 3 decimals, so at N=1e6 (0.020–0.022 s) the quantization
-   alone is ±2.5%. That is far too small to account for the 2–3× outliers above.
+**The finding: at N=1e8, transport time rises monotonically across consecutive runs of
+identical work.**
 
-**End-to-end numbers do not suffer from this** — they are wall-clock measured by the
-notebook, and at N=1e8 the three repeats agree to within 4% (1.701–1.777 s). The
-end-to-end rate is also the honest number for an iterative workflow: a fixed ~0.3 s of
-context init + I/O per invocation means the GPU advantage collapses at small N (at
-N=1e6 the effective rate, 3.0 M hist/s, is *slower* than EGS5 with 8 processes).
+```
+1e8 transport:  0.529 s  →  0.811 s  →  1.430 s  →  1.431 s
+       rate:   189.0 M   → 123.3 M   →  69.9 M   →  69.9 M   hist/s
+               (warm-up)     (r1)        (r2)        (r3)
+```
+
+Total spread 2.71×, and it settles: the last two runs agree to 0.07%. As shown in the
+15-run table above, MC-GPU's own `total` timer rises with it while its `init+report`
+timer stays flat, so this is genuine transport slowdown rather than an artefact of which
+timer the work is charged to.
+
+**The honest summary is peak ≈190 M hist/s, sustained ≈70 M hist/s** — not a symmetric
+error bar. Which one to quote depends on the question:
+
+- For a **long production run** — the realistic use of an MC speed-up — you get the
+  sustained rate, ≈70 M hist/s. **The headline ratios below deliberately use this.**
+- For a **short burst on a cold GPU**, ≈190 M hist/s is reachable.
+
+**The mechanism is not established, and the obvious explanation does not fully fit.**
+Thermal/power throttling on a passively-cooled 70 W T4, or contention from another tenant
+on shared free-tier hardware, would both produce progressive slowdown. But **N=1e7 shows
+no such pattern** (0.168 → 0.116 → 0.142 → 0.050 s; the *last* run is the fastest of the
+group), and N=1e6 is flat (0.020–0.022 s). A simple "the GPU heats up as the session
+proceeds" story would predict a slowdown there too. This route logged neither SM clock
+nor temperature, so it cannot separate the candidates — see
+"未解明・今後の検証候補" below. `nvidia-smi` reported `memory.used` = 0 MiB in every
+snapshot, weak evidence against another tenant holding memory, but those snapshots are
+taken outside the MC-GPU process lifetime and settle nothing either way.
+
+Two further points:
+
+1. **The medians are non-monotonic in N** (N=1e7 median 86.21 M > N=1e8 median 69.93 M).
+   Under the progressive-slowdown reading this is no longer paradoxical: the N=1e8 group
+   ran last and longest, so it is the most affected.
+2. **Timer quantization matters at small N but explains none of the above.** MC-GPU
+   prints the transport time to 3 decimals, so at N=1e6 (0.020–0.022 s) quantization
+   alone is ±2.5% — orders of magnitude too small for a 2.71× spread.
+
+**End-to-end numbers look steadier, but partly by coincidence.** At N=1e8 the three
+repeats agree to within 4% (1.701–1.777 s) — however the 15-run table shows why: r1
+combined the *shortest* transport (0.811 s) with ~0.7 s of extra process-level overhead,
+which happened to land it at the same total as r2/r3. Do not read that 4% agreement as
+evidence that the underlying rate was stable; it was not. What the end-to-end column
+does support is the practical point about fixed cost: a roughly constant ~0.25 s of
+MC-GPU-internal init/report (plus process spawn and Drive I/O on top) per invocation
+means the GPU advantage collapses at small N — at N=1e6 the effective rate, 3.0 M hist/s,
+is *slower* than EGS5 with 8 processes.
 
 ### One statistical caveat about the R and FOM columns
 
@@ -227,7 +282,25 @@ ChatCarlo's. FOM therefore varies across repeats only through the end-to-end tim
   - `state.json`: `f5ace44e0147c42e7a5cbddfe5507672bf8f917e5cdc7fda90b26b23c218aac3`
   - `execution.log`: `54c5248b87d88cdc686e344cb12c559d1850f4e4590c513cebb7f01c855c404e`
 - Cross-reference added to `docs/egs5_crosscheck/speed_comparison/RESULTS.md`: done
-- vive-audit: pending
+- vive-audit: **passed** (2026-08-13). The auditor independently re-derived every σ in P2,
+  re-ran `analytic_reference.py`, re-fetched `water.mcgpu`/`air.mcgpu` from the pinned
+  commit and confirmed their SHA-256, re-interpolated the PENELOPE MFP table to 60000 eV,
+  and recomputed all P3 medians, ratios, FOM and R — all matching. Two 要注意 findings
+  were raised and fixed before the pass: (a) the GPU-execution evidence originally cited
+  a `printf` that a CPU-only build also emits (verified against the source: it sits
+  outside the `#ifdef USING_CUDA` block), and (b) the outlier-exclusion argument was
+  one-directional. Both corrections are marked inline above.
+- Post-audit self-review (`/furikaeri`, 2026-08-13) found a third issue the audit could
+  not: the warm-up runs were never in `p3_measurements.json`, so both the auditor and this
+  document were reasoning from an incomplete dataset. Recovering them from `execution.log`
+  changed the uncertainty story from "70–90 M, unresolved" to "peak ≈190 M / sustained
+  ≈70 M". The lesson — hand an auditor the raw log location, not only the processed JSON —
+  is recorded in `docs/lessons_learned.md`.
+- Notebook revision note: the run recorded here was produced by the notebook at SHA-256
+  `40bbabb440fcadc0de9bf917fd294f62fcfdb14f30e161f242bf548b21c4929d`. The version now in
+  this directory differs only by recording warm-up rows into `p3_measurements.json`
+  (so the omission above cannot recur); the transport, timing and gate logic are
+  untouched.
 
 ## Scope and physics comparability
 
@@ -247,17 +320,43 @@ slab onto a one-pixel detector — the simplest possible geometry, chosen so the
 gate is unambiguous. Nothing here supports extrapolating the speed-up to polychromatic
 spectra, realistic voxelized phantoms, large detectors, or scatter tallies.
 
+## 未解明・今後の検証候補
+
+事前登録した観測量（一次透過率とスループット）は取り切ったので**本計画は完了**である。
+以下は本計画のスコープ外として残った項目で、路線2（`kernel.py`のCUDA移植）を検討する
+場合にのみ着手すればよい。
+
+1. **N=1e8の単調な性能低下の機序**（上記「Reliability」節）。
+   - **仮説**: T4のサーマル/電力スロットリング。
+   - **検証方法**: 同一のN=1e8を6反復以上連続実行し、各実行の前後で
+     `nvidia-smi --query-gpu=clocks.sm,clocks.mem,temperature.gpu,power.draw` を記録する。
+   - **判定基準（事前登録）**: SMクロックが実行を追うごとに単調低下し定常値へ漸近すれば
+     仮説を支持。**クロックがほぼ一定なのに輸送時間だけ伸びるなら反証**で、その場合は
+     他テナントとの競合か、MC-GPU内部の状態依存（メモリ断片化等）を疑う。
+   - **既知の反証材料**: N=1e7では同じ低下が見られず（0.168→0.116→0.142→0.050 s）、
+     N=1e6は横ばい。単純な発熱蓄積説はこの点を説明できない。この不整合を説明できるまで
+     機序を確定と書かないこと。
+2. **`execution.log`がセッションごとにtruncateされる点**。ノートブックのcell 1が
+   `LOG.write_text()` で開始時に切り詰めるため、前回実行のログは残らない。今回は
+   偶然1セッションで完走したため全15実行が揃ったが、途中で再実行していれば
+   ウォームアップの証拠は失われていた。追記モードにするか、実行ごとに別名で
+   保存する方が安全。
+3. **N=1e8での無料枠切断**は今回発生しなかったため、計画が用意していた「切断時は
+   別実行として記録するか欠測扱いにする」手順は一度も行使していない（未検証のまま）。
+
 ## Bottom line for the research question
 
 On a free Colab **Tesla T4**, an established, unmodified diagnostic-energy photon
-transport GPU code reaches roughly **70–90 M histories/s of pure transport** on this
-scenario (a factor-of-two uncertainty that this measurement cannot resolve further —
-see "Reliability of the kernel-time numbers" above), and about **59 M histories/s
-end-to-end** at N=1e8, which is not subject to that same uncertainty. Using the N=1e8
-kernel-time median (69.93 M hist/s, the more conservative end of that range) against the
-same scenario's measured EGS5 numbers on the local M3, that is **≈46× the
+transport GPU code sustains roughly **70 M histories/s of pure transport** on this
+scenario, with a cold-GPU peak of about **190 M histories/s** that decays to the
+sustained rate within three consecutive N=1e8 runs (see "Reliability of the kernel-time
+numbers" above — the mechanism is not established). End-to-end at N=1e8 is about
+**59 M histories/s**. Quoting the sustained figure (69.93 M hist/s, the N=1e8 median)
+against the same scenario's measured EGS5 numbers on the local M3, that is **≈46× the
 single-threaded `-O` build, ≈8× the 8-process run, and ≈25× the RNG-replacement upper
-bound** on kernel time (≈39× / ≈6.7× / ≈21× end-to-end).
+bound** on kernel time (≈39× / ≈6.7× / ≈21× end-to-end). The sustained rate is the right
+one for production-scale runs; a burst-oriented reading would be up to ≈2.7× more
+favourable to the GPU.
 
 Read against this project's own earlier finding that the EGS5-side ceiling is about 10×
 cumulative, the GPU headroom beyond an already-parallelized CPU code is therefore
