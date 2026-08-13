@@ -129,11 +129,12 @@ parallel-field scenes with one effective worker. It samples source origins throu
 measured an *existing, unmodified* diagnostic-energy GPU code (DIDSR/MCGPUv1.3_PCD) on a free Colab
 Tesla T4 to get a real number for "how much would GPU buy us." Sustained throughput was ≈70M
 histories/s (with a ≈190M cold-start peak that decays within a few consecutive same-size runs —
-mechanism not established), which is **≈8× the existing 8-process EGS5 baseline**, not the ≈46×
-a naive single-thread comparison would suggest. Read together with the ~10× cumulative EGS5-side
-ceiling already measured (compiler flags + process parallelism + RNG replacement,
-[docs/egs5_crosscheck/speed_comparison/RESULTS.md](docs/egs5_crosscheck/speed_comparison/RESULTS.md)),
-GPU headroom beyond an already-parallelized CPU is roughly one order of magnitude, not two.
+mechanism not established), which is **≈46× EGS5's single-threaded `-O` build** on kernel time
+(≈39× end-to-end) — the headline comparison basis (user decision, 2026-08-13; the same
+document also records ≈8× against an already-parallelized 8-process EGS5 run and ≈25× against
+an RNG-replacement upper bound, for readers who want the parallel-CPU baseline instead).
+[docs/egs5_crosscheck/speed_comparison/RESULTS.md](docs/egs5_crosscheck/speed_comparison/RESULTS.md)
+has the underlying EGS5 throughput measurements.
 
 **Physics**: photoelectric / Compton (bound Compton — free-electron Klein-Nishina via Kahn rejection sampling,
 then an additional S(Z,q)/Z rejection from the incoherent scattering function via `xraylib.SF_Compt`; compounds

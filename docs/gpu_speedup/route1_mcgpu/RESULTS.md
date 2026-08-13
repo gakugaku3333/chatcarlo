@@ -358,9 +358,22 @@ bound** on kernel time (≈39× / ≈6.7× / ≈21× end-to-end). The sustained 
 one for production-scale runs; a burst-oriented reading would be up to ≈2.7× more
 favourable to the GPU.
 
+**Headline comparison basis (user decision, 2026-08-13): EGS5's single-threaded `-O`
+build, i.e. ≈46× on kernel time / ≈39× end-to-end.** This is the number a general EGS5
+user is most likely to see reproduced on their own hardware, since EGS5's own default
+build/run path (`egs5run`) is single-process — the 8-process figure below reflects this
+project's own parallelized usage, not a documented general-EGS5-community default, and no
+data was collected on cluster/MPI-scale EGS5 usage (see the "一般的なEGS計算者との比較"
+discussion this session — that broader question remains open and would need either a
+literature/community survey or a new HPC-scale measurement to answer). The ≈8×/≈25×
+figures against the 8-process run and the RNG-replacement upper bound remain recorded
+above for readers who want the already-parallelized-CPU baseline instead.
+
 Read against this project's own earlier finding that the EGS5-side ceiling is about 10×
-cumulative, the GPU headroom beyond an already-parallelized CPU code is therefore
-roughly **one order of magnitude, not two** — the honest comparison is the ≈8× against
-8-process EGS5, not the ≈46× against a single thread. Whether that justifies planning
-route 2 (a CUDA port of `kernel.py`) is a decision for a separate plan; this plan's
-obligation was to produce the number, and the number is now measured rather than assumed.
+cumulative (compiler flags + process parallelism + RNG replacement), the GPU headroom
+beyond an already-parallelized CPU code would be roughly one order of magnitude, not two,
+*if* that parallelized baseline is the comparison of interest. Against the single-threaded
+default build, GPU headroom is closer to two orders of magnitude (≈46×). Whether either
+number justifies planning route 2 (a CUDA port of `kernel.py`) is a decision for a
+separate plan; this plan's obligation was to produce the numbers, and they are now
+measured rather than assumed.
