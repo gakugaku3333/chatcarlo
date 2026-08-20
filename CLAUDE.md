@@ -136,6 +136,18 @@ an RNG-replacement upper bound, for readers who want the parallel-CPU baseline i
 [docs/egs5_crosscheck/speed_comparison/RESULTS.md](docs/egs5_crosscheck/speed_comparison/RESULTS.md)
 has the underlying EGS5 throughput measurements.
 
+**Route 2 scoping (2026-08-20, not implemented)**: before actually starting a CUDA port,
+[docs/gpu_speedup/route2_scoping/RESULTS.md](docs/gpu_speedup/route2_scoping/RESULTS.md) sized the
+work. Key finding: `kernel.py`'s current box/monochromatic/parallel-field/single-worker restriction
+blocks *every* real scene under `examples/` for multiple simultaneous reasons (cylinder/sphere
+geometry, polychromatic `kvp`, divergent `rect` field, and `mas`/`ctdi_vol_mGy`/`heel_effect`/
+`rotation` calibration) — not just geometry as an earlier session's memory note suggested. A CUDA
+port therefore isn't the next increment after `kernel.py`; it needs several independent extensions
+first, plus a new heightfield primitive in `geometry.py` (not yet built anywhere) before it could
+even help the scatter-correction line. No throughput number exists yet for ChatCarlo's own kernel on
+GPU — route1's ≈46×/≈8× are an upper-bound reference from an unrelated, mature production code, not
+a promise for this codebase.
+
 **Physics**: photoelectric / Compton (bound Compton — free-electron Klein-Nishina via Kahn rejection sampling,
 then an additional S(Z,q)/Z rejection from the incoherent scattering function via `xraylib.SF_Compt`; compounds
 sampled by mass-fraction-weighted element pick, same pattern as Rayleigh, before the angular distribution) /
