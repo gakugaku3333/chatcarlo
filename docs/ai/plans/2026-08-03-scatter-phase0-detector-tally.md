@@ -4,7 +4,8 @@
 - 作成者: claude
 - 実装担当: codex
 - 日付: 2026-08-03
-- 親計画: `docs/ai/plans/2026-08-03-mc-scatter-correction-roadmap.md`（状態: approved）
+- 親計画: `mcscatter:docs/plans/2026-08-03-roadmap.md`（状態: approved。2026-08-20に別プロジェクト `~/Projects/mcscatter` へ移設）
+- 注記（2026-08-20）: 散乱線補正プロジェクトは本リポジトリから分離したが、**本計画の成果物 `chatcarlo/detector.py` はChatCarloの機能としてここに残る**。移設先ではMC-GPU画像タリーの独立照合手段として使う。CLAUDE.md「Scatter correction moved out」参照。
 
 ## 実施結果（Claudeの独立検証、2026-08-03）
 
@@ -94,7 +95,7 @@ E-2b kV順序は20cm以上の**全比較**が2σ未満で判定保留（Codexの
   - `chatcarlo/geometry.py`（世界bboxへの検出器の反映。D-2）
   - `tests/test_detector_tally.py`（新規）、`tests/test_detector_geometry.py`（新規）
   - `scripts/stpr_water_slab.py`（新規）
-  - `docs/plan_scatter_correction_feasibility.md`（Phase 0の実施結果の追記のみ）
+  - `docs/plan_scatter_correction_feasibility.md`（Phase 0の実施結果の追記のみ。このファイルは2026-08-20に `mcscatter:docs/feasibility.md` へ移設済み）
 
 - 変更禁止:
   - `chatcarlo/physics.py`・`chatcarlo/materials.py`・`chatcarlo/spectrum.py`

@@ -8,7 +8,7 @@
 ## この計画の位置づけ（実装者は最初にここを読むこと)
 
 散乱線補正ロードマップ
-[2026-08-03-mc-scatter-correction-roadmap.md](2026-08-03-mc-scatter-correction-roadmap.md)
+`mcscatter:docs/plans/2026-08-03-roadmap.md`（2026-08-20に `~/Projects/mcscatter` へ移設）
 のPhase 2候補「分散低減（next-event estimation）による計算時間短縮」を、独立の
 ワークストリームとして設計する計画。**本ファイルもロードマップ同様の方針文書であり、
 実装はサブフェーズ（V0/V1/V2）ごとに子計画を起こして受入条件の数値を事前登録してから

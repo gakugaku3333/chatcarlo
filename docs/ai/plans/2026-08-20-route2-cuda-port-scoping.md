@@ -18,7 +18,7 @@
 
 - 調査してよい: `chatcarlo/kernel.py`, `chatcarlo/tally_njit.py`, `chatcarlo/geometry.py`,
   `chatcarlo/detector.py`, `chatcarlo/transport.py`, `docs/plan_chatcarlo_speedup_post_egs5.md`,
-  `docs/gpu_speedup/route1_mcgpu/RESULTS.md`, `docs/plan_scatter_correction_feasibility.md`
+  `docs/gpu_speedup/route1_mcgpu/RESULTS.md`（散乱線補正の検討文書は 2026-08-20 に `~/Projects/mcscatter` へ移設済み）
 - 変更禁止: コード本体の変更（本計画は見積もりのみ。実装は別計画として承認を経てから）
 
 ## 受入条件（検証可能な形で列挙）

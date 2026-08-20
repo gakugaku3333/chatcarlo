@@ -22,6 +22,24 @@ and H*(10) must be cross-checked against an established code (EGS5 — PHITS was
 see [docs/plan_egs5_crosscheck.md](docs/plan_egs5_crosscheck.md)) before being used for real patient-dose or
 shielding decisions (see the warning banner in [README.md](README.md)).
 
+## Scatter correction moved out (2026-08-20)
+
+The MC scatter-correction research line (Virtual-Grid-like primary/scatter separation and subtraction)
+**is no longer part of this repository.** It became its own project at `~/Projects/mcscatter` when its
+compute engine was switched from ChatCarlo's own transport to an unmodified `DIDSR/MCGPUv1.3_PCD`
+(user decision, 2026-08-20). Moved out: the feasibility study, the roadmap, and the engine-selection plan.
+
+**What stays here, and why**: `chatcarlo/detector.py` (terminal planar detector tally with
+primary/scatter discrimination) plus its two test files. It is integrated into `geometry.py`/`source.py`/
+`transport.py` and audited (403 tests), so extracting it would be a pure regression risk — and living in a
+*separate* codebase is what makes it useful to mcscatter as an **independent** cross-check of MC-GPU's image
+tally. Its implementation plan (`docs/ai/plans/2026-08-03-scatter-phase0-detector-tally.md`) also stays,
+since it documents a ChatCarlo feature. Do not delete either when tidying up "unused" scatter artifacts.
+
+`docs/ai/plans/2026-08-03-scatter-variance-reduction.md` (NEE/forced-collision, still `draft`) stays too,
+but note its original driver moved out: it is now a *ChatCarlo* variance-reduction idea, not a dependency
+of the scatter project.
+
 ## Commands
 
 ```bash
@@ -105,9 +123,12 @@ any object is `background` (default air).
 [source.py](chatcarlo/source.py); interaction angle/energy sampling in [physics.py](chatcarlo/physics.py);
 trajectory recording for `trace` in [trajectory.py](chatcarlo/trajectory.py); dose-map conversion and the
 non-physical-max warnings in [diagnostics.py](chatcarlo/diagnostics.py); the terminal planar detector tally
-(primary/scatter discrimination for the scatter-correction research line) in [detector.py](chatcarlo/detector.py) —
-see [docs/plan_scatter_correction_feasibility.md](docs/plan_scatter_correction_feasibility.md) and
+(primary/scatter discrimination) in [detector.py](chatcarlo/detector.py) — its implementation plan is
 [docs/ai/plans/2026-08-03-scatter-phase0-detector-tally.md](docs/ai/plans/2026-08-03-scatter-phase0-detector-tally.md).
+**The scatter-correction research line that motivated it now lives in a separate project**
+(`~/Projects/mcscatter`, split off 2026-08-20 — see "Scatter correction moved out" below);
+`detector.py` stays here as a ChatCarlo feature and serves that project as an *independent*
+cross-check of its MC-GPU image tally.
 
 **Experimental parallel implementation**: [kernel.py](chatcarlo/kernel.py) is a
 from-scratch Numba-compiled per-history scalar transport kernel (Phase B of

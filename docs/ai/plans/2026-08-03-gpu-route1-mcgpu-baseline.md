@@ -317,7 +317,7 @@ P3の`timed_run()`の両方）。あわせて周辺コメント（"CUDA-event ke
     **追記のみ**（本計画P4で行う相互参照リンクの追加）は許可する。
     既存の記載内容・数値は一切変更しない）
   - `docs/ai/plans/2026-08-03-scatter-variance-reduction.md` ・
-    `docs/ai/plans/2026-08-03-mc-scatter-correction-roadmap.md`
+    `mcscatter:docs/plans/2026-08-03-roadmap.md`（2026-08-20に別プロジェクトへ移設）
     （独立ワークストリーム。本計画からの参照・相互リンクの追記のみ可）
   - Googleドライブへのアップロード操作そのもの（上記「実行形態」の通り
     Codexの担当範囲外。CodexのCLIサンドボックスにDriveアクセス権はない）
