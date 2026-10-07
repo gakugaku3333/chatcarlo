@@ -1,0 +1,2568 @@
+{
+  "completed_utc": "2026-10-07T13:09:22.202861+00:00",
+  "preregistration_sha256": "6d93b0a238f555561eefe4dd77f4833d932b72bced0f11377805521f7bf9f41e",
+  "plan_sha256": "e163aaa4b92daa05625c2ada15241de7c75b9dbae95d2166a38e2ae6911a877f",
+  "seed": 20261007,
+  "git_head": "9a9195307c9d23a0cf39096e2595ac3dbf91d3d2",
+  "python": "3.11.13 (main, Jun  3 2025, 18:38:25) [Clang 17.0.0 (clang-1700.0.13.3)]",
+  "egs5_tree_sha256_after": "07d081989d54c7d2aed42224b65f3b115f58eef8a7ab899cebac55aeb9cd3645",
+  "runs": {
+    "coupled": {
+      "started_utc": "2026-10-07T12:49:53.291131+00:00",
+      "preregistration_sha256": "6d93b0a238f555561eefe4dd77f4833d932b72bced0f11377805521f7bf9f41e",
+      "code_sha256": "e7e1e50d7b6cea2ad8d2713915d89c2350214e5aef6526350235bf438b452bbc",
+      "input_sha256": "c9922799c63f58663e4d712caf8f9ecca52f9bcdea6d8b13f3df02bf2d7a551d",
+      "compiler": "GNU Fortran (Homebrew GCC 16.1.0) 16.1.0",
+      "egs5run_sha256": "ac65f06633ed42f1bb6a1d5e8eede0328b860372a3fe599680eef01637f66215",
+      "egs5_tree_sha256": "07d081989d54c7d2aed42224b65f3b115f58eef8a7ab899cebac55aeb9cd3645",
+      "build_exit_code": 0,
+      "run_peak_rss_bytes": 15597568,
+      "child_peak_rss_bytes": 297320448,
+      "rss_note": "Darwin child high-water includes build children; not isolated run RSS",
+      "run_exit_code": 0,
+      "wall_seconds": 99.78416587493848,
+      "finished_utc": "2026-10-07T12:51:36.888471+00:00",
+      "preregistration_sha256_after": "6d93b0a238f555561eefe4dd77f4833d932b72bced0f11377805521f7bf9f41e"
+    },
+    "coupled_pilot": {
+      "started_utc": "2026-10-07T12:46:26.407249+00:00",
+      "preregistration_sha256": "6d93b0a238f555561eefe4dd77f4833d932b72bced0f11377805521f7bf9f41e",
+      "code_sha256": "e2b4f3bf404adea9f379e799bf4ebc235986b21c87a984c17463f6faac61fa42",
+      "input_sha256": "1a276882ddf04c3dfe2fd1666f16f1a1ad4e425179c77d9c6f549c62d5122849",
+      "compiler": "GNU Fortran (Homebrew GCC 16.1.0) 16.1.0",
+      "egs5run_sha256": "ac65f06633ed42f1bb6a1d5e8eede0328b860372a3fe599680eef01637f66215",
+      "egs5_tree_sha256": "07d081989d54c7d2aed42224b65f3b115f58eef8a7ab899cebac55aeb9cd3645",
+      "build_exit_code": 1,
+      "finished_utc": "2026-10-07T12:46:27.339796+00:00",
+      "preregistration_sha256_after": "6d93b0a238f555561eefe4dd77f4833d932b72bced0f11377805521f7bf9f41e"
+    },
+    "coupled_pilot_v2": {
+      "started_utc": "2026-10-07T12:46:59.172804+00:00",
+      "preregistration_sha256": "6d93b0a238f555561eefe4dd77f4833d932b72bced0f11377805521f7bf9f41e",
+      "code_sha256": "e462ec2d57d486a71e2aedceab128be65d003baa9c6a381184eab0babf715654",
+      "input_sha256": "1a276882ddf04c3dfe2fd1666f16f1a1ad4e425179c77d9c6f549c62d5122849",
+      "compiler": "GNU Fortran (Homebrew GCC 16.1.0) 16.1.0",
+      "egs5run_sha256": "ac65f06633ed42f1bb6a1d5e8eede0328b860372a3fe599680eef01637f66215",
+      "egs5_tree_sha256": "07d081989d54c7d2aed42224b65f3b115f58eef8a7ab899cebac55aeb9cd3645",
+      "build_exit_code": 0,
+      "run_exit_code": 1,
+      "wall_seconds": 5.55750741600059,
+      "finished_utc": "2026-10-07T12:47:09.559840+00:00",
+      "preregistration_sha256_after": "6d93b0a238f555561eefe4dd77f4833d932b72bced0f11377805521f7bf9f41e"
+    },
+    "coupled_repeat_a": {
+      "started_utc": "2026-10-07T12:47:55.852533+00:00",
+      "preregistration_sha256": "6d93b0a238f555561eefe4dd77f4833d932b72bced0f11377805521f7bf9f41e",
+      "code_sha256": "e462ec2d57d486a71e2aedceab128be65d003baa9c6a381184eab0babf715654",
+      "input_sha256": "1a276882ddf04c3dfe2fd1666f16f1a1ad4e425179c77d9c6f549c62d5122849",
+      "compiler": "GNU Fortran (Homebrew GCC 16.1.0) 16.1.0",
+      "egs5run_sha256": "ac65f06633ed42f1bb6a1d5e8eede0328b860372a3fe599680eef01637f66215",
+      "egs5_tree_sha256": "07d081989d54c7d2aed42224b65f3b115f58eef8a7ab899cebac55aeb9cd3645",
+      "build_exit_code": 0,
+      "child_peak_rss_bytes": 297369600,
+      "rss_note": "Darwin child high-water includes build children; not isolated run RSS",
+      "run_exit_code": 0,
+      "wall_seconds": 5.34089720796328,
+      "finished_utc": "2026-10-07T12:48:05.096117+00:00",
+      "preregistration_sha256_after": "6d93b0a238f555561eefe4dd77f4833d932b72bced0f11377805521f7bf9f41e"
+    },
+    "coupled_repeat_c": {
+      "started_utc": "2026-10-07T12:49:34.765632+00:00",
+      "preregistration_sha256": "6d93b0a238f555561eefe4dd77f4833d932b72bced0f11377805521f7bf9f41e",
+      "code_sha256": "e462ec2d57d486a71e2aedceab128be65d003baa9c6a381184eab0babf715654",
+      "input_sha256": "c9922799c63f58663e4d712caf8f9ecca52f9bcdea6d8b13f3df02bf2d7a551d",
+      "compiler": "GNU Fortran (Homebrew GCC 16.1.0) 16.1.0",
+      "egs5run_sha256": "ac65f06633ed42f1bb6a1d5e8eede0328b860372a3fe599680eef01637f66215",
+      "egs5_tree_sha256": "07d081989d54c7d2aed42224b65f3b115f58eef8a7ab899cebac55aeb9cd3645",
+      "build_exit_code": 0,
+      "run_peak_rss_bytes": 15663104,
+      "child_peak_rss_bytes": 297189376,
+      "rss_note": "Darwin child high-water includes build children; not isolated run RSS",
+      "run_exit_code": 0,
+      "wall_seconds": 5.294720125035383,
+      "finished_utc": "2026-10-07T12:49:44.043447+00:00",
+      "preregistration_sha256_after": "6d93b0a238f555561eefe4dd77f4833d932b72bced0f11377805521f7bf9f41e"
+    },
+    "coupled_repeat_d": {
+      "started_utc": "2026-10-07T12:49:44.120850+00:00",
+      "preregistration_sha256": "6d93b0a238f555561eefe4dd77f4833d932b72bced0f11377805521f7bf9f41e",
+      "code_sha256": "e462ec2d57d486a71e2aedceab128be65d003baa9c6a381184eab0babf715654",
+      "input_sha256": "c9922799c63f58663e4d712caf8f9ecca52f9bcdea6d8b13f3df02bf2d7a551d",
+      "compiler": "GNU Fortran (Homebrew GCC 16.1.0) 16.1.0",
+      "egs5run_sha256": "ac65f06633ed42f1bb6a1d5e8eede0328b860372a3fe599680eef01637f66215",
+      "egs5_tree_sha256": "07d081989d54c7d2aed42224b65f3b115f58eef8a7ab899cebac55aeb9cd3645",
+      "build_exit_code": 0,
+      "run_peak_rss_bytes": 15581184,
+      "child_peak_rss_bytes": 298188800,
+      "rss_note": "Darwin child high-water includes build children; not isolated run RSS",
+      "run_exit_code": 0,
+      "wall_seconds": 5.3642880419502035,
+      "finished_utc": "2026-10-07T12:49:53.220481+00:00",
+      "preregistration_sha256_after": "6d93b0a238f555561eefe4dd77f4833d932b72bced0f11377805521f7bf9f41e"
+    },
+    "kerma": {
+      "started_utc": "2026-10-07T12:51:36.958125+00:00",
+      "preregistration_sha256": "6d93b0a238f555561eefe4dd77f4833d932b72bced0f11377805521f7bf9f41e",
+      "code_sha256": "cbc89a4d95afe3fc105176f8d229aeaa3e89868c05af8a17c98cb04c8d4faf53",
+      "input_sha256": "c9922799c63f58663e4d712caf8f9ecca52f9bcdea6d8b13f3df02bf2d7a551d",
+      "compiler": "GNU Fortran (Homebrew GCC 16.1.0) 16.1.0",
+      "egs5run_sha256": "ac65f06633ed42f1bb6a1d5e8eede0328b860372a3fe599680eef01637f66215",
+      "egs5_tree_sha256": "07d081989d54c7d2aed42224b65f3b115f58eef8a7ab899cebac55aeb9cd3645",
+      "build_exit_code": 0,
+      "run_peak_rss_bytes": 15597568,
+      "child_peak_rss_bytes": 298385408,
+      "rss_note": "Darwin child high-water includes build children; not isolated run RSS",
+      "run_exit_code": 0,
+      "wall_seconds": 11.396342208958231,
+      "finished_utc": "2026-10-07T12:51:52.129720+00:00",
+      "preregistration_sha256_after": "6d93b0a238f555561eefe4dd77f4833d932b72bced0f11377805521f7bf9f41e"
+    },
+    "spectrum_200k": {
+      "started_utc": "2026-10-07T12:58:01.397745+00:00",
+      "preregistration_sha256": "6d93b0a238f555561eefe4dd77f4833d932b72bced0f11377805521f7bf9f41e",
+      "code_sha256": "a40a9640e9bfd7b77cb3e87defb98715f2247935979022c6707ba8bcc05241a5",
+      "input_sha256": "c9922799c63f58663e4d712caf8f9ecca52f9bcdea6d8b13f3df02bf2d7a551d",
+      "compiler": "GNU Fortran (Homebrew GCC 16.1.0) 16.1.0",
+      "egs5run_sha256": "ac65f06633ed42f1bb6a1d5e8eede0328b860372a3fe599680eef01637f66215",
+      "egs5_tree_sha256": "07d081989d54c7d2aed42224b65f3b115f58eef8a7ab899cebac55aeb9cd3645",
+      "build_exit_code": 0,
+      "run_peak_rss_bytes": 15548416,
+      "child_peak_rss_bytes": 281362432,
+      "rss_note": "Darwin child high-water includes build children; not isolated run RSS",
+      "run_exit_code": 0,
+      "wall_seconds": 15.7728909580037,
+      "finished_utc": "2026-10-07T12:58:21.848326+00:00",
+      "preregistration_sha256_after": "6d93b0a238f555561eefe4dd77f4833d932b72bced0f11377805521f7bf9f41e"
+    },
+    "spectrum_no_pdd": {
+      "started_utc": "2026-10-07T12:58:21.978525+00:00",
+      "preregistration_sha256": "6d93b0a238f555561eefe4dd77f4833d932b72bced0f11377805521f7bf9f41e",
+      "code_sha256": "55e846d763fabc3d31ba7aa13d890237cb78b855e16679ee6353e856c47d029d",
+      "input_sha256": "c9922799c63f58663e4d712caf8f9ecca52f9bcdea6d8b13f3df02bf2d7a551d",
+      "compiler": "GNU Fortran (Homebrew GCC 16.1.0) 16.1.0",
+      "egs5run_sha256": "ac65f06633ed42f1bb6a1d5e8eede0328b860372a3fe599680eef01637f66215",
+      "egs5_tree_sha256": "07d081989d54c7d2aed42224b65f3b115f58eef8a7ab899cebac55aeb9cd3645",
+      "build_exit_code": 0,
+      "run_peak_rss_bytes": 15581184,
+      "child_peak_rss_bytes": 298434560,
+      "rss_note": "Darwin child high-water includes build children; not isolated run RSS",
+      "run_exit_code": 0,
+      "wall_seconds": 14.787508874898776,
+      "finished_utc": "2026-10-07T12:58:41.575455+00:00",
+      "preregistration_sha256_after": "6d93b0a238f555561eefe4dd77f4833d932b72bced0f11377805521f7bf9f41e"
+    },
+    "spectrum_no_timer": {
+      "started_utc": "2026-10-07T12:55:17.101399+00:00",
+      "preregistration_sha256": "6d93b0a238f555561eefe4dd77f4833d932b72bced0f11377805521f7bf9f41e",
+      "code_sha256": "1524f939d436bee6f6cc036ae3ea7b0fdb9830772af46cf0baa058a8c4440d19",
+      "input_sha256": "c9922799c63f58663e4d712caf8f9ecca52f9bcdea6d8b13f3df02bf2d7a551d",
+      "compiler": "GNU Fortran (Homebrew GCC 16.1.0) 16.1.0",
+      "egs5run_sha256": "ac65f06633ed42f1bb6a1d5e8eede0328b860372a3fe599680eef01637f66215",
+      "egs5_tree_sha256": "07d081989d54c7d2aed42224b65f3b115f58eef8a7ab899cebac55aeb9cd3645",
+      "build_exit_code": 0,
+      "run_peak_rss_bytes": 15630336,
+      "child_peak_rss_bytes": 296992768,
+      "rss_note": "Darwin child high-water includes build children; not isolated run RSS",
+      "run_exit_code": 0,
+      "wall_seconds": 7.16731249995064,
+      "finished_utc": "2026-10-07T12:55:27.860495+00:00",
+      "preregistration_sha256_after": "6d93b0a238f555561eefe4dd77f4833d932b72bced0f11377805521f7bf9f41e"
+    },
+    "spectrum_pilot": {
+      "started_utc": "2026-10-07T12:54:46.466111+00:00",
+      "preregistration_sha256": "6d93b0a238f555561eefe4dd77f4833d932b72bced0f11377805521f7bf9f41e",
+      "code_sha256": "9e1baeaccd083a840b468751e5d06852c42a5bd723de05d7814584dd37f23664",
+      "input_sha256": "c9922799c63f58663e4d712caf8f9ecca52f9bcdea6d8b13f3df02bf2d7a551d",
+      "compiler": "GNU Fortran (Homebrew GCC 16.1.0) 16.1.0",
+      "egs5run_sha256": "ac65f06633ed42f1bb6a1d5e8eede0328b860372a3fe599680eef01637f66215",
+      "egs5_tree_sha256": "07d081989d54c7d2aed42224b65f3b115f58eef8a7ab899cebac55aeb9cd3645",
+      "build_exit_code": 0,
+      "run_peak_rss_bytes": 15663104,
+      "child_peak_rss_bytes": 273465344,
+      "rss_note": "Darwin child high-water includes build children; not isolated run RSS",
+      "run_exit_code": 0,
+      "wall_seconds": 26.491147082997486,
+      "finished_utc": "2026-10-07T12:55:16.995805+00:00",
+      "preregistration_sha256_after": "6d93b0a238f555561eefe4dd77f4833d932b72bced0f11377805521f7bf9f41e"
+    },
+    "stopping_v2": {
+      "started_utc": "2026-10-07T12:50:57.568845+00:00",
+      "preregistration_sha256": "6d93b0a238f555561eefe4dd77f4833d932b72bced0f11377805521f7bf9f41e",
+      "code_sha256": "71c72b3fb95d7035354b3ab18b3bf9dec3a9a0eaca292b62ab2e000c47db699d",
+      "input_sha256": "985bf4de448148f7f6dd518e1f9da19eb8e6581c68749295c61374c9a98641f8",
+      "compiler": "GNU Fortran (Homebrew GCC 16.1.0) 16.1.0",
+      "egs5run_sha256": "ac65f06633ed42f1bb6a1d5e8eede0328b860372a3fe599680eef01637f66215",
+      "egs5_tree_sha256": "07d081989d54c7d2aed42224b65f3b115f58eef8a7ab899cebac55aeb9cd3645",
+      "build_exit_code": 0,
+      "run_peak_rss_bytes": 14368768,
+      "child_peak_rss_bytes": 265633792,
+      "rss_note": "Darwin child high-water includes build children; not isolated run RSS",
+      "run_exit_code": 0,
+      "wall_seconds": 0.6461162919877097,
+      "finished_utc": "2026-10-07T12:51:02.631719+00:00",
+      "preregistration_sha256_after": "6d93b0a238f555561eefe4dd77f4833d932b72bced0f11377805521f7bf9f41e"
+    },
+    "stopping_v3": {
+      "started_utc": "2026-10-07T12:53:55.037303+00:00",
+      "preregistration_sha256": "6d93b0a238f555561eefe4dd77f4833d932b72bced0f11377805521f7bf9f41e",
+      "code_sha256": "71c72b3fb95d7035354b3ab18b3bf9dec3a9a0eaca292b62ab2e000c47db699d",
+      "input_sha256": "ea4ffc027c5daee73a5df19adffc52a3c3294b80105ee81fbf74425e6ffb870a",
+      "compiler": "GNU Fortran (Homebrew GCC 16.1.0) 16.1.0",
+      "egs5run_sha256": "ac65f06633ed42f1bb6a1d5e8eede0328b860372a3fe599680eef01637f66215",
+      "egs5_tree_sha256": "07d081989d54c7d2aed42224b65f3b115f58eef8a7ab899cebac55aeb9cd3645",
+      "build_exit_code": 0,
+      "run_peak_rss_bytes": 14417920,
+      "child_peak_rss_bytes": 273039360,
+      "rss_note": "Darwin child high-water includes build children; not isolated run RSS",
+      "run_exit_code": 0,
+      "wall_seconds": 0.5111175829079002,
+      "finished_utc": "2026-10-07T12:53:59.929738+00:00",
+      "preregistration_sha256_after": "6d93b0a238f555561eefe4dd77f4833d932b72bced0f11377805521f7bf9f41e"
+    }
+  },
+  "acquisition_records": {
+    "photon_fetch.json": {
+      "utc": "2026-10-07T12:42:08.060435+00:00",
+      "records": [
+        {
+          "file": "data/XCOM.tar.gz",
+          "url": "https://physics.nist.gov/PhysRefData/Xcom/XCOM.tar.gz",
+          "sha256": "b2bdd0608bbece4809a337b7264c85b7997f608a1f8e2181ce5201421efcc0de",
+          "bytes": 172805
+        },
+        {
+          "file": "data/xcom_download.html",
+          "url": "https://physics.nist.gov/PhysRefData/Xcom/Text/download.html",
+          "sha256": "2eecccb53992119040bcc43bce53b91b580f11f698e06e0c0dcb56a191ffcc26",
+          "bytes": 5203
+        },
+        {
+          "file": "data/xcom_version.html",
+          "url": "https://physics.nist.gov/PhysRefData/Xcom/Text/version.shtml",
+          "sha256": "be58e27aba15745ef312c0c18603bd7d8d24966f3c52f3b6682138cad70ea650",
+          "bytes": 6823
+        },
+        {
+          "file": "data/nist_license.html",
+          "url": "https://www.nist.gov/open/license",
+          "sha256": "eb0abcffbd15bb66b52b3b0c2a923d7d1590c6ec30768727cd464b3c76e21afe",
+          "bytes": 93604
+        },
+        {
+          "file": "data/water_composition.html",
+          "url": "https://physics.nist.gov/cgi-bin/Star/compos.pl?matno=276",
+          "sha256": "5c07d4ba0fbce54ad807a4d236dd5f1e5d37df8fe9c93f72f720d50456b54e0f",
+          "bytes": 16143
+        },
+        {
+          "file": "data/air_composition.html",
+          "url": "https://physics.nist.gov/cgi-bin/Star/compos.pl?matno=104",
+          "sha256": "86d21abf56594c0ff5bc1b7ba1e303099c0860fa9f904d5f6fd6d47aaf0e2c08",
+          "bytes": 16272
+        }
+      ]
+    },
+    "estar_fetch.json": {
+      "utc": "2026-10-07T12:46:48.152479+00:00",
+      "url": "https://physics.nist.gov/cgi-bin/Star/e_table-t.pl",
+      "method": "POST",
+      "parameters": {
+        "matno": "276",
+        "Energies": "0.1\n1\n10\n"
+      },
+      "exit_code": 0,
+      "stderr": "",
+      "sha256": "29e6157d6ad2af3580bbef9827101a3d6eed44f2f11e66fa8dba8950368bb84c"
+    },
+    "spectrum_fetch.json": {
+      "utc": "2026-10-07T12:49:06.334276+00:00",
+      "records": [
+        {
+          "name": "mohan10.spectrum",
+          "url": "https://raw.githubusercontent.com/nrc-cnrc/EGSnrc/master/HEN_HOUSE/spectra/egsnrc/mohan10.spectrum",
+          "exit_code": 0,
+          "stderr": "",
+          "sha256": "06fe2ba471dbfd64ca4305b5f1560479439ea4b565f993ecb21dcda86a6d8065",
+          "bytes": 507
+        },
+        {
+          "name": "spectra_readme.txt",
+          "url": "https://raw.githubusercontent.com/nrc-cnrc/EGSnrc/master/HEN_HOUSE/spectra/egsnrc/README",
+          "exit_code": 56,
+          "stderr": "curl: (56) The requested URL returned error: 404\n"
+        },
+        {
+          "name": "egsnrc_license.txt",
+          "url": "https://raw.githubusercontent.com/nrc-cnrc/EGSnrc/master/LICENCE",
+          "exit_code": 0,
+          "stderr": "",
+          "sha256": "8486a10c4393cee1c25392769ddd3b2d6c242d6ec7928e1414efff7dfb2f07ef",
+          "bytes": 34523
+        },
+        {
+          "name": "egs_spectra.cpp",
+          "url": "https://raw.githubusercontent.com/nrc-cnrc/EGSnrc/master/HEN_HOUSE/egs++/egs_spectra.cpp",
+          "exit_code": 0,
+          "stderr": "",
+          "sha256": "169b0f15b43e2fdb1a639906f456fc4b07c6fc8d4f55c7d5a780d766c7aa37ff",
+          "bytes": 27924
+        },
+        {
+          "name": "egs_spectra.h",
+          "url": "https://raw.githubusercontent.com/nrc-cnrc/EGSnrc/master/HEN_HOUSE/egs++/egs_spectra.h",
+          "exit_code": 56,
+          "stderr": "curl: (56) The requested URL returned error: 404\n"
+        }
+      ]
+    }
+  },
+  "read_only_reference_files": [
+    {
+      "path": "chatcarlo/data/nist_xaamdi/water.csv",
+      "sha256": "bf03e829b040506154d6fa0cebb46d3d4680b980a45fcd113f354381f31a8d1d"
+    },
+    {
+      "path": "chatcarlo/kernel.py",
+      "sha256": "e7efacc5ad9d0638d1a7d12f033302c5ab94d2aa04faf9a9eaaaa05ee89c8206"
+    },
+    {
+      "path": "chatcarlo/materials.py",
+      "sha256": "cafaec2134a6b20eca29927a11d857959441890a55ff5470c42620b81ab883c2"
+    },
+    {
+      "path": "docs/egs5_crosscheck/revalidation_2026_10_07/egs5/pdd_phantom/pdd_phantom.f",
+      "sha256": "ec1efc9255f2f1451f43bd7fdadce27722243e8330391314f072348b6ff129c9"
+    },
+    {
+      "path": "docs/egs5_crosscheck/egs5/data/density_corrections/compounds/water_liquid.density",
+      "sha256": "0c2bb93c6c9934db67fe0327df218ac0a38ac7eb15a57b5a3c349fa20c091b2c"
+    },
+    {
+      "path": ".claude/agents/egs5-operator.md",
+      "sha256": "69ff37dd257dadf5a86c835bd156a422eabf62489672086a0b40e68159c43c34"
+    }
+  ],
+  "files": [
+    {
+      "path": ".gitignore",
+      "bytes": 262,
+      "sha256": "0ecd176326b9f1bb5b54a157e882e038282e5d76fa84bbd9620a191dedab83ee"
+    },
+    {
+      "path": "PREREGISTRATION.md",
+      "bytes": 5422,
+      "sha256": "6d93b0a238f555561eefe4dd77f4833d932b72bced0f11377805521f7bf9f41e"
+    },
+    {
+      "path": "RESULTS.md",
+      "bytes": 15960,
+      "sha256": "216fa34a5a9b3319502f248f3ee218da0fefe0e70e2ba7509863ef14714beba4"
+    },
+    {
+      "path": "analyze_egs5.py",
+      "bytes": 5589,
+      "sha256": "d827edacc5cb6166a972c5245e5ab55a8a9078f9c9963896411c59e9ba7898d3"
+    },
+    {
+      "path": "build_report.py",
+      "bytes": 18517,
+      "sha256": "ffba439ec26d4f55311e08a1fb20e32f3409e23101b3a4c5411f31d682623dca"
+    },
+    {
+      "path": "check_estar.py",
+      "bytes": 2432,
+      "sha256": "d379c63af4e315fc340e1f6e98cb8072d4a783a9dcc616ee6475019db50976d9"
+    },
+    {
+      "path": "check_performance.py",
+      "bytes": 4361,
+      "sha256": "0aaafb2e6ce61a16243483752f4150a1516a607d9c6175b21cb9ab8fdbf574f7"
+    },
+    {
+      "path": "check_photon_data.py",
+      "bytes": 5177,
+      "sha256": "e2f89ff8927bfa92e1f03e6ebfea2a1c0e4ce0785158257e57ee3d145514e0c1"
+    },
+    {
+      "path": "check_spectrum.py",
+      "bytes": 1499,
+      "sha256": "370402aee44769fbde8dd9bf08b5d110ecfdc08c4204993670d4353063d207f2"
+    },
+    {
+      "path": "data/XCOM/.rsrc/ATWTS.DAT",
+      "bytes": 64,
+      "sha256": "2c17be9d3b5a0af20422abb1b60e9054e6a15d98c9b6ba972cfe8cc18cf4550c"
+    },
+    {
+      "path": "data/XCOM/.rsrc/ENB.DAT",
+      "bytes": 64,
+      "sha256": "4958d4a3eed2f434c9e4ea90331632868cfcd6837bd3bc0ff228985ca5aa4071"
+    },
+    {
+      "path": "data/XCOM/.rsrc/HASH1.DAT",
+      "bytes": 64,
+      "sha256": "df3498b47dbd28b5f9c68ee726e9a0631f1e10a6f7ce017662956b3171b1e8d5"
+    },
+    {
+      "path": "data/XCOM/.rsrc/HASH2.DAT",
+      "bytes": 64,
+      "sha256": "417725163f0a9c9b03b3cffc30070e624a34264066966a6f6bdda813232fc1aa"
+    },
+    {
+      "path": "data/XCOM/.rsrc/INDEX.DAT",
+      "bytes": 64,
+      "sha256": "d697da50bcd857b0a421191d991a630c9c920c14779afef0f833fbfd58931716"
+    },
+    {
+      "path": "data/XCOM/.rsrc/MDATX3.001",
+      "bytes": 64,
+      "sha256": "466fd2cf0b3a6de88e1796b088fdb784cc2a5ccf6f27a793444e9202cf7ae6c3"
+    },
+    {
+      "path": "data/XCOM/.rsrc/MDATX3.002",
+      "bytes": 64,
+      "sha256": "a8de708a6dceb5564c478e9e80e3a608475e2bb54911add040c46dc4f64ee0d1"
+    },
+    {
+      "path": "data/XCOM/.rsrc/MDATX3.003",
+      "bytes": 64,
+      "sha256": "6b05c6b95ffd221031d50988662050458344295055242043a1b45a5dfb553b06"
+    },
+    {
+      "path": "data/XCOM/.rsrc/MDATX3.004",
+      "bytes": 64,
+      "sha256": "6cda60466a852c7097870c788c2cacd505604944a2a102debdb6abd53d8c5f4d"
+    },
+    {
+      "path": "data/XCOM/.rsrc/MDATX3.005",
+      "bytes": 64,
+      "sha256": "90c8ae544f47b830530339e0f305090ca65f80df7e15fcb640916148369022af"
+    },
+    {
+      "path": "data/XCOM/.rsrc/MDATX3.006",
+      "bytes": 64,
+      "sha256": "498e9395fe96fecf76d205238b3e5c709813d66051da65a643906cf46d1255ab"
+    },
+    {
+      "path": "data/XCOM/.rsrc/MDATX3.007",
+      "bytes": 64,
+      "sha256": "6553d84b644b8a2d83e6b76b185fd5022093e11981c8c175d40967a7ce0faa05"
+    },
+    {
+      "path": "data/XCOM/.rsrc/MDATX3.008",
+      "bytes": 64,
+      "sha256": "a76f81568b5521df0a7c1f69da60af0925e25fc8524817259b637cfa605ac6aa"
+    },
+    {
+      "path": "data/XCOM/.rsrc/MDATX3.009",
+      "bytes": 64,
+      "sha256": "bb78f2cdfe5360852933a3cbdf9968e3017f399700c6c062d9e76b685138f535"
+    },
+    {
+      "path": "data/XCOM/.rsrc/MDATX3.010",
+      "bytes": 64,
+      "sha256": "085a96f03f7550b681fac3bb8861441b565f9118d69fb99a62a5b53bcc728ee8"
+    },
+    {
+      "path": "data/XCOM/.rsrc/MDATX3.011",
+      "bytes": 64,
+      "sha256": "daa8a87e6366bb8a6c23632250c7cf0b1b455c2c97b5173f39137a10ca76bd62"
+    },
+    {
+      "path": "data/XCOM/.rsrc/MDATX3.012",
+      "bytes": 64,
+      "sha256": "39b2f800d369d5d86911a0ba956ef92dad90421effb3820771be8da92efc988e"
+    },
+    {
+      "path": "data/XCOM/.rsrc/MDATX3.013",
+      "bytes": 64,
+      "sha256": "8ee82fedbef856e8e16775584997675e8bc699846b0036a5eb76e6f7df542a87"
+    },
+    {
+      "path": "data/XCOM/.rsrc/MDATX3.014",
+      "bytes": 64,
+      "sha256": "c2b1a070d89e1f046176d7ada01e48e677a9c8fe1b72730a5b056e094ba75648"
+    },
+    {
+      "path": "data/XCOM/.rsrc/MDATX3.015",
+      "bytes": 64,
+      "sha256": "f97574fe5968f34082f331065c6c5fde40b06c508accfd30f88f9819b06b6044"
+    },
+    {
+      "path": "data/XCOM/.rsrc/MDATX3.016",
+      "bytes": 64,
+      "sha256": "013b4593afbf609b047c88e1fc4a45259d3944131b772a51ba1ec6bb05f0e051"
+    },
+    {
+      "path": "data/XCOM/.rsrc/MDATX3.017",
+      "bytes": 64,
+      "sha256": "c99ef425857370fc378e72ff7c3bce5cc2041659eb3d3d5e1641a0b7f236a18b"
+    },
+    {
+      "path": "data/XCOM/.rsrc/MDATX3.018",
+      "bytes": 64,
+      "sha256": "a559498b97c30a25239ce4a9677cf4d90c6051a36266d666d8d985a3391dc8ec"
+    },
+    {
+      "path": "data/XCOM/.rsrc/MDATX3.019",
+      "bytes": 64,
+      "sha256": "655224a6bc311db88bdd433d55051e279c918b90a86edc5f4b064c59f31eda41"
+    },
+    {
+      "path": "data/XCOM/.rsrc/MDATX3.020",
+      "bytes": 64,
+      "sha256": "c66bf44dcf20ad4a649fa8ff18a7c32783a6fc9d565e83ea373139c137f8feee"
+    },
+    {
+      "path": "data/XCOM/.rsrc/MDATX3.021",
+      "bytes": 64,
+      "sha256": "f5a88487613bd30050d55c1d23818492058466301f13f72bf53389755eacc838"
+    },
+    {
+      "path": "data/XCOM/.rsrc/MDATX3.022",
+      "bytes": 64,
+      "sha256": "a37ba164c45ad1bceabca882bada0704c645463c23c353c1b7d73da014bdd923"
+    },
+    {
+      "path": "data/XCOM/.rsrc/MDATX3.023",
+      "bytes": 64,
+      "sha256": "9361ab52ce00be6c63eb776849cacddabeed88b89545a25fd81ec23894a85877"
+    },
+    {
+      "path": "data/XCOM/.rsrc/MDATX3.024",
+      "bytes": 64,
+      "sha256": "0030305f1cd5066f0b03f6f4209e9332188a6ea90468954479d8fb85c105cad2"
+    },
+    {
+      "path": "data/XCOM/.rsrc/MDATX3.025",
+      "bytes": 64,
+      "sha256": "721f176d37366fc89dadc017c41698a5f50775ea67fa87df4e9c3485b751f878"
+    },
+    {
+      "path": "data/XCOM/.rsrc/MDATX3.026",
+      "bytes": 64,
+      "sha256": "8afd5f0cb2c20080110c0288fda523e520525e9f05d5f90cd70c8574db5b7a94"
+    },
+    {
+      "path": "data/XCOM/.rsrc/MDATX3.027",
+      "bytes": 64,
+      "sha256": "b3036fbbc38c885cf5cc103e2576e6607d8b68469b6c8f0b1c56df8880c11158"
+    },
+    {
+      "path": "data/XCOM/.rsrc/MDATX3.028",
+      "bytes": 64,
+      "sha256": "e9c4233a74a577f4be0465f3fef702b7568a92d7d97bf2b9bd222029a56aae0b"
+    },
+    {
+      "path": "data/XCOM/.rsrc/MDATX3.029",
+      "bytes": 64,
+      "sha256": "a9badb727838c6fe9b1f26f1cb37075652495b96490bf3bc0fff12406aea5ea8"
+    },
+    {
+      "path": "data/XCOM/.rsrc/MDATX3.030",
+      "bytes": 64,
+      "sha256": "a00b5765be51772dfb8487ee1ada9cf20c1589e55775e67cc573e86880363dd3"
+    },
+    {
+      "path": "data/XCOM/.rsrc/MDATX3.031",
+      "bytes": 64,
+      "sha256": "9e087b328be7c84e133f95ed2a51e7f2cc0d92d504ac6b4f50a7f677cb5a800a"
+    },
+    {
+      "path": "data/XCOM/.rsrc/MDATX3.032",
+      "bytes": 64,
+      "sha256": "fb72e20a9c3d9171c22052385ae8b41b5aa6725aa34d320636de459fd74119d7"
+    },
+    {
+      "path": "data/XCOM/.rsrc/MDATX3.033",
+      "bytes": 64,
+      "sha256": "a48548e51efb0624464f4704eb31a6ef9cc879569d8f0da5f0388bf6d2583ed7"
+    },
+    {
+      "path": "data/XCOM/.rsrc/MDATX3.034",
+      "bytes": 64,
+      "sha256": "0299e5794e1e4b19b5e07bb2bef4965d05c17c7da3b5a0227c39a43c81a36953"
+    },
+    {
+      "path": "data/XCOM/.rsrc/MDATX3.035",
+      "bytes": 64,
+      "sha256": "1891c44c4bec6cdc3a27addf1f328fc54796d453ecbb7d27dd7bec4df66eb11f"
+    },
+    {
+      "path": "data/XCOM/.rsrc/MDATX3.036",
+      "bytes": 64,
+      "sha256": "1c290ae3b8d8ccb0fd9dde31936b203c3f6ef64daab9edc312ed26b10eab5026"
+    },
+    {
+      "path": "data/XCOM/.rsrc/MDATX3.037",
+      "bytes": 64,
+      "sha256": "c37bb2c9b424eca762a0234520ce0bb49c681749c0342cf29093502e4e1ce30f"
+    },
+    {
+      "path": "data/XCOM/.rsrc/MDATX3.038",
+      "bytes": 64,
+      "sha256": "517ade9e3e44a27f22441ebf9767f391f622c2baa680c2e439db37c63a60c8f6"
+    },
+    {
+      "path": "data/XCOM/.rsrc/MDATX3.039",
+      "bytes": 64,
+      "sha256": "29c4dec19435e97fe3364b5ddf57f168209762dbe15440956052f16d8e8d1896"
+    },
+    {
+      "path": "data/XCOM/.rsrc/MDATX3.040",
+      "bytes": 64,
+      "sha256": "b19b5cb02d54a5fade2960f5714440b95ff89694169b9fe2be9a2311a12c3869"
+    },
+    {
+      "path": "data/XCOM/.rsrc/MDATX3.041",
+      "bytes": 64,
+      "sha256": "ae8e07cd35c3c50af125bfc3032d77c6eccf28b7ad90892606e966787ccddd03"
+    },
+    {
+      "path": "data/XCOM/.rsrc/MDATX3.042",
+      "bytes": 64,
+      "sha256": "6764152a42957dc377eeecf8f27dffabd84582ff3981d9e3d342f2bb292098e9"
+    },
+    {
+      "path": "data/XCOM/.rsrc/MDATX3.043",
+      "bytes": 64,
+      "sha256": "dc0b3ff97dfc9b4b5c1d3f9fdc924ba083ae72a302a6f455a2898893462e3491"
+    },
+    {
+      "path": "data/XCOM/.rsrc/MDATX3.044",
+      "bytes": 64,
+      "sha256": "443cfcd2c8282c1e081d86b31e9cde14e8ced3a229bb899e87370c434dfedc3b"
+    },
+    {
+      "path": "data/XCOM/.rsrc/MDATX3.045",
+      "bytes": 64,
+      "sha256": "b5bdeec5f4bccfc90e3e789ed14ee42db639b5d2ac0f71cce8a5673109cdec62"
+    },
+    {
+      "path": "data/XCOM/.rsrc/MDATX3.046",
+      "bytes": 64,
+      "sha256": "0b09ec15913004d008e2b68a7a21c90271c1cfaa14b4dd7f479510707af89ff1"
+    },
+    {
+      "path": "data/XCOM/.rsrc/MDATX3.047",
+      "bytes": 64,
+      "sha256": "08686de0e58ebca72e8535f52da68301df264a906d00054271fc154c8f6e7a42"
+    },
+    {
+      "path": "data/XCOM/.rsrc/MDATX3.048",
+      "bytes": 64,
+      "sha256": "79ff8f9de21cbcafbc7a55e518e000e9f817bd5f0aeae177a39c81fef3f4861b"
+    },
+    {
+      "path": "data/XCOM/.rsrc/MDATX3.049",
+      "bytes": 64,
+      "sha256": "ea2324a8986a82ee7211bf58ba600d23ad6e52f5941662a006eb54b5fe59f97d"
+    },
+    {
+      "path": "data/XCOM/.rsrc/MDATX3.050",
+      "bytes": 64,
+      "sha256": "e3c9aeca38d1a61f176555e0233c4f234fd18b82f81c0b2bb20e6ce19dfc936f"
+    },
+    {
+      "path": "data/XCOM/.rsrc/MDATX3.051",
+      "bytes": 64,
+      "sha256": "b80d53cb41bf4f8118fcdaabfa8802cda57ff0e46cade02f1b01213ccf5edfba"
+    },
+    {
+      "path": "data/XCOM/.rsrc/MDATX3.052",
+      "bytes": 64,
+      "sha256": "4c0682fcfc00749a53da11b1427996316e1e009024e66ee62773f9a04245d480"
+    },
+    {
+      "path": "data/XCOM/.rsrc/MDATX3.053",
+      "bytes": 64,
+      "sha256": "dd0b6627103f1d21eb065972c86340fd15fc7828e4ba955463fa5733e76238a3"
+    },
+    {
+      "path": "data/XCOM/.rsrc/MDATX3.054",
+      "bytes": 64,
+      "sha256": "e3fdb3984d987189c143720301852c0f13ded006f55e76bf306ebf79d0fcab17"
+    },
+    {
+      "path": "data/XCOM/.rsrc/MDATX3.055",
+      "bytes": 64,
+      "sha256": "a4c862a0b37f7ee339d3ab14aa61573ac69ee1ffcd2aa31762a8fb6abb2e3863"
+    },
+    {
+      "path": "data/XCOM/.rsrc/MDATX3.056",
+      "bytes": 64,
+      "sha256": "66a730dee442b02a87f8849833e3288ec0fde32e70b7e7b12f10ea240ce46dae"
+    },
+    {
+      "path": "data/XCOM/.rsrc/MDATX3.057",
+      "bytes": 64,
+      "sha256": "98c1d073baeedd2774f166622d61d06755a1efda1d6529bfd52888c3355c9f05"
+    },
+    {
+      "path": "data/XCOM/.rsrc/MDATX3.058",
+      "bytes": 64,
+      "sha256": "50c4de269b5252383c8fe22aa36a9701a7d7fb9449af61ba5c46bf1dc72e73ad"
+    },
+    {
+      "path": "data/XCOM/.rsrc/MDATX3.059",
+      "bytes": 64,
+      "sha256": "d6b7a8ee94eb5f6d0edae0ca2cb87a030e7c73625ef97d5c571188201bf02c6c"
+    },
+    {
+      "path": "data/XCOM/.rsrc/MDATX3.060",
+      "bytes": 64,
+      "sha256": "08c6e3d081d78c507f5f1fcf422339d3f576e631d0fa4b2eb0154a34ad3e19d2"
+    },
+    {
+      "path": "data/XCOM/.rsrc/MDATX3.061",
+      "bytes": 64,
+      "sha256": "1a30d4b4a2ab2570022781ec010e75547c97f7e92c99462d3ba84f26c38903c9"
+    },
+    {
+      "path": "data/XCOM/.rsrc/MDATX3.062",
+      "bytes": 64,
+      "sha256": "dcd0560f832d163b2b4af075c1dc5019817cfd4eb4cfcaa8a6ac67a840c9df02"
+    },
+    {
+      "path": "data/XCOM/.rsrc/MDATX3.063",
+      "bytes": 64,
+      "sha256": "5cb6aa0ab3569172853d8c0d6b02cf4d78b2ceac11f4c00c549fde3c8989e982"
+    },
+    {
+      "path": "data/XCOM/.rsrc/MDATX3.064",
+      "bytes": 64,
+      "sha256": "323eacc416134f34730c718ecadc82417cd9ecb594ccffc299d86e2c8c8f7825"
+    },
+    {
+      "path": "data/XCOM/.rsrc/MDATX3.065",
+      "bytes": 64,
+      "sha256": "9786ba986893d9c0656a292f4bb94be96ad347b3743c2144b77a6040b0ca730b"
+    },
+    {
+      "path": "data/XCOM/.rsrc/MDATX3.066",
+      "bytes": 64,
+      "sha256": "e59be825b574b897191a1aa025d9767bedf78f8e592d86b67c5dc4791150a4bd"
+    },
+    {
+      "path": "data/XCOM/.rsrc/MDATX3.067",
+      "bytes": 64,
+      "sha256": "eee10ea43547a3e975cd22853ebfec7e6bc071bf6ca86480dbe901d25259d332"
+    },
+    {
+      "path": "data/XCOM/.rsrc/MDATX3.068",
+      "bytes": 64,
+      "sha256": "0e529758a8d0954e2cef50cff2587c1e79745473e665b017db2f59b7ecf3bef5"
+    },
+    {
+      "path": "data/XCOM/.rsrc/MDATX3.069",
+      "bytes": 64,
+      "sha256": "7c3a008c3a89048337efeab2ff25ce3375d29f08050771f27669e51047cd45b7"
+    },
+    {
+      "path": "data/XCOM/.rsrc/MDATX3.070",
+      "bytes": 64,
+      "sha256": "a8483231225d05f8c744480a5696e0c8f85517de07e41d02446506b75c184d3c"
+    },
+    {
+      "path": "data/XCOM/.rsrc/MDATX3.071",
+      "bytes": 64,
+      "sha256": "0bf5ebb1403476985737d357d65594b43f84e30a4ca0c91a6b44be00e6d207b7"
+    },
+    {
+      "path": "data/XCOM/.rsrc/MDATX3.072",
+      "bytes": 64,
+      "sha256": "a643eb4f90158838053521126d35f4bdf1ef9030f4fccb1a5e2a718967cf9fa0"
+    },
+    {
+      "path": "data/XCOM/.rsrc/MDATX3.073",
+      "bytes": 64,
+      "sha256": "e818889c3ff3f0b8f2aec7bb2ed0f0b494b8d92c53e161064e35c79d807f8348"
+    },
+    {
+      "path": "data/XCOM/.rsrc/MDATX3.074",
+      "bytes": 64,
+      "sha256": "8a6537451b2273d281287dbea2c09605c6cc17d295f5b598a1ec9c44b0202212"
+    },
+    {
+      "path": "data/XCOM/.rsrc/MDATX3.075",
+      "bytes": 64,
+      "sha256": "1689b612f65891b46573ff80c040724b4ab9b0a7a36c2e36b1d63982dafb4918"
+    },
+    {
+      "path": "data/XCOM/.rsrc/MDATX3.076",
+      "bytes": 64,
+      "sha256": "f8e69fa350d07c35da010005ac261ec0e19f06cc0c83bcb4826eac40fe43fb5b"
+    },
+    {
+      "path": "data/XCOM/.rsrc/MDATX3.077",
+      "bytes": 64,
+      "sha256": "b9fabb21f0268aa936adbdec081dae8e613bfc0e2cc727462bf38cd90b9540b0"
+    },
+    {
+      "path": "data/XCOM/.rsrc/MDATX3.078",
+      "bytes": 64,
+      "sha256": "9dc2341148eceedd221a59507e5c97a5ae859d0999b83a0e6e1205748067eb9f"
+    },
+    {
+      "path": "data/XCOM/.rsrc/MDATX3.079",
+      "bytes": 64,
+      "sha256": "d52f8c77e26f96277ce28b1b1c9d77f60bdd20520e7c3b3389fceb28e9786585"
+    },
+    {
+      "path": "data/XCOM/.rsrc/MDATX3.080",
+      "bytes": 64,
+      "sha256": "d707a021f95059df4da14dfef80652d1238c20d670c59122dd6c03193f25fc7e"
+    },
+    {
+      "path": "data/XCOM/.rsrc/MDATX3.081",
+      "bytes": 64,
+      "sha256": "207aba8fa182c40c9934ef9e90862bfc9db4690062a8808dc1e10ae543a6c2e7"
+    },
+    {
+      "path": "data/XCOM/.rsrc/MDATX3.082",
+      "bytes": 64,
+      "sha256": "f703fd7c9aa85a2e2678725401bbe952ab83c71ff9bb67d97e1aa5ac88129f8c"
+    },
+    {
+      "path": "data/XCOM/.rsrc/MDATX3.083",
+      "bytes": 64,
+      "sha256": "e72ba9579a4ee311a9f49f124330a466880897d593b33873640da2556bdd0780"
+    },
+    {
+      "path": "data/XCOM/.rsrc/MDATX3.084",
+      "bytes": 64,
+      "sha256": "556f30a13f2d07a65d603ba6d75ca95d57d5f5a06a6bec2b42a84d54545652d7"
+    },
+    {
+      "path": "data/XCOM/.rsrc/MDATX3.085",
+      "bytes": 64,
+      "sha256": "c463da0368ab34ddca28083eee877b698dcc5a850a9f7f6c756a69e4de56f58c"
+    },
+    {
+      "path": "data/XCOM/.rsrc/MDATX3.086",
+      "bytes": 64,
+      "sha256": "0f11fcc35f38d767f6778e479469aacb3790bbd53f75fa42114035e92ddb1509"
+    },
+    {
+      "path": "data/XCOM/.rsrc/MDATX3.087",
+      "bytes": 64,
+      "sha256": "69702553f012d11806be8e6c7c9688d9a16307ca69e324b8d2807d67209c7cbc"
+    },
+    {
+      "path": "data/XCOM/.rsrc/MDATX3.088",
+      "bytes": 64,
+      "sha256": "4ec0e006f9a1afbe52a1dbd979aab745e5e31bd8da32c7184f537103babab9bc"
+    },
+    {
+      "path": "data/XCOM/.rsrc/MDATX3.089",
+      "bytes": 64,
+      "sha256": "f03b0a9445b7983da9b21a1171c965280601e81c873697f7429bd93a6e35880d"
+    },
+    {
+      "path": "data/XCOM/.rsrc/MDATX3.090",
+      "bytes": 64,
+      "sha256": "a8af29dc40252b6d19fde64344b2465c110e10b07199b1812bc729bfb585e7a1"
+    },
+    {
+      "path": "data/XCOM/.rsrc/MDATX3.091",
+      "bytes": 64,
+      "sha256": "94fb09bffa5388e96566c5964f984fcd14e8736b2e48823f39d5418b619a16ae"
+    },
+    {
+      "path": "data/XCOM/.rsrc/MDATX3.092",
+      "bytes": 64,
+      "sha256": "9b884ee998e4af761f6f5f1a0e2242b7f04ef9cd54dfd454eef474dfa35380d4"
+    },
+    {
+      "path": "data/XCOM/.rsrc/MDATX3.093",
+      "bytes": 64,
+      "sha256": "2ddb688e55f4104247b34cf30eb327a563ebf72175242d781aa60fb8bddebfdb"
+    },
+    {
+      "path": "data/XCOM/.rsrc/MDATX3.094",
+      "bytes": 64,
+      "sha256": "425dd8c89c685e6bd8c43b677c32703824b960be5ac4f96c53321b537ed302d3"
+    },
+    {
+      "path": "data/XCOM/.rsrc/MDATX3.095",
+      "bytes": 64,
+      "sha256": "7d057b67bc14615c868c20c188690a26a8a172fdd075717f25e5b24062d79208"
+    },
+    {
+      "path": "data/XCOM/.rsrc/MDATX3.096",
+      "bytes": 64,
+      "sha256": "8417ce5edd65527c0030522f27e8f4db28156b982abfb126cb32c1dd80b2b35b"
+    },
+    {
+      "path": "data/XCOM/.rsrc/MDATX3.097",
+      "bytes": 64,
+      "sha256": "8a71736634d5e8f5c945b75279df33be4985b583027f78c81bb1bea005fee9e0"
+    },
+    {
+      "path": "data/XCOM/.rsrc/MDATX3.098",
+      "bytes": 64,
+      "sha256": "f841d14f80861a765d27311803251301c4f28c8b4559f37ee5086230904d60a8"
+    },
+    {
+      "path": "data/XCOM/.rsrc/MDATX3.099",
+      "bytes": 64,
+      "sha256": "e5a20dde3cf0aab9efd1ccdf14ed2c1fef69e71ebfdf4701f5ae2bb83a11cbbb"
+    },
+    {
+      "path": "data/XCOM/.rsrc/MDATX3.100",
+      "bytes": 64,
+      "sha256": "0984bb8703b8ad4149002b2040fa1faa81fa7cb534b027c0f6a7cdf8f7bf52de"
+    },
+    {
+      "path": "data/XCOM/.rsrc/XCOM.f",
+      "bytes": 64,
+      "sha256": "2d068116d1fd8cad935bed43b733ef9d9b5b1ee93b65e42a054a26b5f1e59ede"
+    },
+    {
+      "path": "data/XCOM/.rsrc/XCOM.x",
+      "bytes": 64,
+      "sha256": "24737a0cd44e41334eadbc733b2e669e0ffddc96ae709fe7de63d021c1089544"
+    },
+    {
+      "path": "data/XCOM/ATWTS.DAT",
+      "bytes": 1570,
+      "sha256": "dd0a90761029e266ce3c894819b214586c157ab6eaa9eb71aafa01d214498efa"
+    },
+    {
+      "path": "data/XCOM/ENB.DAT",
+      "bytes": 750,
+      "sha256": "1aaf63f0bd8f15b3ec587a7f5faf94685805de4ecf55f5011f9684ab8968a90d"
+    },
+    {
+      "path": "data/XCOM/HASH1.DAT",
+      "bytes": 87,
+      "sha256": "123093d5a38b32bb1602f31d4c1c0e2488ea825174c8336398ffd1cf2149cd22"
+    },
+    {
+      "path": "data/XCOM/HASH2.DAT",
+      "bytes": 708,
+      "sha256": "0eef30fdaa31c3cca7da46410d7bc8744614e16fc32d449d755e86decb98fb40"
+    },
+    {
+      "path": "data/XCOM/INDEX.DAT",
+      "bytes": 722,
+      "sha256": "4d82c0b53d1090eb50a7b5529fa4f2cf148b90b27951002551bb936c85579efa"
+    },
+    {
+      "path": "data/XCOM/MDATX3.001",
+      "bytes": 5136,
+      "sha256": "4dcfbb200a41be34d3c29fcffaeb7f23048adc17d37566877072b26ef27db1a2"
+    },
+    {
+      "path": "data/XCOM/MDATX3.002",
+      "bytes": 5136,
+      "sha256": "76f562486a722c53147d2349a852f25b81f8fa45088ecc66bbdce3161d4a4249"
+    },
+    {
+      "path": "data/XCOM/MDATX3.003",
+      "bytes": 5136,
+      "sha256": "cfa2b5ab87cc686ab4ae7db3a0202e524cefa12e4c5b71c161ff3a7fb72aa511"
+    },
+    {
+      "path": "data/XCOM/MDATX3.004",
+      "bytes": 5136,
+      "sha256": "d887d4b021e442d1d3cc515a235a456dea3868f6bde18fcf00a2ffd882cb1184"
+    },
+    {
+      "path": "data/XCOM/MDATX3.005",
+      "bytes": 5136,
+      "sha256": "75bdb733307849d38195a3d714223cd124fd2d08668f1e2bcb059a7664651dab"
+    },
+    {
+      "path": "data/XCOM/MDATX3.006",
+      "bytes": 5136,
+      "sha256": "65643a08c98c0578e6f862527e0d70e8bd3cdb8dfbf74d0c59c5a5ddef8e9374"
+    },
+    {
+      "path": "data/XCOM/MDATX3.007",
+      "bytes": 5136,
+      "sha256": "69221057d5493486127ec0ad0f215b732bdae57fae85d166af98cff17bd37e2f"
+    },
+    {
+      "path": "data/XCOM/MDATX3.008",
+      "bytes": 5136,
+      "sha256": "29fe09cfec3c94cb47ceeb003f4affdfd178198d8601077a2446ae53c2a76128"
+    },
+    {
+      "path": "data/XCOM/MDATX3.009",
+      "bytes": 5136,
+      "sha256": "41f9a591e883936e5b7d26d2aa5b01e4d610af0237d4dedd867522a12338c0cc"
+    },
+    {
+      "path": "data/XCOM/MDATX3.010",
+      "bytes": 5136,
+      "sha256": "841044091b04b3dafacf04c89124e3ea2255f62ae13b6d62826ac05dcb0eb9dc"
+    },
+    {
+      "path": "data/XCOM/MDATX3.011",
+      "bytes": 5376,
+      "sha256": "6ba244f30002d09a6f3490c90f41099202db3dbd6b494d263ebc757dcf794c01"
+    },
+    {
+      "path": "data/XCOM/MDATX3.012",
+      "bytes": 5376,
+      "sha256": "2768f9bb0c04923cf7d117d55af2c559cc9170ccfca17bedb9a245907ccc2351"
+    },
+    {
+      "path": "data/XCOM/MDATX3.013",
+      "bytes": 5376,
+      "sha256": "3a2cca6b88b4387e3477201c17022e40ede4a14124590c8e2ef293b65bd430bd"
+    },
+    {
+      "path": "data/XCOM/MDATX3.014",
+      "bytes": 5376,
+      "sha256": "b4bf671fa674d91f91cce1c4ff73aa88a67f7998503bfdbc9be5de0719839bbc"
+    },
+    {
+      "path": "data/XCOM/MDATX3.015",
+      "bytes": 5400,
+      "sha256": "487e1a79274cfd213bd0e7ca793f44d827fcfd5efeb452d9f6f2a1744d262330"
+    },
+    {
+      "path": "data/XCOM/MDATX3.016",
+      "bytes": 5400,
+      "sha256": "c51d28227022a9de86b1d7b72eec5d683deb85eb1709b934a5b4f1e409c22288"
+    },
+    {
+      "path": "data/XCOM/MDATX3.017",
+      "bytes": 5400,
+      "sha256": "d6b5c1114511274ff831a84d612d10b0057ce9c97751d3113f22c8a6918b160b"
+    },
+    {
+      "path": "data/XCOM/MDATX3.018",
+      "bytes": 5424,
+      "sha256": "a6c20843e89ca1cf004d2dc00147d65f2600ea226f0cb079c2e3856fc25fa9ec"
+    },
+    {
+      "path": "data/XCOM/MDATX3.019",
+      "bytes": 5424,
+      "sha256": "0436aac1847aea548a3b1842d04ced26f54e44a59ee1aff47bac01f172f1f75a"
+    },
+    {
+      "path": "data/XCOM/MDATX3.020",
+      "bytes": 5448,
+      "sha256": "c1dba9b638c3b471b8a63be1ce46396d41cc1eee483036e712a9ba25eebb1c8e"
+    },
+    {
+      "path": "data/XCOM/MDATX3.021",
+      "bytes": 5448,
+      "sha256": "e703a3c539e42535d344f93bf77b72c40aeebd920f8c7f7429b7d86f210d3fdf"
+    },
+    {
+      "path": "data/XCOM/MDATX3.022",
+      "bytes": 5448,
+      "sha256": "3089468128c0211946bd54a9b61529310c4bb691ded17534c4ce826ad17b436d"
+    },
+    {
+      "path": "data/XCOM/MDATX3.023",
+      "bytes": 5474,
+      "sha256": "2dde0cbabc49426bb116da319c99d64fc9937b363e77ba942aa6862507406155"
+    },
+    {
+      "path": "data/XCOM/MDATX3.024",
+      "bytes": 5474,
+      "sha256": "82da78e8bb41985090079207302f07ab568c8168dfdc0b9ca1486b6d505f096b"
+    },
+    {
+      "path": "data/XCOM/MDATX3.025",
+      "bytes": 5498,
+      "sha256": "ddb6c6c79292a774c04bd98a587c5cc3d97fa7d8fb1d78b320798df19d6a1a95"
+    },
+    {
+      "path": "data/XCOM/MDATX3.026",
+      "bytes": 5498,
+      "sha256": "f5ba1eb942da7b36491aef9a47ab29768d5db8d1436e922a8358bf66da0812da"
+    },
+    {
+      "path": "data/XCOM/MDATX3.027",
+      "bytes": 5498,
+      "sha256": "9fce9c63c4adeb05f430cc99ce39801b01e73cfc515ed26094dfb1a6a2ea518e"
+    },
+    {
+      "path": "data/XCOM/MDATX3.028",
+      "bytes": 5746,
+      "sha256": "05c80b5eac3642934dc6a03431f7c7f5966f70d6a36e6f8578dd420ff452f9f0"
+    },
+    {
+      "path": "data/XCOM/MDATX3.029",
+      "bytes": 5746,
+      "sha256": "5df45e42f5144e86bb9f673ce8ed86ea7fc9f4bafb840584c417ffae5d07b7a9"
+    },
+    {
+      "path": "data/XCOM/MDATX3.030",
+      "bytes": 6195,
+      "sha256": "b42ea50d39332f5f119892f05716801ab4ba2c4c09d4772bea538e2bf9ed9304"
+    },
+    {
+      "path": "data/XCOM/MDATX3.031",
+      "bytes": 6219,
+      "sha256": "f5b4e892ecf2ecb158a5a954552a95f2e40b13a6aac3c05d96990b8c8259c36a"
+    },
+    {
+      "path": "data/XCOM/MDATX3.032",
+      "bytes": 6219,
+      "sha256": "a618105218cf13028b2b306b05c8d9a0380de7e30898cca2859658ab1143c5bc"
+    },
+    {
+      "path": "data/XCOM/MDATX3.033",
+      "bytes": 6195,
+      "sha256": "bfd6ca3ddb5d925f6f5f9aab0b1fbaa8119877f4f50762f56b3ddb079900760f"
+    },
+    {
+      "path": "data/XCOM/MDATX3.034",
+      "bytes": 6195,
+      "sha256": "3d6f564d5a08d25efd84a4ad30377daa5676fc7e17c77cde096a3b3d9b91b67a"
+    },
+    {
+      "path": "data/XCOM/MDATX3.035",
+      "bytes": 6195,
+      "sha256": "82b0304d5c3d143eb04374914dd8595d06d713b1a1bb6175ad51cc70b73af00a"
+    },
+    {
+      "path": "data/XCOM/MDATX3.036",
+      "bytes": 6195,
+      "sha256": "3e70291bbcec6ee74e50180da9f8dae8476d290d8d7e791d5cee738cf6fbf46e"
+    },
+    {
+      "path": "data/XCOM/MDATX3.037",
+      "bytes": 6195,
+      "sha256": "77854e7b2aec181f93e1018c77be79badd4026fef6a5f9e7832196fe46c03aa1"
+    },
+    {
+      "path": "data/XCOM/MDATX3.038",
+      "bytes": 6195,
+      "sha256": "ab1732675bd85eded775dd24e1f3a2d05669bde9345d6b5cf361ba1e6f0848f6"
+    },
+    {
+      "path": "data/XCOM/MDATX3.039",
+      "bytes": 6219,
+      "sha256": "d90c7ade2fb0248ec7261a879dec76c715e955b7d0667c3556092d0d313ab35f"
+    },
+    {
+      "path": "data/XCOM/MDATX3.040",
+      "bytes": 6219,
+      "sha256": "df9bc27a805a311dbfea833dfc2597e9665ddc314a1913af3dd87e1149dcf270"
+    },
+    {
+      "path": "data/XCOM/MDATX3.041",
+      "bytes": 6219,
+      "sha256": "189a7e875a14c9e72bbcfbbb0876531aa7357592b50b203038300affe2e71c1a"
+    },
+    {
+      "path": "data/XCOM/MDATX3.042",
+      "bytes": 6221,
+      "sha256": "99c4dc5e9f95c98afcdc1b00c6e2b9db8b83b0e6c5fd9febb8816f4bca3c2c2d"
+    },
+    {
+      "path": "data/XCOM/MDATX3.043",
+      "bytes": 6219,
+      "sha256": "707f4def92226d4baeb23f74863e90e792e6f067c2af120dfacbb726cdbe288d"
+    },
+    {
+      "path": "data/XCOM/MDATX3.044",
+      "bytes": 6219,
+      "sha256": "3154933bef9c19404a39861fb592394fb99731a4aabd708245a4dde894682318"
+    },
+    {
+      "path": "data/XCOM/MDATX3.045",
+      "bytes": 6243,
+      "sha256": "51e33f26ce07693775ed3b006fb6d2f81ed93dacec4c0e9f7c4e7d37c1151f9a"
+    },
+    {
+      "path": "data/XCOM/MDATX3.046",
+      "bytes": 6243,
+      "sha256": "c7c8e29f9c9fe2e87744b69af1e0e28f7e119628d203cf48633231d87fb94bee"
+    },
+    {
+      "path": "data/XCOM/MDATX3.047",
+      "bytes": 6243,
+      "sha256": "b18c93b2634e3709365ebd060c4a64865deb1817507db9d54a4538ac05bc009d"
+    },
+    {
+      "path": "data/XCOM/MDATX3.048",
+      "bytes": 6219,
+      "sha256": "d5bb07a23aa034ff1761f99d92e42981e0a01aa5ba67ccf3445e5a675991c080"
+    },
+    {
+      "path": "data/XCOM/MDATX3.049",
+      "bytes": 6220,
+      "sha256": "1c748d9f76ac202ee7d2c61293f298e2aeb81606f7f1aeb828b1a9d6c826bfbb"
+    },
+    {
+      "path": "data/XCOM/MDATX3.050",
+      "bytes": 6220,
+      "sha256": "148588a501790ad9c17ab73521be4f7d4c69e2057a0bf07f3c91711932bc8315"
+    },
+    {
+      "path": "data/XCOM/MDATX3.051",
+      "bytes": 6268,
+      "sha256": "0f34f9f3cc89a984957a204926bd8c5a02a952d161fe6f987bac9118d2244db1"
+    },
+    {
+      "path": "data/XCOM/MDATX3.052",
+      "bytes": 6496,
+      "sha256": "8f86f2720a99bca5da32cb1771778c1f9681ff9081e9fd60c9436b230f14dca8"
+    },
+    {
+      "path": "data/XCOM/MDATX3.053",
+      "bytes": 6472,
+      "sha256": "3980b18807d5e177d1dd78e0ddf7a94134af68ca281cad6099f5558bfcf8e574"
+    },
+    {
+      "path": "data/XCOM/MDATX3.054",
+      "bytes": 6472,
+      "sha256": "1e036e6c0e4cea186f3cb897f8e49eeda75c0935a6dfed7809e4cfadb1861523"
+    },
+    {
+      "path": "data/XCOM/MDATX3.055",
+      "bytes": 6723,
+      "sha256": "5062bd9d77c55535a28213f371c364e08ddb29c819f26c597d18147c9070534b"
+    },
+    {
+      "path": "data/XCOM/MDATX3.056",
+      "bytes": 6947,
+      "sha256": "40b7a3487a21bbb3a50a254d77df2aca030c5f63d3b355b02ed475964ed2e8ed"
+    },
+    {
+      "path": "data/XCOM/MDATX3.057",
+      "bytes": 6923,
+      "sha256": "a9ed978d6b9d9e71ba2dce87fdfaaed3135d345af3124b7733bae7507cd9443c"
+    },
+    {
+      "path": "data/XCOM/MDATX3.058",
+      "bytes": 6947,
+      "sha256": "3cf99a1d6da6f37fb624962fa3a74b1a2c68c1b9d57e347bbf82673723b7216c"
+    },
+    {
+      "path": "data/XCOM/MDATX3.059",
+      "bytes": 6921,
+      "sha256": "8a194381e1918bed70992e9c3a53f0d5529292bf00322cd25ef1bfbc11663c7e"
+    },
+    {
+      "path": "data/XCOM/MDATX3.060",
+      "bytes": 7171,
+      "sha256": "58fa6e51336cb320be69d8961b6872ae96cbbced9fdbde0efdcb27d806b4cd0d"
+    },
+    {
+      "path": "data/XCOM/MDATX3.061",
+      "bytes": 7402,
+      "sha256": "9166b66a0be602875e7e3696c686a4db226ebd3d3cace45db5fbe64e5b25eb05"
+    },
+    {
+      "path": "data/XCOM/MDATX3.062",
+      "bytes": 7402,
+      "sha256": "f4f4a8c449eea9ccd4e06b8ca0e1cdbb9e360c3979c5c13719883f6bc1afd263"
+    },
+    {
+      "path": "data/XCOM/MDATX3.063",
+      "bytes": 7378,
+      "sha256": "d08a37a9abd10e4b327a38d8b6f85a55ffb66e4c46e221d0026cc2a443f7eaed"
+    },
+    {
+      "path": "data/XCOM/MDATX3.064",
+      "bytes": 7402,
+      "sha256": "3c3e2522c2a56d7a6bea05bc2e6d90d4e1758250a05cc560b863a43fc9f75282"
+    },
+    {
+      "path": "data/XCOM/MDATX3.065",
+      "bytes": 7402,
+      "sha256": "ed09c5651b49fa858d5d37eca8b69c599bdb75e2f973f52739659c1e97c6b365"
+    },
+    {
+      "path": "data/XCOM/MDATX3.066",
+      "bytes": 7376,
+      "sha256": "c08efcb41d64ace832004bfcd4c974467fdd8d0170608561bbcff097d9434643"
+    },
+    {
+      "path": "data/XCOM/MDATX3.067",
+      "bytes": 7402,
+      "sha256": "30c3b307d62b19543f571f3dc04ebf24d88b0fceba44ce6759a977c5a815a549"
+    },
+    {
+      "path": "data/XCOM/MDATX3.068",
+      "bytes": 7402,
+      "sha256": "791ab12d76bde47841b02c04ceab02e4189882345aa97c33069965d5527f0fd3"
+    },
+    {
+      "path": "data/XCOM/MDATX3.069",
+      "bytes": 7378,
+      "sha256": "a8e405c3a24729a88a89ddbf9a237d380701107e26d3a44294f88342b4d4f0fe"
+    },
+    {
+      "path": "data/XCOM/MDATX3.070",
+      "bytes": 7402,
+      "sha256": "b53446967996ac9af07af6317238a9b12cf220e1172832bd429013b2d06e1efa"
+    },
+    {
+      "path": "data/XCOM/MDATX3.071",
+      "bytes": 7402,
+      "sha256": "f68fcf97ba60a59f5141767bb903a38f797e5e56a5790d9491b99debc5d0c30a"
+    },
+    {
+      "path": "data/XCOM/MDATX3.072",
+      "bytes": 7402,
+      "sha256": "436b8444f713796323ee624fa22554cbdad530db84b897f96cca4d6d905e370a"
+    },
+    {
+      "path": "data/XCOM/MDATX3.073",
+      "bytes": 7402,
+      "sha256": "2c696073953af917129513f935f3ddc1ec28b93ac39a8aa5ba4a05f518ab7539"
+    },
+    {
+      "path": "data/XCOM/MDATX3.074",
+      "bytes": 7426,
+      "sha256": "c332e8c4fb230f0178a9c2098149a0ac76fb4627f5c6d98b1844a7a4d751ea26"
+    },
+    {
+      "path": "data/XCOM/MDATX3.075",
+      "bytes": 7427,
+      "sha256": "537f93565db9c0a2aaf5616ffc3d94cbfe8099850f11b566e2af293306b1898d"
+    },
+    {
+      "path": "data/XCOM/MDATX3.076",
+      "bytes": 7402,
+      "sha256": "8fb026ce8223626eeed479e6096f7ac2ae6f7a64fc22b5f674a6622e11fd9fc0"
+    },
+    {
+      "path": "data/XCOM/MDATX3.077",
+      "bytes": 7426,
+      "sha256": "6233d1f1f03c9ab179cffa077490ee7d68ff509a7bc3d79c766a1cd8a64cc26c"
+    },
+    {
+      "path": "data/XCOM/MDATX3.078",
+      "bytes": 7426,
+      "sha256": "7b0cf9d40ec1e3730f03743a564bb21610f15b8cbcf7f7acfbdc994167b7fcc4"
+    },
+    {
+      "path": "data/XCOM/MDATX3.079",
+      "bytes": 7450,
+      "sha256": "02cc30411e43b29cd898176956b86306e1572c47f25647c6aea5febfe8b97907"
+    },
+    {
+      "path": "data/XCOM/MDATX3.080",
+      "bytes": 7450,
+      "sha256": "ec252bbfc30be217c1abee66a90898a7f1cdc3cfd2fd9a9116345267ebf14cce"
+    },
+    {
+      "path": "data/XCOM/MDATX3.081",
+      "bytes": 7426,
+      "sha256": "2593328472ddbaea1ad4005f44fca8a0c08cf9522a46340640f1f202e170ef9d"
+    },
+    {
+      "path": "data/XCOM/MDATX3.082",
+      "bytes": 7426,
+      "sha256": "d7e3f65c280820282f097dad70cf4c2ca72bafb676911fc5fe1f1d2f55f5ee24"
+    },
+    {
+      "path": "data/XCOM/MDATX3.083",
+      "bytes": 7426,
+      "sha256": "427bb7871a4351906d96dd045029e1e3866399ee1e5d9d970b7d32004147bd06"
+    },
+    {
+      "path": "data/XCOM/MDATX3.084",
+      "bytes": 7400,
+      "sha256": "0d5528026826ecde8dd5959c6a56e820bf33fd81ae8d07f6fbd00cf31359dd45"
+    },
+    {
+      "path": "data/XCOM/MDATX3.085",
+      "bytes": 7624,
+      "sha256": "d9f386a75a4f0c24013993a66c654fb8b9eeeee9b42d57939a8598b5d26a4f94"
+    },
+    {
+      "path": "data/XCOM/MDATX3.086",
+      "bytes": 7624,
+      "sha256": "bac01f98383fefeae2d1de84b94f0c7bf27fbfd3f0b2ac31aba34def5b5f240d"
+    },
+    {
+      "path": "data/XCOM/MDATX3.087",
+      "bytes": 7676,
+      "sha256": "9ee3496c7f4544a00cc995ecd048386ebef9aaf98d365b1241482323ff28a55f"
+    },
+    {
+      "path": "data/XCOM/MDATX3.088",
+      "bytes": 7925,
+      "sha256": "b3fbcbb43e7cacf8ecc4f97af502a630c5999de16d69a201eaf5cec2c20d60b1"
+    },
+    {
+      "path": "data/XCOM/MDATX3.089",
+      "bytes": 7899,
+      "sha256": "a61fd10208bbe69809347461fbdfe91605b08976fd3fae11384bf43f5f119af3"
+    },
+    {
+      "path": "data/XCOM/MDATX3.090",
+      "bytes": 7872,
+      "sha256": "86343ac6974c302542c23ed1123d1d3c99b8dfb5bed0794a6e3fae4000cb64aa"
+    },
+    {
+      "path": "data/XCOM/MDATX3.091",
+      "bytes": 8097,
+      "sha256": "6490df9abca1ba5b9c357c57afd5246d244e404a01ac736c82b1f003c390fdc9"
+    },
+    {
+      "path": "data/XCOM/MDATX3.092",
+      "bytes": 8100,
+      "sha256": "e2d7021b2d3d8c278dac4a261f542129b1de66d21ac3b74f6a97c0ec53c6511c"
+    },
+    {
+      "path": "data/XCOM/MDATX3.093",
+      "bytes": 8073,
+      "sha256": "bd5202f61d66296816a4bae74321a304c6b255d6ba20da1e5b1b0dd6abfbca66"
+    },
+    {
+      "path": "data/XCOM/MDATX3.094",
+      "bytes": 8073,
+      "sha256": "fdd25b3d6156f682415f01e6da123a0f60330fcf1bdeeb4a771e3ca56a10caaa"
+    },
+    {
+      "path": "data/XCOM/MDATX3.095",
+      "bytes": 8049,
+      "sha256": "070dddf76f8be1aa4fb6d58fcae5e63b6072a165fefb7c59624645407a834dbc"
+    },
+    {
+      "path": "data/XCOM/MDATX3.096",
+      "bytes": 8049,
+      "sha256": "c58097e684740a272f9b257a1f99a63e2ecd9efaa25246cf35224d4cd7fc44ce"
+    },
+    {
+      "path": "data/XCOM/MDATX3.097",
+      "bytes": 8097,
+      "sha256": "b09c018930c52aa5fff514c950cebb8e91caf476074170caaf82eec8677d4e01"
+    },
+    {
+      "path": "data/XCOM/MDATX3.098",
+      "bytes": 8073,
+      "sha256": "4e0e5157d0553bc5d00d28f047b67586b1b050b627a1636f62e2a65278328fbc"
+    },
+    {
+      "path": "data/XCOM/MDATX3.099",
+      "bytes": 8328,
+      "sha256": "e0629123fadf169faaf20bd271984dbb8da0f8957235ae38726b1b504f9eda8d"
+    },
+    {
+      "path": "data/XCOM/MDATX3.100",
+      "bytes": 8552,
+      "sha256": "8fc1f669c800e70371e50e4d39c26587eac5d4c6f3463e14d6307b4d6f6340fd"
+    },
+    {
+      "path": "data/XCOM/Readme.txt",
+      "bytes": 2987,
+      "sha256": "1967ff8f1ab13a5a49a28a455b4da68f9dc3983290ab1e3ca1f1322ca62538fb"
+    },
+    {
+      "path": "data/XCOM/XCOM.f",
+      "bytes": 30472,
+      "sha256": "74138b988692e3319026125a7882ff51b7d180c00438d47d189b54aa55f57c7e"
+    },
+    {
+      "path": "data/XCOM.tar.gz",
+      "bytes": 172805,
+      "sha256": "b2bdd0608bbece4809a337b7264c85b7997f608a1f8e2181ce5201421efcc0de"
+    },
+    {
+      "path": "data/air_composition.html",
+      "bytes": 16272,
+      "sha256": "86d21abf56594c0ff5bc1b7ba1e303099c0860fa9f904d5f6fd6d47aaf0e2c08"
+    },
+    {
+      "path": "data/egs_spectra.cpp",
+      "bytes": 27924,
+      "sha256": "169b0f15b43e2fdb1a639906f456fc4b07c6fc8d4f55c7d5a780d766c7aa37ff"
+    },
+    {
+      "path": "data/egsnrc_license.txt",
+      "bytes": 34523,
+      "sha256": "8486a10c4393cee1c25392769ddd3b2d6c242d6ec7928e1414efff7dfb2f07ef"
+    },
+    {
+      "path": "data/estar_fetch.json",
+      "bytes": 319,
+      "sha256": "eee17be9b58e5c990f50e43f6e9e4528b6a87d34978b322bfa4d63df9442724a"
+    },
+    {
+      "path": "data/estar_form.html",
+      "bytes": 16840,
+      "sha256": "4edc115712d5e9a52107efb4852068ff2913a5d289ea2bfad4f9260999d38af5"
+    },
+    {
+      "path": "data/estar_water.html",
+      "bytes": 2697,
+      "sha256": "29e6157d6ad2af3580bbef9827101a3d6eed44f2f11e66fa8dba8950368bb84c"
+    },
+    {
+      "path": "data/mohan10.spectrum",
+      "bytes": 507,
+      "sha256": "06fe2ba471dbfd64ca4305b5f1560479439ea4b565f993ecb21dcda86a6d8065"
+    },
+    {
+      "path": "data/mohan10_bins.csv",
+      "bytes": 2047,
+      "sha256": "06680a650d44f5c8f2edd2933e689c585dd9d81dc6f822f4e642f65615088bc0"
+    },
+    {
+      "path": "data/nist_license.html",
+      "bytes": 93604,
+      "sha256": "eb0abcffbd15bb66b52b3b0c2a923d7d1590c6ec30768727cd464b3c76e21afe"
+    },
+    {
+      "path": "data/photon_fetch.json",
+      "bytes": 1439,
+      "sha256": "715d48e7acbdf63b69439ddc75c72cc95570ab214e24f98c665d239a953fbea2"
+    },
+    {
+      "path": "data/spectra_directory.json",
+      "bytes": 1639,
+      "sha256": "883009b7b2f1470b136df7c6632ea7fe2e05d9cd104ae098d5ed812743aa8b65"
+    },
+    {
+      "path": "data/spectrum_fetch.json",
+      "bytes": 1434,
+      "sha256": "58b9cb005de6629d6939e1e296ce911410d9b86cc9a6709dbd3df8f4ba9d12a0"
+    },
+    {
+      "path": "data/water_composition.html",
+      "bytes": 16143,
+      "sha256": "5c07d4ba0fbce54ad807a4d236dd5f1e5d37df8fe9c93f72f720d50456b54e0f"
+    },
+    {
+      "path": "data/xcom_Z1.input",
+      "bytes": 38,
+      "sha256": "83f20d9feb435493b9c13e8fc477cc6668dd4f7a0f297dda6cc9c5d505caf9aa"
+    },
+    {
+      "path": "data/xcom_Z1.txt",
+      "bytes": 3054,
+      "sha256": "feb9d393770f96b0e5b4f910cbede603ee4e4b24060ab90788dcc86f655dc2ba"
+    },
+    {
+      "path": "data/xcom_Z18.input",
+      "bytes": 40,
+      "sha256": "f3804468288442c45a554606cf4510a160ca6647386ba219f1df5c08aee13b16"
+    },
+    {
+      "path": "data/xcom_Z18.txt",
+      "bytes": 3054,
+      "sha256": "a2f3f1a66b14876cca088836c5840bbc00c5f669d54a9216b787014bfe4bf64f"
+    },
+    {
+      "path": "data/xcom_Z6.input",
+      "bytes": 38,
+      "sha256": "e7c8a1555c07b283b7758f883ef71b0f819efc86037a97340d461c0368eb258c"
+    },
+    {
+      "path": "data/xcom_Z6.txt",
+      "bytes": 3054,
+      "sha256": "36f7bb4f243c8b74e272d49a42b56c1f4f00e5c8534c5de5f30ed0eba3c32a57"
+    },
+    {
+      "path": "data/xcom_Z7.input",
+      "bytes": 38,
+      "sha256": "b60e4da44cf0aded9d6d65521947ad7f5bac5179ca862fb363884c0fd22137e9"
+    },
+    {
+      "path": "data/xcom_Z7.txt",
+      "bytes": 3054,
+      "sha256": "8c5a4be99a0292027f06c83f203481e1fc59f6e7f2b8b3027f2c349348d1dd54"
+    },
+    {
+      "path": "data/xcom_Z8.input",
+      "bytes": 38,
+      "sha256": "627553536798bf06c363ee21f5abe34b3cf6988037304cd7e2ae4ba870deae87"
+    },
+    {
+      "path": "data/xcom_Z8.txt",
+      "bytes": 3054,
+      "sha256": "598d8d7284d1acdc9429fa94169e6165a228681461b1ff88e2c3707b167e82c0"
+    },
+    {
+      "path": "data/xcom_air.input",
+      "bytes": 84,
+      "sha256": "43e9163585a30018a20756f5c240e54a1e20233b7c005b4eaafe09f24bee09c6"
+    },
+    {
+      "path": "data/xcom_air.txt",
+      "bytes": 3090,
+      "sha256": "b0bd5b18669807513ddf95d846f0de508fdd6c133161421cc34e0d956dc354c6"
+    },
+    {
+      "path": "data/xcom_build.log",
+      "bytes": 2164,
+      "sha256": "593b44b3a00f6540238dd21263847600fae2b20c43d8cbb89b823dee22d66be4"
+    },
+    {
+      "path": "data/xcom_download.html",
+      "bytes": 5203,
+      "sha256": "2eecccb53992119040bcc43bce53b91b580f11f698e06e0c0dcb56a191ffcc26"
+    },
+    {
+      "path": "data/xcom_version.html",
+      "bytes": 6823,
+      "sha256": "be58e27aba15745ef312c0c18603bd7d8d24966f3c52f3b6682138cad70ea650"
+    },
+    {
+      "path": "data/xcom_water.input",
+      "bytes": 41,
+      "sha256": "8979a7de898ee6702b33707fb2c9b6751cd830d1074bf6c23766b4235349ea2d"
+    },
+    {
+      "path": "data/xcom_water.txt",
+      "bytes": 3066,
+      "sha256": "f38523ede474287a0b09452e1f18b20a5ce60ac4f06a15071299a7ed61816d1e"
+    },
+    {
+      "path": "data_sources.md",
+      "bytes": 5212,
+      "sha256": "6d7f4685aeb3d4065d9d34502d87cf39eb6a206633e71f9907a48bea805e5e2b"
+    },
+    {
+      "path": "egs5/README.md",
+      "bytes": 4702,
+      "sha256": "89359dc320e9a7be22af6019e5a1b2e5b3010a093f668e8301e674ab1e9beced"
+    },
+    {
+      "path": "egs5/analysis.log",
+      "bytes": 5172,
+      "sha256": "444989dd83238d02fd5cb861ad53a8983cf45d0180a451568a8914c0ad0b9711"
+    },
+    {
+      "path": "egs5/charged_steps.csv",
+      "bytes": 24871,
+      "sha256": "4dd1fb588ccfe7905e8e463841b58e5f5112a637edd6a8955398214008a13f20"
+    },
+    {
+      "path": "egs5/coupled/build.log",
+      "bytes": 1589,
+      "sha256": "be58467deb069b179f2f003a8006cc49de77f08c2dbd0e29cd8b8baa2d35c85a"
+    },
+    {
+      "path": "egs5/coupled/coupled.f",
+      "bytes": 12720,
+      "sha256": "e7e1e50d7b6cea2ad8d2713915d89c2350214e5aef6526350235bf438b452bbc"
+    },
+    {
+      "path": "egs5/coupled/coupled.inp",
+      "bytes": 236,
+      "sha256": "c9922799c63f58663e4d712caf8f9ecca52f9bcdea6d8b13f3df02bf2d7a551d"
+    },
+    {
+      "path": "egs5/coupled/derivation.json",
+      "bytes": 267,
+      "sha256": "79d069fd98bae660b5bdea96e83824532ab2d14ed48fe9cb43a822910386f931"
+    },
+    {
+      "path": "egs5/coupled/egs5job.dummy",
+      "bytes": 90172,
+      "sha256": "068a0c9b97eb4e163490b17e463fa9cb45011e2e58af4f5b600bb2c7c472bfc1"
+    },
+    {
+      "path": "egs5/coupled/egs5job.out",
+      "bytes": 117972,
+      "sha256": "ab3f3e6155659c78681be6259b7889c869e1340e794acfccfbd2ff6a7a2ab866"
+    },
+    {
+      "path": "egs5/coupled/egs5job.out99",
+      "bytes": 908,
+      "sha256": "b137a996d7ac0a3287aeaef9c9cc65d623f273458bc24cc4c850af7006505920"
+    },
+    {
+      "path": "egs5/coupled/epstar.dat",
+      "bytes": 2560,
+      "sha256": "0c2bb93c6c9934db67fe0327df218ac0a38ac7eb15a57b5a3c349fa20c091b2c"
+    },
+    {
+      "path": "egs5/coupled/metadata.json",
+      "bytes": 956,
+      "sha256": "a800e2db0415c49d7c81dcdaa1dbc8e67d44d3fc2bada2734940c673eb4530b7"
+    },
+    {
+      "path": "egs5/coupled/pgs5job.pegs5dat",
+      "bytes": 89427,
+      "sha256": "1c8a8ebaa8eee77370c7fbf28a04a7b6599e7f4ef39a66b0be7564eda17dc564"
+    },
+    {
+      "path": "egs5/coupled/pgs5job.pegs5lst",
+      "bytes": 96062,
+      "sha256": "3f51236da86a1e488c6f7307bd5cf4c368910a83a2b8693a223e44a691f86a8c"
+    },
+    {
+      "path": "egs5/coupled/run.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "egs5/coupled_pilot/build.log",
+      "bytes": 5366,
+      "sha256": "ceca42ba9811025344e424f3394acb5cb4f85bc52c8c215ffcb0f21af738c6f2"
+    },
+    {
+      "path": "egs5/coupled_pilot/coupled_pilot.f",
+      "bytes": 12711,
+      "sha256": "e2b4f3bf404adea9f379e799bf4ebc235986b21c87a984c17463f6faac61fa42"
+    },
+    {
+      "path": "egs5/coupled_pilot/coupled_pilot.inp",
+      "bytes": 211,
+      "sha256": "1a276882ddf04c3dfe2fd1666f16f1a1ad4e425179c77d9c6f549c62d5122849"
+    },
+    {
+      "path": "egs5/coupled_pilot/derivation.json",
+      "bytes": 266,
+      "sha256": "ddee100a6114721c6870b2500f235830375443267744ae4a9e9726de61f54904"
+    },
+    {
+      "path": "egs5/coupled_pilot/metadata.json",
+      "bytes": 739,
+      "sha256": "e1f1b8e82310dc549c44aed2e20b4c4a90e0ef7c9013a02fb53783426d5fd42a"
+    },
+    {
+      "path": "egs5/coupled_pilot_v2/build.log",
+      "bytes": 1607,
+      "sha256": "fd26ebe854b14459cf89eabf0f10dbcbe33e5b6b5643f59edcc67603ece672f4"
+    },
+    {
+      "path": "egs5/coupled_pilot_v2/coupled_pilot_v2.f",
+      "bytes": 12719,
+      "sha256": "e462ec2d57d486a71e2aedceab128be65d003baa9c6a381184eab0babf715654"
+    },
+    {
+      "path": "egs5/coupled_pilot_v2/coupled_pilot_v2.inp",
+      "bytes": 211,
+      "sha256": "1a276882ddf04c3dfe2fd1666f16f1a1ad4e425179c77d9c6f549c62d5122849"
+    },
+    {
+      "path": "egs5/coupled_pilot_v2/derivation.json",
+      "bytes": 266,
+      "sha256": "ddee100a6114721c6870b2500f235830375443267744ae4a9e9726de61f54904"
+    },
+    {
+      "path": "egs5/coupled_pilot_v2/egs5job.dummy",
+      "bytes": 90172,
+      "sha256": "da68bf2cde59285252ac084a8b3550c33467a8decf681ae0e793bceb065c5d1c"
+    },
+    {
+      "path": "egs5/coupled_pilot_v2/egs5job.out",
+      "bytes": 82477,
+      "sha256": "0d33366d965de485a55e74c6add6082074bee5c9af95dd7d6608954887adb779"
+    },
+    {
+      "path": "egs5/coupled_pilot_v2/metadata.json",
+      "bytes": 797,
+      "sha256": "3a2c6a6d15dc4929198cefc1aa9d32a48de0c90917db20381de9a2d5b4ac3158"
+    },
+    {
+      "path": "egs5/coupled_pilot_v2/pgs5job.pegs5dat",
+      "bytes": 89427,
+      "sha256": "df4006d43b478582dd1effe5bb0124845a6050da0018e490852686b4f85f729b"
+    },
+    {
+      "path": "egs5/coupled_pilot_v2/pgs5job.pegs5lst",
+      "bytes": 96009,
+      "sha256": "547f2bad695310a50bec33f4e421ab3ca7ce8fa3cfd189e30ceb1d83bdd05b0c"
+    },
+    {
+      "path": "egs5/coupled_pilot_v2/run.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "egs5/coupled_repeat_a/build.log",
+      "bytes": 1607,
+      "sha256": "5c7d86a77e8311b0284f09105cf502e28501262e5db988afc4a7922ff51f4025"
+    },
+    {
+      "path": "egs5/coupled_repeat_a/coupled_repeat_a.f",
+      "bytes": 12719,
+      "sha256": "e462ec2d57d486a71e2aedceab128be65d003baa9c6a381184eab0babf715654"
+    },
+    {
+      "path": "egs5/coupled_repeat_a/coupled_repeat_a.inp",
+      "bytes": 211,
+      "sha256": "1a276882ddf04c3dfe2fd1666f16f1a1ad4e425179c77d9c6f549c62d5122849"
+    },
+    {
+      "path": "egs5/coupled_repeat_a/derivation.json",
+      "bytes": 266,
+      "sha256": "ddee100a6114721c6870b2500f235830375443267744ae4a9e9726de61f54904"
+    },
+    {
+      "path": "egs5/coupled_repeat_a/egs5job.dummy",
+      "bytes": 90172,
+      "sha256": "da68bf2cde59285252ac084a8b3550c33467a8decf681ae0e793bceb065c5d1c"
+    },
+    {
+      "path": "egs5/coupled_repeat_a/egs5job.out",
+      "bytes": 82477,
+      "sha256": "bcb6a03e63b2613fc850fd12acf2a5cbbc72c9bbeac80ad83959f6ddf2f84347"
+    },
+    {
+      "path": "egs5/coupled_repeat_a/metadata.json",
+      "bytes": 921,
+      "sha256": "a7100d2321146c138d825d4bc884da1504b8513bc9b4e9cd641610e95f79d37a"
+    },
+    {
+      "path": "egs5/coupled_repeat_a/pgs5job.pegs5dat",
+      "bytes": 89427,
+      "sha256": "df4006d43b478582dd1effe5bb0124845a6050da0018e490852686b4f85f729b"
+    },
+    {
+      "path": "egs5/coupled_repeat_a/pgs5job.pegs5lst",
+      "bytes": 96009,
+      "sha256": "547f2bad695310a50bec33f4e421ab3ca7ce8fa3cfd189e30ceb1d83bdd05b0c"
+    },
+    {
+      "path": "egs5/coupled_repeat_a/run.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "egs5/coupled_repeat_b/build.log",
+      "bytes": 1607,
+      "sha256": "edb87049fd01782b45ad2ab6e8505e22500670b90d441ffe5649a3739f629bf5"
+    },
+    {
+      "path": "egs5/coupled_repeat_b/coupled_repeat_b.f",
+      "bytes": 12719,
+      "sha256": "e462ec2d57d486a71e2aedceab128be65d003baa9c6a381184eab0babf715654"
+    },
+    {
+      "path": "egs5/coupled_repeat_b/coupled_repeat_b.inp",
+      "bytes": 236,
+      "sha256": "c9922799c63f58663e4d712caf8f9ecca52f9bcdea6d8b13f3df02bf2d7a551d"
+    },
+    {
+      "path": "egs5/coupled_repeat_b/derivation.json",
+      "bytes": 266,
+      "sha256": "ddee100a6114721c6870b2500f235830375443267744ae4a9e9726de61f54904"
+    },
+    {
+      "path": "egs5/coupled_repeat_b/epstar.dat",
+      "bytes": 2560,
+      "sha256": "0c2bb93c6c9934db67fe0327df218ac0a38ac7eb15a57b5a3c349fa20c091b2c"
+    },
+    {
+      "path": "egs5/coupled_repeat_b/run.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "egs5/coupled_repeat_b/runner_failure.txt",
+      "bytes": 191,
+      "sha256": "d24772a06f02aaaf259f5d29be52898ff94c81dc7fede99abcb72a2d1dc62779"
+    },
+    {
+      "path": "egs5/coupled_repeat_c/build.log",
+      "bytes": 1607,
+      "sha256": "caee458702ad2fde6adbd8f343cf1bbb47e0a57cfdbdb6388bb3b2cb93b64598"
+    },
+    {
+      "path": "egs5/coupled_repeat_c/coupled_repeat_c.f",
+      "bytes": 12719,
+      "sha256": "e462ec2d57d486a71e2aedceab128be65d003baa9c6a381184eab0babf715654"
+    },
+    {
+      "path": "egs5/coupled_repeat_c/coupled_repeat_c.inp",
+      "bytes": 236,
+      "sha256": "c9922799c63f58663e4d712caf8f9ecca52f9bcdea6d8b13f3df02bf2d7a551d"
+    },
+    {
+      "path": "egs5/coupled_repeat_c/derivation.json",
+      "bytes": 266,
+      "sha256": "ddee100a6114721c6870b2500f235830375443267744ae4a9e9726de61f54904"
+    },
+    {
+      "path": "egs5/coupled_repeat_c/egs5job.dummy",
+      "bytes": 90172,
+      "sha256": "068a0c9b97eb4e163490b17e463fa9cb45011e2e58af4f5b600bb2c7c472bfc1"
+    },
+    {
+      "path": "egs5/coupled_repeat_c/egs5job.out",
+      "bytes": 82911,
+      "sha256": "b76133dc1fc8fd52f2230fa161a54ae74b2b44ff90f181aad6a90da308d8c22f"
+    },
+    {
+      "path": "egs5/coupled_repeat_c/egs5job.out99",
+      "bytes": 908,
+      "sha256": "32624e524299a24d21f18821ff8cb2f80b2c45e5214f0d4ce4ef3792f04e9ad1"
+    },
+    {
+      "path": "egs5/coupled_repeat_c/epstar.dat",
+      "bytes": 2560,
+      "sha256": "0c2bb93c6c9934db67fe0327df218ac0a38ac7eb15a57b5a3c349fa20c091b2c"
+    },
+    {
+      "path": "egs5/coupled_repeat_c/metadata.json",
+      "bytes": 956,
+      "sha256": "51ddc2c7e4e9e81879230d4f6d21dae96c812d8fa09150fb3ddc7cf63ae1b7ad"
+    },
+    {
+      "path": "egs5/coupled_repeat_c/pgs5job.pegs5dat",
+      "bytes": 89427,
+      "sha256": "1c8a8ebaa8eee77370c7fbf28a04a7b6599e7f4ef39a66b0be7564eda17dc564"
+    },
+    {
+      "path": "egs5/coupled_repeat_c/pgs5job.pegs5lst",
+      "bytes": 96062,
+      "sha256": "3f51236da86a1e488c6f7307bd5cf4c368910a83a2b8693a223e44a691f86a8c"
+    },
+    {
+      "path": "egs5/coupled_repeat_c/run.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "egs5/coupled_repeat_d/build.log",
+      "bytes": 1607,
+      "sha256": "c4a34265eefcab58724527f542cd5f092d20bf26fb0028f02e0bbfa810603f5f"
+    },
+    {
+      "path": "egs5/coupled_repeat_d/coupled_repeat_d.f",
+      "bytes": 12719,
+      "sha256": "e462ec2d57d486a71e2aedceab128be65d003baa9c6a381184eab0babf715654"
+    },
+    {
+      "path": "egs5/coupled_repeat_d/coupled_repeat_d.inp",
+      "bytes": 236,
+      "sha256": "c9922799c63f58663e4d712caf8f9ecca52f9bcdea6d8b13f3df02bf2d7a551d"
+    },
+    {
+      "path": "egs5/coupled_repeat_d/derivation.json",
+      "bytes": 266,
+      "sha256": "ddee100a6114721c6870b2500f235830375443267744ae4a9e9726de61f54904"
+    },
+    {
+      "path": "egs5/coupled_repeat_d/egs5job.dummy",
+      "bytes": 90172,
+      "sha256": "068a0c9b97eb4e163490b17e463fa9cb45011e2e58af4f5b600bb2c7c472bfc1"
+    },
+    {
+      "path": "egs5/coupled_repeat_d/egs5job.out",
+      "bytes": 82911,
+      "sha256": "b1f3535e0360ebe9a8fa56a1f2f01edcc257b62fd8b274a8c449b0ee6919fd22"
+    },
+    {
+      "path": "egs5/coupled_repeat_d/egs5job.out99",
+      "bytes": 908,
+      "sha256": "32624e524299a24d21f18821ff8cb2f80b2c45e5214f0d4ce4ef3792f04e9ad1"
+    },
+    {
+      "path": "egs5/coupled_repeat_d/epstar.dat",
+      "bytes": 2560,
+      "sha256": "0c2bb93c6c9934db67fe0327df218ac0a38ac7eb15a57b5a3c349fa20c091b2c"
+    },
+    {
+      "path": "egs5/coupled_repeat_d/metadata.json",
+      "bytes": 957,
+      "sha256": "60976b37ff9dd8e22156a13a4f4d22473d80ea936ab687b5f05e6fc0d6bfc6dc"
+    },
+    {
+      "path": "egs5/coupled_repeat_d/pgs5job.pegs5dat",
+      "bytes": 89427,
+      "sha256": "1c8a8ebaa8eee77370c7fbf28a04a7b6599e7f4ef39a66b0be7564eda17dc564"
+    },
+    {
+      "path": "egs5/coupled_repeat_d/pgs5job.pegs5lst",
+      "bytes": 96062,
+      "sha256": "3f51236da86a1e488c6f7307bd5cf4c368910a83a2b8693a223e44a691f86a8c"
+    },
+    {
+      "path": "egs5/coupled_repeat_d/run.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "egs5/kerma/build.log",
+      "bytes": 1585,
+      "sha256": "6cfacae678a3d893b97100fb2f77183f35b48d4e8179e15dd31ceb1dd04cb1dd"
+    },
+    {
+      "path": "egs5/kerma/derivation.json",
+      "bytes": 266,
+      "sha256": "8517b701632cf3513f6323f11a98ce9a991a6ac8661753a5bac915851c6d8368"
+    },
+    {
+      "path": "egs5/kerma/egs5job.dummy",
+      "bytes": 90172,
+      "sha256": "068a0c9b97eb4e163490b17e463fa9cb45011e2e58af4f5b600bb2c7c472bfc1"
+    },
+    {
+      "path": "egs5/kerma/egs5job.out",
+      "bytes": 15641,
+      "sha256": "f430f85d3409c0b5395996d5f9e08aadb1cb65b112b8e49cbe06ef9cdf10ee7e"
+    },
+    {
+      "path": "egs5/kerma/egs5job.out99",
+      "bytes": 908,
+      "sha256": "60b94210f70f4296e7439c085b711baa03dbf88a2a1d84df3593e80d89c4b4e5"
+    },
+    {
+      "path": "egs5/kerma/epstar.dat",
+      "bytes": 2560,
+      "sha256": "0c2bb93c6c9934db67fe0327df218ac0a38ac7eb15a57b5a3c349fa20c091b2c"
+    },
+    {
+      "path": "egs5/kerma/kerma.f",
+      "bytes": 12718,
+      "sha256": "cbc89a4d95afe3fc105176f8d229aeaa3e89868c05af8a17c98cb04c8d4faf53"
+    },
+    {
+      "path": "egs5/kerma/kerma.inp",
+      "bytes": 236,
+      "sha256": "c9922799c63f58663e4d712caf8f9ecca52f9bcdea6d8b13f3df02bf2d7a551d"
+    },
+    {
+      "path": "egs5/kerma/metadata.json",
+      "bytes": 957,
+      "sha256": "65db602a9e745b5804d49561dca867c885a9c5e16803dc11df0f9d80b4cbde14"
+    },
+    {
+      "path": "egs5/kerma/pgs5job.pegs5dat",
+      "bytes": 89427,
+      "sha256": "1c8a8ebaa8eee77370c7fbf28a04a7b6599e7f4ef39a66b0be7564eda17dc564"
+    },
+    {
+      "path": "egs5/kerma/pgs5job.pegs5lst",
+      "bytes": 96062,
+      "sha256": "3f51236da86a1e488c6f7307bd5cf4c368910a83a2b8693a223e44a691f86a8c"
+    },
+    {
+      "path": "egs5/kerma/run.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "egs5/pdd.csv",
+      "bytes": 21764,
+      "sha256": "b83527a306d87c83b745d00018c73956ea0482e6e7a16234114f2622ce3dd730"
+    },
+    {
+      "path": "egs5/pdd.png",
+      "bytes": 177086,
+      "sha256": "7dea8728597d4e218032653f57ed608d67f5a5827f1974c75becd3664b7139dc"
+    },
+    {
+      "path": "egs5/pegs_manual.txt",
+      "bytes": 64096,
+      "sha256": "3cab74e9ce0182be129ec050a8ce1af7075aef4c895b336620ea77ffdd7ebed0"
+    },
+    {
+      "path": "egs5/prepare_inputs.py",
+      "bytes": 9123,
+      "sha256": "79c1908bd0aaa8874925b9cdf7c8247670f5a7e3b74880121ad7664cde0a3b6d"
+    },
+    {
+      "path": "egs5/prepare_spectrum.py",
+      "bytes": 2387,
+      "sha256": "ddb767a032b927bfa2f7ca89a987e824978daa0508f0fdb61400142dec8329fa"
+    },
+    {
+      "path": "egs5/prepare_stopping.py",
+      "bytes": 2549,
+      "sha256": "8fdb8c9c46b7a071f5e46c48308de5b2a31554cac3e74e1dd09694deb21c8656"
+    },
+    {
+      "path": "egs5/run_egs5.py",
+      "bytes": 2649,
+      "sha256": "bd8c0f29e496f3174086f9e38654ed91ac5639f86ce23326661736feb2373969"
+    },
+    {
+      "path": "egs5/spectrum_200k/build.log",
+      "bytes": 1601,
+      "sha256": "37b205823f292737d82f8a50027262ed84241940b0113cf5a7874e8b1c266afe"
+    },
+    {
+      "path": "egs5/spectrum_200k/derivation.json",
+      "bytes": 268,
+      "sha256": "b4bd72ec4391dd3a6958e3c4c9cbf666c224329e8b487a02f583c1af65ae0aad"
+    },
+    {
+      "path": "egs5/spectrum_200k/egs5job.dummy",
+      "bytes": 90172,
+      "sha256": "068a0c9b97eb4e163490b17e463fa9cb45011e2e58af4f5b600bb2c7c472bfc1"
+    },
+    {
+      "path": "egs5/spectrum_200k/egs5job.out",
+      "bytes": 92397,
+      "sha256": "327bbf230d1973234289e46788a3eba2277e9ffdc9967fc2aaf2a16b8e1b2be1"
+    },
+    {
+      "path": "egs5/spectrum_200k/egs5job.out99",
+      "bytes": 908,
+      "sha256": "e742ce1ec02fd4df4ae576e376db9fc7dfad07e7fb56d882ae94bae3335cd14f"
+    },
+    {
+      "path": "egs5/spectrum_200k/epstar.dat",
+      "bytes": 2560,
+      "sha256": "0c2bb93c6c9934db67fe0327df218ac0a38ac7eb15a57b5a3c349fa20c091b2c"
+    },
+    {
+      "path": "egs5/spectrum_200k/metadata.json",
+      "bytes": 955,
+      "sha256": "80b7758c9f5f2d10d7cc096ac89db896ac060b77eaf668f28f7a8b0313591adf"
+    },
+    {
+      "path": "egs5/spectrum_200k/pgs5job.pegs5dat",
+      "bytes": 89427,
+      "sha256": "1c8a8ebaa8eee77370c7fbf28a04a7b6599e7f4ef39a66b0be7564eda17dc564"
+    },
+    {
+      "path": "egs5/spectrum_200k/pgs5job.pegs5lst",
+      "bytes": 96062,
+      "sha256": "3f51236da86a1e488c6f7307bd5cf4c368910a83a2b8693a223e44a691f86a8c"
+    },
+    {
+      "path": "egs5/spectrum_200k/run.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "egs5/spectrum_200k/spectrum_200k.f",
+      "bytes": 14386,
+      "sha256": "a40a9640e9bfd7b77cb3e87defb98715f2247935979022c6707ba8bcc05241a5"
+    },
+    {
+      "path": "egs5/spectrum_200k/spectrum_200k.inp",
+      "bytes": 236,
+      "sha256": "c9922799c63f58663e4d712caf8f9ecca52f9bcdea6d8b13f3df02bf2d7a551d"
+    },
+    {
+      "path": "egs5/spectrum_200k/spectrum_sampling.json",
+      "bytes": 987,
+      "sha256": "f38e4ec7a7eb48aabafb0526f7d6c4c30cee732f540a1ef1d0b2ee090d5e6c8a"
+    },
+    {
+      "path": "egs5/spectrum_charged_steps.csv",
+      "bytes": 18738,
+      "sha256": "220fcccea5a39f357fa822b1af7aeb9307bf72448131e3ca67642b24cd70dd80"
+    },
+    {
+      "path": "egs5/spectrum_no_pdd/build.log",
+      "bytes": 1605,
+      "sha256": "f7e65b383a1d654a99ca307d812fb9e6ef75812eee5a7952cc5ac8786d0537c6"
+    },
+    {
+      "path": "egs5/spectrum_no_pdd/derivation.json",
+      "bytes": 268,
+      "sha256": "b4bd72ec4391dd3a6958e3c4c9cbf666c224329e8b487a02f583c1af65ae0aad"
+    },
+    {
+      "path": "egs5/spectrum_no_pdd/egs5job.dummy",
+      "bytes": 90172,
+      "sha256": "068a0c9b97eb4e163490b17e463fa9cb45011e2e58af4f5b600bb2c7c472bfc1"
+    },
+    {
+      "path": "egs5/spectrum_no_pdd/egs5job.out",
+      "bytes": 92397,
+      "sha256": "a4de96c30382bf990a42557a26ca3077666f31caef79a4f3293f64746f7bfa77"
+    },
+    {
+      "path": "egs5/spectrum_no_pdd/egs5job.out99",
+      "bytes": 908,
+      "sha256": "e742ce1ec02fd4df4ae576e376db9fc7dfad07e7fb56d882ae94bae3335cd14f"
+    },
+    {
+      "path": "egs5/spectrum_no_pdd/epstar.dat",
+      "bytes": 2560,
+      "sha256": "0c2bb93c6c9934db67fe0327df218ac0a38ac7eb15a57b5a3c349fa20c091b2c"
+    },
+    {
+      "path": "egs5/spectrum_no_pdd/metadata.json",
+      "bytes": 957,
+      "sha256": "76e3a1e2f03cdec24f03264cd814fe3ac6f0e7ea8373a109e5d1ee47b22cb709"
+    },
+    {
+      "path": "egs5/spectrum_no_pdd/pgs5job.pegs5dat",
+      "bytes": 89427,
+      "sha256": "1c8a8ebaa8eee77370c7fbf28a04a7b6599e7f4ef39a66b0be7564eda17dc564"
+    },
+    {
+      "path": "egs5/spectrum_no_pdd/pgs5job.pegs5lst",
+      "bytes": 96062,
+      "sha256": "3f51236da86a1e488c6f7307bd5cf4c368910a83a2b8693a223e44a691f86a8c"
+    },
+    {
+      "path": "egs5/spectrum_no_pdd/run.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "egs5/spectrum_no_pdd/spectrum_no_pdd.f",
+      "bytes": 14368,
+      "sha256": "55e846d763fabc3d31ba7aa13d890237cb78b855e16679ee6353e856c47d029d"
+    },
+    {
+      "path": "egs5/spectrum_no_pdd/spectrum_no_pdd.inp",
+      "bytes": 236,
+      "sha256": "c9922799c63f58663e4d712caf8f9ecca52f9bcdea6d8b13f3df02bf2d7a551d"
+    },
+    {
+      "path": "egs5/spectrum_no_pdd/spectrum_sampling.json",
+      "bytes": 987,
+      "sha256": "f38e4ec7a7eb48aabafb0526f7d6c4c30cee732f540a1ef1d0b2ee090d5e6c8a"
+    },
+    {
+      "path": "egs5/spectrum_no_timer/build.log",
+      "bytes": 1609,
+      "sha256": "030bc8f9b92c29daba9ce95bdd929a2fdec4edfb69f21065d8bbb3e370ecff5d"
+    },
+    {
+      "path": "egs5/spectrum_no_timer/derivation.json",
+      "bytes": 268,
+      "sha256": "c2ca7f26e66807dadd4efe6b150d4a9cec8b3cc822e72caf604e380c34f9f792"
+    },
+    {
+      "path": "egs5/spectrum_no_timer/egs5job.dummy",
+      "bytes": 90172,
+      "sha256": "068a0c9b97eb4e163490b17e463fa9cb45011e2e58af4f5b600bb2c7c472bfc1"
+    },
+    {
+      "path": "egs5/spectrum_no_timer/egs5job.out",
+      "bytes": 88336,
+      "sha256": "481440fdbbc3bf393eb6163bf71aeed29c1d9495c39a069d45ca21189aae90e2"
+    },
+    {
+      "path": "egs5/spectrum_no_timer/egs5job.out99",
+      "bytes": 908,
+      "sha256": "ceb28c28c5052220d02763aa44568968ec399cb73c8160b1b830bc164a688af0"
+    },
+    {
+      "path": "egs5/spectrum_no_timer/epstar.dat",
+      "bytes": 2560,
+      "sha256": "0c2bb93c6c9934db67fe0327df218ac0a38ac7eb15a57b5a3c349fa20c091b2c"
+    },
+    {
+      "path": "egs5/spectrum_no_timer/metadata.json",
+      "bytes": 955,
+      "sha256": "d5c57356e4a258699f81555f1d65ee8c50ff00ab6789c0f44587ec7635333894"
+    },
+    {
+      "path": "egs5/spectrum_no_timer/pgs5job.pegs5dat",
+      "bytes": 89427,
+      "sha256": "1c8a8ebaa8eee77370c7fbf28a04a7b6599e7f4ef39a66b0be7564eda17dc564"
+    },
+    {
+      "path": "egs5/spectrum_no_timer/pgs5job.pegs5lst",
+      "bytes": 96062,
+      "sha256": "3f51236da86a1e488c6f7307bd5cf4c368910a83a2b8693a223e44a691f86a8c"
+    },
+    {
+      "path": "egs5/spectrum_no_timer/run.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "egs5/spectrum_no_timer/spectrum_no_timer.f",
+      "bytes": 14386,
+      "sha256": "1524f939d436bee6f6cc036ae3ea7b0fdb9830772af46cf0baa058a8c4440d19"
+    },
+    {
+      "path": "egs5/spectrum_no_timer/spectrum_no_timer.inp",
+      "bytes": 236,
+      "sha256": "c9922799c63f58663e4d712caf8f9ecca52f9bcdea6d8b13f3df02bf2d7a551d"
+    },
+    {
+      "path": "egs5/spectrum_no_timer/spectrum_sampling.json",
+      "bytes": 987,
+      "sha256": "f38e4ec7a7eb48aabafb0526f7d6c4c30cee732f540a1ef1d0b2ee090d5e6c8a"
+    },
+    {
+      "path": "egs5/spectrum_pdd.csv",
+      "bytes": 11727,
+      "sha256": "1e94652d65ebdf13c1b644a0c8852675f5c705dc944dbc0d81d6f6b0e7872aca"
+    },
+    {
+      "path": "egs5/spectrum_pilot/build.log",
+      "bytes": 1603,
+      "sha256": "6cc5bf63f43b5f813c498eb4200827c0ce786c05b4092825d172fd211f355dc3"
+    },
+    {
+      "path": "egs5/spectrum_pilot/derivation.json",
+      "bytes": 267,
+      "sha256": "98ffacabf69260b67a1989321869caf9418747448eb12201bf094cc796169d9d"
+    },
+    {
+      "path": "egs5/spectrum_pilot/egs5job.dummy",
+      "bytes": 90172,
+      "sha256": "068a0c9b97eb4e163490b17e463fa9cb45011e2e58af4f5b600bb2c7c472bfc1"
+    },
+    {
+      "path": "egs5/spectrum_pilot/egs5job.out",
+      "bytes": 88336,
+      "sha256": "7398de407c7b6bc358a1130b4aee100d0095a8170e15347799b303eb8b0a1669"
+    },
+    {
+      "path": "egs5/spectrum_pilot/egs5job.out99",
+      "bytes": 908,
+      "sha256": "ceb28c28c5052220d02763aa44568968ec399cb73c8160b1b830bc164a688af0"
+    },
+    {
+      "path": "egs5/spectrum_pilot/epstar.dat",
+      "bytes": 2560,
+      "sha256": "0c2bb93c6c9934db67fe0327df218ac0a38ac7eb15a57b5a3c349fa20c091b2c"
+    },
+    {
+      "path": "egs5/spectrum_pilot/metadata.json",
+      "bytes": 957,
+      "sha256": "8c55aaa45a5b5f025f2bfa3f3cb1cc9c04e3dee26fee2cca168f330f5c3289aa"
+    },
+    {
+      "path": "egs5/spectrum_pilot/pgs5job.pegs5dat",
+      "bytes": 89427,
+      "sha256": "1c8a8ebaa8eee77370c7fbf28a04a7b6599e7f4ef39a66b0be7564eda17dc564"
+    },
+    {
+      "path": "egs5/spectrum_pilot/pgs5job.pegs5lst",
+      "bytes": 96062,
+      "sha256": "3f51236da86a1e488c6f7307bd5cf4c368910a83a2b8693a223e44a691f86a8c"
+    },
+    {
+      "path": "egs5/spectrum_pilot/run.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "egs5/spectrum_pilot/spectrum_pilot.f",
+      "bytes": 14410,
+      "sha256": "9e1baeaccd083a840b468751e5d06852c42a5bd723de05d7814584dd37f23664"
+    },
+    {
+      "path": "egs5/spectrum_pilot/spectrum_pilot.inp",
+      "bytes": 236,
+      "sha256": "c9922799c63f58663e4d712caf8f9ecca52f9bcdea6d8b13f3df02bf2d7a551d"
+    },
+    {
+      "path": "egs5/spectrum_pilot/spectrum_sampling.json",
+      "bytes": 987,
+      "sha256": "f38e4ec7a7eb48aabafb0526f7d6c4c30cee732f540a1ef1d0b2ee090d5e6c8a"
+    },
+    {
+      "path": "egs5/stopping/preparation_failure.txt",
+      "bytes": 205,
+      "sha256": "0d3502c2e34d893e6af01460d902627b78a34c398ff05268a3a66ea6a6f2bd22"
+    },
+    {
+      "path": "egs5/stopping/stopping.f",
+      "bytes": 2013,
+      "sha256": "71c72b3fb95d7035354b3ab18b3bf9dec3a9a0eaca292b62ab2e000c47db699d"
+    },
+    {
+      "path": "egs5/stopping_v2/build.log",
+      "bytes": 1597,
+      "sha256": "782349cd28cbcebbcffcf28d0ad7c5d74d3e667609fcecd55b58553c728ac0b5"
+    },
+    {
+      "path": "egs5/stopping_v2/conditions.json",
+      "bytes": 229,
+      "sha256": "3476c2a67510ff30c84278c7e45c99ad9be99231e13057c80d049f95e22baf9b"
+    },
+    {
+      "path": "egs5/stopping_v2/egs5job.out",
+      "bytes": 24,
+      "sha256": "e45a60db1fd4cd27eef0e57e3b98a8b5ea0c3028ae8acc1e521730e79613e4a7"
+    },
+    {
+      "path": "egs5/stopping_v2/egs5job.out99",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "egs5/stopping_v2/epstar.dat",
+      "bytes": 2560,
+      "sha256": "0c2bb93c6c9934db67fe0327df218ac0a38ac7eb15a57b5a3c349fa20c091b2c"
+    },
+    {
+      "path": "egs5/stopping_v2/metadata.json",
+      "bytes": 957,
+      "sha256": "1dae51c8e390701bb8a28302979eda0bf37e9f6ca9b0312c99173612c4595451"
+    },
+    {
+      "path": "egs5/stopping_v2/pgs5job.pegs5dat",
+      "bytes": 89427,
+      "sha256": "1c8a8ebaa8eee77370c7fbf28a04a7b6599e7f4ef39a66b0be7564eda17dc564"
+    },
+    {
+      "path": "egs5/stopping_v2/pgs5job.pegs5lst",
+      "bytes": 98396,
+      "sha256": "4e971fe517ce0c7126ea52b9646b4ea64cc1f3f76704587faebf99beba559f27"
+    },
+    {
+      "path": "egs5/stopping_v2/run.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "egs5/stopping_v2/stopping_v2.f",
+      "bytes": 2013,
+      "sha256": "71c72b3fb95d7035354b3ab18b3bf9dec3a9a0eaca292b62ab2e000c47db699d"
+    },
+    {
+      "path": "egs5/stopping_v2/stopping_v2.inp",
+      "bytes": 593,
+      "sha256": "985bf4de448148f7f6dd518e1f9da19eb8e6581c68749295c61374c9a98641f8"
+    },
+    {
+      "path": "egs5/stopping_v3/build.log",
+      "bytes": 1597,
+      "sha256": "860578709cf7678ada30ae84a27b1c91be94137c1612691de9eb5e9b708bf468"
+    },
+    {
+      "path": "egs5/stopping_v3/conditions.json",
+      "bytes": 229,
+      "sha256": "3476c2a67510ff30c84278c7e45c99ad9be99231e13057c80d049f95e22baf9b"
+    },
+    {
+      "path": "egs5/stopping_v3/egs5job.out",
+      "bytes": 24,
+      "sha256": "e45a60db1fd4cd27eef0e57e3b98a8b5ea0c3028ae8acc1e521730e79613e4a7"
+    },
+    {
+      "path": "egs5/stopping_v3/egs5job.out99",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "egs5/stopping_v3/epstar.dat",
+      "bytes": 2560,
+      "sha256": "0c2bb93c6c9934db67fe0327df218ac0a38ac7eb15a57b5a3c349fa20c091b2c"
+    },
+    {
+      "path": "egs5/stopping_v3/metadata.json",
+      "bytes": 957,
+      "sha256": "bb44b5debfbf49aa1283007398548fbb7950e058ddcf91ad78f3de6d9b4b429c"
+    },
+    {
+      "path": "egs5/stopping_v3/pgs5job.pegs5dat",
+      "bytes": 89427,
+      "sha256": "1c8a8ebaa8eee77370c7fbf28a04a7b6599e7f4ef39a66b0be7564eda17dc564"
+    },
+    {
+      "path": "egs5/stopping_v3/pgs5job.pegs5lst",
+      "bytes": 98396,
+      "sha256": "08a17bb3c3315364948b231c1b7db9642c044612abe7c6cec980a90f36ef1ae3"
+    },
+    {
+      "path": "egs5/stopping_v3/run.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "egs5/stopping_v3/stopping_v3.f",
+      "bytes": 2013,
+      "sha256": "71c72b3fb95d7035354b3ab18b3bf9dec3a9a0eaca292b62ab2e000c47db699d"
+    },
+    {
+      "path": "egs5/stopping_v3/stopping_v3.inp",
+      "bytes": 593,
+      "sha256": "ea4ffc027c5daee73a5df19adffc52a3c3294b80105ee81fbf74425e6ffb870a"
+    },
+    {
+      "path": "egs5/user_manual.txt",
+      "bytes": 74555,
+      "sha256": "109720060fc2ebf8602d4363455242520697a4bfe1c7953f8b3f478c51225569"
+    },
+    {
+      "path": "egs5_check.json",
+      "bytes": 5172,
+      "sha256": "444989dd83238d02fd5cb861ad53a8983cf45d0180a451568a8914c0ad0b9711"
+    },
+    {
+      "path": "egs5_test.log",
+      "bytes": 5172,
+      "sha256": "444989dd83238d02fd5cb861ad53a8983cf45d0180a451568a8914c0ad0b9711"
+    },
+    {
+      "path": "estar_check.json",
+      "bytes": 1469,
+      "sha256": "3ab7ebf567a3eb01858da64d5ec831bfe9624fa6d6e1286acabb25bae05e9848"
+    },
+    {
+      "path": "estar_test.log",
+      "bytes": 1469,
+      "sha256": "3ab7ebf567a3eb01858da64d5ec831bfe9624fa6d6e1286acabb25bae05e9848"
+    },
+    {
+      "path": "fetch_estar.py",
+      "bytes": 925,
+      "sha256": "b8e5a93cfe419fae6a299f91c7e0895ef868f2b983685c250811be7e5ec4f295"
+    },
+    {
+      "path": "fetch_photon_data.py",
+      "bytes": 1471,
+      "sha256": "9569e0c9994243c10edd17574f56c17c265f2dfbfc87fb8c1589fd40ab4a8b5e"
+    },
+    {
+      "path": "fetch_spectrum.py",
+      "bytes": 1264,
+      "sha256": "ae48712297bc99d8c6cfc45ca3600584428a7d84d3f5d0618abe527d3b993db6"
+    },
+    {
+      "path": "kernel_measurement.json",
+      "bytes": 3029,
+      "sha256": "38013fafcf6e6bbb534ea6f98a91c8360def53a5e210f8574be96af3b8af0e26"
+    },
+    {
+      "path": "make_manifest.py",
+      "bytes": 2735,
+      "sha256": "8b1d2f98259f741fabe61cabe25e80c03910704e2e8b66115a17acbaa514a9a7"
+    },
+    {
+      "path": "measure_kernel.py",
+      "bytes": 3084,
+      "sha256": "fad3062ce8f290ba9c68d43b2abdad3acca1edc2f568c3f2aedf573affc1322d"
+    },
+    {
+      "path": "model_selection.md",
+      "bytes": 4010,
+      "sha256": "01f168182627bfdcaa3984f4b582df0806a552b69b97fe6d707a5cf8b543d9c6"
+    },
+    {
+      "path": "performance_check.json",
+      "bytes": 5645,
+      "sha256": "8405be8b1b0417230a0a6415addf316424db4057a174b627cf7de6b47e880f89"
+    },
+    {
+      "path": "performance_test.log",
+      "bytes": 4410,
+      "sha256": "5cfc8861c6d6a1d5368ed562663af2e9acbde147233933258dc6acf6649e2240"
+    },
+    {
+      "path": "photon_check.json",
+      "bytes": 16974,
+      "sha256": "b365b9ab1cc8a276d68b20c9ea2c39b7c0ebcb7f137b53b6d1820966b0c64573"
+    },
+    {
+      "path": "photon_comparison.csv",
+      "bytes": 2955,
+      "sha256": "6545cd2a5917f32bb3b774c045f31468e10895058c571fff30b183130f5007ba"
+    },
+    {
+      "path": "photon_test.log",
+      "bytes": 409,
+      "sha256": "735b8ba95535a7873c899856835e82ce779450e6a9c36f15adfd253e3c65d8cb"
+    },
+    {
+      "path": "production_diff_stat.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "regression_test.log",
+      "bytes": 1365,
+      "sha256": "f426e0993234ba0b77e6eacbd159a334047060fedf4678ec9c32a9efd7365f09"
+    },
+    {
+      "path": "spectrum_check.json",
+      "bytes": 811,
+      "sha256": "2cb0551987549a26f3110b320911a106737d6fcf9aeab6963a19c0e1bdf4c3bb"
+    },
+    {
+      "path": "spectrum_test.log",
+      "bytes": 811,
+      "sha256": "2cb0551987549a26f3110b320911a106737d6fcf9aeab6963a19c0e1bdf4c3bb"
+    }
+  ],
+  "redistribution_note": "Raw SRD/spectrum/third-party reference source/density fixtures are locally ignored; no redistribution permission is asserted; no git commit performed."
+}

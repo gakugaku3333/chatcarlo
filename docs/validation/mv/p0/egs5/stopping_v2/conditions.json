@@ -1,0 +1,12 @@
+{
+  "RM_MeV": 0.5109989026752615,
+  "mass_fractions": {
+    "1": 0.111894,
+    "8": 0.888106
+  },
+  "density_g_cm3": 1.0,
+  "EPSTFL": 1,
+  "AE_MeV_total": 0.521,
+  "unrestricted_cutoff": "EE=E0",
+  "restricted_cutoff": "EE=AE"
+}

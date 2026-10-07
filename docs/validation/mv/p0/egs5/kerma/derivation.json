@@ -1,0 +1,8 @@
+{
+  "original": "docs/egs5_crosscheck/revalidation_2026_10_07/egs5/pdd_phantom/pdd_phantom.f",
+  "original_sha256": "ec1efc9255f2f1451f43bd7fdadce27722243e8330391314f072348b6ff129c9",
+  "ncase": 200000,
+  "seed": 20261007,
+  "kerma": true,
+  "scoring_timer": true
+}

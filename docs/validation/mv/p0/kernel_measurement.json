@@ -1,0 +1,76 @@
+{
+  "rows": [
+    {
+      "histories": 20000,
+      "seed": 20261007,
+      "transport_seconds": 0.035268957959488034,
+      "recorded_transport_seconds": 0.03440345800481737,
+      "positive_flight_segments": 119423,
+      "segments_per_history": 5.97115,
+      "seconds_per_segment_untallied": 2.9532801855160257e-07,
+      "seconds_per_segment_recorded": 2.8808067126782416e-07,
+      "segment_buffer_allocated_bytes": 92160000
+    },
+    {
+      "histories": 20000,
+      "seed": 20261008,
+      "transport_seconds": 0.03381391696166247,
+      "recorded_transport_seconds": 0.03222487505991012,
+      "positive_flight_segments": 119819,
+      "segments_per_history": 5.99095,
+      "seconds_per_segment_untallied": 2.8220830554137886e-07,
+      "seconds_per_segment_recorded": 2.689462861475235e-07,
+      "segment_buffer_allocated_bytes": 92160000
+    },
+    {
+      "histories": 20000,
+      "seed": 20261009,
+      "transport_seconds": 0.03229829203337431,
+      "recorded_transport_seconds": 0.03272429096978158,
+      "positive_flight_segments": 119937,
+      "segments_per_history": 5.99685,
+      "seconds_per_segment_untallied": 2.692938128632058e-07,
+      "seconds_per_segment_recorded": 2.7284566872426004e-07,
+      "segment_buffer_allocated_bytes": 92160000
+    },
+    {
+      "histories": 100000,
+      "seed": 20261007,
+      "transport_seconds": 0.1613260000012815,
+      "recorded_transport_seconds": 0.16611512505915016,
+      "positive_flight_segments": 600234,
+      "segments_per_history": 6.00234,
+      "seconds_per_segment_untallied": 2.687718456489994e-07,
+      "seconds_per_segment_recorded": 2.7675060902772945e-07,
+      "segment_buffer_allocated_bytes": 460800000
+    },
+    {
+      "histories": 100000,
+      "seed": 20261008,
+      "transport_seconds": 0.16645245801191777,
+      "recorded_transport_seconds": 0.16107754199765623,
+      "positive_flight_segments": 599459,
+      "segments_per_history": 5.99459,
+      "seconds_per_segment_untallied": 2.776711301555532e-07,
+      "seconds_per_segment_recorded": 2.687048522044981e-07,
+      "segment_buffer_allocated_bytes": 460800000
+    },
+    {
+      "histories": 100000,
+      "seed": 20261009,
+      "transport_seconds": 0.16308549989480525,
+      "recorded_transport_seconds": 0.16194791696034372,
+      "positive_flight_segments": 600793,
+      "segments_per_history": 6.00793,
+      "seconds_per_segment_untallied": 2.7145039954660797e-07,
+      "seconds_per_segment_recorded": 2.6955693052406354e-07,
+      "segment_buffer_allocated_bytes": 460800000
+    }
+  ],
+  "basis": "60 keV diagnostic kernel, one thread, JIT warmup excluded; timing includes existing material/geometry/boundary handling. MV electron, pair/positron and finer scoring costs are not measured here.",
+  "python": "3.11.13 (main, Jun  3 2025, 18:38:25) [Clang 17.0.0 (clang-1700.0.13.3)]",
+  "platform": "macOS-26.6.2-arm64-arm-64bit",
+  "numba": "0.66.0",
+  "numpy": "2.4.6",
+  "kernel_sha256": "e7efacc5ad9d0638d1a7d12f033302c5ab94d2aa04faf9a9eaaaa05ee89c8206"
+}

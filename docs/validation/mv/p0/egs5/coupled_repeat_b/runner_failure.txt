@@ -1,0 +1,1 @@
+Runner raised PermissionError on sandbox-forbidden ps RSS polling. Scratch cleaned; run artifacts not collected. Not used as a physical result. Replaced polling by os.wait4 per-child rusage.

@@ -1,0 +1,167 @@
+ 
+============================
+egs5run script has started 
+============================
+ 
+working directory is /private/var/folders/nk/ppk0zn4n2n5_gsrp89g_dw900000gn/T/mv_p0_rb3iywk5
+ 
+------------------------------------------------------------
+Erasing files (and links) from previous runs (if they exist)
+------------------------------------------------------------
+
+                  OS_TYPE  = gfort
+
+Your Compiler is gfortran
+ 
+---------------------------------------
+        Enter name of User Code        
+      (file extension must be '.f')    
+---------------------------------------
+ 
+------------------------------------------
+      Enter name of READ(4) data file     
+      (file extension must be '.data')    
+   (<CR> for same file name as User Code) 
+------------------------------------------
+
+  --> Empty file created as egs5job.inp
+ 
+------------------------------------------
+  Enter name of UNIT(25) (pegs input file)
+      (file extension must be '.inp')     
+   (<CR> for same file name as data file  
+      or same file name as User Code)     
+------------------------------------------
+
+  --> coupled_pilot.inp linked to pgs5job.pegs5inp
+
+------------------------------------
+Compiling (with -fno-automatic -std=legacy -fallow-argument-mismatch -w and O)
+------------------------------------
+egs5job.f:32:72:
+
+   32 |       real*8 sumx(150),sumx2(150),meanb(150),varb(150),semb(150),relb(150)
+      |                                                                        1
+Error: Expected another dimension in array declaration at (1)
+egs5job.f:266:30:
+
+  266 |         if (varb(j).lt.0.d0) varb(j)=0.d0
+      |                              1
+Error: Syntax error in IF-clause after (1)
+egs5job.f:181:8:
+
+  181 |         sumx(i)=0.d0
+      |        1
+Error: Function 'sumx' at (1) has no IMPLICIT type
+egs5job.f:182:8:
+
+  182 |         sumx2(i)=0.d0
+      |        1
+Error: Function 'sumx2' at (1) has no IMPLICIT type
+egs5job.f:253:10:
+
+  253 |           sumx(j)  = sumx(j)  + edeph(j)
+      |          1
+Error: Function 'sumx' at (1) has no IMPLICIT type
+egs5job.f:253:21:
+
+  253 |           sumx(j)  = sumx(j)  + edeph(j)
+      |                     1
+Error: Function 'sumx' at (1) has no IMPLICIT type
+egs5job.f:254:10:
+
+  254 |           sumx2(j) = sumx2(j) + edeph(j)*edeph(j)
+      |          1
+Error: Function 'sumx2' at (1) has no IMPLICIT type
+egs5job.f:254:21:
+
+  254 |           sumx2(j) = sumx2(j) + edeph(j)*edeph(j)
+      |                     1
+Error: Function 'sumx2' at (1) has no IMPLICIT type
+egs5job.f:264:8:
+
+  264 |         meanb(j) = sumx(j)/dfloat(ncase)
+      |        1
+Error: Function 'meanb' at (1) has no IMPLICIT type
+egs5job.f:264:23:
+
+  264 |         meanb(j) = sumx(j)/dfloat(ncase)
+      |                       1
+Error: Function 'sumx' at (1) has no IMPLICIT type
+egs5job.f:265:8:
+
+  265 |         varb(j)  = sumx2(j)/dfloat(ncase) - meanb(j)*meanb(j)
+      |        1
+Error: Function 'varb' at (1) has no IMPLICIT type
+egs5job.f:265:58:
+
+  265 |         varb(j)  = sumx2(j)/dfloat(ncase) - meanb(j)*meanb(j)
+      |                                                          1
+Error: Function 'meanb' at (1) has no IMPLICIT type
+egs5job.f:265:49:
+
+  265 |         varb(j)  = sumx2(j)/dfloat(ncase) - meanb(j)*meanb(j)
+      |                                                 1
+Error: Function 'meanb' at (1) has no IMPLICIT type
+egs5job.f:265:24:
+
+  265 |         varb(j)  = sumx2(j)/dfloat(ncase) - meanb(j)*meanb(j)
+      |                        1
+Error: Function 'sumx2' at (1) has no IMPLICIT type
+egs5job.f:267:8:
+
+  267 |         varb(j)  = varb(j)*dfloat(ncase)/dfloat(ncase-1)
+      |        1
+Error: Function 'varb' at (1) has no IMPLICIT type
+egs5job.f:267:23:
+
+  267 |         varb(j)  = varb(j)*dfloat(ncase)/dfloat(ncase-1)
+      |                       1
+Error: Function 'varb' at (1) has no IMPLICIT type
+egs5job.f:268:8:
+
+  268 |         semb(j)  = dsqrt(varb(j)/dfloat(ncase))
+      |        1
+Error: Function 'semb' at (1) has no IMPLICIT type
+egs5job.f:268:29:
+
+  268 |         semb(j)  = dsqrt(varb(j)/dfloat(ncase))
+      |                             1
+Error: Function 'varb' at (1) has no IMPLICIT type
+egs5job.f:269:12:
+
+  269 |         if (meanb(j).gt.0.d0) then
+      |            1
+Error: Function 'meanb' at (1) has no IMPLICIT type
+egs5job.f:270:10:
+
+  270 |           relb(j) = 100.d0*semb(j)/meanb(j)
+      |          1
+Error: Function 'relb' at (1) has no IMPLICIT type
+egs5job.f:270:40:
+
+  270 |           relb(j) = 100.d0*semb(j)/meanb(j)
+      |                                        1
+Error: Function 'meanb' at (1) has no IMPLICIT type
+egs5job.f:270:31:
+
+  270 |           relb(j) = 100.d0*semb(j)/meanb(j)
+      |                               1
+Error: Function 'semb' at (1) has no IMPLICIT type
+egs5job.f:272:10:
+
+  272 |           relb(j) = -1.d0
+      |          1
+Error: Function 'relb' at (1) has no IMPLICIT type
+egs5job.f:295:43:
+
+  295 |         write(6,*) 'PDD',j,(j-0.5d0)*0.2d0,meanb(j),semb(j)
+      |                                           1
+Error: Function 'meanb' at (1) has no IMPLICIT type
+egs5job.f:295:52:
+
+  295 |         write(6,*) 'PDD',j,(j-0.5d0)*0.2d0,meanb(j),semb(j)
+      |                                                    1
+Error: Function 'semb' at (1) has no IMPLICIT type
+
+Script stopped -- egs5job.f did not compile and/or link

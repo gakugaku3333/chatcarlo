@@ -1,0 +1,17 @@
+{
+  "started_utc": "2026-10-07T12:53:55.037303+00:00",
+  "preregistration_sha256": "6d93b0a238f555561eefe4dd77f4833d932b72bced0f11377805521f7bf9f41e",
+  "code_sha256": "71c72b3fb95d7035354b3ab18b3bf9dec3a9a0eaca292b62ab2e000c47db699d",
+  "input_sha256": "ea4ffc027c5daee73a5df19adffc52a3c3294b80105ee81fbf74425e6ffb870a",
+  "compiler": "GNU Fortran (Homebrew GCC 16.1.0) 16.1.0",
+  "egs5run_sha256": "ac65f06633ed42f1bb6a1d5e8eede0328b860372a3fe599680eef01637f66215",
+  "egs5_tree_sha256": "07d081989d54c7d2aed42224b65f3b115f58eef8a7ab899cebac55aeb9cd3645",
+  "build_exit_code": 0,
+  "run_peak_rss_bytes": 14417920,
+  "child_peak_rss_bytes": 273039360,
+  "rss_note": "Darwin child high-water includes build children; not isolated run RSS",
+  "run_exit_code": 0,
+  "wall_seconds": 0.5111175829079002,
+  "finished_utc": "2026-10-07T12:53:59.929738+00:00",
+  "preregistration_sha256_after": "6d93b0a238f555561eefe4dd77f4833d932b72bced0f11377805521f7bf9f41e"
+}

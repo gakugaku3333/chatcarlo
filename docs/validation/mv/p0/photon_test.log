@@ -1,0 +1,16 @@
+{
+  "J1a": "pass",
+  "total_max_difference": 0.0005304188621454431,
+  "partial_max_difference": {
+    "rayleigh": 0.000489972071045619,
+    "compton": 0.0005095090963845861,
+    "photoelectric": 0.018851850488926014
+  },
+  "pair_thresholds": {
+    "nuclear_below": 0.0,
+    "nuclear_above": 2.169e-15,
+    "electron_below": 0.0,
+    "electron_above": 2.602e-17
+  },
+  "synthesis_max": 0.0007617780473576936
+}

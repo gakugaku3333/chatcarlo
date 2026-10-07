@@ -1,0 +1,150 @@
+{
+  "J3": "pass",
+  "J5": "pass",
+  "coupled": {
+    "histories": 200000,
+    "ledger": {
+      "incident_MeV": 2000000.0,
+      "deposited_MeV": 745182.0491702456,
+      "escaped_kinetic_MeV": 1253952.3186851728,
+      "unprocessed_MeV": 0.0,
+      "net_rest_MeV": 865.6321445703506,
+      "max_abs_residual_per_history_MeV": 8.576472865229334e-14,
+      "stack_nonempty_histories": 0.0,
+      "abnormal_histories": 0.0
+    },
+    "relative_residual": 5.587935447692871e-15,
+    "J3": "pass",
+    "rest_components_MeV": {
+      "pair_created": 24209.084109306335,
+      "annihilated": 23343.451964735985,
+      "escaped_positron_rest": 865.6321445703506
+    },
+    "cpu_seconds": 98.29531,
+    "ausgab_instrumented_cpu_seconds": 35.701684907467225,
+    "wall_seconds": 99.78416587493848,
+    "rss_bytes": 15597568,
+    "charged_steps_mean": 881.957535,
+    "charged_steps_quantiles": {
+      "0.5": 0,
+      "0.9": 2402,
+      "0.99": 2878,
+      "1.0": 3568
+    },
+    "photon_steps": 33455292,
+    "warnings": [
+      "Number of allocated intervals(=  150) was insufficient\n to get maximum relative error less than   1.000000E-02",
+      "Number of allocated intervals(=  100) was insufficient\n to get maximum relative error less than   1.000000E-02"
+    ]
+  },
+  "kerma": {
+    "histories": 200000,
+    "ledger": {
+      "incident_MeV": 2000000.0,
+      "deposited_MeV": 794549.3779024741,
+      "escaped_kinetic_MeV": 1205450.6220975264,
+      "unprocessed_MeV": 0.0,
+      "net_rest_MeV": 0.0,
+      "max_abs_residual_per_history_MeV": 7.657069422961627e-15,
+      "stack_nonempty_histories": 0.0,
+      "abnormal_histories": 0.0
+    },
+    "relative_residual": -2.328306436538696e-16,
+    "J3": "pass",
+    "rest_components_MeV": {
+      "pair_created": 24116.082308650017,
+      "annihilated": 24116.082308650017,
+      "escaped_positron_rest": 0.0
+    },
+    "cpu_seconds": 10.770451999999999,
+    "ausgab_instrumented_cpu_seconds": 5.0595270015100375,
+    "wall_seconds": 11.396342208958231,
+    "rss_bytes": 15597568,
+    "charged_steps_mean": 0.0,
+    "charged_steps_quantiles": {
+      "0.5": 0,
+      "0.9": 0,
+      "0.99": 0,
+      "1.0": 0
+    },
+    "photon_steps": 30429424,
+    "warnings": [
+      "Number of allocated intervals(=  150) was insufficient\n to get maximum relative error less than   1.000000E-02",
+      "Number of allocated intervals(=  100) was insufficient\n to get maximum relative error less than   1.000000E-02"
+    ]
+  },
+  "surface_difference_sigma_independent_approximation": 5.940999426089544,
+  "dmax_bin_center_cm": 3.5,
+  "surface_coupled_MeV_per_history": 6.786182909883705e-05,
+  "surface_kerma_MeV_per_history": 0.0016260098612811888,
+  "peak_coupled_MeV_per_history": 0.0012918937870851903,
+  "beyond_dmax_ratios": [
+    {
+      "center_cm": 5.1000000000000005,
+      "dose_to_local_kerma": 1.1008429190910487,
+      "ratio_sem_independent_approximation": 0.22556606660595857
+    },
+    {
+      "center_cm": 10.100000000000001,
+      "dose_to_local_kerma": 1.0032959211139587,
+      "ratio_sem_independent_approximation": 0.1937091695838059
+    },
+    {
+      "center_cm": 20.1,
+      "dose_to_local_kerma": 0.8805574928187504,
+      "ratio_sem_independent_approximation": 0.175264595654952
+    },
+    {
+      "center_cm": 29.900000000000002,
+      "dose_to_local_kerma": 0.7628972891355982,
+      "ratio_sem_independent_approximation": 0.16652372666448848
+    }
+  ],
+  "statistical_note": "Each SEM uses per-history first/second moments. Both runs share fixed seed but trajectories diverge; cross-run covariance unmeasured; combined SEM is an approximation. Surface difference is also reported relative to sum of SEMs.",
+  "surface_difference_over_sum_SEM": 5.676301395228182,
+  "same_seed_reproducibility": true,
+  "main_points": [
+    {
+      "center_cm": 0.1,
+      "mean_MeV_history": 6.786182909883705e-05,
+      "SEM_MeV_history": 1.2529693097732092e-05,
+      "relative_SEM": 0.18463535781629578,
+      "N_for_0_5_percent": 272721722.8476126
+    },
+    {
+      "center_cm": 3.5,
+      "mean_MeV_history": 0.0012918937870851903,
+      "SEM_MeV_history": 6.95868152327239e-05,
+      "relative_SEM": 0.05386419218698139,
+      "N_for_0_5_percent": 23210809.59964853
+    },
+    {
+      "center_cm": 5.1000000000000005,
+      "mean_MeV_history": 0.0011728968490844977,
+      "SEM_MeV_history": 6.21113274972929e-05,
+      "relative_SEM": 0.0529554901147307,
+      "N_for_0_5_percent": 22434271.466330726
+    },
+    {
+      "center_cm": 10.100000000000001,
+      "mean_MeV_history": 0.0011666363435241143,
+      "SEM_MeV_history": 6.55658055363517e-05,
+      "relative_SEM": 0.05620072261617869,
+      "N_for_0_5_percent": 25268169.780645274
+    },
+    {
+      "center_cm": 20.1,
+      "mean_MeV_history": 0.0009864679145694276,
+      "SEM_MeV_history": 5.827260656223331e-05,
+      "relative_SEM": 0.059071973554931156,
+      "N_for_0_5_percent": 27915984.47739589
+    },
+    {
+      "center_cm": 29.900000000000002,
+      "mean_MeV_history": 0.0007071544272794847,
+      "SEM_MeV_history": 5.043706033384434e-05,
+      "relative_SEM": 0.07132396883645668,
+      "N_for_0_5_percent": 40696868.244670756
+    }
+  ]
+}

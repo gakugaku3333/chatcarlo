@@ -1,0 +1,14 @@
+{
+  "started_utc": "2026-10-07T12:46:59.172804+00:00",
+  "preregistration_sha256": "6d93b0a238f555561eefe4dd77f4833d932b72bced0f11377805521f7bf9f41e",
+  "code_sha256": "e462ec2d57d486a71e2aedceab128be65d003baa9c6a381184eab0babf715654",
+  "input_sha256": "1a276882ddf04c3dfe2fd1666f16f1a1ad4e425179c77d9c6f549c62d5122849",
+  "compiler": "GNU Fortran (Homebrew GCC 16.1.0) 16.1.0",
+  "egs5run_sha256": "ac65f06633ed42f1bb6a1d5e8eede0328b860372a3fe599680eef01637f66215",
+  "egs5_tree_sha256": "07d081989d54c7d2aed42224b65f3b115f58eef8a7ab899cebac55aeb9cd3645",
+  "build_exit_code": 0,
+  "run_exit_code": 1,
+  "wall_seconds": 5.55750741600059,
+  "finished_utc": "2026-10-07T12:47:09.559840+00:00",
+  "preregistration_sha256_after": "6d93b0a238f555561eefe4dd77f4833d932b72bced0f11377805521f7bf9f41e"
+}

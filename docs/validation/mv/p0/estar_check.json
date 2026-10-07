@@ -1,0 +1,48 @@
+{
+  "J4": "pass",
+  "density_effect_matches_at_comparison_energies": true,
+  "density_g_cm3": 1.0,
+  "radiation_length_cm": 36.08287,
+  "conditions": {
+    "RM_MeV": 0.5109989026752615,
+    "mass_fractions": {
+      "1": 0.111894,
+      "8": 0.888106
+    },
+    "density_g_cm3": 1.0,
+    "EPSTFL": 1,
+    "AE_MeV_total": 0.521,
+    "unrestricted_cutoff": "EE=E0",
+    "restricted_cutoff": "EE=AE"
+  },
+  "rows": [
+    {
+      "kinetic_MeV": 0.1,
+      "ESTAR_unrestricted_MeV_cm2_g": 4.115,
+      "PEGS_unrestricted_MeV_cm2_g": 4.115276861291799,
+      "relative_difference": 6.7280994361818e-05,
+      "PEGS_restricted_MeV_cm2_g": 3.7348470340635322,
+      "ESTAR_delta": 0.0,
+      "PEGS_tabulated_delta": 0.0
+    },
+    {
+      "kinetic_MeV": 1.0,
+      "ESTAR_unrestricted_MeV_cm2_g": 1.849,
+      "PEGS_unrestricted_MeV_cm2_g": 1.8491045751072464,
+      "relative_difference": 5.6557656704425696e-05,
+      "PEGS_restricted_MeV_cm2_g": 1.47480785203616,
+      "ESTAR_delta": 0.2428,
+      "PEGS_tabulated_delta": 0.2428
+    },
+    {
+      "kinetic_MeV": 10.0,
+      "ESTAR_unrestricted_MeV_cm2_g": 1.968,
+      "PEGS_unrestricted_MeV_cm2_g": 1.968003099531717,
+      "relative_difference": 1.5749653032859356e-06,
+      "PEGS_restricted_MeV_cm2_g": 1.4068420832378357,
+      "ESTAR_delta": 2.992,
+      "PEGS_tabulated_delta": 2.992
+    }
+  ],
+  "note": "CALL output MeV/radiation length converted by dividing RLC(cm)*rho(g/cm3); CALL listing rounding retained"
+}

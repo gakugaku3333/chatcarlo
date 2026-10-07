@@ -1,0 +1,10 @@
+# Raw SRD / fetched data and third-party reference code: redistribution not cleared.
+data/
+numba_cache/
+__pycache__/
+**/__pycache__/
+**/*.pegs5dat
+# Full text of installed third-party manuals (local search aids only).
+egs5/*_manual.txt
+plot_cache/
+**/epstar.dat

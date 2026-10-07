@@ -1,0 +1,701 @@
+{
+  "J1a": "pass",
+  "J1b": "see numerical differences; no preregistered partial tolerance",
+  "total_comparisons": [
+    {
+      "reference": "bundled_NIST",
+      "keV": 1000.0,
+      "got": 0.07072,
+      "reference_value": 0.07072,
+      "relative_difference": 0.0
+    },
+    {
+      "reference": "bundled_NIST",
+      "keV": 1250.0,
+      "got": 0.06323,
+      "reference_value": 0.06323,
+      "relative_difference": 0.0
+    },
+    {
+      "reference": "bundled_NIST",
+      "keV": 1500.0,
+      "got": 0.05754,
+      "reference_value": 0.05754,
+      "relative_difference": 0.0
+    },
+    {
+      "reference": "bundled_NIST",
+      "keV": 2000.0,
+      "got": 0.04942,
+      "reference_value": 0.04942,
+      "relative_difference": 0.0
+    },
+    {
+      "reference": "bundled_NIST",
+      "keV": 3000.0,
+      "got": 0.03969,
+      "reference_value": 0.03969,
+      "relative_difference": 0.0
+    },
+    {
+      "reference": "bundled_NIST",
+      "keV": 4000.0,
+      "got": 0.03403,
+      "reference_value": 0.03403,
+      "relative_difference": 0.0
+    },
+    {
+      "reference": "bundled_NIST",
+      "keV": 5000.0,
+      "got": 0.03031,
+      "reference_value": 0.03031,
+      "relative_difference": 0.0
+    },
+    {
+      "reference": "bundled_NIST",
+      "keV": 6000.0,
+      "got": 0.0277,
+      "reference_value": 0.0277,
+      "relative_difference": 0.0
+    },
+    {
+      "reference": "bundled_NIST",
+      "keV": 8000.0,
+      "got": 0.02429,
+      "reference_value": 0.02429,
+      "relative_difference": 0.0
+    },
+    {
+      "reference": "bundled_NIST",
+      "keV": 10000.0,
+      "got": 0.02219,
+      "reference_value": 0.02219,
+      "relative_difference": 0.0
+    },
+    {
+      "reference": "bundled_NIST",
+      "keV": 15000.0,
+      "got": 0.01941,
+      "reference_value": 0.01941,
+      "relative_difference": 0.0
+    },
+    {
+      "reference": "bundled_NIST",
+      "keV": 20000.0,
+      "got": 0.01813,
+      "reference_value": 0.01813,
+      "relative_difference": 0.0
+    },
+    {
+      "reference": "xraylib",
+      "process": "total",
+      "keV": 100,
+      "got": 0.1707,
+      "reference_value": 0.17075292398655334,
+      "relative_difference": -0.0003099448332580801
+    },
+    {
+      "reference": "xraylib",
+      "process": "total",
+      "keV": 200,
+      "got": 0.137,
+      "reference_value": 0.13704507612115885,
+      "relative_difference": -0.0003289145617970668
+    },
+    {
+      "reference": "xraylib",
+      "process": "total",
+      "keV": 300,
+      "got": 0.1186,
+      "reference_value": 0.11865728045291943,
+      "relative_difference": -0.0004827386292757252
+    },
+    {
+      "reference": "xraylib",
+      "process": "total",
+      "keV": 400,
+      "got": 0.1061,
+      "reference_value": 0.10615630730773173,
+      "relative_difference": -0.0005304188621454431
+    },
+    {
+      "reference": "xraylib",
+      "process": "total",
+      "keV": 500,
+      "got": 0.09687,
+      "reference_value": 0.09688977109053548,
+      "relative_difference": -0.00020405756266062003
+    },
+    {
+      "reference": "xraylib",
+      "process": "total",
+      "keV": 600,
+      "got": 0.08956,
+      "reference_value": 0.08957771126994846,
+      "relative_difference": -0.00019771960789538578
+    },
+    {
+      "reference": "xraylib",
+      "process": "total",
+      "keV": 700,
+      "got": 0.08362,
+      "reference_value": 0.08360507578657221,
+      "relative_difference": 0.00017850846120737174
+    },
+    {
+      "reference": "xraylib",
+      "process": "total",
+      "keV": 800,
+      "got": 0.07866,
+      "reference_value": 0.07867193314500084,
+      "relative_difference": -0.0001516823665544953
+    }
+  ],
+  "partial_comparisons": [
+    {
+      "reference": "xraylib",
+      "process": "total",
+      "keV": 100,
+      "got": 0.1707,
+      "reference_value": 0.17075292398655334,
+      "relative_difference": -0.0003099448332580801
+    },
+    {
+      "reference": "xraylib",
+      "process": "photoelectric",
+      "keV": 100,
+      "got": 0.002763,
+      "reference_value": 0.00276173107128977,
+      "relative_difference": 0.00045946860048085014
+    },
+    {
+      "reference": "xraylib",
+      "process": "compton",
+      "keV": 100,
+      "got": 0.1626,
+      "reference_value": 0.16264334309938627,
+      "relative_difference": -0.00026649169010128926
+    },
+    {
+      "reference": "xraylib",
+      "process": "rayleigh",
+      "keV": 100,
+      "got": 0.005349,
+      "reference_value": 0.005347849815877282,
+      "relative_difference": 0.00021507412554910843
+    },
+    {
+      "reference": "xraylib",
+      "process": "total",
+      "keV": 200,
+      "got": 0.137,
+      "reference_value": 0.13704507612115885,
+      "relative_difference": -0.0003289145617970668
+    },
+    {
+      "reference": "xraylib",
+      "process": "photoelectric",
+      "keV": 200,
+      "got": 0.0002887,
+      "reference_value": 0.00028868949186793734,
+      "relative_difference": 3.639942692301723e-05
+    },
+    {
+      "reference": "xraylib",
+      "process": "compton",
+      "keV": 200,
+      "got": 0.1353,
+      "reference_value": 0.13536897172246082,
+      "relative_difference": -0.0005095090963845861
+    },
+    {
+      "reference": "xraylib",
+      "process": "rayleigh",
+      "keV": 200,
+      "got": 0.001388,
+      "reference_value": 0.0013874149068300837,
+      "relative_difference": 0.0004217146341991551
+    },
+    {
+      "reference": "xraylib",
+      "process": "total",
+      "keV": 300,
+      "got": 0.1186,
+      "reference_value": 0.11865728045291943,
+      "relative_difference": -0.0004827386292757252
+    },
+    {
+      "reference": "xraylib",
+      "process": "photoelectric",
+      "keV": 300,
+      "got": 8.16e-05,
+      "reference_value": 8.157304258301642e-05,
+      "relative_difference": 0.0003304696763781756
+    },
+    {
+      "reference": "xraylib",
+      "process": "compton",
+      "keV": 300,
+      "got": 0.1179,
+      "reference_value": 0.1179543686190005,
+      "relative_difference": -0.00046092925287155584
+    },
+    {
+      "reference": "xraylib",
+      "process": "rayleigh",
+      "keV": 300,
+      "got": 0.0006215,
+      "reference_value": 0.0006213387913359137,
+      "relative_difference": 0.0002594537253013396
+    },
+    {
+      "reference": "xraylib",
+      "process": "total",
+      "keV": 400,
+      "got": 0.1061,
+      "reference_value": 0.10615630730773173,
+      "relative_difference": -0.0005304188621454431
+    },
+    {
+      "reference": "xraylib",
+      "process": "photoelectric",
+      "keV": 400,
+      "got": 3.493e-05,
+      "reference_value": 3.492476205257048e-05,
+      "relative_difference": 0.0001499780419873531
+    },
+    {
+      "reference": "xraylib",
+      "process": "compton",
+      "keV": 400,
+      "got": 0.1058,
+      "reference_value": 0.10577088373992531,
+      "relative_difference": 0.0002752767022944358
+    },
+    {
+      "reference": "xraylib",
+      "process": "rayleigh",
+      "keV": 400,
+      "got": 0.0003506,
+      "reference_value": 0.000350498805753841,
+      "relative_difference": 0.0002887149527981414
+    },
+    {
+      "reference": "xraylib",
+      "process": "total",
+      "keV": 500,
+      "got": 0.09687,
+      "reference_value": 0.09688977109053548,
+      "relative_difference": -0.00020405756266062003
+    },
+    {
+      "reference": "xraylib",
+      "process": "photoelectric",
+      "keV": 500,
+      "got": 1.883e-05,
+      "reference_value": 1.8831868260819633e-05,
+      "relative_difference": -9.920740702706876e-05
+    },
+    {
+      "reference": "xraylib",
+      "process": "compton",
+      "keV": 500,
+      "got": 0.09663,
+      "reference_value": 0.09664630095480688,
+      "relative_difference": -0.0001686661015045665
+    },
+    {
+      "reference": "xraylib",
+      "process": "rayleigh",
+      "keV": 500,
+      "got": 0.0002247,
+      "reference_value": 0.00022463826746778467,
+      "relative_difference": 0.0002748086197030819
+    },
+    {
+      "reference": "xraylib",
+      "process": "total",
+      "keV": 600,
+      "got": 0.08956,
+      "reference_value": 0.08957771126994846,
+      "relative_difference": -0.00019771960789538578
+    },
+    {
+      "reference": "xraylib",
+      "process": "photoelectric",
+      "keV": 600,
+      "got": 1.173e-05,
+      "reference_value": 1.1728125256957259e-05,
+      "relative_difference": 0.00015985018932407336
+    },
+    {
+      "reference": "xraylib",
+      "process": "compton",
+      "keV": 600,
+      "got": 0.08939,
+      "reference_value": 0.08940988017606738,
+      "relative_difference": -0.00022234876087778854
+    },
+    {
+      "reference": "xraylib",
+      "process": "rayleigh",
+      "keV": 600,
+      "got": 0.0001561,
+      "reference_value": 0.00015610296862412874,
+      "relative_difference": -1.9017089520567687e-05
+    },
+    {
+      "reference": "xraylib",
+      "process": "total",
+      "keV": 700,
+      "got": 0.08362,
+      "reference_value": 0.08360507578657221,
+      "relative_difference": 0.00017850846120737174
+    },
+    {
+      "reference": "xraylib",
+      "process": "photoelectric",
+      "keV": 700,
+      "got": 7.927e-06,
+      "reference_value": 8.079309943101034e-06,
+      "relative_difference": -0.018851850488926014
+    },
+    {
+      "reference": "xraylib",
+      "process": "compton",
+      "keV": 700,
+      "got": 0.0835,
+      "reference_value": 0.08348225269787603,
+      "relative_difference": 0.0002125877243419616
+    },
+    {
+      "reference": "xraylib",
+      "process": "rayleigh",
+      "keV": 700,
+      "got": 0.0001148,
+      "reference_value": 0.00011474377875308476,
+      "relative_difference": 0.000489972071045619
+    },
+    {
+      "reference": "xraylib",
+      "process": "total",
+      "keV": 800,
+      "got": 0.07866,
+      "reference_value": 0.07867193314500084,
+      "relative_difference": -0.0001516823665544953
+    },
+    {
+      "reference": "xraylib",
+      "process": "photoelectric",
+      "keV": 800,
+      "got": 5.92e-06,
+      "reference_value": 5.919362430088904e-06,
+      "relative_difference": 0.00010770922014424755
+    },
+    {
+      "reference": "xraylib",
+      "process": "compton",
+      "keV": 800,
+      "got": 0.07856,
+      "reference_value": 0.07857812991034278,
+      "relative_difference": -0.0002307246350029546
+    },
+    {
+      "reference": "xraylib",
+      "process": "rayleigh",
+      "keV": 800,
+      "got": 8.79e-05,
+      "reference_value": 8.788387222797219e-05,
+      "relative_difference": 0.00018351230571589383
+    }
+  ],
+  "pair_thresholds": {
+    "nuclear_below": 0.0,
+    "nuclear_above": 2.169e-15,
+    "electron_below": 0.0,
+    "electron_above": 2.602e-17
+  },
+  "synthesis": [
+    {
+      "material": "water",
+      "MeV": 0.001,
+      "max_relative_difference": 0.00023814675739380363
+    },
+    {
+      "material": "water",
+      "MeV": 0.01,
+      "max_relative_difference": 0.00022998688286302892
+    },
+    {
+      "material": "water",
+      "MeV": 0.02,
+      "max_relative_difference": 0.0003900522035618352
+    },
+    {
+      "material": "water",
+      "MeV": 0.1,
+      "max_relative_difference": 0.00017131145684321799
+    },
+    {
+      "material": "water",
+      "MeV": 0.2,
+      "max_relative_difference": 0.0002934193108365479
+    },
+    {
+      "material": "water",
+      "MeV": 0.3,
+      "max_relative_difference": 0.0005042786875248888
+    },
+    {
+      "material": "water",
+      "MeV": 0.4,
+      "max_relative_difference": 0.00041325872507207476
+    },
+    {
+      "material": "water",
+      "MeV": 0.5,
+      "max_relative_difference": 0.00038766815208834976
+    },
+    {
+      "material": "water",
+      "MeV": 0.6,
+      "max_relative_difference": 0.00019049861994009383
+    },
+    {
+      "material": "water",
+      "MeV": 0.7,
+      "max_relative_difference": 0.00041664244539017916
+    },
+    {
+      "material": "water",
+      "MeV": 0.8,
+      "max_relative_difference": 4.967990348301848e-05
+    },
+    {
+      "material": "water",
+      "MeV": 1.0,
+      "max_relative_difference": 0.00015636864347444494
+    },
+    {
+      "material": "water",
+      "MeV": 1.0219,
+      "max_relative_difference": 5.60021088927778e-05
+    },
+    {
+      "material": "water",
+      "MeV": 1.0221,
+      "max_relative_difference": 0.0001745427807824232
+    },
+    {
+      "material": "water",
+      "MeV": 1.25,
+      "max_relative_difference": 0.00013322376894595077
+    },
+    {
+      "material": "water",
+      "MeV": 1.5,
+      "max_relative_difference": 0.0004530068275507321
+    },
+    {
+      "material": "water",
+      "MeV": 2.0,
+      "max_relative_difference": 0.00026796614572176226
+    },
+    {
+      "material": "water",
+      "MeV": 2.0439,
+      "max_relative_difference": 0.0004492866634766635
+    },
+    {
+      "material": "water",
+      "MeV": 2.0441,
+      "max_relative_difference": 0.00041463633823704614
+    },
+    {
+      "material": "water",
+      "MeV": 3.0,
+      "max_relative_difference": 0.0002082012568842537
+    },
+    {
+      "material": "water",
+      "MeV": 4.0,
+      "max_relative_difference": 0.000278551865165263
+    },
+    {
+      "material": "water",
+      "MeV": 5.0,
+      "max_relative_difference": 0.0003245818767481705
+    },
+    {
+      "material": "water",
+      "MeV": 6.0,
+      "max_relative_difference": 0.00021967045797706013
+    },
+    {
+      "material": "water",
+      "MeV": 8.0,
+      "max_relative_difference": 0.00040255845986214003
+    },
+    {
+      "material": "water",
+      "MeV": 10.0,
+      "max_relative_difference": 0.00037303486181606893
+    },
+    {
+      "material": "water",
+      "MeV": 15.0,
+      "max_relative_difference": 0.00035549601169528917
+    },
+    {
+      "material": "water",
+      "MeV": 20.0,
+      "max_relative_difference": 0.0002679661457217999
+    },
+    {
+      "material": "air",
+      "MeV": 0.001,
+      "max_relative_difference": 0.00015940931336215337
+    },
+    {
+      "material": "air",
+      "MeV": 0.01,
+      "max_relative_difference": 0.00038936634681323426
+    },
+    {
+      "material": "air",
+      "MeV": 0.02,
+      "max_relative_difference": 0.00013150141684849562
+    },
+    {
+      "material": "air",
+      "MeV": 0.1,
+      "max_relative_difference": 0.00020090091472308323
+    },
+    {
+      "material": "air",
+      "MeV": 0.2,
+      "max_relative_difference": 0.0005589274282781953
+    },
+    {
+      "material": "air",
+      "MeV": 0.3,
+      "max_relative_difference": 0.0007617780473576936
+    },
+    {
+      "material": "air",
+      "MeV": 0.4,
+      "max_relative_difference": 0.00015916566236503862
+    },
+    {
+      "material": "air",
+      "MeV": 0.5,
+      "max_relative_difference": 0.00017877665525316484
+    },
+    {
+      "material": "air",
+      "MeV": 0.6,
+      "max_relative_difference": 3.7179090148609055e-05
+    },
+    {
+      "material": "air",
+      "MeV": 0.7,
+      "max_relative_difference": 0.0003771565050428748
+    },
+    {
+      "material": "air",
+      "MeV": 0.8,
+      "max_relative_difference": 0.00016146458331960353
+    },
+    {
+      "material": "air",
+      "MeV": 1.0,
+      "max_relative_difference": 8.849119505505498e-05
+    },
+    {
+      "material": "air",
+      "MeV": 1.0219,
+      "max_relative_difference": 7.455920417139682e-05
+    },
+    {
+      "material": "air",
+      "MeV": 1.0221,
+      "max_relative_difference": 6.970800080786567e-05
+    },
+    {
+      "material": "air",
+      "MeV": 1.25,
+      "max_relative_difference": 0.00019268351665879986
+    },
+    {
+      "material": "air",
+      "MeV": 1.5,
+      "max_relative_difference": 0.00032928998446236614
+    },
+    {
+      "material": "air",
+      "MeV": 2.0,
+      "max_relative_difference": 0.00042374013388506084
+    },
+    {
+      "material": "air",
+      "MeV": 2.0439,
+      "max_relative_difference": 0.0001293294789043406
+    },
+    {
+      "material": "air",
+      "MeV": 2.0441,
+      "max_relative_difference": 0.00015866743639440456
+    },
+    {
+      "material": "air",
+      "MeV": 3.0,
+      "max_relative_difference": 0.00024289636820577613
+    },
+    {
+      "material": "air",
+      "MeV": 4.0,
+      "max_relative_difference": 0.00015051752628892395
+    },
+    {
+      "material": "air",
+      "MeV": 5.0,
+      "max_relative_difference": 0.00017410343497293424
+    },
+    {
+      "material": "air",
+      "MeV": 6.0,
+      "max_relative_difference": 0.00044818184659883663
+    },
+    {
+      "material": "air",
+      "MeV": 8.0,
+      "max_relative_difference": 0.000206780431499486
+    },
+    {
+      "material": "air",
+      "MeV": 10.0,
+      "max_relative_difference": 0.00022745499518125778
+    },
+    {
+      "material": "air",
+      "MeV": 15.0,
+      "max_relative_difference": 0.00021149855404009366
+    },
+    {
+      "material": "air",
+      "MeV": 20.0,
+      "max_relative_difference": 0.00044233000754734475
+    }
+  ],
+  "water_weights": {
+    "1": 0.11189834407236524,
+    "8": 0.8881016559276347
+  },
+  "air_weights": {
+    "6": 0.000124,
+    "7": 0.755267,
+    "8": 0.231781,
+    "18": 0.012827
+  },
+  "xraylib_version": "4.2.1"
+}

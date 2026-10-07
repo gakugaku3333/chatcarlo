@@ -1,0 +1,153 @@
+{
+  "J6": "conditional; assumed upper exceeds 24h",
+  "basis": "Mohan nominal 10 MV full histogram, 10x10 cm2 parallel beam, 30 cm water, central 2x2 cm2, 2 mm depth bins",
+  "points": [
+    {
+      "depth_cm": 0.1,
+      "mean_MeV_history": 9.91592001804224e-05,
+      "SEM_MeV_history": 1.4052936630904182e-05,
+      "R_100k": 0.20474304880832744,
+      "R_200k": 0.1417209558501334,
+      "observed_SEM_200k_over_100k": 0.8479622874027684,
+      "ideal_SEM_ratio": 0.7071067811865475,
+      "N_for_R_0_005": 160678634.61660364
+    },
+    {
+      "depth_cm": 4.3,
+      "mean_MeV_history": 0.0005274960874497504,
+      "SEM_MeV_history": 4.2040944036991826e-05,
+      "R_100k": 0.1095990867157018,
+      "R_200k": 0.07969906324849599,
+      "observed_SEM_200k_over_100k": 0.6712819335967466,
+      "ideal_SEM_ratio": 0.7071067811865475,
+      "N_for_R_0_005": 50815525.461502105
+    },
+    {
+      "depth_cm": 5.1000000000000005,
+      "mean_MeV_history": 0.0004562174018852983,
+      "SEM_MeV_history": 3.8658038145738956e-05,
+      "R_100k": 0.11840745945567548,
+      "R_200k": 0.08473600083202946,
+      "observed_SEM_200k_over_100k": 0.7102163922619581,
+      "ideal_SEM_ratio": 0.7071067811865475,
+      "N_for_R_0_005": 57441518.69604558
+    },
+    {
+      "depth_cm": 10.100000000000001,
+      "mean_MeV_history": 0.0003783798972383662,
+      "SEM_MeV_history": 3.846262280862606e-05,
+      "R_100k": 0.14931155659757922,
+      "R_200k": 0.10165080938323724,
+      "observed_SEM_200k_over_100k": 0.6307376501198265,
+      "ideal_SEM_ratio": 0.7071067811865475,
+      "N_for_R_0_005": 82663096.38613786
+    },
+    {
+      "depth_cm": 20.1,
+      "mean_MeV_history": 0.00026529607209504146,
+      "SEM_MeV_history": 2.8495257177411946e-05,
+      "R_100k": 0.16261893703781827,
+      "R_200k": 0.10740926901926996,
+      "observed_SEM_200k_over_100k": 0.7007006037155367,
+      "ideal_SEM_ratio": 0.7071067811865475,
+      "N_for_R_0_005": 92294008.57003124
+    },
+    {
+      "depth_cm": 29.900000000000002,
+      "mean_MeV_history": 0.00022909259035889834,
+      "SEM_MeV_history": 2.7978810150579278e-05,
+      "R_100k": 0.17537233132396782,
+      "R_200k": 0.12212883056037492,
+      "observed_SEM_200k_over_100k": 0.6915540668612793,
+      "ideal_SEM_ratio": 0.7071067811865475,
+      "N_for_R_0_005": 119323610.03235814
+    }
+  ],
+  "maximum_required_histories": 160678634.61660364,
+  "reference_spectrum": {
+    "histories": 200000,
+    "ledger": {
+      "incident_MeV": 560588.305076986,
+      "deposited_MeV": 271658.8040389435,
+      "escaped_kinetic_MeV": 288849.7852089049,
+      "unprocessed_MeV": 0.0,
+      "net_rest_MeV": 79.71582913398743,
+      "max_abs_residual_per_history_MeV": 4.218847493575595e-14,
+      "stack_nonempty_histories": 0.0,
+      "abnormal_histories": 0.0
+    },
+    "relative_residual": 6.4376565546428405e-15,
+    "J3": "pass",
+    "rest_components_MeV": {
+      "pair_created": 4688.925949573517,
+      "annihilated": 4609.210120439529,
+      "escaped_positron_rest": 79.71582913398743
+    },
+    "cpu_seconds": 14.456038,
+    "ausgab_instrumented_cpu_seconds": 0.0,
+    "wall_seconds": 15.7728909580037,
+    "rss_bytes": 15548416,
+    "charged_steps_mean": 439.71907,
+    "charged_steps_quantiles": {
+      "0.5": 332,
+      "0.9": 1075,
+      "0.99": 1881,
+      "1.0": 3071
+    },
+    "photon_steps": 27540092,
+    "warnings": [
+      "Number of allocated intervals(=  150) was insufficient\n to get maximum relative error less than   1.000000E-02",
+      "Number of allocated intervals(=  100) was insufficient\n to get maximum relative error less than   1.000000E-02"
+    ]
+  },
+  "photon_unit_seconds_range": [
+    2.687718456489994e-07,
+    2.776711301555532e-07
+  ],
+  "charged_steps_per_primary": 439.71907,
+  "photon_steps_per_primary_in_segmented_EGS_geometry": 137.70046,
+  "scoring_cpu_seconds_matched_difference": 0.33846499999999935,
+  "scoring_unit_seconds_point": 1.6923249999999968e-06,
+  "scoring_unit_seconds_range": [
+    0.0,
+    7.6040649999999854e-06
+  ],
+  "scoring_timing_size_variation_seconds_per_history": 5.911739999999989e-06,
+  "matched_scoring_disabled_changes_physics": false,
+  "assumptions": {
+    "electron_unit_multiplier": [
+      1,
+      20
+    ],
+    "stack_transport_multiplier": [
+      1.05,
+      1.5
+    ],
+    "fine_scoring_multiplier": [
+      1,
+      10
+    ],
+    "SEM_scaling": "R(N)=R(N0)*sqrt(N0/N), same estimator, future implementation variance assumed unchanged"
+  },
+  "formula": "C_low=(S_gamma+S_e)*c_gamma_min*1.05; C_high=(S_gamma+20*S_e)*c_gamma_max*1.5+10*c_score_high; T=N_max*C",
+  "seconds_per_history_range": [
+    0.0001629538184314717,
+    0.0037963125470621734
+  ],
+  "hours_range": [
+    7.273110291980782,
+    169.4406435110641
+  ],
+  "budget_hours": 24,
+  "budget_seconds_per_history": 0.0005377192817586458,
+  "EGS5_wall_extrapolation_hours": 3.5199535876230663,
+  "scoring_array_bytes": 407200,
+  "grid_2mm_30cm_cube_dose_and_moments_bytes": 81000000,
+  "limitations": [
+    "Pilot SEMs are high; rare-event tails and all-bin maximum bias remain. Scaling is not a guarantee of achieving 0.5% SEM.",
+    "Conditional cost range uses assumed unimplemented model costs; measured photon units are 60 keV. Bounds can be exceeded.",
+    "EGS photon step count includes 2mm scoring-region boundaries; ChatCarlo may decouple transport from scoring.",
+    "Matched scoring time subtraction is one paired measurement and shares machine load with regression tests; range includes size variation but is not a confidence interval.",
+    "The transport/PDD is an EGS5 feasibility reference, not independent clinical validation."
+  ]
+}

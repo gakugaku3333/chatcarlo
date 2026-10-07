@@ -1,0 +1,1 @@
+Initial preparation incorrectly looked for DATA RME (mass energy) but DERCON derives RM from RME (grams), C, and EMKS. No calculation ran. Corrected preparer parses installed constants and DERCON formula.
