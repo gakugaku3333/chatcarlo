@@ -1,0 +1,37 @@
+{
+  "started_utc": "2026-10-06T21:13:38.005481+00:00",
+  "preregistration_sha256_before": "a79bf89e2816d7e6f452027be2bbb82b0c62ab67d185170f564ff4534e514d5a",
+  "history_count": 8000000,
+  "inseed": 7,
+  "original_code": "docs/egs5_crosscheck/bsf60_phantom_8M_incoh1/bsf60_phantom_8M_incoh1.f",
+  "original_code_sha256": "cdc18958717f7ba819519777c88ef9a6c3cb1ad153c06fc2b80599a3aa4d453a",
+  "original_input_sha256": "b27d32d4c52f8790c2e7922729a083b6e548da1be0eb7f3ac18b5c32486b2d2c",
+  "code_sha256": "0d9e72764ca3c00634ced09d3d0dcc7ff7dabad907798a22c5a1bd6b1b301353",
+  "input_sha256": "c87fa030a20527b9199561ec178b90e56c97e5945f6dcdbfd835d3898402967e",
+  "runner_sha256": "d8fde1f3e96f4d85d7c76c577adb7d0aaa8dfeb79a1f80d8818638b8d1d02cec",
+  "compiler_version": "GNU Fortran (Homebrew GCC 16.1.0) 16.1.0",
+  "egs5run_sha256": "ac65f06633ed42f1bb6a1d5e8eede0328b860372a3fe599680eef01637f66215",
+  "egs5_source_tree_sha256": "07d081989d54c7d2aed42224b65f3b115f58eef8a7ab899cebac55aeb9cd3645",
+  "physics": {
+    "rho": 1.0,
+    "AP_MeV": 0.001,
+    "PCUT_MeV": 0.001,
+    "ECUT_MeV": 1.5,
+    "IBOUND": 1,
+    "INCOH": 1,
+    "IRAYL": 1,
+    "ICPROF": 0,
+    "IMPACT": 0,
+    "IEDGFL": 0
+  },
+  "commands": [
+    "printf 'bsf_phantom\\n\\n\\n' | /Users/oishifamily/Projects/viveMonte/docs/egs5_crosscheck/egs5/egs5run comp",
+    "./egs5job.exe"
+  ],
+  "build_exit_code": 0,
+  "run_exit_code": 0,
+  "elapsed_seconds_build_and_run": 12.564698625006713,
+  "finished_utc": "2026-10-06T21:13:50.693301+00:00",
+  "preregistration_sha256_after": "a79bf89e2816d7e6f452027be2bbb82b0c62ab67d185170f564ff4534e514d5a",
+  "output_sha256": "3892284ba6f133089edcf8f286ca876042604832519d99b8ad46d6b744fec13b"
+}

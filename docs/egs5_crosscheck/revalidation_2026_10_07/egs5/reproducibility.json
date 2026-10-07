@@ -1,0 +1,7 @@
+{
+  "histories": 10000,
+  "seed": 1,
+  "scoring_text_identical": true,
+  "scoring_sha256": "a0d6403c59dda6dd52a2537da36016aa5dccb56516a3b6ba971249f9ae48c330",
+  "preregistration_sha256": "a79bf89e2816d7e6f452027be2bbb82b0c62ab67d185170f564ff4534e514d5a"
+}

@@ -1,0 +1,34 @@
+{
+  "started_utc": "2026-10-06T21:13:04.082954+00:00",
+  "preregistration_sha256_before": "a79bf89e2816d7e6f452027be2bbb82b0c62ab67d185170f564ff4534e514d5a",
+  "history_count": 10000,
+  "inseed": 1,
+  "original_code": "docs/egs5_crosscheck/pdd60_phantom_incoh1/pdd60_phantom_incoh1.f",
+  "original_code_sha256": "f4743c32c5433d81bb71cb4d0616947fb1b9af93ba1c6fd5a18b84d120e3567d",
+  "original_input_sha256": "b27d32d4c52f8790c2e7922729a083b6e548da1be0eb7f3ac18b5c32486b2d2c",
+  "code_sha256": "434082d3faa876d8a06725f81e254da7fa5de9a81ab47be4ce620bc19be7e9ce",
+  "input_sha256": "c87fa030a20527b9199561ec178b90e56c97e5945f6dcdbfd835d3898402967e",
+  "runner_sha256": "ef11e8cf26a4b6060c42022ce3e5de65d4a7c221a11b0cbf3a10327819d9d1c5",
+  "compiler_version": "GNU Fortran (Homebrew GCC 16.1.0) 16.1.0",
+  "egs5run_sha256": "ac65f06633ed42f1bb6a1d5e8eede0328b860372a3fe599680eef01637f66215",
+  "egs5_source_tree_sha256": "07d081989d54c7d2aed42224b65f3b115f58eef8a7ab899cebac55aeb9cd3645",
+  "physics": {
+    "rho": 1.0,
+    "AP_MeV": 0.001,
+    "PCUT_MeV": 0.001,
+    "ECUT_MeV": 1.5,
+    "IBOUND": 1,
+    "INCOH": 1,
+    "IRAYL": 1,
+    "ICPROF": 0,
+    "IMPACT": 0,
+    "IEDGFL": 0
+  },
+  "commands": [
+    "printf 'pdd_repeat_a\\n\\n\\n' | /Users/oishifamily/Projects/viveMonte/docs/egs5_crosscheck/egs5/egs5run comp",
+    "./egs5job.exe"
+  ],
+  "build_exit_code": 1,
+  "status": "build_failed_before_simulation",
+  "used_for_physics": false
+}

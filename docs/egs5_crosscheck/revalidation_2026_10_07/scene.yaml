@@ -1,0 +1,21 @@
+# Physical specification for audit; run_chatcarlo.py uses the dedicated exact-box
+# scorer, and explicitly overrides Geometry bbox_margin_cm=0.01 (CLI default differs).
+source:
+  type: xray_tube
+  spectrum:
+    - energy_keV: 60.0
+      weight: 1.0
+  position: [0, 0, -0.0001]
+  direction: [0, 0, 1]
+  field:
+    shape: parallel
+    size_cm: [10, 10]
+geometry:
+  - name: water
+    shape: box
+    material: water
+    center: [0, 0, 10]
+    size_cm: [30, 30, 20]
+physics:
+  fluorescence: true
+n_histories: 5000000

@@ -190,9 +190,13 @@ Hp(10,0°)・実効線量E(AP)と数値的にほぼ一致することが知ら�
       ジオメトリー確認→軌跡確認→本計算→結果確認の4関門、各関門でユーザー承認）
 - [x] EGS5相互検証パイプライン（`.claude/skills/vive-crosscheck/`。計画・経緯:
       [docs/plan_egs5_crosscheck.md](docs/plan_egs5_crosscheck.md)。Phase 1
-      〈一次透過率〉は合格、Phase 2a〈BSF〉は保留（自由空気カーマ測定の食い違いが
-      未解消）、Phase 2b〈PDD/側方プロファイル〉は事前登録基準に対して不合格
-      （EGS5−ChatCarlo系統差−1.71%、原因の大半を特定済み・調査継続中）。
+      〈一次透過率〉は当時の条件で合格。**2026-10-07現行コード再検証**では
+      Phase 2a〈水薄層基準BSF_w〉は差+0.378%・0.833σで合格、
+      Phase 2b〈PDD/側方分布〉は従来基準42合格・1不合格・4統計不足
+      （中心軸PDD15ビンは全合格、47ビン平均差+0.108%）。
+      事前登録した多重比較補助判定は統計適格43ビン全合格だが、従来の不合格を
+      置き換えない。EGS5のRayleigh分布fit精度警告の影響は未定量。
+      数値・条件・図・限界: [最新結果](docs/egs5_crosscheck/revalidation_2026_10_07/RESULTS.md)。
       PHITS導入は取りやめ、EGS5を継続使用する）
 - [x] 光電吸収時のK殻蛍光X線（`physics.fluorescence`、既定true。L殻・カスケードは
       非対応。線エネルギー5 keV未満はK端超でも局所吸収扱い。データは全てxraylib

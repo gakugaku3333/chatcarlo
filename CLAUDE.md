@@ -22,6 +22,17 @@ and H*(10) must be cross-checked against an established code (EGS5 — PHITS was
 see [docs/plan_egs5_crosscheck.md](docs/plan_egs5_crosscheck.md)) before being used for real patient-dose or
 shielding decisions (see the warning banner in [README.md](README.md)).
 
+**Latest validation (2026-10-07)**: current production NumPy transport at commit `9a91953`
+was rechecked at 60 keV in water, with matched density 1.000, EGS5 bound-Compton
+IBOUND=1/INCOH=1, and explicit near-vacuum ChatCarlo boundaries. BSF_w passes
+(difference +0.378%, 0.833σ); central PDD passes all 15 bins. Across PDD/OCR's 47 bins,
+the historical 2σ/2% criterion gives 42 pass, 1 fail, 4 insufficient-statistics bins.
+The preregistered Bonferroni auxiliary criterion passes all 43 eligible bins; it does
+not replace the historical failure. EGS5's Rayleigh distribution fit warning remains
+an unquantified reference uncertainty. This is a scoped benchmark, not blanket validation.
+Use [current results](docs/egs5_crosscheck/revalidation_2026_10_07/RESULTS.md) for current
+numbers; the old BSF/PDD JSON, figures and reports are historical records, not regenerated data.
+
 ## Scatter correction moved out (2026-08-20)
 
 The MC scatter-correction research line (Virtual-Grid-like primary/scatter separation and subtraction)

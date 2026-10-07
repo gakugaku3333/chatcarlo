@@ -1,0 +1,2040 @@
+{
+  "manifest": {
+    "code_commit": "9a9195307c9d23a0cf39096e2595ac3dbf91d3d2",
+    "started_utc": "2026-10-06T21:13:42.899242+00:00",
+    "preregistration_sha256": "a79bf89e2816d7e6f452027be2bbb82b0c62ab67d185170f564ff4534e514d5a",
+    "runner_sha256": "b5fabcb489ef89cc33fcdc04970abe05cfc5412333231c4b770a4c7cc6328611",
+    "historical_definitions_sha256": "cbbabdc70187b969e2bb4db92a73e5e16ccfc129030ef0ad33f5effe1f7dfe99",
+    "mode": "repro",
+    "water_density_g_cm3": 1.0,
+    "bbox_margin_cm": 0.01,
+    "source_z_cm": -0.0001,
+    "versions": {
+      "numpy": "2.4.6",
+      "scipy": "1.17.1",
+      "xraylib": "4.2.1"
+    },
+    "production_source_sha256": {
+      "transport.py": "f5cfd738494691c8c6169fa7c5513cb162706d3d340b02d8471c74f429b2f4f8",
+      "physics.py": "8de2082950a4d03e3831dc79d490f45ebd088c0d3c6522ff4b7022ff8d74e58b",
+      "materials.py": "cafaec2134a6b20eca29927a11d857959441890a55ff5470c42620b81ab883c2",
+      "geometry.py": "81a19ef7ffa1d39227916df92b5732af27a982822c47e9c60ef31bf5611510bc",
+      "tally.py": "7f9f2a5c5b64d4e8ba0c7aaabf06e586779082d53f051a8328e9242acbca8de2",
+      "trajectory.py": "0b7b629c20352b0a7f8dc6bde95471262855a345528bdd0ccf3d5a85244ed878"
+    },
+    "completed_utc": "2026-10-06T21:13:43.365929+00:00"
+  },
+  "results": {
+    "thin": {
+      "bit_identical": true,
+      "first": {
+        "diagnostics": {
+          "n_histories": 10000,
+          "seed": 1,
+          "batch_size": 10000,
+          "depth_cm": 0.2,
+          "n_absorbed": 31,
+          "n_escaped": 9969,
+          "n_primary_transmitted": 9626,
+          "n_air_interactions": 0,
+          "n_water_segments_below_10keV": 0,
+          "n_segments_below_1keV": 0,
+          "deposited_keV": 3823.4252220952167,
+          "escaped_keV": 596176.5747779048,
+          "air_track_length_cm": 108.3002934872656,
+          "minimum_segment_energy_keV": 41.64291138529229,
+          "wall_seconds": 0.02353108290117234,
+          "energy_balance_relative_residual": 0.0
+        },
+        "bins": {
+          "surface": {
+            "lo_cm": [
+              -5.0,
+              -5.0,
+              0.0
+            ],
+            "hi_cm": [
+              5.0,
+              5.0,
+              0.2
+            ],
+            "mass_g": 20.0,
+            "sum_keV": 3981.509401561417,
+            "sum2_keV2": 2106.79799563737,
+            "mean_Gy_per_history": 3.1895406656165126e-15,
+            "sem_Gy_per_history": 1.8295854808064848e-17,
+            "rel_err": 0.005736203650041379,
+            "below_10keV_score_fraction": 0.0
+          }
+        }
+      },
+      "second": {
+        "diagnostics": {
+          "n_histories": 10000,
+          "seed": 1,
+          "batch_size": 10000,
+          "depth_cm": 0.2,
+          "n_absorbed": 31,
+          "n_escaped": 9969,
+          "n_primary_transmitted": 9626,
+          "n_air_interactions": 0,
+          "n_water_segments_below_10keV": 0,
+          "n_segments_below_1keV": 0,
+          "deposited_keV": 3823.4252220952167,
+          "escaped_keV": 596176.5747779048,
+          "air_track_length_cm": 108.3002934872656,
+          "minimum_segment_energy_keV": 41.64291138529229,
+          "wall_seconds": 0.014934333972632885,
+          "energy_balance_relative_residual": 0.0
+        },
+        "bins": {
+          "surface": {
+            "lo_cm": [
+              -5.0,
+              -5.0,
+              0.0
+            ],
+            "hi_cm": [
+              5.0,
+              5.0,
+              0.2
+            ],
+            "mass_g": 20.0,
+            "sum_keV": 3981.509401561417,
+            "sum2_keV2": 2106.79799563737,
+            "mean_Gy_per_history": 3.1895406656165126e-15,
+            "sem_Gy_per_history": 1.8295854808064848e-17,
+            "rel_err": 0.005736203650041379,
+            "below_10keV_score_fraction": 0.0
+          }
+        }
+      }
+    },
+    "surface": {
+      "bit_identical": true,
+      "first": {
+        "diagnostics": {
+          "n_histories": 10000,
+          "seed": 2,
+          "batch_size": 10000,
+          "depth_cm": 20.0,
+          "n_absorbed": 5396,
+          "n_escaped": 4604,
+          "n_primary_transmitted": 143,
+          "n_air_interactions": 0,
+          "n_water_segments_below_10keV": 0,
+          "n_segments_below_1keV": 0,
+          "deposited_keV": 378799.0763957222,
+          "escaped_keV": 221200.92360427784,
+          "air_track_length_cm": 84.10673092273751,
+          "minimum_segment_energy_keV": 18.977138907150046,
+          "wall_seconds": 0.05184770794585347,
+          "energy_balance_relative_residual": 0.0
+        },
+        "bins": {
+          "surface": {
+            "lo_cm": [
+              -5.0,
+              -5.0,
+              0.0
+            ],
+            "hi_cm": [
+              5.0,
+              5.0,
+              0.2
+            ],
+            "mass_g": 20.0,
+            "sum_keV": 5470.4356947102515,
+            "sum2_keV2": 5347.62846933127,
+            "mean_Gy_per_history": 4.3823021239321614e-15,
+            "sem_Gy_per_history": 3.887794203834185e-17,
+            "rel_err": 0.008871579580519056,
+            "below_10keV_score_fraction": 0.0
+          }
+        }
+      },
+      "second": {
+        "diagnostics": {
+          "n_histories": 10000,
+          "seed": 2,
+          "batch_size": 10000,
+          "depth_cm": 20.0,
+          "n_absorbed": 5396,
+          "n_escaped": 4604,
+          "n_primary_transmitted": 143,
+          "n_air_interactions": 0,
+          "n_water_segments_below_10keV": 0,
+          "n_segments_below_1keV": 0,
+          "deposited_keV": 378799.0763957222,
+          "escaped_keV": 221200.92360427784,
+          "air_track_length_cm": 84.10673092273751,
+          "minimum_segment_energy_keV": 18.977138907150046,
+          "wall_seconds": 0.0727836659643799,
+          "energy_balance_relative_residual": 0.0
+        },
+        "bins": {
+          "surface": {
+            "lo_cm": [
+              -5.0,
+              -5.0,
+              0.0
+            ],
+            "hi_cm": [
+              5.0,
+              5.0,
+              0.2
+            ],
+            "mass_g": 20.0,
+            "sum_keV": 5470.4356947102515,
+            "sum2_keV2": 5347.62846933127,
+            "mean_Gy_per_history": 4.3823021239321614e-15,
+            "sem_Gy_per_history": 3.887794203834185e-17,
+            "rel_err": 0.008871579580519056,
+            "below_10keV_score_fraction": 0.0
+          }
+        }
+      }
+    },
+    "pdd": {
+      "bit_identical": true,
+      "first": {
+        "diagnostics": {
+          "n_histories": 10000,
+          "seed": 1,
+          "batch_size": 10000,
+          "depth_cm": 20.0,
+          "n_absorbed": 5355,
+          "n_escaped": 4645,
+          "n_primary_transmitted": 171,
+          "n_air_interactions": 0,
+          "n_water_segments_below_10keV": 0,
+          "n_segments_below_1keV": 0,
+          "deposited_keV": 376798.3158141043,
+          "escaped_keV": 223201.68418589575,
+          "air_track_length_cm": 82.99783054404446,
+          "minimum_segment_energy_keV": 22.101089928645333,
+          "wall_seconds": 0.17748583294451237,
+          "energy_balance_relative_residual": 0.0
+        },
+        "bins": {
+          "pdd_z0-1": {
+            "lo_cm": [
+              -1.0,
+              -1.0,
+              0.0
+            ],
+            "hi_cm": [
+              1.0,
+              1.0,
+              1.0
+            ],
+            "mass_g": 4.0,
+            "sum_keV": 1197.2539008357148,
+            "sum2_keV2": 3308.391506407884,
+            "mean_Gy_per_history": 4.795530562210839e-15,
+            "sem_Gy_per_history": 2.2535250665009383e-16,
+            "rel_err": 0.0469921948628353,
+            "below_10keV_score_fraction": 0.0
+          },
+          "pdd_z1-2": {
+            "lo_cm": [
+              -1.0,
+              -1.0,
+              1.0
+            ],
+            "hi_cm": [
+              1.0,
+              1.0,
+              2.0
+            ],
+            "mass_g": 4.0,
+            "sum_keV": 1225.621984292115,
+            "sum2_keV2": 3588.422405277429,
+            "mean_Gy_per_history": 4.909157263373855e-15,
+            "sem_Gy_per_history": 2.348757385140943e-16,
+            "rel_err": 0.0478444111510647,
+            "below_10keV_score_fraction": 0.0
+          },
+          "pdd_z2-3": {
+            "lo_cm": [
+              -1.0,
+              -1.0,
+              2.0
+            ],
+            "hi_cm": [
+              1.0,
+              1.0,
+              3.0
+            ],
+            "mass_g": 4.0,
+            "sum_keV": 1181.6360646528256,
+            "sum2_keV2": 3644.6690861886414,
+            "mean_Gy_per_history": 4.7329742316961765e-15,
+            "sem_Gy_per_history": 2.3714762260139476e-16,
+            "rel_err": 0.05010541173312223,
+            "below_10keV_score_fraction": 0.0
+          },
+          "pdd_z3-4": {
+            "lo_cm": [
+              -1.0,
+              -1.0,
+              3.0
+            ],
+            "hi_cm": [
+              1.0,
+              1.0,
+              4.0
+            ],
+            "mass_g": 4.0,
+            "sum_keV": 1022.4970544198425,
+            "sum2_keV2": 3188.1060950425217,
+            "mean_Gy_per_history": 4.095552222313245e-15,
+            "sem_Gy_per_history": 2.224323976902407e-16,
+            "rel_err": 0.05431072187979737,
+            "below_10keV_score_fraction": 0.0
+          },
+          "pdd_z4-5": {
+            "lo_cm": [
+              -1.0,
+              -1.0,
+              4.0
+            ],
+            "hi_cm": [
+              1.0,
+              1.0,
+              5.0
+            ],
+            "mass_g": 4.0,
+            "sum_keV": 858.2664144068632,
+            "sum2_keV2": 2381.890455417802,
+            "mean_Gy_per_history": 3.437735987274093e-15,
+            "sem_Gy_per_history": 1.9244715796943142e-16,
+            "rel_err": 0.05598078464484698,
+            "below_10keV_score_fraction": 0.0
+          },
+          "pdd_z5-6": {
+            "lo_cm": [
+              -1.0,
+              -1.0,
+              5.0
+            ],
+            "hi_cm": [
+              1.0,
+              1.0,
+              6.0
+            ],
+            "mass_g": 4.0,
+            "sum_keV": 820.8311828003785,
+            "sum2_keV2": 2531.97824755123,
+            "mean_Gy_per_history": 3.287791353853373e-15,
+            "sem_Gy_per_history": 1.9885911603397584e-16,
+            "rel_err": 0.060484104564880015,
+            "below_10keV_score_fraction": 0.0
+          },
+          "pdd_z6-7": {
+            "lo_cm": [
+              -1.0,
+              -1.0,
+              6.0
+            ],
+            "hi_cm": [
+              1.0,
+              1.0,
+              7.0
+            ],
+            "mass_g": 4.0,
+            "sum_keV": 718.6182503700211,
+            "sum2_keV2": 2183.722669529793,
+            "mean_Gy_per_history": 2.8783834237720246e-15,
+            "sem_Gy_per_history": 1.8495838051130367e-16,
+            "rel_err": 0.06425772848181635,
+            "below_10keV_score_fraction": 0.0
+          },
+          "pdd_z7-8": {
+            "lo_cm": [
+              -1.0,
+              -1.0,
+              7.0
+            ],
+            "hi_cm": [
+              1.0,
+              1.0,
+              8.0
+            ],
+            "mass_g": 4.0,
+            "sum_keV": 658.61070153984,
+            "sum2_keV2": 2484.98926781514,
+            "mean_Gy_per_history": 2.638026692273699e-15,
+            "sem_Gy_per_history": 1.9792948046030923e-16,
+            "rel_err": 0.0750293698846978,
+            "below_10keV_score_fraction": 0.0
+          },
+          "pdd_z8-9": {
+            "lo_cm": [
+              -1.0,
+              -1.0,
+              8.0
+            ],
+            "hi_cm": [
+              1.0,
+              1.0,
+              9.0
+            ],
+            "mass_g": 4.0,
+            "sum_keV": 552.48000292687,
+            "sum2_keV2": 1626.5237153539092,
+            "mean_Gy_per_history": 2.212926378604207e-15,
+            "sem_Gy_per_history": 1.6002528249689933e-16,
+            "rel_err": 0.0723138754384746,
+            "below_10keV_score_fraction": 0.0
+          },
+          "pdd_z9-10": {
+            "lo_cm": [
+              -1.0,
+              -1.0,
+              9.0
+            ],
+            "hi_cm": [
+              1.0,
+              1.0,
+              10.0
+            ],
+            "mass_g": 4.0,
+            "sum_keV": 474.64799426105316,
+            "sum2_keV2": 1536.8877749511805,
+            "mean_Gy_per_history": 1.9011748144500638e-15,
+            "sem_Gy_per_history": 1.5587860019181864e-16,
+            "rel_err": 0.08199067177150056,
+            "below_10keV_score_fraction": 0.0
+          },
+          "pdd_z10-11": {
+            "lo_cm": [
+              -1.0,
+              -1.0,
+              10.0
+            ],
+            "hi_cm": [
+              1.0,
+              1.0,
+              11.0
+            ],
+            "mass_g": 4.0,
+            "sum_keV": 427.7151720215484,
+            "sum2_keV2": 1555.4789303503062,
+            "mean_Gy_per_history": 1.7131881365505387e-15,
+            "sem_Gy_per_history": 1.570489993310146e-16,
+            "rel_err": 0.09167060872090138,
+            "below_10keV_score_fraction": 0.0
+          },
+          "pdd_z11-12": {
+            "lo_cm": [
+              -1.0,
+              -1.0,
+              11.0
+            ],
+            "hi_cm": [
+              1.0,
+              1.0,
+              12.0
+            ],
+            "mass_g": 4.0,
+            "sum_keV": 329.95028506722605,
+            "sum2_keV2": 906.5122178142362,
+            "mean_Gy_per_history": 1.3215965927908718e-15,
+            "sem_Gy_per_history": 1.1987685566681193e-16,
+            "rel_err": 0.09070608710761192,
+            "below_10keV_score_fraction": 0.0
+          },
+          "pdd_z12-13": {
+            "lo_cm": [
+              -1.0,
+              -1.0,
+              12.0
+            ],
+            "hi_cm": [
+              1.0,
+              1.0,
+              13.0
+            ],
+            "mass_g": 4.0,
+            "sum_keV": 243.38828953286227,
+            "sum2_keV2": 762.8874065525388,
+            "mean_Gy_per_history": 9.748775761969468e-16,
+            "sem_Gy_per_history": 1.102071121109134e-16,
+            "rel_err": 0.11304713002102032,
+            "below_10keV_score_fraction": 0.0
+          },
+          "pdd_z13-14": {
+            "lo_cm": [
+              -1.0,
+              -1.0,
+              13.0
+            ],
+            "hi_cm": [
+              1.0,
+              1.0,
+              14.0
+            ],
+            "mass_g": 4.0,
+            "sum_keV": 178.81521987393427,
+            "sum2_keV2": 530.6749538620481,
+            "mean_Gy_per_history": 7.162339177139749e-16,
+            "sem_Gy_per_history": 9.199708648855213e-17,
+            "rel_err": 0.12844558769596107,
+            "below_10keV_score_fraction": 0.0
+          },
+          "pdd_z14-15": {
+            "lo_cm": [
+              -1.0,
+              -1.0,
+              14.0
+            ],
+            "hi_cm": [
+              1.0,
+              1.0,
+              15.0
+            ],
+            "mass_g": 4.0,
+            "sum_keV": 174.30187870500419,
+            "sum2_keV2": 553.1046445675476,
+            "mean_Gy_per_history": 6.981559933086497e-16,
+            "sem_Gy_per_history": 9.394631036022737e-17,
+            "rel_err": 0.1345634947785865,
+            "below_10keV_score_fraction": 0.0
+          },
+          "lat_shallow_x-8--7": {
+            "lo_cm": [
+              -8.0,
+              -1.0,
+              0.0
+            ],
+            "hi_cm": [
+              -7.0,
+              1.0,
+              1.0
+            ],
+            "mass_g": 2.0,
+            "sum_keV": 39.81776721714833,
+            "sum2_keV2": 97.64487611147885,
+            "mean_Gy_per_history": 3.189754812668313e-16,
+            "sem_Gy_per_history": 7.909954328007266e-17,
+            "rel_err": 0.24798001077049503,
+            "below_10keV_score_fraction": 0.0
+          },
+          "lat_shallow_x-7--6": {
+            "lo_cm": [
+              -7.0,
+              -1.0,
+              0.0
+            ],
+            "hi_cm": [
+              -6.0,
+              1.0,
+              1.0
+            ],
+            "mass_g": 2.0,
+            "sum_keV": 85.12955606382697,
+            "sum2_keV2": 206.90915359037655,
+            "mean_Gy_per_history": 6.819629279412829e-16,
+            "sem_Gy_per_history": 1.1503501874968357e-16,
+            "rel_err": 0.1686822172239663,
+            "below_10keV_score_fraction": 0.0
+          },
+          "lat_shallow_x-6--5": {
+            "lo_cm": [
+              -6.0,
+              -1.0,
+              0.0
+            ],
+            "hi_cm": [
+              -5.0,
+              1.0,
+              1.0
+            ],
+            "mass_g": 2.0,
+            "sum_keV": 139.7534291342489,
+            "sum2_keV2": 405.2348224912959,
+            "mean_Gy_per_history": 1.1195483934013423e-15,
+            "sem_Gy_per_history": 1.6088160210760944e-16,
+            "rel_err": 0.14370223123524742,
+            "below_10keV_score_fraction": 0.0
+          },
+          "lat_shallow_x-5--4": {
+            "lo_cm": [
+              -5.0,
+              -1.0,
+              0.0
+            ],
+            "hi_cm": [
+              -4.0,
+              1.0,
+              1.0
+            ],
+            "mass_g": 2.0,
+            "sum_keV": 531.4222007780295,
+            "sum2_keV2": 1231.152826334157,
+            "mean_Gy_per_history": 4.257161164377077e-15,
+            "sem_Gy_per_history": 2.778555136866635e-16,
+            "rel_err": 0.06526779300997412,
+            "below_10keV_score_fraction": 0.0
+          },
+          "lat_shallow_x-4--3": {
+            "lo_cm": [
+              -4.0,
+              -1.0,
+              0.0
+            ],
+            "hi_cm": [
+              -3.0,
+              1.0,
+              1.0
+            ],
+            "mass_g": 2.0,
+            "sum_keV": 596.958295335482,
+            "sum2_keV2": 1411.3736174060286,
+            "mean_Gy_per_history": 4.782163161294903e-15,
+            "sem_Gy_per_history": 2.9714603028183824e-16,
+            "rel_err": 0.06213632204915771,
+            "below_10keV_score_fraction": 0.0
+          },
+          "lat_shallow_x-3--2": {
+            "lo_cm": [
+              -3.0,
+              -1.0,
+              0.0
+            ],
+            "hi_cm": [
+              -2.0,
+              1.0,
+              1.0
+            ],
+            "mass_g": 2.0,
+            "sum_keV": 537.0763605745831,
+            "sum2_keV2": 1251.391813086269,
+            "mean_Gy_per_history": 4.3024559779317795e-15,
+            "sem_Gy_per_history": 2.801140190282971e-16,
+            "rel_err": 0.06510560955534747,
+            "below_10keV_score_fraction": 0.0
+          },
+          "lat_shallow_x-2--1": {
+            "lo_cm": [
+              -2.0,
+              -1.0,
+              0.0
+            ],
+            "hi_cm": [
+              -1.0,
+              1.0,
+              1.0
+            ],
+            "mass_g": 2.0,
+            "sum_keV": 585.8001190907333,
+            "sum2_keV2": 1382.7536194163254,
+            "mean_Gy_per_history": 4.692776315007951e-15,
+            "sem_Gy_per_history": 2.941829612863443e-16,
+            "rel_err": 0.0626884687312964,
+            "below_10keV_score_fraction": 0.0
+          },
+          "lat_shallow_x-1-0": {
+            "lo_cm": [
+              -1.0,
+              -1.0,
+              0.0
+            ],
+            "hi_cm": [
+              0.0,
+              1.0,
+              1.0
+            ],
+            "mass_g": 2.0,
+            "sum_keV": 590.8065271381636,
+            "sum2_keV2": 1383.8472923376087,
+            "mean_Gy_per_history": 4.732882064977263e-15,
+            "sem_Gy_per_history": 2.942380010783529e-16,
+            "rel_err": 0.06216888505540363,
+            "below_10keV_score_fraction": 0.0
+          },
+          "lat_shallow_x0-1": {
+            "lo_cm": [
+              0.0,
+              -1.0,
+              0.0
+            ],
+            "hi_cm": [
+              1.0,
+              1.0,
+              1.0
+            ],
+            "mass_g": 2.0,
+            "sum_keV": 606.4473736975513,
+            "sum2_keV2": 1525.7871718382808,
+            "mean_Gy_per_history": 4.8581790594444145e-15,
+            "sem_Gy_per_history": 3.0913688282009057e-16,
+            "rel_err": 0.06363225378017329,
+            "below_10keV_score_fraction": 0.0
+          },
+          "lat_shallow_x1-2": {
+            "lo_cm": [
+              1.0,
+              -1.0,
+              0.0
+            ],
+            "hi_cm": [
+              2.0,
+              1.0,
+              1.0
+            ],
+            "mass_g": 2.0,
+            "sum_keV": 594.6137349983649,
+            "sum2_keV2": 1400.6381011542435,
+            "mean_Gy_per_history": 4.7633811623492415e-15,
+            "sem_Gy_per_history": 2.9601466340288183e-16,
+            "rel_err": 0.06214381199275915,
+            "below_10keV_score_fraction": 0.0
+          },
+          "lat_shallow_x2-3": {
+            "lo_cm": [
+              2.0,
+              -1.0,
+              0.0
+            ],
+            "hi_cm": [
+              3.0,
+              1.0,
+              1.0
+            ],
+            "mass_g": 2.0,
+            "sum_keV": 588.68299184737,
+            "sum2_keV2": 1478.1009762040035,
+            "mean_Gy_per_history": 4.715870671855344e-15,
+            "sem_Gy_per_history": 3.0437040074600405e-16,
+            "rel_err": 0.06454171921263842,
+            "below_10keV_score_fraction": 0.0
+          },
+          "lat_shallow_x3-4": {
+            "lo_cm": [
+              3.0,
+              -1.0,
+              0.0
+            ],
+            "hi_cm": [
+              4.0,
+              1.0,
+              1.0
+            ],
+            "mass_g": 2.0,
+            "sum_keV": 567.7665204545115,
+            "sum2_keV2": 1294.7133211233745,
+            "mean_Gy_per_history": 4.548311263198507e-15,
+            "sem_Gy_per_history": 2.8465179499640656e-16,
+            "rel_err": 0.06258406219899537,
+            "below_10keV_score_fraction": 0.0
+          },
+          "lat_shallow_x4-5": {
+            "lo_cm": [
+              4.0,
+              -1.0,
+              0.0
+            ],
+            "hi_cm": [
+              5.0,
+              1.0,
+              1.0
+            ],
+            "mass_g": 2.0,
+            "sum_keV": 538.3528532324066,
+            "sum2_keV2": 1263.3478369661066,
+            "mean_Gy_per_history": 4.312681811480967e-15,
+            "sem_Gy_per_history": 2.8146473787785705e-16,
+            "rel_err": 0.06526443409958005,
+            "below_10keV_score_fraction": 0.0
+          },
+          "lat_shallow_x5-6": {
+            "lo_cm": [
+              5.0,
+              -1.0,
+              0.0
+            ],
+            "hi_cm": [
+              6.0,
+              1.0,
+              1.0
+            ],
+            "mass_g": 2.0,
+            "sum_keV": 102.28703604015341,
+            "sum2_keV2": 268.2574264774163,
+            "mean_Gy_per_history": 8.194094955232485e-16,
+            "sem_Gy_per_history": 1.3095720947556603e-16,
+            "rel_err": 0.15981900404014843,
+            "below_10keV_score_fraction": 0.0
+          },
+          "lat_shallow_x6-7": {
+            "lo_cm": [
+              6.0,
+              -1.0,
+              0.0
+            ],
+            "hi_cm": [
+              7.0,
+              1.0,
+              1.0
+            ],
+            "mass_g": 2.0,
+            "sum_keV": 51.66406592574583,
+            "sum2_keV2": 108.31701382211742,
+            "mean_Gy_per_history": 4.1387479621832776e-16,
+            "sem_Gy_per_history": 8.327500988704554e-17,
+            "rel_err": 0.20120821719019633,
+            "below_10keV_score_fraction": 0.0
+          },
+          "lat_shallow_x7-8": {
+            "lo_cm": [
+              7.0,
+              -1.0,
+              0.0
+            ],
+            "hi_cm": [
+              8.0,
+              1.0,
+              1.0
+            ],
+            "mass_g": 2.0,
+            "sum_keV": 38.31745304760476,
+            "sum2_keV2": 79.09675679294995,
+            "mean_Gy_per_history": 3.069566397363222e-16,
+            "sem_Gy_per_history": 7.11832806670471e-17,
+            "rel_err": 0.23190011699435473,
+            "below_10keV_score_fraction": 0.0
+          },
+          "lat_10cm_x-8--7": {
+            "lo_cm": [
+              -8.0,
+              -1.0,
+              9.0
+            ],
+            "hi_cm": [
+              -7.0,
+              1.0,
+              10.0
+            ],
+            "mass_g": 2.0,
+            "sum_keV": 49.7970719450245,
+            "sum2_keV2": 175.3599416626421,
+            "mean_Gy_per_history": 3.989185255596759e-16,
+            "sem_Gy_per_history": 1.0601322026435859e-16,
+            "rel_err": 0.26575155945847295,
+            "below_10keV_score_fraction": 0.0
+          },
+          "lat_10cm_x-7--6": {
+            "lo_cm": [
+              -7.0,
+              -1.0,
+              9.0
+            ],
+            "hi_cm": [
+              -6.0,
+              1.0,
+              10.0
+            ],
+            "mass_g": 2.0,
+            "sum_keV": 52.94361981628552,
+            "sum2_keV2": 146.30088630204796,
+            "mean_Gy_per_history": 4.2412515294516016e-16,
+            "sem_Gy_per_history": 9.680753320731193e-17,
+            "rel_err": 0.2282522800995706,
+            "below_10keV_score_fraction": 0.0
+          },
+          "lat_10cm_x-6--5": {
+            "lo_cm": [
+              -6.0,
+              -1.0,
+              9.0
+            ],
+            "hi_cm": [
+              -5.0,
+              1.0,
+              10.0
+            ],
+            "mass_g": 2.0,
+            "sum_keV": 89.47029731713576,
+            "sum2_keV2": 296.3653346650914,
+            "mean_Gy_per_history": 7.16736098992739e-16,
+            "sem_Gy_per_history": 1.3772998483083134e-16,
+            "rel_err": 0.19216275700971305,
+            "below_10keV_score_fraction": 0.0
+          },
+          "lat_10cm_x-5--4": {
+            "lo_cm": [
+              -5.0,
+              -1.0,
+              9.0
+            ],
+            "hi_cm": [
+              -4.0,
+              1.0,
+              10.0
+            ],
+            "mass_g": 2.0,
+            "sum_keV": 148.69789276235423,
+            "sum2_keV2": 393.7560853279808,
+            "mean_Gy_per_history": 1.1912014465444085e-15,
+            "sem_Gy_per_history": 1.5852324120649917e-16,
+            "rel_err": 0.13307844921307302,
+            "below_10keV_score_fraction": 0.0
+          },
+          "lat_10cm_x-4--3": {
+            "lo_cm": [
+              -4.0,
+              -1.0,
+              9.0
+            ],
+            "hi_cm": [
+              -3.0,
+              1.0,
+              10.0
+            ],
+            "mass_g": 2.0,
+            "sum_keV": 201.0924284100367,
+            "sum2_keV2": 538.0660806976286,
+            "mean_Gy_per_history": 1.6109279503643929e-15,
+            "sem_Gy_per_history": 1.851321291225668e-16,
+            "rel_err": 0.11492266248201219,
+            "below_10keV_score_fraction": 0.0
+          },
+          "lat_10cm_x-3--2": {
+            "lo_cm": [
+              -3.0,
+              -1.0,
+              9.0
+            ],
+            "hi_cm": [
+              -2.0,
+              1.0,
+              10.0
+            ],
+            "mass_g": 2.0,
+            "sum_keV": 185.99344429977333,
+            "sum2_keV2": 515.6029080558717,
+            "mean_Gy_per_history": 1.4899717526713866e-15,
+            "sem_Gy_per_history": 1.8130006861570057e-16,
+            "rel_err": 0.12168020520566629,
+            "below_10keV_score_fraction": 0.0
+          },
+          "lat_10cm_x-2--1": {
+            "lo_cm": [
+              -2.0,
+              -1.0,
+              9.0
+            ],
+            "hi_cm": [
+              -1.0,
+              1.0,
+              10.0
+            ],
+            "mass_g": 2.0,
+            "sum_keV": 180.27940909004204,
+            "sum2_keV2": 440.11691298889525,
+            "mean_Gy_per_history": 1.4441972841769629e-15,
+            "sem_Gy_per_history": 1.674467249490962e-16,
+            "rel_err": 0.11594449510720609,
+            "below_10keV_score_fraction": 0.0
+          },
+          "lat_10cm_x-1-0": {
+            "lo_cm": [
+              -1.0,
+              -1.0,
+              9.0
+            ],
+            "hi_cm": [
+              0.0,
+              1.0,
+              10.0
+            ],
+            "mass_g": 2.0,
+            "sum_keV": 176.01641477168482,
+            "sum2_keV2": 465.6302959262399,
+            "mean_Gy_per_history": 1.4100469347382294e-15,
+            "sem_Gy_per_history": 1.7229515360268328e-16,
+            "rel_err": 0.12219107701877265,
+            "below_10keV_score_fraction": 0.0
+          },
+          "lat_10cm_x0-1": {
+            "lo_cm": [
+              0.0,
+              -1.0,
+              9.0
+            ],
+            "hi_cm": [
+              1.0,
+              1.0,
+              10.0
+            ],
+            "mass_g": 2.0,
+            "sum_keV": 298.6315794893683,
+            "sum2_keV2": 838.5896768713133,
+            "mean_Gy_per_history": 2.3923026941618974e-15,
+            "sem_Gy_per_history": 2.3075718090449583e-16,
+            "rel_err": 0.09645818711303909,
+            "below_10keV_score_fraction": 0.0
+          },
+          "lat_10cm_x1-2": {
+            "lo_cm": [
+              1.0,
+              -1.0,
+              9.0
+            ],
+            "hi_cm": [
+              2.0,
+              1.0,
+              10.0
+            ],
+            "mass_g": 2.0,
+            "sum_keV": 251.81494788752113,
+            "sum2_keV2": 663.58016882351,
+            "mean_Gy_per_history": 2.01726012798657e-15,
+            "sem_Gy_per_history": 2.0538267564698098e-16,
+            "rel_err": 0.10181268781234162,
+            "below_10keV_score_fraction": 0.0
+          },
+          "lat_10cm_x2-3": {
+            "lo_cm": [
+              2.0,
+              -1.0,
+              9.0
+            ],
+            "hi_cm": [
+              3.0,
+              1.0,
+              10.0
+            ],
+            "mass_g": 2.0,
+            "sum_keV": 190.61080569290937,
+            "sum2_keV2": 471.9825914882627,
+            "mean_Gy_per_history": 1.5269608953454677e-15,
+            "sem_Gy_per_history": 1.7337523862044194e-16,
+            "rel_err": 0.11354268413089688,
+            "below_10keV_score_fraction": 0.0
+          },
+          "lat_10cm_x3-4": {
+            "lo_cm": [
+              3.0,
+              -1.0,
+              9.0
+            ],
+            "hi_cm": [
+              4.0,
+              1.0,
+              10.0
+            ],
+            "mass_g": 2.0,
+            "sum_keV": 162.10195916704117,
+            "sum2_keV2": 403.5712110645813,
+            "mean_Gy_per_history": 1.2985798565152773e-15,
+            "sem_Gy_per_history": 1.6041453104950205e-16,
+            "rel_err": 0.12353074032733914,
+            "below_10keV_score_fraction": 0.0
+          },
+          "lat_10cm_x4-5": {
+            "lo_cm": [
+              4.0,
+              -1.0,
+              9.0
+            ],
+            "hi_cm": [
+              5.0,
+              1.0,
+              10.0
+            ],
+            "mass_g": 2.0,
+            "sum_keV": 126.16095668290734,
+            "sum2_keV2": 280.2927162134201,
+            "mean_Gy_per_history": 1.0106606846022015e-15,
+            "sem_Gy_per_history": 1.3374311133290574e-16,
+            "rel_err": 0.13233235780369487,
+            "below_10keV_score_fraction": 0.0
+          },
+          "lat_10cm_x5-6": {
+            "lo_cm": [
+              5.0,
+              -1.0,
+              9.0
+            ],
+            "hi_cm": [
+              6.0,
+              1.0,
+              10.0
+            ],
+            "mass_g": 2.0,
+            "sum_keV": 66.3188897806302,
+            "sum2_keV2": 172.3326603491814,
+            "mean_Gy_per_history": 5.312728779967355e-16,
+            "sem_Gy_per_history": 1.050342668697711e-16,
+            "rel_err": 0.19770304719078186,
+            "below_10keV_score_fraction": 0.0
+          },
+          "lat_10cm_x6-7": {
+            "lo_cm": [
+              6.0,
+              -1.0,
+              9.0
+            ],
+            "hi_cm": [
+              7.0,
+              1.0,
+              10.0
+            ],
+            "mass_g": 2.0,
+            "sum_keV": 69.84451287193565,
+            "sum2_keV2": 263.16378858759253,
+            "mean_Gy_per_history": 5.595162326826377e-16,
+            "sem_Gy_per_history": 1.2984112819132129e-16,
+            "rel_err": 0.23205962688301174,
+            "below_10keV_score_fraction": 0.0
+          },
+          "lat_10cm_x7-8": {
+            "lo_cm": [
+              7.0,
+              -1.0,
+              9.0
+            ],
+            "hi_cm": [
+              8.0,
+              1.0,
+              10.0
+            ],
+            "mass_g": 2.0,
+            "sum_keV": 59.47271975738745,
+            "sum2_keV2": 162.34656674685496,
+            "mean_Gy_per_history": 4.764290097785816e-16,
+            "sem_Gy_per_history": 1.0196475001745566e-16,
+            "rel_err": 0.21401876864056482,
+            "below_10keV_score_fraction": 0.0
+          }
+        }
+      },
+      "second": {
+        "diagnostics": {
+          "n_histories": 10000,
+          "seed": 1,
+          "batch_size": 10000,
+          "depth_cm": 20.0,
+          "n_absorbed": 5355,
+          "n_escaped": 4645,
+          "n_primary_transmitted": 171,
+          "n_air_interactions": 0,
+          "n_water_segments_below_10keV": 0,
+          "n_segments_below_1keV": 0,
+          "deposited_keV": 376798.3158141043,
+          "escaped_keV": 223201.68418589575,
+          "air_track_length_cm": 82.99783054404446,
+          "minimum_segment_energy_keV": 22.101089928645333,
+          "wall_seconds": 0.11447449994739145,
+          "energy_balance_relative_residual": 0.0
+        },
+        "bins": {
+          "pdd_z0-1": {
+            "lo_cm": [
+              -1.0,
+              -1.0,
+              0.0
+            ],
+            "hi_cm": [
+              1.0,
+              1.0,
+              1.0
+            ],
+            "mass_g": 4.0,
+            "sum_keV": 1197.2539008357148,
+            "sum2_keV2": 3308.391506407884,
+            "mean_Gy_per_history": 4.795530562210839e-15,
+            "sem_Gy_per_history": 2.2535250665009383e-16,
+            "rel_err": 0.0469921948628353,
+            "below_10keV_score_fraction": 0.0
+          },
+          "pdd_z1-2": {
+            "lo_cm": [
+              -1.0,
+              -1.0,
+              1.0
+            ],
+            "hi_cm": [
+              1.0,
+              1.0,
+              2.0
+            ],
+            "mass_g": 4.0,
+            "sum_keV": 1225.621984292115,
+            "sum2_keV2": 3588.422405277429,
+            "mean_Gy_per_history": 4.909157263373855e-15,
+            "sem_Gy_per_history": 2.348757385140943e-16,
+            "rel_err": 0.0478444111510647,
+            "below_10keV_score_fraction": 0.0
+          },
+          "pdd_z2-3": {
+            "lo_cm": [
+              -1.0,
+              -1.0,
+              2.0
+            ],
+            "hi_cm": [
+              1.0,
+              1.0,
+              3.0
+            ],
+            "mass_g": 4.0,
+            "sum_keV": 1181.6360646528256,
+            "sum2_keV2": 3644.6690861886414,
+            "mean_Gy_per_history": 4.7329742316961765e-15,
+            "sem_Gy_per_history": 2.3714762260139476e-16,
+            "rel_err": 0.05010541173312223,
+            "below_10keV_score_fraction": 0.0
+          },
+          "pdd_z3-4": {
+            "lo_cm": [
+              -1.0,
+              -1.0,
+              3.0
+            ],
+            "hi_cm": [
+              1.0,
+              1.0,
+              4.0
+            ],
+            "mass_g": 4.0,
+            "sum_keV": 1022.4970544198425,
+            "sum2_keV2": 3188.1060950425217,
+            "mean_Gy_per_history": 4.095552222313245e-15,
+            "sem_Gy_per_history": 2.224323976902407e-16,
+            "rel_err": 0.05431072187979737,
+            "below_10keV_score_fraction": 0.0
+          },
+          "pdd_z4-5": {
+            "lo_cm": [
+              -1.0,
+              -1.0,
+              4.0
+            ],
+            "hi_cm": [
+              1.0,
+              1.0,
+              5.0
+            ],
+            "mass_g": 4.0,
+            "sum_keV": 858.2664144068632,
+            "sum2_keV2": 2381.890455417802,
+            "mean_Gy_per_history": 3.437735987274093e-15,
+            "sem_Gy_per_history": 1.9244715796943142e-16,
+            "rel_err": 0.05598078464484698,
+            "below_10keV_score_fraction": 0.0
+          },
+          "pdd_z5-6": {
+            "lo_cm": [
+              -1.0,
+              -1.0,
+              5.0
+            ],
+            "hi_cm": [
+              1.0,
+              1.0,
+              6.0
+            ],
+            "mass_g": 4.0,
+            "sum_keV": 820.8311828003785,
+            "sum2_keV2": 2531.97824755123,
+            "mean_Gy_per_history": 3.287791353853373e-15,
+            "sem_Gy_per_history": 1.9885911603397584e-16,
+            "rel_err": 0.060484104564880015,
+            "below_10keV_score_fraction": 0.0
+          },
+          "pdd_z6-7": {
+            "lo_cm": [
+              -1.0,
+              -1.0,
+              6.0
+            ],
+            "hi_cm": [
+              1.0,
+              1.0,
+              7.0
+            ],
+            "mass_g": 4.0,
+            "sum_keV": 718.6182503700211,
+            "sum2_keV2": 2183.722669529793,
+            "mean_Gy_per_history": 2.8783834237720246e-15,
+            "sem_Gy_per_history": 1.8495838051130367e-16,
+            "rel_err": 0.06425772848181635,
+            "below_10keV_score_fraction": 0.0
+          },
+          "pdd_z7-8": {
+            "lo_cm": [
+              -1.0,
+              -1.0,
+              7.0
+            ],
+            "hi_cm": [
+              1.0,
+              1.0,
+              8.0
+            ],
+            "mass_g": 4.0,
+            "sum_keV": 658.61070153984,
+            "sum2_keV2": 2484.98926781514,
+            "mean_Gy_per_history": 2.638026692273699e-15,
+            "sem_Gy_per_history": 1.9792948046030923e-16,
+            "rel_err": 0.0750293698846978,
+            "below_10keV_score_fraction": 0.0
+          },
+          "pdd_z8-9": {
+            "lo_cm": [
+              -1.0,
+              -1.0,
+              8.0
+            ],
+            "hi_cm": [
+              1.0,
+              1.0,
+              9.0
+            ],
+            "mass_g": 4.0,
+            "sum_keV": 552.48000292687,
+            "sum2_keV2": 1626.5237153539092,
+            "mean_Gy_per_history": 2.212926378604207e-15,
+            "sem_Gy_per_history": 1.6002528249689933e-16,
+            "rel_err": 0.0723138754384746,
+            "below_10keV_score_fraction": 0.0
+          },
+          "pdd_z9-10": {
+            "lo_cm": [
+              -1.0,
+              -1.0,
+              9.0
+            ],
+            "hi_cm": [
+              1.0,
+              1.0,
+              10.0
+            ],
+            "mass_g": 4.0,
+            "sum_keV": 474.64799426105316,
+            "sum2_keV2": 1536.8877749511805,
+            "mean_Gy_per_history": 1.9011748144500638e-15,
+            "sem_Gy_per_history": 1.5587860019181864e-16,
+            "rel_err": 0.08199067177150056,
+            "below_10keV_score_fraction": 0.0
+          },
+          "pdd_z10-11": {
+            "lo_cm": [
+              -1.0,
+              -1.0,
+              10.0
+            ],
+            "hi_cm": [
+              1.0,
+              1.0,
+              11.0
+            ],
+            "mass_g": 4.0,
+            "sum_keV": 427.7151720215484,
+            "sum2_keV2": 1555.4789303503062,
+            "mean_Gy_per_history": 1.7131881365505387e-15,
+            "sem_Gy_per_history": 1.570489993310146e-16,
+            "rel_err": 0.09167060872090138,
+            "below_10keV_score_fraction": 0.0
+          },
+          "pdd_z11-12": {
+            "lo_cm": [
+              -1.0,
+              -1.0,
+              11.0
+            ],
+            "hi_cm": [
+              1.0,
+              1.0,
+              12.0
+            ],
+            "mass_g": 4.0,
+            "sum_keV": 329.95028506722605,
+            "sum2_keV2": 906.5122178142362,
+            "mean_Gy_per_history": 1.3215965927908718e-15,
+            "sem_Gy_per_history": 1.1987685566681193e-16,
+            "rel_err": 0.09070608710761192,
+            "below_10keV_score_fraction": 0.0
+          },
+          "pdd_z12-13": {
+            "lo_cm": [
+              -1.0,
+              -1.0,
+              12.0
+            ],
+            "hi_cm": [
+              1.0,
+              1.0,
+              13.0
+            ],
+            "mass_g": 4.0,
+            "sum_keV": 243.38828953286227,
+            "sum2_keV2": 762.8874065525388,
+            "mean_Gy_per_history": 9.748775761969468e-16,
+            "sem_Gy_per_history": 1.102071121109134e-16,
+            "rel_err": 0.11304713002102032,
+            "below_10keV_score_fraction": 0.0
+          },
+          "pdd_z13-14": {
+            "lo_cm": [
+              -1.0,
+              -1.0,
+              13.0
+            ],
+            "hi_cm": [
+              1.0,
+              1.0,
+              14.0
+            ],
+            "mass_g": 4.0,
+            "sum_keV": 178.81521987393427,
+            "sum2_keV2": 530.6749538620481,
+            "mean_Gy_per_history": 7.162339177139749e-16,
+            "sem_Gy_per_history": 9.199708648855213e-17,
+            "rel_err": 0.12844558769596107,
+            "below_10keV_score_fraction": 0.0
+          },
+          "pdd_z14-15": {
+            "lo_cm": [
+              -1.0,
+              -1.0,
+              14.0
+            ],
+            "hi_cm": [
+              1.0,
+              1.0,
+              15.0
+            ],
+            "mass_g": 4.0,
+            "sum_keV": 174.30187870500419,
+            "sum2_keV2": 553.1046445675476,
+            "mean_Gy_per_history": 6.981559933086497e-16,
+            "sem_Gy_per_history": 9.394631036022737e-17,
+            "rel_err": 0.1345634947785865,
+            "below_10keV_score_fraction": 0.0
+          },
+          "lat_shallow_x-8--7": {
+            "lo_cm": [
+              -8.0,
+              -1.0,
+              0.0
+            ],
+            "hi_cm": [
+              -7.0,
+              1.0,
+              1.0
+            ],
+            "mass_g": 2.0,
+            "sum_keV": 39.81776721714833,
+            "sum2_keV2": 97.64487611147885,
+            "mean_Gy_per_history": 3.189754812668313e-16,
+            "sem_Gy_per_history": 7.909954328007266e-17,
+            "rel_err": 0.24798001077049503,
+            "below_10keV_score_fraction": 0.0
+          },
+          "lat_shallow_x-7--6": {
+            "lo_cm": [
+              -7.0,
+              -1.0,
+              0.0
+            ],
+            "hi_cm": [
+              -6.0,
+              1.0,
+              1.0
+            ],
+            "mass_g": 2.0,
+            "sum_keV": 85.12955606382697,
+            "sum2_keV2": 206.90915359037655,
+            "mean_Gy_per_history": 6.819629279412829e-16,
+            "sem_Gy_per_history": 1.1503501874968357e-16,
+            "rel_err": 0.1686822172239663,
+            "below_10keV_score_fraction": 0.0
+          },
+          "lat_shallow_x-6--5": {
+            "lo_cm": [
+              -6.0,
+              -1.0,
+              0.0
+            ],
+            "hi_cm": [
+              -5.0,
+              1.0,
+              1.0
+            ],
+            "mass_g": 2.0,
+            "sum_keV": 139.7534291342489,
+            "sum2_keV2": 405.2348224912959,
+            "mean_Gy_per_history": 1.1195483934013423e-15,
+            "sem_Gy_per_history": 1.6088160210760944e-16,
+            "rel_err": 0.14370223123524742,
+            "below_10keV_score_fraction": 0.0
+          },
+          "lat_shallow_x-5--4": {
+            "lo_cm": [
+              -5.0,
+              -1.0,
+              0.0
+            ],
+            "hi_cm": [
+              -4.0,
+              1.0,
+              1.0
+            ],
+            "mass_g": 2.0,
+            "sum_keV": 531.4222007780295,
+            "sum2_keV2": 1231.152826334157,
+            "mean_Gy_per_history": 4.257161164377077e-15,
+            "sem_Gy_per_history": 2.778555136866635e-16,
+            "rel_err": 0.06526779300997412,
+            "below_10keV_score_fraction": 0.0
+          },
+          "lat_shallow_x-4--3": {
+            "lo_cm": [
+              -4.0,
+              -1.0,
+              0.0
+            ],
+            "hi_cm": [
+              -3.0,
+              1.0,
+              1.0
+            ],
+            "mass_g": 2.0,
+            "sum_keV": 596.958295335482,
+            "sum2_keV2": 1411.3736174060286,
+            "mean_Gy_per_history": 4.782163161294903e-15,
+            "sem_Gy_per_history": 2.9714603028183824e-16,
+            "rel_err": 0.06213632204915771,
+            "below_10keV_score_fraction": 0.0
+          },
+          "lat_shallow_x-3--2": {
+            "lo_cm": [
+              -3.0,
+              -1.0,
+              0.0
+            ],
+            "hi_cm": [
+              -2.0,
+              1.0,
+              1.0
+            ],
+            "mass_g": 2.0,
+            "sum_keV": 537.0763605745831,
+            "sum2_keV2": 1251.391813086269,
+            "mean_Gy_per_history": 4.3024559779317795e-15,
+            "sem_Gy_per_history": 2.801140190282971e-16,
+            "rel_err": 0.06510560955534747,
+            "below_10keV_score_fraction": 0.0
+          },
+          "lat_shallow_x-2--1": {
+            "lo_cm": [
+              -2.0,
+              -1.0,
+              0.0
+            ],
+            "hi_cm": [
+              -1.0,
+              1.0,
+              1.0
+            ],
+            "mass_g": 2.0,
+            "sum_keV": 585.8001190907333,
+            "sum2_keV2": 1382.7536194163254,
+            "mean_Gy_per_history": 4.692776315007951e-15,
+            "sem_Gy_per_history": 2.941829612863443e-16,
+            "rel_err": 0.0626884687312964,
+            "below_10keV_score_fraction": 0.0
+          },
+          "lat_shallow_x-1-0": {
+            "lo_cm": [
+              -1.0,
+              -1.0,
+              0.0
+            ],
+            "hi_cm": [
+              0.0,
+              1.0,
+              1.0
+            ],
+            "mass_g": 2.0,
+            "sum_keV": 590.8065271381636,
+            "sum2_keV2": 1383.8472923376087,
+            "mean_Gy_per_history": 4.732882064977263e-15,
+            "sem_Gy_per_history": 2.942380010783529e-16,
+            "rel_err": 0.06216888505540363,
+            "below_10keV_score_fraction": 0.0
+          },
+          "lat_shallow_x0-1": {
+            "lo_cm": [
+              0.0,
+              -1.0,
+              0.0
+            ],
+            "hi_cm": [
+              1.0,
+              1.0,
+              1.0
+            ],
+            "mass_g": 2.0,
+            "sum_keV": 606.4473736975513,
+            "sum2_keV2": 1525.7871718382808,
+            "mean_Gy_per_history": 4.8581790594444145e-15,
+            "sem_Gy_per_history": 3.0913688282009057e-16,
+            "rel_err": 0.06363225378017329,
+            "below_10keV_score_fraction": 0.0
+          },
+          "lat_shallow_x1-2": {
+            "lo_cm": [
+              1.0,
+              -1.0,
+              0.0
+            ],
+            "hi_cm": [
+              2.0,
+              1.0,
+              1.0
+            ],
+            "mass_g": 2.0,
+            "sum_keV": 594.6137349983649,
+            "sum2_keV2": 1400.6381011542435,
+            "mean_Gy_per_history": 4.7633811623492415e-15,
+            "sem_Gy_per_history": 2.9601466340288183e-16,
+            "rel_err": 0.06214381199275915,
+            "below_10keV_score_fraction": 0.0
+          },
+          "lat_shallow_x2-3": {
+            "lo_cm": [
+              2.0,
+              -1.0,
+              0.0
+            ],
+            "hi_cm": [
+              3.0,
+              1.0,
+              1.0
+            ],
+            "mass_g": 2.0,
+            "sum_keV": 588.68299184737,
+            "sum2_keV2": 1478.1009762040035,
+            "mean_Gy_per_history": 4.715870671855344e-15,
+            "sem_Gy_per_history": 3.0437040074600405e-16,
+            "rel_err": 0.06454171921263842,
+            "below_10keV_score_fraction": 0.0
+          },
+          "lat_shallow_x3-4": {
+            "lo_cm": [
+              3.0,
+              -1.0,
+              0.0
+            ],
+            "hi_cm": [
+              4.0,
+              1.0,
+              1.0
+            ],
+            "mass_g": 2.0,
+            "sum_keV": 567.7665204545115,
+            "sum2_keV2": 1294.7133211233745,
+            "mean_Gy_per_history": 4.548311263198507e-15,
+            "sem_Gy_per_history": 2.8465179499640656e-16,
+            "rel_err": 0.06258406219899537,
+            "below_10keV_score_fraction": 0.0
+          },
+          "lat_shallow_x4-5": {
+            "lo_cm": [
+              4.0,
+              -1.0,
+              0.0
+            ],
+            "hi_cm": [
+              5.0,
+              1.0,
+              1.0
+            ],
+            "mass_g": 2.0,
+            "sum_keV": 538.3528532324066,
+            "sum2_keV2": 1263.3478369661066,
+            "mean_Gy_per_history": 4.312681811480967e-15,
+            "sem_Gy_per_history": 2.8146473787785705e-16,
+            "rel_err": 0.06526443409958005,
+            "below_10keV_score_fraction": 0.0
+          },
+          "lat_shallow_x5-6": {
+            "lo_cm": [
+              5.0,
+              -1.0,
+              0.0
+            ],
+            "hi_cm": [
+              6.0,
+              1.0,
+              1.0
+            ],
+            "mass_g": 2.0,
+            "sum_keV": 102.28703604015341,
+            "sum2_keV2": 268.2574264774163,
+            "mean_Gy_per_history": 8.194094955232485e-16,
+            "sem_Gy_per_history": 1.3095720947556603e-16,
+            "rel_err": 0.15981900404014843,
+            "below_10keV_score_fraction": 0.0
+          },
+          "lat_shallow_x6-7": {
+            "lo_cm": [
+              6.0,
+              -1.0,
+              0.0
+            ],
+            "hi_cm": [
+              7.0,
+              1.0,
+              1.0
+            ],
+            "mass_g": 2.0,
+            "sum_keV": 51.66406592574583,
+            "sum2_keV2": 108.31701382211742,
+            "mean_Gy_per_history": 4.1387479621832776e-16,
+            "sem_Gy_per_history": 8.327500988704554e-17,
+            "rel_err": 0.20120821719019633,
+            "below_10keV_score_fraction": 0.0
+          },
+          "lat_shallow_x7-8": {
+            "lo_cm": [
+              7.0,
+              -1.0,
+              0.0
+            ],
+            "hi_cm": [
+              8.0,
+              1.0,
+              1.0
+            ],
+            "mass_g": 2.0,
+            "sum_keV": 38.31745304760476,
+            "sum2_keV2": 79.09675679294995,
+            "mean_Gy_per_history": 3.069566397363222e-16,
+            "sem_Gy_per_history": 7.11832806670471e-17,
+            "rel_err": 0.23190011699435473,
+            "below_10keV_score_fraction": 0.0
+          },
+          "lat_10cm_x-8--7": {
+            "lo_cm": [
+              -8.0,
+              -1.0,
+              9.0
+            ],
+            "hi_cm": [
+              -7.0,
+              1.0,
+              10.0
+            ],
+            "mass_g": 2.0,
+            "sum_keV": 49.7970719450245,
+            "sum2_keV2": 175.3599416626421,
+            "mean_Gy_per_history": 3.989185255596759e-16,
+            "sem_Gy_per_history": 1.0601322026435859e-16,
+            "rel_err": 0.26575155945847295,
+            "below_10keV_score_fraction": 0.0
+          },
+          "lat_10cm_x-7--6": {
+            "lo_cm": [
+              -7.0,
+              -1.0,
+              9.0
+            ],
+            "hi_cm": [
+              -6.0,
+              1.0,
+              10.0
+            ],
+            "mass_g": 2.0,
+            "sum_keV": 52.94361981628552,
+            "sum2_keV2": 146.30088630204796,
+            "mean_Gy_per_history": 4.2412515294516016e-16,
+            "sem_Gy_per_history": 9.680753320731193e-17,
+            "rel_err": 0.2282522800995706,
+            "below_10keV_score_fraction": 0.0
+          },
+          "lat_10cm_x-6--5": {
+            "lo_cm": [
+              -6.0,
+              -1.0,
+              9.0
+            ],
+            "hi_cm": [
+              -5.0,
+              1.0,
+              10.0
+            ],
+            "mass_g": 2.0,
+            "sum_keV": 89.47029731713576,
+            "sum2_keV2": 296.3653346650914,
+            "mean_Gy_per_history": 7.16736098992739e-16,
+            "sem_Gy_per_history": 1.3772998483083134e-16,
+            "rel_err": 0.19216275700971305,
+            "below_10keV_score_fraction": 0.0
+          },
+          "lat_10cm_x-5--4": {
+            "lo_cm": [
+              -5.0,
+              -1.0,
+              9.0
+            ],
+            "hi_cm": [
+              -4.0,
+              1.0,
+              10.0
+            ],
+            "mass_g": 2.0,
+            "sum_keV": 148.69789276235423,
+            "sum2_keV2": 393.7560853279808,
+            "mean_Gy_per_history": 1.1912014465444085e-15,
+            "sem_Gy_per_history": 1.5852324120649917e-16,
+            "rel_err": 0.13307844921307302,
+            "below_10keV_score_fraction": 0.0
+          },
+          "lat_10cm_x-4--3": {
+            "lo_cm": [
+              -4.0,
+              -1.0,
+              9.0
+            ],
+            "hi_cm": [
+              -3.0,
+              1.0,
+              10.0
+            ],
+            "mass_g": 2.0,
+            "sum_keV": 201.0924284100367,
+            "sum2_keV2": 538.0660806976286,
+            "mean_Gy_per_history": 1.6109279503643929e-15,
+            "sem_Gy_per_history": 1.851321291225668e-16,
+            "rel_err": 0.11492266248201219,
+            "below_10keV_score_fraction": 0.0
+          },
+          "lat_10cm_x-3--2": {
+            "lo_cm": [
+              -3.0,
+              -1.0,
+              9.0
+            ],
+            "hi_cm": [
+              -2.0,
+              1.0,
+              10.0
+            ],
+            "mass_g": 2.0,
+            "sum_keV": 185.99344429977333,
+            "sum2_keV2": 515.6029080558717,
+            "mean_Gy_per_history": 1.4899717526713866e-15,
+            "sem_Gy_per_history": 1.8130006861570057e-16,
+            "rel_err": 0.12168020520566629,
+            "below_10keV_score_fraction": 0.0
+          },
+          "lat_10cm_x-2--1": {
+            "lo_cm": [
+              -2.0,
+              -1.0,
+              9.0
+            ],
+            "hi_cm": [
+              -1.0,
+              1.0,
+              10.0
+            ],
+            "mass_g": 2.0,
+            "sum_keV": 180.27940909004204,
+            "sum2_keV2": 440.11691298889525,
+            "mean_Gy_per_history": 1.4441972841769629e-15,
+            "sem_Gy_per_history": 1.674467249490962e-16,
+            "rel_err": 0.11594449510720609,
+            "below_10keV_score_fraction": 0.0
+          },
+          "lat_10cm_x-1-0": {
+            "lo_cm": [
+              -1.0,
+              -1.0,
+              9.0
+            ],
+            "hi_cm": [
+              0.0,
+              1.0,
+              10.0
+            ],
+            "mass_g": 2.0,
+            "sum_keV": 176.01641477168482,
+            "sum2_keV2": 465.6302959262399,
+            "mean_Gy_per_history": 1.4100469347382294e-15,
+            "sem_Gy_per_history": 1.7229515360268328e-16,
+            "rel_err": 0.12219107701877265,
+            "below_10keV_score_fraction": 0.0
+          },
+          "lat_10cm_x0-1": {
+            "lo_cm": [
+              0.0,
+              -1.0,
+              9.0
+            ],
+            "hi_cm": [
+              1.0,
+              1.0,
+              10.0
+            ],
+            "mass_g": 2.0,
+            "sum_keV": 298.6315794893683,
+            "sum2_keV2": 838.5896768713133,
+            "mean_Gy_per_history": 2.3923026941618974e-15,
+            "sem_Gy_per_history": 2.3075718090449583e-16,
+            "rel_err": 0.09645818711303909,
+            "below_10keV_score_fraction": 0.0
+          },
+          "lat_10cm_x1-2": {
+            "lo_cm": [
+              1.0,
+              -1.0,
+              9.0
+            ],
+            "hi_cm": [
+              2.0,
+              1.0,
+              10.0
+            ],
+            "mass_g": 2.0,
+            "sum_keV": 251.81494788752113,
+            "sum2_keV2": 663.58016882351,
+            "mean_Gy_per_history": 2.01726012798657e-15,
+            "sem_Gy_per_history": 2.0538267564698098e-16,
+            "rel_err": 0.10181268781234162,
+            "below_10keV_score_fraction": 0.0
+          },
+          "lat_10cm_x2-3": {
+            "lo_cm": [
+              2.0,
+              -1.0,
+              9.0
+            ],
+            "hi_cm": [
+              3.0,
+              1.0,
+              10.0
+            ],
+            "mass_g": 2.0,
+            "sum_keV": 190.61080569290937,
+            "sum2_keV2": 471.9825914882627,
+            "mean_Gy_per_history": 1.5269608953454677e-15,
+            "sem_Gy_per_history": 1.7337523862044194e-16,
+            "rel_err": 0.11354268413089688,
+            "below_10keV_score_fraction": 0.0
+          },
+          "lat_10cm_x3-4": {
+            "lo_cm": [
+              3.0,
+              -1.0,
+              9.0
+            ],
+            "hi_cm": [
+              4.0,
+              1.0,
+              10.0
+            ],
+            "mass_g": 2.0,
+            "sum_keV": 162.10195916704117,
+            "sum2_keV2": 403.5712110645813,
+            "mean_Gy_per_history": 1.2985798565152773e-15,
+            "sem_Gy_per_history": 1.6041453104950205e-16,
+            "rel_err": 0.12353074032733914,
+            "below_10keV_score_fraction": 0.0
+          },
+          "lat_10cm_x4-5": {
+            "lo_cm": [
+              4.0,
+              -1.0,
+              9.0
+            ],
+            "hi_cm": [
+              5.0,
+              1.0,
+              10.0
+            ],
+            "mass_g": 2.0,
+            "sum_keV": 126.16095668290734,
+            "sum2_keV2": 280.2927162134201,
+            "mean_Gy_per_history": 1.0106606846022015e-15,
+            "sem_Gy_per_history": 1.3374311133290574e-16,
+            "rel_err": 0.13233235780369487,
+            "below_10keV_score_fraction": 0.0
+          },
+          "lat_10cm_x5-6": {
+            "lo_cm": [
+              5.0,
+              -1.0,
+              9.0
+            ],
+            "hi_cm": [
+              6.0,
+              1.0,
+              10.0
+            ],
+            "mass_g": 2.0,
+            "sum_keV": 66.3188897806302,
+            "sum2_keV2": 172.3326603491814,
+            "mean_Gy_per_history": 5.312728779967355e-16,
+            "sem_Gy_per_history": 1.050342668697711e-16,
+            "rel_err": 0.19770304719078186,
+            "below_10keV_score_fraction": 0.0
+          },
+          "lat_10cm_x6-7": {
+            "lo_cm": [
+              6.0,
+              -1.0,
+              9.0
+            ],
+            "hi_cm": [
+              7.0,
+              1.0,
+              10.0
+            ],
+            "mass_g": 2.0,
+            "sum_keV": 69.84451287193565,
+            "sum2_keV2": 263.16378858759253,
+            "mean_Gy_per_history": 5.595162326826377e-16,
+            "sem_Gy_per_history": 1.2984112819132129e-16,
+            "rel_err": 0.23205962688301174,
+            "below_10keV_score_fraction": 0.0
+          },
+          "lat_10cm_x7-8": {
+            "lo_cm": [
+              7.0,
+              -1.0,
+              9.0
+            ],
+            "hi_cm": [
+              8.0,
+              1.0,
+              10.0
+            ],
+            "mass_g": 2.0,
+            "sum_keV": 59.47271975738745,
+            "sum2_keV2": 162.34656674685496,
+            "mean_Gy_per_history": 4.764290097785816e-16,
+            "sem_Gy_per_history": 1.0196475001745566e-16,
+            "rel_err": 0.21401876864056482,
+            "below_10keV_score_fraction": 0.0
+          }
+        }
+      }
+    },
+    "analytic_references": {
+      "mu_water_per_cm": 0.2058734689505858,
+      "mu_air_per_cm": 0.00022590529791889662,
+      "primary_transmission_20cm_water_only": 0.016285675210327054,
+      "primary_transmission_20cm_with_source_air_gap": 0.016285674842425032,
+      "source_air_gap_attenuation_fraction": 2.2590529536723647e-08,
+      "primary_surface_pdd_Gy_per_history_water_only": 2.771495403642205e-15
+    }
+  }
+}

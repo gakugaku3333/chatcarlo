@@ -1,0 +1,55 @@
+{
+  "preregistration_sha256": "a79bf89e2816d7e6f452027be2bbb82b0c62ab67d185170f564ff4534e514d5a",
+  "comparison_script_sha256": "0822bbcf5a30d8d349cfa5e5ca4cc6e3c59c553a18c2c6dd33cc46cf5c28de89",
+  "source_sha256": {
+    "chatcarlo/bsf.json": "3c64b0f18fe6075dec5b6df34ba22c0ec978eaac756dff8ca21f233209462be0",
+    "chatcarlo/pdd.json": "085787eb2f8ea3f47886a7ac35824a647ab1d3e12c288dd763926c9123dd4691",
+    "egs5/bsf_thinslab/egs5job.out": "734c6ebee4cf1f674b8d0541acb091c2fe7590a0a5d24391f48b2f99213bba45",
+    "egs5/bsf_phantom/egs5job.out": "3892284ba6f133089edcf8f286ca876042604832519d99b8ad46d6b744fec13b",
+    "egs5/pdd_phantom/egs5job.out": "ce5ecad01105262099f7fa1dcc7201b22dc833eaa7745183932b619f889fc5c7"
+  },
+  "BSF_w": {
+    "chatcarlo": 1.3593796378369003,
+    "chatcarlo_sem": 0.0021465457708879357,
+    "egs5": 1.3645156942020393,
+    "egs5_sem": 0.005778298577106919,
+    "relative_difference_pct": 0.37782354701970744,
+    "z": 0.8332179063464941,
+    "combined_relative_sem": 0.004519515880382696,
+    "status": "pass",
+    "egs5_thin_mean_MeV": 0.00039726295,
+    "egs5_thin_sem_MeV": 1.2756485e-06,
+    "egs5_phantom_mean_MeV": 0.00054207153,
+    "egs5_phantom_sem_MeV": 1.4964967e-06
+  },
+  "PDD_OCR": {
+    "counts": {
+      "historical_2sigma": {
+        "pass": 42,
+        "fail": 1,
+        "insufficient_statistics": 4
+      },
+      "bonferroni_auxiliary": {
+        "pass": 43,
+        "fail": 0,
+        "insufficient_statistics": 4
+      }
+    },
+    "average_relative_difference_pct": 0.10812686351586245,
+    "pdd_average_relative_difference_pct": 0.2335057874269312,
+    "ocr_average_relative_difference_pct": 0.04935549293254897,
+    "maximum_absolute_relative_difference_pct": 1.8141208333271084,
+    "maximum_z": 2.1130112882023324,
+    "bonferroni_z": 3.27307836404
+  },
+  "independent_analytic_references": {
+    "mu_water_direct_xraylib_per_cm": 0.2059010514277534,
+    "mu_en_water_NIST_60keV_cm2_g": 0.0319,
+    "primary_transmission_20cm_water_only": 0.016276693702584187,
+    "chatcarlo_primary_transmission_observed": 0.0162314,
+    "chatcarlo_primary_transmission_sem": 5.6511842394386683e-05,
+    "primary_transmission_z_vs_water_only": 0.801490460496579,
+    "primary_surface_pdd_Gy_per_history": 2.7714584921906073e-15,
+    "scope": "Primary-only analytic anchor; not an exact scattered-dose solution"
+  }
+}

@@ -1,0 +1,653 @@
+{
+  "units": "Gy/history",
+  "density_g_cm3": 1.0,
+  "conversion": "mean(MeV/history) * 1.602176634e-13 J/MeV / mass(kg)",
+  "normalization": "Absolute per-history values; PDD surface/OCR centre normalization is for plots only, not acceptance.",
+  "bsf": {
+    "thin": {
+      "mean_MeV_per_history": 0.00039726295,
+      "sem_MeV_per_history": 1.2756485e-06,
+      "mass_g": 20.0,
+      "mean_Gy_per_history": 3.1824270802195515e-15,
+      "sem_Gy_per_history": 1.0219071099485746e-17,
+      "relative_sem": 0.0032110935590645945,
+      "output_sha256": "734c6ebee4cf1f674b8d0541acb091c2fe7590a0a5d24391f48b2f99213bba45"
+    },
+    "phantom": {
+      "mean_MeV_per_history": 0.00054207153,
+      "sem_MeV_per_history": 1.4964967e-06,
+      "mass_g": 20.0,
+      "mean_Gy_per_history": 4.3424716966131506e-15,
+      "sem_Gy_per_history": 1.198826022799054e-17,
+      "relative_sem": 0.002760699681091903,
+      "output_sha256": "3892284ba6f133089edcf8f286ca876042604832519d99b8ad46d6b744fec13b"
+    },
+    "value": 1.3645156942020393,
+    "sem": 0.005778298577106919,
+    "relative_sem": 0.00423468824994793
+  },
+  "pdd": {
+    "histories": 100000000,
+    "inseed": 1,
+    "bins": [
+      {
+        "label": "pdd_z0-1",
+        "mean_MeV_per_history": 0.000119256,
+        "sem_MeV_per_history": 2.02102e-07,
+        "reported_relative_sem_percent": 0.1695,
+        "mass_g": 4.0,
+        "mean_Gy_per_history": 4.776729416607601e-15,
+        "sem_Gy_per_history": 8.0950775521167e-18,
+        "relative_sem": 0.0016946904138995104
+      },
+      {
+        "label": "pdd_z1-2",
+        "mean_MeV_per_history": 0.000118607,
+        "sem_MeV_per_history": 2.01787e-07,
+        "reported_relative_sem_percent": 0.1701,
+        "mass_g": 4.0,
+        "mean_Gy_per_history": 4.75073410072095e-15,
+        "sem_Gy_per_history": 8.08246041112395e-18,
+        "relative_sem": 0.001701307679985161
+      },
+      {
+        "label": "pdd_z2-3",
+        "mean_MeV_per_history": 0.000111003,
+        "sem_MeV_per_history": 1.95191e-07,
+        "reported_relative_sem_percent": 0.1758,
+        "mass_g": 4.0,
+        "mean_Gy_per_history": 4.4461603225975505e-15,
+        "sem_Gy_per_history": 7.818261484177349e-18,
+        "relative_sem": 0.0017584299523436303
+      },
+      {
+        "label": "pdd_z3-4",
+        "mean_MeV_per_history": 0.00010098,
+        "sem_MeV_per_history": 1.8611e-07,
+        "reported_relative_sem_percent": 0.1843,
+        "mass_g": 4.0,
+        "mean_Gy_per_history": 4.044694912533e-15,
+        "sem_Gy_per_history": 7.4545273338435e-18,
+        "relative_sem": 0.0018430382253911664
+      },
+      {
+        "label": "pdd_z4-5",
+        "mean_MeV_per_history": 9.04836e-05,
+        "sem_MeV_per_history": 1.76328e-07,
+        "reported_relative_sem_percent": 0.1949,
+        "mass_g": 4.0,
+        "mean_Gy_per_history": 3.62426774200506e-15,
+        "sem_Gy_per_history": 7.062715037998799e-18,
+        "relative_sem": 0.001948728830417888
+      },
+      {
+        "label": "pdd_z5-6",
+        "mean_MeV_per_history": 7.9674e-05,
+        "sem_MeV_per_history": 1.6539e-07,
+        "reported_relative_sem_percent": 0.2076,
+        "mass_g": 4.0,
+        "mean_Gy_per_history": 3.1912955284329002e-15,
+        "sem_Gy_per_history": 6.6245998374315e-18,
+        "relative_sem": 0.002075834023646359
+      },
+      {
+        "label": "pdd_z6-7",
+        "mean_MeV_per_history": 6.95149e-05,
+        "sem_MeV_per_history": 1.54289e-07,
+        "reported_relative_sem_percent": 0.222,
+        "mass_g": 4.0,
+        "mean_Gy_per_history": 2.7843787123711647e-15,
+        "sem_Gy_per_history": 6.179955767080651e-18,
+        "relative_sem": 0.002219509774163525
+      },
+      {
+        "label": "pdd_z7-8",
+        "mean_MeV_per_history": 6.03447e-05,
+        "sem_MeV_per_history": 1.43777e-07,
+        "reported_relative_sem_percent": 0.2383,
+        "mass_g": 4.0,
+        "mean_Gy_per_history": 2.4170717081434953e-15,
+        "sem_Gy_per_history": 5.7589037476654504e-18,
+        "relative_sem": 0.0023825953232015406
+      },
+      {
+        "label": "pdd_z8-9",
+        "mean_MeV_per_history": 5.20504e-05,
+        "sem_MeV_per_history": 1.33549e-07,
+        "reported_relative_sem_percent": 0.2566,
+        "mass_g": 4.0,
+        "mean_Gy_per_history": 2.08484836675884e-15,
+        "sem_Gy_per_history": 5.34922718235165e-18,
+        "relative_sem": 0.0025657631833761125
+      },
+      {
+        "label": "pdd_z9-10",
+        "mean_MeV_per_history": 4.43848e-05,
+        "sem_MeV_per_history": 1.23256e-07,
+        "reported_relative_sem_percent": 0.2777,
+        "mass_g": 4.0,
+        "mean_Gy_per_history": 1.7778072366190803e-15,
+        "sem_Gy_per_history": 4.9369470800076e-18,
+        "relative_sem": 0.0027769867161731043
+      },
+      {
+        "label": "pdd_z10-11",
+        "mean_MeV_per_history": 3.7888e-05,
+        "sem_MeV_per_history": 1.13735e-07,
+        "reported_relative_sem_percent": 0.3002,
+        "mass_g": 4.0,
+        "mean_Gy_per_history": 1.5175817077248e-15,
+        "sem_Gy_per_history": 4.55558898669975e-18,
+        "relative_sem": 0.003001873944256757
+      },
+      {
+        "label": "pdd_z11-12",
+        "mean_MeV_per_history": 3.22805e-05,
+        "sem_MeV_per_history": 1.05053e-07,
+        "reported_relative_sem_percent": 0.3254,
+        "mass_g": 4.0,
+        "mean_Gy_per_history": 1.292976570845925e-15,
+        "sem_Gy_per_history": 4.20783654829005e-18,
+        "relative_sem": 0.0032543795790028036
+      },
+      {
+        "label": "pdd_z12-13",
+        "mean_MeV_per_history": 2.72854e-05,
+        "sem_MeV_per_history": 9.6541e-08,
+        "reported_relative_sem_percent": 0.3538,
+        "mass_g": 4.0,
+        "mean_Gy_per_history": 1.09290075823359e-15,
+        "sem_Gy_per_history": 3.86689336057485e-18,
+        "relative_sem": 0.0035381925865114678
+      },
+      {
+        "label": "pdd_z13-14",
+        "mean_MeV_per_history": 2.30704e-05,
+        "sem_MeV_per_history": 8.89511e-08,
+        "reported_relative_sem_percent": 0.3856,
+        "mass_g": 4.0,
+        "mean_Gy_per_history": 9.2407139542584e-16,
+        "sem_Gy_per_history": 3.562884349714935e-18,
+        "relative_sem": 0.0038556375268742637
+      },
+      {
+        "label": "pdd_z14-15",
+        "mean_MeV_per_history": 1.93956e-05,
+        "sem_MeV_per_history": 8.15195e-08,
+        "reported_relative_sem_percent": 0.4203,
+        "mass_g": 4.0,
+        "mean_Gy_per_history": 7.768794280602601e-16,
+        "sem_Gy_per_history": 3.2652159528840753e-18,
+        "relative_sem": 0.004202989337787952
+      },
+      {
+        "label": "lat_shallow_x-8--7",
+        "mean_MeV_per_history": 4.42313e-06,
+        "sem_MeV_per_history": 3.89333e-08,
+        "reported_relative_sem_percent": 0.8802,
+        "mass_g": 2.0,
+        "mean_Gy_per_history": 3.54331776757221e-16,
+        "sem_Gy_per_history": 3.11890117722561e-18,
+        "relative_sem": 0.008802205677879692
+      },
+      {
+        "label": "lat_shallow_x-7--6",
+        "mean_MeV_per_history": 6.40358e-06,
+        "sem_MeV_per_history": 4.69145e-08,
+        "reported_relative_sem_percent": 0.7326,
+        "mass_g": 2.0,
+        "mean_Gy_per_history": 5.12983312497486e-16,
+        "sem_Gy_per_history": 3.758265784789651e-18,
+        "relative_sem": 0.007326292480143919
+      },
+      {
+        "label": "lat_shallow_x-6--5",
+        "mean_MeV_per_history": 1.01705e-05,
+        "sem_MeV_per_history": 5.93611e-08,
+        "reported_relative_sem_percent": 0.5837,
+        "mass_g": 2.0,
+        "mean_Gy_per_history": 8.147468728048501e-16,
+        "sem_Gy_per_history": 4.75534836942687e-18,
+        "relative_sem": 0.0058365960375596085
+      },
+      {
+        "label": "lat_shallow_x-5--4",
+        "mean_MeV_per_history": 5.26931e-05,
+        "sem_MeV_per_history": 1.33541e-07,
+        "reported_relative_sem_percent": 0.2534,
+        "mass_g": 2.0,
+        "mean_Gy_per_history": 4.22118267965127e-15,
+        "sem_Gy_per_history": 1.06978134940497e-17,
+        "relative_sem": 0.00253431663728268
+      },
+      {
+        "label": "lat_shallow_x-4--3",
+        "mean_MeV_per_history": 5.61584e-05,
+        "sem_MeV_per_history": 1.37967e-07,
+        "reported_relative_sem_percent": 0.2457,
+        "mass_g": 2.0,
+        "mean_Gy_per_history": 4.49878381414128e-15,
+        "sem_Gy_per_history": 1.10523751831539e-17,
+        "relative_sem": 0.0024567473432291517
+      },
+      {
+        "label": "lat_shallow_x-3--2",
+        "mean_MeV_per_history": 5.82185e-05,
+        "sem_MeV_per_history": 1.40774e-07,
+        "reported_relative_sem_percent": 0.2418,
+        "mass_g": 2.0,
+        "mean_Gy_per_history": 4.6638160183264506e-15,
+        "sem_Gy_per_history": 1.12772406737358e-17,
+        "relative_sem": 0.0024180286335099667
+      },
+      {
+        "label": "lat_shallow_x-2--1",
+        "mean_MeV_per_history": 5.92454e-05,
+        "sem_MeV_per_history": 1.41978e-07,
+        "reported_relative_sem_percent": 0.2396,
+        "mass_g": 2.0,
+        "mean_Gy_per_history": 4.74607977759918e-15,
+        "sem_Gy_per_history": 1.13736917071026e-17,
+        "relative_sem": 0.0023964392172219277
+      },
+      {
+        "label": "lat_shallow_x-1-0",
+        "mean_MeV_per_history": 5.9625e-05,
+        "sem_MeV_per_history": 1.42334e-07,
+        "reported_relative_sem_percent": 0.2387,
+        "mass_g": 2.0,
+        "mean_Gy_per_history": 4.7764890901125e-15,
+        "sem_Gy_per_history": 1.1402210451187801e-17,
+        "relative_sem": 0.0023871530398322854
+      },
+      {
+        "label": "lat_shallow_x0-1",
+        "mean_MeV_per_history": 5.96309e-05,
+        "sem_MeV_per_history": 1.42516e-07,
+        "reported_relative_sem_percent": 0.239,
+        "mass_g": 2.0,
+        "mean_Gy_per_history": 4.77696173221953e-15,
+        "sem_Gy_per_history": 1.14167902585572e-17,
+        "relative_sem": 0.0023899689590464006
+      },
+      {
+        "label": "lat_shallow_x1-2",
+        "mean_MeV_per_history": 5.88001e-05,
+        "sem_MeV_per_history": 1.41022e-07,
+        "reported_relative_sem_percent": 0.2398,
+        "mass_g": 2.0,
+        "mean_Gy_per_history": 4.71040731484317e-15,
+        "sem_Gy_per_history": 1.1297107663997401e-17,
+        "relative_sem": 0.0023983292545420843
+      },
+      {
+        "label": "lat_shallow_x2-3",
+        "mean_MeV_per_history": 5.84097e-05,
+        "sem_MeV_per_history": 1.40996e-07,
+        "reported_relative_sem_percent": 0.2414,
+        "mass_g": 2.0,
+        "mean_Gy_per_history": 4.67913282694749e-15,
+        "sem_Gy_per_history": 1.1295024834373199e-17,
+        "relative_sem": 0.002413914127276805
+      },
+      {
+        "label": "lat_shallow_x3-4",
+        "mean_MeV_per_history": 5.62538e-05,
+        "sem_MeV_per_history": 1.3837e-07,
+        "reported_relative_sem_percent": 0.246,
+        "mass_g": 2.0,
+        "mean_Gy_per_history": 4.5064261966854605e-15,
+        "sem_Gy_per_history": 1.1084659042329e-17,
+        "relative_sem": 0.002459744941675051
+      },
+      {
+        "label": "lat_shallow_x4-5",
+        "mean_MeV_per_history": 5.26677e-05,
+        "sem_MeV_per_history": 1.33668e-07,
+        "reported_relative_sem_percent": 0.2538,
+        "mass_g": 2.0,
+        "mean_Gy_per_history": 4.21914791532609e-15,
+        "sem_Gy_per_history": 1.07079873156756e-17,
+        "relative_sem": 0.0025379502047744636
+      },
+      {
+        "label": "lat_shallow_x5-6",
+        "mean_MeV_per_history": 1.00611e-05,
+        "sem_MeV_per_history": 5.89626e-08,
+        "reported_relative_sem_percent": 0.586,
+        "mass_g": 2.0,
+        "mean_Gy_per_history": 8.0598296661687e-16,
+        "sem_Gy_per_history": 4.72342499999442e-18,
+        "relative_sem": 0.005860452634403794
+      },
+      {
+        "label": "lat_shallow_x6-7",
+        "mean_MeV_per_history": 6.40952e-06,
+        "sem_MeV_per_history": 4.70016e-08,
+        "reported_relative_sem_percent": 0.7333,
+        "mass_g": 2.0,
+        "mean_Gy_per_history": 5.13459158957784e-16,
+        "sem_Gy_per_history": 3.76524326403072e-18,
+        "relative_sem": 0.007333092025611902
+      },
+      {
+        "label": "lat_shallow_x7-8",
+        "mean_MeV_per_history": 4.47822e-06,
+        "sem_MeV_per_history": 3.92478e-08,
+        "reported_relative_sem_percent": 0.8764,
+        "mass_g": 2.0,
+        "mean_Gy_per_history": 3.58744972295574e-16,
+        "sem_Gy_per_history": 3.1440954047952597e-18,
+        "relative_sem": 0.008764151828181731
+      },
+      {
+        "label": "lat_10cm_x-8--7",
+        "mean_MeV_per_history": 5.16684e-06,
+        "sem_MeV_per_history": 4.17378e-08,
+        "reported_relative_sem_percent": 0.8078,
+        "mass_g": 2.0,
+        "mean_Gy_per_history": 4.13909515980828e-16,
+        "sem_Gy_per_history": 3.3435663957282602e-18,
+        "relative_sem": 0.008078012866665119
+      },
+      {
+        "label": "lat_10cm_x-7--6",
+        "mean_MeV_per_history": 6.66242e-06,
+        "sem_MeV_per_history": 4.74694e-08,
+        "reported_relative_sem_percent": 0.7125,
+        "mass_g": 2.0,
+        "mean_Gy_per_history": 5.33718682494714e-16,
+        "sem_Gy_per_history": 3.8027181754999805e-18,
+        "relative_sem": 0.007124948592253266
+      },
+      {
+        "label": "lat_10cm_x-6--5",
+        "mean_MeV_per_history": 8.96805e-06,
+        "sem_MeV_per_history": 5.51534e-08,
+        "reported_relative_sem_percent": 0.615,
+        "mass_g": 2.0,
+        "mean_Gy_per_history": 7.18420008127185e-16,
+        "sem_Gy_per_history": 4.41827443828278e-18,
+        "relative_sem": 0.006149988013001712
+      },
+      {
+        "label": "lat_10cm_x-5--4",
+        "mean_MeV_per_history": 1.76449e-05,
+        "sem_MeV_per_history": 7.73593e-08,
+        "reported_relative_sem_percent": 0.4384,
+        "mass_g": 2.0,
+        "mean_Gy_per_history": 1.4135123244633302e-15,
+        "sem_Gy_per_history": 6.197163144129811e-18,
+        "relative_sem": 0.004384230004137173
+      },
+      {
+        "label": "lat_10cm_x-4--3",
+        "mean_MeV_per_history": 1.96949e-05,
+        "sem_MeV_per_history": 8.16675e-08,
+        "reported_relative_sem_percent": 0.4147,
+        "mass_g": 2.0,
+        "mean_Gy_per_history": 1.57773542944833e-15,
+        "sem_Gy_per_history": 6.54228801285975e-18,
+        "relative_sem": 0.004146631869164098
+      },
+      {
+        "label": "lat_10cm_x-3--2",
+        "mean_MeV_per_history": 2.11122e-05,
+        "sem_MeV_per_history": 8.467e-08,
+        "reported_relative_sem_percent": 0.401,
+        "mass_g": 2.0,
+        "mean_Gy_per_history": 1.6912736766167401e-15,
+        "sem_Gy_per_history": 6.7828147800390005e-18,
+        "relative_sem": 0.004010477354325935
+      },
+      {
+        "label": "lat_10cm_x-2--1",
+        "mean_MeV_per_history": 2.18313e-05,
+        "sem_MeV_per_history": 8.60106e-08,
+        "reported_relative_sem_percent": 0.394,
+        "mass_g": 2.0,
+        "mean_Gy_per_history": 1.74887993749221e-15,
+        "sem_Gy_per_history": 6.89020867981602e-18,
+        "relative_sem": 0.0039397837050473405
+      },
+      {
+        "label": "lat_10cm_x-1-0",
+        "mean_MeV_per_history": 2.22512e-05,
+        "sem_MeV_per_history": 8.69933e-08,
+        "reported_relative_sem_percent": 0.391,
+        "mass_g": 2.0,
+        "mean_Gy_per_history": 1.7825176359230403e-15,
+        "sem_Gy_per_history": 6.968931628727611e-18,
+        "relative_sem": 0.0039096003811030415
+      },
+      {
+        "label": "lat_10cm_x0-1",
+        "mean_MeV_per_history": 2.21336e-05,
+        "sem_MeV_per_history": 8.66081e-08,
+        "reported_relative_sem_percent": 0.3913,
+        "mass_g": 2.0,
+        "mean_Gy_per_history": 1.77309683731512e-15,
+        "sem_Gy_per_history": 6.93807370675677e-18,
+        "relative_sem": 0.003912969422055155
+      },
+      {
+        "label": "lat_10cm_x1-2",
+        "mean_MeV_per_history": 2.18899e-05,
+        "sem_MeV_per_history": 8.61315e-08,
+        "reported_relative_sem_percent": 0.3935,
+        "mass_g": 2.0,
+        "mean_Gy_per_history": 1.7535743150298298e-15,
+        "sem_Gy_per_history": 6.89989383756855e-18,
+        "relative_sem": 0.003934759866422414
+      },
+      {
+        "label": "lat_10cm_x2-3",
+        "mean_MeV_per_history": 2.10892e-05,
+        "sem_MeV_per_history": 8.46759e-08,
+        "reported_relative_sem_percent": 0.4015,
+        "mass_g": 2.0,
+        "mean_Gy_per_history": 1.6894311734876402e-15,
+        "sem_Gy_per_history": 6.78328742214603e-18,
+        "relative_sem": 0.004015130967509436
+      },
+      {
+        "label": "lat_10cm_x3-4",
+        "mean_MeV_per_history": 1.96387e-05,
+        "sem_MeV_per_history": 8.15673e-08,
+        "reported_relative_sem_percent": 0.4153,
+        "mass_g": 2.0,
+        "mean_Gy_per_history": 1.57323331310679e-15,
+        "sem_Gy_per_history": 6.53426110792341e-18,
+        "relative_sem": 0.004153396100556554
+      },
+      {
+        "label": "lat_10cm_x4-5",
+        "mean_MeV_per_history": 1.78164e-05,
+        "sem_MeV_per_history": 7.79372e-08,
+        "reported_relative_sem_percent": 0.4374,
+        "mass_g": 2.0,
+        "mean_Gy_per_history": 1.42725098909988e-15,
+        "sem_Gy_per_history": 6.243458037969241e-18,
+        "relative_sem": 0.0043744639770099455
+      },
+      {
+        "label": "lat_10cm_x5-6",
+        "mean_MeV_per_history": 9.07457e-06,
+        "sem_MeV_per_history": 5.56585e-08,
+        "reported_relative_sem_percent": 0.6133,
+        "mass_g": 2.0,
+        "mean_Gy_per_history": 7.2695320087986915e-16,
+        "sem_Gy_per_history": 4.4587374091744506e-18,
+        "relative_sem": 0.00613345866525907
+      },
+      {
+        "label": "lat_10cm_x6-7",
+        "mean_MeV_per_history": 6.65264e-06,
+        "sem_MeV_per_history": 4.74392e-08,
+        "reported_relative_sem_percent": 0.7131,
+        "mass_g": 2.0,
+        "mean_Gy_per_history": 5.32935218120688e-16,
+        "sem_Gy_per_history": 3.8002988887826404e-18,
+        "relative_sem": 0.007130883378628636
+      },
+      {
+        "label": "lat_10cm_x7-8",
+        "mean_MeV_per_history": 5.11613e-06,
+        "sem_MeV_per_history": 4.16007e-08,
+        "reported_relative_sem_percent": 0.8131,
+        "mass_g": 2.0,
+        "mean_Gy_per_history": 4.09847197125321e-16,
+        "sem_Gy_per_history": 3.33258347490219e-18,
+        "relative_sem": 0.008131282825104133
+      }
+    ],
+    "output_sha256": "ce5ecad01105262099f7fa1dcc7201b22dc833eaa7745183932b619f889fc5c7"
+  },
+  "warnings": [
+    {
+      "run": "pdd_repeat_a",
+      "file": "build.log",
+      "hits": []
+    },
+    {
+      "run": "pdd_repeat_a",
+      "file": "run.log",
+      "hits": []
+    },
+    {
+      "run": "pdd_repeat_a",
+      "file": "egs5job.out",
+      "hits": []
+    },
+    {
+      "run": "pdd_repeat_a",
+      "file": "pgs5job.pegs5lst",
+      "hits": [
+        {
+          "line": 137,
+          "text": " Number of allocated intervals(=  150) was insufficient\n to get maximum relative error less than   1.000000E-02"
+        },
+        {
+          "line": 152,
+          "text": " Number of allocated intervals(=  100) was insufficient\n to get maximum relative error less than   1.000000E-02"
+        }
+      ]
+    },
+    {
+      "run": "pdd_repeat_b",
+      "file": "build.log",
+      "hits": []
+    },
+    {
+      "run": "pdd_repeat_b",
+      "file": "run.log",
+      "hits": []
+    },
+    {
+      "run": "pdd_repeat_b",
+      "file": "egs5job.out",
+      "hits": []
+    },
+    {
+      "run": "pdd_repeat_b",
+      "file": "pgs5job.pegs5lst",
+      "hits": [
+        {
+          "line": 137,
+          "text": " Number of allocated intervals(=  150) was insufficient\n to get maximum relative error less than   1.000000E-02"
+        },
+        {
+          "line": 152,
+          "text": " Number of allocated intervals(=  100) was insufficient\n to get maximum relative error less than   1.000000E-02"
+        }
+      ]
+    },
+    {
+      "run": "bsf_thinslab",
+      "file": "build.log",
+      "hits": []
+    },
+    {
+      "run": "bsf_thinslab",
+      "file": "run.log",
+      "hits": []
+    },
+    {
+      "run": "bsf_thinslab",
+      "file": "egs5job.out",
+      "hits": []
+    },
+    {
+      "run": "bsf_thinslab",
+      "file": "pgs5job.pegs5lst",
+      "hits": [
+        {
+          "line": 137,
+          "text": " Number of allocated intervals(=  150) was insufficient\n to get maximum relative error less than   1.000000E-02"
+        },
+        {
+          "line": 152,
+          "text": " Number of allocated intervals(=  100) was insufficient\n to get maximum relative error less than   1.000000E-02"
+        }
+      ]
+    },
+    {
+      "run": "bsf_phantom",
+      "file": "build.log",
+      "hits": []
+    },
+    {
+      "run": "bsf_phantom",
+      "file": "run.log",
+      "hits": []
+    },
+    {
+      "run": "bsf_phantom",
+      "file": "egs5job.out",
+      "hits": []
+    },
+    {
+      "run": "bsf_phantom",
+      "file": "pgs5job.pegs5lst",
+      "hits": [
+        {
+          "line": 137,
+          "text": " Number of allocated intervals(=  150) was insufficient\n to get maximum relative error less than   1.000000E-02"
+        },
+        {
+          "line": 152,
+          "text": " Number of allocated intervals(=  100) was insufficient\n to get maximum relative error less than   1.000000E-02"
+        }
+      ]
+    },
+    {
+      "run": "pdd_phantom",
+      "file": "build.log",
+      "hits": []
+    },
+    {
+      "run": "pdd_phantom",
+      "file": "run.log",
+      "hits": []
+    },
+    {
+      "run": "pdd_phantom",
+      "file": "egs5job.out",
+      "hits": []
+    },
+    {
+      "run": "pdd_phantom",
+      "file": "pgs5job.pegs5lst",
+      "hits": [
+        {
+          "line": 137,
+          "text": " Number of allocated intervals(=  150) was insufficient\n to get maximum relative error less than   1.000000E-02"
+        },
+        {
+          "line": 152,
+          "text": " Number of allocated intervals(=  100) was insufficient\n to get maximum relative error less than   1.000000E-02"
+        }
+      ]
+    }
+  ]
+}

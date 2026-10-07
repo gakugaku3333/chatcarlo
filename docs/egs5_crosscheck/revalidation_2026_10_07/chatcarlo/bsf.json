@@ -1,0 +1,122 @@
+{
+  "manifest": {
+    "code_commit": "9a9195307c9d23a0cf39096e2595ac3dbf91d3d2",
+    "started_utc": "2026-10-06T21:14:11.807581+00:00",
+    "preregistration_sha256": "a79bf89e2816d7e6f452027be2bbb82b0c62ab67d185170f564ff4534e514d5a",
+    "runner_sha256": "b5fabcb489ef89cc33fcdc04970abe05cfc5412333231c4b770a4c7cc6328611",
+    "historical_definitions_sha256": "cbbabdc70187b969e2bb4db92a73e5e16ccfc129030ef0ad33f5effe1f7dfe99",
+    "mode": "bsf",
+    "water_density_g_cm3": 1.0,
+    "bbox_margin_cm": 0.01,
+    "source_z_cm": -0.0001,
+    "versions": {
+      "numpy": "2.4.6",
+      "scipy": "1.17.1",
+      "xraylib": "4.2.1"
+    },
+    "production_source_sha256": {
+      "transport.py": "f5cfd738494691c8c6169fa7c5513cb162706d3d340b02d8471c74f429b2f4f8",
+      "physics.py": "8de2082950a4d03e3831dc79d490f45ebd088c0d3c6522ff4b7022ff8d74e58b",
+      "materials.py": "cafaec2134a6b20eca29927a11d857959441890a55ff5470c42620b81ab883c2",
+      "geometry.py": "81a19ef7ffa1d39227916df92b5732af27a982822c47e9c60ef31bf5611510bc",
+      "tally.py": "7f9f2a5c5b64d4e8ba0c7aaabf06e586779082d53f051a8328e9242acbca8de2",
+      "trajectory.py": "0b7b629c20352b0a7f8dc6bde95471262855a345528bdd0ccf3d5a85244ed878"
+    },
+    "completed_utc": "2026-10-06T21:14:14.949785+00:00"
+  },
+  "results": {
+    "thin": {
+      "diagnostics": {
+        "n_histories": 500000,
+        "seed": 1,
+        "batch_size": 25000,
+        "depth_cm": 0.2,
+        "n_absorbed": 1598,
+        "n_escaped": 498402,
+        "n_primary_transmitted": 479820,
+        "n_air_interactions": 1,
+        "n_water_segments_below_10keV": 0,
+        "n_segments_below_1keV": 0,
+        "deposited_keV": 200219.40585195058,
+        "escaped_keV": 29799780.59414805,
+        "air_track_length_cm": 5429.55081195186,
+        "minimum_segment_energy_keV": 35.32590138538696,
+        "wall_seconds": 0.7526667501078919,
+        "energy_balance_relative_residual": 0.0
+      },
+      "bins": {
+        "surface": {
+          "lo_cm": [
+            -5.0,
+            -5.0,
+            0.0
+          ],
+          "hi_cm": [
+            5.0,
+            5.0,
+            0.2
+          ],
+          "mass_g": 20.0,
+          "sum_keV": 199313.71847096665,
+          "sum2_keV2": 108253.58471217378,
+          "mean_Gy_per_history": 3.19335782569837e-15,
+          "sem_Gy_per_history": 2.71906536393138e-18,
+          "rel_err": 0.0008514753160606844,
+          "below_10keV_score_fraction": 0.0
+        }
+      }
+    },
+    "phantom": {
+      "diagnostics": {
+        "n_histories": 500000,
+        "seed": 2,
+        "batch_size": 25000,
+        "depth_cm": 20.0,
+        "n_absorbed": 267998,
+        "n_escaped": 232002,
+        "n_primary_transmitted": 8046,
+        "n_air_interactions": 3,
+        "n_water_segments_below_10keV": 0,
+        "n_segments_below_1keV": 0,
+        "deposited_keV": 18844849.480676685,
+        "escaped_keV": 11155150.51932331,
+        "air_track_length_cm": 4209.877055546956,
+        "minimum_segment_energy_keV": 18.544458345402276,
+        "wall_seconds": 2.3795248749665916,
+        "energy_balance_relative_residual": -2.483526865641276e-16
+      },
+      "bins": {
+        "surface": {
+          "lo_cm": [
+            -5.0,
+            -5.0,
+            0.0
+          ],
+          "hi_cm": [
+            5.0,
+            5.0,
+            0.2
+          ],
+          "mass_g": 20.0,
+          "sum_keV": 270943.01043098856,
+          "sum2_keV2": 276640.54660808825,
+          "mean_Gy_per_history": 4.340985604581482e-15,
+          "sem_Gy_per_history": 5.7727421627534575e-18,
+          "rel_err": 0.0013298229223936836,
+          "below_10keV_score_fraction": 0.0
+        }
+      }
+    },
+    "BSF_w": 1.3593796378369003,
+    "sem_BSF_w": 0.0021465457708879357,
+    "rel_sem_BSF_w": 0.0015790627659419746,
+    "analytic_references": {
+      "mu_water_per_cm": 0.2058734689505858,
+      "mu_air_per_cm": 0.00022590529791889662,
+      "primary_transmission_20cm_water_only": 0.016285675210327054,
+      "primary_transmission_20cm_with_source_air_gap": 0.016285674842425032,
+      "source_air_gap_attenuation_fraction": 2.2590529536723647e-08,
+      "primary_surface_pdd_Gy_per_history_water_only": 2.771495403642205e-15
+    }
+  }
+}
