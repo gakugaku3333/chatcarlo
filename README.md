@@ -43,6 +43,8 @@ python3 -m venv .venv
     --quantity relerr-dose -o relerr.png
 ```
 
+スキルは特定のAIに依存しない形で書いてあり、Claude Code以外（OpenAI Codex、Google Antigravityなど）からは`.agents/skills/`経由で同じものが読まれる。AI向けの共通の入口は[AGENTS.md](AGENTS.md)。
+
 `.claude/skills/vive-check/` に、上記4コマンドを「ジオメトリー確認→軌跡確認→
 本計算→結果確認」の順で人間の承認を挟みながら進める進行役スキルを同梱している
 （「シーンを確認しながら実行して」等で起動）。

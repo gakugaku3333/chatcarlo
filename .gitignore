@@ -19,3 +19,12 @@ docs/egs5_crosscheck/egs5.241010.tar.gz
 docs/validation/mv/p1/**/*.npz
 docs/validation/mv/p1b/**/*.npz
 docs/validation/mv/p1b/initial_numerical_trials/
+
+# 絶対パスを含む実行ログは追跡しない（手元には残す。manifestのハッシュは手元のファイルと照合する）
+docs/validation/mv/p0/regression_test.log
+docs/validation/mv/p1/regression_tests.log
+docs/validation/mv/p1/regression_tests_final.log
+docs/validation/mv/p1b/prototype_tests_initial.log
+docs/validation/mv/p1b/regression_tests.log
+docs/validation/mv/p1b/regression_tests_final.log
+docs/validation/mv/p1b/replay_initial.log

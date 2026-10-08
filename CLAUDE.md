@@ -33,6 +33,26 @@ an unquantified reference uncertainty. This is a scoped benchmark, not blanket v
 Use [current results](docs/egs5_crosscheck/revalidation_2026_10_07/RESULTS.md) for current
 numbers; the old BSF/PDD JSON, figures and reports are historical records, not regenerated data.
 
+## Therapy-energy extension (in progress, prototype only — 2026-10-08)
+
+Work toward coupled photon/electron/positron transport for nominal 10 MV is under way, **entirely outside
+`chatcarlo/`**. Nothing in the production package or the 150 keV limits has changed.
+
+- Roadmap (draft): [docs/ai/plans/2026-10-07-native-10mv-photon-electron-transport.md](docs/ai/plans/2026-10-07-native-10mv-photon-electron-transport.md).
+  Presentation story it serves: [docs/presentation_jsmp133.md](docs/presentation_jsmp133.md).
+- P0 feasibility (done): [docs/validation/mv/p0/RESULTS.md](docs/validation/mv/p0/RESULTS.md) — xraylib stops at
+  ~800 keV, NIST XCOM chosen as the MV photon data path, EGS5 MV reference with electron transport established.
+- P1 electron-only prototype (done): `prototypes/mv_electron/` (class-II condensed history, dual random hinge,
+  Numba). [docs/validation/mv/p1/RESULTS.md](docs/validation/mv/p1/RESULTS.md): all EGS5-independent checks pass;
+  the 2 MeV EGS5 comparison missed the 3% tolerance (3.02%) with a screened-Rutherford elastic DCS.
+- P1b elastic-DCS experiment (done): [docs/validation/mv/p1b/RESULTS.md](docs/validation/mv/p1b/RESULTS.md).
+  Feeding the prototype the same DCS EGS5 uses (research-only control, never to be shipped) brings the difference
+  to 0.54%, so the transport mechanics are sound and the DCS approximation was the cause. EEDL fails badly at
+  1–2 MeV (its angular tables jump from 256 keV to 10 MeV). The production elastic-DCS source is still undecided.
+- The prototype's tests are run separately from the main suite (`pytest prototypes/mv_electron/tests -q`);
+  collecting both directories in one pytest call fails because both contain `test_transport.py`.
+- Codex review originals for these plans are kept in `docs/ai/plans/reviews/`.
+
 ## Scatter correction moved out (2026-08-20)
 
 The MC scatter-correction research line (Virtual-Grid-like primary/scatter separation and subtraction)
@@ -109,13 +129,20 @@ python3 -m venv .venv
 
 Run a single test: `.venv/bin/python -m pytest tests/test_transport.py::test_name -q`
 
+**Skills are written to be AI-agnostic (2026-10-07).** `vive-interview`, `vive-check` and `vive-audit` live in
+`.claude/skills/` (single source); `.agents/skills/<name>` are symlinks to the same folders so that Codex and
+Antigravity pick them up. They do not assume Claude-only features (no hard dependency on AskUserQuestion or
+subagents — each skill states what to do when those are unavailable). [AGENTS.md](AGENTS.md) is the shared entry
+point for every AI agent and points back to this file as the technical canon. `vive-crosscheck` and the
+`egs5-operator` agent are research-only and stay Claude Code-specific; the published system must not depend on EGS5.
+
 There's also `.claude/skills/vive-check/`, a gated workflow skill that runs the four CLI steps in order
 (geometry preview → trajectory preview → full run → results) with human approval at each gate. Invoke it for
 "walk through the scene with me" style requests rather than chaining the raw CLI calls yourself.
 
 When the user asks for a simulation but no scene.yaml exists yet (or the request is vague), do NOT start writing
 a scene directly — invoke `.claude/skills/vive-interview/` first. It elicits the requirements in stages
-(purpose → exposure parameters → geometry → run settings) via AskUserQuestion, confirming intent and pinning down
+(purpose → exposure parameters → geometry → run settings), asking the user at each stage, confirming intent and pinning down
 ambiguities before drafting scene.yaml, then hands off to vive-check.
 
 ## Architecture
