@@ -1,0 +1,5 @@
+{
+  "all_reported_values_and_decisions_identical": true,
+  "SEM_max_absolute_difference": 5.421010862427522e-20,
+  "note": "Only SEM entries differ by at most one rounding ULP. K3 RESULTS.md values and decisions exactly reproduce. M1 transport arrays and per-history ledgers remain bit-identical."
+}

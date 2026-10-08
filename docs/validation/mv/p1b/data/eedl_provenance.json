@@ -1,0 +1,12 @@
+{
+  "ZA001000": {
+    "url": "https://nuclear.llnl.gov/EPICS/ENDF2025/EEDL.ELEMENTS/ZA001000",
+    "bytes": 101409,
+    "sha256": "814c909e819e185b96511e47ff0d5e4c1ba06650cf28a45a9769ef95ceb8dfd7"
+  },
+  "ZA008000": {
+    "url": "https://nuclear.llnl.gov/EPICS/ENDF2025/EEDL.ELEMENTS/ZA008000",
+    "bytes": 132671,
+    "sha256": "87b39aed3276f1c2db52b6cb2878871025245890dca80368b2c4b7a85292eb1b"
+  }
+}

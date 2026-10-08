@@ -1,0 +1,7 @@
+{
+  "source": "S. M. Seltzer, An Overview of ETRAN Monte Carlo Methods, chapter 7, printed page 160, equation 7.8",
+  "url": "https://websites.umich.edu/~nersa590/OrangeBible.pdf",
+  "sha256": "5ac9ccd9ce4fc02426278515c113a1337f4fa149e72ff55367647d252f740820",
+  "bytes": 19923425,
+  "verification": "Equation visually read from original chapter. sqrt(tau/(tau+1)) matches implementation and MCNP5. Full book excluded from tracking; not assumed CC BY licensed."
+}

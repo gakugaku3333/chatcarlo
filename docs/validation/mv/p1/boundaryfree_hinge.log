@@ -1,0 +1,34 @@
+{
+  "name": "boundaryfree_hinge",
+  "N": 300000,
+  "T": 2,
+  "fe": 0.05,
+  "K": 0.05,
+  "mode": 0,
+  "seconds": 57.493277583038434,
+  "us_per_primary": 191.6442586101281,
+  "counts_per_primary": [
+    791.2832333333333,
+    501.23226,
+    10.53315,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+  ],
+  "ledger_global_relative": 3.6925647724691163e-17,
+  "ledger_max_relative": 3.774758283725532e-15,
+  "unprocessed": 0.0,
+  "unprocessed_energy": 0.0,
+  "maxdepth": 5,
+  "stack_allocated_bytes": 622592,
+  "table_bytes": 9067544,
+  "cross_mean": [
+    0.007179882794855743,
+    0.06434374811605939
+  ],
+  "cross_n": [
+    294351,
+    209924
+  ]
+}

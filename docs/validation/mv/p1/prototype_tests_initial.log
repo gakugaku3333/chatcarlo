@@ -1,0 +1,16 @@
+............F.............                                               [100%]
+=================================== FAILURES ===================================
+___________________ test_k9i_sequential_collision_reference ____________________
+
+    def test_k9i_sequential_collision_reference():
+        a=json.loads((OUT/'fixed_checks.json').read_text())['K9i']
+>       assert a['status']=='pass'
+E       AssertionError: assert 'fail' == 'pass'
+E         
+E         - pass
+E         + fail
+
+prototypes/mv_electron/tests/test_components.py:31: AssertionError
+=========================== short test summary info ============================
+FAILED prototypes/mv_electron/tests/test_components.py::test_k9i_sequential_collision_reference
+1 failed, 25 passed in 9.96s

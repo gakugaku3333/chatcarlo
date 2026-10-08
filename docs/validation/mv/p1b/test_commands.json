@@ -1,0 +1,40 @@
+{
+  "commands": [
+    {
+      "command": ".venv/bin/python -m pytest tests/ -q",
+      "exit_code": 0,
+      "result": "403 passed, 2 warnings",
+      "log": "regression_tests_final.log"
+    },
+    {
+      "command": "git diff --stat -- chatcarlo tests scripts examples docs/validation/mv/p0",
+      "exit_code": 0,
+      "result": "empty output (0 bytes)",
+      "log": "production_diff_stat_final.log"
+    },
+    {
+      "command": ".venv/bin/python -m pytest prototypes/mv_electron/tests -q",
+      "exit_code": 0,
+      "result": "55 passed; original 30 retained",
+      "log": "prototype_tests_final.log"
+    },
+    {
+      "command": ".venv/bin/python prototypes/mv_electron/run_checks_p1b.py --from-saved",
+      "exit_code": 0,
+      "result": "M1 and M2/M3/M4/M5/M6/M7 saved-data values and decisions reproduced",
+      "log": "replay_final.log"
+    },
+    {
+      "command": ".venv/bin/python prototypes/mv_electron/run_checks_p1b.py --verify-p1-untouched",
+      "exit_code": 0,
+      "result": "384 files unchanged; no missing, added or changed files",
+      "log": "p1_untouched_final.log"
+    }
+  ],
+  "additional_check": {
+    "command": ".venv/bin/python -m prototypes.mv_electron.check_eedl_independent",
+    "exit_code": 0,
+    "result": "independent ENDF table/interpolation/elemental-moment verification passed",
+    "log": "eedl_independent_verification.log"
+  }
+}

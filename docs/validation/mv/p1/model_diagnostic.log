@@ -1,0 +1,100 @@
+{
+  "rows": [
+    {
+      "T": 0.02,
+      "EGS5_partial_wave_total_G1_G2_cm_inverse": [
+        157582.76181904797,
+        1279.8018064727348,
+        3206.7138149715765
+      ],
+      "prototype_Rutherford_total_G1_G2_cm_inverse": [
+        114952.83184792011,
+        1264.4924476515862,
+        3157.599165407746
+      ],
+      "relative": [
+        -0.270524069251177,
+        -0.011962288804188259,
+        -0.01531619358563363
+      ]
+    },
+    {
+      "T": 0.1,
+      "EGS5_partial_wave_total_G1_G2_cm_inverse": [
+        39151.29218768156,
+        72.76168214564224,
+        192.65448308125494
+      ],
+      "prototype_Rutherford_total_G1_G2_cm_inverse": [
+        30814.753298532036,
+        75.24623583659825,
+        196.38201209854583
+      ],
+      "relative": [
+        -0.2129313854875141,
+        0.034146457554167675,
+        0.01934825994014755
+      ]
+    },
+    {
+      "T": 1,
+      "EGS5_partial_wave_total_G1_G2_cm_inverse": [
+        13294.449395723586,
+        1.8062220408602978,
+        5.092916752174429
+      ],
+      "prototype_Rutherford_total_G1_G2_cm_inverse": [
+        10668.86418904455,
+        1.9555237821182583,
+        5.312275338877672
+      ],
+      "relative": [
+        -0.19749484378974025,
+        0.08265968296281478,
+        0.04307130812801674
+      ]
+    },
+    {
+      "T": 2,
+      "EGS5_partial_wave_total_G1_G2_cm_inverse": [
+        12253.991687545411,
+        0.6169129553075433,
+        1.7561505961347736
+      ],
+      "prototype_Rutherford_total_G1_G2_cm_inverse": [
+        9864.71702383484,
+        0.6670199280525806,
+        1.8297121736861903
+      ],
+      "relative": [
+        -0.1949792952886492,
+        0.08122211134317636,
+        0.04188796662047278
+      ]
+    },
+    {
+      "T": 10,
+      "EGS5_partial_wave_total_G1_G2_cm_inverse": [
+        11787.871712352018,
+        0.04108893571754907,
+        0.11850894840271871
+      ],
+      "prototype_Rutherford_total_G1_G2_cm_inverse": [
+        9482.165443026624,
+        0.04388431704844468,
+        0.12262421268914298
+      ],
+      "relative": [
+        -0.1955998780432383,
+        0.06803245891087184,
+        0.03472534641383973
+      ]
+    }
+  ],
+  "data_sha256": {
+    "docs/egs5_crosscheck/egs5/data/dcslib/eeldx001.tab": "960e9fc221a861a36e7787cac31e8dfdeb63f0515383435352c555a1ac296e64",
+    "docs/egs5_crosscheck/egs5/data/dcslib/eeldx008.tab": "671388c4591411cdc9073b500855591547cbd628d1680dd6792533eb4b3239ba"
+  },
+  "reference_source": "egs5/pegs/elinit.f header csin,csin1,csin2; Z+1 soft scattering correction",
+  "interpretation": "Coefficient/model difference established. Attribution of full depth-dose residual to this difference remains a hypothesis; no substitution or tuning performed."
+}

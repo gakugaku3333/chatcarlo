@@ -1,0 +1,295 @@
+{
+  "order": [
+    "K3 and K9(i)",
+    "class-II disabled, continuous collision+radiation only",
+    "no boundary queries",
+    "step dependence (K8)"
+  ],
+  "facts": [
+    "Independent GS angular-moment/normalization/CDF and fixed-energy displacement checks passed.",
+    "The prototype and EGS5 use different elastic DCS; measured coefficient differences are saved separately.",
+    "No adjustment to f_E or K1_max to match EGS5; initial values accepted by K8."
+  ],
+  "hypotheses": [
+    "The screened-Rutherford versus partial-wave model difference may contribute to the residual depth-dose/backscatter difference. The full response difference has not been causally attributed; changing the prescribed DCS is outside this plan.",
+    "GS inverse-CDF interpolation and energy-hinge discretization can contribute small residuals. K8 bounds their observed effect at the tested refinements, but does not establish a causal decomposition of the EGS5 residual."
+  ],
+  "components": {
+    "K3": "pass",
+    "K9i": "pass"
+  },
+  "continuous_only": {
+    "hinge_cm2": [
+      0.006733322968703428,
+      0.06239399723818425
+    ],
+    "single_cm2": [
+      0.006714903397124912,
+      0.06244653362988557
+    ],
+    "relative": [
+      0.0027430880966064918,
+      -0.0008413019690204265
+    ],
+    "difference_SEM_relative": [
+      0.009441624756492116,
+      0.0033907533846979495
+    ],
+    "hinge_boundary_events": 7100,
+    "single_boundary_events": 6816,
+    "hinge_boundary_queries": 80620026,
+    "single_boundary_queries": 3555056105,
+    "energy_max_residual_MeV": 3.68594044175552e-14,
+    "dose": {
+      "Dref": 3.221024681457885,
+      "reference_ranges_cm": [
+        0.6977672876682961,
+        0.8628318706780241
+      ],
+      "other_ranges_cm": [
+        0.6971195801850999,
+        0.8623595990047851
+      ],
+      "range_difference_over_reference_R50": [
+        -0.0009282571634457435,
+        -0.0006768326368769988
+      ],
+      "range_difference_SEM_over_R50": [
+        0.0012437392639350823,
+        0.001913487039016491
+      ],
+      "max_dose_difference_over_Dref": 0.00640305091011156,
+      "max_dose_difference_SEM_over_Dref": 0.0037120571598984304,
+      "evaluation_bins": 120,
+      "statistics_ok": true,
+      "pass": true
+    }
+  },
+  "boundary_free": {
+    "hinge_cm2": [
+      0.007179882794855743,
+      0.06434374811605939
+    ],
+    "single_cm2": [
+      0.0072081119669597585,
+      0.0647042254078028
+    ],
+    "relative": [
+      -0.003916305994331253,
+      -0.005571155353015548
+    ],
+    "difference_SEM_relative": [
+      0.009217853921325181,
+      0.0036450274918639254
+    ],
+    "hinge_boundary_events": 0,
+    "single_boundary_events": 0,
+    "hinge_boundary_queries": 0,
+    "single_boundary_queries": 0,
+    "energy_max_residual_MeV": 3.774758283725532e-14
+  },
+  "extended_slab": {
+    "hinge_cm2": [
+      0.007168550341945963,
+      0.06437584921530815
+    ],
+    "single_cm2": [
+      0.007181392379888763,
+      0.06474133709476901
+    ],
+    "relative": [
+      -0.0017882378880679892,
+      -0.005645355747377571
+    ],
+    "difference_SEM_relative": [
+      0.009160032795298853,
+      0.0036387181343827493
+    ],
+    "hinge_boundary_events": 8694,
+    "single_boundary_events": 8587,
+    "hinge_boundary_queries": 234298986,
+    "single_boundary_queries": 4273090251,
+    "energy_max_residual_MeV": 4.3076653355456074e-14,
+    "dose": {
+      "Dref": 3.217966862626273,
+      "reference_ranges_cm": [
+        0.6853390159311067,
+        0.8802155072999986
+      ],
+      "other_ranges_cm": [
+        0.6838819481942138,
+        0.8786531717268593
+      ],
+      "range_difference_over_reference_R50": [
+        -0.002126053971862861,
+        -0.002279653626631396
+      ],
+      "range_difference_SEM_over_R50": [
+        0.0013801759144595122,
+        0.001559194434527708
+      ],
+      "max_dose_difference_over_Dref": 0.007496697482449464,
+      "max_dose_difference_SEM_over_Dref": 0.004037610926332583,
+      "evaluation_bins": 200,
+      "statistics_ok": true,
+      "pass": true
+    }
+  },
+  "step_dependence": {
+    "status": "pass",
+    "rows": {
+      "ms_half": {
+        "Dref": 3.225998638462039,
+        "reference_ranges_cm": [
+          0.6837128460762737,
+          0.8801194014157767
+        ],
+        "other_ranges_cm": [
+          0.6846477297383319,
+          0.8800461767630581
+        ],
+        "range_difference_over_reference_R50": [
+          0.0013673630200505106,
+          -0.0001070985474952901
+        ],
+        "range_difference_SEM_over_R50": [
+          0.0008424174179681896,
+          0.00105561681217643
+        ],
+        "max_dose_difference_over_Dref": 0.003220282263896083,
+        "max_dose_difference_SEM_over_Dref": 0.002196738162091321,
+        "evaluation_bins": 120,
+        "statistics_ok": true,
+        "pass": true,
+        "boundary_events": 28295,
+        "boundary_queries": 1275708193
+      },
+      "energy_half": {
+        "Dref": 3.225998638462039,
+        "reference_ranges_cm": [
+          0.6837128460762737,
+          0.8801194014157767
+        ],
+        "other_ranges_cm": [
+          0.6848796114296708,
+          0.880129796688265
+        ],
+        "range_difference_over_reference_R50": [
+          0.001706513721503108,
+          1.5204149736117267e-05
+        ],
+        "range_difference_SEM_over_R50": [
+          0.0008743355804277514,
+          0.0010163194001331659
+        ],
+        "max_dose_difference_over_Dref": 0.003990704519700227,
+        "max_dose_difference_SEM_over_Dref": 0.002130700289150898,
+        "evaluation_bins": 120,
+        "statistics_ok": true,
+        "pass": true,
+        "boundary_events": 28839,
+        "boundary_queries": 1048813422
+      }
+    }
+  },
+  "coefficient_model_difference": {
+    "rows": [
+      {
+        "T": 0.02,
+        "EGS5_partial_wave_total_G1_G2_cm_inverse": [
+          157582.76181904797,
+          1279.8018064727348,
+          3206.7138149715765
+        ],
+        "prototype_Rutherford_total_G1_G2_cm_inverse": [
+          114952.83184792011,
+          1264.4924476515862,
+          3157.599165407746
+        ],
+        "relative": [
+          -0.270524069251177,
+          -0.011962288804188259,
+          -0.01531619358563363
+        ]
+      },
+      {
+        "T": 0.1,
+        "EGS5_partial_wave_total_G1_G2_cm_inverse": [
+          39151.29218768156,
+          72.76168214564224,
+          192.65448308125494
+        ],
+        "prototype_Rutherford_total_G1_G2_cm_inverse": [
+          30814.753298532036,
+          75.24623583659825,
+          196.38201209854583
+        ],
+        "relative": [
+          -0.2129313854875141,
+          0.034146457554167675,
+          0.01934825994014755
+        ]
+      },
+      {
+        "T": 1,
+        "EGS5_partial_wave_total_G1_G2_cm_inverse": [
+          13294.449395723586,
+          1.8062220408602978,
+          5.092916752174429
+        ],
+        "prototype_Rutherford_total_G1_G2_cm_inverse": [
+          10668.86418904455,
+          1.9555237821182583,
+          5.312275338877672
+        ],
+        "relative": [
+          -0.19749484378974025,
+          0.08265968296281478,
+          0.04307130812801674
+        ]
+      },
+      {
+        "T": 2,
+        "EGS5_partial_wave_total_G1_G2_cm_inverse": [
+          12253.991687545411,
+          0.6169129553075433,
+          1.7561505961347736
+        ],
+        "prototype_Rutherford_total_G1_G2_cm_inverse": [
+          9864.71702383484,
+          0.6670199280525806,
+          1.8297121736861903
+        ],
+        "relative": [
+          -0.1949792952886492,
+          0.08122211134317636,
+          0.04188796662047278
+        ]
+      },
+      {
+        "T": 10,
+        "EGS5_partial_wave_total_G1_G2_cm_inverse": [
+          11787.871712352018,
+          0.04108893571754907,
+          0.11850894840271871
+        ],
+        "prototype_Rutherford_total_G1_G2_cm_inverse": [
+          9482.165443026624,
+          0.04388431704844468,
+          0.12262421268914298
+        ],
+        "relative": [
+          -0.1955998780432383,
+          0.06803245891087184,
+          0.03472534641383973
+        ]
+      }
+    ],
+    "data_sha256": {
+      "docs/egs5_crosscheck/egs5/data/dcslib/eeldx001.tab": "960e9fc221a861a36e7787cac31e8dfdeb63f0515383435352c555a1ac296e64",
+      "docs/egs5_crosscheck/egs5/data/dcslib/eeldx008.tab": "671388c4591411cdc9073b500855591547cbd628d1680dd6792533eb4b3239ba"
+    },
+    "reference_source": "egs5/pegs/elinit.f header csin,csin1,csin2; Z+1 soft scattering correction",
+    "interpretation": "Coefficient/model difference established. Attribution of full depth-dose residual to this difference remains a hypothesis; no substitution or tuning performed."
+  }
+}

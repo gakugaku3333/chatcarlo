@@ -1,0 +1,9 @@
+{
+  "T": 2,
+  "N": 10000,
+  "seed": 20261007,
+  "wall_including_jit_seconds": 5.390446834033355,
+  "gs_path": "docs/validation/mv/p1/data/gs.npz",
+  "python": "3.11.13",
+  "numpy": "2.4.6"
+}

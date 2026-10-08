@@ -1,0 +1,34 @@
+{
+  "name": "boundaryfree_reference",
+  "N": 300000,
+  "T": 2,
+  "fe": 0.05,
+  "K": 0.05,
+  "mode": 1,
+  "seconds": 308.2611816249555,
+  "us_per_primary": 1027.537272083185,
+  "counts_per_primary": [
+    14393.86952,
+    14103.850066666666,
+    10.532483333333333,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+  ],
+  "ledger_global_relative": 4.2108168803641394e-17,
+  "ledger_max_relative": 1.887379141862766e-14,
+  "unprocessed": 0.0,
+  "unprocessed_energy": 0.0,
+  "maxdepth": 5,
+  "stack_allocated_bytes": 622592,
+  "table_bytes": 9067544,
+  "cross_mean": [
+    0.0072081119669597585,
+    0.0647042254078028
+  ],
+  "cross_n": [
+    294402,
+    209645
+  ]
+}

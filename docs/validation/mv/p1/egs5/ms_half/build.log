@@ -1,0 +1,48 @@
+ 
+============================
+egs5run script has started 
+============================
+ 
+working directory is /private/var/folders/nk/ppk0zn4n2n5_gsrp89g_dw900000gn/T/mv_p1_697gtgl6
+ 
+------------------------------------------------------------
+Erasing files (and links) from previous runs (if they exist)
+------------------------------------------------------------
+
+                  OS_TYPE  = gfort
+
+Your Compiler is gfortran
+ 
+---------------------------------------
+        Enter name of User Code        
+      (file extension must be '.f')    
+---------------------------------------
+ 
+------------------------------------------
+      Enter name of READ(4) data file     
+      (file extension must be '.data')    
+   (<CR> for same file name as User Code) 
+------------------------------------------
+
+  --> Empty file created as egs5job.inp
+ 
+------------------------------------------
+  Enter name of UNIT(25) (pegs input file)
+      (file extension must be '.inp')     
+   (<CR> for same file name as data file  
+      or same file name as User Code)     
+------------------------------------------
+
+  --> ms_half.inp linked to pgs5job.pegs5inp
+
+------------------------------------
+Compiling (with -fno-automatic -std=legacy -fallow-argument-mismatch -w and O)
+------------------------------------
+ 
+      ***********************************************************
+      * User code ms_half.f has been compiled but is not running *
+      ***********************************************************
+ 
+========================
+egs5run script has ended
+========================

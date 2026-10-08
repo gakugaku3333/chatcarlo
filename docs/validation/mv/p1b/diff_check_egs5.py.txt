@@ -1,0 +1,18 @@
+--- baseline/check_egs5.py
++++ current/check_egs5.py
+@@ -25,7 +25,7 @@
+     calls=re.findall(r'Function call:\s*(\S+)\s*= BRMSTM OF\s*(\S+)\s+(\S+)',lst)
+     from .physics import ET,ER
+     return [{'T':t,'PEGS_radiative_MeV_cm2_g':float(c[0])/rlc,'ESTAR_radiative_MeV_cm2_g':float(np.interp(np.log(t),np.log(ET),ER)),'relative':float(c[0])/rlc/np.interp(np.log(t),np.log(ET),ER)-1} for t,c in zip([2,10],calls)]
+-def main():
++def main(output_dir=None):
+     result={}
+     if not (BASE/'base_2/metadata.json').exists():return
+     ref=parse('base_2');rows={};refsteps=ref['steps'];refbins=ref['stepbins']
+@@ -56,5 +56,5 @@
+     if (BASE/'base_10/metadata.json').exists() and (OUT/'runs/base_10.npz').exists():
+         a=parse('base_10');p=np.load(OUT/'runs/base_10.npz');mask=a['q']>=.2*dref(a['q'])
+         c=compare(a['batches'],p['batches'],a['z'],tol=.03,range_tol=.03,mask=mask,bootstrap=1000);c['status']='reference-only';result['K10']=c;result['radiation']['PEGS_10_AP']=stopping('base_10')
+-    (OUT/'egs5_checks.json').write_text(json.dumps(result,indent=2)+'\n');print(json.dumps(result,indent=2))
++    ((OUT if output_dir is None else output_dir)/'egs5_checks.json').write_text(json.dumps(result,indent=2)+'\n');print(json.dumps(result,indent=2))
+ if __name__=='__main__':main()

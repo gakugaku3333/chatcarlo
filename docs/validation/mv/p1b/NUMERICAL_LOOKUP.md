@@ -1,0 +1,11 @@
+# Numerical lookup correction (physical interpolation and preregistration unchanged)
+
+Initial tables reused the 49-point GS energy mesh for rates and single inverse CDFs. Diagnostics found finite lookup error, including the EEDL native 10 MeV knot being absent from that mesh. The original single-CDF check generated a fresh CDF directly from the provider rather than testing the runtime table. That was an implementation/verification error; the initial calculations are retained in initial_numerical_trials/ and excluded from M6/M7 conclusions.
+
+The correction does not change transport, loss, scoring, f_E, K, particle cutoffs, eta, normalization, multipliers, atomic energy interpolation or atomic angular interpolation. It does not use EGS5 response data as a target.
+
+The provider is first evaluated using exactly the prescribed atomic interpolation. The numerical rate/single lookup uses a separate grid, initially containing native energy knots, the original GS mesh and verification energies. Its geometric midpoints are subdivided until interpolation of rates and single-CDF G1/G2 differs from direct provider integration by at most relative 1e-4. The inverse probability mesh resolves both endpoints down to 32 machine epsilon, and its native single-CDF G1/G2 error is required below one quarter of that numerical precision. This is an implementation precision requirement; it does not replace or relax any M1–M7 rule. GS still uses the full-order numerical integration and is checked with the preregistered doubled-order/grid criterion.
+
+The actual runtime single sampler is now tested at 0.02, 0.1, 1, 2 and 10 MeV. Twenty logarithmic screened-angle bins cover both endpoints. At high energy, rare backward bins have expected counts below 100 at 10 million samples. Bins are merged from the backward endpoint based only on their calculated expected counts until each bin has at least 100; observations never influence bin selection. The criterion remains chi-square p > 0.001. Observed counts, expectations and edges are saved for replay.
+
+Probability-grid refinement changes numerical resolution, not the angular interpolation law. The scalar transport only switches the rates/single-CDF provider; no event or state-machine rule is changed. Rutherford retains the analytic P1 path and the unchanged saved GS table.

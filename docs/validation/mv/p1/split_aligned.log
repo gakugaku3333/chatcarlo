@@ -1,0 +1,34 @@
+{
+  "name": "split_aligned",
+  "N": 1000000,
+  "T": 2,
+  "fe": 0.05,
+  "K": 0.05,
+  "mode": 0,
+  "seconds": 310.42893045791425,
+  "us_per_primary": 310.42893045791425,
+  "counts_per_primary": [
+    917.77026,
+    494.337064,
+    10.431419,
+    137.225743,
+    917.77026,
+    0.0,
+    0.0
+  ],
+  "ledger_global_relative": 4.477777523770321e-17,
+  "ledger_max_relative": 5.329070518200751e-15,
+  "unprocessed": 0.0,
+  "unprocessed_energy": 0.0,
+  "maxdepth": 5,
+  "stack_allocated_bytes": 622592,
+  "table_bytes": 9067544,
+  "cross_mean": [
+    0.007156004057338257,
+    0.06448499995242515
+  ],
+  "cross_n": [
+    980864,
+    699212
+  ]
+}

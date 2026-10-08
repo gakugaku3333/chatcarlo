@@ -1,0 +1,413 @@
+{
+  "table_sha256": "f5f391b66d2ce985f6541a79e2ba0f2d267e17255b3e4d962e53286d0dd142df",
+  "backend": "eedl",
+  "name": "base_2",
+  "N": 1000000,
+  "T": 2.0,
+  "fe": 0.05,
+  "K": 0.05,
+  "mode": 0,
+  "seconds": 158.84930400003213,
+  "us_per_primary": 158.84930400003213,
+  "counts_per_primary": [
+    710.344486,
+    490.705211,
+    8.337978,
+    0.386194,
+    710.344486,
+    0.0,
+    0.0
+  ],
+  "ledger_global_relative": 2.907971606569415e-17,
+  "ledger_max_relative": 4.440892098500626e-15,
+  "unprocessed": 0.0,
+  "unprocessed_energy": 0.0,
+  "maxdepth": 5,
+  "stack_allocated_bytes": 622592,
+  "table_bytes": 9067544,
+  "cross_mean": [
+    0.03792066269824903,
+    0.06695286644124486
+  ],
+  "cross_n": [
+    600732,
+    88907
+  ]
+}
+{
+  "table_sha256": "f5f391b66d2ce985f6541a79e2ba0f2d267e17255b3e4d962e53286d0dd142df",
+  "backend": "eedl",
+  "name": "split_aligned",
+  "N": 1000000,
+  "T": 2.0,
+  "fe": 0.05,
+  "K": 0.05,
+  "mode": 0,
+  "seconds": 174.28077495796606,
+  "us_per_primary": 174.28077495796606,
+  "counts_per_primary": [
+    714.035627,
+    490.705211,
+    8.337978,
+    4.077335,
+    714.035627,
+    0.0,
+    0.0
+  ],
+  "ledger_global_relative": 2.871184626856982e-17,
+  "ledger_max_relative": 4.218847493575595e-15,
+  "unprocessed": 0.0,
+  "unprocessed_energy": 0.0,
+  "maxdepth": 5,
+  "stack_allocated_bytes": 622592,
+  "table_bytes": 9067544,
+  "cross_mean": [
+    0.03792066269824903,
+    0.06695286644124487
+  ],
+  "cross_n": [
+    600732,
+    88907
+  ]
+}
+{
+  "table_sha256": "f5f391b66d2ce985f6541a79e2ba0f2d267e17255b3e4d962e53286d0dd142df",
+  "backend": "eedl",
+  "name": "split_shifted",
+  "N": 1000000,
+  "T": 2.0,
+  "fe": 0.05,
+  "K": 0.05,
+  "mode": 0,
+  "seconds": 157.85650225006975,
+  "us_per_primary": 157.85650225006975,
+  "counts_per_primary": [
+    715.037407,
+    490.705211,
+    8.337978,
+    5.079115,
+    715.037407,
+    0.0,
+    0.0
+  ],
+  "ledger_global_relative": 2.9299653848957606e-17,
+  "ledger_max_relative": 4.440892098500626e-15,
+  "unprocessed": 0.0,
+  "unprocessed_energy": 0.0,
+  "maxdepth": 5,
+  "stack_allocated_bytes": 622592,
+  "table_bytes": 9067544,
+  "cross_mean": [
+    0.03792066269824903,
+    0.06695286644124483
+  ],
+  "cross_n": [
+    600732,
+    88907
+  ]
+}
+{
+  "table_sha256": "f5f391b66d2ce985f6541a79e2ba0f2d267e17255b3e4d962e53286d0dd142df",
+  "backend": "eedl",
+  "name": "ms_half",
+  "N": 1000000,
+  "T": 2.0,
+  "fe": 0.05,
+  "K": 0.025,
+  "mode": 0,
+  "seconds": 217.02012849994935,
+  "us_per_primary": 217.02012849994935,
+  "counts_per_primary": [
+    1200.336814,
+    980.828016,
+    8.335064,
+    0.386566,
+    1200.336814,
+    0.0,
+    0.0
+  ],
+  "ledger_global_relative": 2.8829026839372053e-17,
+  "ledger_max_relative": 5.995204332975845e-15,
+  "unprocessed": 0.0,
+  "unprocessed_energy": 0.0,
+  "maxdepth": 5,
+  "stack_allocated_bytes": 622592,
+  "table_bytes": 9067544,
+  "cross_mean": [
+    0.037868905889237976,
+    0.06668992030613173
+  ],
+  "cross_n": [
+    601087,
+    89479
+  ]
+}
+{
+  "table_sha256": "f5f391b66d2ce985f6541a79e2ba0f2d267e17255b3e4d962e53286d0dd142df",
+  "backend": "eedl",
+  "name": "energy_half",
+  "N": 1000000,
+  "T": 2.0,
+  "fe": 0.025,
+  "K": 0.05,
+  "mode": 0,
+  "seconds": 212.91701866697986,
+  "us_per_primary": 212.91701866697986,
+  "counts_per_primary": [
+    915.426786,
+    493.157188,
+    8.341203,
+    0.385732,
+    915.426786,
+    0.0,
+    0.0
+  ],
+  "ledger_global_relative": 2.7966965548964495e-17,
+  "ledger_max_relative": 4.884981308350689e-15,
+  "unprocessed": 0.0,
+  "unprocessed_energy": 0.0,
+  "maxdepth": 5,
+  "stack_allocated_bytes": 622592,
+  "table_bytes": 9067544,
+  "cross_mean": [
+    0.037903703208272514,
+    0.0666057336336303
+  ],
+  "cross_n": [
+    600498,
+    89281
+  ]
+}
+{
+  "table_sha256": "f5f391b66d2ce985f6541a79e2ba0f2d267e17255b3e4d962e53286d0dd142df",
+  "backend": "eedl",
+  "name": "reference_2",
+  "N": 300000,
+  "T": 2.0,
+  "fe": 0.05,
+  "K": 0.05,
+  "mode": 1,
+  "seconds": 487.43708054197486,
+  "us_per_primary": 1624.7902684732496,
+  "counts_per_primary": [
+    13789.467256666667,
+    13569.248136666667,
+    8.35657,
+    0.3841333333333333,
+    13789.467256666667,
+    0.0,
+    0.0
+  ],
+  "ledger_global_relative": 3.823247852567194e-17,
+  "ledger_max_relative": 2.0539125955565396e-14,
+  "unprocessed": 0.0,
+  "unprocessed_energy": 0.0,
+  "maxdepth": 5,
+  "stack_allocated_bytes": 622592,
+  "table_bytes": 9067544,
+  "cross_mean": [
+    0.038144142678735865,
+    0.06673270282147002
+  ],
+  "cross_n": [
+    180937,
+    26582
+  ]
+}
+{
+  "K5": {
+    "status": "pass",
+    "global_relative": 2.907971606569415e-17,
+    "max_history_relative": 4.440892098500626e-15,
+    "unprocessed_particles": 0,
+    "unprocessed_MeV": 0.0,
+    "stack_failures": 0,
+    "step_limit_failures": 0,
+    "back_energy_fraction": 0.2125884658515771
+  },
+  "K5b": {
+    "status": "pass",
+    "evidence": "test_transport.py (analytic overlap, escape before/after hinge, cutoff/final residual, boundary zero/parallel/reverse, parent restore, explicit failure)"
+  },
+  "K7": {
+    "status": "pass",
+    "rows": {
+      "split_aligned": {
+        "Dref": 5.351441483875048,
+        "reference_ranges_cm": [
+          0.2815806267326508,
+          0.49420837584341587
+        ],
+        "other_ranges_cm": [
+          0.28158062673265083,
+          0.49420837584341587
+        ],
+        "range_difference_over_reference_R50": [
+          1.9714123047237687e-16,
+          0.0
+        ],
+        "range_difference_SEM_over_R50": [
+          0.0017742703834156355,
+          0.00848697433009037
+        ],
+        "max_dose_difference_over_Dref": 3.3193987914336076e-16,
+        "max_dose_difference_SEM_over_Dref": 0.0018506098396287465,
+        "evaluation_bins": 120,
+        "statistics_ok": true,
+        "pass": true,
+        "boundary_events": 4077335,
+        "boundary_queries": 714035627
+      },
+      "split_shifted": {
+        "Dref": 5.351441483875048,
+        "reference_ranges_cm": [
+          0.2815806267326508,
+          0.49420837584341587
+        ],
+        "other_ranges_cm": [
+          0.28158062673265083,
+          0.49420837584341587
+        ],
+        "range_difference_over_reference_R50": [
+          1.9714123047237687e-16,
+          0.0
+        ],
+        "range_difference_SEM_over_R50": [
+          0.0017742703834156448,
+          0.008486974330090375
+        ],
+        "max_dose_difference_over_Dref": 3.3193987914336076e-16,
+        "max_dose_difference_SEM_over_Dref": 0.001850609839628743,
+        "evaluation_bins": 120,
+        "statistics_ok": true,
+        "pass": true,
+        "boundary_events": 5079115,
+        "boundary_queries": 715037407
+      }
+    }
+  },
+  "K8": {
+    "status": "pass",
+    "rows": {
+      "ms_half": {
+        "Dref": 5.351441483875048,
+        "reference_ranges_cm": [
+          0.2815806267326508,
+          0.49420837584341587
+        ],
+        "other_ranges_cm": [
+          0.2824122067879093,
+          0.4953303485101653
+        ],
+        "range_difference_over_reference_R50": [
+          0.002953257349086269,
+          0.003984552061582956
+        ],
+        "range_difference_SEM_over_R50": [
+          0.0017527365051554725,
+          0.00856283892008891
+        ],
+        "max_dose_difference_over_Dref": 0.003948083489531197,
+        "max_dose_difference_SEM_over_Dref": 0.0017357077766592414,
+        "evaluation_bins": 120,
+        "statistics_ok": true,
+        "pass": true,
+        "boundary_events": 386566,
+        "boundary_queries": 1200336814
+      },
+      "energy_half": {
+        "Dref": 5.351441483875048,
+        "reference_ranges_cm": [
+          0.2815806267326508,
+          0.49420837584341587
+        ],
+        "other_ranges_cm": [
+          0.28171731932173466,
+          0.4948289471801074
+        ],
+        "range_difference_over_reference_R50": [
+          0.00048544742111704506,
+          0.002203885060887833
+        ],
+        "range_difference_SEM_over_R50": [
+          0.0018219192479989224,
+          0.006774691869642728
+        ],
+        "max_dose_difference_over_Dref": 0.0029469897713047277,
+        "max_dose_difference_SEM_over_Dref": 0.0019127731439422557,
+        "evaluation_bins": 120,
+        "statistics_ok": true,
+        "pass": true,
+        "boundary_events": 385732,
+        "boundary_queries": 915426786
+      }
+    }
+  },
+  "K9ii": {
+    "status": "pass",
+    "prototype_cm2": [
+      0.03792066269824903,
+      0.06695286644124486
+    ],
+    "reference_cm2": [
+      0.038144142678735865,
+      0.06673270282147002
+    ],
+    "relative": [
+      -0.005858828244458595,
+      0.0032991863129512625
+    ],
+    "difference_SEM_relative": [
+      0.003745645142678979,
+      0.006639201949580859
+    ],
+    "prototype_cross_N": [
+      600732,
+      88907
+    ],
+    "reference_cross_N": [
+      180937,
+      26582
+    ]
+  }
+}
+K9i {'path_cm': 0.05, 'K': 0.05, 'N': 1000000, 'reference': [0.00034222245124783255, 0.04333002517131642, 0.7458296612326673, 0.44890669333944483], 'prototype': [0.00034132362098147055, 0.04334266651660083, 0.745506020178422, 0.44880571082454485], 'relative': [-0.0026264503193306863, 0.00029174562522004435, -0.0004339342762398434, -0.00022495212568288527], 'difference_sem_relative': [0.0013850675454159717, 0.00023758780992654474, 0.0005246248533592583, 0.0013294850013253737], 'statistics_ok': True, 'pass': True, 'reference_seconds': 52.80514549999498, 'prototype_seconds': 0.582522707991302}
+K9i {'path_cm': 0.05, 'K': 0.025, 'N': 1000000, 'reference': [0.00034222245124783255, 0.04333002517131642, 0.7458296612326673, 0.44890669333944483], 'prototype': [0.0003418577651131414, 0.04333114986814055, 0.7455405188759591, 0.4489474606389159], 'relative': [-0.0010656405895095667, 2.5956523673469392e-05, -0.00038767881158052096, 9.081463938037033e-05], 'difference_sem_relative': [0.0013855200805844986, 0.00023735415766936666, 0.0005246986255965762, 0.0013299635506099042], 'statistics_ok': True, 'pass': True, 'reference_seconds': 52.80514549999498, 'prototype_seconds': 1.1736086249584332}
+K9i {'path_cm': 0.2, 'K': 0.05, 'N': 1000000, 'reference': [0.01108564464225459, 0.1178104829141921, 0.31036856245383826, 0.04089544351870533], 'prototype': [0.011096671617884843, 0.11778147626497315, 0.3091684020213875, 0.040478228592072917], 'relative': [0.0009947076589684064, -0.0002462145006236975, -0.0038668878798871578, -0.01020199050883466], 'difference_sem_relative': [0.0009357612952389986, 0.0006670575585630066, 0.002343425569356469, 0.01584435204664343], 'statistics_ok': True, 'pass': True, 'reference_seconds': 204.46920220798347, 'prototype_seconds': 2.3656806249637157}
+K9i {'path_cm': 0.2, 'K': 0.025, 'N': 1000000, 'reference': [0.01108564464225459, 0.1178104829141921, 0.31036856245383826, 0.04089544351870533], 'prototype': [0.011107307183681954, 0.11768806497130928, 0.3096539459346609, 0.04118448738450017], 'relative': [0.0019541075080824273, -0.0010391090831194606, -0.002302477137270162, 0.0070678745827179364], 'difference_sem_relative': [0.0009361830519230046, 0.0006671964938480627, 0.0023438029082713053, 0.015847637584657258], 'statistics_ok': True, 'pass': True, 'reference_seconds': 204.46920220798347, 'prototype_seconds': 4.530987416044809}
+{
+  "table_sha256": "f5f391b66d2ce985f6541a79e2ba0f2d267e17255b3e4d962e53286d0dd142df",
+  "backend": "eedl",
+  "name": "base_10",
+  "N": 1000000,
+  "T": 10.0,
+  "fe": 0.05,
+  "K": 0.05,
+  "mode": 0,
+  "seconds": 656.6729491660371,
+  "us_per_primary": 656.6729491660371,
+  "counts_per_primary": [
+    3410.065291,
+    2297.818282,
+    50.250774,
+    0.065343,
+    3410.065291,
+    0.0,
+    0.0
+  ],
+  "ledger_global_relative": 8.342400789271287e-16,
+  "ledger_max_relative": 1.1191048088221578e-14,
+  "unprocessed": 0.0,
+  "unprocessed_energy": 0.0,
+  "maxdepth": 6,
+  "stack_allocated_bytes": 622592,
+  "table_bytes": 9067544,
+  "cross_mean": [
+    0.0009679901822193605,
+    0.01739173808664962
+  ],
+  "cross_n": [
+    999301,
+    994877
+  ]
+}

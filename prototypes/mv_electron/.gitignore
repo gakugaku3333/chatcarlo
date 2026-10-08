@@ -1,0 +1,4 @@
+__pycache__/
+.pytest_cache/
+# EGS5-derived local numerical tables
+*dcslib*.npz

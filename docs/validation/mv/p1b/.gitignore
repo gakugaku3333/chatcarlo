@@ -1,0 +1,7 @@
+# Research-only EGS5-derived numerical tables must not be distributed.
+dcslib/data/
+# Reference report copyright is not assumed covered by EEDL data license.
+data/EEDL1991.pdf
+data/etran_reference.pdf
+# All numerical DCS/GS tables for research-only controls, including retained trials.
+**/dcslib/data/

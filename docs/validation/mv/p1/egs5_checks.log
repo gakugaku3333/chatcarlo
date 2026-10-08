@@ -1,0 +1,289 @@
+{
+  "radiation": {
+    "adopted": "normal IUNRST=0, AP=2 MeV (2 MeV source); AP=10 MeV (10 MeV source), UP=21 MeV, UE=20.511 MeV",
+    "prototype": "ESTAR radiative stopping power added to continuous loss, locally deposited",
+    "reference_balance_relative": 2.7939677238464356e-15,
+    "reference_max_history_residual_MeV": 7.549516567451064e-15,
+    "unprocessed_particles": 0,
+    "photon_callbacks": 0,
+    "PEGS_ESTAR": [
+      {
+        "T": 2,
+        "PEGS_radiative_MeV_cm2_g": 0.02678420535838751,
+        "ESTAR_radiative_MeV_cm2_g": 0.02678,
+        "relative": 0.00015703354695695282
+      },
+      {
+        "T": 10,
+        "PEGS_radiative_MeV_cm2_g": 0.1814439926757489,
+        "ESTAR_radiative_MeV_cm2_g": 0.1814,
+        "relative": 0.00024251750688475404
+      }
+    ],
+    "warnings": [
+      "WARNING in RMSFIT: requested GS Multiple Scattering in media   1",
+      "Number of allocated intervals(=  150) was insufficient"
+    ],
+    "PEGS_10_AP": [
+      {
+        "T": 2,
+        "PEGS_radiative_MeV_cm2_g": 0.02678420535838751,
+        "ESTAR_radiative_MeV_cm2_g": 0.02678,
+        "relative": 0.00015703354695695282
+      },
+      {
+        "T": 10,
+        "PEGS_radiative_MeV_cm2_g": 0.1814439926757489,
+        "ESTAR_radiative_MeV_cm2_g": 0.1814,
+        "relative": 0.00024251750688475404
+      }
+    ]
+  },
+  "K4": {
+    "status": "pass",
+    "rows": {
+      "ms_half": {
+        "Dref": 3.21095793919726,
+        "reference_ranges_cm": [
+          0.6955997281452622,
+          0.8891998390339395
+        ],
+        "other_ranges_cm": [
+          0.695041360456256,
+          0.8882266605387432
+        ],
+        "range_difference_over_reference_R50": [
+          -0.0008027140701952453,
+          -0.001399049562298079
+        ],
+        "range_difference_SEM_over_R50": [
+          0.0008116512209394577,
+          0.0008795451078257263
+        ],
+        "max_dose_difference_over_Dref": 0.004956079973251045,
+        "max_dose_difference_SEM_over_Dref": 0.0022209652641371137,
+        "evaluation_bins": 120,
+        "statistics_ok": true,
+        "pass": true,
+        "mean_segments_per_primary": 522.538501,
+        "actual_step_distribution_changed": true,
+        "warnings": [
+          "WARNING in RMSFIT: requested GS Multiple Scattering in media   1",
+          "Number of allocated intervals(=  150) was insufficient"
+        ]
+      },
+      "energy_half": {
+        "Dref": 3.21095793919726,
+        "reference_ranges_cm": [
+          0.6955997281452622,
+          0.8891998390339395
+        ],
+        "other_ranges_cm": [
+          0.6961290930715633,
+          0.8881908138696165
+        ],
+        "range_difference_over_reference_R50": [
+          0.0007610194554167964,
+          -0.001450583034316945
+        ],
+        "range_difference_SEM_over_R50": [
+          0.0008552435670409309,
+          0.0008474045137176237
+        ],
+        "max_dose_difference_over_Dref": 0.0048921243929164965,
+        "max_dose_difference_SEM_over_Dref": 0.002153666716927744,
+        "evaluation_bins": 120,
+        "statistics_ok": true,
+        "pass": true,
+        "mean_segments_per_primary": 713.005588,
+        "actual_step_distribution_changed": true,
+        "warnings": [
+          "WARNING in RMSFIT: requested GS Multiple Scattering in media   1",
+          "Number of allocated intervals(=  150) was insufficient"
+        ]
+      },
+      "fit_alternate": {
+        "Dref": 3.21095793919726,
+        "reference_ranges_cm": [
+          0.6955997281452622,
+          0.8891998390339395
+        ],
+        "other_ranges_cm": [
+          0.6953481029747431,
+          0.8887494944172171
+        ],
+        "range_difference_over_reference_R50": [
+          -0.0003617384543693697,
+          -0.0006474191959839248
+        ],
+        "range_difference_SEM_over_R50": [
+          0.0008766655729459271,
+          0.0008735394853722552
+        ],
+        "max_dose_difference_over_Dref": 0.00459778975761507,
+        "max_dose_difference_SEM_over_Dref": 0.0020876255432036007,
+        "evaluation_bins": 120,
+        "statistics_ok": true,
+        "pass": true,
+        "mean_segments_per_primary": 521.867397,
+        "actual_step_distribution_changed": true,
+        "warnings": [
+          "WARNING in RMSFIT: requested GS Multiple Scattering in media   1",
+          "Number of allocated intervals(=  100) was insufficient"
+        ]
+      }
+    },
+    "reference_mean_segments_per_primary": 522.307502
+  },
+  "K6": {
+    "Dref": 3.21095793919726,
+    "reference_ranges_cm": [
+      0.6955997281452622,
+      0.8891998390339395
+    ],
+    "other_ranges_cm": [
+      0.6845926871889375,
+      0.8801194014157767
+    ],
+    "range_difference_over_reference_R50": [
+      -0.015823814344599705,
+      -0.01305411323603411
+    ],
+    "range_difference_SEM_over_R50": [
+      0.0008291983751637124,
+      0.0008886254516946538
+    ],
+    "max_dose_difference_over_Dref": 0.0302318879581691,
+    "max_dose_difference_SEM_over_Dref": 0.002111535967285929,
+    "evaluation_bins": 81,
+    "statistics_ok": true,
+    "pass": false,
+    "prototype_back_energy_fraction": 0.010295013032521092,
+    "EGS5_back_energy_fraction": 0.005698583473501666,
+    "status": "fail"
+  },
+  "ineffective_fit_change": {
+    "Dref": 3.21095793919726,
+    "reference_ranges_cm": [
+      0.6955997281452622,
+      0.8891998390339395
+    ],
+    "other_ranges_cm": [
+      0.6955997281452622,
+      0.8891998390339395
+    ],
+    "range_difference_over_reference_R50": [
+      0.0,
+      0.0
+    ],
+    "range_difference_SEM_over_R50": [
+      0.000795942477223511,
+      0.0007760523114650472
+    ],
+    "max_dose_difference_over_Dref": 0.0,
+    "max_dose_difference_SEM_over_Dref": 0.002267591312762871,
+    "evaluation_bins": 120,
+    "statistics_ok": true,
+    "pass": true,
+    "ledger": [
+      2000000.0,
+      1988066.5369166252,
+      11397.166947003332,
+      536.2961363771292,
+      7.549516567451064e-15,
+      0.0,
+      0.0
+    ]
+  },
+  "USEGSD_model_difference": {
+    "Dref": 3.21095793919726,
+    "reference_ranges_cm": [
+      0.6955997281452622,
+      0.8891998390339395
+    ],
+    "other_ranges_cm": [
+      0.6876782453246674,
+      0.8837221532293706
+    ],
+    "range_difference_over_reference_R50": [
+      -0.011387990104188986,
+      -0.007874767028984462
+    ],
+    "range_difference_SEM_over_R50": [
+      0.0008507617679645461,
+      0.0008729197429097856
+    ],
+    "max_dose_difference_over_Dref": 0.02192272073895073,
+    "max_dose_difference_SEM_over_Dref": 0.0021120981839142217,
+    "evaluation_bins": 120,
+    "statistics_ok": true,
+    "pass": true,
+    "ledger": [
+      2000000.0,
+      1982423.4161180083,
+      16723.701830872633,
+      852.8820511103931,
+      8.881784197001252e-15,
+      0.0,
+      0.0
+    ]
+  },
+  "radiation_sensitivity": {
+    "Dref": 3.21095793919726,
+    "reference_ranges_cm": [
+      0.6955997281452622,
+      0.8891998390339395
+    ],
+    "other_ranges_cm": [
+      0.6952162001336962,
+      0.8921726899870217
+    ],
+    "range_difference_over_reference_R50": [
+      -0.0005513630843251919,
+      0.0042737954498759875
+    ],
+    "range_difference_SEM_over_R50": [
+      0.0007604097395182911,
+      0.0007933679964478796
+    ],
+    "max_dose_difference_over_Dref": 0.008013140691627176,
+    "max_dose_difference_SEM_over_Dref": 0.002089815544457466,
+    "evaluation_bins": 120,
+    "statistics_ok": true,
+    "pass": true,
+    "ledger": [
+      2000000.0,
+      1988214.098891347,
+      11210.808422826294,
+      575.0926858276631,
+      8.43769498715119e-15,
+      0.0,
+      202341.0
+    ]
+  },
+  "K10": {
+    "Dref": 2.702936129994432,
+    "reference_ranges_cm": [
+      4.069843810784844,
+      4.829591676457613
+    ],
+    "other_ranges_cm": [
+      4.041570754718213,
+      4.8058533527047675
+    ],
+    "range_difference_over_reference_R50": [
+      -0.0069469634170502975,
+      -0.005832735814072405
+    ],
+    "range_difference_SEM_over_R50": [
+      0.0008173040783347343,
+      0.0014583031729160755
+    ],
+    "max_dose_difference_over_Dref": 0.021999459332931688,
+    "max_dose_difference_SEM_over_Dref": 0.0034789746458713027,
+    "evaluation_bins": 90,
+    "statistics_ok": true,
+    "pass": true,
+    "status": "reference-only"
+  }
+}

@@ -1,0 +1,96 @@
+{
+  "rows": [
+    {
+      "phase": "data",
+      "first_artifact": "docs/validation/mv/p1/PREREGISTRATION.md",
+      "final_artifact": "docs/validation/mv/p1/data/metadata.json",
+      "started_utc": "2026-10-07T13:44:35.489498+00:00",
+      "finished_utc": "2026-10-07T13:45:42.597823+00:00",
+      "elapsed_seconds": 67.1083254814148
+    },
+    {
+      "phase": "tables",
+      "first_artifact": "prototypes/mv_electron/physics.py",
+      "final_artifact": "docs/validation/mv/p1/gs_checks.json",
+      "started_utc": "2026-10-07T13:46:44.228249+00:00",
+      "finished_utc": "2026-10-07T13:51:07.505979+00:00",
+      "elapsed_seconds": 263.277729511261
+    },
+    {
+      "phase": "transport",
+      "first_artifact": "prototypes/mv_electron/transport.py",
+      "final_artifact": "docs/validation/mv/p1/prototype_tests_v2.log",
+      "started_utc": "2026-10-07T13:53:44.586918+00:00",
+      "finished_utc": "2026-10-07T14:05:35.649229+00:00",
+      "elapsed_seconds": 711.0623114109039
+    },
+    {
+      "phase": "boundary",
+      "first_artifact": "prototypes/mv_electron/transport.py",
+      "final_artifact": "docs/validation/mv/p1/runs/split_shifted.json",
+      "started_utc": "2026-10-07T13:53:44.586918+00:00",
+      "finished_utc": "2026-10-07T14:12:24.233446+00:00",
+      "elapsed_seconds": 1119.6465277671814
+    },
+    {
+      "phase": "validation",
+      "first_artifact": "prototypes/mv_electron/check_fixed.py",
+      "final_artifact": "docs/validation/mv/p1/diagnostics.json",
+      "started_utc": "2026-10-07T13:50:58.931931+00:00",
+      "finished_utc": "2026-10-07T14:34:04.282780+00:00",
+      "elapsed_seconds": 2585.3508491516113
+    }
+  ],
+  "benchmark_interval": {
+    "started_utc": "2026-10-07T14:25:43.451492+00:00",
+    "finished_utc": "2026-10-07T14:33:58.443045+00:00",
+    "operator": "User reports completing the unchanged benchmark script during interruption"
+  },
+  "interruption_note": "Usage-limit interruption reported by user; precise pause boundaries and active work durations unavailable. Wall intervals must not be treated as labor hours.",
+  "measurement": "Filesystem creation/final-output timestamps (wall-clock intervals, overlapping). Includes waiting, concurrent computation and rework; not active human labor and not additive. No standalone labor stopwatch was recorded.",
+  "rework": [
+    {
+      "phase": "class-II",
+      "fact": "Near-threshold dimensionless subtraction lost relative precision; fixed with physical energy interval. K2 analytic/numeric agreement rechecked."
+    },
+    {
+      "phase": "GS tables",
+      "fact": "SciPy Q_l derivative returned NaN at large order; replaced unstable evaluation with mathematically identical backward continued fraction, validated by independent quadrature."
+    },
+    {
+      "phase": "K9(i)",
+      "fact": "200k histories missed SEM requirement; increased to 1M without changing criteria."
+    },
+    {
+      "phase": "transport",
+      "fact": "Removed repeated logarithm/array allocation and cached unchanged evaluated-energy coefficients; tests rerun."
+    },
+    {
+      "phase": "EGS5",
+      "fact": "GS ignores K1 scaling; sensitivity uses CHARD. EPE/NIPE perturbation left final fit unchanged; tested NALE=100."
+    }
+  ],
+  "remaining_estimates_work_weeks": {
+    "explicit_bremsstrahlung": [
+      "1",
+      "2–3",
+      "4–5"
+    ],
+    "pair_production": [
+      "1",
+      "2–3",
+      "4–5"
+    ],
+    "positrons": [
+      "1",
+      "2–3",
+      "3–5"
+    ],
+    "coupled_stack_scoring_validation": [
+      "2–3",
+      "4–6",
+      "8–12"
+    ]
+  },
+  "unmeasured": "Remaining widths are P0 engineering estimates, not P1 measurements. Full coupled necessary history count and active human work remain unmeasured; do not sum overlapping phases or multiply P0 EGS5 step counts by prototype costs."
+}

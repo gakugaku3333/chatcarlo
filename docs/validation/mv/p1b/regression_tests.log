@@ -1,0 +1,17 @@
+........................................................................ [ 17%]
+........................................................................ [ 35%]
+........................................................................ [ 53%]
+........................................................................ [ 71%]
+........................................................................ [ 89%]
+...........................................                              [100%]
+=============================== warnings summary ===============================
+tests/test_heel_effect.py::test_anode_cutoff_warns_and_still_samples
+  /Users/oishifamily/Projects/viveMonte/.venv/lib/python3.11/site-packages/spekpy/SpekTools.py:216: UserWarning: Zero emission for the user's geometrical inputs
+    warnings.warn('Zero emission for the user\'s geometrical inputs')
+
+tests/test_spectrum.py::test_fallback_spectrum_used_when_spekpy_unavailable
+  /Users/oishifamily/Projects/viveMonte/tests/test_spectrum.py:54: UserWarning: spekpy が見つからないためKramers則の粗い近似スペクトルを使用します。`pip install spekpy` を推奨します。
+    e, w = spectrum._default_spectrum(kvp=100.0, filtration_mm_al=2.5, anode_angle_deg=12.0)
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+403 passed, 2 warnings in 107.74s (0:01:47)

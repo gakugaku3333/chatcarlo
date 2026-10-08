@@ -1,0 +1,12 @@
+{
+  "source": "docs/egs5_crosscheck/revalidation_2026_10_07/egs5/pdd_phantom/pdd_phantom.f",
+  "sha256": "ec1efc9255f2f1451f43bd7fdadce27722243e8330391314f072348b6ff129c9",
+  "T": 2,
+  "N": 1000000,
+  "USEGSD": 1,
+  "ms_scale": 1,
+  "energy_scale": 1,
+  "fit": true,
+  "AP": 2,
+  "IUNRST": 0
+}

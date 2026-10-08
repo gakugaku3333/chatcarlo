@@ -1,0 +1,7 @@
+table shapes (49, 9, 20483) (568, 3) (568, 20484)
+dcslib M4 runtime single 0.02 0.7836761197920316
+dcslib M4 runtime single 0.1 0.3300765955855721
+dcslib M4 runtime single 1.0 0.5561612116482224
+dcslib M4 runtime single 2.0 0.33519601536007587
+dcslib M4 runtime single 10.0 0.5553743143772325
+pass

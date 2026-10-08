@@ -1,0 +1,157 @@
+{
+  "K5": {
+    "status": "pass",
+    "global_relative": 3.6541719303229136e-17,
+    "max_history_relative": 4.218847493575595e-15,
+    "unprocessed_particles": 0,
+    "unprocessed_MeV": 0.0,
+    "stack_failures": 0,
+    "step_limit_failures": 0,
+    "back_energy_fraction": 0.006164901591694991
+  },
+  "K5b": {
+    "status": "pass",
+    "evidence": "test_transport.py (analytic overlap, escape before/after hinge, cutoff/final residual, boundary zero/parallel/reverse, parent restore, explicit failure)"
+  },
+  "K7": {
+    "status": "pass",
+    "rows": {
+      "split_aligned": {
+        "Dref": 3.212152908436393,
+        "reference_ranges_cm": [
+          0.694856632685398,
+          0.8888225088395456
+        ],
+        "other_ranges_cm": [
+          0.6948566326853979,
+          0.8888225088395456
+        ],
+        "range_difference_over_reference_R50": [
+          -1.5977727957125496e-16,
+          0.0
+        ],
+        "range_difference_SEM_over_R50": [
+          0.0008767070419559357,
+          0.0008434915501603312
+        ],
+        "max_dose_difference_over_Dref": 5.530112949277196e-16,
+        "max_dose_difference_SEM_over_Dref": 0.002150616304915088,
+        "evaluation_bins": 120,
+        "statistics_ok": true,
+        "pass": true,
+        "boundary_events": 6452660,
+        "boundary_queries": 790580264
+      },
+      "split_shifted": {
+        "Dref": 3.212152908436393,
+        "reference_ranges_cm": [
+          0.694856632685398,
+          0.8888225088395456
+        ],
+        "other_ranges_cm": [
+          0.694856632685398,
+          0.8888225088395456
+        ],
+        "range_difference_over_reference_R50": [
+          0.0,
+          0.0
+        ],
+        "range_difference_SEM_over_R50": [
+          0.0008767070419559237,
+          0.0008434915501603282
+        ],
+        "max_dose_difference_over_Dref": 5.530112949277196e-16,
+        "max_dose_difference_SEM_over_Dref": 0.0021506163049150886,
+        "evaluation_bins": 120,
+        "statistics_ok": true,
+        "pass": true,
+        "boundary_events": 7109928,
+        "boundary_queries": 791237532
+      }
+    }
+  },
+  "K8": {
+    "status": "pass",
+    "rows": {
+      "ms_half": {
+        "Dref": 3.212152908436393,
+        "reference_ranges_cm": [
+          0.694856632685398,
+          0.8888225088395456
+        ],
+        "other_ranges_cm": [
+          0.6946468463690867,
+          0.887813319315679
+        ],
+        "range_difference_over_reference_R50": [
+          -0.0003019130946488102,
+          -0.0014523708580954958
+        ],
+        "range_difference_SEM_over_R50": [
+          0.0008605387572673468,
+          0.000865222515064479
+        ],
+        "max_dose_difference_over_Dref": 0.005300992129951454,
+        "max_dose_difference_SEM_over_Dref": 0.0021156403426234494,
+        "evaluation_bins": 120,
+        "statistics_ok": true,
+        "pass": true,
+        "boundary_events": 21135,
+        "boundary_queries": 1280237865
+      },
+      "energy_half": {
+        "Dref": 3.212152908436393,
+        "reference_ranges_cm": [
+          0.694856632685398,
+          0.8888225088395456
+        ],
+        "other_ranges_cm": [
+          0.6950303500262294,
+          0.8884427106831043
+        ],
+        "range_difference_over_reference_R50": [
+          0.00025000458031179614,
+          -0.0005465849192134686
+        ],
+        "range_difference_SEM_over_R50": [
+          0.000852884333833412,
+          0.0009059719224115842
+        ],
+        "max_dose_difference_over_Dref": 0.005484775060314255,
+        "max_dose_difference_SEM_over_Dref": 0.0020957987176732787,
+        "evaluation_bins": 120,
+        "statistics_ok": true,
+        "pass": true,
+        "boundary_events": 21027,
+        "boundary_queries": 1053810742
+      }
+    }
+  },
+  "K9ii": {
+    "status": "pass",
+    "prototype_cm2": [
+      0.006712408681460892,
+      0.06445658448318373
+    ],
+    "reference_cm2": [
+      0.006754791511467767,
+      0.064522970600635
+    ],
+    "relative": [
+      -0.006274483814181544,
+      -0.0010288757140797112
+    ],
+    "difference_SEM_relative": [
+      0.0074112733136809245,
+      0.002913152535051409
+    ],
+    "prototype_cross_N": [
+      986796,
+      721846
+    ],
+    "reference_cross_N": [
+      295870,
+      216336
+    ]
+  }
+}

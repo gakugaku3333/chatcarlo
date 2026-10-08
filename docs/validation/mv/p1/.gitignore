@@ -1,0 +1,7 @@
+data/*.html
+data/*.npz
+egs5/**/epstar.dat
+egs5/**/pgs5job.pegs5dat
+__pycache__/
+
+.cache/

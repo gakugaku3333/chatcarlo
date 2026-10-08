@@ -1,0 +1,47 @@
+--- baseline/transport.py
++++ current/transport.py
+@@ -6,6 +6,7 @@
+ from numba import njit
+ from .physics import *
+ from .sampling import gs_mu_cached
++from .backend_sampling import table_rates,table_single
+ CUT=.01
+ FIELDS=19
+ @njit
+@@ -36,7 +37,7 @@
+ def local(score,z,loss,dz):
+     b=max(0,min(len(score)-1,int(z/dz)));score[b]+=loss
+ @njit
+-def run(T,n,seed,fe,k,faces,dz,ts,ks,us,ys,scoring=True,hard_on=True,mode=0,maxstack=4096,maxsteps=10000000,source_state=None,ignore_boundaries=False):
++def run(T,n,seed,fe,k,faces,dz,ts,ks,us,ys,scoring=True,hard_on=True,mode=0,maxstack=4096,maxsteps=10000000,source_state=None,ignore_boundaries=False,backend_rates=None,backend_single=None):
+     # mode: 0 GS dual hinge; 1 single elastic collisions, same loss model; 2 no scattering.
+     np.random.seed(seed);nb=int(round(faces[-1]/dz));nbatch=100
+     batches=np.zeros((nbatch,nb));ledger=np.zeros((n,7));counts=np.zeros(7,np.int64)
+@@ -65,9 +66,13 @@
+                 ev=max(CUT,a[7])
+                 if ev!=cached_ev:
+                     S=stopping(ev,hard_on);rate=hard(ev)[0] if hard_on else 0.
+-                    total,G1=elastic_rates(ev)
++                    if backend_rates is None:
++                        total,G1=elastic_rates(ev)
++                    else:
++                        total,G1=table_rates(ev,ts,backend_rates)
+                     if mode==1:
+-                        eta,B,totalj,tmp=elastic(ev);G1=total
++                        if backend_rates is None:eta,B,totalj,tmp=elastic(ev)
++                        G1=total
+                     if mode==2:G1=0.
+                     cached_ev=ev
+                 # Recompute all event distances after every direction/energy update.
+@@ -106,7 +111,10 @@
+                     prev=a[9];a[11]=min(fe*a[7],a[7]-CUT);a[10]=np.random.random()*a[11]
+                     a[9]=a[11]-a[10];a[8]=prev+a[10];continue
+                 if mb<=step+1e-13:
+-                    mu=single_cached(eta,totalj) if mode==1 else gs_mu_cached(ev,a[14],ts,ks,us,ys,total,G1)
++                    if mode==1:
++                        mu=single_cached(eta,totalj) if backend_rates is None else table_single(ev,ts,us,backend_single)
++                    else:
++                        mu=gs_mu_cached(ev,a[14],ts,ks,us,ys,total,G1)
+                     a[3],a[4],a[5]=rotate(a[3],a[4],a[5],mu,2*np.pi*np.random.random());counts[1]+=1
+                     if mode==1:
+                         a[12]=-np.log(np.random.random());a[13]=0.;a[14]=0.

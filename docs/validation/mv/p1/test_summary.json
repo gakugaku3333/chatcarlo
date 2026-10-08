@@ -1,0 +1,23 @@
+{
+  "pytest": [
+    {
+      "command": ".venv/bin/python -m pytest tests/ -q",
+      "exit_code": 0,
+      "passed": 403,
+      "warnings": 2,
+      "seconds": 137.99,
+      "log": "regression_tests_final.log"
+    },
+    {
+      "command": ".venv/bin/python -m pytest prototypes/mv_electron/tests -q",
+      "exit_code": 0,
+      "passed": 30,
+      "warnings": 0,
+      "seconds": 16.92,
+      "log": "prototype_tests_final.log"
+    }
+  ],
+  "production_diff_empty": true,
+  "from_saved_exit_code": 0,
+  "environment": "PYTHONDONTWRITEBYTECODE=1; PYTEST_ADDOPTS=-p no:cacheprovider; NUMBA_CACHE_DIR inside P1 for regression"
+}

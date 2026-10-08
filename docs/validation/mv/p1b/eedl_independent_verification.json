@@ -1,0 +1,340 @@
+{
+  "method": "independent fixed-width NumPy reader; scalar two-stage linear interpolation; exact polynomial two-point Gauss integration on each linear angular segment plus analytic forward moments",
+  "limits": "Checks file reading, specified interpolation, units and elemental moments at listed energies; does not prove all code paths or reference/model correctness, and is not a second independent transport implementation.",
+  "atoms": {
+    "1": {
+      "sha256": "814c909e819e185b96511e47ff0d5e4c1ba06650cf28a45a9769ef95ceb8dfd7",
+      "all_MF23_MF26_numeric_records_match": true,
+      "MF23_regions": {
+        "525": [
+          [
+            101,
+            2
+          ]
+        ],
+        "526": [
+          [
+            101,
+            2
+          ]
+        ]
+      },
+      "MF26_regions": [
+        [
+          16,
+          2
+        ]
+      ],
+      "LANG_values": [
+        12
+      ],
+      "angular_energy_grid_MeV": [
+        9.999999999999999e-06,
+        0.001,
+        0.002,
+        0.004,
+        0.008,
+        0.016,
+        0.032,
+        0.064,
+        0.128,
+        0.256,
+        10.0,
+        21.25,
+        32.5,
+        43.75,
+        66.25,
+        100000.0
+      ],
+      "checks": [
+        {
+          "T_MeV": 0.02,
+          "bracket_MeV": [
+            0.016,
+            0.032
+          ],
+          "upper_energy_weight": 0.25,
+          "PDF_max_relative_difference": 1.1102230246251565e-16,
+          "independent_atomic_total_G1_G2_cm2": [
+            1.48094305845472e-19,
+            6.78026432940137e-22,
+            1.764271674525888e-21
+          ],
+          "production_relative_difference": [
+            2.0650148258027912e-14,
+            -1.3322676295501878e-15,
+            -1.4432899320127035e-15
+          ],
+          "pass": true
+        },
+        {
+          "T_MeV": 0.1,
+          "bracket_MeV": [
+            0.064,
+            0.128
+          ],
+          "upper_energy_weight": 0.5625,
+          "PDF_max_relative_difference": 2.220446049250313e-16,
+          "independent_atomic_total_G1_G2_cm2": [
+            3.830220036234099e-20,
+            4.023892075314718e-23,
+            1.0871798569264776e-22
+          ],
+          "production_relative_difference": [
+            -7.072120666862247e-14,
+            2.6645352591003757e-15,
+            6.661338147750939e-15
+          ],
+          "pass": true
+        },
+        {
+          "T_MeV": 0.256,
+          "bracket_MeV": [
+            0.256,
+            10.0
+          ],
+          "upper_energy_weight": 0.0,
+          "PDF_max_relative_difference": 2.220446049250313e-16,
+          "independent_atomic_total_G1_G2_cm2": [
+            2.321783142852961e-20,
+            8.28390045847215e-24,
+            2.2992229934010213e-23
+          ],
+          "production_relative_difference": [
+            8.215650382226158e-14,
+            -8.548717289613705e-15,
+            -2.1760371282653068e-14
+          ],
+          "pass": true
+        },
+        {
+          "T_MeV": 1.0,
+          "bracket_MeV": [
+            0.256,
+            10.0
+          ],
+          "upper_energy_weight": 0.07635467980295567,
+          "PDF_max_relative_difference": 2.220446049250313e-16,
+          "independent_atomic_total_G1_G2_cm2": [
+            1.5545799395986702e-20,
+            3.988189614018638e-24,
+            1.1071205945152176e-23
+          ],
+          "production_relative_difference": [
+            -3.647082635893639e-13,
+            -9.769962616701378e-15,
+            -1.0769163338864018e-14
+          ],
+          "pass": true
+        },
+        {
+          "T_MeV": 2.0,
+          "bracket_MeV": [
+            0.256,
+            10.0
+          ],
+          "upper_energy_weight": 0.17898193760262726,
+          "PDF_max_relative_difference": 2.220446049250313e-16,
+          "independent_atomic_total_G1_G2_cm2": [
+            1.412802597839688e-20,
+            2.229781012322973e-24,
+            6.191636892046392e-24
+          ],
+          "production_relative_difference": [
+            -6.472600233564663e-13,
+            -1.1657341758564144e-14,
+            -1.709743457922741e-14
+          ],
+          "pass": true
+        },
+        {
+          "T_MeV": 10.0,
+          "bracket_MeV": [
+            10.0,
+            21.25
+          ],
+          "upper_energy_weight": 0.0,
+          "PDF_max_relative_difference": 2.220446049250313e-16,
+          "independent_atomic_total_G1_G2_cm2": [
+            1.3149399815158671e-20,
+            1.7766030927052587e-26,
+            5.149529574443356e-26
+          ],
+          "production_relative_difference": [
+            -1.907141111701094e-12,
+            -1.2260192860935604e-12,
+            -2.309596958127713e-12
+          ],
+          "pass": true
+        }
+      ]
+    },
+    "8": {
+      "sha256": "87b39aed3276f1c2db52b6cb2878871025245890dca80368b2c4b7a85292eb1b",
+      "all_MF23_MF26_numeric_records_match": true,
+      "MF23_regions": {
+        "525": [
+          [
+            101,
+            2
+          ]
+        ],
+        "526": [
+          [
+            101,
+            2
+          ]
+        ]
+      },
+      "MF26_regions": [
+        [
+          16,
+          2
+        ]
+      ],
+      "LANG_values": [
+        12
+      ],
+      "angular_energy_grid_MeV": [
+        9.999999999999999e-06,
+        0.001,
+        0.002,
+        0.004,
+        0.008,
+        0.016,
+        0.032,
+        0.064,
+        0.128,
+        0.256,
+        10.0,
+        21.25,
+        32.5,
+        43.75,
+        66.25,
+        100000.0
+      ],
+      "checks": [
+        {
+          "T_MeV": 0.02,
+          "bracket_MeV": [
+            0.016,
+            0.032
+          ],
+          "upper_energy_weight": 0.25,
+          "PDF_max_relative_difference": 2.220446049250313e-16,
+          "independent_atomic_total_G1_G2_cm2": [
+            3.670083895858958e-18,
+            3.416389606111888e-20,
+            8.487376446814829e-20
+          ],
+          "production_relative_difference": [
+            1.021405182655144e-14,
+            -8.881784197001252e-16,
+            -1.887379141862766e-15
+          ],
+          "pass": true
+        },
+        {
+          "T_MeV": 0.1,
+          "bracket_MeV": [
+            0.064,
+            0.128
+          ],
+          "upper_energy_weight": 0.5625,
+          "PDF_max_relative_difference": 2.220446049250313e-16,
+          "independent_atomic_total_G1_G2_cm2": [
+            9.15098316537992e-19,
+            2.0144550836640303e-21,
+            5.293438274465614e-21
+          ],
+          "production_relative_difference": [
+            -3.241851231905457e-14,
+            8.881784197001252e-16,
+            2.6645352591003757e-15
+          ],
+          "pass": true
+        },
+        {
+          "T_MeV": 0.256,
+          "bracket_MeV": [
+            0.256,
+            10.0
+          ],
+          "upper_energy_weight": 0.0,
+          "PDF_max_relative_difference": 2.220446049250313e-16,
+          "independent_atomic_total_G1_G2_cm2": [
+            4.958728530779455e-19,
+            3.8311070548364966e-22,
+            1.0441238290334044e-21
+          ],
+          "production_relative_difference": [
+            -8.193445921733655e-14,
+            2.4424906541753444e-15,
+            1.9984014443252818e-15
+          ],
+          "pass": true
+        },
+        {
+          "T_MeV": 1.0,
+          "bracket_MeV": [
+            0.256,
+            10.0
+          ],
+          "upper_energy_weight": 0.07635467980295567,
+          "PDF_max_relative_difference": 2.220446049250313e-16,
+          "independent_atomic_total_G1_G2_cm2": [
+            2.8448898063683437e-19,
+            2.0340366155505248e-22,
+            5.544125215812954e-22
+          ],
+          "production_relative_difference": [
+            -1.049604847480623e-12,
+            2.220446049250313e-15,
+            2.6645352591003757e-15
+          ],
+          "pass": true
+        },
+        {
+          "T_MeV": 2.0,
+          "bracket_MeV": [
+            0.256,
+            10.0
+          ],
+          "upper_energy_weight": 0.17898193760262726,
+          "PDF_max_relative_difference": 2.220446049250313e-16,
+          "independent_atomic_total_G1_G2_cm2": [
+            2.425775873771595e-19,
+            1.4860403562642327e-22,
+            4.051184281273585e-22
+          ],
+          "production_relative_difference": [
+            -2.2581936320875684e-12,
+            1.1102230246251565e-15,
+            1.9984014443252818e-15
+          ],
+          "pass": true
+        },
+        {
+          "T_MeV": 10.0,
+          "bracket_MeV": [
+            10.0,
+            21.25
+          ],
+          "upper_energy_weight": 0.0,
+          "PDF_max_relative_difference": 2.220446049250313e-16,
+          "independent_atomic_total_G1_G2_cm2": [
+            2.0873800175088408e-19,
+            1.0427713268409539e-24,
+            3.006187477950288e-24
+          ],
+          "production_relative_difference": [
+            1.213251721310371e-12,
+            1.2945200467129325e-13,
+            4.269917752708352e-13
+          ],
+          "pass": true
+        }
+      ]
+    }
+  }
+}

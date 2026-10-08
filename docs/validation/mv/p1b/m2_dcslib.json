@@ -1,0 +1,263 @@
+{
+  "status": "pass",
+  "rows": [
+    {
+      "Z": 1,
+      "T": 0.02,
+      "total_cm2": 1.4688957037689647e-19,
+      "G1_cm2": 6.192692081246276e-22,
+      "G2_cm2": 1.6138698775599788e-21,
+      "nonnegative": true,
+      "doubling_max_relative": 1.1102230246251565e-16,
+      "native_energy": true,
+      "nearest_grid_MeV": 0.02,
+      "header": [
+        1.46848e-19,
+        6.19243e-22,
+        1.61379e-21
+      ],
+      "header_relative": [
+        0.0002830843926813209,
+        4.232284358085536e-05,
+        4.949687380562118e-05
+      ],
+      "independent_2MeV_relative": null,
+      "pass": true
+    },
+    {
+      "Z": 1,
+      "T": 0.1,
+      "total_cm2": 3.613177629333204e-20,
+      "G1_cm2": 3.3938844262520453e-23,
+      "G2_cm2": 9.194993392312846e-23,
+      "nonnegative": true,
+      "doubling_max_relative": 8.881784197001252e-16,
+      "native_energy": true,
+      "nearest_grid_MeV": 0.09999999999999999,
+      "header": [
+        3.61155e-20,
+        3.39353e-23,
+        9.19394e-23
+      ],
+      "header_relative": [
+        0.0004506733488958137,
+        0.00010444176183654896,
+        0.00011457463425323944
+      ],
+      "independent_2MeV_relative": null,
+      "pass": true
+    },
+    {
+      "Z": 1,
+      "T": 0.256,
+      "total_cm2": 1.9527890333254485e-20,
+      "G1_cm2": 6.876554445978934e-24,
+      "G2_cm2": 1.9073160345963423e-23,
+      "nonnegative": true,
+      "doubling_max_relative": 1.3322676295501878e-15,
+      "native_energy": false,
+      "nearest_grid_MeV": 0.25,
+      "header": null,
+      "independent_2MeV_relative": null,
+      "pass": true
+    },
+    {
+      "Z": 1,
+      "T": 1.0,
+      "total_cm2": 1.2274912028278796e-20,
+      "G1_cm2": 8.076965171873378e-25,
+      "G2_cm2": 2.300707335230796e-24,
+      "nonnegative": true,
+      "doubling_max_relative": 1.6209256159527285e-14,
+      "native_energy": true,
+      "nearest_grid_MeV": 1.0,
+      "header": [
+        1.22554e-20,
+        8.07557e-25,
+        2.30029e-24
+      ],
+      "header_relative": [
+        0.001592116803922794,
+        0.00017276450744363459,
+        0.00018142722473957207
+      ],
+      "independent_2MeV_relative": null,
+      "pass": true
+    },
+    {
+      "Z": 1,
+      "T": 2.0,
+      "total_cm2": 1.1331233291571011e-20,
+      "G1_cm2": 2.7262147765518846e-25,
+      "G2_cm2": 7.824949159148446e-25,
+      "nonnegative": true,
+      "doubling_max_relative": 3.708144902248023e-14,
+      "native_energy": true,
+      "nearest_grid_MeV": 2.0,
+      "header": [
+        1.13006e-20,
+        2.7252e-25,
+        7.82192e-25
+      ],
+      "header_relative": [
+        0.002710766823974975,
+        0.00037236773516968746,
+        0.00038726542184597257
+      ],
+      "independent_2MeV_relative": -7.438721860708597e-10,
+      "pass": true
+    },
+    {
+      "Z": 1,
+      "T": 10.0,
+      "total_cm2": 1.0885271711544122e-20,
+      "G1_cm2": 1.7747884830594926e-26,
+      "G2_cm2": 5.145945192088225e-26,
+      "nonnegative": true,
+      "doubling_max_relative": 1.4394041514265155e-12,
+      "native_energy": true,
+      "nearest_grid_MeV": 10.0,
+      "header": [
+        1.08722e-20,
+        1.77463e-26,
+        5.14546e-26
+      ],
+      "header_relative": [
+        0.001202306023079247,
+        8.930484635816249e-05,
+        9.429518220427369e-05
+      ],
+      "independent_2MeV_relative": null,
+      "pass": true
+    },
+    {
+      "Z": 8,
+      "T": 0.02,
+      "total_cm2": 3.669393205580081e-18,
+      "G1_cm2": 3.183595445400294e-20,
+      "G2_cm2": 7.954892048766507e-20,
+      "nonnegative": true,
+      "doubling_max_relative": 6.661338147750939e-16,
+      "native_energy": true,
+      "nearest_grid_MeV": 0.02,
+      "header": [
+        3.66939e-18,
+        3.18353e-20,
+        7.95469e-20
+      ],
+      "header_relative": [
+        8.736002663489728e-07,
+        2.05574944460718e-05,
+        2.5399954807436842e-05
+      ],
+      "independent_2MeV_relative": null,
+      "pass": true
+    },
+    {
+      "Z": 8,
+      "T": 0.1,
+      "total_cm2": 9.129644508140065e-19,
+      "G1_cm2": 1.8145939032289456e-21,
+      "G2_cm2": 4.797218033596102e-21,
+      "nonnegative": true,
+      "doubling_max_relative": 3.3306690738754696e-16,
+      "native_energy": true,
+      "nearest_grid_MeV": 0.09999999999999999,
+      "header": [
+        9.12965e-19,
+        1.81447e-21,
+        4.79685e-21
+      ],
+      "header_relative": [
+        -6.01541125355709e-07,
+        6.828618216081495e-05,
+        7.67240159900151e-05
+      ],
+      "independent_2MeV_relative": null,
+      "pass": true
+    },
+    {
+      "Z": 8,
+      "T": 0.256,
+      "total_cm2": 4.939868756241249e-19,
+      "G1_cm2": 3.7440991205329933e-22,
+      "G2_cm2": 1.0204892653289677e-21,
+      "nonnegative": true,
+      "doubling_max_relative": 1.1102230246251565e-15,
+      "native_energy": false,
+      "nearest_grid_MeV": 0.25,
+      "header": null,
+      "independent_2MeV_relative": null,
+      "pass": true
+    },
+    {
+      "Z": 8,
+      "T": 1.0,
+      "total_cm2": 3.1039650757292894e-19,
+      "G1_cm2": 4.51691673993422e-23,
+      "G2_cm2": 1.2727953270681445e-22,
+      "nonnegative": true,
+      "doubling_max_relative": 5.329070518200751e-15,
+      "native_energy": true,
+      "nearest_grid_MeV": 1.0,
+      "header": [
+        3.10041e-19,
+        4.51657e-23,
+        1.27269e-22
+      ],
+      "header_relative": [
+        0.0011466469690426528,
+        7.677063218780589e-05,
+        8.275940578172936e-05
+      ],
+      "independent_2MeV_relative": null,
+      "pass": true
+    },
+    {
+      "Z": 8,
+      "T": 2.0,
+      "total_cm2": 2.86423422449679e-19,
+      "G1_cm2": 1.5441037606133938e-23,
+      "G2_cm2": 4.393337582595702e-23,
+      "nonnegative": true,
+      "doubling_max_relative": 1.9761969838327786e-14,
+      "native_energy": true,
+      "nearest_grid_MeV": 2.0,
+      "header": [
+        2.85761e-19,
+        1.5438e-23,
+        4.39242e-23
+      ],
+      "header_relative": [
+        0.0023180995645974978,
+        0.00019676163582960093,
+        0.00020890137912621398
+      ],
+      "independent_2MeV_relative": 1.5699797017987294e-09,
+      "pass": true
+    },
+    {
+      "Z": 8,
+      "T": 10.0,
+      "total_cm2": 2.750946292367804e-19,
+      "G1_cm2": 1.0297251259427936e-24,
+      "G2_cm2": 2.9689781354766965e-24,
+      "nonnegative": true,
+      "doubling_max_relative": 4.5130565951012613e-13,
+      "native_energy": true,
+      "nearest_grid_MeV": 10.0,
+      "header": [
+        2.74886e-19,
+        1.02967e-24,
+        2.96882e-24
+      ],
+      "header_relative": [
+        0.0007589663961802273,
+        5.353748559588922e-05,
+        5.3265430944415826e-05
+      ],
+      "independent_2MeV_relative": null,
+      "pass": true
+    }
+  ]
+}

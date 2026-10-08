@@ -1,0 +1,7 @@
+{
+  "transport_checks": true,
+  "egs5_checks": true,
+  "fixed_checks_values": true,
+  "gs_report_values_and_decisions": true,
+  "gs_saved_table_values": true
+}

@@ -1,0 +1,7 @@
+{
+  "transport_AST_after_removing_only_DCS_provider_substitutions_matches_baseline": true,
+  "physics_bytes_unchanged": true,
+  "analysis_bytes_unchanged": true,
+  "baseline_manifest_code_files": 24,
+  "preregistration_sha256": "366ebf3dc412bc373e0d068d906f6f8f185856be9c9464b73e8915ab33f15000"
+}

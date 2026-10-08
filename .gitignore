@@ -14,3 +14,8 @@ runs/
 # 自作の差分（docs/egs5_crosscheck/water60_free/, water60_bound/）とRESULTS.mdのみ追跡する。
 docs/egs5_crosscheck/egs5/
 docs/egs5_crosscheck/egs5.241010.tar.gz
+
+# 治療領域拡張の試作: 再生成できる大きな数値ファイルは追跡しない
+docs/validation/mv/p1/**/*.npz
+docs/validation/mv/p1b/**/*.npz
+docs/validation/mv/p1b/initial_numerical_trials/
