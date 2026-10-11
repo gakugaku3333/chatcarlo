@@ -13,12 +13,14 @@ def inverse_moments(u,q):
 def build(provider):
     native=[]
     if provider.name=='dcslib':native=provider.ts
+    elif provider.name in ('mf','elsepa'):native=provider.native_energies
     else:
         for atom in provider.atomic.values():
             native.extend(atom.ts)
             for arr in atom.xs.values():native.extend(arr[:,0]*1e-6)
-    ts=np.unique(np.r_[np.geomspace(.01,20,49),native,[.02,.1,.256,1.,2.,10.]])
-    ts=ts[(ts>=.01)&(ts<=20)]
+    upper=provider.energy_max if provider.name=='elsepa' else 20
+    ts=np.unique(np.r_[np.geomspace(.01,upper,49),native,[.02,.1,.256,1.,2.,10.]])
+    ts=ts[(ts>=.01)&(ts<=upper)]
     cache={}
     def node(t):
         t=float(t)

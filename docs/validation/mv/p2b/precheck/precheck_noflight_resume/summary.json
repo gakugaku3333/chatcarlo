@@ -1,0 +1,85 @@
+{
+  "status": "合格",
+  "E": 6.0,
+  "N": 200000,
+  "seed": 20291001,
+  "IUNRST": 0,
+  "tests": {
+    "balance": true,
+    "score": true,
+    "callbacks": true,
+    "flight_annihilation": true,
+    "cutoffs": true,
+    "flags": true,
+    "dual_scoring": true,
+    "kinetic_cutoff": true
+  },
+  "ledger": [
+    1200000.0,
+    532125.463162567,
+    667874.5368374322,
+    4.440892098500626e-14,
+    0.0,
+    0.0,
+    3.9968028886505635e-14,
+    4.529709940470639e-14
+  ],
+  "callbacks": {
+    "brems_created": 35384.0,
+    "brems_discarded": 35384.0,
+    "brems_local_MeV": 8478.449677998558,
+    "flight_annihilation": 916.0,
+    "rest_annihilation": 13658.0,
+    "pairs": 13904.0,
+    "wrong_tags": 0.0
+  },
+  "effective_flags": {
+    "IBOUND": 0,
+    "INCOH": 0,
+    "ICPROF": 0,
+    "IRAYL": 0,
+    "incohm": 0.0,
+    "incohr": 0.0,
+    "iprofm": 0.0,
+    "iprofr": 0.0,
+    "iraylm": 0.0,
+    "iraylr": 0.0,
+    "iedgfl": 0.0,
+    "iauger": 0.0,
+    "iprdst": 0.0,
+    "ibrspl": 0.0,
+    "iausfl8": 1.0,
+    "usegsd": 1.0
+  },
+  "cutoffs": {
+    "AE": 0.521,
+    "AP": 0.01,
+    "ECUT": 0.521,
+    "PCUT": 0.01,
+    "UE": 20.511,
+    "UP": 21.0,
+    "rho": 1.0
+  },
+  "max_history_relative_balance": 7.401486830834377e-15,
+  "rebin_max_Gy_cm2": 2.261821987449685e-26,
+  "CPU_seconds": 11.501927,
+  "radiative_stopping_calls": [
+    [
+      "0.966451",
+      "2.51100",
+      "2.51100"
+    ],
+    [
+      "6.54702",
+      "10.5110",
+      "10.5110"
+    ]
+  ],
+  "warnings": [
+    "Number of allocated intervals(=  150) was insufficient"
+  ],
+  "effective_electron_kinetic_cutoff_keV": 10.00109529495241,
+  "RM_MeV": 0.5109989047050476,
+  "wall_seconds": 95.758,
+  "noflight": 1
+}

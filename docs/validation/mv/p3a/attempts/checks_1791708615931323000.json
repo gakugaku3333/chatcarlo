@@ -1,0 +1,354 @@
+{
+  "status": "合格",
+  "source_hashes": {
+    "prototypes/mv_electron/run_p3a.py": "8fe5f0c497b78f1b05af28eee509252c1751cc7163c8ae16dc5a639fd5f549a3",
+    "prototypes/mv_electron/photon_transport_p3.py": "1c6e7f8d4b5b9dd4bd32470321a38bf3e972b1bed8bc123de588e123fb303e3c",
+    "prototypes/mv_electron/p3_egs.f": "c9d231ee44c9c50fcfe1d074c3674592fe8515f1c179f541f853a9c7b3002086",
+    "prototypes/mv_electron/p3_egs_common.inc": "3b3d66a0cf00da256853e4ea9d39fc3545382f654d7fe09e2007114c27cf5493",
+    "prototypes/mv_electron/run_p2c.py": "23db601f7c9459926fa4fc8de33c2a9e90ace85fa01a0bcb2f06684fe59b38e0",
+    "prototypes/mv_electron/photon_transport_p2c.py": "fcf34588596422bf6a83e1e617961af9b563682307dba35ae7d9fd4260fa68a7",
+    "prototypes/mv_electron/flight_annihilation_p2c.py": "8596585268e5d9fea2110f6ebe256f9a3769f6ea548ebd16d61c0863bd57c836",
+    "prototypes/mv_electron/run_coupled_p2.py": "09aa364155911e1496ee29e60bb5584bf237710a31ac1f5f46ac54628a661ad8",
+    "prototypes/mv_electron/p2_common.py": "f1e447fcfc5ed88f20939bd44ad46eb46afe25b558e2f60458b3d788a31e8c3e",
+    "prototypes/mv_electron/photon_data_p2.py": "b76ca6c4ead288dded6f135b2f3968d1f0e1175eb952fcf661c1f8657ca99560",
+    "prototypes/mv_electron/photon_sampling_p2.py": "1451fe3ab29c40121edf6d20631317c2f1120c8dc9d5cc8388dc0a606cda2ac5",
+    "prototypes/mv_electron/physics.py": "9c0d21197acc5cb54a9fbb0f5fd3534c0638ed1cf54f0fecd2e9475d3a72b718",
+    "prototypes/mv_electron/transport.py": "e2345a5782fe4e491fd1f051790f8c0a9a4abdd07743c6729d38e5f7c92efc19",
+    "prototypes/mv_electron/sampling.py": "1bc217fb327ce4e9b71b71e35b7fc486acffc40d09022e91c457f9d1e8b4da77",
+    "prototypes/mv_electron/backend_sampling.py": "1c1442ddbd8f7bbc22e6c6e3e34567be60d2ddec1d181385ea4def807e85063c",
+    "prototypes/mv_electron/elsepa.py": "0cc02356c90c2933fe9b0619237748b12f019a777d73411b416fde48e68d9c71",
+    "prototypes/mv_electron/dcs.py": "23c0f7122b85a7ba7214c93d2b95c5459e5305a225bcb2232544d0352d84c71c",
+    "prototypes/mv_electron/mf.py": "a9b0e6e4fc3600547af3ed0d4a7797885c94e453caa03228f982b5329eddba39",
+    "prototypes/mv_electron/single_table.py": "3fda8e33bab15a5e2bb30a9507f873bfa42a0277d0b0b4a139c9a5428e774c0f",
+    "prototypes/mv_electron/gs_backend.py": "4fc40df1bcee7c6d1f6822d6c1f12bf8d7b88fcc9ab50ee49d229331db571533",
+    "prototypes/mv_electron/reference_p2.py": "b12aec291bcaba5cdbe39342a767949be0d793b0f026e21048b3755dff3e4322",
+    "prototypes/mv_electron/p1e_common.py": "cd0eb35aec47388e44849cf82a4db258c86e1e87b38cb63cab58b797dc4eabb1",
+    "prototypes/mv_electron/p1d_common.py": "ccc8748d65032ea0de231670ed8e16f4e21f07f3128e0192cf61f9532a3d505e",
+    "prototypes/mv_electron/workflow_p2.py": "c40e53f3b38335c98fbcbf07e83e788bc0eebbd1e4f93234e91fb84f29029e74",
+    "prototypes/mv_electron/compare_photon_p2.py": "fc091c85cc95010673bebec3fe1028cdbc7863dbe51746b8c57e6e3ff0919432"
+  },
+  "spectrum_sha256": "06fe2ba471dbfd64ca4305b5f1560479439ea4b565f993ecb21dcda86a6d8065",
+  "checks": {
+    "D1": {
+      "passed": true,
+      "E": 6.0,
+      "N": 20000,
+      "seed": 20291401,
+      "backend": "mf",
+      "equality": {
+        "coarse": true,
+        "fine": true,
+        "pair": true,
+        "kerma": true,
+        "collision_kerma": true,
+        "totals": true,
+        "maxima": true,
+        "violations": true,
+        "counts": true,
+        "maxdepth": true
+      }
+    },
+    "D2": {
+      "passed": true,
+      "E": 6.0,
+      "N": 10000,
+      "seed": 20261524,
+      "IUNRST": 0,
+      "equality": {
+        "coarse": true,
+        "fine": true
+      }
+    },
+    "D3": {
+      "passed": true,
+      "probability_sum": 1.0,
+      "mean_MeV": 2.8013974343031434,
+      "target_mean_MeV": 2.801397434,
+      "relative_mean_delta": 1.0821143980876968e-10,
+      "variance_MeV2": 4.406656444712422,
+      "SHA256": "06fe2ba471dbfd64ca4305b5f1560479439ea4b565f993ecb21dcda86a6d8065"
+    },
+    "D4": {
+      "passed": true,
+      "seed": 20291402,
+      "backend": "elsepa",
+      "N": 200000,
+      "chi2": 179.28375400194466,
+      "df": 199,
+      "p": 0.8387276699373685,
+      "mean_MeV": 2.8011041800559346,
+      "target_mean_MeV": 2.801397434,
+      "theoretical_mean_MeV": 2.8013974343031434,
+      "theoretical_SEM_MeV": 0.004693962315950364,
+      "mean_delta_MeV": -0.00029325394406543026,
+      "mean_delta_in_SEM": -0.062474712050613584,
+      "total_samples": 200000
+    },
+    "D5": {
+      "passed": true,
+      "seed": 20291403,
+      "N": 200000,
+      "chi2": 179.55816181838765,
+      "df": 199,
+      "p": 0.8350967667733474,
+      "mean_MeV": 2.798458708959624,
+      "target_mean_MeV": 2.801397434,
+      "theoretical_mean_MeV": 2.8013974343031434,
+      "theoretical_SEM_MeV": 0.004693962315950364,
+      "mean_delta_MeV": -0.0029387250403760667,
+      "mean_delta_in_SEM": -0.6260648983887458,
+      "total_samples": 200000
+    },
+    "D6": {
+      "passed": true,
+      "runs": {
+        "D1": {
+          "finite": true,
+          "violations": [
+            0,
+            0,
+            0
+          ],
+          "failures": [
+            0,
+            0
+          ],
+          "maxima": [
+            8.12313179684073e-15,
+            8.43769498715119e-15,
+            8.141635513917814e-15
+          ]
+        },
+        "D4": {
+          "finite": true,
+          "violations": [
+            0,
+            0,
+            0
+          ],
+          "failures": [
+            0,
+            0
+          ],
+          "maxima": [
+            8.932524749773877e-15,
+            8.998337055364977e-15,
+            8.960184327729155e-15
+          ]
+        },
+        "D5": {
+          "status": "合格",
+          "tests": {
+            "config": true,
+            "noflight": true,
+            "balance": true,
+            "score": true,
+            "callbacks": true,
+            "cutoffs": true,
+            "kinetic_cutoff": true,
+            "flags": true,
+            "IUNRST": true,
+            "dual_scoring": true,
+            "spectrum_total": true,
+            "batchin": true,
+            "batchcb": true,
+            "mono_input": true,
+            "coarse_integral": true,
+            "fine_integral": true,
+            "finite": true
+          },
+          "ledger": [
+            559691.7417919248,
+            285370.3954578557,
+            274321.3463340701,
+            3.475691956467131e-14,
+            0.0,
+            0.0,
+            3.730349362740526e-14,
+            3.730349362740526e-14
+          ],
+          "callbacks": {
+            "brems_created": 15262.0,
+            "brems_discarded": 15262.0,
+            "brems_local_MeV": 2874.6907847602442,
+            "flight_annihilation": 241.0,
+            "rest_annihilation": 4516.0,
+            "pairs": 4826.0,
+            "wrong_tags": 0.0
+          },
+          "effective_flags": {
+            "IBOUND": 0,
+            "INCOH": 0,
+            "ICPROF": 0,
+            "IRAYL": 0,
+            "incohm": 0.0,
+            "incohr": 0.0,
+            "iprofm": 0.0,
+            "iprofr": 0.0,
+            "iraylm": 0.0,
+            "iraylr": 0.0,
+            "iedgfl": 0.0,
+            "iauger": 0.0,
+            "iprdst": 0.0,
+            "ibrspl": 0.0,
+            "iausfl8": 1.0,
+            "usegsd": 1.0
+          },
+          "cutoffs": [
+            0.521,
+            0.01,
+            0.521,
+            0.01,
+            20.511,
+            21.0,
+            1.0
+          ],
+          "max_history_relative_balance": 1.5170835294645664e-14,
+          "rebin_max_Gy_cm2": 1.454028420503369e-26,
+          "CPU_seconds": 13.575388000000004,
+          "wall_seconds": 91.447,
+          "effective_electron_kinetic_cutoff_keV": 10.00109529495241
+        }
+      }
+    },
+    "D7": {
+      "passed": true,
+      "prototype": {
+        "tests": {
+          "ledger": true,
+          "escape": true,
+          "coarse_location": true,
+          "coarse_normalization": true,
+          "fine_location": true,
+          "fine_normalization": true,
+          "healthy": true
+        },
+        "N": 10000,
+        "incoming_MeV": 50.07434207462997,
+        "deposited_MeV": 50.07434207462997,
+        "escaped_MeV": 0.0,
+        "mean_input_MeV": 0.005007434207462997,
+        "relative_deposit_delta": 0.0,
+        "coarse_recovered_MeV_per_history": 0.005007434207462993,
+        "coarse_relative_delta": -8.881784197001252e-16,
+        "fine_recovered_MeV_per_history": 0.005007434207462993,
+        "fine_relative_delta": -8.881784197001252e-16
+      },
+      "EGS5": {
+        "tests": {
+          "ledger": true,
+          "escape": true,
+          "coarse_location": true,
+          "coarse_normalization": true,
+          "fine_location": true,
+          "fine_normalization": true,
+          "healthy": true
+        },
+        "N": 10000,
+        "incoming_MeV": 49.99226560006001,
+        "deposited_MeV": 49.99226560006001,
+        "escaped_MeV": 0.0,
+        "mean_input_MeV": 0.004999226560006001,
+        "relative_deposit_delta": 0.0,
+        "coarse_recovered_MeV_per_history": 0.004999226560006006,
+        "coarse_relative_delta": 1.1102230246251565e-15,
+        "fine_recovered_MeV_per_history": 0.004999226560006006,
+        "fine_relative_delta": 1.1102230246251565e-15
+      },
+      "seeds": [
+        20291404,
+        20291405
+      ]
+    },
+    "D8": {
+      "passed": true,
+      "seed": 20291403,
+      "interruption": {
+        "completed_histories": 80000,
+        "completed_batches": 40,
+        "N": 200000,
+        "seed": 20291403
+      },
+      "equality": {
+        "coarse": true,
+        "fine": true,
+        "totals": true,
+        "callbacks": true,
+        "nspec": true,
+        "batchin": true,
+        "batchcb": true,
+        "maxrel": true,
+        "escapes": true
+      }
+    },
+    "D10": {
+      "passed": true,
+      "tests": {
+        "known_difference": true,
+        "known_SEM": true,
+        "at_one": true,
+        "at_negative_one": true,
+        "above_one": true,
+        "above_SEM": true,
+        "remainder12": true,
+        "remainder13": true,
+        "empty_near": true,
+        "empty_build": true,
+        "empty_blocks": true,
+        "ratio_SEM": true,
+        "ratio_value": true
+      },
+      "known_delta_pct": 0.9999999999999787,
+      "known_SEM_pct": 0.32435834093380944,
+      "expected_SEM_pct": 0.3243583409338094,
+      "boundary_statuses": {
+        "at_one": "1%以内",
+        "above_one": "1%を超える",
+        "above_SEM": "統計不足"
+      },
+      "deep_remainder12": [
+        25,
+        37
+      ],
+      "deep_remainder13": [
+        25,
+        25,
+        13
+      ],
+      "ratio": {
+        "value": 0.40000379194627456,
+        "SEM": 0.005800183243142325
+      },
+      "ratio_direct_SEM": 0.005800183243142327,
+      "correlation": 0.999947933061067
+    },
+    "D9": {
+      "passed": true,
+      "N": 2000,
+      "seed": 20291406,
+      "stopped_batches": 3,
+      "equality": {
+        "coarse": true,
+        "fine": true,
+        "pair": true,
+        "kerma": true,
+        "collision_kerma": true,
+        "totals": true,
+        "violations": true,
+        "counts": true,
+        "nspec": true,
+        "maxima": true,
+        "maxdepth": true,
+        "batch_totals": true,
+        "batch_counts": true,
+        "N": true,
+        "seed": true,
+        "E": true,
+        "backend": true,
+        "unit": true
+      },
+      "changed_N_rejected": true
+    }
+  },
+  "attempt": "1791708615931323000"
+}

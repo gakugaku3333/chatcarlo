@@ -1,0 +1,11 @@
+{
+  "status": "pass",
+  "checks": {
+    "dcslib_0.05": true,
+    "dcslib_0.025": true,
+    "mf_0.05": true,
+    "mf_0.025": true
+  },
+  "N": 10000,
+  "seed": 20261007
+}

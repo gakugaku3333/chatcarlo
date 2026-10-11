@@ -1,0 +1,92 @@
+{
+  "status": "pass",
+  "checks": {
+    "rutherford": {
+      "batches": true,
+      "ledger": true,
+      "counts": true,
+      "cross_sum": true,
+      "cross_sum2": true,
+      "cross_n": true,
+      "maxdepth": true
+    },
+    "dcslib": {
+      "batches": true,
+      "ledger": true,
+      "counts": true,
+      "cross_sum": true,
+      "cross_sum2": true,
+      "cross_n": true,
+      "maxdepth": true
+    },
+    "dcslib_generated": {
+      "coefficients": true,
+      "total": true,
+      "single_y": true,
+      "single_cdf": true,
+      "u": true,
+      "rates": true,
+      "single": true,
+      "gs_0.0005": true,
+      "p0_0.0005": true,
+      "gs_0.001": true,
+      "p0_0.001": true,
+      "gs_0.003125": true,
+      "p0_0.003125": true,
+      "gs_0.00625": true,
+      "p0_0.00625": true,
+      "gs_0.0125": true,
+      "p0_0.0125": true,
+      "gs_0.025": true,
+      "p0_0.025": true,
+      "gs_0.05": true,
+      "p0_0.05": true,
+      "gs_0.1": true,
+      "p0_0.1": true,
+      "gs_0.2": true,
+      "p0_0.2": true
+    },
+    "eedl": {
+      "batches": true,
+      "ledger": true,
+      "counts": true,
+      "cross_sum": true,
+      "cross_sum2": true,
+      "cross_n": true,
+      "maxdepth": true
+    },
+    "eedl_generated": {
+      "coefficients": true,
+      "total": true,
+      "single_y": true,
+      "single_cdf": true,
+      "u": true,
+      "rates": true,
+      "single": true,
+      "gs_0.0005": true,
+      "p0_0.0005": true,
+      "gs_0.001": true,
+      "p0_0.001": true,
+      "gs_0.003125": true,
+      "p0_0.003125": true,
+      "gs_0.00625": true,
+      "p0_0.00625": true,
+      "gs_0.0125": true,
+      "p0_0.0125": true,
+      "gs_0.025": true,
+      "p0_0.025": true,
+      "gs_0.05": true,
+      "p0_0.05": true,
+      "gs_0.1": true,
+      "p0_0.1": true,
+      "gs_0.2": true,
+      "p0_0.2": true
+    }
+  },
+  "untouched": {
+    "status": "pass",
+    "tracked_files": 264,
+    "changed": [],
+    "preregistration_unchanged": true
+  }
+}

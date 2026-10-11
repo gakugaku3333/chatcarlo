@@ -1,0 +1,75 @@
+F                                                                        [100%]
+=================================== FAILURES ===================================
+______________________ test_actual_p1f_transport_and_k5b _______________________
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x107dfe690>
+
+    def test_actual_p1f_transport_and_k5b(monkeypatch):
+        if not (WORK/'gs.npz').exists():pytest.skip('P1f GS absent; T4/T5 not evaluated')
+        if not (OUT/'t2.json').exists() or json.loads((OUT/'t2.json').read_text())['status']!='pass':pytest.skip('T2 has not passed; T4/T5 forbidden')
+        from prototypes.mv_electron.run_p1f import table
+        from prototypes.mv_electron.tests import test_transport as cases
+        from prototypes.mv_electron import transport
+        from prototypes.mv_electron.transport import run
+        _,args,kw=table()
+        def forbidden(*a,**k):raise AssertionError('screened Rutherford used')
+        for name in ('elastic','elastic_rates','single_cached'):
+            monkeypatch.setattr(transport,name,forbidden)
+        # The Python transport loop resolves guarded globals, rather than an old JIT cache.
+        for mode in (0,1):
+            result=run.py_func(2.,100,20261013,.05,.025,np.array([0.,1.2]),.01,*args,mode=mode,**kw)
+            cases.check(result,2.,100)
+        original_read=Path.read_text
+        def read(p,*a,**k):
+            if 'dcslib' in p.parts:raise AssertionError('dcslib file read')
+            return original_read(p,*a,**k)
+        monkeypatch.setattr(Path,'read_text',read)
+        def adopted(*pos,**kwargs):
+            pos=list(pos);pos[2]=20261013;pos[4]=.025
+            return run(*pos,**kwargs,**kw)
+        monkeypatch.setattr(cases,'run',adopted)
+>       cases.test_k5_all_descendants(args)
+
+prototypes/mv_electron/tests/test_p1f.py:63: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+prototypes/mv_electron/tests/test_transport.py:15: in test_k5_all_descendants
+    check(run(2,1000,SEED,.05,.05,np.array([0.,1.2]),.01,*args),2,1000)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+prototypes/mv_electron/tests/test_p1f.py:61: in adopted
+    return run(*pos,**kwargs,**kw)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.11/site-packages/numba/core/dispatcher.py:422: in _compile_for_args
+    error_rewrite(e, 'typing')
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+e = TypingError('Failed in nopython mode pipeline (step: nopython frontend)\nUntyped global name \'elastic_rates\': Cannot...                        total,G1=elastic_rates(ev)\n                        ^\n\nDuring: Pass nopython_type_inference')
+issue_type = 'typing'
+
+    def error_rewrite(e, issue_type):
+        """
+        Rewrite and raise Exception `e` with help supplied based on the
+        specified issue_type.
+        """
+        if config.SHOW_HELP:
+            help_msg = errors.error_extras[issue_type]
+            e.patch_message('\n'.join((str(e).rstrip(), help_msg)))
+        if config.FULL_TRACEBACKS:
+            raise e
+        else:
+>           raise e.with_traceback(None)
+E           numba.core.errors.TypingError: Failed in nopython mode pipeline (step: nopython frontend)
+E           Untyped global name 'elastic_rates': Cannot determine Numba type of <class 'function'>
+E           
+E           File "prototypes/mv_electron/transport.py", line 70:
+E           def run(T,n,seed,fe,k,faces,dz,ts,ks,us,ys,scoring=True,hard_on=True,mode=0,maxstack=4096,maxsteps=10000000,source_state=None,ignore_boundaries=False,backend_rates=None,backend_single=None):
+E               <source elided>
+E                               if backend_rates is None:
+E                                   total,G1=elastic_rates(ev)
+E                                   ^
+E           
+E           During: Pass nopython_type_inference
+
+.venv/lib/python3.11/site-packages/numba/core/dispatcher.py:363: TypingError
+=========================== short test summary info ============================
+FAILED prototypes/mv_electron/tests/test_p1f.py::test_actual_p1f_transport_and_k5b
+1 failed in 12.85s

@@ -1,0 +1,206 @@
+--- p2b_egs.f
++++ p3_egs.f
+@@ -15,11 +15,15 @@
+       include 'include/egs5_brempr.f'
+       include 'include/egs5_edge.f'
+       include 'include/randomm.f'
+-      include 'p2b_egs_common.inc'
++      include 'p3_egs_common.inc'
+       real*8 batches(150,100),fbatches(600,100),Esource
+       real*8 sumdep,sumescape,maxres,res,unproc,cpu0,cpu1
+       real*8 elapsed,priorwall,budget
+       integer done,clock0,clocknow,clockrate,rstat,kout,mkout
++      real*8 elo(64),ehi(64),cum(64),ehist,u1,u2,sumin
++      real*8 sinb(100),pairb(100),restb(100),flightb(100)
++      real*8 prevpair,prevrest,prevflight,maxrel
++      integer nb,ispec,cell,nspec(64,10)
+       logical exists
+       integer ncase,seed,mode,i,j,b,nleft,violations
+       character*24 medarr
+@@ -42,6 +46,24 @@
+         open(45,file='noflight.dat',status='old')
+         read(45,*) noflight
+         close(45)
++      endif
++      nb=0
++      inquire(file='spectrum.dat',exist=exists)
++      if(exists) then
++        open(46,file='spectrum.dat',status='old')
++        read(46,*) nb
++        if(nb.lt.1.or.nb.gt.64) stop 11
++        do j=1,nb
++          read(46,*) elo(j),ehi(j),cum(j)
++          if(elo(j).lt.0.d0.or.ehi(j).le.elo(j)) stop 12
++          if(cum(j).le.0.d0.or.cum(j).gt.1.d0) stop 13
++          if(j.gt.1) then
++            if(elo(j).ne.ehi(j-1)) stop 14
++            if(cum(j).le.cum(j-1)) stop 15
++          endif
++        enddo
++        if(cum(nb).ne.1.d0) stop 16
++        close(46)
+       endif
+       call counters_out(0)
+       call block_set
+@@ -74,6 +96,7 @@
+       call rluxinit
+       latchi=0
+       emaxe=Esource
++      if(nb.gt.0) emaxe=ehi(nb)
+       open(KMPI,file='pgs5job.pegs5dat',status='old')
+       open(KMPO,file='egs5job.dummy',status='unknown')
+       call hatch
+@@ -111,6 +134,14 @@
+       restann=0.d0
+       paircount=0.d0
+       brwrong=0
++      nescape=0
++      sumin=0.d0
++      sinb=0.d0
++      nspec=0
++      pairb=0.d0
++      restb=0.d0
++      flightb=0.d0
++      maxrel=0.d0
+       done=0
+       inquire(file='checkpoint.bin',exist=exists)
+       if(exists) then
+@@ -119,7 +150,8 @@
+         read(42) done,batches,fbatches,sumdep,sumescape,maxres,
+      *    maxscore,maxfine,nleft,violations,brcreated,brdiscard,
+      *    brenergy,flightann,restann,paircount,brwrong,isdext,
+-     *    kout,mkout,priorwall
++     *    kout,mkout,priorwall,sumin,sinb,nspec,pairb,restb,
++     *    flightb,maxrel,nescape
+         close(42)
+         call rluxin
+         kount=kout
+@@ -140,7 +172,26 @@
+         fine=0.d0
+         dep=0.d0
+         escape=0.d0
+-        call shower(0,Esource,0.d0,0.d0,0.d0,0.d0,
++        ehist=Esource
++        b=min(100,1+(i-1)/(ncase/100))
++        if(nb.gt.0) then
++          call randomset(u1)
++          call randomset(u2)
++          ispec=1
++          do while(cum(ispec).lt.u1)
++            ispec=ispec+1
++          enddo
++          ehist=elo(ispec)+u2*(ehi(ispec)-elo(ispec))
++          cell=min(10,1+int(10.d0*(ehist-elo(ispec))/
++     *                     (ehi(ispec)-elo(ispec))))
++          nspec(ispec,cell)=nspec(ispec,cell)+1
++        endif
++        sumin=sumin+ehist
++        sinb(b)=sinb(b)+ehist
++        prevpair=paircount
++        prevrest=restann
++        prevflight=flightann
++        call shower(0,ehist,0.d0,0.d0,0.d0,0.d0,
+      *              0.d0,1.d0,2,1.d0)
+         unproc=0.d0
+         if(np.gt.0) then
+@@ -155,9 +206,13 @@
+             end if
+           end do
+         endif
+-        res=Esource-dep-escape-unproc
++        pairb(b)=pairb(b)+paircount-prevpair
++        restb(b)=restb(b)+restann-prevrest
++        flightb(b)=flightb(b)+flightann-prevflight
++        res=ehist-dep-escape-unproc
++        if(ehist.gt.0.d0) maxrel=max(maxrel,abs(res)/ehist)
+         maxres=max(maxres,abs(res))
+-        if(abs(res).gt.Esource*1.d-9) violations=violations+1
++        if(abs(res).gt.ehist*1.d-9) violations=violations+1
+         maxscore=max(maxscore,abs(sum(score)-dep))
+         maxfine=max(maxfine,abs(sum(fine)-dep))
+         sumdep=sumdep+dep
+@@ -175,7 +230,8 @@
+           write(42) done,batches,fbatches,sumdep,sumescape,maxres,
+      *      maxscore,maxfine,nleft,violations,brcreated,brdiscard,
+      *      brenergy,flightann,restann,paircount,brwrong,isdext,
+-     *      kount,mkount,elapsed
++     *      kount,mkount,elapsed,sumin,sinb,nspec,pairb,restb,
++     *      flightb,maxrel,nescape
+           close(42)
+           call rename('checkpoint.tmp','checkpoint.bin',rstat)
+           if(rstat.ne.0) stop 9
+@@ -190,10 +246,20 @@
+       call cpu_time(cpu1)
+       write(6,*) 'CONFIG',Esource,ncase,seed,mode
+       write(6,*) 'NOFLIGHT',noflight
+-      write(6,*) 'LEDGER',ncase*Esource,sumdep,sumescape,
++      write(6,*) 'LEDGER',sumin,sumdep,sumescape,
+      * maxres,nleft,violations,maxscore,maxfine
+       write(6,*) 'CALLBACKS',brcreated,brdiscard,brenergy,
+      * flightann,restann,paircount,brwrong
++      write(6,*) 'ESCAPES',nescape
++      write(6,*) 'MAXREL',maxrel
++      write(6,*) 'SPECTRUM',nb
++      do j=1,nb
++        write(6,*) 'SPEC',j,(nspec(j,cell),cell=1,10)
++      enddo
++      do b=1,100
++        write(6,*) 'BATCHIN',b,sinb(b)
++        write(6,*) 'BATCHCB',b,pairb(b),restb(b),flightb(b)
++      enddo
+       write(6,*) 'CPU',cpu1-cpu0
+       call system_clock(clocknow)
+       write(6,*) 'WALL',priorwall+
+@@ -217,7 +283,7 @@
+       include 'include/egs5_h.f'
+       include 'include/egs5_epcont.f'
+       include 'include/egs5_stack.f'
+-      include 'p2b_egs_common.inc'
++      include 'p3_egs_common.inc'
+       real*8 z0,z1,loss
+       integer iarg,j,marked
+       if(iarg.eq.7) then
+@@ -265,6 +331,7 @@
+           brenergy=brenergy+loss
+         else
+           escape=escape+loss
++          nescape=nescape+1
+         endif
+       else if(iarg.eq.0.and.iq(np).ne.0.and.ir(np).eq.2) then
+         z0=z(np)
+@@ -282,7 +349,7 @@
+ 
+       subroutine p2point(zz,loss)
+       implicit none
+-      include 'p2b_egs_common.inc'
++      include 'p3_egs_common.inc'
+       real*8 zz,loss
+       integer j
+       j=max(1,min(150,int(zz/.2d0)+1))
+@@ -294,7 +361,7 @@
+ 
+       subroutine p2segment(z0,z1,loss)
+       implicit none
+-      include 'p2b_egs_common.inc'
++      include 'p3_egs_common.inc'
+       real*8 z0,z1,loss,lo,hi,ov
+       integer j
+       if(abs(z1-z0).le.1.d-15) then
+@@ -319,7 +386,7 @@
+       include 'include/egs5_h.f'
+       include 'include/egs5_epcont.f'
+       include 'include/egs5_stack.f'
+-      include 'p2b_egs_common.inc'
++      include 'p3_egs_common.inc'
+       real*8 dist
+       if(latch(np).eq.9001.or.ir(np).ne.2) then
+         idisc=1
+
+--- p2b_egs_common.inc
++++ p3_egs_common.inc
+@@ -8,3 +8,5 @@
+       real*8 sve,svu,svv,svw
+       integer noflight
+       common/p2bflt/sve,svu,svv,svw,noflight
++      integer nescape
++      common/p3escape/nescape

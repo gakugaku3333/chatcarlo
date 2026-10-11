@@ -1,0 +1,12 @@
+{
+  "original_case_calls_AST_identical": true,
+  "original_assertions_AST_identical": true,
+  "prohibited_globals": [
+    "elastic",
+    "elastic_rates",
+    "single_cached"
+  ],
+  "original_case_loops_unchanged": true,
+  "formal_attempts": 1,
+  "prechecks_completed_before_formal_run": true
+}

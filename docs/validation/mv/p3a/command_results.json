@@ -1,0 +1,58 @@
+{
+  "status": "実装済み・検証未完了（環境の書き込み制限）",
+  "commands": [
+    {
+      "command": ".venv/bin/python -m prototypes.mv_electron.run_p3a --checks",
+      "exit_code": 1,
+      "result": "D1合格。D2の作業フォルダ作成でPermissionError。D2の輸送は未開始、D3〜D10は未実施。"
+    },
+    {
+      "command": ".venv/bin/python -m pytest prototypes/mv_electron/tests -q",
+      "exit_code": 0,
+      "passed": 125,
+      "skipped": 1,
+      "seconds": 206.12
+    },
+    {
+      "command": ".venv/bin/python -m pytest tests/ -q",
+      "exit_code": 0,
+      "passed": 403,
+      "warnings": 2,
+      "seconds": 90.16
+    },
+    {
+      "command": ".venv/bin/python -m prototypes.mv_electron.run_checks_p2 --verify-untouched",
+      "exit_code": 0,
+      "result": "合格",
+      "groups": {
+        "protected": {
+          "files": 968,
+          "changed": []
+        },
+        "egs5_inputs": {
+          "files": 952,
+          "changed": []
+        },
+        "production_frozen": {
+          "files": 39,
+          "changed": []
+        }
+      }
+    },
+    {
+      "command": "git status --short -- chatcarlo tests scripts examples",
+      "exit_code": 0,
+      "stdout": ""
+    }
+  ],
+  "checks_file": "checks.json",
+  "not_run": [
+    "--pilot",
+    "--run",
+    "--analyse"
+  ],
+  "harness_fixes_after_check_failure": [],
+  "committed": false,
+  "pushed": false,
+  "deleted_files": false
+}

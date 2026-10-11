@@ -1,0 +1,65 @@
+[
+  {
+    "command": ".venv/bin/python -m pytest tests/ -q",
+    "exit_code": 0,
+    "result": "403 passed, 2 warnings"
+  },
+  {
+    "command": ".venv/bin/python -m prototypes.mv_electron.regression_p1c --before",
+    "exit_code": 0
+  },
+  {
+    "command": ".venv/bin/python -m prototypes.mv_electron.regression_p1c",
+    "exit_code": 0
+  },
+  {
+    "command": ".venv/bin/python -m pytest prototypes/mv_electron/tests -q",
+    "exit_code": 0,
+    "result": ".......................................................................  [100%]\n71 passed in 37.07s"
+  },
+  {
+    "command": ".venv/bin/python - <<'PY'\nfrom prototypes.mv_electron.run_p1c import fixed_checks\nfixed_checks()\nPY",
+    "exit_code": 0,
+    "result": "K9(i): 1 fail, 3 pass; all raw reference/prototype samples saved; timings not used as T5"
+  },
+  {
+    "command": ".venv/bin/python prototypes/mv_electron/run_p1c.py",
+    "exit_code": 0,
+    "result": "N2/N4 pass; N5 fail; N6/N7 stopped by preregistration"
+  },
+  {
+    "command": ".venv/bin/python prototypes/mv_electron/run_p1c.py --benchmark-only",
+    "exit_code": 0,
+    "result": "16 conditions, 3 replicates each saved; fresh table numeric arrays identical to validation table"
+  },
+  {
+    "command": ".venv/bin/python -m pytest prototypes/mv_electron/tests/test_mf.py -q",
+    "exit_code": 0,
+    "result": "Initial formula checks: 13 passed, 2 skipped before production table; production-table checks: 16 passed after table generation"
+  },
+  {
+    "command": ".venv/bin/python -m compileall -q prototypes/mv_electron",
+    "exit_code": 0,
+    "result": "success"
+  },
+  {
+    "command": ".venv/bin/python prototypes/mv_electron/run_checks_p1c.py --from-saved",
+    "exit_code": 0,
+    "result": "N5 K9i 0.05 0.05 False\nN5 K9i 0.05 0.025 True\nN5 K9i 0.2 0.05 True\nN5 K9i 0.2 0.025 True\nP1c saved replay complete"
+  },
+  {
+    "command": ".venv/bin/python prototypes/mv_electron/run_checks_p1c.py --verify-untouched",
+    "exit_code": 0,
+    "result": "{\n  \"status\": \"pass\",\n  \"tracked_files\": 264,\n  \"changed\": [],\n  \"preregistration_unchanged\": true\n}"
+  },
+  {
+    "command": "git diff --stat -- chatcarlo tests scripts examples docs/validation/mv/p0 docs/validation/mv/p1",
+    "exit_code": 0,
+    "result": "empty"
+  },
+  {
+    "command": "git diff --stat -- docs/validation/mv/p1b",
+    "exit_code": 0,
+    "result": "empty"
+  }
+]

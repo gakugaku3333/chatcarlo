@@ -1,0 +1,74 @@
+[
+  {
+    "command": ".venv/bin/python - (stdin: 承認済み計画をPREREGISTRATION.mdへ写し、S0一覧のinitial_hashes.jsonを保存)",
+    "exit_code": 0,
+    "result": "実装前2261ファイルを保全、ZIP SHA256照合"
+  },
+  {
+    "command": ".venv/bin/python - (stdin: 既存4 backendのtransport.run、T=2、N=10000、seed=20261011、K=0.025、fe=0.05)",
+    "exit_code": 0,
+    "result": "変更前4 run保存"
+  },
+  {
+    "command": ".venv/bin/python -m pytest tests/ -q",
+    "exit_code": 0,
+    "result": "403 passed, 2 warnings, 94.83 s"
+  },
+  {
+    "command": ".venv/bin/python prototypes/mv_electron/generate_elsepa.py --prepare",
+    "exit_code": 0
+  },
+  {
+    "command": ".venv/bin/python (stdin) -> generate_elsepa.bundled(prepare())",
+    "exit_code": 0,
+    "result": "DCS and printed cross sections exactly reproduced"
+  },
+  {
+    "command": ".venv/bin/python (stdin) -> generate_elsepa.generate()",
+    "exit_code": 0,
+    "log": "generation.log",
+    "note": "出力検査の実装中断2回のほか、級数印字の実装中断1回を保存。同じ物理入力を変えず生出力から再開"
+  },
+  {
+    "command": ".venv/bin/python (stdin) -> p1e_common.regression('after')",
+    "exit_code": 0,
+    "result": "4 backends bitwise identical"
+  },
+  {
+    "command": ".venv/bin/python -m pytest prototypes/mv_electron/tests -q -rs",
+    "exit_code": 0,
+    "result": "80 passed, 1 skipped, 39.24 s",
+    "log": "prototype_tests.log"
+  },
+  {
+    "command": ".venv/bin/python prototypes/mv_electron/run_checks_p1e.py --freeze",
+    "exit_code": 0,
+    "result": "2274 files frozen"
+  },
+  {
+    "command": "git status --short -- chatcarlo tests scripts examples",
+    "exit_code": 0,
+    "log": "protected_status.log"
+  },
+  {
+    "command": ".venv/bin/python prototypes/mv_electron/run_checks_p1e.py --calculate",
+    "exit_code": 0,
+    "log": "calculation.log"
+  },
+  {
+    "command": ".venv/bin/python prototypes/mv_electron/run_checks_p1e.py --from-saved",
+    "exit_code": 0,
+    "log": "replay.log"
+  },
+  {
+    "command": ".venv/bin/python prototypes/mv_electron/run_checks_p1e.py --verify-untouched",
+    "exit_code": 0,
+    "log": "verify.log"
+  },
+  {
+    "command": ".venv/bin/python (stdin) -> original upper native interval geometric midpoint check, 4 cases at 19.1095297497 MeV",
+    "exit_code": 0,
+    "artifact": "s2_upper_native_midpoint.json",
+    "note": "元表の隣接格子点の中間点を追加確認。表と閾値は固定。S2の不合格は変わらない。"
+  }
+]

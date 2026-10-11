@@ -1,0 +1,12 @@
+{
+  "status": "pass",
+  "checks": {
+    "rutherford": true,
+    "dcslib": true,
+    "eedl": true,
+    "mf": true
+  },
+  "N": 10000,
+  "seed": 20261011,
+  "K": 0.025
+}

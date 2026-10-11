@@ -1,0 +1,4 @@
+{
+  "command": ".venv/bin/python prototypes/mv_electron/run_p1f.py --run energy_half",
+  "exit_code": 0
+}

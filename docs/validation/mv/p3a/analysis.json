@@ -1,0 +1,475 @@
+{
+  "source_hashes": {
+    "prototypes/mv_electron/run_p3a.py": "8fe5f0c497b78f1b05af28eee509252c1751cc7163c8ae16dc5a639fd5f549a3",
+    "prototypes/mv_electron/photon_transport_p3.py": "1c6e7f8d4b5b9dd4bd32470321a38bf3e972b1bed8bc123de588e123fb303e3c",
+    "prototypes/mv_electron/p3_egs.f": "c9d231ee44c9c50fcfe1d074c3674592fe8515f1c179f541f853a9c7b3002086",
+    "prototypes/mv_electron/p3_egs_common.inc": "3b3d66a0cf00da256853e4ea9d39fc3545382f654d7fe09e2007114c27cf5493",
+    "prototypes/mv_electron/run_p2c.py": "23db601f7c9459926fa4fc8de33c2a9e90ace85fa01a0bcb2f06684fe59b38e0",
+    "prototypes/mv_electron/photon_transport_p2c.py": "fcf34588596422bf6a83e1e617961af9b563682307dba35ae7d9fd4260fa68a7",
+    "prototypes/mv_electron/flight_annihilation_p2c.py": "8596585268e5d9fea2110f6ebe256f9a3769f6ea548ebd16d61c0863bd57c836",
+    "prototypes/mv_electron/run_coupled_p2.py": "09aa364155911e1496ee29e60bb5584bf237710a31ac1f5f46ac54628a661ad8",
+    "prototypes/mv_electron/p2_common.py": "f1e447fcfc5ed88f20939bd44ad46eb46afe25b558e2f60458b3d788a31e8c3e",
+    "prototypes/mv_electron/photon_data_p2.py": "b76ca6c4ead288dded6f135b2f3968d1f0e1175eb952fcf661c1f8657ca99560",
+    "prototypes/mv_electron/photon_sampling_p2.py": "1451fe3ab29c40121edf6d20631317c2f1120c8dc9d5cc8388dc0a606cda2ac5",
+    "prototypes/mv_electron/physics.py": "9c0d21197acc5cb54a9fbb0f5fd3534c0638ed1cf54f0fecd2e9475d3a72b718",
+    "prototypes/mv_electron/transport.py": "e2345a5782fe4e491fd1f051790f8c0a9a4abdd07743c6729d38e5f7c92efc19",
+    "prototypes/mv_electron/sampling.py": "1bc217fb327ce4e9b71b71e35b7fc486acffc40d09022e91c457f9d1e8b4da77",
+    "prototypes/mv_electron/backend_sampling.py": "1c1442ddbd8f7bbc22e6c6e3e34567be60d2ddec1d181385ea4def807e85063c",
+    "prototypes/mv_electron/elsepa.py": "0cc02356c90c2933fe9b0619237748b12f019a777d73411b416fde48e68d9c71",
+    "prototypes/mv_electron/dcs.py": "23c0f7122b85a7ba7214c93d2b95c5459e5305a225bcb2232544d0352d84c71c",
+    "prototypes/mv_electron/mf.py": "a9b0e6e4fc3600547af3ed0d4a7797885c94e453caa03228f982b5329eddba39",
+    "prototypes/mv_electron/single_table.py": "3fda8e33bab15a5e2bb30a9507f873bfa42a0277d0b0b4a139c9a5428e774c0f",
+    "prototypes/mv_electron/gs_backend.py": "4fc40df1bcee7c6d1f6822d6c1f12bf8d7b88fcc9ab50ee49d229331db571533",
+    "prototypes/mv_electron/reference_p2.py": "b12aec291bcaba5cdbe39342a767949be0d793b0f026e21048b3755dff3e4322",
+    "prototypes/mv_electron/p1e_common.py": "cd0eb35aec47388e44849cf82a4db258c86e1e87b38cb63cab58b797dc4eabb1",
+    "prototypes/mv_electron/p1d_common.py": "ccc8748d65032ea0de231670ed8e16f4e21f07f3128e0192cf61f9532a3d505e",
+    "prototypes/mv_electron/workflow_p2.py": "c40e53f3b38335c98fbcbf07e83e788bc0eebbd1e4f93234e91fb84f29029e74",
+    "prototypes/mv_electron/compare_photon_p2.py": "fc091c85cc95010673bebec3fe1028cdbc7863dbe51746b8c57e6e3ff0919432"
+  },
+  "spectrum_sha256": "06fe2ba471dbfd64ca4305b5f1560479439ea4b565f993ecb21dcda86a6d8065",
+  "input_hashes": {
+    "docs/validation/mv/p3a/runs/p3a_proto/result.npz": "3f2dbf48c97de1e524c55c0a9d4eb916ceb57a515a86b97e4054fed9b92f9d0a",
+    "docs/validation/mv/p3a/egs5/p3a_egs/result.npz": "54223412336d3f25d91b21273b4253bc062d3e805e7b3b97e55b4447e162eeba",
+    "docs/validation/mv/p3a/pilot_lock.json": "f3d1bee60eb5dd4e3250bbe53bdb00d96bfbd37ecb6edeac05af74e8057c2abe"
+  },
+  "comparison": {
+    "Dref": 9.798535080485913e-12,
+    "blocks": [
+      {
+        "key": "coarse",
+        "bins": [
+          25,
+          26,
+          27,
+          28,
+          29,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38,
+          39,
+          40,
+          41,
+          42,
+          43,
+          44,
+          45,
+          46,
+          47,
+          48,
+          49
+        ],
+        "delta_pct": 0.1884368290170453,
+        "SEM_pct": 0.12433193609176574,
+        "delta_Gy_cm2": 1.8464048795790444e-14,
+        "SEM_Gy_cm2": 1.2182708374198993e-14,
+        "status": "1%以内",
+        "abs_delta_plus_1_96_SEM_pct": 0.43212742375690616
+      },
+      {
+        "key": "coarse",
+        "bins": [
+          50,
+          51,
+          52,
+          53,
+          54,
+          55,
+          56,
+          57,
+          58,
+          59,
+          60,
+          61,
+          62,
+          63,
+          64,
+          65,
+          66,
+          67,
+          68,
+          69,
+          70,
+          71,
+          72,
+          73,
+          74
+        ],
+        "delta_pct": 0.28582120405459666,
+        "SEM_pct": 0.11012583142747197,
+        "delta_Gy_cm2": 2.8006290946756878e-14,
+        "SEM_Gy_cm2": 1.0790718225097621e-14,
+        "status": "1%以内",
+        "abs_delta_plus_1_96_SEM_pct": 0.5016678336524417
+      },
+      {
+        "key": "coarse",
+        "bins": [
+          75,
+          76,
+          77,
+          78,
+          79,
+          80,
+          81,
+          82,
+          83,
+          84,
+          85,
+          86,
+          87,
+          88,
+          89,
+          90,
+          91,
+          92,
+          93,
+          94,
+          95,
+          96,
+          97,
+          98,
+          99
+        ],
+        "delta_pct": 0.07120171011688313,
+        "SEM_pct": 0.1131431518455789,
+        "delta_Gy_cm2": 6.97672454370868e-15,
+        "SEM_Gy_cm2": 1.1086371424756492e-14,
+        "status": "1%以内",
+        "abs_delta_plus_1_96_SEM_pct": 0.2929622877342178
+      },
+      {
+        "key": "coarse",
+        "bins": [
+          100,
+          101,
+          102,
+          103,
+          104,
+          105,
+          106,
+          107,
+          108,
+          109,
+          110,
+          111,
+          112,
+          113,
+          114,
+          115,
+          116,
+          117,
+          118,
+          119,
+          120,
+          121,
+          122,
+          123,
+          124
+        ],
+        "delta_pct": -0.0508203450050662,
+        "SEM_pct": 0.10586727648202794,
+        "delta_Gy_cm2": -4.979649333345382e-15,
+        "SEM_Gy_cm2": 1.0373442224846521e-14,
+        "status": "1%以内",
+        "abs_delta_plus_1_96_SEM_pct": 0.258320206909841
+      },
+      {
+        "key": "coarse",
+        "bins": [
+          125,
+          126,
+          127,
+          128,
+          129,
+          130,
+          131,
+          132,
+          133,
+          134,
+          135,
+          136,
+          137,
+          138,
+          139,
+          140,
+          141,
+          142,
+          143,
+          144,
+          145,
+          146,
+          147,
+          148,
+          149
+        ],
+        "delta_pct": 0.060222487233901945,
+        "SEM_pct": 0.09724464919242916,
+        "delta_Gy_cm2": 5.900921537955033e-15,
+        "SEM_Gy_cm2": 9.528551065015633e-15,
+        "status": "1%以内",
+        "abs_delta_plus_1_96_SEM_pct": 0.2508219996510631
+      }
+    ],
+    "verdict": "固定した深部のブロック平均の差が1%以内",
+    "near": {
+      "key": "coarse",
+      "bins": [
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24
+      ],
+      "delta_pct": 0.17409192358554662,
+      "SEM_pct": 0.15472742088042915,
+      "delta_Gy_cm2": 1.7058458204822514e-14,
+      "SEM_Gy_cm2": 1.5161020614099937e-14
+    },
+    "buildup": {
+      "key": "fine",
+      "bins": [
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30,
+        31,
+        32,
+        33,
+        34,
+        35
+      ],
+      "delta_pct": 0.1861204675761663,
+      "SEM_pct": 0.16978504262270372,
+      "delta_Gy_cm2": 1.8237079307415064e-14,
+      "SEM_Gy_cm2": 1.663644696280358e-14
+    }
+  },
+  "predictions": [
+    {
+      "quantity": "prototype dmax",
+      "prediction": "2〜3 cm",
+      "unit": "cm",
+      "value": 2.9000000000000004,
+      "SEM": 0.1062604879119765,
+      "method": "1000 bootstrap resamples of 100 batches, seed 20291430; 2 mm bin centres",
+      "basis": "探索的な予想。臨床の照射野・発散・混入電子の条件とは異なる。"
+    },
+    {
+      "quantity": "EGS5 dmax",
+      "prediction": "2〜3 cm",
+      "unit": "cm",
+      "value": 2.7,
+      "SEM": 0.23732231644302207,
+      "method": "1000 bootstrap resamples of 100 batches, seed 20291430; 2 mm bin centres",
+      "basis": "探索的な予想。臨床の照射野・発散・混入電子の条件とは異なる。"
+    },
+    {
+      "quantity": "全沈着/入射の試作−EGS5（相対）",
+      "prediction": "−0.1〜+0.1%",
+      "unit": "%",
+      "value": 0.12460081249057176,
+      "SEM": 0.049371869524660335,
+      "basis": "P2cの6・10 MeVの比。1.25 MeV未満は高エネルギー2点からの外挿。"
+    },
+    {
+      "quantity": "深部ブロック 1",
+      "prediction": "±0.3% Dref以内",
+      "unit": "% Dref",
+      "value": 0.1884368290170453,
+      "SEM": 0.12433193609176574,
+      "basis": "P2cの6・10 MeVで最大0.25%。"
+    },
+    {
+      "quantity": "深部ブロック 2",
+      "prediction": "±0.3% Dref以内",
+      "unit": "% Dref",
+      "value": 0.28582120405459666,
+      "SEM": 0.11012583142747197,
+      "basis": "P2cの6・10 MeVで最大0.25%。"
+    },
+    {
+      "quantity": "深部ブロック 3",
+      "prediction": "±0.3% Dref以内",
+      "unit": "% Dref",
+      "value": 0.07120171011688313,
+      "SEM": 0.1131431518455789,
+      "basis": "P2cの6・10 MeVで最大0.25%。"
+    },
+    {
+      "quantity": "深部ブロック 4",
+      "prediction": "±0.3% Dref以内",
+      "unit": "% Dref",
+      "value": -0.0508203450050662,
+      "SEM": 0.10586727648202794,
+      "basis": "P2cの6・10 MeVで最大0.25%。"
+    },
+    {
+      "quantity": "深部ブロック 5",
+      "prediction": "±0.3% Dref以内",
+      "unit": "% Dref",
+      "value": 0.060222487233901945,
+      "SEM": 0.09724464919242916,
+      "basis": "P2cの6・10 MeVで最大0.25%。"
+    },
+    {
+      "quantity": "ビルドアップ 試作−EGS5",
+      "prediction": "+0.1〜+0.4% Dref",
+      "unit": "% Dref",
+      "value": 0.1861204675761663,
+      "SEM": 0.16978504262270372,
+      "basis": "P2cで両エネルギーとも約+0.25%。原因未確定。"
+    },
+    {
+      "quantity": "飛行中/対生成の試作÷EGS5",
+      "prediction": "0.98〜0.99",
+      "unit": "比",
+      "value": 1.005209178183586,
+      "SEM": 0.012666797819169103,
+      "basis": "P2cで6 MeVが0.984、10 MeVが0.987。"
+    },
+    {
+      "quantity": "prototype 入射平均",
+      "prediction": "2.8014 MeV",
+      "unit": "MeV",
+      "value": 2.802126068492659,
+      "SEM": 0.0007554935492645912,
+      "basis": "スペクトルの定義。"
+    },
+    {
+      "quantity": "EGS5 入射平均",
+      "prediction": "2.8014 MeV",
+      "unit": "MeV",
+      "value": 2.8012152647228286,
+      "SEM": 0.0007104877737351788,
+      "basis": "スペクトルの定義。"
+    }
+  ],
+  "runs": {
+    "prototype": {
+      "deposited_over_incoming": {
+        "value": 0.5087291804630437,
+        "SEM": 0.0001856572712463634
+      },
+      "flight_over_pairs": {
+        "value": 0.05323107427801359,
+        "SEM": 0.0004818802899082571
+      },
+      "mean_input_MeV": {
+        "value": 2.802126068492659,
+        "SEM": 0.0007554935492645912
+      },
+      "pairs": 233003,
+      "rest": 217195,
+      "flight": 12403,
+      "escapes": 8021699,
+      "violations": [
+        0,
+        0,
+        0
+      ],
+      "failures": [
+        0,
+        0
+      ],
+      "seconds": 3041.8343989563873,
+      "dmax_cm": {
+        "value": 2.9000000000000004,
+        "SEM": 0.1062604879119765,
+        "method": "1000 bootstrap resamples of 100 batches, seed 20291430; 2 mm bin centres"
+      }
+    },
+    "EGS5": {
+      "deposited_over_incoming": {
+        "value": 0.5080960886084048,
+        "SEM": 0.00016849210326232825
+      },
+      "flight_over_pairs": {
+        "value": 0.052955221095575544,
+        "SEM": 0.00046419515836727067
+      },
+      "mean_input_MeV": {
+        "value": 2.8012152647228286,
+        "SEM": 0.0007104877737351788
+      },
+      "pairs": 235803,
+      "rest": 219742,
+      "flight": 12487,
+      "escapes": 8023708,
+      "violations": 0,
+      "failures": 0,
+      "seconds": 766.541,
+      "dmax_cm": {
+        "value": 2.7,
+        "SEM": 0.23732231644302207,
+        "method": "1000 bootstrap resamples of 100 batches, seed 20291430; 2 mm bin centres"
+      }
+    }
+  },
+  "caveats": [
+    "厚さ30 cmの水スラブ・平行ビームでの比較であり、10×10 cm²の照射野のPDD・側方分布ではない。",
+    "制動放射の光子を両コードとも運ばず、その場に沈着させている。",
+    "Fano試験、線量/衝突カーマ比の文献値との照合などの独立の検査は未実施。",
+    "判定は点推定を±1%と比べる。真の差が95%の確度で±1%以内という意味ではない。",
+    "5 cmのブロック平均の一致は、深さ線量の局所的な一致までは示さない。",
+    "電子のカットオフは試作が10 keV、EGS5が約10.001 keVで、乱数の生成器も異なる。",
+    "陽電子にも電子の阻止能・硬衝突・弾性散乱を使う近似が残る。",
+    "スペクトルの値そのものは報告に載せない。",
+    "割合のSEMは100バッチの分子と分母の共分散を含む残差式。独立な両コード間の比は誤差伝播。"
+  ],
+  "discussion": [
+    "prototype dmax: 予想 2〜3 cm、結果 +2.900000 ± 0.106260 cm。スペクトルの電子飛程の重なりと表面からの脱出がピーク位置に影響する。臨床値との定量的比較はできない。",
+    "EGS5 dmax: 予想 2〜3 cm、結果 +2.700000 ± 0.237322 cm。スペクトルの電子飛程の重なりと表面からの脱出がピーク位置に影響する。臨床値との定量的比較はできない。",
+    "全沈着/入射の試作−EGS5（相対）: 予想 −0.1〜+0.1%、結果 +0.124601 ± 0.049372 %。低エネルギー光子の局所沈着、電子飛程、後方脱出の重みが単色から変わり、表面付近の輸送差も寄与しうる。",
+    "深部ブロック 1: 予想 ±0.3% Dref以内、結果 +0.188437 ± 0.124332 % Dref。スペクトルは低エネルギー成分とエネルギーごとに異なる電子飛程・対生成割合を重ねるため、単色の差からの予想には限界がある。陽電子の輸送近似と残ったビルドアップ差の原因は未確定。",
+    "深部ブロック 2: 予想 ±0.3% Dref以内、結果 +0.285821 ± 0.110126 % Dref。スペクトルは低エネルギー成分とエネルギーごとに異なる電子飛程・対生成割合を重ねるため、単色の差からの予想には限界がある。陽電子の輸送近似と残ったビルドアップ差の原因は未確定。",
+    "深部ブロック 3: 予想 ±0.3% Dref以内、結果 +0.071202 ± 0.113143 % Dref。スペクトルは低エネルギー成分とエネルギーごとに異なる電子飛程・対生成割合を重ねるため、単色の差からの予想には限界がある。陽電子の輸送近似と残ったビルドアップ差の原因は未確定。",
+    "深部ブロック 4: 予想 ±0.3% Dref以内、結果 -0.050820 ± 0.105867 % Dref。スペクトルは低エネルギー成分とエネルギーごとに異なる電子飛程・対生成割合を重ねるため、単色の差からの予想には限界がある。陽電子の輸送近似と残ったビルドアップ差の原因は未確定。",
+    "深部ブロック 5: 予想 ±0.3% Dref以内、結果 +0.060222 ± 0.097245 % Dref。スペクトルは低エネルギー成分とエネルギーごとに異なる電子飛程・対生成割合を重ねるため、単色の差からの予想には限界がある。陽電子の輸送近似と残ったビルドアップ差の原因は未確定。",
+    "ビルドアップ 試作−EGS5: 予想 +0.1〜+0.4% Dref、結果 +0.186120 ± 0.169785 % Dref。スペクトルは低エネルギー成分とエネルギーごとに異なる電子飛程・対生成割合を重ねるため、単色の差からの予想には限界がある。陽電子の輸送近似と残ったビルドアップ差の原因は未確定。",
+    "飛行中/対生成の試作÷EGS5: 予想 0.98〜0.99、結果 +1.005209 ± 0.012667 比。低エネルギーでは対生成と消滅までの競合が変わるため、6・10 MeVの割合の単純な外挿ではない。",
+    "prototype 入射平均: 予想 2.8014 MeV、結果 +2.802126 ± 0.000755 MeV。標本平均の揺らぎをSEMと併せて解釈する。",
+    "EGS5 入射平均: 予想 2.8014 MeV、結果 +2.801215 ± 0.000710 MeV。標本平均の揺らぎをSEMと併せて解釈する。"
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "status": "合格",
+  "tests": {
+    "regression_identical": true,
+    "parse_all": true,
+    "balance": true,
+    "flight_calls_positive": true,
+    "rest_over_pairs_ge_0_97": true,
+    "resume_identical": true
+  },
+  "rest_over_pairs": 0.982307249712313,
+  "flight_calls": 916.0,
+  "pairs": 13904.0,
+  "sources": {
+    "p2b_egs.f": "86397bbb31fad47a8cdbf31f73fe7c89b9dfa3e3dd25244b21b86576d0379b4b",
+    "p2b_egs_common.inc": "c500785e1ae6aa9412fdfc4acfe29983e7554de447da803223a56154ebf69bb9",
+    "p2_egs.f": "f428878c36e12fe9d5e06305a076bd4e93153ce4de92ee94821de505e6d1541f",
+    "reference_p2.py": "b12aec291bcaba5cdbe39342a767949be0d793b0f026e21048b3755dff3e4322"
+  },
+  "resume_interrupted": true,
+  "regression_summary_status": "合格"
+}

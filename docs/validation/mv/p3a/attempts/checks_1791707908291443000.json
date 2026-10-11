@@ -1,0 +1,70 @@
+{
+  "status": "不合格",
+  "source_hashes": {
+    "prototypes/mv_electron/run_p3a.py": "8fe5f0c497b78f1b05af28eee509252c1751cc7163c8ae16dc5a639fd5f549a3",
+    "prototypes/mv_electron/photon_transport_p3.py": "1c6e7f8d4b5b9dd4bd32470321a38bf3e972b1bed8bc123de588e123fb303e3c",
+    "prototypes/mv_electron/p3_egs.f": "c9d231ee44c9c50fcfe1d074c3674592fe8515f1c179f541f853a9c7b3002086",
+    "prototypes/mv_electron/p3_egs_common.inc": "3b3d66a0cf00da256853e4ea9d39fc3545382f654d7fe09e2007114c27cf5493",
+    "prototypes/mv_electron/run_p2c.py": "23db601f7c9459926fa4fc8de33c2a9e90ace85fa01a0bcb2f06684fe59b38e0",
+    "prototypes/mv_electron/photon_transport_p2c.py": "fcf34588596422bf6a83e1e617961af9b563682307dba35ae7d9fd4260fa68a7",
+    "prototypes/mv_electron/flight_annihilation_p2c.py": "8596585268e5d9fea2110f6ebe256f9a3769f6ea548ebd16d61c0863bd57c836",
+    "prototypes/mv_electron/run_coupled_p2.py": "09aa364155911e1496ee29e60bb5584bf237710a31ac1f5f46ac54628a661ad8",
+    "prototypes/mv_electron/p2_common.py": "f1e447fcfc5ed88f20939bd44ad46eb46afe25b558e2f60458b3d788a31e8c3e",
+    "prototypes/mv_electron/photon_data_p2.py": "b76ca6c4ead288dded6f135b2f3968d1f0e1175eb952fcf661c1f8657ca99560",
+    "prototypes/mv_electron/photon_sampling_p2.py": "1451fe3ab29c40121edf6d20631317c2f1120c8dc9d5cc8388dc0a606cda2ac5",
+    "prototypes/mv_electron/physics.py": "9c0d21197acc5cb54a9fbb0f5fd3534c0638ed1cf54f0fecd2e9475d3a72b718",
+    "prototypes/mv_electron/transport.py": "e2345a5782fe4e491fd1f051790f8c0a9a4abdd07743c6729d38e5f7c92efc19",
+    "prototypes/mv_electron/sampling.py": "1bc217fb327ce4e9b71b71e35b7fc486acffc40d09022e91c457f9d1e8b4da77",
+    "prototypes/mv_electron/backend_sampling.py": "1c1442ddbd8f7bbc22e6c6e3e34567be60d2ddec1d181385ea4def807e85063c",
+    "prototypes/mv_electron/elsepa.py": "0cc02356c90c2933fe9b0619237748b12f019a777d73411b416fde48e68d9c71",
+    "prototypes/mv_electron/dcs.py": "23c0f7122b85a7ba7214c93d2b95c5459e5305a225bcb2232544d0352d84c71c",
+    "prototypes/mv_electron/mf.py": "a9b0e6e4fc3600547af3ed0d4a7797885c94e453caa03228f982b5329eddba39",
+    "prototypes/mv_electron/single_table.py": "3fda8e33bab15a5e2bb30a9507f873bfa42a0277d0b0b4a139c9a5428e774c0f",
+    "prototypes/mv_electron/gs_backend.py": "4fc40df1bcee7c6d1f6822d6c1f12bf8d7b88fcc9ab50ee49d229331db571533",
+    "prototypes/mv_electron/reference_p2.py": "b12aec291bcaba5cdbe39342a767949be0d793b0f026e21048b3755dff3e4322",
+    "prototypes/mv_electron/p1e_common.py": "cd0eb35aec47388e44849cf82a4db258c86e1e87b38cb63cab58b797dc4eabb1",
+    "prototypes/mv_electron/p1d_common.py": "ccc8748d65032ea0de231670ed8e16f4e21f07f3128e0192cf61f9532a3d505e",
+    "prototypes/mv_electron/workflow_p2.py": "c40e53f3b38335c98fbcbf07e83e788bc0eebbd1e4f93234e91fb84f29029e74",
+    "prototypes/mv_electron/compare_photon_p2.py": "fc091c85cc95010673bebec3fe1028cdbc7863dbe51746b8c57e6e3ff0919432"
+  },
+  "spectrum_sha256": "06fe2ba471dbfd64ca4305b5f1560479439ea4b565f993ecb21dcda86a6d8065",
+  "checks": {
+    "D1": {
+      "passed": true,
+      "E": 6.0,
+      "N": 20000,
+      "seed": 20291401,
+      "backend": "mf",
+      "equality": {
+        "coarse": true,
+        "fine": true,
+        "pair": true,
+        "kerma": true,
+        "collision_kerma": true,
+        "totals": true,
+        "maxima": true,
+        "violations": true,
+        "counts": true,
+        "maxdepth": true
+      }
+    },
+    "D2": {
+      "passed": false,
+      "error": "[Errno 1] Operation not permitted: '/Users/oishifamily/.cache/chatcarlo/p3a'",
+      "completed": false
+    }
+  },
+  "attempt": "1791707908291443000",
+  "stopped_check": "D2",
+  "stopped_reason": "[Errno 1] Operation not permitted: '/Users/oishifamily/.cache/chatcarlo/p3a'",
+  "not_executed": [
+    "D3",
+    "D4",
+    "D5",
+    "D6",
+    "D7",
+    "D8",
+    "D9",
+    "D10"
+  ]
+}

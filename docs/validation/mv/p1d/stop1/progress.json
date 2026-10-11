@@ -1,0 +1,24 @@
+{
+  "status": "stopped-R0",
+  "no_simulation_running": true,
+  "completed": "R0 before/after regressions, both K5b; all mf R1 samples; dcslib 0.05 reference/prototype and 0.2 reference",
+  "pending": [
+    "dcslib/R1/0.2 prototype",
+    "dcslib/base_2",
+    "dcslib/split_aligned",
+    "dcslib/split_shifted",
+    "dcslib/ms_half",
+    "dcslib/energy_half",
+    "dcslib/reference_2",
+    "dcslib/base_10",
+    "mf/base_2",
+    "mf/split_aligned",
+    "mf/split_shifted",
+    "mf/ms_half",
+    "mf/energy_half",
+    "mf/reference_2",
+    "mf/base_10"
+  ],
+  "restart_allowed": false,
+  "reason": "Initial freeze mismatch must not be waived or re-baselined"
+}

@@ -1,0 +1,19 @@
+{
+  "terms": [
+    "licen",
+    "copyright",
+    "commercial"
+  ],
+  "hits": [],
+  "files": [
+    "elsepa2020.f",
+    "elscata.f",
+    "radial.f",
+    "elscatm.f",
+    "readme.txt"
+  ],
+  "decoding": "latin1 (original bytes unchanged)",
+  "network_used": false,
+  "CC_BY_NC_3_text_read": false,
+  "generated_table_license_applicability_verified": false
+}

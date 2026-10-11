@@ -1,0 +1,61 @@
+--- stop1/baseline_code/test_p1f.py
++++ prototypes/mv_electron/tests/test_p1f.py
+@@ -36,20 +36,42 @@
+         with pytest.raises(ValueError,match='range'):
+             entry.execute('out_of_range',T=t,backend='elsepa',seed=20261013,gs_table=WORK/'gs.npz',elsepa_directory=WORK/'tables',expected_ihef=0,expected_hashes=table_hashes(),output_dir=tmp_path)
+ 
++def guarded_p1f_run():
++    # Match P1b's isolated JIT guards, retaining exactly P1f's three forbidden globals.
++    import types
++    from numba import njit
++    from prototypes.mv_electron.transport import run
++    from prototypes.mv_electron.tests.test_dcs_p1b import (
++        forbidden_elastic, forbidden_rates, forbidden_single,
++    )
++    gl = run.py_func.__globals__.copy()
++    gl.update(elastic=forbidden_elastic, elastic_rates=forbidden_rates,
++              single_cached=forbidden_single)
++    function = types.FunctionType(run.py_func.__code__, gl, run.py_func.__name__,
++                                  run.py_func.__defaults__)
++    return njit(function)
++
++
++def test_k5b_guard_detects_rutherford():
++    from prototypes.mv_electron.p1f_common import TABLES
++    guarded = guarded_p1f_run()
++    with np.load(TABLES['rutherford']) as g:
++        args = tuple(g[x] for x in ('T', 'K', 'u', 'y'))
++        for mode in (0, 1):
++            with pytest.raises(RuntimeError, match='Rutherford called'):
++                guarded(2., 100, 20261013, .05, .025, np.array([0., 1.2]),
++                        .01, *args, mode=mode)
++
++
+ def test_actual_p1f_transport_and_k5b(monkeypatch):
+     if not (WORK/'gs.npz').exists():pytest.skip('P1f GS absent; T4/T5 not evaluated')
+     if not (OUT/'t2.json').exists() or json.loads((OUT/'t2.json').read_text())['status']!='pass':pytest.skip('T2 has not passed; T4/T5 forbidden')
+     from prototypes.mv_electron.run_p1f import table
+     from prototypes.mv_electron.tests import test_transport as cases
+-    from prototypes.mv_electron import transport
+-    from prototypes.mv_electron.transport import run
+     _,args,kw=table()
+-    def forbidden(*a,**k):raise AssertionError('screened Rutherford used')
+-    for name in ('elastic','elastic_rates','single_cached'):
+-        monkeypatch.setattr(transport,name,forbidden)
+-    # The Python transport loop resolves guarded globals, rather than an old JIT cache.
++    guarded=guarded_p1f_run()
+     for mode in (0,1):
+-        result=run.py_func(2.,100,20261013,.05,.025,np.array([0.,1.2]),.01,*args,mode=mode,**kw)
++        result=guarded(2.,100,20261013,.05,.025,np.array([0.,1.2]),.01,*args,mode=mode,**kw)
+         cases.check(result,2.,100)
+     original_read=Path.read_text
+     def read(p,*a,**k):
+@@ -58,7 +80,7 @@
+     monkeypatch.setattr(Path,'read_text',read)
+     def adopted(*pos,**kwargs):
+         pos=list(pos);pos[2]=20261013;pos[4]=.025
+-        return run(*pos,**kwargs,**kw)
++        return guarded(*pos,**kwargs,**kw)
+     monkeypatch.setattr(cases,'run',adopted)
+     cases.test_k5_all_descendants(args)
+     for thick in (.00001,.0008,.01,.1,1.2):cases.test_k5b_energy_hinge_escape_final_cutoff(args,thick)

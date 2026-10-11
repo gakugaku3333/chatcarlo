@@ -1,0 +1,12 @@
+{
+  "command": ".venv/bin/python -m pytest prototypes/mv_electron/tests/test_p1f.py::test_actual_p1f_transport_and_k5b -q",
+  "exit_code": 0,
+  "seconds": 13.487477415939793,
+  "log": "k5b_amendment1.log",
+  "log_sha256": "9419bd5fa445deda12ccb44f160bb918c1be045bb8563eac709ca50abf04a63d",
+  "status": "pass",
+  "attempt": 1,
+  "previous_record": "k5b.json",
+  "test_sha256": "4a1232ab4fa5a418a9b5286d2b8bd8370fa6e0b53211d7e0b7f4e9f595531759",
+  "freeze2_sha256": "32d46a2f3cdc9b1eda34060a3e8fbe87d1ffe7fee445d83fd6b87da5c0005684"
+}

@@ -1,0 +1,25 @@
+{
+  "status": "fail",
+  "initial_files": 4569,
+  "frozen_additional_files": 14,
+  "mismatches": [
+    {
+      "path": "docs/ai/plans/2026-10-08-mv-p2-photon-coupling.md",
+      "initial_sha256": "ce03fcc20bbf1b09a55e67cc7172038e1243d75660c31d4e8ed3e68f2896845d",
+      "final_sha256": "9c5442ae596e3280ff9232f913bf5490cec6524cecef6dee4c9a1d6f45a3db18"
+    }
+  ],
+  "required_physics_and_saved_inputs_unchanged": true,
+  "preregistered_code_unchanged": true,
+  "regression": {
+    "status": "pass",
+    "checks": {
+      "dcslib_0.05": true,
+      "dcslib_0.025": true,
+      "mf_0.05": true,
+      "mf_0.025": true
+    },
+    "N": 10000,
+    "seed": 20261007
+  }
+}

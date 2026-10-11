@@ -28,3 +28,31 @@ docs/validation/mv/p1b/prototype_tests_initial.log
 docs/validation/mv/p1b/regression_tests.log
 docs/validation/mv/p1b/regression_tests_final.log
 docs/validation/mv/p1b/replay_initial.log
+
+# P1c regenerable numerical artifacts
+docs/validation/mv/p1c/**/*.npz
+
+# P1d regenerable numerical artifacts
+docs/validation/mv/p1d/**/*.npz
+
+# P1e regenerable run artifacts; ELSEPA generated tables stay external
+docs/validation/mv/p1e/**/*.npz
+prototypes/mv_electron/**/elsepa*.npz
+prototypes/mv_electron/**/z[18]_q*.npz
+
+# P1e/P1f regenerable numerical artifacts
+docs/validation/mv/p1e/**/*.npz
+docs/validation/mv/p1f/**/*.npz
+
+# P2 regenerated arrays; external reference programs/data are never stored here.
+docs/validation/mv/p2/**/*.npz
+docs/validation/mv/p2/**/*.raw.log
+
+# P2b–P3s regenerable numerical artifacts and leftovers of interrupted checks
+docs/validation/mv/p2b/**/*.npz
+docs/validation/mv/p2b/**/*.npy
+docs/validation/mv/p2c/**/*.npz
+docs/validation/mv/p3a/**/*.npz
+docs/validation/mv/p3a/**/*.npy
+docs/validation/mv/p3s/**/*.npz
+docs/validation/mv/**/*.tmp

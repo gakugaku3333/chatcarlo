@@ -1,0 +1,312 @@
+{
+  "status": "合格",
+  "missing": [],
+  "rows": [
+    {
+      "E": 1.25,
+      "IUNRST": 0,
+      "finite_positive": true,
+      "selected": [
+        {
+          "T": 0.019685118507830907,
+          "electron_MeV_cm2_g": 13.341748793525387,
+          "positron_MeV_cm2_g": 13.736394206496424,
+          "prototype_electron_restricted_plus_full_radiation": 13.341307083892374,
+          "electron_relative_to_prototype": 3.3108422603067567e-05
+        },
+        {
+          "T": 0.09837949420558702,
+          "electron_MeV_cm2_g": 3.77816227352942,
+          "positron_MeV_cm2_g": 3.790997206184965,
+          "prototype_electron_restricted_plus_full_radiation": 3.7814400623544535,
+          "electron_relative_to_prototype": -0.0008668096732948882
+        },
+        {
+          "T": 2.000937153294795,
+          "electron_MeV_cm2_g": 1.4027214796504448,
+          "positron_MeV_cm2_g": 1.4020427782233076,
+          "prototype_electron_restricted_plus_full_radiation": 1.4290647914685701,
+          "electron_relative_to_prototype": -0.018433952033101164
+        },
+        {
+          "T": 10.0,
+          "electron_MeV_cm2_g": 1.4073991130752934,
+          "positron_MeV_cm2_g": 1.4072368789487075,
+          "prototype_electron_restricted_plus_full_radiation": 1.5882509446948272,
+          "electron_relative_to_prototype": -0.11386854969211646
+        }
+      ],
+      "electron_min": 1.3907659411450586,
+      "positron_min": 1.3903364859542944,
+      "note": "Comparison to prototype is diagnostic only. IUNRST=0 includes restricted radiation; IUNRST=4 includes unrestricted radiation."
+    },
+    {
+      "E": 1.25,
+      "IUNRST": 4,
+      "finite_positive": true,
+      "selected": [
+        {
+          "T": 0.019685118507830907,
+          "electron_MeV_cm2_g": 13.343458384446969,
+          "positron_MeV_cm2_g": 13.73829579673997,
+          "prototype_electron_restricted_plus_full_radiation": 13.341307083892374,
+          "electron_relative_to_prototype": 0.00016125110838594026
+        },
+        {
+          "T": 0.09837949420558702,
+          "electron_MeV_cm2_g": 3.7817147354577014,
+          "positron_MeV_cm2_g": 3.7945560947665613,
+          "prototype_electron_restricted_plus_full_radiation": 3.7814400623544535,
+          "electron_relative_to_prototype": 7.26371696282424e-05
+        },
+        {
+          "T": 2.000937153294795,
+          "electron_MeV_cm2_g": 1.4291912687376882,
+          "positron_MeV_cm2_g": 1.4285125096420448,
+          "prototype_electron_restricted_plus_full_radiation": 1.4290647914685701,
+          "electron_relative_to_prototype": 8.850352333444889e-05
+        },
+        {
+          "T": 10.0,
+          "electron_MeV_cm2_g": 1.5885530151273994,
+          "positron_MeV_cm2_g": 1.5883902066770799,
+          "prototype_electron_restricted_plus_full_radiation": 1.5882509446948272,
+          "electron_relative_to_prototype": 0.00019019062043135193
+        }
+      ],
+      "electron_min": 1.4284845756965243,
+      "positron_min": 1.4278606616668847,
+      "note": "Comparison to prototype is diagnostic only. IUNRST=0 includes restricted radiation; IUNRST=4 includes unrestricted radiation."
+    },
+    {
+      "E": 2.0,
+      "IUNRST": 0,
+      "finite_positive": true,
+      "selected": [
+        {
+          "T": 0.019685118507830907,
+          "electron_MeV_cm2_g": 13.341748793525387,
+          "positron_MeV_cm2_g": 13.736394206496424,
+          "prototype_electron_restricted_plus_full_radiation": 13.341307083892374,
+          "electron_relative_to_prototype": 3.3108422603067567e-05
+        },
+        {
+          "T": 0.09837949420558702,
+          "electron_MeV_cm2_g": 3.77816227352942,
+          "positron_MeV_cm2_g": 3.790997206184965,
+          "prototype_electron_restricted_plus_full_radiation": 3.7814400623544535,
+          "electron_relative_to_prototype": -0.0008668096732948882
+        },
+        {
+          "T": 2.000937153294795,
+          "electron_MeV_cm2_g": 1.4027214796504448,
+          "positron_MeV_cm2_g": 1.4020427782233076,
+          "prototype_electron_restricted_plus_full_radiation": 1.4290647914685701,
+          "electron_relative_to_prototype": -0.018433952033101164
+        },
+        {
+          "T": 10.0,
+          "electron_MeV_cm2_g": 1.4073991130752934,
+          "positron_MeV_cm2_g": 1.4072368789487075,
+          "prototype_electron_restricted_plus_full_radiation": 1.5882509446948272,
+          "electron_relative_to_prototype": -0.11386854969211646
+        }
+      ],
+      "electron_min": 1.3907659411450586,
+      "positron_min": 1.3903364859542944,
+      "note": "Comparison to prototype is diagnostic only. IUNRST=0 includes restricted radiation; IUNRST=4 includes unrestricted radiation."
+    },
+    {
+      "E": 2.0,
+      "IUNRST": 4,
+      "finite_positive": true,
+      "selected": [
+        {
+          "T": 0.019685118507830907,
+          "electron_MeV_cm2_g": 13.343458384446969,
+          "positron_MeV_cm2_g": 13.73829579673997,
+          "prototype_electron_restricted_plus_full_radiation": 13.341307083892374,
+          "electron_relative_to_prototype": 0.00016125110838594026
+        },
+        {
+          "T": 0.09837949420558702,
+          "electron_MeV_cm2_g": 3.7817147354577014,
+          "positron_MeV_cm2_g": 3.7945560947665613,
+          "prototype_electron_restricted_plus_full_radiation": 3.7814400623544535,
+          "electron_relative_to_prototype": 7.26371696282424e-05
+        },
+        {
+          "T": 2.000937153294795,
+          "electron_MeV_cm2_g": 1.4291912687376882,
+          "positron_MeV_cm2_g": 1.4285125096420448,
+          "prototype_electron_restricted_plus_full_radiation": 1.4290647914685701,
+          "electron_relative_to_prototype": 8.850352333444889e-05
+        },
+        {
+          "T": 10.0,
+          "electron_MeV_cm2_g": 1.5885530151273994,
+          "positron_MeV_cm2_g": 1.5883902066770799,
+          "prototype_electron_restricted_plus_full_radiation": 1.5882509446948272,
+          "electron_relative_to_prototype": 0.00019019062043135193
+        }
+      ],
+      "electron_min": 1.4284845756965243,
+      "positron_min": 1.4278606616668847,
+      "note": "Comparison to prototype is diagnostic only. IUNRST=0 includes restricted radiation; IUNRST=4 includes unrestricted radiation."
+    },
+    {
+      "E": 6.0,
+      "IUNRST": 0,
+      "finite_positive": true,
+      "selected": [
+        {
+          "T": 0.019685118507830907,
+          "electron_MeV_cm2_g": 13.341748793525387,
+          "positron_MeV_cm2_g": 13.736394206496424,
+          "prototype_electron_restricted_plus_full_radiation": 13.341307083892374,
+          "electron_relative_to_prototype": 3.3108422603067567e-05
+        },
+        {
+          "T": 0.09837949420558702,
+          "electron_MeV_cm2_g": 3.77816227352942,
+          "positron_MeV_cm2_g": 3.790997206184965,
+          "prototype_electron_restricted_plus_full_radiation": 3.7814400623544535,
+          "electron_relative_to_prototype": -0.0008668096732948882
+        },
+        {
+          "T": 2.000937153294795,
+          "electron_MeV_cm2_g": 1.4027214796504448,
+          "positron_MeV_cm2_g": 1.4020427782233076,
+          "prototype_electron_restricted_plus_full_radiation": 1.4290647914685701,
+          "electron_relative_to_prototype": -0.018433952033101164
+        },
+        {
+          "T": 10.0,
+          "electron_MeV_cm2_g": 1.4073991130752934,
+          "positron_MeV_cm2_g": 1.4072368789487075,
+          "prototype_electron_restricted_plus_full_radiation": 1.5882509446948272,
+          "electron_relative_to_prototype": -0.11386854969211646
+        }
+      ],
+      "electron_min": 1.3907659411450586,
+      "positron_min": 1.3903364859542944,
+      "note": "Comparison to prototype is diagnostic only. IUNRST=0 includes restricted radiation; IUNRST=4 includes unrestricted radiation."
+    },
+    {
+      "E": 6.0,
+      "IUNRST": 4,
+      "finite_positive": true,
+      "selected": [
+        {
+          "T": 0.019685118507830907,
+          "electron_MeV_cm2_g": 13.343458384446969,
+          "positron_MeV_cm2_g": 13.73829579673997,
+          "prototype_electron_restricted_plus_full_radiation": 13.341307083892374,
+          "electron_relative_to_prototype": 0.00016125110838594026
+        },
+        {
+          "T": 0.09837949420558702,
+          "electron_MeV_cm2_g": 3.7817147354577014,
+          "positron_MeV_cm2_g": 3.7945560947665613,
+          "prototype_electron_restricted_plus_full_radiation": 3.7814400623544535,
+          "electron_relative_to_prototype": 7.26371696282424e-05
+        },
+        {
+          "T": 2.000937153294795,
+          "electron_MeV_cm2_g": 1.4291912687376882,
+          "positron_MeV_cm2_g": 1.4285125096420448,
+          "prototype_electron_restricted_plus_full_radiation": 1.4290647914685701,
+          "electron_relative_to_prototype": 8.850352333444889e-05
+        },
+        {
+          "T": 10.0,
+          "electron_MeV_cm2_g": 1.5885530151273994,
+          "positron_MeV_cm2_g": 1.5883902066770799,
+          "prototype_electron_restricted_plus_full_radiation": 1.5882509446948272,
+          "electron_relative_to_prototype": 0.00019019062043135193
+        }
+      ],
+      "electron_min": 1.4284845756965243,
+      "positron_min": 1.4278606616668847,
+      "note": "Comparison to prototype is diagnostic only. IUNRST=0 includes restricted radiation; IUNRST=4 includes unrestricted radiation."
+    },
+    {
+      "E": 10.0,
+      "IUNRST": 0,
+      "finite_positive": true,
+      "selected": [
+        {
+          "T": 0.019685118507830907,
+          "electron_MeV_cm2_g": 13.341748793525387,
+          "positron_MeV_cm2_g": 13.736394206496424,
+          "prototype_electron_restricted_plus_full_radiation": 13.341307083892374,
+          "electron_relative_to_prototype": 3.3108422603067567e-05
+        },
+        {
+          "T": 0.09837949420558702,
+          "electron_MeV_cm2_g": 3.77816227352942,
+          "positron_MeV_cm2_g": 3.790997206184965,
+          "prototype_electron_restricted_plus_full_radiation": 3.7814400623544535,
+          "electron_relative_to_prototype": -0.0008668096732948882
+        },
+        {
+          "T": 2.000937153294795,
+          "electron_MeV_cm2_g": 1.4027214796504448,
+          "positron_MeV_cm2_g": 1.4020427782233076,
+          "prototype_electron_restricted_plus_full_radiation": 1.4290647914685701,
+          "electron_relative_to_prototype": -0.018433952033101164
+        },
+        {
+          "T": 10.0,
+          "electron_MeV_cm2_g": 1.4073991130752934,
+          "positron_MeV_cm2_g": 1.4072368789487075,
+          "prototype_electron_restricted_plus_full_radiation": 1.5882509446948272,
+          "electron_relative_to_prototype": -0.11386854969211646
+        }
+      ],
+      "electron_min": 1.3907659411450586,
+      "positron_min": 1.3903364859542944,
+      "note": "Comparison to prototype is diagnostic only. IUNRST=0 includes restricted radiation; IUNRST=4 includes unrestricted radiation."
+    },
+    {
+      "E": 10.0,
+      "IUNRST": 4,
+      "finite_positive": true,
+      "selected": [
+        {
+          "T": 0.019685118507830907,
+          "electron_MeV_cm2_g": 13.343458384446969,
+          "positron_MeV_cm2_g": 13.73829579673997,
+          "prototype_electron_restricted_plus_full_radiation": 13.341307083892374,
+          "electron_relative_to_prototype": 0.00016125110838594026
+        },
+        {
+          "T": 0.09837949420558702,
+          "electron_MeV_cm2_g": 3.7817147354577014,
+          "positron_MeV_cm2_g": 3.7945560947665613,
+          "prototype_electron_restricted_plus_full_radiation": 3.7814400623544535,
+          "electron_relative_to_prototype": 7.26371696282424e-05
+        },
+        {
+          "T": 2.000937153294795,
+          "electron_MeV_cm2_g": 1.4291912687376882,
+          "positron_MeV_cm2_g": 1.4285125096420448,
+          "prototype_electron_restricted_plus_full_radiation": 1.4290647914685701,
+          "electron_relative_to_prototype": 8.850352333444889e-05
+        },
+        {
+          "T": 10.0,
+          "electron_MeV_cm2_g": 1.5885530151273994,
+          "positron_MeV_cm2_g": 1.5883902066770799,
+          "prototype_electron_restricted_plus_full_radiation": 1.5882509446948272,
+          "electron_relative_to_prototype": 0.00019019062043135193
+        }
+      ],
+      "electron_min": 1.4284845756965243,
+      "positron_min": 1.4278606616668847,
+      "note": "Comparison to prototype is diagnostic only. IUNRST=0 includes restricted radiation; IUNRST=4 includes unrestricted radiation."
+    }
+  ],
+  "source_mapping": "egs5_hatch.f:435–446; per-energy 30 fields, EDEDX0/1 fields 5/6, PDEDX0/1 fields 7/8; divide by PEGS radiation length in g/cm2",
+  "independent_source_audit": "pegs5.f:1342–1362 and 5027–5028 / 5051–5052 confirm restricted collision + full radiative loss for IUNRST=4; annihilation removed from discrete competition"
+}

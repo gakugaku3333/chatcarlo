@@ -1,0 +1,17 @@
+{
+  "status": "pass",
+  "archive_sha256": "1066d4d4a008d4e65c087f1bdf5e348e5c0a8b2d0dc088748f403ea9fdbaa7e5",
+  "bundled": {
+    "status": "pass",
+    "max_DCS_relative": 0.0,
+    "cross_sections_relative": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "archive_sha256": "1066d4d4a008d4e65c087f1bdf5e348e5c0a8b2d0dc088748f403ea9fdbaa7e5"
+  },
+  "two_pass_arrays_identical": true,
+  "table_energies": 83,
+  "provenance": "~/.cache/chatcarlo/elsepa/p1e/build/build.json"
+}

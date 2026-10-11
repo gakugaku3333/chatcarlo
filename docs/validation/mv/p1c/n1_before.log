@@ -1,0 +1,16 @@
+dcslib single probability refinement 8 2.2476820574546252e-05
+dcslib single lookup refinement {'points': 99, 'max_relative_error': 0.009952292599646695, 'added': 82}
+dcslib single lookup refinement {'points': 181, 'max_relative_error': 0.0025133418121952023, 'added': 143}
+dcslib single lookup refinement {'points': 324, 'max_relative_error': 0.0006455773760909445, 'added': 172}
+dcslib single lookup refinement {'points': 496, 'max_relative_error': 0.00017760798575761072, 'added': 72}
+dcslib single lookup refinement {'points': 568, 'max_relative_error': 9.984783966898725e-05, 'added': 0}
+eedl single probability refinement 8 2.3910106432323275e-05
+eedl single lookup refinement {'points': 90, 'max_relative_error': 0.2579714605652782, 'added': 74}
+eedl single lookup refinement {'points': 164, 'max_relative_error': 0.13503924621456176, 'added': 127}
+eedl single lookup refinement {'points': 291, 'max_relative_error': 0.05749417502336107, 'added': 177}
+eedl single lookup refinement {'points': 468, 'max_relative_error': 0.020284321853756615, 'added': 168}
+eedl single lookup refinement {'points': 636, 'max_relative_error': 0.006212468867238585, 'added': 44}
+eedl single lookup refinement {'points': 680, 'max_relative_error': 0.0017367472274673057, 'added': 34}
+eedl single lookup refinement {'points': 714, 'max_relative_error': 0.0004605300162711101, 'added': 20}
+eedl single lookup refinement {'points': 734, 'max_relative_error': 0.00011867219132821738, 'added': 3}
+eedl single lookup refinement {'points': 737, 'max_relative_error': 9.993731751545276e-05, 'added': 0}

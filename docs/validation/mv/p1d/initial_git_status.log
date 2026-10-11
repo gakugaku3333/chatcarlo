@@ -1,0 +1,26 @@
+ M .gitignore
+ M CLAUDE.md
+ M STATUS.md
+ M docs/ai/plans/2026-10-07-native-10mv-photon-electron-transport.md
+ M prototypes/mv_electron/dcs.py
+ M prototypes/mv_electron/run_transport.py
+ M prototypes/mv_electron/single_table.py
+?? docs/ai/plans/2026-10-08-mv-p1c-mott-correction.md
+?? docs/ai/plans/2026-10-08-mv-p1d-half-step.md
+?? docs/ai/plans/2026-10-08-mv-p2-photon-coupling.md
+?? docs/ai/plans/reviews/2026-10-08-p1c-impl-report.md
+?? docs/ai/plans/reviews/2026-10-08-p1c-review-1.md
+?? docs/ai/plans/reviews/2026-10-08-p1d-review-1.md
+?? docs/ai/plans/reviews/2026-10-08-p2-review-1.md
+?? docs/validation/mv/p1c/
+?? docs/validation/mv/p1d/
+?? prototypes/mv_electron/benchmark_p1c.py
+?? prototypes/mv_electron/build_gs_p1c.py
+?? prototypes/mv_electron/check_dcs_p1c.py
+?? prototypes/mv_electron/check_gs_p1c.py
+?? prototypes/mv_electron/mf.py
+?? prototypes/mv_electron/regression_p1c.py
+?? prototypes/mv_electron/report_p1c.py
+?? prototypes/mv_electron/run_checks_p1c.py
+?? prototypes/mv_electron/run_p1c.py
+?? prototypes/mv_electron/tests/test_mf.py

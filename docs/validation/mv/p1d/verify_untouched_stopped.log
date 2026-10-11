@@ -1,0 +1,11 @@
+Traceback (most recent call last):
+  File "./prototypes/mv_electron/run_checks_p1d.py", line 191, in <module>
+    if __name__ == '__main__': main()
+                               ^^^^^^
+  File "./prototypes/mv_electron/run_checks_p1d.py", line 186, in main
+    r = verify(); r['regression'] = regression_saved(); write('untouched.json', r); print(json.dumps(r, indent=2)); return
+        ^^^^^^^^
+  File "./prototypes/mv_electron/p1d_common.py", line 80, in verify
+    if r['status'] != 'pass': raise RuntimeError('R0 freeze mismatch: stop; see untouched.json')
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: R0 freeze mismatch: stop; see untouched.json

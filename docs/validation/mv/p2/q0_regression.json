@@ -1,0 +1,28 @@
+{
+  "code_sha256": "e2345a5782fe4e491fd1f051790f8c0a9a4abdd07743c6729d38e5f7c92efc19",
+  "status": "合格",
+  "N": 10000,
+  "seed": 20261020,
+  "K1_max": 0.025,
+  "f_E": 0.05,
+  "checks": {
+    "dcslib": {
+      "batches": true,
+      "ledger": true,
+      "counts": true,
+      "cross_sum": true,
+      "cross_sum2": true,
+      "cross_n": true,
+      "maxdepth": true
+    },
+    "mf": {
+      "batches": true,
+      "ledger": true,
+      "counts": true,
+      "cross_sum": true,
+      "cross_sum2": true,
+      "cross_n": true,
+      "maxdepth": true
+    }
+  }
+}

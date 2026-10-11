@@ -1,0 +1,20 @@
+{
+  "conditions": {
+    "T": 2.0,
+    "N": 1000000,
+    "seed": 20261013,
+    "K": 0.025,
+    "path_cm": 0.2,
+    "condensed": false
+  },
+  "sha256": "a38fc78d56ab46ac31070b1dc0f0cc898b4137e2f90ae7a84cf67efa6df0815c",
+  "seconds": 298.1349012919236,
+  "table_sha256": "d225aaeedecefdc2b74a564a4ff0d2e8aae4f48e5cec4f1c1ff9f5179e8b8ca4",
+  "elsepa_table_hashes": {
+    "z8_q1.npz": "bc615cec6c37dba736c0f04391512c57c8ecfbef2cc93a97b9a3deb602b3d853",
+    "z8_q-1.npz": "a1a520506eef00c38ab3793004654331f1741ac542fe2fea128228fe88b5c74a",
+    "z1_q-1.npz": "025aa2030f698b844424d550af9d4c0dea4270a8297d486934dbf87de6a93508",
+    "z1_q1.npz": "88c3033ee5c47d97f3fc6a50bcef3d3665e86b511db38dbd34d270e17f0165f3"
+  },
+  "IHEF": 0
+}

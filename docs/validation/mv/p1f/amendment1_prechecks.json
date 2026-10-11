@@ -1,0 +1,33 @@
+{
+  "status": "pass",
+  "test_sha256": "4a1232ab4fa5a418a9b5286d2b8bd8370fa6e0b53211d7e0b7f4e9f595531759",
+  "test_diff_sha256": "ae4e6a00965ace7867e13fdc52b052e2820d7903890c341156d6cddf90871dec",
+  "i": "単独と全体の双方で同じK5bテストが合格することを確認",
+  "ii": "同じ隔離JITをrutherfordで実行し、mode 0/1とも禁止経路のRuntimeErrorを検出",
+  "rows": [
+    {
+      "command": ".venv/bin/python -m pytest prototypes/mv_electron/tests/test_p1f.py::test_actual_p1f_transport_and_k5b -q",
+      "exit_code": 0,
+      "seconds": 13.27666637499351,
+      "log": "amendment1_single.log",
+      "log_sha256": "19bfa34875d59d64777ea03428c22b37795aa74b1ed373dda8d4c068cd114cc7",
+      "status": "pass"
+    },
+    {
+      "command": ".venv/bin/python -m pytest prototypes/mv_electron/tests/test_p1f.py::test_k5b_guard_detects_rutherford -q",
+      "exit_code": 0,
+      "seconds": 3.885431249975227,
+      "log": "amendment1_negative.log",
+      "log_sha256": "4ede43d8b8605b1895f340ae61b1f8dcf8d0065205a747c094b11256a44f4ed0",
+      "status": "pass"
+    },
+    {
+      "command": ".venv/bin/python -m pytest prototypes/mv_electron/tests -q -rA",
+      "exit_code": 0,
+      "seconds": 54.384062041994184,
+      "log": "amendment1_prototype.log",
+      "log_sha256": "46eafbd7eba448aff575ac44a59e6428dbc29c160e0dd9160d3a51c9f94dd95d",
+      "status": "pass"
+    }
+  ]
+}

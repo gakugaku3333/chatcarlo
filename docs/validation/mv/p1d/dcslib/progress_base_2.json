@@ -1,0 +1,17 @@
+{
+  "active_backend": "dcslib",
+  "active_run": "base_2",
+  "config": {
+    "T": 2.0,
+    "N": 1000000,
+    "K": 0.025,
+    "fe": 0.05,
+    "split": 0.0,
+    "shift": 0.0,
+    "mode": 0
+  },
+  "seed": 20261009,
+  "resume_command": ".venv/bin/python prototypes/mv_electron/run_p1d_amendment1.py",
+  "restart_gate": "approved amendment, matching freeze2, successful memory reproduction",
+  "status": "complete"
+}

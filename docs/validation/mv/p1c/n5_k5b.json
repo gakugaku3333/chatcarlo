@@ -1,0 +1,5 @@
+{
+  "command": ".venv/bin/python -m pytest prototypes/mv_electron/tests/test_mf.py::test_k5b_with_actual_mf_table -q",
+  "exit_code": 0,
+  "output": ".                                                                        [100%]\n1 passed in 11.33s"
+}

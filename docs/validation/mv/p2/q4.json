@@ -1,0 +1,80 @@
+{
+  "status": "合格",
+  "rows": [
+    {
+      "E": 1.25,
+      "N": 1000000,
+      "seed": 20261420,
+      "mu_tr_measured_cm2_g": 0.029687525700146867,
+      "mu_tr_analytic_cm2_g": 0.029707844094050587,
+      "SEM_cm2_g": 1.6250207569391957e-05,
+      "SEM_relative": 0.0005470005671884582,
+      "z": -1.2503467304621476,
+      "status": "合格",
+      "model_mu_tr_contributions": {
+        "compton": 0.029702274360673617,
+        "photoelectric": 2.3286897218421254e-06,
+        "pair": 3.241043655128445e-06
+      },
+      "NIST_mu_en_cm2_g": 0.029649999999999996,
+      "model_mu_tr_over_NIST_mu_en": 1.0019508969325663
+    },
+    {
+      "E": 2.0,
+      "N": 1000000,
+      "seed": 20261421,
+      "mu_tr_measured_cm2_g": 0.026179967851594467,
+      "mu_tr_analytic_cm2_g": 0.026163512507955858,
+      "SEM_cm2_g": 1.3409087492741508e-05,
+      "SEM_relative": 0.000512510982180395,
+      "z": 1.2271784823178045,
+      "status": "合格",
+      "model_mu_tr_contributions": {
+        "compton": 0.025971352144557248,
+        "photoelectric": 1.063099140481857e-06,
+        "pair": 0.00019109726425812644
+      },
+      "NIST_mu_en_cm2_g": 0.026080000000000002,
+      "model_mu_tr_over_NIST_mu_en": 1.0032021667160989
+    },
+    {
+      "E": 6.0,
+      "N": 1000000,
+      "seed": 20261422,
+      "mu_tr_measured_cm2_g": 0.018396487043026096,
+      "mu_tr_analytic_cm2_g": 0.018382776184745122,
+      "SEM_cm2_g": 7.668522139261003e-06,
+      "SEM_relative": 0.00041715799954223986,
+      "z": 1.7879401052750252,
+      "status": "合格",
+      "model_mu_tr_contributions": {
+        "compton": 0.015764754095788067,
+        "photoelectric": 2.4841211520376043e-07,
+        "pair": 0.002617773676841851
+      },
+      "NIST_mu_en_cm2_g": 0.018059999999999996,
+      "model_mu_tr_over_NIST_mu_en": 1.0178724354786892
+    },
+    {
+      "E": 10.0,
+      "N": 1000000,
+      "seed": 20261423,
+      "mu_tr_measured_cm2_g": 0.016224871562537664,
+      "mu_tr_analytic_cm2_g": 0.016220790034519823,
+      "SEM_cm2_g": 5.946568056846135e-06,
+      "SEM_relative": 0.00036660162940221235,
+      "z": 0.6863669899719426,
+      "status": "合格",
+      "model_mu_tr_contributions": {
+        "compton": 0.011650972201043379,
+        "photoelectric": 1.3863835292618257e-07,
+        "pair": 0.004569679195123519
+      },
+      "NIST_mu_en_cm2_g": 0.015659999999999993,
+      "model_mu_tr_over_NIST_mu_en": 1.0358103470319175
+    }
+  ],
+  "NIST_is_diagnostic_only": true,
+  "radiation_yield_definition": "g is the initial charged-particle kinetic-energy-weighted mean radiation yield; NIST mu_en=(1-g)mu_tr",
+  "omitted_process_contributions": "model mu_tr components quantified above; NIST binding/fluorescence/triplet recoil and radiative contributions cannot be separated numerically from the bundled coefficient alone"
+}

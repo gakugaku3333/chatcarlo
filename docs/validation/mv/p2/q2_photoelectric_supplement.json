@@ -1,0 +1,33 @@
+{
+  "note": "deterministic photoelectric rule also exercised on 1e6 randomized incoming directions at every energy; no change to sampler or original stochastic checks",
+  "rows": [
+    {
+      "E": 1.25,
+      "N": 1000000,
+      "seed": 20261220,
+      "max_energy_error": 0.0,
+      "max_direction_error": 0.0
+    },
+    {
+      "E": 2.0,
+      "N": 1000000,
+      "seed": 20261221,
+      "max_energy_error": 0.0,
+      "max_direction_error": 0.0
+    },
+    {
+      "E": 6.0,
+      "N": 1000000,
+      "seed": 20261222,
+      "max_energy_error": 0.0,
+      "max_direction_error": 0.0
+    },
+    {
+      "E": 10.0,
+      "N": 1000000,
+      "seed": 20261223,
+      "max_energy_error": 0.0,
+      "max_direction_error": 0.0
+    }
+  ]
+}

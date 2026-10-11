@@ -1,0 +1,6 @@
+{
+  "command": ".venv/bin/python -m pytest tests/ -q",
+  "passed": 403,
+  "warnings": 2,
+  "seconds": 94.86
+}

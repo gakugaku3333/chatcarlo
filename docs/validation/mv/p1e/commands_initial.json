@@ -1,0 +1,38 @@
+[
+  {
+    "command": ".venv/bin/python -m pytest tests/ -q",
+    "exit_code": 0,
+    "result": "403 passed, 2 warnings, 94.83 s"
+  },
+  {
+    "command": ".venv/bin/python prototypes/mv_electron/generate_elsepa.py --prepare",
+    "exit_code": 0
+  },
+  {
+    "command": ".venv/bin/python (stdin) -> generate_elsepa.bundled(prepare())",
+    "exit_code": 0,
+    "result": "DCS and printed cross sections exactly reproduced"
+  },
+  {
+    "command": ".venv/bin/python (stdin) -> generate_elsepa.generate()",
+    "exit_code": 0,
+    "log": "generation.log",
+    "note": "出力検査の実装中断2回のほか、級数印字の実装中断1回を保存。同じ物理入力を変えず生出力から再開"
+  },
+  {
+    "command": ".venv/bin/python (stdin) -> p1e_common.regression('after')",
+    "exit_code": 0,
+    "result": "4 backends bitwise identical"
+  },
+  {
+    "command": ".venv/bin/python -m pytest prototypes/mv_electron/tests -q -rs",
+    "exit_code": 0,
+    "result": "80 passed, 1 skipped, 39.24 s",
+    "log": "prototype_tests.log"
+  },
+  {
+    "command": ".venv/bin/python prototypes/mv_electron/run_checks_p1e.py --freeze",
+    "exit_code": 0,
+    "result": "2274 files frozen"
+  }
+]

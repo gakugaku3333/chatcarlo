@@ -1,0 +1,15 @@
+{
+  "active": "docs/validation/mv/p1f/elsepa/runs/base_10.npz",
+  "conditions": {
+    "T": 10.0,
+    "N": 1000000,
+    "K": 0.025,
+    "fe": 0.05,
+    "split": 0.0,
+    "shift": 0.0,
+    "mode": 0,
+    "seed": 20261013,
+    "backend": "elsepa"
+  },
+  "resume_command": ".venv/bin/python prototypes/mv_electron/run_p1f.py"
+}

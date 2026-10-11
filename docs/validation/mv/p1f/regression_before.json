@@ -1,0 +1,14 @@
+{
+  "rutherford": {
+    "sha256": "11a00cd768033b852883d8e9eb0eb8c0becc474b3e407c4c0f838a3c6b500ad3"
+  },
+  "dcslib": {
+    "sha256": "e2a5135577909084bdacf6396681ba277f2cedc21f0344dc6452f08bad7ec43f"
+  },
+  "eedl": {
+    "sha256": "f592aaea90f8564d22f005acefaf2ff88218d008808d3fb345938800fa74345c"
+  },
+  "mf": {
+    "sha256": "fe7269bde940d0149729f670d8f30e26dd69089370cacc9f80b38ceace2c7860"
+  }
+}

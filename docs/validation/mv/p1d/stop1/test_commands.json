@@ -1,0 +1,41 @@
+{
+  "commands": [
+    {
+      "command": ".venv/bin/python -m pytest tests/ -q",
+      "exit_code": 0,
+      "log": "regression_tests.log",
+      "output": "........................................................................ [ 17%]\n........................................................................ [ 35%]\n........................................................................ [ 53%]\n........................................................................ [ 71%]\n........................................................................ [ 89%]\n...........................................                              [100%]\n=============================== warnings summary ===============================\ntests/test_heel_effect.py::test_anode_cutoff_warns_and_still_samples\n  ./.venv/lib/python3.11/site-packages/spekpy/SpekTools.py:216: UserWarning: Zero emission for the user's geometrical inputs\n    warnings.warn('Zero emission for the user\\'s geometrical inputs')\n\ntests/test_spectrum.py::test_fallback_spectrum_used_when_spekpy_unavailable\n  ./tests/test_spectrum.py:54: UserWarning: spekpy が見つからないためKramers則の粗い近似スペクトルを使用します。`pip install spekpy` を推奨します。\n    e, w = spectrum._default_spectrum(kvp=100.0, filtration_mm_al=2.5, anode_angle_deg=12.0)\n\n-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html\n403 passed, 2 warnings in 108.81s (0:01:48)\n",
+      "matches_initial_diff": null
+    },
+    {
+      "command": "git diff --stat -- chatcarlo tests scripts examples docs/validation/mv/p0 docs/validation/mv/p1 docs/validation/mv/p1b docs/validation/mv/p1c",
+      "exit_code": 0,
+      "log": "diff_stat.log",
+      "output": "",
+      "matches_initial_diff": true
+    },
+    {
+      "command": ".venv/bin/python -m pytest prototypes/mv_electron/tests -q",
+      "exit_code": 0,
+      "log": "prototype_tests.log",
+      "output": "........................................................................ [ 96%]\n...                                                                      [100%]\n75 passed in 40.09s\n",
+      "matches_initial_diff": null
+    },
+    {
+      "command": ".venv/bin/python prototypes/mv_electron/run_checks_p1d.py --from-saved",
+      "exit_code": 1,
+      "log": "from_saved_stopped.log",
+      "expected_stop": true,
+      "reason": "R0 freeze mismatch",
+      "output": "Traceback (most recent call last):\n  File \"./prototypes/mv_electron/run_checks_p1d.py\", line 191, in <module>\n    if __name__ == '__main__': main()\n                               ^^^^^^\n  File \"./prototypes/mv_electron/run_checks_p1d.py\", line 188, in main\n    r = saved()\n        ^^^^^^^\n  File \"./prototypes/mv_electron/run_checks_p1d.py\", line 162, in saved\n    untouched = verify(); regression = regression_saved()\n                ^^^^^^^^\n  File \"./prototypes/mv_electron/p1d_common.py\", line 80, in verify\n    if r['status'] != 'pass': raise RuntimeError('R0 freeze mismatch: stop; see untouched.json')\n                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nRuntimeError: R0 freeze mismatch: stop; see untouched.json\n"
+    },
+    {
+      "command": ".venv/bin/python prototypes/mv_electron/run_checks_p1d.py --verify-untouched",
+      "exit_code": 1,
+      "log": "verify_untouched_stopped.log",
+      "expected_stop": true,
+      "reason": "R0 freeze mismatch",
+      "output": "Traceback (most recent call last):\n  File \"./prototypes/mv_electron/run_checks_p1d.py\", line 191, in <module>\n    if __name__ == '__main__': main()\n                               ^^^^^^\n  File \"./prototypes/mv_electron/run_checks_p1d.py\", line 186, in main\n    r = verify(); r['regression'] = regression_saved(); write('untouched.json', r); print(json.dumps(r, indent=2)); return\n        ^^^^^^^^\n  File \"./prototypes/mv_electron/p1d_common.py\", line 80, in verify\n    if r['status'] != 'pass': raise RuntimeError('R0 freeze mismatch: stop; see untouched.json')\n                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nRuntimeError: R0 freeze mismatch: stop; see untouched.json\n"
+    }
+  ]
+}

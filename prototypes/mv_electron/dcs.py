@@ -86,6 +86,12 @@ def moments(provider,T,L=2,order=16,z=None):
 def get_backend(name):
     if name=='rutherford':return Rutherford()
     if name=='dcslib':return Dcslib()
+    if name=='mf':
+        from .mf import McKinleyFeshbach
+        return McKinleyFeshbach()
+    if name=='elsepa':
+        from .elsepa import Elsepa
+        return Elsepa()
     if name=='eedl':
         from .eedl import Eedl
         return Eedl()

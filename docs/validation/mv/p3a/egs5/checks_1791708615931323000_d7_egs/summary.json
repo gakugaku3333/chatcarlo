@@ -1,0 +1,73 @@
+{
+  "status": "合格",
+  "tests": {
+    "config": true,
+    "noflight": true,
+    "balance": true,
+    "score": true,
+    "callbacks": true,
+    "cutoffs": true,
+    "kinetic_cutoff": true,
+    "flags": true,
+    "IUNRST": true,
+    "dual_scoring": true,
+    "spectrum_total": true,
+    "batchin": true,
+    "batchcb": true,
+    "mono_input": true,
+    "coarse_integral": true,
+    "fine_integral": true,
+    "finite": true
+  },
+  "ledger": [
+    49.99226560006001,
+    49.99226560006001,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+  ],
+  "callbacks": {
+    "brems_created": 0.0,
+    "brems_discarded": 0.0,
+    "brems_local_MeV": 0.0,
+    "flight_annihilation": 0.0,
+    "rest_annihilation": 0.0,
+    "pairs": 0.0,
+    "wrong_tags": 0.0
+  },
+  "effective_flags": {
+    "IBOUND": 0,
+    "INCOH": 0,
+    "ICPROF": 0,
+    "IRAYL": 0,
+    "incohm": 0.0,
+    "incohr": 0.0,
+    "iprofm": 0.0,
+    "iprofr": 0.0,
+    "iraylm": 0.0,
+    "iraylr": 0.0,
+    "iedgfl": 0.0,
+    "iauger": 0.0,
+    "iprdst": 0.0,
+    "ibrspl": 0.0,
+    "iausfl8": 1.0,
+    "usegsd": 1.0
+  },
+  "cutoffs": [
+    0.521,
+    0.01,
+    0.521,
+    0.01,
+    20.511,
+    21.0,
+    1.0
+  ],
+  "max_history_relative_balance": 0.0,
+  "rebin_max_Gy_cm2": 0.0,
+  "CPU_seconds": 0.04127100000000894,
+  "wall_seconds": 78.121,
+  "effective_electron_kinetic_cutoff_keV": 10.00109529495241
+}

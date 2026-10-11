@@ -1,0 +1,110 @@
+{
+  "stages": {
+    "T0": {
+      "state": "production_frozen",
+      "result": "合格",
+      "files": 39
+    },
+    "T1": {
+      "state": "complete",
+      "result": "合格",
+      "historical_result": "不合格",
+      "active_verdict": "q1_amendment1.json",
+      "historical_verdict": "q1.json"
+    },
+    "T2": {
+      "state": "complete",
+      "result": "合格"
+    },
+    "T3": {
+      "state": "complete",
+      "result": "合格"
+    },
+    "T4": {
+      "state": "complete",
+      "result": "合格"
+    },
+    "T5": {
+      "state": "selfcheck_complete",
+      "result": "合格",
+      "reference_ready": true,
+      "active_selfcheck": "t5_selfcheck_d2.json"
+    },
+    "T6": {
+      "state": "complete",
+      "result": "q5.json q6.json q7.json; no overall-pass claim"
+    },
+    "C1": {
+      "state": "complete",
+      "result": "合格",
+      "historical_q1": "q1.json retained unchanged",
+      "new_verdict": "q1_amendment1.json"
+    },
+    "C2": {
+      "state": "complete",
+      "result": "合格"
+    },
+    "C2b": {
+      "state": "complete",
+      "result": "合格",
+      "historical_result": "判定保留",
+      "active_verdict": "t5_stopping_amendment2.json",
+      "historical_verdict": "t5_stopping_amendment1.json"
+    },
+    "D1": {
+      "state": "complete",
+      "result": "合格",
+      "active_verdict": "t5_stopping_amendment2.json",
+      "historical_verdict": "t5_stopping_amendment1.json"
+    },
+    "D2": {
+      "state": "complete",
+      "active_selfchecks": "t5_selfcheck_d2.json",
+      "verification": "d2_verification.json"
+    },
+    "execution": {
+      "state": "running",
+      "command": ".venv/bin/python prototypes/mv_electron/run_checks_p2.py --resume",
+      "driver_pid": 42922
+    }
+  },
+  "resume_command": ".venv/bin/python prototypes/mv_electron/run_checks_p2.py --resume",
+  "production_runs_started": 32,
+  "queued_driver_pid": 30853,
+  "driver_log": "$CHATCARLO_P2_CACHE/resume_driver.log",
+  "reload_gate": "Finish all current selfchecks, then fresh tested driver continues automatically; no physics process is interrupted.",
+  "production_run_names": [
+    "main_ref_0_0",
+    "main_ref_0_4",
+    "main_ref_1_0",
+    "main_ref_1_4",
+    "main_ref_2_0",
+    "main_ref_2_4",
+    "main_ref_3_0",
+    "main_ref_3_4",
+    "main_dcslib_0",
+    "main_mf_0",
+    "main_elsepa_0",
+    "main_dcslib_1",
+    "main_dcslib_1_fe",
+    "main_dcslib_1_k",
+    "main_mf_1",
+    "main_mf_1_fe",
+    "main_mf_1_k",
+    "main_elsepa_1",
+    "main_elsepa_1_fe",
+    "main_elsepa_1_k",
+    "main_dcslib_2",
+    "main_mf_2",
+    "main_elsepa_2",
+    "main_dcslib_3",
+    "main_dcslib_3_fe",
+    "main_dcslib_3_k",
+    "main_mf_3",
+    "main_mf_3_fe",
+    "main_mf_3_k",
+    "main_elsepa_3",
+    "main_elsepa_3_fe",
+    "main_elsepa_3_k"
+  ]
+}

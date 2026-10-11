@@ -1,0 +1,20 @@
+{
+  "status": "pass",
+  "freeze": "freeze2",
+  "initial_files": 2106,
+  "frozen_additional_files": 0,
+  "changed": [],
+  "added_files": [],
+  "removed_files": [],
+  "regression": {
+    "status": "pass",
+    "checks": {
+      "dcslib_0.05": true,
+      "dcslib_0.025": true,
+      "mf_0.05": true,
+      "mf_0.025": true
+    },
+    "N": 10000,
+    "seed": 20261007
+  }
+}

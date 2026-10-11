@@ -1,0 +1,164 @@
+{
+  "K5": {
+    "status": "pass",
+    "global_relative": 3.7787401679922894e-17,
+    "max_history_relative": 5.329070518200751e-15,
+    "unprocessed_particles": 0,
+    "unprocessed_MeV": 0.0,
+    "stack_failures": 0,
+    "step_limit_failures": 0,
+    "back_energy_fraction": 0.006189691646554185
+  },
+  "K5b": {
+    "status": "pass",
+    "command": ".venv/bin/python -m pytest prototypes/mv_electron/tests/test_p1d.py::test_k5b_actual_table[dcslib] -q",
+    "exit_code": 0,
+    "log": "dcslib/k5b.log"
+  },
+  "K7": {
+    "status": "pass",
+    "rows": {
+      "split_aligned": {
+        "Dref": 3.206506203372115,
+        "reference_ranges_cm": [
+          0.6949299362344253,
+          0.888065955566623
+        ],
+        "other_ranges_cm": [
+          0.6949299362344253,
+          0.888065955566623
+        ],
+        "range_difference_over_reference_R50": [
+          0.0,
+          0.0
+        ],
+        "range_difference_SEM_over_R50": [
+          0.0008308097258812768,
+          0.0009068384697007246
+        ],
+        "max_dose_difference_over_Dref": 8.309777340515429e-16,
+        "max_dose_difference_SEM_over_Dref": 0.002176568676761896,
+        "evaluation_bins": 120,
+        "statistics_ok": true,
+        "pass": true,
+        "boundary_events": 6452427,
+        "boundary_queries": 1287241434,
+        "status": "pass"
+      },
+      "split_shifted": {
+        "Dref": 3.206506203372115,
+        "reference_ranges_cm": [
+          0.6949299362344253,
+          0.888065955566623
+        ],
+        "other_ranges_cm": [
+          0.6949299362344253,
+          0.8880659555666233
+        ],
+        "range_difference_over_reference_R50": [
+          0.0,
+          3.195208514518901e-16
+        ],
+        "range_difference_SEM_over_R50": [
+          0.0008308097258812857,
+          0.0009068384697007265
+        ],
+        "max_dose_difference_over_Dref": 8.309777340515429e-16,
+        "max_dose_difference_SEM_over_Dref": 0.0021765686767619015,
+        "evaluation_bins": 120,
+        "statistics_ok": true,
+        "pass": true,
+        "boundary_events": 7108815,
+        "boundary_queries": 1287897822,
+        "status": "pass"
+      }
+    }
+  },
+  "K8": {
+    "status": "pass",
+    "rows": {
+      "ms_half": {
+        "Dref": 3.206506203372115,
+        "reference_ranges_cm": [
+          0.6949299362344253,
+          0.888065955566623
+        ],
+        "other_ranges_cm": [
+          0.6945724105295109,
+          0.8878887851448088
+        ],
+        "range_difference_over_reference_R50": [
+          -0.000514477339761376,
+          -0.00025494717175982023
+        ],
+        "range_difference_SEM_over_R50": [
+          0.0008162067154115981,
+          0.0009246143262365067
+        ],
+        "max_dose_difference_over_Dref": 0.003860561995018978,
+        "max_dose_difference_SEM_over_Dref": 0.0021458040550149417,
+        "evaluation_bins": 120,
+        "statistics_ok": true,
+        "pass": true,
+        "boundary_events": 20794,
+        "boundary_queries": 2273860454,
+        "status": "pass"
+      },
+      "energy_half": {
+        "Dref": 3.206506203372115,
+        "reference_ranges_cm": [
+          0.6949299362344253,
+          0.888065955566623
+        ],
+        "other_ranges_cm": [
+          0.6943007243517446,
+          0.8871092127948581
+        ],
+        "range_difference_over_reference_R50": [
+          -0.0009054321160636667,
+          -0.0013767470961881195
+        ],
+        "range_difference_SEM_over_R50": [
+          0.0008982921961668317,
+          0.0009123576712347724
+        ],
+        "max_dose_difference_over_Dref": 0.0038360424001022183,
+        "max_dose_difference_SEM_over_Dref": 0.002094817871003273,
+        "evaluation_bins": 120,
+        "statistics_ok": true,
+        "pass": true,
+        "boundary_events": 20638,
+        "boundary_queries": 1553351700,
+        "status": "pass"
+      }
+    }
+  },
+  "K9ii": {
+    "status": "pass",
+    "prototype_cm2": [
+      0.00667768624070402,
+      0.06459253638995922
+    ],
+    "reference_cm2": [
+      0.006634056203743489,
+      0.06440510585529571
+    ],
+    "relative": [
+      0.00657667581048087,
+      0.0029101812996725125
+    ],
+    "difference_SEM_relative": [
+      0.007215952770474263,
+      0.0029123411164283467
+    ],
+    "prototype_cross_N": [
+      986658,
+      722817
+    ],
+    "reference_cross_N": [
+      296009,
+      216972
+    ]
+  },
+  "status": "pass"
+}

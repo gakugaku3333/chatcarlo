@@ -1,0 +1,119 @@
+{
+  "commands": [
+    {
+      "command": ".venv/bin/python prototypes/mv_electron/run_p1d_amendment1.py --seal",
+      "exit_code": 0,
+      "log": "amendment1_A0_A4.json"
+    },
+    {
+      "command": ".venv/bin/python prototypes/mv_electron/run_p1d_amendment1.py --reproduce",
+      "exit_code": 0,
+      "log": "amendment1_reproduce.log"
+    },
+    {
+      "command": ".venv/bin/python prototypes/mv_electron/run_tests_p1d.py",
+      "exit_code": 0,
+      "log": "amendment1_acceptance.log"
+    },
+    {
+      "command": ".venv/bin/python prototypes/mv_electron/run_p1d_amendment1.py --worker mf --run base_2",
+      "exit_code": 0,
+      "log": "mf/amendment1_base_2.log"
+    },
+    {
+      "command": ".venv/bin/python prototypes/mv_electron/run_p1d_amendment1.py --worker mf --run split_aligned",
+      "exit_code": 0,
+      "log": "mf/amendment1_split_aligned.log"
+    },
+    {
+      "command": ".venv/bin/python prototypes/mv_electron/run_p1d_amendment1.py --worker dcslib --run base_2",
+      "exit_code": 0,
+      "log": "dcslib/amendment1_base_2.log"
+    },
+    {
+      "command": ".venv/bin/python prototypes/mv_electron/run_p1d_amendment1.py --worker dcslib --run split_aligned",
+      "exit_code": 0,
+      "log": "dcslib/amendment1_split_aligned.log"
+    },
+    {
+      "command": ".venv/bin/python prototypes/mv_electron/run_p1d_amendment1.py --worker mf --run split_shifted",
+      "exit_code": 0,
+      "log": "mf/amendment1_split_shifted.log"
+    },
+    {
+      "command": ".venv/bin/python prototypes/mv_electron/run_p1d_amendment1.py --worker dcslib --run split_shifted",
+      "exit_code": 0,
+      "log": "dcslib/amendment1_split_shifted.log"
+    },
+    {
+      "command": ".venv/bin/python prototypes/mv_electron/run_p1d_amendment1.py --worker mf --run ms_half",
+      "exit_code": 0,
+      "log": "mf/amendment1_ms_half.log"
+    },
+    {
+      "command": ".venv/bin/python prototypes/mv_electron/run_p1d_amendment1.py --worker dcslib --run ms_half",
+      "exit_code": 0,
+      "log": "dcslib/amendment1_ms_half.log"
+    },
+    {
+      "command": ".venv/bin/python prototypes/mv_electron/run_p1d_amendment1.py --worker mf --run energy_half",
+      "exit_code": 0,
+      "log": "mf/amendment1_energy_half.log"
+    },
+    {
+      "command": ".venv/bin/python prototypes/mv_electron/run_p1d_amendment1.py --worker dcslib --run energy_half",
+      "exit_code": 0,
+      "log": "dcslib/amendment1_energy_half.log"
+    },
+    {
+      "command": ".venv/bin/python prototypes/mv_electron/run_p1d_amendment1.py --worker mf --run reference_2",
+      "exit_code": 0,
+      "log": "mf/amendment1_reference_2.log"
+    },
+    {
+      "command": ".venv/bin/python prototypes/mv_electron/run_p1d_amendment1.py --worker dcslib --run reference_2",
+      "exit_code": 0,
+      "log": "dcslib/amendment1_reference_2.log"
+    },
+    {
+      "command": ".venv/bin/python prototypes/mv_electron/run_p1d_amendment1.py --worker mf --run base_10",
+      "exit_code": 0,
+      "log": "mf/amendment1_base_10.log"
+    },
+    {
+      "command": ".venv/bin/python prototypes/mv_electron/run_p1d_amendment1.py --worker dcslib --run base_10",
+      "exit_code": 0,
+      "log": "dcslib/amendment1_base_10.log"
+    },
+    {
+      "command": ".venv/bin/python prototypes/mv_electron/run_p1d_amendment1.py",
+      "exit_code": 0,
+      "log": "amendment1_execution.log"
+    },
+    {
+      "command": ".venv/bin/python prototypes/mv_electron/run_checks_p1d.py --from-saved",
+      "exit_code": 0,
+      "log": "amendment1_interim_from_saved.log"
+    },
+    {
+      "command": ".venv/bin/python prototypes/mv_electron/run_checks_p1d.py --from-saved",
+      "exit_code": 0,
+      "log": "amendment1_interim_R2_from_saved.log"
+    },
+    {
+      "command": ".venv/bin/python prototypes/mv_electron/run_checks_p1d.py --from-saved",
+      "exit_code": 0,
+      "log": "amendment1_interim_both_R2_from_saved.log"
+    },
+    {
+      "command": ".venv/bin/python prototypes/mv_electron/run_checks_p1d.py --from-saved",
+      "exit_code": 0,
+      "log": "amendment1_from_saved.log"
+    },
+    {
+      "command": ".venv/bin/python prototypes/mv_electron/run_checks_p1d.py --verify-untouched",
+      "exit_code": 0,
+      "log": "amendment1_verify_untouched.log"
+    }
+  ]
+}

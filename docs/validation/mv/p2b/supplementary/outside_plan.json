@@ -1,0 +1,55 @@
+{
+  "note": "追補1の事前登録の外。記述のみで判定ではない。",
+  "rows": [
+    {
+      "pair": "new C- - new S+",
+      "delta_pct_Dref": 0.22635817450580337,
+      "SEM_pct_Dref": 0.12582846821010593
+    },
+    {
+      "pair": "P2 sensitivity - P2 main",
+      "delta_pct_Dref": 1.0519999048499358,
+      "SEM_pct_Dref": 0.2861233371365957
+    },
+    {
+      "pair": "new S+ - P2 main",
+      "delta_pct_Dref": 0.4548584609576302,
+      "SEM_pct_Dref": 0.22011957787331934
+    },
+    {
+      "pair": "new C- - P2 sensitivity",
+      "delta_pct_Dref": -0.37078326938650225,
+      "SEM_pct_Dref": 0.22191606274254996
+    },
+    {
+      "pair": "dcslib - P2 main",
+      "delta_pct_Dref": 0.7179729894544022,
+      "SEM_pct_Dref": 0.29032556864311604
+    },
+    {
+      "pair": "mf - P2 main",
+      "delta_pct_Dref": 1.045814850892595,
+      "SEM_pct_Dref": 0.2790629887914101
+    },
+    {
+      "pair": "elsepa - P2 main",
+      "delta_pct_Dref": 0.848029873373882,
+      "SEM_pct_Dref": 0.30337277629343845
+    },
+    {
+      "pair": "dcslib - new S+",
+      "delta_pct_Dref": 0.263114528496772,
+      "SEM_pct_Dref": 0.2226532089928413
+    },
+    {
+      "pair": "mf - new S+",
+      "delta_pct_Dref": 0.5909563899349649,
+      "SEM_pct_Dref": 0.20775386249130456
+    },
+    {
+      "pair": "elsepa - new S+",
+      "delta_pct_Dref": 0.3931714124162518,
+      "SEM_pct_Dref": 0.23941711940220528
+    }
+  ]
+}

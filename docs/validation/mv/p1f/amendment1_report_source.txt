@@ -1,0 +1,86 @@
+"""B5 documentation only, from saved JSON; no simulations, tables or plots."""
+import json
+import shutil
+import sys
+from pathlib import Path
+sys.path.insert(0,str(Path.cwd()))
+from prototypes.mv_electron.p1f_common import OUT,WORK,ROOT,LABELS,display,sha,write
+from prototypes.mv_electron.run_p1f_amendment1 import verify_freeze2,verify_immutable
+s=json.loads((OUT/'summary.json').read_text());f=json.loads((OUT/'amendment1_hashes.json').read_text())
+b0=json.loads((OUT/'stop1/preservation.json').read_text())
+pre=json.loads((OUT/'amendment1_prechecks.json').read_text())
+k5b=json.loads((OUT/'k5b_amendment1.json').read_text())
+commands=json.loads((OUT/'amendment1_commands.json').read_text())
+assert (OUT/'k5b.json').read_bytes()==(OUT/'stop1/k5b.json').read_bytes()
+assert sha(ROOT/'docs/ai/plans/2026-10-09-mv-p1f-elsepa-partial-wave.md')==json.loads((OUT/'amendment1_scope.json').read_text())['unchanged_plan_sha256']
+assert s['T5']['status']=='pass' and s['T6']['status']=='pass'
+assert all(r['exit_code']==0 for r in commands)
+prod=next(r for r in commands if r['log']=='amendment1_production.log')
+assert (OUT/'amendment1_protected.log').read_text()==''
+proto=(OUT/'amendment1_prototype.log').read_text().splitlines()[-1]
+production=(OUT/'amendment1_production.log').read_text().splitlines()[-1]
+percent=lambda x:f'{100*x:.6f}%'
+lines=['# P1f 結果（追補1適用）','',
+"問いG′: 水素・酸素のELSEPA表の自前生成は、T1/T2の事前登録条件で成立。問いH′: 2 MeV・水・指定条件の電子輸送の試作はT0/T1/T2/T4/T5/T6で合格。",'',
+'P1e（`IHEF=1`）は表の検査で不合格だった。P1fは、その結果を見たあとに作り方を変えたものである。変更の根拠はEGS5に依存しない検査である。','',
+'物理条件・seed（20261013/20261014）・履歴数・許容幅・判定ロジックを維持。今回の正式K5bは1回のみ。保存済み輸送run 7本、K9(i)標本4個、生成表4本・GS表は再計算せず、EGS5も再実行していない。B1の単独・全体・対照確認はB3より先に完了し、その後テストを変更していない。','',
+'旧結果と記録: [stop1/RESULTS.md](stop1/RESULTS.md)、[stop1/summary.json](stop1/summary.json)、[stop1/k5b.json](stop1/k5b.json)。旧k5b.json自体も保持。現在の全数値: [summary.json](summary.json)。','',
+'停止の経緯: 旧K5bは単独pytestのNumba `TypingError`（普通のPython禁止関数の型が決まらない）による終了コード1を不合格と記録し、停止規則でT6を未評価とした。今回、禁止する3関数を型の決まるJIT関数にし、隔離した輸送関数ですべての元ケース・元assertionを実行した。型ごとのコンパイルと旧JITキャッシュに依存しない。','',
+'承認済み追補の運用記録による経緯: Codexが4run完了時点で利用上限となり、Claudeが同じ再開コマンドを実行して残り3run（energy_half、reference_2、base_10）を完了した。成果物の条件・レシートとは整合するが、実行者や利用上限は成果物だけでは証明できない。','',
+'**T6の最大線量差0.750223% Drefは追補前から既知だった。** 今回は検査実行エラーを修正した後、停止規則に従い保存済みrunから初めて正式判定した。既知の線量値を見て許容幅やテストを変更していない。','',
+'凍結1: 本計算時の2332ファイル。B0で全件一致を確認し、記録をstop1/へ保全。凍結2: 凍結1の対象にB0の固定32ファイルとstop1/を加えた2400ファイル。対象は明示一覧のみで、計画ファイル・他の文書は追加していない。凍結2の最終照合も変更・追加・削除0。','',
+'凍結1から認めたコード差分は以下の4件のみ（[全差分](amendment1_code_diff.txt)、[テスト差分](amendment1_diff.txt)）。','',
+'- 変更: `prototypes/mv_electron/tests/test_p1f.py`（禁止関数3個・全ケース・判定を維持した隔離JITとRutherford対照）。',
+'- 変更: `prototypes/mv_electron/p1f_common.py`（凍結2検証の選択だけ）。',
+'- 変更: `prototypes/mv_electron/run_checks_p1f.py`（追補後の保存値再判定の選択だけ）。',
+'- 追加: `prototypes/mv_electron/run_p1f_amendment1.py`（保全照合、事前確認、凍結2、1回限りの正式K5b、保存値判定）。','',
+'旧manifestは7551件中progress.jsonのみ不一致。再開コマンドによる更新という運用記録の理由と旧/新ハッシュを[stop1/preservation.json](stop1/preservation.json)に保持。旧manifestと当時のprogressを両方保全し、今回のmanifestは最終状態で更新した。','',
+'|項目|状態|値・根拠|','|---|---|---|',
+f"|T0|{LABELS[s['T0']['status']]}|凍結1 2332件／凍結2 2400件。B0固定32件一致。既存4 backend各10⁴履歴の保存済み回帰全配列一致を読み取り確認。|",
+f"|T1|{LABELS[s['T1']['status']]}|同梱DCS・断面積差0。H/O・電子/陽電子の4条件×51点×2巡の保存配列一致。アーカイブSHA256: `{s['T1']['archive_sha256']}`。|",
+f"|T2|{LABELS[s['T2']['status']]}|ERROR最大 {s['T2']['maxima']['ERROR_max']:.3g}、エネルギー補間最大差 {percent(s['T2']['maxima']['interpolation_relative'])}、CDF最大差 {s['T2']['maxima']['CDF_difference']:.9g}。受入整合警告58、不受入警告0、無効置換0。|",
+f"|T3|未評価（記録済み）|合否規則なし。水2 MeV G1/G2 = 0.617378763/1.75754645 cm⁻¹、後方半球積分0.0103189052 cm⁻¹。dcslibとの差の全件はt3.json。|",
+f"|T4|{LABELS[s['T4']['status']]}|K3 24条件、精細化24条件、CDF 7検査が合格。K3相対差最大 {percent(max(abs(v) for r in s['T4']['K3_rows'] for v in r['relative']))}、正規化最大誤差 {s['T4']['normalization_max_error']:.9g}、CDF最小p {min(r['chi_p'] for r in s['T4']['cdf_tests']):.9g}。|",
+f"|T5|{LABELS[s['T5']['status']]}|K5/K5b/K7/K8/K9(i)/K9(ii)全合格。正式K5b 1 passed、終了0、試行1回。|",
+f"|T6|{LABELS[s['T6']['status']]}|2 MeV: 最大線量差 {percent(s['T6']['max_dose_difference_over_Dref'])} Dref（許容3%）、R50/Rp差 {percent(s['T6']['range_difference_over_reference_R50'][0])}/{percent(s['T6']['range_difference_over_reference_R50'][1])}（分母は参照R50、許容3%）。線量SEM最大 {percent(s['T6']['max_dose_difference_SEM_over_Dref'])} Dref、R50/Rp差SEM {percent(s['T6']['range_difference_SEM_over_R50'][0])}/{percent(s['T6']['range_difference_SEM_over_R50'][1])}、統計要件合格、81bin。|",
+f"|T7|未評価（参考計算済み）|10 MeV: 最大線量差 {percent(s['T7']['max_dose_difference_over_Dref'])} Dref、R50/Rp差 {percent(s['T7']['range_difference_over_reference_R50'][0])}/{percent(s['T7']['range_difference_over_reference_R50'][1])}。合否規則なし。|",'',
+'T2の角度積分に対する全断面積差最大0.248702%、輸送断面積差最大0.043112%、倍精細化最大差4.31×10⁻¹³。格子204条件、直接中間200条件、旧切替前後8条件で不合格0。整合警告の受入上限は全断面積0.5%／G1 0.1%で、既知の約0.25%を見たうえで事前に置いた全断面積上限はELSEPA自身の閾値の2.5倍。今回変更していない。','',
+'輸送検査（保存値を再利用、K5bだけ正式に再実行）:','',
+f"- K5: 履歴あたり最大保存残差 {s['T5']['R2']['K5']['max_history_relative']:.6g}、全体 {s['T5']['R2']['K5']['global_relative']:.6g}。未処理粒子・スタック超過・step超過0。",
+f"- K7: 境界分割2条件の最大線量差は双方8.285×10⁻¹⁶ Dref。",
+f"- K8: K半分／損失半分の最大線量差 {percent(s['T5']['R2']['K8']['rows']['ms_half']['max_dose_difference_over_Dref'])}/{percent(s['T5']['R2']['K8']['rows']['energy_half']['max_dose_difference_over_Dref'])} Dref（許容1%）。",
+f"- K9(ii): 深さ0.2/0.5 cmでの横変位二乗平均の相対差 {percent(s['T5']['R2']['K9ii']['relative'][0])}/{percent(s['T5']['R2']['K9ii']['relative'][1])}（許容3%）、合成SEM {percent(s['T5']['R2']['K9ii']['difference_SEM_relative'][0])}/{percent(s['T5']['R2']['K9ii']['difference_SEM_relative'][1])}（上限1%）。",'',
+'|K9(i)道のり|横変位二乗平均差|深さ変位平均差|合成SEM（それぞれ）|','|---|---|---|---|']
+for r in s['T5']['R1']['rows']:
+ lines.append(f"|{r['path_cm']} cm|{percent(r['relative'][0])}|{percent(r['relative'][1])}|{percent(r['difference_SEM_relative'][0])} / {percent(r['difference_SEM_relative'][1])}|")
+lines+=['','K9(i)の許容2%、SEM上限0.5%。各100万標本、参照seed20261013／試作seed20261014。','',
+'補助指標（合否に使わず、追補前の保存値を再利用）:','',
+'|backend|2 MeV 最大線量差/Dref|R50 cm|Rp cm|後方エネルギー比|','|---|---|---|---|---|']
+for b in ('elsepa','dcslib','mf'):
+ a=s['auxiliary'][b];lines.append(f"|{b}|{percent(a['max_dose_difference_over_Dref'])}|{a['R50_cm']:.9f}|{a['Rp_cm']:.9f}|{percent(a['back_energy_fraction'])}|")
+a=s['auxiliary']['elsepa_minus_dcslib']
+lines+=['',f"elsepa−dcslib最大差 {percent(a['max_difference_over_Dref'])} Dref、深さ {a['depth_cm']:.3f} cm、合成SEM比 {a['difference_over_combined_SEM']:.6f}。異なるseed間の比較である。",'',
+f"EGS5の後方エネルギー比は2 MeV {percent(s['T6']['EGS5_back_energy_fraction'])}、10 MeV {percent(s['T7']['EGS5_back_energy_fraction'])}。elsepaの10 MeVは {percent(s['T7']['back_energy_fraction'])}。",'',
+'輸送単価（既存benchmarkのみ、今回再測定なし）: 2 MeV 269.266 μs/primary（線量記録あり）／265.446（なし）、10 MeV 1023.492／1010.505。GS表配列サイズ151113248 bytes。表生成時間・サイズはgeneration_pass*.json、全補助値はsummary.json／t3.json。','',
+'確かめた事実:','',
+'- B0固定の全7run・4標本・各レシート・T1〜T4 JSON・4生成表・GS表（32ファイル）はB4直前と最終照合でSHA256一致。条件・表ハッシュは保存レシートを読み取り確認した。',
+'- B1は単独K5bと全体の同じテストが合格。Rutherfordを選んだ対照ではmode 0/1とも禁止経路のRuntimeErrorを検出。B3前後のテストハッシュが一致し、禁止関数3個・元ケース・元assertionを維持した。',
+'- T6は固定の比較関数・基準線量・評価bin・bootstrap・統計要求で保存値から判定した。T3/T7には合否を与えていない。',
+'- 単独実行と旧全体実行の相違は型の特殊化と既存JITキャッシュによる検査実装の依存を示す。旧K5b failは検査実行エラーの記録であり、物理的失敗の証拠ではなかった。',
+'- 陽電子表は検査だけで、輸送への使用は今回の対象外。','',
+'仮説・未解明: 水素とdcslibの差の原因（旧原子データ・実装版の違いなど）は未確認。P1eの切替を跨ぐスプラインが不合格の原因という説明も、原因を分離して実証していない。K9の偏りの機序も本追補では調べていない。','',
+'テストと実行記録:','',
+f'- B1単独: 1 passed。Rutherford対照: 1 passed（禁止呼出しの失敗を検出）。全体: {proto}。',
+f'- B3正式K5b: 1 passed、終了コード0、試行1回。',
+f'- production: {production}。保護対象のgit status出力は空。',
+'- 保存値再判定と凍結検証の終了コード0。コマンドは[amendment1_commands.json](amendment1_commands.json)（pytest等）、[amendment1_execution_commands.json](amendment1_execution_commands.json)（B0〜B5の入口）。','',
+'未完了の項目: B0〜B5およびT0/T1/T2/T4/T5/T6の正式判定は完了。T3とT7は計算済みの記録項目で、合否規則がないため未評価。水素差の原因、生成表へのライセンス適用・配布方法、10 MeV超・他元素・陽電子輸送は未完了または対象外。試作テストの既存skip 1件はP1e既定ELSEPA GS表の不在によるS4/S5用テスト。P1fのT4/T5は実行済みで合格。skipを合格とは数えていない。','',
+'成果物の絶対パス表記なし。commit・計画編集なし。データの出典と外部保存先は[DATA.md](DATA.md)。凍結一覧は[amendment1_hashes.json](amendment1_hashes.json)、最終保存物ハッシュは[manifest.json](manifest.json)。','']
+(OUT/'RESULTS.md').write_text('\n'.join(lines))
+(OUT/'amendment1_report_source.txt').write_text(Path(__file__).read_text())
+write('amendment1_final_verification.json',dict(freeze2=verify_freeze2(),immutable=verify_immutable(),old_k5b_unchanged=True,plan_unchanged=True,formal_attempts=1,production=production,prototype=proto))
+# Final manifest includes the preserved old manifest and final progress; excludes only itself.
+files={display(p):sha(p) for p in OUT.rglob('*') if p.is_file() and p!=OUT/'manifest.json' and not p.name.endswith('.tmp')}
+files.update({display(p):sha(p) for p in WORK.rglob('*') if p.is_file()})
+write('manifest.json',dict(files=files,generated_tables_external=True,ELSEPA_sources_external=True,EGS5_rerun=False,amendment1=True))
+print('B5 report complete;',production,';',proto,'; manifest',len(files))

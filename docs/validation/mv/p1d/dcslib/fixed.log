@@ -1,0 +1,16 @@
+dcslib K9i 0.05 False saved 87.03
+dcslib K9i 0.05 True saved 0.32
+dcslib K9i 0.2 False saved 369.74
+Traceback (most recent call last):
+  File "./prototypes/mv_electron/run_p1d.py", line 139, in <module>
+    if __name__ == '__main__': main()
+                               ^^^^^^
+  File "./prototypes/mv_electron/run_p1d.py", line 110, in main
+    if a.run == 'fixed': fixed_runs(a.worker)
+                         ^^^^^^^^^^^^^^^^^^^^
+  File "./prototypes/mv_electron/run_p1d.py", line 52, in fixed_runs
+    verify()
+  File "./prototypes/mv_electron/p1d_common.py", line 80, in verify
+    if r['status'] != 'pass': raise RuntimeError('R0 freeze mismatch: stop; see untouched.json')
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: R0 freeze mismatch: stop; see untouched.json

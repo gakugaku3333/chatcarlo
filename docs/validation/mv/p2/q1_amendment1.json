@@ -1,0 +1,60 @@
+{
+  "status": "合格",
+  "tests": {
+    "a": true,
+    "b": true,
+    "c": true,
+    "d": true,
+    "e": true
+  },
+  "interpolation": [
+    {
+      "process": "photoelectric",
+      "finite": true,
+      "strict_zero": true,
+      "failures": 0,
+      "max_relative": 0.0005937603164650637,
+      "worst_MeV": 1.0579236582231308,
+      "worst_absolute": 1.8471883445228132e-09,
+      "worst_error_over_mu": 2.6898003609472828e-08,
+      "max_error_over_limit": 0.29688015823253183,
+      "points": 721,
+      "positive_points": 721,
+      "status": "合格"
+    },
+    {
+      "process": "pair_nuclear",
+      "finite": true,
+      "strict_zero": true,
+      "failures": 0,
+      "max_relative": 0.002300518017366598,
+      "worst_MeV": 1.0220581003500002,
+      "worst_absolute": 8.293367452606586e-19,
+      "worst_error_over_mu": 1.1872415425764136e-17,
+      "max_error_over_limit": 0.28153598379489997,
+      "points": 721,
+      "positive_points": 231,
+      "status": "合格"
+    },
+    {
+      "process": "pair_electron",
+      "finite": true,
+      "strict_zero": true,
+      "failures": 0,
+      "max_relative": 0.0023561393574865696,
+      "worst_MeV": 2.0441162007000004,
+      "worst_absolute": 1.0305753549646255e-19,
+      "worst_error_over_mu": 2.114350968960745e-18,
+      "max_error_over_limit": 0.26811295969847254,
+      "points": 721,
+      "positive_points": 169,
+      "status": "合格"
+    }
+  ],
+  "old_q1_sha256": "c7e22f4e28afff4740f306685ea2d1188035f9736ccc0796d08e9dbb40574a92",
+  "table_sha256": "a84ab7f1f5bf08d15bc217a6dd86756337564ccf989d19edb1b2246dffe60456",
+  "historical_status": "不合格",
+  "rule": "photoelectric: 0.002 sigma_ref; pairs: max(0.002 sigma_ref, 1e-6 mu_ref)",
+  "mu_ref": "direct XCOM photoelectric + nuclear/electron pair coefficients + analytic free-electron KN",
+  "disclosure": "Criterion approved after the two worst near-threshold values were known; no table/grid/interpolation/seed change; Q1(a,b,d,e) saved unchanged."
+}

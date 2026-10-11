@@ -1,0 +1,364 @@
+{
+  "completed": [
+    {
+      "backend": "dcslib",
+      "E": 1.25,
+      "N": 10000,
+      "seed": 20261320,
+      "history_max_relative": [
+        1.021405182655144e-15,
+        7.463633275683945e-16,
+        7.463633275683945e-16
+      ],
+      "violations": [
+        0,
+        0,
+        0
+      ],
+      "scoring_rebin_max_relative": 8.881784197001253e-17,
+      "totals_MeV": [
+        101.24338970586915,
+        100.86941296791055,
+        0.3739767379585235,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "step_limit": 0,
+      "stack_limit": 0,
+      "annihilations": 0,
+      "escaped_positrons": 0,
+      "status": "合格"
+    },
+    {
+      "backend": "dcslib",
+      "E": 2.0,
+      "N": 10000,
+      "seed": 20261321,
+      "history_max_relative": [
+        8.28209439566853e-16,
+        3.66619512362401e-16,
+        3.66619512362401e-16
+      ],
+      "violations": [
+        0,
+        0,
+        0
+      ],
+      "scoring_rebin_max_relative": 4.996003610813204e-16,
+      "totals_MeV": [
+        103.0999651321183,
+        101.31882912873904,
+        1.7811360033783121,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "step_limit": 0,
+      "stack_limit": 0,
+      "annihilations": 0,
+      "escaped_positrons": 0,
+      "status": "合格"
+    },
+    {
+      "backend": "dcslib",
+      "E": 6.0,
+      "N": 10000,
+      "seed": 20261322,
+      "history_max_relative": [
+        1.5543122344752192e-15,
+        1.4802973661668755e-15,
+        1.3322676295501878e-15
+      ],
+      "violations": [
+        0,
+        0,
+        0
+      ],
+      "scoring_rebin_max_relative": 1.8503717077085943e-16,
+      "totals_MeV": [
+        112.62730466734064,
+        105.59068982569819,
+        7.036614841638501,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "step_limit": 0,
+      "stack_limit": 0,
+      "annihilations": 0,
+      "escaped_positrons": 0,
+      "status": "合格"
+    },
+    {
+      "backend": "dcslib",
+      "E": 10.0,
+      "N": 10000,
+      "seed": 20261323,
+      "history_max_relative": [
+        4.263256414560601e-15,
+        4.263256414560601e-15,
+        4.440892098500626e-15
+      ],
+      "violations": [
+        0,
+        0,
+        0
+      ],
+      "scoring_rebin_max_relative": 6.217248937900876e-16,
+      "totals_MeV": [
+        109.70854547212859,
+        109.62883220493335,
+        0.07971326719524595,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "step_limit": 0,
+      "stack_limit": 0,
+      "annihilations": 0,
+      "escaped_positrons": 0,
+      "status": "合格"
+    },
+    {
+      "backend": "mf",
+      "E": 1.25,
+      "N": 10000,
+      "seed": 20261320,
+      "history_max_relative": [
+        1.9539925233402757e-15,
+        1.7763568394002505e-15,
+        1.9539925233402757e-15
+      ],
+      "violations": [
+        0,
+        0,
+        0
+      ],
+      "scoring_rebin_max_relative": 2.6645352591003756e-16,
+      "totals_MeV": [
+        101.19318104185422,
+        101.08374730204665,
+        0.10943373980763772,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "step_limit": 0,
+      "stack_limit": 0,
+      "annihilations": 0,
+      "escaped_positrons": 0,
+      "status": "合格"
+    },
+    {
+      "backend": "mf",
+      "E": 2.0,
+      "N": 10000,
+      "seed": 20261321,
+      "history_max_relative": [
+        7.410310967191954e-16,
+        5.184139087546681e-16,
+        5.184139087546681e-16
+      ],
+      "violations": [
+        0,
+        0,
+        0
+      ],
+      "scoring_rebin_max_relative": 1.942890293094024e-16,
+      "totals_MeV": [
+        102.35728442963452,
+        100.77922271780598,
+        1.5780617118277056,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "step_limit": 0,
+      "stack_limit": 0,
+      "annihilations": 0,
+      "escaped_positrons": 0,
+      "status": "合格"
+    },
+    {
+      "backend": "mf",
+      "E": 6.0,
+      "N": 10000,
+      "seed": 20261322,
+      "history_max_relative": [
+        2.275957200481571e-15,
+        2.5165055224836883e-15,
+        2.3684757858670005e-15
+      ],
+      "violations": [
+        0,
+        0,
+        0
+      ],
+      "scoring_rebin_max_relative": 2.220446049250313e-16,
+      "totals_MeV": [
+        110.97442235967507,
+        104.01581476558287,
+        6.958607594094681,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "step_limit": 0,
+      "stack_limit": 0,
+      "annihilations": 0,
+      "escaped_positrons": 0,
+      "status": "合格"
+    },
+    {
+      "backend": "mf",
+      "E": 10.0,
+      "N": 10000,
+      "seed": 20261323,
+      "history_max_relative": [
+        6.970086987291082e-16,
+        8.881784197001252e-16,
+        7.105427357601002e-16
+      ],
+      "violations": [
+        0,
+        0,
+        0
+      ],
+      "scoring_rebin_max_relative": 1.9984014443252818e-16,
+      "totals_MeV": [
+        107.77559564029964,
+        107.74992698506851,
+        0.02566865523113389,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "step_limit": 0,
+      "stack_limit": 0,
+      "annihilations": 0,
+      "escaped_positrons": 0,
+      "status": "合格"
+    },
+    {
+      "backend": "elsepa",
+      "E": 1.25,
+      "N": 10000,
+      "seed": 20261320,
+      "history_max_relative": [
+        6.036947683626341e-16,
+        3.552713678800501e-16,
+        3.552713678800501e-16
+      ],
+      "violations": [
+        0,
+        0,
+        0
+      ],
+      "scoring_rebin_max_relative": 7.105427357601002e-16,
+      "totals_MeV": [
+        101.56356897406222,
+        101.51049172573464,
+        0.053077248327601995,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "step_limit": 0,
+      "stack_limit": 0,
+      "annihilations": 0,
+      "escaped_positrons": 0,
+      "status": "合格"
+    },
+    {
+      "backend": "elsepa",
+      "E": 2.0,
+      "N": 10000,
+      "seed": 20261321,
+      "history_max_relative": [
+        1.0730482147903483e-15,
+        3.7946015434900267e-16,
+        3.7946015434900267e-16
+      ],
+      "violations": [
+        0,
+        0,
+        0
+      ],
+      "scoring_rebin_max_relative": 1.1102230246251565e-16,
+      "totals_MeV": [
+        102.95286217558326,
+        101.39766927026557,
+        1.5551929053179718,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "step_limit": 0,
+      "stack_limit": 0,
+      "annihilations": 0,
+      "escaped_positrons": 0,
+      "status": "合格"
+    },
+    {
+      "backend": "elsepa",
+      "E": 6.0,
+      "N": 10000,
+      "seed": 20261322,
+      "history_max_relative": [
+        8.143940895620322e-16,
+        1.0362081563168128e-15,
+        8.881784197001252e-16
+      ],
+      "violations": [
+        0,
+        0,
+        0
+      ],
+      "scoring_rebin_max_relative": 1.1102230246251565e-16,
+      "totals_MeV": [
+        111.8980744839802,
+        105.71785125915989,
+        6.180223224824828,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "step_limit": 0,
+      "stack_limit": 0,
+      "annihilations": 0,
+      "escaped_positrons": 0,
+      "status": "合格"
+    },
+    {
+      "backend": "elsepa",
+      "E": 10.0,
+      "N": 10000,
+      "seed": 20261323,
+      "history_max_relative": [
+        7.530946357798526e-16,
+        3.550406065933268e-16,
+        3.552713678800501e-16
+      ],
+      "violations": [
+        0,
+        0,
+        0
+      ],
+      "scoring_rebin_max_relative": 2.6645352591003756e-16,
+      "totals_MeV": [
+        108.90362589757991,
+        108.69048283164287,
+        0.21314306593716303,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "step_limit": 0,
+      "stack_limit": 0,
+      "annihilations": 0,
+      "escaped_positrons": 0,
+      "status": "合格"
+    }
+  ]
+}

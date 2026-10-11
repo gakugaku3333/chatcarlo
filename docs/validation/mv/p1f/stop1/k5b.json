@@ -1,0 +1,5 @@
+{
+  "status": "fail",
+  "command": ".venv/bin/python -m pytest prototypes/mv_electron/tests/test_p1f.py::test_actual_p1f_transport_and_k5b -q",
+  "exit_code": 1
+}

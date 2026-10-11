@@ -49,6 +49,50 @@ Work toward coupled photon/electron/positron transport for nominal 10 MV is unde
   Feeding the prototype the same DCS EGS5 uses (research-only control, never to be shipped) brings the difference
   to 0.54%, so the transport mechanics are sound and the DCS approximation was the cause. EEDL fails badly at
   1–2 MeV (its angular tables jump from 256 keV to 10 MeV). The production elastic-DCS source is still undecided.
+- P1c analytic spin correction (done, verdict open): [docs/validation/mv/p1c/RESULTS.md](docs/validation/mv/p1c/RESULTS.md).
+  A new `mf` backend multiplies the screened-Rutherford DCS by the McKinley–Feshbach Mott/Rutherford ratio — no
+  external data file; valid for low Z only (tested: H and O). **The EGS5 comparison is formally undetermined, not
+  passed**: the pre-registered sanity check K9(i) (lateral spread after one 0.5 mm step at K=0.05, against
+  single-scattering reference) gave −2.02% against a 2% tolerance, and the stop rule forbids judging the dose
+  comparison after that. Facts: the same condition gave −1.96% with the `dcslib` control in P1b (each SEM ≈ 0.29%),
+  so `mf` did not make it worse (0.06 points apart, inside 1σ), and both are ~7σ from zero — a real systematic in
+  the hinge's single-step lateral spread at that step size, already present in P1b, which landed just inside the
+  threshold. K9(i) at K=0.025 passes for both. The mechanism is a hypothesis, not established. So read P1b's
+  "transport mechanics are sound" with this caveat. Measured values outside the formal verdict: the saved 2 MeV `mf`
+  run differs from EGS5 by 0.94% of Dref at most (tolerance 3%); `mf` vs `dcslib` differ by up to 0.71% near R50
+  (29 of 81 bins beyond 2σ — a real model difference).
+- P1d half-step retest (done): [docs/validation/mv/p1d/RESULTS.md](docs/validation/mv/p1d/RESULTS.md). User decision
+  after P1c: rerun with the multiple-scattering step limit halved (`K1_max` = 0.025; one halving only, chosen on the
+  EGS5-independent check, new fixed seeds, P1–P1c verdicts untouched). All pre-registered checks pass for both
+  backends; 2 MeV max dose difference vs EGS5 is 0.45% (`dcslib` control) and 0.82% (`mf`, analytic, low Z only),
+  tolerance 3%. **`K1_max` = 0.025 is now the adopted step.** Caveats to keep: (1) the run stopped once on a hash
+  mismatch caused by Claude editing an unrelated plan file mid-run and was resumed under a reviewed amendment —
+  no dose result existed at that point; (2) the change in EGS5 residual from halving the step is not statistically
+  distinguishable from zero; (3) repeated K9(i) values with new seeds differ from the earlier ones by ~2σ, so the
+  P1c "fail by 0.02 points" was within seed-to-seed scatter — the cause of the offset is still a hypothesis.
+- Elastic-DCS source for production (user decisions, 2026-10-08): Geant4's G4EMLOW `dpwa` tables were chosen first,
+  then **dropped** — the dataset's top-level README says "DATA ARE *NOT* FOR COMMERCIAL USE AND MUST BE USED WITHIN
+  GEANT4". The user then chose **self-generating tables with ELSEPA** (elsepa-2020, Mendeley Data
+  doi:10.17632/w4hm5vymym.1, CC BY-NC 3.0 per the repository metadata; sha256 `1066d4d4…a7e5`). A trial build with
+  gfortran outside the repo reproduces EGS5's `dcslib` transport cross sections for oxygen to ~0.01% and hydrogen to
+  ~1% (options not yet matched). Neither archive nor generated tables are in this repository. `mf` stays as a
+  data-free independent check.
+- ELSEPA tables (P1e failed, P1f passed — 2026-10-09): [P1e](docs/validation/mv/p1e/RESULTS.md) generated H/O
+  electron and positron tables with ELSEPA's default high-energy factorization (`IHEF=1`) and **failed** its own
+  table check (interpolation vs direct calculation, 52 of 228 cases; the factorization switch at 20.1 keV × Z makes
+  the DCS jump by up to ~1.5%, and part of the check compared against the wrong reference).
+  [P1f](docs/validation/mv/p1f/RESULTS.md) regenerates them with pure partial waves (`IHEF=0`, 10 keV–10 MeV only)
+  and passes every pre-registered check: interpolation error ≤ 0.13%, and with the new `elsepa` backend the 2 MeV
+  max dose difference vs EGS5 is 0.75% (tolerance 3%; `dcslib` control 0.44%, `mf` 0.82%, same step). Caveats:
+  P1f is a redesign made after seeing P1e fail (basis: EGS5-independent checks only); Codex ran out of quota mid-run
+  and Claude finished the remaining runs with the frozen resume command; one check (K5b) first recorded a "fail" that
+  was a test-harness JIT error and was redone under a reviewed amendment, at a point when the dose result was already
+  visible; ELSEPA's "dcs table is not consistent" warning (58 cases, total cross section series-vs-table ≈0.25%) is
+  accepted under a limit set in advance with that value known; hydrogen differs from EGS5's table by ~1% for an
+  unknown reason (≈0.06% on water's G1). Positron tables are generated and checked but not yet used in transport.
+  Tables and the ELSEPA archive live outside the repo (`~/.cache/chatcarlo/elsepa/`); regenerate with
+  `prototypes/mv_electron/generate_elsepa_p1f.py`. Above 10 MeV the `elsepa` backend refuses to run.
+  How to distribute the tables (CC BY-NC 3.0 program; licence text itself not yet read) is an open user decision.
 - The prototype's tests are run separately from the main suite (`pytest prototypes/mv_electron/tests -q`);
   collecting both directories in one pytest call fails because both contain `test_transport.py`.
 - Codex review originals for these plans are kept in `docs/ai/plans/reviews/`.

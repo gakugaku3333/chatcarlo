@@ -1,0 +1,243 @@
+{
+  "status": {
+    "p2b_Splus": "合格",
+    "p2b_Cminus": "合格",
+    "p2b_Sminus": "合格"
+  },
+  "rows": [
+    {
+      "pair": "p2b_Sminus - p2b_Splus",
+      "region": "buildup",
+      "delta_pct_Dref": 0.10593441973386507,
+      "SEM_pct_Dref": 0.1283756330405182
+    },
+    {
+      "pair": "p2b_Sminus - p2b_Splus",
+      "region": "window",
+      "delta_pct_Dref": 0.1582669130499205,
+      "SEM_pct_Dref": 0.12010311953766573
+    },
+    {
+      "pair": "p2b_Sminus - p2b_Splus",
+      "region": "deep_29_53",
+      "delta_pct_Dref": 0.22719237098953404,
+      "SEM_pct_Dref": 0.09509423172085055
+    },
+    {
+      "pair": "p2b_Sminus - p2b_Splus",
+      "region": "deep_54_78",
+      "delta_pct_Dref": -0.15514182278287192,
+      "SEM_pct_Dref": 0.09174725255599386
+    },
+    {
+      "pair": "p2b_Sminus - p2b_Splus",
+      "region": "deep_79_103",
+      "delta_pct_Dref": 0.06873286722525389,
+      "SEM_pct_Dref": 0.08736159553263743
+    },
+    {
+      "pair": "p2b_Sminus - p2b_Splus",
+      "region": "deep_104_128",
+      "delta_pct_Dref": -0.0022922990742873513,
+      "SEM_pct_Dref": 0.07988427125225347
+    },
+    {
+      "pair": "p2b_Sminus - p2b_Splus",
+      "region": "deep_129_149",
+      "delta_pct_Dref": -0.014148526489496714,
+      "SEM_pct_Dref": 0.08945886005537744
+    },
+    {
+      "pair": "p2b_Cminus - p2b_Sminus",
+      "region": "buildup",
+      "delta_pct_Dref": 0.12042375477193833,
+      "SEM_pct_Dref": 0.13628999354562304
+    },
+    {
+      "pair": "p2b_Cminus - p2b_Sminus",
+      "region": "window",
+      "delta_pct_Dref": 0.0508887128599436,
+      "SEM_pct_Dref": 0.11300889720237929
+    },
+    {
+      "pair": "p2b_Cminus - p2b_Sminus",
+      "region": "deep_29_53",
+      "delta_pct_Dref": -0.043404992580605206,
+      "SEM_pct_Dref": 0.09860547328320397
+    },
+    {
+      "pair": "p2b_Cminus - p2b_Sminus",
+      "region": "deep_54_78",
+      "delta_pct_Dref": 0.2730588467454688,
+      "SEM_pct_Dref": 0.09216565318077638
+    },
+    {
+      "pair": "p2b_Cminus - p2b_Sminus",
+      "region": "deep_79_103",
+      "delta_pct_Dref": -0.011694309519026214,
+      "SEM_pct_Dref": 0.09051261090749892
+    },
+    {
+      "pair": "p2b_Cminus - p2b_Sminus",
+      "region": "deep_104_128",
+      "delta_pct_Dref": 0.03602802663347706,
+      "SEM_pct_Dref": 0.0806816228478388
+    },
+    {
+      "pair": "p2b_Cminus - p2b_Sminus",
+      "region": "deep_129_149",
+      "delta_pct_Dref": -0.06186037560563065,
+      "SEM_pct_Dref": 0.09704362291185595
+    },
+    {
+      "pair": "p2b_Cminus - p2b_Splus",
+      "region": "buildup",
+      "delta_pct_Dref": 0.22635817450580337,
+      "SEM_pct_Dref": 0.12582846821010596
+    },
+    {
+      "pair": "p2b_Cminus - p2b_Splus",
+      "region": "window",
+      "delta_pct_Dref": 0.2091556259098641,
+      "SEM_pct_Dref": 0.10984902260901452
+    },
+    {
+      "pair": "p2b_Cminus - p2b_Splus",
+      "region": "deep_29_53",
+      "delta_pct_Dref": 0.18378737840892886,
+      "SEM_pct_Dref": 0.0978806351601531
+    },
+    {
+      "pair": "p2b_Cminus - p2b_Splus",
+      "region": "deep_54_78",
+      "delta_pct_Dref": 0.1179170239625969,
+      "SEM_pct_Dref": 0.08940276685307626
+    },
+    {
+      "pair": "p2b_Cminus - p2b_Splus",
+      "region": "deep_79_103",
+      "delta_pct_Dref": 0.05703855770622766,
+      "SEM_pct_Dref": 0.090608803682659
+    },
+    {
+      "pair": "p2b_Cminus - p2b_Splus",
+      "region": "deep_104_128",
+      "delta_pct_Dref": 0.03373572755918971,
+      "SEM_pct_Dref": 0.08224051928513204
+    },
+    {
+      "pair": "p2b_Cminus - p2b_Splus",
+      "region": "deep_129_149",
+      "delta_pct_Dref": -0.07600890209512737,
+      "SEM_pct_Dref": 0.09410512724473578
+    }
+  ],
+  "deposit_ratio_to_Splus": {
+    "p2b_Splus": 1.0,
+    "p2b_Cminus": 1.0011796206496246,
+    "p2b_Sminus": 1.0005934380132222
+  },
+  "callbacks": {
+    "p2b_Splus": {
+      "brems_created": 2110230.0,
+      "brems_discarded": 2110230.0,
+      "brems_local_MeV": 498111.1736704616,
+      "flight_annihilation": 52471.0,
+      "rest_annihilation": 770693.0,
+      "pairs": 838385.0,
+      "wrong_tags": 0.0
+    },
+    "p2b_Cminus": {
+      "brems_created": 0.0,
+      "brems_discarded": 0.0,
+      "brems_local_MeV": 0.0,
+      "flight_annihilation": 0.0,
+      "rest_annihilation": 821423.0,
+      "pairs": 836777.0,
+      "wrong_tags": 0.0
+    },
+    "p2b_Sminus": {
+      "brems_created": 2108283.0,
+      "brems_discarded": 2108283.0,
+      "brems_local_MeV": 498383.9323275267,
+      "flight_annihilation": 54008.0,
+      "rest_annihilation": 820766.0,
+      "pairs": 835896.0,
+      "wrong_tags": 0.0
+    }
+  },
+  "wide": [
+    {
+      "pair": "p2b_Sminus - p2b_Splus",
+      "region": "0-10.8cm",
+      "delta_pct_Dref": 0.1777889960633469,
+      "SEM_pct_Dref": 0.06719114928143831,
+      "delta_pct_of_local_dose": 0.202301358281217,
+      "SEM_pct_of_local_dose": 0.07645501726815422
+    },
+    {
+      "pair": "p2b_Sminus - p2b_Splus",
+      "region": "10.8-30cm",
+      "delta_pct_Dref": -0.026194275229982435,
+      "SEM_pct_Dref": 0.043755209030638814,
+      "delta_pct_of_local_dose": -0.03495084741315962,
+      "SEM_pct_of_local_dose": 0.05838228471426909
+    },
+    {
+      "pair": "p2b_Sminus - p2b_Splus",
+      "region": "whole slab",
+      "delta_pct_Dref": 0.04723970243562123,
+      "SEM_pct_Dref": 0.03360782394537459,
+      "delta_pct_of_local_dose": 0.059343801325070514,
+      "SEM_pct_of_local_dose": 0.04221906414207983
+    },
+    {
+      "pair": "p2b_Cminus - p2b_Sminus",
+      "region": "0-10.8cm",
+      "delta_pct_Dref": 0.01599215224941824,
+      "SEM_pct_Dref": 0.06649957805235955,
+      "delta_pct_of_local_dose": 0.018197043650241457,
+      "SEM_pct_of_local_dose": 0.0756680968057596
+    },
+    {
+      "pair": "p2b_Cminus - p2b_Sminus",
+      "region": "10.8-30cm",
+      "delta_pct_Dref": 0.06391402300812626,
+      "SEM_pct_Dref": 0.040283236881412464,
+      "delta_pct_of_local_dose": 0.08528005627585719,
+      "SEM_pct_of_local_dose": 0.053749655342204904
+    },
+    {
+      "pair": "p2b_Cminus - p2b_Sminus",
+      "region": "whole slab",
+      "delta_pct_Dref": 0.04666214953499648,
+      "SEM_pct_Dref": 0.030881144180782832,
+      "delta_pct_of_local_dose": 0.05861826363490189,
+      "SEM_pct_of_local_dose": 0.03879373472880628
+    },
+    {
+      "pair": "p2b_Cminus - p2b_Splus",
+      "region": "0-10.8cm",
+      "delta_pct_Dref": 0.19378114831276513,
+      "SEM_pct_Dref": 0.06401012164436873,
+      "delta_pct_of_local_dose": 0.22049840193145848,
+      "SEM_pct_of_local_dose": 0.07283541073480063
+    },
+    {
+      "pair": "p2b_Cminus - p2b_Splus",
+      "region": "10.8-30cm",
+      "delta_pct_Dref": 0.03771974777814383,
+      "SEM_pct_Dref": 0.04369429502705104,
+      "delta_pct_of_local_dose": 0.05032920886269758,
+      "SEM_pct_of_local_dose": 0.058301007563974654
+    },
+    {
+      "pair": "p2b_Cminus - p2b_Splus",
+      "region": "whole slab",
+      "delta_pct_Dref": 0.0939018519706177,
+      "SEM_pct_Dref": 0.03259102327557316,
+      "delta_pct_of_local_dose": 0.11796206495997243,
+      "SEM_pct_of_local_dose": 0.04094173143622445
+    }
+  ]
+}

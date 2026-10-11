@@ -1,0 +1,41 @@
+{
+  "table": "$CHATCARLO_P2_CACHE/photon.npz",
+  "table_sha256": "a84ab7f1f5bf08d15bc217a6dd86756337564ccf989d19edb1b2246dffe60456",
+  "source_sha256": "74138b988692e3319026125a7882ff51b7d180c00438d47d189b54aa55f57c7e",
+  "requested_energy_sha256": "99f2f0ea5abea1ef3682eb742201437cdb4bbf268c878aacf4a89c390c6623c4",
+  "nodes": 711,
+  "midpoints": 721,
+  "points_per_decade": 160,
+  "thresholds_MeV": [
+    1.022007,
+    2.044014
+  ],
+  "water_weights": [
+    0.11189834407236524,
+    0.8881016559276347
+  ],
+  "source_url": "https://physics.nist.gov/PhysRefData/Xcom/XCOM.tar.gz",
+  "external_files": {
+    "$CHATCARLO_P2_CACHE/xcom/Readme.txt": "1967ff8f1ab13a5a49a28a455b4da68f9dc3983290ab1e3ca1f1322ca62538fb",
+    "$CHATCARLO_P2_CACHE/xcom/Z1_0.txt": "15f60da8397fcc9b982a6798298e2883dfce2c6d776aaf38181b928bd8ed89b8",
+    "$CHATCARLO_P2_CACHE/xcom/Z1_0_requested.txt": "99f2f0ea5abea1ef3682eb742201437cdb4bbf268c878aacf4a89c390c6623c4",
+    "$CHATCARLO_P2_CACHE/xcom/Z1_500.txt": "3e86872779154232051ae420ee896be3eeaa36a57749a03c5f39e5885f16f9aa",
+    "$CHATCARLO_P2_CACHE/xcom/Z1_500_requested.txt": "c1343020b6e9e17c2cce024c237968ac36f53bdc68bd57e3424e30ff9e6f886c",
+    "$CHATCARLO_P2_CACHE/xcom/Z8_0.txt": "9d1cbbc88777e27cc89df46d4c47e14a72f0a4782ee2c4ea2bcd5fc8bc5307de",
+    "$CHATCARLO_P2_CACHE/xcom/Z8_0_requested.txt": "99f2f0ea5abea1ef3682eb742201437cdb4bbf268c878aacf4a89c390c6623c4",
+    "$CHATCARLO_P2_CACHE/xcom/Z8_500.txt": "dfc0b56c719c2b0470ab9845dfa494fef7365f4da459a2aa1358a84998e96a84",
+    "$CHATCARLO_P2_CACHE/xcom/Z8_500_requested.txt": "c1343020b6e9e17c2cce024c237968ac36f53bdc68bd57e3424e30ff9e6f886c",
+    "$CHATCARLO_P2_CACHE/xcom/energies.txt": "aea4c8d4b119f9ec0a7a43f1ac449471271e2f42a9fc457c24b843a5a06e600e",
+    "$CHATCARLO_P2_CACHE/xcom/table.txt": "a00bb940769583e653057e014c89f6ca63df1867c68672564e39c3018dc5578d",
+    "$CHATCARLO_P2_CACHE/xcom/water_0.txt": "43a4f91064420fe6ff4f8ee3548119ff6fcde70a8c960ae5329e4d07fae05902",
+    "$CHATCARLO_P2_CACHE/xcom/water_0_requested.txt": "99f2f0ea5abea1ef3682eb742201437cdb4bbf268c878aacf4a89c390c6623c4",
+    "$CHATCARLO_P2_CACHE/xcom/water_500.txt": "4cb55a0da64814b67d5ee56224b1a05bd73baaf377f343806197420f1d863ff7",
+    "$CHATCARLO_P2_CACHE/xcom/water_500_requested.txt": "c1343020b6e9e17c2cce024c237968ac36f53bdc68bd57e3424e30ff9e6f886c",
+    "$CHATCARLO_P2_CACHE/xcom/water_mid_0.txt": "838661539cfc42048f01a0b3d9e6dfa3af82600c8e6ac7d2d50bc28d470dffd0",
+    "$CHATCARLO_P2_CACHE/xcom/water_mid_0_requested.txt": "b27e02651deea39ad1638a524467c4289061edd4d49c244e417925dca4c83b15",
+    "$CHATCARLO_P2_CACHE/xcom/water_mid_500.txt": "a00bb940769583e653057e014c89f6ca63df1867c68672564e39c3018dc5578d",
+    "$CHATCARLO_P2_CACHE/xcom/water_mid_500_requested.txt": "474ef6adfcd9da5796c3c08ae66012821812958b94b3d18f1a259b8cfe9d373e"
+  },
+  "build_command": "gfortran -std=legacy -O2 XCOM.f -o xcom",
+  "printed_energy_used_as_grid": false
+}

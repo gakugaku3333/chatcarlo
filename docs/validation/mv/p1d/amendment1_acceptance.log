@@ -1,0 +1,18 @@
+.venv/bin/python -m pytest tests/ -q
+regression_tests.log 0 he user's geometrical inputs
+    warnings.warn('Zero emission for the user\'s geometrical inputs')
+
+tests/test_spectrum.py::test_fallback_spectrum_used_when_spekpy_unavailable
+  ./tests/test_spectrum.py:54: UserWarning: spekpy が見つからないためKramers則の粗い近似スペクトルを使用します。`pip install spekpy` を推奨します。
+    e, w = spectrum._default_spectrum(kvp=100.0, filtration_mm_al=2.5, anode_angle_deg=12.0)
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+403 passed, 2 warnings in 122.26s (0:02:02)
+
+git diff --stat -- chatcarlo tests scripts examples docs/validation/mv/p0 docs/validation/mv/p1 docs/validation/mv/p1b docs/validation/mv/p1c
+diff_stat.log 0 
+.venv/bin/python -m pytest prototypes/mv_electron/tests -q
+prototype_tests.log 0 ........................................................................ [ 96%]
+...                                                                      [100%]
+75 passed in 55.66s
+

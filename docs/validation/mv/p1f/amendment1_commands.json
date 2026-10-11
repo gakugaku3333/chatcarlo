@@ -1,0 +1,65 @@
+[
+  {
+    "command": ".venv/bin/python -m pytest prototypes/mv_electron/tests/test_p1f.py::test_actual_p1f_transport_and_k5b -q",
+    "exit_code": 0,
+    "seconds": 13.27666637499351,
+    "log": "amendment1_single.log",
+    "log_sha256": "19bfa34875d59d64777ea03428c22b37795aa74b1ed373dda8d4c068cd114cc7"
+  },
+  {
+    "command": ".venv/bin/python -m pytest prototypes/mv_electron/tests/test_p1f.py::test_k5b_guard_detects_rutherford -q",
+    "exit_code": 0,
+    "seconds": 3.885431249975227,
+    "log": "amendment1_negative.log",
+    "log_sha256": "4ede43d8b8605b1895f340ae61b1f8dcf8d0065205a747c094b11256a44f4ed0"
+  },
+  {
+    "command": ".venv/bin/python -m pytest prototypes/mv_electron/tests -q -rA",
+    "exit_code": 0,
+    "seconds": 54.384062041994184,
+    "log": "amendment1_prototype.log",
+    "log_sha256": "46eafbd7eba448aff575ac44a59e6428dbc29c160e0dd9160d3a51c9f94dd95d"
+  },
+  {
+    "command": ".venv/bin/python -m pytest prototypes/mv_electron/tests/test_p1f.py::test_actual_p1f_transport_and_k5b -q",
+    "exit_code": 0,
+    "seconds": 13.487477415939793,
+    "log": "k5b_amendment1.log",
+    "log_sha256": "9419bd5fa445deda12ccb44f160bb918c1be045bb8563eac709ca50abf04a63d"
+  },
+  {
+    "command": ".venv/bin/python -m pytest tests/ -q",
+    "exit_code": 0,
+    "seconds": 94.40793499990832,
+    "log": "amendment1_production.log",
+    "log_sha256": "1c2fd881bef8eea13aa82db9526edb2e0593c33a3312b3695574584370204792"
+  },
+  {
+    "command": "git status --short -- chatcarlo tests scripts examples",
+    "exit_code": 0,
+    "seconds": 0.06712229095865041,
+    "log": "amendment1_protected.log",
+    "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "command": ".venv/bin/python prototypes/mv_electron/run_checks_p1f.py --from-saved",
+    "exit_code": 0,
+    "seconds": 13.241562165901996,
+    "log": "amendment1_from_saved.log",
+    "log_sha256": "35a913f0d1f2b88c958ae47d8ddab7cf1c80cf7369c799c171e5ea120491a1b4"
+  },
+  {
+    "command": ".venv/bin/python prototypes/mv_electron/run_checks_p1f.py --verify-untouched",
+    "exit_code": 0,
+    "seconds": 10.362297791987658,
+    "log": "amendment1_verify_untouched.log",
+    "log_sha256": "a98b0be74a3cc9b96bc2e87bfa4671235c85b2e79c84fd80f251f82dd487648e"
+  },
+  {
+    "command": ".venv/bin/python prototypes/mv_electron/run_p1f_amendment1.py --verify-untouched",
+    "exit_code": 0,
+    "seconds": 3.996982333017513,
+    "log": "amendment1_freeze2_final.log",
+    "log_sha256": "091c9b6f4c254c69d4e7f99bdd5d80b2dd5201a6341ee88de8c4e9e9517d59b9"
+  }
+]

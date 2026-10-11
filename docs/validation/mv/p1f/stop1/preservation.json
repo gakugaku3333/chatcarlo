@@ -1,0 +1,51 @@
+{
+  "stage": "B0",
+  "freeze1": {
+    "status": "pass",
+    "files": 2332,
+    "changed": [],
+    "added": []
+  },
+  "copied": {
+    "docs/validation/mv/p1f/RESULTS.md": "0e9d25695466eb9c8d43bbe766681f7370fc52dc53878d5e442f37bb70e4f295",
+    "docs/validation/mv/p1f/summary.json": "1cfcc3b66afe785bb174def2d782faa83db8cced171396d7fef317ec123776f6",
+    "docs/validation/mv/p1f/k5b.json": "428df03fd6729bfb5dcf18515c1e8a5426aa876b71bd33d4e9729a031a0c9a23",
+    "docs/validation/mv/p1f/progress.json": "c53e9111a25e1bc7a3e3d99467432279ee5267848114b84deb069d59b0f8429d",
+    "docs/validation/mv/p1f/manifest.json": "9b815a6e60e7c1e642c1a1cd57c7a82119a48e9027320a2a6e92f98fafb4e8c4",
+    "docs/validation/mv/p1f/freeze_hashes.json": "828ed57e1ad254bd77a4e3747bf8e050ac3fe6d9e2c39e6baf3dea03376372be",
+    "docs/validation/mv/p1f/initial_hashes.json": "985b226eb24707b3cba223022ee2142cb2d34e674e3247cfcafb24d90757b1bd",
+    "docs/validation/mv/p1f/untouched.json": "24fda9b480c77886de0cb66366da911e1d092f6f976816394b39cbfda2a0cb9f",
+    "docs/validation/mv/p1f/commands.json": "5baada3a7d5412adc476e0b09df70a382f67d259aa764042110a91c72873153a",
+    "docs/validation/mv/p1f/build_gs.log": "d9f8bc95e4fecc1790eef057cb2d6bbbef7d36fe8c6fa21ed3446afe5a502b77",
+    "docs/validation/mv/p1f/calculation.log": "48d82360d0d6b8e923060e066e45df031355dccc0088dba8dea0f09eba561ffa",
+    "docs/validation/mv/p1f/elsepa/base_10.log": "f2bf39fe923c80605b52d9a19dcd3dea355f40dc38dbb9e9d67d0741bc087a2f",
+    "docs/validation/mv/p1f/elsepa/base_2.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "docs/validation/mv/p1f/elsepa/energy_half.log": "14b3603d09db0720dcac0d1c3775dfdd40ea4bb75c0ad34595a671ad67add3a7",
+    "docs/validation/mv/p1f/elsepa/ms_half.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "docs/validation/mv/p1f/elsepa/reference_2.log": "889e359119b0448f105b3fecb66d95118d6871a80a7fc62a7847d678daa3f199",
+    "docs/validation/mv/p1f/elsepa/split_aligned.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "docs/validation/mv/p1f/elsepa/split_shifted.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "docs/validation/mv/p1f/freeze.log": "9d08f6b51174131e1e533ea2ae901ca25ef30f9b88b48d59d3d16e2df7455f7b",
+    "docs/validation/mv/p1f/generation.log": "35ee13d4997141920f8d928751369590c1ab8b78b98f005ab34aeb7cf118081f",
+    "docs/validation/mv/p1f/generation_setup_error.log": "2cfa19aaad39c1c7aa0958fabc0afbbff2803d968ee688778c92e6b5507ab40f",
+    "docs/validation/mv/p1f/k5b.log": "6aa70fe8eb5f9f22c1796aaebbe94c22faba692cd90e61b68d7d3da042c06e87",
+    "docs/validation/mv/p1f/production_tests.log": "db83a2eb83d603f4a94d2a98b6b1bc6e6c3fc89eee3d35d4bcef38722ed90bc4",
+    "docs/validation/mv/p1f/protected_status.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "docs/validation/mv/p1f/prototype_tests_before_freeze.log": "c38bbdf407541908ce38c9dc32abcd7f0fe42b5684cb2704cb1f1f07525f6e21",
+    "docs/validation/mv/p1f/prototype_tests_before_tables.log": "57b8a1be1ae17ef7abd7c5e6f030d322e3933c9338c9747b07b02143eaa79630",
+    "docs/validation/mv/p1f/regression_after.log": "5ab2efe84b70c39c92e9525062d42abef7b2c2a904ba2faf075dc89cf89aada4",
+    "docs/validation/mv/p1f/selection_tests_before_freeze.log": "6b82934936d0bfb0541093c6a8b9b99d6f727a13ece5c85a64e786091bdc8406",
+    "docs/validation/mv/p1f/transport.log": "b37ea8c7ebcfda849f5debf9033d286ea1a1b1569ddeb62b42aa785b4de7cf5c"
+  },
+  "immutable_files": 32,
+  "manifest_registered_files": 7551,
+  "manifest_mismatches": [
+    {
+      "path": "docs/validation/mv/p1f/progress.json",
+      "expected": "d3a973e965452aec73e279a5da31f87434f2fc7509b8ba9d668ed20fa9879ea8",
+      "actual": "c53e9111a25e1bc7a3e3d99467432279ee5267848114b84deb069d59b0f8429d"
+    }
+  ],
+  "reason": "progress.jsonはClaudeが再開コマンドを実行した際に更新された（運用の記録・承認済み追補による）。成果物だけでは実行者を証明できない。",
+  "T6_known_before_amendment": 0.007502233691723832
+}

@@ -1,0 +1,19 @@
+{
+  "freeze2": {
+    "status": "pass",
+    "files": 2400,
+    "changed": [],
+    "added": [],
+    "freeze": 2
+  },
+  "immutable": {
+    "status": "pass",
+    "files": 32,
+    "changed": []
+  },
+  "old_k5b_unchanged": true,
+  "plan_unchanged": true,
+  "formal_attempts": 1,
+  "production": "403 passed, 2 warnings in 93.99s (0:01:33)",
+  "prototype": "87 passed, 1 skipped in 53.75s"
+}

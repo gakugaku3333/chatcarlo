@@ -1,0 +1,32 @@
+{
+  "6.0": {
+    "pair_positron_mean_T_MeV": 2.4990010500000004,
+    "P_flight": 0.06270989078678216,
+    "mean_T_at_annihilation_MeV": 1.3005577567038298,
+    "P_flight_at_mean_T": 0.06869205258999576,
+    "EGS5_P_flight": 0.06258580485099328,
+    "EGS5_deposit_difference_MeV": 37401.7285143286,
+    "EGS5_difference_per_flight_annihilation_MeV": 0.7128076178141944,
+    "kinetic_energy_removed_locally_over_deposit_pct": 0.21522844979432634,
+    "EGS5_deposit_difference_pct": 0.11796206496246561,
+    "implied_reabsorbed_fraction": 0.4519215973762256,
+    "P2": {
+      "P_flight": 0.0617533130691741,
+      "pairs_per_history": 0.06962051411502378,
+      "deposit_difference_pct": 0.09424575236721407,
+      "removed_locally_pct": 0.2118194602863601
+    }
+  },
+  "10.0": {
+    "pair_positron_mean_T_MeV": 4.49900105,
+    "P_flight": 0.08645592714260436,
+    "mean_T_at_annihilation_MeV": 2.0806703044141526,
+    "P_flight_at_mean_T": 0.09513021957287383,
+    "P2": {
+      "P_flight": 0.08424503279935093,
+      "pairs_per_history": 0.11883308353029343,
+      "deposit_difference_pct": 0.28440545796411937,
+      "removed_locally_pct": 0.5411285023690996
+    }
+  }
+}

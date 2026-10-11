@@ -1,0 +1,300 @@
+{
+  "K5": {
+    "status": "pass",
+    "global_relative": 3.507373905198286e-17,
+    "max_history_relative": 4.440892098500626e-15,
+    "unprocessed_particles": 0,
+    "unprocessed_MeV": 0.0,
+    "stack_failures": 0,
+    "step_limit_failures": 0,
+    "back_energy_fraction": 0.006392298820483651
+  },
+  "K5b": {
+    "status": "pass",
+    "evidence": {
+      "command": ".venv/bin/python -m pytest prototypes/mv_electron/tests/test_mf.py::test_k5b_with_actual_mf_table -q",
+      "exit_code": 0,
+      "output": ".                                                                        [100%]\n1 passed in 11.33s"
+    }
+  },
+  "K7": {
+    "status": "pass",
+    "rows": {
+      "split_aligned": {
+        "Dref": 3.21850459605574,
+        "reference_ranges_cm": [
+          0.6920591568207842,
+          0.8863733835196431
+        ],
+        "other_ranges_cm": [
+          0.6920591568207842,
+          0.8863733835196431
+        ],
+        "range_difference_over_reference_R50": [
+          0.0,
+          0.0
+        ],
+        "range_difference_SEM_over_R50": [
+          0.0007463632037405127,
+          0.0008744644099934299
+        ],
+        "max_dose_difference_over_Dref": 6.898999156227577e-16,
+        "max_dose_difference_SEM_over_Dref": 0.0021786847047902407,
+        "evaluation_bins": 120,
+        "statistics_ok": true,
+        "pass": true,
+        "boundary_events": 6441687,
+        "boundary_queries": 783274158
+      },
+      "split_shifted": {
+        "Dref": 3.21850459605574,
+        "reference_ranges_cm": [
+          0.6920591568207842,
+          0.8863733835196431
+        ],
+        "other_ranges_cm": [
+          0.6920591568207842,
+          0.8863733835196431
+        ],
+        "range_difference_over_reference_R50": [
+          0.0,
+          0.0
+        ],
+        "range_difference_SEM_over_R50": [
+          0.0007463632037405109,
+          0.0008744644099934201
+        ],
+        "max_dose_difference_over_Dref": 6.898999156227577e-16,
+        "max_dose_difference_SEM_over_Dref": 0.0021786847047902624,
+        "evaluation_bins": 120,
+        "statistics_ok": true,
+        "pass": true,
+        "boundary_events": 7099204,
+        "boundary_queries": 783931675
+      }
+    }
+  },
+  "K8": {
+    "status": "pass",
+    "rows": {
+      "ms_half": {
+        "Dref": 3.21850459605574,
+        "reference_ranges_cm": [
+          0.6920591568207842,
+          0.8863733835196431
+        ],
+        "other_ranges_cm": [
+          0.6926402414159296,
+          0.8856978207742828
+        ],
+        "range_difference_over_reference_R50": [
+          0.0008396458444604681,
+          -0.0009761632928371697
+        ],
+        "range_difference_SEM_over_R50": [
+          0.0008266243579051872,
+          0.0008963720446955386
+        ],
+        "max_dose_difference_over_Dref": 0.004911777266845473,
+        "max_dose_difference_SEM_over_Dref": 0.002179387539617174,
+        "evaluation_bins": 120,
+        "statistics_ok": true,
+        "pass": true,
+        "boundary_events": 20833,
+        "boundary_queries": 1266222167
+      },
+      "energy_half": {
+        "Dref": 3.21850459605574,
+        "reference_ranges_cm": [
+          0.6920591568207842,
+          0.8863733835196431
+        ],
+        "other_ranges_cm": [
+          0.692749897856199,
+          0.8870834612210899
+        ],
+        "range_difference_over_reference_R50": [
+          0.0009980953631015266,
+          0.0010260361335421252
+        ],
+        "range_difference_SEM_over_R50": [
+          0.0007513653606387523,
+          0.0009572573081246965
+        ],
+        "max_dose_difference_over_Dref": 0.004508876126211538,
+        "max_dose_difference_SEM_over_Dref": 0.002185762176352026,
+        "evaluation_bins": 120,
+        "statistics_ok": true,
+        "pass": true,
+        "boundary_events": 21117,
+        "boundary_queries": 1046090281
+      }
+    }
+  },
+  "K9ii": {
+    "status": "pass",
+    "prototype_cm2": [
+      0.006835971506345143,
+      0.06478332868393094
+    ],
+    "reference_cm2": [
+      0.006774918552931812,
+      0.06465779850027098
+    ],
+    "relative": [
+      0.009011614373859944,
+      0.0019414546515906328
+    ],
+    "difference_SEM_relative": [
+      0.007325016526579184,
+      0.0029154359493325926
+    ],
+    "prototype_cross_N": [
+      986343,
+      719343
+    ],
+    "reference_cross_N": [
+      296037,
+      215712
+    ]
+  },
+  "K9i": {
+    "status": "fail",
+    "rows": [
+      {
+        "path_cm": 0.05,
+        "K": 0.05,
+        "N": 1000000,
+        "reference": [
+          4.796210199998502e-05,
+          0.049227260542125506,
+          0.9693082495851215,
+          0.9151092834566392
+        ],
+        "prototype": [
+          4.699303929995488e-05,
+          0.04923586915221504,
+          0.9693613220971846,
+          0.915073836603145
+        ],
+        "relative": [
+          -0.020204758749531967,
+          0.00017487485581628055,
+          5.475297676030026e-05,
+          -3.8735104249320915e-05
+        ],
+        "difference_sem_relative": [
+          0.002923454453979869,
+          5.0575483516933214e-05,
+          8.975412964058879e-05,
+          0.0002007688915555664
+        ],
+        "statistics_ok": true,
+        "reference_seconds": 64.29761941602919,
+        "prototype_seconds": 0.12712033395655453,
+        "pass": false
+      },
+      {
+        "path_cm": 0.05,
+        "K": 0.025,
+        "N": 1000000,
+        "reference": [
+          4.796210199998502e-05,
+          0.049227260542125506,
+          0.9693082495851215,
+          0.9151092834566392
+        ],
+        "prototype": [
+          4.734001084383837e-05,
+          0.04923319062294215,
+          0.9693635171924471,
+          0.9151987196151244
+        ],
+        "relative": [
+          -0.012970473148713253,
+          0.00012046335203990633,
+          5.7017576554418126e-05,
+          9.77327627443537e-05
+        ],
+        "difference_sem_relative": [
+          0.002867952197784676,
+          5.01783727952647e-05,
+          9.022131428632779e-05,
+          0.00020122234353867717
+        ],
+        "statistics_ok": true,
+        "reference_seconds": 64.29761941602919,
+        "prototype_seconds": 0.2543155839666724,
+        "pass": true
+      },
+      {
+        "path_cm": 0.2,
+        "K": 0.05,
+        "N": 1000000,
+        "reference": [
+          0.002797999185304912,
+          0.1880775424489467,
+          0.88308448717181,
+          0.701573185920981
+        ],
+        "prototype": [
+          0.0027808976373686436,
+          0.18810726060770372,
+          0.8830542454324739,
+          0.701777258992241
+        ],
+        "relative": [
+          -0.006112063229355301,
+          0.00015801013970121594,
+          -3.424557873610912e-05,
+          0.0002908792344908828
+        ],
+        "difference_sem_relative": [
+          0.001687297417622136,
+          0.0001139807821913733,
+          0.00023375283045019667,
+          0.0005826739808482991
+        ],
+        "statistics_ok": true,
+        "reference_seconds": 251.49162074993365,
+        "prototype_seconds": 0.39314270799513906,
+        "pass": true
+      },
+      {
+        "path_cm": 0.2,
+        "K": 0.025,
+        "N": 1000000,
+        "reference": [
+          0.002797999185304912,
+          0.1880775424489467,
+          0.88308448717181,
+          0.701573185920981
+        ],
+        "prototype": [
+          0.0027990012670070785,
+          0.18806161028080612,
+          0.8829988979251229,
+          0.7015547069069333
+        ],
+        "relative": [
+          0.00035814224229571354,
+          -8.471063548113848e-05,
+          -9.69207906269791e-05,
+          -2.6339396114966985e-05
+        ],
+        "difference_sem_relative": [
+          0.0016719716578517847,
+          0.0001128300379008411,
+          0.00023361393999719345,
+          0.000582775550711714
+        ],
+        "statistics_ok": true,
+        "reference_seconds": 251.49162074993365,
+        "prototype_seconds": 0.6458152499981225,
+        "pass": true
+      }
+    ]
+  },
+  "seed": 20261007,
+  "status": "fail"
+}

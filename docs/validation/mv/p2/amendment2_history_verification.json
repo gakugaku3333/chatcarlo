@@ -1,0 +1,10 @@
+{
+  "status": "合格",
+  "unchanged": {
+    "q1.json": "c7e22f4e28afff4740f306685ea2d1188035f9736ccc0796d08e9dbb40574a92",
+    "t5_stopping_amendment1.json": "dcd418c5e65836fa130ac1d72bd6ab65d87c5b7d8525ac5d8bfcf70cc2aa31e2"
+  },
+  "reference_restart": "d2_reference_restart.json; exact arrays, ledger and RNG continuation",
+  "no_plans_modified": true,
+  "no_commit": true
+}

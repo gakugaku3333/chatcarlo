@@ -1,0 +1,16 @@
+{
+  "docs/validation/mv/p1d/PREREGISTRATION.md": "49103b8e82035ef459ee496a5b4dfe6810768b8ce85254b2ee3d854f6f37c6c3",
+  "docs/validation/mv/p1d/initial_hashes.json": "746edc168031b46b6c333f88a799aa5247f69e2e81cee9ab884f7424d219f94f",
+  "docs/validation/mv/p1d/preregistration.sha256": "39711d2000ddc5498f9a49849f5357fa0f23f4509199edefa0a4ce24741827b3",
+  "docs/validation/mv/p1d/regression/dcslib_0.025_before.npz": "8daabb17ef452be7d60c11a7f9dc65b293f621baf8c8dfc960ca81116344ac2d",
+  "docs/validation/mv/p1d/regression/dcslib_0.05_before.npz": "b0682a5982eb906b25caae884e8494693abf6509ce1603a6af5b2a7e1a8eda04",
+  "docs/validation/mv/p1d/regression/mf_0.025_before.npz": "8ba62767a54f3e85a991c47a1e7e078eda6d680894e9c60e5adcafa9d1b316d0",
+  "docs/validation/mv/p1d/regression/mf_0.05_before.npz": "12c8a06604f1052748f4dbb52fd8b6787a60ce7b61c3fd752f87d5dfaa0bb0c6",
+  "docs/validation/mv/p1d/regression_before.json": "5211b100cb6fa3e2c03e1cab9e3b38d2f891d09f7d4ed19ca0a76e414ed87843",
+  "prototypes/mv_electron/p1d_common.py": "2f47fd04b8fb8bc3fd49a506e68b45ec1d4e86b239dc46f698b498c9ad0e535b",
+  "prototypes/mv_electron/report_p1d.py": "1085b7d96797249a50f0228c5f9a4d8b3e1da9e7821a42a471cd272799810e47",
+  "prototypes/mv_electron/run_checks_p1d.py": "189e83388908f3193b09d0369454b36f398c854e53e3130c2b7813bcd3d33907",
+  "prototypes/mv_electron/run_p1d.py": "81ca8bd75a05650d4c3dc652dd231037f7d04c7d63e01a7eb4a51397a35f06d9",
+  "prototypes/mv_electron/run_tests_p1d.py": "7bcd8d3b9ad3ada5445fd96a307f3c4ce6581cf91b87182a220f9a909c556100",
+  "prototypes/mv_electron/tests/test_p1d.py": "f08908c67fe7ec3d7b3fdd4210b9d7d898f461ed35151a42fe084b8dbb6f56c5"
+}

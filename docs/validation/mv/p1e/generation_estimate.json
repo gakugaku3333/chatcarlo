@@ -1,0 +1,27 @@
+{
+  "rows": [
+    {
+      "Z": 1,
+      "charge": -1,
+      "seconds": 0.02372720802668482
+    },
+    {
+      "Z": 1,
+      "charge": 1,
+      "seconds": 0.02192029100842774
+    },
+    {
+      "Z": 8,
+      "charge": -1,
+      "seconds": 0.02231133310124278
+    },
+    {
+      "Z": 8,
+      "charge": 1,
+      "seconds": 0.021370125003159046
+    }
+  ],
+  "table_cases": 664,
+  "estimated_table_seconds": 14.828606885159388,
+  "method": "2 MeV representative per element/charge, before generation; midpoint/IHEF0 work additional"
+}

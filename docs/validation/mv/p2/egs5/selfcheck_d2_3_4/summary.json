@@ -1,0 +1,85 @@
+{
+  "status": "合格",
+  "E": 10.0,
+  "N": 10000,
+  "seed": 20261527,
+  "IUNRST": 4,
+  "tests": {
+    "balance": true,
+    "score": true,
+    "callbacks": true,
+    "flight_annihilation": true,
+    "cutoffs": true,
+    "flags": true,
+    "dual_scoring": true,
+    "kinetic_cutoff": true
+  },
+  "ledger": [
+    100000.0,
+    38598.37191486742,
+    61401.62808513261,
+    5.770384170489251e-14,
+    0.0,
+    0.0,
+    6.039613253960852e-14,
+    5.861977570020827e-14
+  ],
+  "callbacks": {
+    "brems_created": 0.0,
+    "brems_discarded": 0.0,
+    "brems_local_MeV": 0.0,
+    "flight_annihilation": 0.0,
+    "rest_annihilation": 1125.0,
+    "pairs": 1165.0,
+    "wrong_tags": 0.0
+  },
+  "effective_flags": {
+    "IBOUND": 0,
+    "INCOH": 0,
+    "ICPROF": 0,
+    "IRAYL": 0,
+    "incohm": 0.0,
+    "incohr": 0.0,
+    "iprofm": 0.0,
+    "iprofr": 0.0,
+    "iraylm": 0.0,
+    "iraylr": 0.0,
+    "iedgfl": 0.0,
+    "iauger": 0.0,
+    "iprdst": 0.0,
+    "ibrspl": 0.0,
+    "iausfl8": 1.0,
+    "usegsd": 1.0
+  },
+  "cutoffs": {
+    "AE": 0.521,
+    "AP": 0.01,
+    "ECUT": 0.521,
+    "PCUT": 0.01,
+    "UE": 20.511,
+    "UP": 21.0,
+    "rho": 1.0
+  },
+  "max_history_relative_balance": 5.770384170489251e-15,
+  "rebin_max_Gy_cm2": 1.0339757656912846e-25,
+  "CPU_seconds": 1.3300399999999968,
+  "radiative_stopping_calls": [
+    [
+      "0.966451",
+      "2.51100",
+      "2.51100"
+    ],
+    [
+      "6.54702",
+      "10.5110",
+      "10.5110"
+    ]
+  ],
+  "warnings": [
+    "WARNING in RMSFIT: requested GS Multiple Scattering in media   1",
+    "Number of allocated intervals(=  150) was insufficient"
+  ],
+  "effective_electron_kinetic_cutoff_keV": 10.00109529495241,
+  "RM_MeV": 0.5109989047050476,
+  "wall_seconds": 83.22
+}

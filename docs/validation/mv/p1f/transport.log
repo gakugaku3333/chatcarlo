@@ -1,0 +1,31 @@
+run saved 0.05_False.npz 77.328
+run saved 0.05_True.npz 0.248
+run saved 0.2_False.npz 298.135
+run saved 0.2_True.npz 0.62
+~/.matplotlib is not a writable directory
+Matplotlib created a temporary cache directory at /var/folders/nk/ppk0zn4n2n5_gsrp89g_dw900000gn/T/matplotlib-d1lndbgz because there was an issue with the default path ({configdir}); it is highly recommended to set the MPLCONFIGDIR environment variable to a writable directory, in particular to speed up the import of Matplotlib and to better support multiprocessing.
+
+Fontconfig error: No writable cache directories
+	/opt/homebrew/var/cache/fontconfig
+	~/.cache/fontconfig
+	~/.fontconfig
+
+Fontconfig error: No writable cache directories
+	/opt/homebrew/var/cache/fontconfig
+	~/.cache/fontconfig
+	~/.fontconfig
+
+Fontconfig error: No writable cache directories
+	/opt/homebrew/var/cache/fontconfig
+	~/.cache/fontconfig
+	~/.fontconfig
+
+Fontconfig error: No writable cache directories
+	/opt/homebrew/var/cache/fontconfig
+	~/.cache/fontconfig
+	~/.fontconfig
+Matplotlib is building the font cache; this may take a moment.
+completed base_2
+completed split_shifted
+completed split_aligned
+completed ms_half

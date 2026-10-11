@@ -1,0 +1,38 @@
+{
+  "production": {
+    "command": ".venv/bin/python -m pytest tests/ -q",
+    "passed": 403,
+    "warnings": 2
+  },
+  "p2_single_before_comparison": {
+    "command": ".venv/bin/python -m pytest prototypes/mv_electron/tests/test_photon_p2.py -q",
+    "passed": 6
+  },
+  "prototype_before_comparison": {
+    "command": ".venv/bin/python -m pytest prototypes/mv_electron/tests -q",
+    "passed": 93,
+    "skipped": 1
+  },
+  "p2_single": {
+    "command": ".venv/bin/python -m pytest prototypes/mv_electron/tests/test_photon_p2.py -q",
+    "passed": 8,
+    "seconds": 20.65
+  },
+  "prototype_final": {
+    "command": ".venv/bin/python -m pytest prototypes/mv_electron/tests -q",
+    "passed": 95,
+    "skipped": 1,
+    "seconds": 79.9
+  },
+  "p2_actual_single": {
+    "command": ".venv/bin/python -m pytest prototypes/mv_electron/tests/test_photon_p2.py::test_actual_coupled_history_balance_and_limits -q",
+    "passed": 1,
+    "seconds": 23.74
+  },
+  "p2_sampler_single": {
+    "command": ".venv/bin/python -m pytest prototypes/mv_electron/tests/test_photon_p2.py::test_sampler_reproducible_and_momentum -q",
+    "passed": 1,
+    "seconds": 1.93
+  },
+  "concurrent_io_regression": "final suite and standalone file ran concurrently and passed after fixing cache write race"
+}

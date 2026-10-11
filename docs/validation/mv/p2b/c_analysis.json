@@ -1,0 +1,87 @@
+{
+  "Dref_Gy_cm2": 1.772659852283039e-11,
+  "N": 12000000,
+  "E": 6.0,
+  "differences": {
+    "rep": {
+      "buildup": {
+        "delta_pct_Dref": 0.22635817450580337,
+        "SEM_pct_Dref": 0.12582846821010596
+      },
+      "window": {
+        "delta_pct_Dref": 0.2091556259098641,
+        "SEM_pct_Dref": 0.10984902260901452
+      },
+      "deep_29_53": {
+        "delta_pct_Dref": 0.18378737840892886,
+        "SEM_pct_Dref": 0.0978806351601531
+      },
+      "deep_54_78": {
+        "delta_pct_Dref": 0.1179170239625969,
+        "SEM_pct_Dref": 0.08940276685307626
+      },
+      "deep_79_103": {
+        "delta_pct_Dref": 0.05703855770622766,
+        "SEM_pct_Dref": 0.090608803682659
+      },
+      "deep_104_128": {
+        "delta_pct_Dref": 0.03373572755918971,
+        "SEM_pct_Dref": 0.08224051928513204
+      },
+      "deep_129_149": {
+        "delta_pct_Dref": -0.07600890209512737,
+        "SEM_pct_Dref": 0.09410512724473578
+      },
+      "pair": "p2b_Cminus - p2b_Splus"
+    }
+  },
+  "reproduced": false,
+  "precision_target_met": true,
+  "P2_value": {
+    "delta_pct_Dref": 1.052,
+    "SEM_pct_Dref": 0.286,
+    "source": "posthoc_v2/trial_before_criteria.json"
+  },
+  "total_deposit_MeV": {
+    "p2b_Splus": 31706573.232868947,
+    "p2b_Cminus": 31743974.961383276
+  },
+  "total_deposit_ratio_to_Splus": {
+    "p2b_Splus": 1.0,
+    "p2b_Cminus": 1.0011796206496246
+  },
+  "P2_prototype_minus_main": {
+    "dcslib": {
+      "delta_pct_Dref": 0.7179729894544022,
+      "SEM_pct_Dref": 0.29032556864311604
+    },
+    "mf": {
+      "delta_pct_Dref": 1.045814850892595,
+      "SEM_pct_Dref": 0.2790629887914101
+    },
+    "elsepa": {
+      "delta_pct_Dref": 0.848029873373882,
+      "SEM_pct_Dref": 0.30337277629343845
+    }
+  },
+  "callbacks": {
+    "p2b_Splus": {
+      "brems_created": 2110230.0,
+      "brems_discarded": 2110230.0,
+      "brems_local_MeV": 498111.1736704616,
+      "flight_annihilation": 52471.0,
+      "rest_annihilation": 770693.0,
+      "pairs": 838385.0,
+      "wrong_tags": 0.0
+    },
+    "p2b_Cminus": {
+      "brems_created": 0.0,
+      "brems_discarded": 0.0,
+      "brems_local_MeV": 0.0,
+      "flight_annihilation": 0.0,
+      "rest_annihilation": 821423.0,
+      "pairs": 836777.0,
+      "wrong_tags": 0.0
+    }
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "N": 10000,
+  "seed": 20261007,
+  "K": [
+    0.05,
+    0.025
+  ],
+  "backends": [
+    "dcslib",
+    "mf"
+  ],
+  "phase": "before P1d scripts added"
+}

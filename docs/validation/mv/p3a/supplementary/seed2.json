@@ -1,0 +1,168 @@
+{
+  "new_minus_old_EGS5": {
+    "0-15cm": {
+      "delta_pct_local": 0.13212379355822224,
+      "SEM_pct_local": 0.07058238560054346
+    },
+    "15-30cm": {
+      "delta_pct_local": -0.02209391976309973,
+      "SEM_pct_local": 0.08866258373793491
+    },
+    "whole": {
+      "delta_pct_local": 0.06666825320520715,
+      "SEM_pct_local": 0.05248487225642051
+    },
+    "block1_25_49": {
+      "delta_pct_local": 0.25205011245753034,
+      "SEM_pct_local": 0.11843608598930953
+    },
+    "block2_50_74": {
+      "delta_pct_local": 0.29133189889926503,
+      "SEM_pct_local": 0.13526718874188032
+    },
+    "block3_75_99": {
+      "delta_pct_local": 0.04452872183482789,
+      "SEM_pct_local": 0.14648843156229793
+    },
+    "block4_100_124": {
+      "delta_pct_local": -0.12235628300285512,
+      "SEM_pct_local": 0.15506147185358798
+    },
+    "block5_125_149": {
+      "delta_pct_local": 0.0064496656002154,
+      "SEM_pct_local": 0.17570010753390763
+    }
+  },
+  "proto_minus_old_EGS5": {
+    "0-15cm": {
+      "delta_pct_local": 0.2429589835926626,
+      "SEM_pct_local": 0.0739995508304631
+    },
+    "15-30cm": {
+      "delta_pct_local": 0.0408011188132129,
+      "SEM_pct_local": 0.09166516636860704
+    },
+    "whole": {
+      "delta_pct_local": 0.1571559199188273,
+      "SEM_pct_local": 0.05733728004929038
+    },
+    "block1_25_49": {
+      "delta_pct_local": 0.2015410932321607,
+      "SEM_pct_local": 0.1329782211594048
+    },
+    "block2_50_74": {
+      "delta_pct_local": 0.339826194091684,
+      "SEM_pct_local": 0.13093375031067192
+    },
+    "block3_75_99": {
+      "delta_pct_local": 0.09502274190824161,
+      "SEM_pct_local": 0.150995987299442
+    },
+    "block4_100_124": {
+      "delta_pct_local": -0.07708221723079375,
+      "SEM_pct_local": 0.16057514766195852
+    },
+    "block5_125_149": {
+      "delta_pct_local": 0.10622793227619133,
+      "SEM_pct_local": 0.17153223792490707
+    }
+  },
+  "proto_minus_new_EGS5": {
+    "0-15cm": {
+      "delta_pct_local": 0.1106889436031024,
+      "SEM_pct_local": 0.07380109122870761
+    },
+    "15-30cm": {
+      "delta_pct_local": 0.06290893762651566,
+      "SEM_pct_local": 0.09541601229756644
+    },
+    "whole": {
+      "delta_pct_local": 0.09042738035871575,
+      "SEM_pct_local": 0.060402971751592774
+    },
+    "block1_25_49": {
+      "delta_pct_local": -0.05038203125892314,
+      "SEM_pct_local": 0.13698300722115006
+    },
+    "block2_50_74": {
+      "delta_pct_local": 0.04835342623757825,
+      "SEM_pct_local": 0.13737580849308323
+    },
+    "block3_75_99": {
+      "delta_pct_local": 0.05047154573920578,
+      "SEM_pct_local": 0.14051295078546427
+    },
+    "block4_100_124": {
+      "delta_pct_local": 0.04532952929921457,
+      "SEM_pct_local": 0.15922988934811733
+    },
+    "block5_125_149": {
+      "delta_pct_local": 0.09977183172646636,
+      "SEM_pct_local": 0.17240594106394103
+    }
+  },
+  "proto_minus_mean_EGS5": {
+    "0-15cm": {
+      "delta_pct_local": 0.17678030239266826,
+      "SEM_pct_local": 0.06362835701670917
+    },
+    "15-30cm": {
+      "delta_pct_local": 0.051853806964015134,
+      "SEM_pct_local": 0.08397103010610968
+    },
+    "whole": {
+      "delta_pct_local": 0.12378053215691452,
+      "SEM_pct_local": 0.0527315768489465
+    },
+    "block1_25_49": {
+      "delta_pct_local": 0.07542098766129592,
+      "SEM_pct_local": 0.12074868570812324
+    },
+    "block2_50_74": {
+      "delta_pct_local": 0.19387783065922978,
+      "SEM_pct_local": 0.11612513628141623
+    },
+    "block3_75_99": {
+      "delta_pct_local": 0.07274218540811819,
+      "SEM_pct_local": 0.12554639539325574
+    },
+    "block4_100_124": {
+      "delta_pct_local": -0.01591381150349858,
+      "SEM_pct_local": 0.14055736155561646
+    },
+    "block5_125_149": {
+      "delta_pct_local": 0.10299977790547625,
+      "SEM_pct_local": 0.1500944975221975
+    }
+  },
+  "EGS5_deposit_over_incoming_new_over_old_minus_1_pct": {
+    "value": 0.032271368698322256,
+    "SEM": 0.0474727202773945
+  },
+  "mean_incident_MeV": {
+    "old": 2.8012152647228286,
+    "new": 2.80217848465797
+  },
+  "pairs": {
+    "old": 235803.0,
+    "new": 235675.0
+  },
+  "deposit_over_incoming_relative_pct": {
+    "proto_minus_old_pct": {
+      "value": 0.1246008124868192,
+      "SEM": 0.04931042833031808
+    },
+    "proto_minus_new_pct": {
+      "value": 0.09229965743493551,
+      "SEM": 0.049857918906055926
+    },
+    "proto_minus_mean_pct": {
+      "value": 0.10844762937509689,
+      "SEM": 0.04353447389422785
+    },
+    "new_minus_old_pct": {
+      "value": 0.03227136868912961,
+      "SEM": 0.0474727202773945
+    }
+  }
+}

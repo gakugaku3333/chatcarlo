@@ -1,0 +1,87 @@
+{
+  "status": "合格",
+  "rows": [
+    {
+      "case": "selfcheck_0_0",
+      "AE": 0.521,
+      "ECUT": 0.521,
+      "RM_MeV": 0.5109989047050476,
+      "kinetic_cutoff_keV": 10.00109529495241,
+      "difference_eV": 1.0952949524110216,
+      "estimated_extra_range_nm": 0.4853893574098733,
+      "status": "合格"
+    },
+    {
+      "case": "selfcheck_0_4",
+      "AE": 0.521,
+      "ECUT": 0.521,
+      "RM_MeV": 0.5109989047050476,
+      "kinetic_cutoff_keV": 10.00109529495241,
+      "difference_eV": 1.0952949524110216,
+      "estimated_extra_range_nm": 0.4853893574098733,
+      "status": "合格"
+    },
+    {
+      "case": "selfcheck_1_0",
+      "AE": 0.521,
+      "ECUT": 0.521,
+      "RM_MeV": 0.5109989047050476,
+      "kinetic_cutoff_keV": 10.00109529495241,
+      "difference_eV": 1.0952949524110216,
+      "estimated_extra_range_nm": 0.4853893574098733,
+      "status": "合格"
+    },
+    {
+      "case": "selfcheck_1_4",
+      "AE": 0.521,
+      "ECUT": 0.521,
+      "RM_MeV": 0.5109989047050476,
+      "kinetic_cutoff_keV": 10.00109529495241,
+      "difference_eV": 1.0952949524110216,
+      "estimated_extra_range_nm": 0.4853893574098733,
+      "status": "合格"
+    },
+    {
+      "case": "selfcheck_2_0",
+      "AE": 0.521,
+      "ECUT": 0.521,
+      "RM_MeV": 0.5109989047050476,
+      "kinetic_cutoff_keV": 10.00109529495241,
+      "difference_eV": 1.0952949524110216,
+      "estimated_extra_range_nm": 0.4853893574098733,
+      "status": "合格"
+    },
+    {
+      "case": "selfcheck_2_4",
+      "AE": 0.521,
+      "ECUT": 0.521,
+      "RM_MeV": 0.5109989047050476,
+      "kinetic_cutoff_keV": 10.00109529495241,
+      "difference_eV": 1.0952949524110216,
+      "estimated_extra_range_nm": 0.4853893574098733,
+      "status": "合格"
+    },
+    {
+      "case": "selfcheck_3_0",
+      "AE": 0.521,
+      "ECUT": 0.521,
+      "RM_MeV": 0.5109989047050476,
+      "kinetic_cutoff_keV": 10.00109529495241,
+      "difference_eV": 1.0952949524110216,
+      "estimated_extra_range_nm": 0.4853893574098733,
+      "status": "合格"
+    },
+    {
+      "case": "selfcheck_3_4",
+      "AE": 0.521,
+      "ECUT": 0.521,
+      "RM_MeV": 0.5109989047050476,
+      "kinetic_cutoff_keV": 10.00109529495241,
+      "difference_eV": 1.0952949524110216,
+      "estimated_extra_range_nm": 0.4853893574098733,
+      "status": "合格"
+    }
+  ],
+  "source": "egs/egs5_block_data.f RM; egs5_hatch.f ECUT=max(ECUT,AE)",
+  "boundary_caveat": "Remaining ~10 keV can move to adjacent bin if the boundary is crossed; bin difference is not bounded by 1 eV."
+}

@@ -1,0 +1,10 @@
+{
+  "issue": "K5b standalone test compilation failed",
+  "kind": "test implementation error; not a demonstrated transport-physics failure",
+  "status": "fail",
+  "evidence": "k5b.log",
+  "test_file": "prototypes/mv_electron/tests/test_p1f.py",
+  "test_file_sha256": "48850603d48a00a5701f067bb27c34228d18a98f1610926fe72e20144d540adc",
+  "explanation": "The dependency guards replace njit globals with Python functions. The guarded Python loops completed, but the subsequent integer-T specialization compilation saw an untyped global elastic_rates. No code was changed after freeze, and no dedicated K5b retry was performed.",
+  "consequence": "T5 keeps the K5b fail result; T6 is not judged. The seven preregistered runs continue under the passed K9(i) gate; auxiliary differences are records only."
+}

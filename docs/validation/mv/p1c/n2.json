@@ -1,0 +1,462 @@
+{
+  "status": "pass",
+  "rows": [
+    {
+      "T": 0.01,
+      "minimum_density": 201.8700871823917,
+      "doubling_max_relative": 4.440892098500626e-16,
+      "born_numeric_G1": 4247.731109908019,
+      "born_closed_G1": 4247.731109908018,
+      "born_relative": 2.220446049250313e-16,
+      "pass": true
+    },
+    {
+      "T": 0.010099461457691033,
+      "minimum_density": 197.88695070906667,
+      "doubling_max_relative": 0.0,
+      "born_numeric_G1": 4174.904541043128,
+      "born_closed_G1": 4174.904541043127,
+      "born_relative": 2.220446049250313e-16,
+      "pass": true
+    },
+    {
+      "T": 0.010301361986848735,
+      "minimum_density": 190.15337509671264,
+      "doubling_max_relative": 2.220446049250313e-16,
+      "born_numeric_G1": 4032.891275976145,
+      "born_closed_G1": 4032.8912759761447,
+      "born_relative": 2.220446049250313e-16,
+      "pass": true
+    },
+    {
+      "T": 0.010507298753368689,
+      "minimum_density": 182.72006723405093,
+      "doubling_max_relative": 2.220446049250313e-16,
+      "born_numeric_G1": 3895.6018604740666,
+      "born_closed_G1": 3895.6018604740666,
+      "born_relative": 0.0,
+      "pass": true
+    },
+    {
+      "T": 0.010717352446549295,
+      "minimum_density": 175.57543523622124,
+      "doubling_max_relative": 0.0,
+      "born_numeric_G1": 3762.8851712368732,
+      "born_closed_G1": 3762.8851712368723,
+      "born_relative": 2.220446049250313e-16,
+      "pass": true
+    },
+    {
+      "T": 0.010823948796241531,
+      "minimum_density": 172.1078721935575,
+      "doubling_max_relative": 2.220446049250313e-16,
+      "born_numeric_G1": 3698.195613018229,
+      "born_closed_G1": 3698.195613018228,
+      "born_relative": 2.220446049250313e-16,
+      "pass": true
+    },
+    {
+      "T": 0.01093160536876626,
+      "minimum_density": 168.70833158341537,
+      "doubling_max_relative": 2.220446049250313e-16,
+      "born_numeric_G1": 3634.5946081199777,
+      "born_closed_G1": 3634.5946081199777,
+      "born_relative": 0.0,
+      "pass": true
+    },
+    {
+      "T": 0.011150141467719962,
+      "minimum_density": 162.10803627758636,
+      "doubling_max_relative": 0.0,
+      "born_numeric_G1": 3510.587974701647,
+      "born_closed_G1": 3510.587974701647,
+      "born_relative": 0.0,
+      "pass": true
+    },
+    {
+      "T": 0.011373046369327516,
+      "minimum_density": 155.76424062456235,
+      "doubling_max_relative": 2.220446049250313e-16,
+      "born_numeric_G1": 3390.72736116756,
+      "born_closed_G1": 3390.727361167559,
+      "born_relative": 2.220446049250313e-16,
+      "pass": true
+    },
+    {
+      "T": 0.011600407411272348,
+      "minimum_density": 149.66703161927668,
+      "doubling_max_relative": 2.220446049250313e-16,
+      "born_numeric_G1": 3274.879029515282,
+      "born_closed_G1": 3274.8790295152817,
+      "born_relative": 2.220446049250313e-16,
+      "pass": true
+    },
+    {
+      "T": 0.0118323136772245,
+      "minimum_density": 143.8068769125523,
+      "doubling_max_relative": 2.220446049250313e-16,
+      "born_numeric_G1": 3162.9133010777996,
+      "born_closed_G1": 3162.9133010778,
+      "born_relative": 1.1102230246251565e-16,
+      "pass": true
+    },
+    {
+      "T": 0.012068856031745024,
+      "minimum_density": 138.1746103385824,
+      "doubling_max_relative": 2.220446049250313e-16,
+      "born_numeric_G1": 3054.70444636198,
+      "born_closed_G1": 3054.7044463619795,
+      "born_relative": 2.220446049250313e-16,
+      "pass": true
+    },
+    {
+      "T": 0.012310127155888166,
+      "minimum_density": 132.76141798294117,
+      "doubling_max_relative": 2.220446049250313e-16,
+      "born_numeric_G1": 2950.130577194706,
+      "born_closed_G1": 2950.130577194706,
+      "born_relative": 0.0,
+      "pass": true
+    },
+    {
+      "T": 0.012556221583515263,
+      "minimum_density": 127.5588247716263,
+      "doubling_max_relative": 2.220446049250313e-16,
+      "born_numeric_G1": 2849.0735411665896,
+      "born_closed_G1": 2849.0735411665896,
+      "born_relative": 0.0,
+      "pass": true
+    },
+    {
+      "T": 0.012681107593694067,
+      "minimum_density": 125.03394384937297,
+      "doubling_max_relative": 1.1102230246251565e-16,
+      "born_numeric_G1": 2799.8279089886037,
+      "born_closed_G1": 2799.8279089886028,
+      "born_relative": 2.220446049250313e-16,
+      "pass": true
+    },
+    {
+      "T": 0.01280723573833463,
+      "minimum_density": 122.55868156228962,
+      "doubling_max_relative": 2.220446049250313e-16,
+      "born_numeric_G1": 2751.418818360533,
+      "born_closed_G1": 2751.418818360533,
+      "born_relative": 0.0,
+      "pass": true
+    },
+    {
+      "T": 0.013063267971681888,
+      "minimum_density": 117.75315271944329,
+      "doubling_max_relative": 2.220446049250313e-16,
+      "born_numeric_G1": 2657.055420349925,
+      "born_closed_G1": 2657.0554203499255,
+      "born_relative": 2.220446049250313e-16,
+      "pass": true
+    },
+    {
+      "T": 0.013324418601055587,
+      "minimum_density": 113.13470415605128,
+      "doubling_max_relative": 2.220446049250313e-16,
+      "born_numeric_G1": 2565.8757914491234,
+      "born_closed_G1": 2565.875791449123,
+      "born_relative": 2.220446049250313e-16,
+      "pass": true
+    },
+    {
+      "T": 0.013590789949423194,
+      "minimum_density": 108.69609182450823,
+      "doubling_max_relative": 3.3306690738754696e-16,
+      "born_numeric_G1": 2477.7757121966915,
+      "born_closed_G1": 2477.775712196691,
+      "born_relative": 2.220446049250313e-16,
+      "pass": true
+    },
+    {
+      "T": 0.01386248638531286,
+      "minimum_density": 104.43035064059517,
+      "doubling_max_relative": 2.220446049250313e-16,
+      "born_numeric_G1": 2392.654205050105,
+      "born_closed_G1": 2392.654205050104,
+      "born_relative": 4.440892098500626e-16,
+      "pass": true
+    },
+    {
+      "T": 0.014139614363706669,
+      "minimum_density": 100.33078382456384,
+      "doubling_max_relative": 2.220446049250313e-16,
+      "born_numeric_G1": 2310.41344226882,
+      "born_closed_G1": 2310.4134422688203,
+      "born_relative": 2.220446049250313e-16,
+      "pass": true
+    },
+    {
+      "T": 0.014422282467751386,
+      "minimum_density": 96.39095264404838,
+      "doubling_max_relative": 2.220446049250313e-16,
+      "born_numeric_G1": 2230.9586559611344,
+      "born_closed_G1": 2230.958655961134,
+      "born_relative": 2.220446049250313e-16,
+      "pass": true
+    },
+    {
+      "T": 0.014710601451303066,
+      "minimum_density": 92.6046665440385,
+      "doubling_max_relative": 4.440892098500626e-16,
+      "born_numeric_G1": 2154.198050268801,
+      "born_closed_G1": 2154.198050268801,
+      "born_relative": 0.0,
+      "pass": true
+    },
+    {
+      "T": 0.014856915237688909,
+      "minimum_density": 90.76723386714858,
+      "doubling_max_relative": 2.220446049250313e-16,
+      "born_numeric_G1": 2116.800170478814,
+      "born_closed_G1": 2116.8001704788135,
+      "born_relative": 2.220446049250313e-16,
+      "pass": true
+    },
+    {
+      "T": 0.015004684282322173,
+      "minimum_density": 88.96597364965713,
+      "doubling_max_relative": 2.220446049250313e-16,
+      "born_numeric_G1": 2080.0427156621054,
+      "born_closed_G1": 2080.0427156621054,
+      "born_relative": 0.0,
+      "pass": true
+    },
+    {
+      "T": 0.015304646187136225,
+      "minimum_density": 85.46915162799264,
+      "doubling_max_relative": 2.220446049250313e-16,
+      "born_numeric_G1": 2008.4065453170033,
+      "born_closed_G1": 2008.406545317003,
+      "born_relative": 2.220446049250313e-16,
+      "pass": true
+    },
+    {
+      "T": 0.015610604695587295,
+      "minimum_density": 82.1086988957115,
+      "doubling_max_relative": 2.220446049250313e-16,
+      "born_numeric_G1": 1939.2061535448495,
+      "born_closed_G1": 1939.2061535448495,
+      "born_relative": 0.0,
+      "pass": true
+    },
+    {
+      "T": 0.015922679687082074,
+      "minimum_density": 78.87932615965275,
+      "doubling_max_relative": 2.220446049250313e-16,
+      "born_numeric_G1": 1872.3607962444262,
+      "born_closed_G1": 1872.3607962444262,
+      "born_relative": 0.0,
+      "pass": true
+    },
+    {
+      "T": 0.01624099343756253,
+      "minimum_density": 75.77594827805386,
+      "doubling_max_relative": 2.220446049250313e-16,
+      "born_numeric_G1": 1807.7922933451123,
+      "born_closed_G1": 1807.792293345112,
+      "born_relative": 2.220446049250313e-16,
+      "pass": true
+    },
+    {
+      "T": 0.01656567066741557,
+      "minimum_density": 72.79367643049979,
+      "doubling_max_relative": 1.1102230246251565e-16,
+      "born_numeric_G1": 1745.4249532094138,
+      "born_closed_G1": 1745.4249532094136,
+      "born_relative": 2.220446049250313e-16,
+      "pass": true
+    },
+    {
+      "T": 0.016896838590340447,
+      "minimum_density": 69.92781058511201,
+      "doubling_max_relative": 2.220446049250313e-16,
+      "born_numeric_G1": 1685.1854989624803,
+      "born_closed_G1": 1685.1854989624806,
+      "born_relative": 1.1102230246251565e-16,
+      "pass": true
+    },
+    {
+      "T": 0.01723462696319315,
+      "minimum_density": 67.17383225190136,
+      "doubling_max_relative": 2.220446049250313e-16,
+      "born_numeric_G1": 1627.0029967156806,
+      "born_closed_G1": 1627.0029967156806,
+      "born_relative": 0.0,
+      "pass": true
+    },
+    {
+      "T": 0.017406045075245184,
+      "minimum_density": 65.83743679356056,
+      "doubling_max_relative": 2.220446049250313e-16,
+      "born_numeric_G1": 1598.6615591690108,
+      "born_closed_G1": 1598.6615591690108,
+      "born_relative": 0.0,
+      "pass": true
+    },
+    {
+      "T": 0.017579168136827153,
+      "minimum_density": 64.52739751161188,
+      "doubling_max_relative": 2.220446049250313e-16,
+      "born_numeric_G1": 1570.8087856509817,
+      "born_closed_G1": 1570.8087856509817,
+      "born_relative": 0.0,
+      "pass": true
+    },
+    {
+      "T": 0.017930597107950634,
+      "minimum_density": 61.98433030976247,
+      "doubling_max_relative": 2.220446049250313e-16,
+      "born_numeric_G1": 1516.5364099324913,
+      "born_closed_G1": 1516.536409932491,
+      "born_relative": 2.220446049250313e-16,
+      "pass": true
+    },
+    {
+      "T": 0.018289051572020293,
+      "minimum_density": 59.54061600596674,
+      "doubling_max_relative": 0.0,
+      "born_numeric_G1": 1464.121552411278,
+      "born_closed_G1": 1464.121552411278,
+      "born_relative": 0.0,
+      "pass": true
+    },
+    {
+      "T": 0.01865467197719263,
+      "minimum_density": 57.19239516897033,
+      "doubling_max_relative": 2.220446049250313e-16,
+      "born_numeric_G1": 1413.5019700894002,
+      "born_closed_G1": 1413.5019700894004,
+      "born_relative": 1.1102230246251565e-16,
+      "pass": true
+    },
+    {
+      "T": 0.0189814267496749,
+      "minimum_density": 55.20811088410285,
+      "doubling_max_relative": 2.220446049250313e-16,
+      "born_numeric_G1": 1370.5264820261787,
+      "born_closed_G1": 1370.5264820261784,
+      "born_relative": 2.220446049250313e-16,
+      "pass": true
+    },
+    {
+      "T": 0.019267035340332285,
+      "minimum_density": 53.556130186764946,
+      "doubling_max_relative": 2.220446049250313e-16,
+      "born_numeric_G1": 1334.6022172172984,
+      "born_closed_G1": 1334.6022172172982,
+      "born_relative": 2.220446049250313e-16,
+      "pass": true
+    },
+    {
+      "T": 0.019556941409157834,
+      "minimum_density": 51.95312426436777,
+      "doubling_max_relative": 2.220446049250313e-16,
+      "born_numeric_G1": 1299.6120512494185,
+      "born_closed_G1": 1299.6120512494183,
+      "born_relative": 2.220446049250313e-16,
+      "pass": true
+    },
+    {
+      "T": 0.019851209619187633,
+      "minimum_density": 50.397649818097136,
+      "doubling_max_relative": 2.220446049250313e-16,
+      "born_numeric_G1": 1265.5321682571416,
+      "born_closed_G1": 1265.5321682571416,
+      "born_relative": 0.0,
+      "pass": true
+    },
+    {
+      "T": 0.02,
+      "minimum_density": 49.63729747967634,
+      "doubling_max_relative": 2.220446049250313e-16,
+      "born_numeric_G1": 1248.8263012646696,
+      "born_closed_G1": 1248.8263012646696,
+      "born_relative": 0.0,
+      "pass": true
+    },
+    {
+      "T": 0.1,
+      "minimum_density": 1.7154862069394212,
+      "doubling_max_relative": 1.1102230246251565e-15,
+      "born_numeric_G1": 72.30522226949898,
+      "born_closed_G1": 72.30522226949898,
+      "born_relative": 0.0,
+      "pass": true
+    },
+    {
+      "T": 1.0,
+      "minimum_density": 0.005283920325507721,
+      "doubling_max_relative": 4.440892098500626e-15,
+      "born_numeric_G1": 1.791890036720985,
+      "born_closed_G1": 1.7918900367209847,
+      "born_relative": 2.220446049250313e-16,
+      "pass": true
+    },
+    {
+      "T": 2.0,
+      "minimum_density": 0.0005913913040757605,
+      "doubling_max_relative": 1.9984014443252818e-14,
+      "born_numeric_G1": 0.6122694522636497,
+      "born_closed_G1": 0.6122694522636496,
+      "born_relative": 2.220446049250313e-16,
+      "pass": true
+    },
+    {
+      "T": 10.0,
+      "minimum_density": 1.778300876963694e-06,
+      "doubling_max_relative": 2.3092638912203256e-14,
+      "born_numeric_G1": 0.0408818144824509,
+      "born_closed_G1": 0.040881814482450894,
+      "born_relative": 2.220446049250313e-16,
+      "pass": true
+    }
+  ],
+  "positivity_reason": "electron R >= 1-beta² > 0; B>0 and denominator>0",
+  "midpoint_energies": [
+    0.010099461457691033,
+    0.010301361986848735,
+    0.010507298753368689,
+    0.010717352446549295,
+    0.010823948796241531,
+    0.01093160536876626,
+    0.011150141467719962,
+    0.011373046369327516,
+    0.011600407411272348,
+    0.0118323136772245,
+    0.012068856031745024,
+    0.012310127155888166,
+    0.012556221583515263,
+    0.012681107593694067,
+    0.01280723573833463,
+    0.013063267971681888,
+    0.013324418601055587,
+    0.013590789949423194,
+    0.01386248638531286,
+    0.014139614363706669,
+    0.014422282467751386,
+    0.014710601451303066,
+    0.014856915237688909,
+    0.015004684282322173,
+    0.015304646187136225,
+    0.015610604695587295,
+    0.015922679687082074,
+    0.01624099343756253,
+    0.01656567066741557,
+    0.016896838590340447,
+    0.01723462696319315,
+    0.017406045075245184,
+    0.017579168136827153,
+    0.017930597107950634,
+    0.018289051572020293,
+    0.01865467197719263,
+    0.0189814267496749,
+    0.019267035340332285,
+    0.019556941409157834,
+    0.019851209619187633
+  ]
+}

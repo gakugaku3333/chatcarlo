@@ -1,0 +1,248 @@
+{
+  "reference_runs": {
+    "pilot_ref_0_0": {
+      "E": 1.25,
+      "N": 1000000,
+      "seed": 20262020,
+      "mode": 0
+    },
+    "pilot_ref_0_4": {
+      "E": 1.25,
+      "N": 1000000,
+      "seed": 20262021,
+      "mode": 4
+    },
+    "pilot_ref_1_0": {
+      "E": 2.0,
+      "N": 1000000,
+      "seed": 20262030,
+      "mode": 0
+    },
+    "pilot_ref_1_4": {
+      "E": 2.0,
+      "N": 1000000,
+      "seed": 20262031,
+      "mode": 4
+    },
+    "pilot_ref_2_0": {
+      "E": 6.0,
+      "N": 1000000,
+      "seed": 20262040,
+      "mode": 0
+    },
+    "pilot_ref_2_4": {
+      "E": 6.0,
+      "N": 1000000,
+      "seed": 20262041,
+      "mode": 4
+    },
+    "pilot_ref_3_0": {
+      "E": 10.0,
+      "N": 1000000,
+      "seed": 20262050,
+      "mode": 0
+    },
+    "pilot_ref_3_4": {
+      "E": 10.0,
+      "N": 1000000,
+      "seed": 20262051,
+      "mode": 4
+    }
+  },
+  "runs": {
+    "pilot_dcslib_0": {
+      "backend": "dcslib",
+      "E": 1.25,
+      "N": 1000000,
+      "seed": 20263020,
+      "fe": 0.05,
+      "k": 0.025
+    },
+    "pilot_mf_0": {
+      "backend": "mf",
+      "E": 1.25,
+      "N": 1000000,
+      "seed": 20263030,
+      "fe": 0.05,
+      "k": 0.025
+    },
+    "pilot_elsepa_0": {
+      "backend": "elsepa",
+      "E": 1.25,
+      "N": 1000000,
+      "seed": 20263040,
+      "fe": 0.05,
+      "k": 0.025
+    },
+    "pilot_dcslib_1": {
+      "backend": "dcslib",
+      "E": 2.0,
+      "N": 1000000,
+      "seed": 20263120,
+      "fe": 0.05,
+      "k": 0.025
+    },
+    "pilot_dcslib_1_fe": {
+      "backend": "dcslib",
+      "E": 2.0,
+      "N": 1000000,
+      "seed": 20263121,
+      "fe": 0.025,
+      "k": 0.025
+    },
+    "pilot_dcslib_1_k": {
+      "backend": "dcslib",
+      "E": 2.0,
+      "N": 1000000,
+      "seed": 20263122,
+      "fe": 0.05,
+      "k": 0.0125
+    },
+    "pilot_mf_1": {
+      "backend": "mf",
+      "E": 2.0,
+      "N": 1000000,
+      "seed": 20263130,
+      "fe": 0.05,
+      "k": 0.025
+    },
+    "pilot_mf_1_fe": {
+      "backend": "mf",
+      "E": 2.0,
+      "N": 1000000,
+      "seed": 20263131,
+      "fe": 0.025,
+      "k": 0.025
+    },
+    "pilot_mf_1_k": {
+      "backend": "mf",
+      "E": 2.0,
+      "N": 1000000,
+      "seed": 20263132,
+      "fe": 0.05,
+      "k": 0.0125
+    },
+    "pilot_elsepa_1": {
+      "backend": "elsepa",
+      "E": 2.0,
+      "N": 1000000,
+      "seed": 20263140,
+      "fe": 0.05,
+      "k": 0.025
+    },
+    "pilot_elsepa_1_fe": {
+      "backend": "elsepa",
+      "E": 2.0,
+      "N": 1000000,
+      "seed": 20263141,
+      "fe": 0.025,
+      "k": 0.025
+    },
+    "pilot_elsepa_1_k": {
+      "backend": "elsepa",
+      "E": 2.0,
+      "N": 1000000,
+      "seed": 20263142,
+      "fe": 0.05,
+      "k": 0.0125
+    },
+    "pilot_dcslib_2": {
+      "backend": "dcslib",
+      "E": 6.0,
+      "N": 1000000,
+      "seed": 20263220,
+      "fe": 0.05,
+      "k": 0.025
+    },
+    "pilot_mf_2": {
+      "backend": "mf",
+      "E": 6.0,
+      "N": 1000000,
+      "seed": 20263230,
+      "fe": 0.05,
+      "k": 0.025
+    },
+    "pilot_elsepa_2": {
+      "backend": "elsepa",
+      "E": 6.0,
+      "N": 1000000,
+      "seed": 20263240,
+      "fe": 0.05,
+      "k": 0.025
+    },
+    "pilot_dcslib_3": {
+      "backend": "dcslib",
+      "E": 10.0,
+      "N": 1000000,
+      "seed": 20263320,
+      "fe": 0.05,
+      "k": 0.025
+    },
+    "pilot_dcslib_3_fe": {
+      "backend": "dcslib",
+      "E": 10.0,
+      "N": 1000000,
+      "seed": 20263321,
+      "fe": 0.025,
+      "k": 0.025
+    },
+    "pilot_dcslib_3_k": {
+      "backend": "dcslib",
+      "E": 10.0,
+      "N": 1000000,
+      "seed": 20263322,
+      "fe": 0.05,
+      "k": 0.0125
+    },
+    "pilot_mf_3": {
+      "backend": "mf",
+      "E": 10.0,
+      "N": 1000000,
+      "seed": 20263330,
+      "fe": 0.05,
+      "k": 0.025
+    },
+    "pilot_mf_3_fe": {
+      "backend": "mf",
+      "E": 10.0,
+      "N": 1000000,
+      "seed": 20263331,
+      "fe": 0.025,
+      "k": 0.025
+    },
+    "pilot_mf_3_k": {
+      "backend": "mf",
+      "E": 10.0,
+      "N": 1000000,
+      "seed": 20263332,
+      "fe": 0.05,
+      "k": 0.0125
+    },
+    "pilot_elsepa_3": {
+      "backend": "elsepa",
+      "E": 10.0,
+      "N": 1000000,
+      "seed": 20263340,
+      "fe": 0.05,
+      "k": 0.025
+    },
+    "pilot_elsepa_3_fe": {
+      "backend": "elsepa",
+      "E": 10.0,
+      "N": 1000000,
+      "seed": 20263341,
+      "fe": 0.025,
+      "k": 0.025
+    },
+    "pilot_elsepa_3_k": {
+      "backend": "elsepa",
+      "E": 10.0,
+      "N": 1000000,
+      "seed": 20263342,
+      "fe": 0.05,
+      "k": 0.0125
+    }
+  },
+  "main_seed_rule": "reference SEED+10000+10*j+(mode==4); prototype SEED+20000+100*j+10*backend_index+variant_index",
+  "bootstrap_seed_rule": "SEED+30000+100*j+backend_index; final SEED+40000+100*j+backend_index"
+}

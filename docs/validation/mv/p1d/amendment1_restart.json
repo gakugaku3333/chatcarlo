@@ -1,0 +1,22 @@
+{
+  "amendment_approved": true,
+  "freeze2_saved": true,
+  "freeze2_sha256": "dbbfeed6e0f4b4ebc4a3bac0735f18cc112d0dee12767888d1cfa85735b833d6",
+  "reproduction": {
+    "identical": true,
+    "sample": "docs/validation/mv/p1d/mf/fixed/0.05_True.npz",
+    "sample_sha256": "efb47177758d50df1897291d95e39ae4a0dfb8eccc17c011fd85c72a3b0ab747",
+    "seed": 20261010,
+    "N": 1000000,
+    "K": 0.025,
+    "path_cm": 0.05,
+    "shape": [
+      1000000,
+      4
+    ],
+    "seconds": 7.634098583017476,
+    "memory_only": true,
+    "saved_file_overwritten": false,
+    "pooled_into_statistics": false
+  }
+}

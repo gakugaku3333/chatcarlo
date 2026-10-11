@@ -1,0 +1,21 @@
+{
+  "status": "合格",
+  "protected": {
+    "status": "合格",
+    "group": "protected",
+    "files": 968,
+    "changed": []
+  },
+  "egs5_inputs": {
+    "status": "合格",
+    "group": "egs5_inputs",
+    "files": 952,
+    "changed": []
+  },
+  "production": {
+    "status": "合格",
+    "group": "production_frozen",
+    "files": 39,
+    "changed": []
+  }
+}

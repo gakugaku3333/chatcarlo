@@ -1,0 +1,152 @@
+{
+  "completed": [
+    {
+      "E": 1.25,
+      "N": 1000000,
+      "seed": 20261220,
+      "compton_mean": 0.66186133865391,
+      "compton_analytic_mean": 0.661778203967521,
+      "mean_SEM": 0.00032150949689094786,
+      "mean_z": 0.2585761453173627,
+      "compton_angle": {
+        "chi2": 80.22705562367881,
+        "p": 0.9163658909182643,
+        "merged_bins": 100,
+        "min_expected": 4618.637030090406,
+        "status": "合格"
+      },
+      "momentum_max_relative": 1.3949101794394226e-13,
+      "energy_max_relative": 0.0,
+      "pair_split": {
+        "chi2": 89.06660000000429,
+        "p": 0.752767350073564,
+        "merged_bins": 100,
+        "min_expected": 9999.999999999896,
+        "status": "合格"
+      },
+      "pair_azimuth": {
+        "chi2": 105.55119999998568,
+        "p": 0.30754251235351604,
+        "merged_bins": 100,
+        "min_expected": 9999.999999999896,
+        "status": "合格"
+      },
+      "pair_charge_z": -0.19199999999996997,
+      "pair_energy_max_relative": 0.0,
+      "pair_polar_max_error": 0.0,
+      "pair_transverse_antiparallel_max_error": 4.775249788392736e-16,
+      "status": "合格"
+    },
+    {
+      "E": 2.0,
+      "N": 1000000,
+      "seed": 20261221,
+      "compton_mean": 0.9389809172359137,
+      "compton_analytic_mean": 0.9383211347714339,
+      "mean_SEM": 0.0005460325732773014,
+      "mean_z": 1.208320706070354,
+      "compton_angle": {
+        "chi2": 89.41042406134825,
+        "p": 0.7444241165171668,
+        "merged_bins": 100,
+        "min_expected": 3920.2839565494646,
+        "status": "合格"
+      },
+      "momentum_max_relative": 8.428061624364019e-14,
+      "energy_max_relative": 0.0,
+      "pair_split": {
+        "chi2": 93.06640000000185,
+        "p": 0.6490560284943436,
+        "merged_bins": 100,
+        "min_expected": 9999.999999999896,
+        "status": "合格"
+      },
+      "pair_azimuth": {
+        "chi2": 100.5565999999969,
+        "p": 0.4374697942055221,
+        "merged_bins": 100,
+        "min_expected": 9999.999999999896,
+        "status": "合格"
+      },
+      "pair_charge_z": -0.5779999999999674,
+      "pair_energy_max_relative": 5.551115123125783e-17,
+      "pair_polar_max_error": 0.0,
+      "pair_transverse_antiparallel_max_error": 3.1646225226420963e-16,
+      "status": "合格"
+    },
+    {
+      "E": 6.0,
+      "N": 1000000,
+      "seed": 20261222,
+      "compton_mean": 2.1400424725634752,
+      "compton_analytic_mean": 2.135979986519761,
+      "mean_SEM": 0.0017302376367322283,
+      "mean_z": 2.347935311005553,
+      "compton_angle": {
+        "chi2": 113.86497277818799,
+        "p": 0.1458119403129857,
+        "merged_bins": 100,
+        "min_expected": 2798.669587642223,
+        "status": "合格"
+      },
+      "momentum_max_relative": 9.074266925913223e-14,
+      "energy_max_relative": 0.0,
+      "pair_split": {
+        "chi2": 119.7291521991634,
+        "p": 0.07665428063916803,
+        "merged_bins": 100,
+        "min_expected": 1151.2222730941594,
+        "status": "合格"
+      },
+      "pair_azimuth": {
+        "chi2": 98.77779999999782,
+        "p": 0.487392846192752,
+        "merged_bins": 100,
+        "min_expected": 9999.999999999896,
+        "status": "合格"
+      },
+      "pair_charge_z": -0.19999999999997797,
+      "pair_energy_max_relative": 1.4802973661668753e-16,
+      "pair_polar_max_error": 0.0,
+      "pair_transverse_antiparallel_max_error": 1.0315407380583415e-16,
+      "status": "合格"
+    },
+    {
+      "E": 10.0,
+      "N": 1000000,
+      "seed": 20261223,
+      "compton_mean": 3.1578128346194525,
+      "compton_analytic_mean": 3.164367911118642,
+      "mean_SEM": 0.0028843890014659487,
+      "mean_z": -2.272604872594429,
+      "compton_angle": {
+        "chi2": 100.46031267388254,
+        "p": 0.4401389682243703,
+        "merged_bins": 100,
+        "min_expected": 2450.115998212125,
+        "status": "合格"
+      },
+      "momentum_max_relative": 6.310307020276779e-14,
+      "energy_max_relative": 0.0,
+      "pair_split": {
+        "chi2": 76.14042333749083,
+        "p": 0.9574058502749138,
+        "merged_bins": 100,
+        "min_expected": 1338.278275131521,
+        "status": "合格"
+      },
+      "pair_azimuth": {
+        "chi2": 95.72260000000018,
+        "p": 0.5745629178202039,
+        "merged_bins": 100,
+        "min_expected": 9999.999999999896,
+        "status": "合格"
+      },
+      "pair_charge_z": 0.27200000000005,
+      "pair_energy_max_relative": 1.7763568394002506e-16,
+      "pair_polar_max_error": 0.0,
+      "pair_transverse_antiparallel_max_error": 5.96906223549092e-17,
+      "status": "合格"
+    }
+  ]
+}

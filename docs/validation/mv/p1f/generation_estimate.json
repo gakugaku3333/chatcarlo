@@ -1,0 +1,27 @@
+{
+  "rows": [
+    {
+      "Z": 1,
+      "charge": -1,
+      "seconds": 2.992008417029865
+    },
+    {
+      "Z": 1,
+      "charge": 1,
+      "seconds": 3.09943275002297
+    },
+    {
+      "Z": 8,
+      "charge": -1,
+      "seconds": 2.6111739589832723
+    },
+    {
+      "Z": 8,
+      "charge": 1,
+      "seconds": 2.649327374994755
+    }
+  ],
+  "table_cases": 408,
+  "estimated_table_seconds": 1157.898135105148,
+  "method": "2 MeV representative per element/charge, before generation; midpoint/probe work additional; 10 MeV cost is higher than 2 MeV, so this is a rough estimate"
+}

@@ -1,0 +1,22 @@
+{
+  "freeze2": {
+    "status": "pass",
+    "freeze": "freeze2",
+    "initial_files": 2106,
+    "frozen_additional_files": 0,
+    "changed": [],
+    "added_files": [],
+    "removed_files": []
+  },
+  "completed_transport_runs": 14,
+  "completed_R1_samples": 8,
+  "original_seven_preserved": true,
+  "regression_saved_checks": 4,
+  "acceptance_commands": 5,
+  "all_acceptance_exit_codes_zero": true,
+  "protected_diff_empty": true,
+  "unfinished_items": [],
+  "source_diff_sha256": "63d262b2f55412ba98f0e9d0190ac4e76c486f69e8e89c91af80144f4821dc1c",
+  "EGS5_executed": false,
+  "commit": false
+}

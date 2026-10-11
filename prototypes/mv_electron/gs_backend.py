@@ -68,7 +68,8 @@ def single_cdf(provider,T,n=32769):
     return grid,cdf
 
 def build(provider,dest):
-    start=time.perf_counter();ts=np.geomspace(.01,20,49)
+    start=time.perf_counter();upper=provider.energy_max if provider.name=='elsepa' else 20
+    ts=np.geomspace(.01,upper,49)
     ks=np.array([.0005,.001,.003125,.00625,.0125,.025,.05,.1,.2])
     from .single_table import build as single_build
     u,rates,single,lookup_diagnostics=single_build(provider)

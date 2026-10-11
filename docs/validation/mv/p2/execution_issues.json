@@ -1,0 +1,51 @@
+[
+  {
+    "stage": "T1",
+    "kind": "test-harness serialization error",
+    "reason": "zero-probability electron-field pair process gives 0/0 z-score",
+    "physics_changed": false,
+    "seed_changed": false,
+    "main_run_started": false
+  },
+  {
+    "stage": "T2",
+    "kind": "JIT compilation type error before sampling",
+    "reason": "mixed float/int pair tuple cannot be assigned to float array row; charge cast to float without changing draws or model",
+    "main_run_started": false
+  },
+  {
+    "stage": "T3",
+    "kind": "implementation bug before production freeze",
+    "reason": "photon working E reused as next primary source energy; primary source_energy now immutable",
+    "invalidated_artifacts": "attempts/history_source_assignment/",
+    "seed_changed": false,
+    "N_changed": false,
+    "main_run_started": false
+  },
+  {
+    "stage": "verification",
+    "kind": "concurrent cache write race",
+    "reason": "parallel suite and same-seed Q3 regression wrote the same temporary pair-parameter file; loader now reads/verifies the cache without rewriting, atomic temporary names are unique",
+    "physics_changed": false,
+    "main_run_started": false
+  },
+  {
+    "stage": "C2b",
+    "issue": "Direct diagnostic after DECK found PEGS resets IUNRST/EPSTAR/NRC state; EOF on closed NRC unit. No pilot/main/physics result produced.",
+    "fix": "Diagnostic input stops before DECK; restores rho=1 after EOF. Original raw incomplete attempt retained external. Transport input unchanged."
+  },
+  {
+    "stage": "D2",
+    "event": "cooperative Python driver reload after all 8 new-code selfchecks",
+    "reason": "control-path fixes completed during selfchecks; explicit verification gate held pilots until final code was loaded",
+    "physics": "no reference physics process stopped; completed selfchecks reused with identical configs",
+    "tests": "6 standalone passed; 101 full-suite passed, 1 skipped",
+    "continuation": "fresh background --resume acquired the same lock and activated matching tested code hashes; no pilot/main preceded the reload"
+  },
+  {
+    "stage": "D2/C3",
+    "event": "pilot dispatcher N/n keyword error",
+    "scientific_state": "first reference pilot failed before reference function invocation; no pilot inputs, batches or dose result; production_runs_started=0",
+    "fix": "adapt published N to native n; bind test fakes against actual transport signatures; same schedule/history counts/seeds/physics"
+  }
+]

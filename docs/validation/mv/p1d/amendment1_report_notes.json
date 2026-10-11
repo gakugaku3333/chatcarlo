@@ -1,0 +1,9 @@
+{
+  "raw_generated_report_sha256": "e8f070fd182c71ca105c8d1baad1d8455904bc8ba9277cd47ec7b94b966bc6a5",
+  "final_report_sha256": "0fc875a911f2f27cb0589a617912861c0e944ebe0f77c1cfe561c3588a80bb41",
+  "source_edited_after_freeze2": false,
+  "numerical_or_decision_changes": false,
+  "summary_sha256": "40bb1f48fdc93facfa2e380ba6e7c11f8f89171a453f81a206a7a573d36046d1",
+  "reason": "Clarify initial-run no-edit boilerplate and saved regression replay; disclose post-results procedure and timing overlap",
+  "timing_overlap": "one short saved-R4 analysis process during part of serial benchmark; no concurrent transport and no repeat/discard"
+}

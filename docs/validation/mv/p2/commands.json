@@ -1,0 +1,110 @@
+[
+  {
+    "command": ".venv/bin/python prototypes/mv_electron/run_checks_p2.py --t0",
+    "purpose": "T0: freeze explicit input list and electron baseline"
+  },
+  {
+    "command": ".venv/bin/python -m pytest tests/ -q",
+    "result": "403 passed; 2 warnings"
+  },
+  {
+    "command": ".venv/bin/python prototypes/mv_electron/run_checks_p2.py --resume",
+    "result": "first T1 attempt JSON zero-probability error; unchanged seed/model; rerun saved Q1 fail"
+  },
+  {
+    "command": ".venv/bin/python - <<'PY'\nfrom prototypes.mv_electron.check_sampling_p2 import check\nprint(check()['status'])\nPY",
+    "result": "initial JIT type error; fixed charge tuple type before samples"
+  },
+  {
+    "command": ".venv/bin/python - <<'PY'\nfrom prototypes.mv_electron.check_sampling_p2 import check\nprint('Q2',check()['status'])\nfrom prototypes.mv_electron.check_coupling_p2 import q3\nprint('Q3',q3()['status'])\nPY",
+    "result": "Q2 pass; Q3 invalid first implementation; preserved in attempts"
+  },
+  {
+    "command": ".venv/bin/python - <<'PY'\nfrom prototypes.mv_electron.check_coupling_p2 import q3\nprint(q3()['status'])\nPY",
+    "result": "Q3 pass after source-energy assignment correction; same seed/N"
+  },
+  {
+    "command": ".venv/bin/python - <<'PY'\nfrom prototypes.mv_electron.check_transfer_p2 import q4\nprint(q4())\nPY",
+    "result": "Q4 pass"
+  },
+  {
+    "command": ".venv/bin/python - <<'PY'\nfrom prototypes.mv_electron.reference_p2 import selfcheck\nprint(selfcheck()['status'])\nPY",
+    "purpose": "T5 external EGS5 8 selfchecks; result in t5_selfcheck.json when complete"
+  },
+  {
+    "command": ".venv/bin/python -m pytest prototypes/mv_electron/tests/test_photon_p2.py -q",
+    "result": "8 passed"
+  },
+  {
+    "command": ".venv/bin/python -m pytest prototypes/mv_electron/tests -q",
+    "result": "95 passed; 1 skipped after correcting checkpoint-module syntax error"
+  },
+  {
+    "command": ".venv/bin/python prototypes/mv_electron/run_checks_p2.py --verify-untouched",
+    "result": "protected hashes pass and both electron regression arrays exactly equal"
+  },
+  {
+    "command": ".venv/bin/python prototypes/mv_electron/run_checks_p2.py --from-saved",
+    "purpose": "saved Q0–Q7 summary"
+  },
+  {
+    "command": "git status --short -- chatcarlo tests scripts examples",
+    "result": "empty"
+  },
+  {
+    "command": ".venv/bin/python prototypes/mv_electron/run_checks_p2.py --prepare",
+    "result": "active Q1/C2b verdicts selected; Q2–Q4 reused"
+  },
+  {
+    "command": ".venv/bin/python -m pytest prototypes/mv_electron/tests/test_p2_resume.py -q",
+    "result": "5 passed; earlier harness failures (budgeted-run stub flag, sandbox ps permission) fixed before scientific pilots"
+  },
+  {
+    "command": ".venv/bin/python -m pytest tests/ -q",
+    "result": "403 passed; 2 warnings; 97.85s"
+  },
+  {
+    "command": ".venv/bin/python -m prototypes.mv_electron.verify_resume_p2",
+    "purpose": "new reference selfcheck and intermediate RNG/score checkpoint replay; separate from Q6"
+  },
+  {
+    "command": "git status --short -- chatcarlo tests scripts examples",
+    "result": "empty"
+  },
+  {
+    "command": ".venv/bin/python prototypes/mv_electron/run_checks_p2.py --verify-untouched",
+    "result": "protected 968 and EGS5 input 952 hashes matched; electron regression exact"
+  },
+  {
+    "command": ".venv/bin/python -m pytest prototypes/mv_electron/tests/test_p2_resume.py -q",
+    "result": "6 passed; 7.42s"
+  },
+  {
+    "command": ".venv/bin/python -m pytest prototypes/mv_electron/tests -q",
+    "result": "101 passed, 1 skipped; 79.94s; final unchanged test sources"
+  },
+  {
+    "command": ".venv/bin/python -m prototypes.mv_electron.verify_resume_p2",
+    "result": "10 MeV selfcheck intermediate checkpoint at 100/10000 histories; coarse/fine/ledger/callbacks/flags/cutoffs exact"
+  },
+  {
+    "command": ".venv/bin/python prototypes/mv_electron/run_checks_p2.py --from-saved",
+    "result": "active amended verdicts; portable RESULTS regenerated"
+  },
+  {
+    "command": ".venv/bin/python prototypes/mv_electron/run_checks_p2.py --resume",
+    "purpose": "independent background driver, waits for existing selfchecks, then pilots -> lock -> explicit freeze -> one production -> Q5/Q6/Q7/plots/report"
+  },
+  {
+    "command": ".venv/bin/python -m pytest prototypes/mv_electron/tests/test_p2_resume.py -q",
+    "result": "6 passed; 5.28s; final real-signature API checks"
+  },
+  {
+    "command": ".venv/bin/python -m pytest prototypes/mv_electron/tests -q",
+    "result": "101 passed, 1 skipped; 78.28s; after N/n adaptation"
+  },
+  {
+    "command": ".venv/bin/python prototypes/mv_electron/run_checks_p2.py --resume",
+    "purpose": "final background driver; same frozen schedule and all old/new completed selfchecks reused; PID 31073"
+  }
+]

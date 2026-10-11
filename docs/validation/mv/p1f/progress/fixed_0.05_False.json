@@ -1,0 +1,12 @@
+{
+  "active": "docs/validation/mv/p1f/elsepa/fixed/0.05_False.npz",
+  "conditions": {
+    "T": 2.0,
+    "N": 1000000,
+    "seed": 20261013,
+    "K": 0.025,
+    "path_cm": 0.05,
+    "condensed": false
+  },
+  "resume_command": ".venv/bin/python prototypes/mv_electron/run_p1f.py"
+}

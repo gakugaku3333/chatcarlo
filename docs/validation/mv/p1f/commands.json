@@ -1,0 +1,77 @@
+[
+  {
+    "command": ".venv/bin/python -m pytest prototypes/mv_electron/tests -q",
+    "log": "prototype_tests_before_tables.log",
+    "exit_code": 0,
+    "seconds": 43.32164929097053
+  },
+  {
+    "command": ".venv/bin/python /tmp/p1f_initial.py",
+    "exit_code": 1,
+    "reason": "事前登録と初期ハッシュの固定後、回帰開始前にimport pathで停止。ELSEPA/輸送は未実行。"
+  },
+  {
+    "command": ".venv/bin/python - <<PY [initial regression inline script]",
+    "exit_code": 0,
+    "inline_script": "from pathlib import Path\nfrom prototypes.mv_electron import p1e_common as c\nc.OUT=Path('docs/validation/mv/p1f').resolve();c.SEED=20261013\nc.regression('before')\nc.write('regression_before.json',{b:dict(sha256=c.sha(c.OUT/'regression'/f'{b}_before.npz')) for b in c.TABLES})"
+  },
+  {
+    "command": ".venv/bin/python prototypes/mv_electron/generate_elsepa_p1f.py --generate",
+    "exit_code": 1,
+    "log": "generation_setup_error.log",
+    "reason": "同梱保存物のファイル名誤り。ELSEPA計算開始前に停止。"
+  },
+  {
+    "command": ".venv/bin/python -m pytest tests/ -q",
+    "exit_code": 0,
+    "log": "production_tests.log",
+    "seconds": 97.53
+  },
+  {
+    "command": ".venv/bin/python -c from prototypes.mv_electron.p1f_common import regression,verify_initial; print(verify_initial()); print(regression('after'))",
+    "log": "regression_after.log",
+    "exit_code": 0,
+    "seconds": 20.211102167028002
+  },
+  {
+    "command": ".venv/bin/python -m pytest prototypes/mv_electron/tests/test_p1f.py -q",
+    "log": "selection_tests_before_freeze.log",
+    "exit_code": 0,
+    "seconds": 6.013092290959321
+  },
+  {
+    "command": "git status --short -- chatcarlo tests scripts examples",
+    "log": "protected_status.log",
+    "exit_code": 0,
+    "seconds": 0.026498250081203878
+  },
+  {
+    "command": ".venv/bin/python prototypes/mv_electron/generate_elsepa_p1f.py --generate",
+    "exit_code": 0,
+    "log": "generation.log"
+  },
+  {
+    "command": ".venv/bin/python prototypes/mv_electron/run_checks_p1f.py --build-gs",
+    "log": "build_gs.log",
+    "exit_code": 0,
+    "seconds": 32.10125066700857
+  },
+  {
+    "command": ".venv/bin/python -m pytest prototypes/mv_electron/tests -q",
+    "log": "prototype_tests_before_freeze.log",
+    "exit_code": 0,
+    "seconds": 41.94049045804422
+  },
+  {
+    "command": ".venv/bin/python prototypes/mv_electron/run_checks_p1f.py --freeze",
+    "log": "freeze.log",
+    "exit_code": 0,
+    "seconds": 14.479070167057216
+  },
+  {
+    "command": ".venv/bin/python prototypes/mv_electron/run_checks_p1f.py --calculate",
+    "log": "calculation.log",
+    "exit_code": 0,
+    "seconds": 526.485729582957
+  }
+]

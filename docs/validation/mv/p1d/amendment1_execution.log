@@ -1,0 +1,25 @@
+dcslib K9i 0.2 True saved 0.88
+R1 gates: {'dcslib': 'pass', 'mf': 'pass'}
+mf base_2 saved 544.87 seconds
+mf split_aligned saved 543.7 seconds
+dcslib base_2 saved 553.96 seconds
+dcslib split_aligned saved 555.58 seconds
+mf split_shifted saved 429.66 seconds
+dcslib split_shifted saved 440.52 seconds
+mf ms_half saved 659.97 seconds
+dcslib ms_half saved 681.13 seconds
+mf energy_half saved 535.29 seconds
+dcslib energy_half saved 546.04 seconds
+mf reference_2 saved 1091.25 seconds
+dcslib reference_2 saved 1322.04 seconds
+mf base_10 saved 1200.61 seconds
+dcslib base_10 saved 1226.0 seconds
+dcslib timing 2.0 True 273.5976978961844
+dcslib timing 2.0 False 324.30369585053995
+dcslib timing 10.0 True 1029.5398083457258
+dcslib timing 10.0 False 1031.5072875004262
+mf timing 2.0 True 267.19991874997504
+mf timing 2.0 False 267.9300104500726
+mf timing 10.0 True 1153.6863041459583
+mf timing 10.0 False 1116.242891649017
+A6 complete

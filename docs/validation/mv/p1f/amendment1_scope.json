@@ -1,0 +1,12 @@
+{
+  "modified": [
+    "prototypes/mv_electron/tests/test_p1f.py",
+    "prototypes/mv_electron/p1f_common.py",
+    "prototypes/mv_electron/run_checks_p1f.py"
+  ],
+  "added": [
+    "prototypes/mv_electron/run_p1f_amendment1.py"
+  ],
+  "test_conditions_and_assertions_unchanged": true,
+  "unchanged_plan_sha256": "5459c83d3bfcada62544ba2b528991ea5c84e1fc13f25cc3d52d734801fbc788"
+}

@@ -1,0 +1,16 @@
+{
+  "status": "pass",
+  "checks": {
+    "unchanged_inventory_passes": true,
+    "new_python_detected": true,
+    "deleted_python_detected": true,
+    "changed_python_detected": true,
+    "R1_fail_blocks_transport": true,
+    "R1_statistics-insufficient_blocks_transport": true,
+    "R1_not-evaluated_blocks_transport": true,
+    "missing_amendment_approved_blocks_restart": true,
+    "missing_freeze2_saved_blocks_restart": true,
+    "missing_reproduction_blocks_restart": true
+  },
+  "method": "temporary fixture only; no frozen file mutated"
+}

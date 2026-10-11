@@ -1,0 +1,10 @@
+{
+  "resume_command": ".venv/bin/python prototypes/mv_electron/run_p1d_amendment1.py",
+  "stage": "complete",
+  "eligible_backends": [
+    "dcslib",
+    "mf"
+  ],
+  "withheld_backends": [],
+  "run_checkpoints": "per-run NPZ and SHA256 completion receipt; incomplete run restarts at same seed"
+}

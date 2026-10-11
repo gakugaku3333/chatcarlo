@@ -1,0 +1,14 @@
+{
+  "freeze2": {
+    "status": "pass",
+    "files": 2400,
+    "changed": [],
+    "added": [],
+    "freeze": 2
+  },
+  "immutable": {
+    "status": "pass",
+    "files": 32,
+    "changed": []
+  }
+}

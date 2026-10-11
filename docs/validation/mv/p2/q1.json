@@ -1,0 +1,144 @@
+{
+  "status": "不合格",
+  "tests": {
+    "a": true,
+    "b": true,
+    "c": false,
+    "d": true,
+    "e": true
+  },
+  "synthesis_max_relative": 0.0008143053124019244,
+  "interpolation": [
+    {
+      "process": "photoelectric",
+      "max_relative": 0.0005937603164650637,
+      "worst_MeV": 1.0579236582231308,
+      "zero_reference_nonzero": 0
+    },
+    {
+      "process": "pair_nuclear",
+      "max_relative": 0.002300518017366598,
+      "worst_MeV": 1.0220581003500002,
+      "zero_reference_nonzero": 0
+    },
+    {
+      "process": "pair_electron",
+      "max_relative": 0.0023561393574865696,
+      "worst_MeV": 2.0441162007000004,
+      "zero_reference_nonzero": 0
+    }
+  ],
+  "stochastic": [
+    {
+      "E": 1.25,
+      "N": 10000000,
+      "seed": 20261120,
+      "mu": 0.0631388787928575,
+      "expected_transmission": 0.5318526573185176,
+      "measured_transmission": 0.5319875,
+      "transmission_z": 0.8545558121122689,
+      "counts": [
+        9996769,
+        356,
+        2875,
+        0
+      ],
+      "expected_process_probabilities": [
+        0.9996816952368713,
+        3.688202524916479e-05,
+        0.0002814227378794407,
+        0.0
+      ],
+      "process_z": [
+        -0.8500757479447333,
+        -0.6675706079628924,
+        1.1457490222687572,
+        0.0
+      ]
+    },
+    {
+      "E": 2.0,
+      "N": 10000000,
+      "seed": 20261121,
+      "mu": 0.04931691619668121,
+      "expected_transmission": 0.6106879551521363,
+      "measured_transmission": 0.6105582,
+      "transmission_z": -0.8415230454907597,
+      "counts": [
+        9920452,
+        215,
+        79333,
+        0
+      ],
+      "expected_process_probabilities": [
+        0.9920543650690721,
+        2.155648046285178e-05,
+        0.00792407845046506,
+        0.0
+      ],
+      "process_z": [
+        -0.32644025061461135,
+        -0.038469274915420806,
+        0.32889484434447447,
+        0.0
+      ]
+    },
+    {
+      "E": 6.0,
+      "N": 10000000,
+      "seed": 20261122,
+      "mu": 0.027634763459940738,
+      "expected_transmission": 0.7585491869779194,
+      "measured_transmission": 0.7583854,
+      "transmission_z": -1.2102446181078375,
+      "counts": [
+        8857592,
+        87,
+        1081210,
+        61111
+      ],
+      "expected_process_probabilities": [
+        0.8858156166730082,
+        8.989116753753214e-06,
+        0.10807736435560603,
+        0.0060980298546319716
+      ],
+      "process_z": [
+        -0.5609607174060424,
+        -0.3049416179782831,
+        0.4444372261261481,
+        0.5309013980981258
+      ]
+    },
+    {
+      "E": 10.0,
+      "N": 10000000,
+      "seed": 20261123,
+      "mu": 0.022134470070486877,
+      "expected_transmission": 0.8014403756093391,
+      "measured_transmission": 0.8014805,
+      "transmission_z": 0.3180734136787218,
+      "counts": [
+        7701818,
+        52,
+        2121836,
+        176294
+      ],
+      "expected_process_probabilities": [
+        0.7700419007928644,
+        6.263459323159347e-06,
+        0.21228679364474246,
+        0.01766504210307012
+      ],
+      "process_z": [
+        1.0513170782063592,
+        -1.3437395889006853,
+        -0.7980082838800058,
+        -0.8556106538237319
+      ]
+    }
+  ],
+  "kn_xcom_relative_at_10keV": 0.38135105395731084,
+  "kn_difference_file": "docs/validation/mv/p2/kn_xcom_difference.npz",
+  "note": "Q1(a) is path/rounding consistency, not physical accuracy"
+}

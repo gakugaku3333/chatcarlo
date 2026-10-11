@@ -1,0 +1,222 @@
+{
+  "status": "合格",
+  "completed": 12,
+  "rows": [
+    {
+      "backend": "dcslib",
+      "E": 1.25,
+      "N": 10000,
+      "seed": 20261320,
+      "arrays_equal": {
+        "coarse": true,
+        "fine": true,
+        "pair": true,
+        "kerma": true,
+        "collision_kerma": true,
+        "totals": true,
+        "maxima": true,
+        "violations": true,
+        "counts": true,
+        "maxdepth": true
+      }
+    },
+    {
+      "backend": "dcslib",
+      "E": 2.0,
+      "N": 10000,
+      "seed": 20261321,
+      "arrays_equal": {
+        "coarse": true,
+        "fine": true,
+        "pair": true,
+        "kerma": true,
+        "collision_kerma": true,
+        "totals": true,
+        "maxima": true,
+        "violations": true,
+        "counts": true,
+        "maxdepth": true
+      }
+    },
+    {
+      "backend": "dcslib",
+      "E": 6.0,
+      "N": 10000,
+      "seed": 20261322,
+      "arrays_equal": {
+        "coarse": true,
+        "fine": true,
+        "pair": true,
+        "kerma": true,
+        "collision_kerma": true,
+        "totals": true,
+        "maxima": true,
+        "violations": true,
+        "counts": true,
+        "maxdepth": true
+      }
+    },
+    {
+      "backend": "dcslib",
+      "E": 10.0,
+      "N": 10000,
+      "seed": 20261323,
+      "arrays_equal": {
+        "coarse": true,
+        "fine": true,
+        "pair": true,
+        "kerma": true,
+        "collision_kerma": true,
+        "totals": true,
+        "maxima": true,
+        "violations": true,
+        "counts": true,
+        "maxdepth": true
+      }
+    },
+    {
+      "backend": "mf",
+      "E": 1.25,
+      "N": 10000,
+      "seed": 20261320,
+      "arrays_equal": {
+        "coarse": true,
+        "fine": true,
+        "pair": true,
+        "kerma": true,
+        "collision_kerma": true,
+        "totals": true,
+        "maxima": true,
+        "violations": true,
+        "counts": true,
+        "maxdepth": true
+      }
+    },
+    {
+      "backend": "mf",
+      "E": 2.0,
+      "N": 10000,
+      "seed": 20261321,
+      "arrays_equal": {
+        "coarse": true,
+        "fine": true,
+        "pair": true,
+        "kerma": true,
+        "collision_kerma": true,
+        "totals": true,
+        "maxima": true,
+        "violations": true,
+        "counts": true,
+        "maxdepth": true
+      }
+    },
+    {
+      "backend": "mf",
+      "E": 6.0,
+      "N": 10000,
+      "seed": 20261322,
+      "arrays_equal": {
+        "coarse": true,
+        "fine": true,
+        "pair": true,
+        "kerma": true,
+        "collision_kerma": true,
+        "totals": true,
+        "maxima": true,
+        "violations": true,
+        "counts": true,
+        "maxdepth": true
+      }
+    },
+    {
+      "backend": "mf",
+      "E": 10.0,
+      "N": 10000,
+      "seed": 20261323,
+      "arrays_equal": {
+        "coarse": true,
+        "fine": true,
+        "pair": true,
+        "kerma": true,
+        "collision_kerma": true,
+        "totals": true,
+        "maxima": true,
+        "violations": true,
+        "counts": true,
+        "maxdepth": true
+      }
+    },
+    {
+      "backend": "elsepa",
+      "E": 1.25,
+      "N": 10000,
+      "seed": 20261320,
+      "arrays_equal": {
+        "coarse": true,
+        "fine": true,
+        "pair": true,
+        "kerma": true,
+        "collision_kerma": true,
+        "totals": true,
+        "maxima": true,
+        "violations": true,
+        "counts": true,
+        "maxdepth": true
+      }
+    },
+    {
+      "backend": "elsepa",
+      "E": 2.0,
+      "N": 10000,
+      "seed": 20261321,
+      "arrays_equal": {
+        "coarse": true,
+        "fine": true,
+        "pair": true,
+        "kerma": true,
+        "collision_kerma": true,
+        "totals": true,
+        "maxima": true,
+        "violations": true,
+        "counts": true,
+        "maxdepth": true
+      }
+    },
+    {
+      "backend": "elsepa",
+      "E": 6.0,
+      "N": 10000,
+      "seed": 20261322,
+      "arrays_equal": {
+        "coarse": true,
+        "fine": true,
+        "pair": true,
+        "kerma": true,
+        "collision_kerma": true,
+        "totals": true,
+        "maxima": true,
+        "violations": true,
+        "counts": true,
+        "maxdepth": true
+      }
+    },
+    {
+      "backend": "elsepa",
+      "E": 10.0,
+      "N": 10000,
+      "seed": 20261323,
+      "arrays_equal": {
+        "coarse": true,
+        "fine": true,
+        "pair": true,
+        "kerma": true,
+        "collision_kerma": true,
+        "totals": true,
+        "maxima": true,
+        "violations": true,
+        "counts": true,
+        "maxdepth": true
+      }
+    }
+  ]
+}

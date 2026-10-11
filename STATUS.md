@@ -1,8 +1,8 @@
 ---
 phase: 開発中
-next: 治療領域拡張の続き。本番用の弾性散乱データをELSEPAから生成する経路の計画（ライセンス条文の確認から）と、制動放射・光子との連成の計画を書く
-blocker: AGENTS.mdの位置づけ（AGENTS.mdが上位・スキルが下位の現構成でよいか）と、計画の承認の進め方（隔離された試作は致命0ならClaudeが承認して進める）がユーザー確認待ち。Antigravityの対話画面でのスキル確認も未実施
-updated: 2026-10-08
+next: P2（光子と電子の連成、単色光子・水の平板）をCodexが実装中。終わったら検証する。そのあと制動放射光子の生成（P2b）の計画
+blocker: ELSEPAで作った表の配布の方法（表を置くか、生成スクリプトだけか）とリポジトリのLICENSEはユーザーの判断待ち。急がない
+updated: 2026-10-09
 ---
 
 詳細は [CLAUDE.md](CLAUDE.md) の "Therapy-energy extension" 節、発表は [docs/presentation_jsmp133.md](docs/presentation_jsmp133.md)、

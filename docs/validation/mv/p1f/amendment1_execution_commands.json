@@ -1,0 +1,47 @@
+[
+  {
+    "stage": "B0",
+    "command": ".venv/bin/python /tmp/p1f_amendment1_b0.py",
+    "exit_code": 0
+  },
+  {
+    "stage": "B1",
+    "command": ".venv/bin/python prototypes/mv_electron/run_p1f_amendment1.py --precheck",
+    "exit_code": 0
+  },
+  {
+    "stage": "B2",
+    "command": ".venv/bin/python prototypes/mv_electron/run_p1f_amendment1.py --freeze",
+    "exit_code": 0
+  },
+  {
+    "stage": "B3/B4",
+    "command": ".venv/bin/python prototypes/mv_electron/run_p1f_amendment1.py --execute",
+    "exit_code": 0
+  },
+  {
+    "stage": "検証",
+    "command": ".venv/bin/python prototypes/mv_electron/run_p1f_amendment1.py --production-tests",
+    "exit_code": 0
+  },
+  {
+    "stage": "保存値再読込",
+    "command": ".venv/bin/python prototypes/mv_electron/run_checks_p1f.py --from-saved",
+    "exit_code": 0
+  },
+  {
+    "stage": "凍結照合",
+    "command": ".venv/bin/python prototypes/mv_electron/run_checks_p1f.py --verify-untouched",
+    "exit_code": 0
+  },
+  {
+    "stage": "凍結2/固定入力照合",
+    "command": ".venv/bin/python prototypes/mv_electron/run_p1f_amendment1.py --verify-untouched",
+    "exit_code": 0
+  },
+  {
+    "stage": "B5",
+    "command": ".venv/bin/python /tmp/p1f_amendment1_report.py",
+    "exit_code": 0
+  }
+]

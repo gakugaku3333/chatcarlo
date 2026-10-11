@@ -1,0 +1,11 @@
+{
+  "first_interruption": "NameError: dref is not defined in report_p1d.plots",
+  "first_command": ".venv/bin/python prototypes/mv_electron/run_p1d.py",
+  "exit_code": 1,
+  "subsequent_stop": "R0 freeze mismatch in the P2 plan file; startup reporting adapter was never frozen or used successfully; unused adapter removed",
+  "frozen_files_edited": false,
+  "completed_runs_rerun": false,
+  "seeds_reselected": false,
+  "statistics_added": false,
+  "EGS5_executed": false
+}

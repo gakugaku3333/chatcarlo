@@ -1,0 +1,20 @@
+{
+  "status": "合格",
+  "checkpoint_completed_histories": 100,
+  "total_histories": 10000,
+  "seed": 20261526,
+  "E": 10.0,
+  "exact_equal": {
+    "coarse": true,
+    "fine": true,
+    "ledger": true,
+    "callbacks": true,
+    "effective_flags": true,
+    "cutoffs": true
+  },
+  "original_case": "selfcheck_d2_3_0",
+  "replayed_work": "$CHATCARLO_P2_CACHE/egs5/restart_probe_d2",
+  "checkpoint_sha256": "2a8f9d2b3e5696b5f0e02c46f48fc989f76c0540b5fd89466be5fc9620a0aafe",
+  "source_sha256": "f428878c36e12fe9d5e06305a076bd4e93153ce4de92ee94821de505e6d1541f",
+  "scope": "selfcheck only, never a pilot/main replay; RNG and all score/ledger/callback arrays exactly compared"
+}

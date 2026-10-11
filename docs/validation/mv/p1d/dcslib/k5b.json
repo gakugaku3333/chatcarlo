@@ -1,0 +1,6 @@
+{
+  "status": "pass",
+  "command": ".venv/bin/python -m pytest prototypes/mv_electron/tests/test_p1d.py::test_k5b_actual_table[dcslib] -q",
+  "exit_code": 0,
+  "log": "dcslib/k5b.log"
+}

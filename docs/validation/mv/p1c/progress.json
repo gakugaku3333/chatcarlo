@@ -1,0 +1,4 @@
+{
+  "last_completed_run": "reference_2",
+  "resume_command": ".venv/bin/python prototypes/mv_electron/run_p1c.py"
+}

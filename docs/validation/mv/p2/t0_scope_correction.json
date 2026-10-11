@@ -1,0 +1,33 @@
+{
+  "reason": "Non-input documentation was inadvertently included by extension scan. Removed README/license/manual/report text to obey user freeze-scope instruction. No source, table or reference output removed.",
+  "prior_verification": [
+    {
+      "status": "合格",
+      "group": "protected",
+      "files": 976,
+      "changed": []
+    },
+    {
+      "status": "合格",
+      "group": "egs5_inputs",
+      "files": 953,
+      "changed": []
+    }
+  ],
+  "excluded": {
+    "protected": [
+      "docs/validation/mv/p0/data/XCOM/Readme.txt",
+      "docs/validation/mv/p0/data/egsnrc_license.txt",
+      "docs/validation/mv/p0/data/nist_license.html",
+      "docs/validation/mv/p0/data/xcom_download.html",
+      "docs/validation/mv/p0/data/xcom_version.html",
+      "docs/validation/mv/p0/egs5/pegs_manual.txt",
+      "docs/validation/mv/p0/egs5/user_manual.txt",
+      "docs/validation/mv/p1f/amendment1_report_source.txt"
+    ],
+    "egs5_inputs": [
+      "docs/egs5_crosscheck/egs5/data/density_corrections/README"
+    ]
+  },
+  "production_started": false
+}
