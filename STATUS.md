@@ -1,8 +1,8 @@
 ---
 phase: 開発中
-next: P2（光子と電子の連成、単色光子・水の平板）をCodexが実装中。終わったら検証する。そのあと制動放射光子の生成（P2b）の計画
+next: 制動放射の光子の輸送の計画と実装（P2〜P3sは完了。10 MVスペクトルのスラブ比較は深部のブロック平均が1%以内）。そのあと並列実行、P3b（10×10 cm²の照射野）
 blocker: ELSEPAで作った表の配布の方法（表を置くか、生成スクリプトだけか）とリポジトリのLICENSEはユーザーの判断待ち。急がない
-updated: 2026-10-09
+updated: 2026-10-12
 ---
 
 詳細は [CLAUDE.md](CLAUDE.md) の "Therapy-energy extension" 節、発表は [docs/presentation_jsmp133.md](docs/presentation_jsmp133.md)、

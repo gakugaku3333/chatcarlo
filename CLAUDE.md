@@ -33,7 +33,7 @@ an unquantified reference uncertainty. This is a scoped benchmark, not blanket v
 Use [current results](docs/egs5_crosscheck/revalidation_2026_10_07/RESULTS.md) for current
 numbers; the old BSF/PDD JSON, figures and reports are historical records, not regenerated data.
 
-## Therapy-energy extension (in progress, prototype only — 2026-10-08)
+## Therapy-energy extension (in progress, prototype only — 2026-10-12)
 
 Work toward coupled photon/electron/positron transport for nominal 10 MV is under way, **entirely outside
 `chatcarlo/`**. Nothing in the production package or the 150 keV limits has changed.
@@ -95,7 +95,38 @@ Work toward coupled photon/electron/positron transport for nominal 10 MV is unde
   How to distribute the tables (CC BY-NC 3.0 program; licence text itself not yet read) is an open user decision.
 - The prototype's tests are run separately from the main suite (`pytest prototypes/mv_electron/tests -q`);
   collecting both directories in one pytest call fails because both contain `test_transport.py`.
-- Codex review originals for these plans are kept in `docs/ai/plans/reviews/`.
+- P2 coupled photon/electron/positron slab (done, 2026-10-10): [docs/validation/mv/p2/RESULTS.md](docs/validation/mv/p2/RESULTS.md).
+  Monoenergetic 1.25/2/6/10 MeV photons on a 30 cm water slab vs EGS5. **Formal verdict stays as recorded: Q0–Q4 pass,
+  Q6 undetermined, Q7 insufficient statistics** (the pre-registered precision had no margin: 0.3345% vs 0.3333%).
+  Run notes incl. a disk-full stop and a 2-process helper: [EXECUTION_NOTES.md](docs/validation/mv/p2/EXECUTION_NOTES.md).
+- P2b criteria v2 (2026-10-11, user decision): literature-based redesign (Rogers & Mohan ICCR 2000, AAPM TG-105). Judge
+  fixed 5 cm depth blocks beyond the peak window: block-mean difference ≤ 1% of a fixed `Dref` **and** SEM ≤ 0.33%;
+  build-up and peak are reported, not judged. Applied post hoc to P2 (all 12 comparisons within 1%, max 0.38%) and to
+  later stages. Plan: `docs/ai/plans/2026-10-11-mv-p2b-criteria-redesign.md`. A 6 MeV "+1.05%" difference between two
+  EGS5 settings, found post hoc, did **not** reproduce at 5× statistics (+0.23 ± 0.13%).
+- P2c positron annihilation in flight (done): [docs/validation/mv/p2c/DISCUSSION.md](docs/validation/mv/p2c/DISCUSSION.md).
+  Heitler cross section, analytic, no data file. In-flight probability matches theory within 0.3% (1–9 MeV). It removed
+  a systematic offset vs EGS5 (whole-slab deposit +0.11% → −0.04% at 6 MeV, +0.26% → −0.05% at 10 MeV). Now always on.
+- P3a Mohan 10 MV spectrum on the slab (done): [docs/validation/mv/p3a/DISCUSSION.md](docs/validation/mv/p3a/DISCUSSION.md).
+  All five deep blocks within 1% of EGS5 (max 0.29 ± 0.11%). **This is a broad parallel beam on a slab, not a 10×10 cm²
+  field PDD/OCR** (that is P3b, not started). The spectrum file is untracked (redistribution terms unconfirmed); never
+  copy its values into tracked files. Pair-production counts differ by −1.2% because EGS5's piecewise-linear fit smears
+  the pair threshold (total attenuation still agrees within 0.06%). A small build-up excess of the prototype
+  (≈ +0.3 ± 0.1% of `Dref`) persists across energies and settings; cause unknown.
+- P3s step-size rule (done; **adopted by user 2026-10-12**): [docs/validation/mv/p3s/DISCUSSION.md](docs/validation/mv/p3s/DISCUSSION.md).
+  Multiple-scattering step K1 = 0.1 for T ≤ 0.02 MeV, 0.05 for T ≤ 1 MeV, 0.025 above (was 0.025 everywhere). ~1.35×
+  faster, dose unchanged within statistics. Caveat: the electron-beam before/after check (S4) is formally "insufficient
+  statistics" (no difference seen; the precision condition was set without sizing it). Prototype is still ~3× slower
+  than EGS5; ~100 µs/history of non-step overhead is unexplained.
+- Standing decisions and known approximations live in
+  [docs/validation/mv/KNOWN_APPROXIMATIONS.md](docs/validation/mv/KNOWN_APPROXIMATIONS.md): no positron-specific
+  stopping/Bhabha/elastic data (estimated effect ≤ 0.1%); electron cutoff stays at EGS5's 10 keV (do not propose raising
+  it); bremsstrahlung photons are to be transported (not yet — both codes currently deposit them locally); GPU target
+  is Google Colab free tier.
+- Next: bremsstrahlung photon transport → CPU parallel batches → P3b (field, PDD/OCR) → Fano test etc. → GPU-oriented
+  rewrite → Colab.
+- Codex review originals for these plans are kept in `docs/ai/plans/reviews/`. Codex's sandbox cannot write outside the
+  repository (`~/.cache`); checks that need it are run by Claude.
 
 ## Scatter correction moved out (2026-08-20)
 
