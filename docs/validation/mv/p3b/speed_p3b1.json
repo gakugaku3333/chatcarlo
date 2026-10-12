@@ -1,0 +1,42 @@
+{
+  "N": 50000,
+  "seed": 20291760,
+  "reps": 3,
+  "S1": {
+    "production": true,
+    "shifted_mf_mode1": true
+  },
+  "us_per_history": {
+    "p3t_slab": [
+      235.55372584145516,
+      232.788512497209,
+      232.78858250007033
+    ],
+    "field_without_regions": [
+      258.76315749716014,
+      256.44577499944717,
+      258.7407041620463
+    ],
+    "field_with_regions": [
+      307.7257233206183,
+      308.32402918022126,
+      312.2098958399147
+    ]
+  },
+  "best": {
+    "p3t_slab": 232.788512497209,
+    "field_without_regions": 256.44577499944717,
+    "field_with_regions": 307.7257233206183
+  },
+  "S3": {
+    "regions_over_no_regions": 1.199964098926105,
+    "limit": 1.5,
+    "status": "合格"
+  },
+  "regions_over_p3t_slab": 1.3219111201817044,
+  "source_sha256": {
+    "photon_transport_p3b.py": "097e323a4e86697489f5f1d25473e702b534147770a6a500776466078ad55658",
+    "scoring_p3b.py": "589a0fcdccb5d9f1f7f8a7f4c234239db248dd5ddbe450bba2bd71f0ea957453",
+    "photon_transport_p3t.py": "d7c2fbdbfbae03c1c60c5a4a3869442176707a7a9e9b29760fdc39d255f885db"
+  }
+}

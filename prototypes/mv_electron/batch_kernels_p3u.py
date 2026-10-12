@@ -96,3 +96,7 @@ def fake_fingerprint(params):
 from .run_p3r import KEYS
 KERNELS={'p3t_slab':Kernel(slab_run,KEYS,slab_healthy,slab_fingerprint,slab_params),
          'fake':Kernel(fake_run,('value','violations','counts'),fake_healthy,fake_fingerprint,fake_params)}
+
+# Field adapter stays light; transport and tables are imported inside its calls.
+from . import batch_kernels_p3b as field
+KERNELS['p3b_field']=Kernel(field.run,field.KEYS,field.healthy,field.fingerprint,field.check_params)

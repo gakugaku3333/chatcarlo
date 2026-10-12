@@ -149,7 +149,19 @@ Work toward coupled photon/electron/positron transport for nominal 10 MV is unde
   stopping/Bhabha/elastic data (estimated effect ≤ 0.1%); electron cutoff stays at EGS5's 10 keV (do not propose raising
   it); bremsstrahlung photons are transported since P3r; GPU target
   is Google Colab free tier.
-- Next: P3b → Fano test etc. → GPU-oriented rewrite → Colab. P3b skeleton (draft, Codex skeleton review done):
+- P3b-1 prototype field kernel (done, 2026-10-12; **no EGS5 comparison yet**):
+  [docs/validation/mv/p3b/RESULTS_P3B1.md](docs/validation/mv/p3b/RESULTS_P3B1.md). `photon_transport_p3b.py` carries
+  full xyz for every particle, has the divergent 10×10 cm² source and scores an axis box, the whole slab and lateral
+  profiles by straight-segment apportioning (legacy depth outputs untouched and byte-identical to P3t without a field).
+  Registered in the P3u runner as `'p3b_field'`. All deterministic checks pass. **The pre-registered symmetry check B8
+  failed** (1 of 9 contrasts, z = −3.59, 2M histories; the test ran at its designed ≈5% family-wise level, so a coarse
+  SEM (≈ 2% per contrast) does not explain a false alarm — it only means a pass would have shown little); a diagnostic
+  with a rule fixed beforehand (≈60× the volume, new seed) found no bias (max |z| 1.61, asymmetries ≤ 0.75 ± 0.5%), so
+  the failure is consistent with a ≈1% chance event — B8 stays recorded as failed and symmetry is to be rechecked in the P3b-3 pilot.
+  50%-dose positions match the geometric field edge (5.25/5.51/6.05 cm at 5/10/20 cm depth). Speed with regions:
+  308 µs/history (1.32× the P3t slab) after removing a per-step allocation (was ≈ 700).
+- Next: P3b-2 (EGS5 user code with the same source and regions) → P3b-3 (pilot, production, analysis) → Fano test etc. →
+  GPU-oriented rewrite → Colab. P3b skeleton (draft, Codex skeleton review done):
   [docs/ai/plans/2026-10-12-mv-p3b-field-pdd-ocr.md](docs/ai/plans/2026-10-12-mv-p3b-field-pdd-ocr.md). User decisions
   (2026-10-12): 10×10 cm² at the surface, divergent, 100 cm source-to-surface in vacuum, 2×2 cm axis box, profiles at
   5/10/20 cm, depth bins 0.25 cm (coarse) / 0.1 cm (fine). **The slab kernels up to P3t do not carry lateral position

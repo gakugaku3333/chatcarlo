@@ -89,7 +89,7 @@ P2bの基準v2と同じ考え方（固定した領域、固定した `Dref`、�
 ## 対象範囲
 
 - 変更してよい: `prototypes/mv_electron/` の新規ファイル（`photon_transport_p3b.py`、`batch_kernels_p3b.py`、`run_p3b.py`、`p3b_egs.f`、`p3b_egs_common.inc`、`tests/test_p3b.py`）、`docs/validation/mv/p3b/`。
-- 変更禁止: `chatcarlo/`、`tests/`、`scripts/`、`examples/`、既存の `prototypes/mv_electron/` のファイル（`batch_kernels_p3u.py` と `batch_runner_p3u.py` も、P3uの時間測定の記録がハッシュを持つので書き換えない。新しい核の登録方法は詳細で決める）、過去の結果。
+- 変更禁止: `chatcarlo/`、`tests/`、`scripts/`、`examples/`、既存の `prototypes/mv_electron/` のファイル（例外: `batch_kernels_p3u.py` への核の登録の追加だけは、第1段階の計画 [P3b-1](2026-10-12-mv-p3b1-prototype-kernel.md) で認めた。`batch_runner_p3u.py` は書き換えない）、過去の結果。
 - スコープ外: 10×10 cm²など他の照射野、空気層、線源の大きさ・平坦化フィルタ・コリメータの散乱、測定データとの照合、プロセス数の上限の変更、GPU。
 
 ## 停止条件
