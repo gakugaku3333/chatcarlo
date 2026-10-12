@@ -1,6 +1,6 @@
 ---
 phase: 開発中
-next: CPUの並列実行（P3tでP3rの速度低下は回復済み。新しい作業は photon_transport_p3t.py を使う）。そのあとP3b（10×10 cm²の照射野）
+next: P3bの第1段階（試作側の新しい核: 全粒子の位置を3次元で運ぶ、発散の線源、領域の集計）の詳細な計画を書いてCodexの詳細レビューへ。条件は10×10 cm²・発散・SSD 100 cm（骨子 docs/ai/plans/2026-10-12-mv-p3b-field-pdd-ocr.md）
 blocker: ELSEPAで作った表の配布の方法（表を置くか、生成スクリプトだけか）とリポジトリのLICENSEはユーザーの判断待ち。急がない
 updated: 2026-10-12
 ---

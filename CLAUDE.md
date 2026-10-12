@@ -108,8 +108,8 @@ Work toward coupled photon/electron/positron transport for nominal 10 MV is unde
   Heitler cross section, analytic, no data file. In-flight probability matches theory within 0.3% (1–9 MeV). It removed
   a systematic offset vs EGS5 (whole-slab deposit +0.11% → −0.04% at 6 MeV, +0.26% → −0.05% at 10 MeV). Now always on.
 - P3a Mohan 10 MV spectrum on the slab (done): [docs/validation/mv/p3a/DISCUSSION.md](docs/validation/mv/p3a/DISCUSSION.md).
-  All five deep blocks within 1% of EGS5 (max 0.29 ± 0.11%). **This is a broad parallel beam on a slab, not a 10×10 cm²
-  field PDD/OCR** (that is P3b, not started). The spectrum file is untracked (redistribution terms unconfirmed); never
+  All five deep blocks within 1% of EGS5 (max 0.29 ± 0.11%). **This is a broad parallel beam on a slab, not a field
+  PDD/OCR** (that is P3b, not started). The spectrum file is untracked (redistribution terms unconfirmed); never
   copy its values into tracked files. Pair-production counts differ by −1.2% because EGS5's piecewise-linear fit smears
   the pair threshold (total attenuation still agrees within 0.06%). A small build-up excess of the prototype
   (≈ +0.3 ± 0.1% of `Dref`) persists across energies and settings; cause unknown.
@@ -137,13 +137,24 @@ Work toward coupled photon/electron/positron transport for nominal 10 MV is unde
   events off 201 (was 254), photons transported 228 µs/history (was 301) — ≈ 3× EGS5 again. **Use P3t for new work**;
   `photon_transport_p3r.py` is left untouched because it is hash-frozen by `run_p3r.py`. The remaining ≈ 23 µs with
   discrete events on is probably the table lookup itself (not separated; changing it could change bits).
+- P3u parallel batches (done, 2026-10-12): [docs/validation/mv/p3u/RESULTS.md](docs/validation/mv/p3u/RESULTS.md).
+  `batch_runner_p3u.run_batches` runs independent-seed batches of a named kernel (`batch_kernels_p3u.KERNELS`; currently
+  the P3t slab) in up to 2 spawn processes, saves each batch from the parent only, resumes, and stacks in batch-index
+  order. For a fixed config the arrays are byte-identical for 1 or 2 workers and across stop/resume, and each batch equals
+  a direct P3r call with the same seed. Mohan slab, 2M histories: 492 s → 258 s (×1.90). The worker cap of 2 is the
+  standing operating rule, not a technical limit (more is unmeasured). **New production runs (P3b onward) should go
+  through this runner**; add a kernel rather than a new batch loop.
 - Standing decisions and known approximations live in
   [docs/validation/mv/KNOWN_APPROXIMATIONS.md](docs/validation/mv/KNOWN_APPROXIMATIONS.md): no positron-specific
   stopping/Bhabha/elastic data (estimated effect ≤ 0.1%); electron cutoff stays at EGS5's 10 keV (do not propose raising
   it); bremsstrahlung photons are transported since P3r; GPU target
   is Google Colab free tier.
-- Next: CPU parallel batches → P3b (field, PDD/OCR) → Fano test etc. → GPU-oriented
-  rewrite → Colab.
+- Next: P3b → Fano test etc. → GPU-oriented rewrite → Colab. P3b skeleton (draft, Codex skeleton review done):
+  [docs/ai/plans/2026-10-12-mv-p3b-field-pdd-ocr.md](docs/ai/plans/2026-10-12-mv-p3b-field-pdd-ocr.md). User decisions
+  (2026-10-12): 10×10 cm² at the surface, divergent, 100 cm source-to-surface in vacuum, 2×2 cm axis box, profiles at
+  5/10/20 cm, depth bins 0.25 cm (coarse) / 0.1 cm (fine). **The slab kernels up to P3t do not carry lateral position
+  for photons or for most secondaries** (only charged steps and Møller secondaries) — harmless for depth-only scoring,
+  wrong for any lateral scoring; the P3b kernel must propagate full xyz.
 - Codex review originals for these plans are kept in `docs/ai/plans/reviews/`. Codex's sandbox cannot write outside the
   repository (`~/.cache`); checks that need it are run by Claude.
 
