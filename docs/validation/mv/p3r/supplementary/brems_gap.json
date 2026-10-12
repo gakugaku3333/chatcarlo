@@ -1,0 +1,72 @@
+{
+ "rate": [
+  {
+   "T": 0.05,
+   "prototype": 0.1274172603434003,
+   "EGS5_formula": 0.12745980167416013,
+   "prototype_vs_formula_pct": -0.03337627251968067
+  },
+  {
+   "T": 0.1,
+   "prototype": 0.10556208389753453,
+   "EGS5_formula": 0.10555260792366672,
+   "prototype_vs_formula_pct": 0.008977489096873015
+  },
+  {
+   "T": 0.2,
+   "prototype": 0.08988037849541135,
+   "EGS5_formula": 0.089854691081613,
+   "prototype_vs_formula_pct": 0.028587727016970987
+  },
+  {
+   "T": 0.5,
+   "prototype": 0.08804465048964193,
+   "EGS5_formula": 0.08798517271206568,
+   "prototype_vs_formula_pct": 0.06759977362422731
+  },
+  {
+   "T": 1.0,
+   "prototype": 0.10311784404709526,
+   "EGS5_formula": 0.10305489577485902,
+   "prototype_vs_formula_pct": 0.06108227247521025
+  },
+  {
+   "T": 2.0,
+   "prototype": 0.130076288905573,
+   "EGS5_formula": 0.13002350233148585,
+   "prototype_vs_formula_pct": 0.04059771744384655
+  },
+  {
+   "T": 3.0,
+   "prototype": 0.14919362975630665,
+   "EGS5_formula": 0.14914249924142617,
+   "prototype_vs_formula_pct": 0.03428299454584227
+  },
+  {
+   "T": 5.0,
+   "prototype": 0.17460124435460905,
+   "EGS5_formula": 0.17447542788720669,
+   "prototype_vs_formula_pct": 0.07211128175808046
+  },
+  {
+   "T": 7.0,
+   "prototype": 0.1914560386276072,
+   "EGS5_formula": 0.19139667734150606,
+   "prototype_vs_formula_pct": 0.031014794470674012
+  },
+  {
+   "T": 10.0,
+   "prototype": 0.20923956755312353,
+   "EGS5_formula": 0.20921252463195422,
+   "prototype_vs_formula_pct": 0.012926052690631629
+  }
+ ],
+ "pair_share": {
+  "first_interaction_pairs_per_history": 0.021506422837599647,
+  "measured_pairs_per_history": 0.0233,
+  "brems_energy_from_pair_particles_MeV": 0.0008908229845773653,
+  "total_brems_energy_MeV": 0.013959932207613514,
+  "share": 0.063812844599025,
+  "gap_explained_by_minus_1p4pct_pairs_pct": -0.089337982438635
+ }
+}

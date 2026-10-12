@@ -118,12 +118,24 @@ Work toward coupled photon/electron/positron transport for nominal 10 MV is unde
   faster, dose unchanged within statistics. Caveat: the electron-beam before/after check (S4) is formally "insufficient
   statistics" (no difference seen; the precision condition was set without sizing it). Prototype is still ~3× slower
   than EGS5; ~100 µs/history of non-step overhead is unexplained.
+- P3r bremsstrahlung photon transport (done, 2026-10-12): [docs/validation/mv/p3r/DISCUSSION.md](docs/validation/mv/p3r/DISCUSSION.md).
+  Same Bethe–Heitler formula as EGS5, normalised to ESTAR's radiative stopping power by our own factor (no EGS5 correction
+  table; user decision "B"). Photons above 10 keV are discrete events and are transported; the EGS5 reference was rerun
+  with them transported too. Mohan 10 MV slab: all five deep blocks within 1% (−0.04 to +0.04%, SEM ≈ 0.1%); the dose
+  change from transporting them (≈ −0.85% near the peak, ≈ 0 beyond 20 cm) is the same in both codes. Making radiative
+  loss discrete did not move the build-up excess (still ≈ +0.3%). Caveats: Codex hit its usage limit and Claude wrote the
+  check/production/analysis part of `run_p3r.py`; three check amendments (one chance failure, two harness/plan mistakes);
+  bremsstrahlung count/energy created are 0.7 ± 0.2% / 1.2 ± 0.4% lower than EGS5, unexplained (not the formula: rates agree within 0.07%; the
+  −1.4% pair count covers only ≈ 0.1%; EGS5's 1%-tolerance piecewise-linear electron tables remain the candidate, not confirmed);
+  the prototype got ~40% slower (≈ 310 µs/history, 4× EGS5) — about half of that remains with discrete events switched
+  off, so it is overhead in the copied loop, not optimised yet. Slab thickness must be a multiple of the 0.2 cm scoring
+  bin (otherwise deposits fall outside the dose array; the scoring-violation counters flag it).
 - Standing decisions and known approximations live in
   [docs/validation/mv/KNOWN_APPROXIMATIONS.md](docs/validation/mv/KNOWN_APPROXIMATIONS.md): no positron-specific
   stopping/Bhabha/elastic data (estimated effect ≤ 0.1%); electron cutoff stays at EGS5's 10 keV (do not propose raising
-  it); bremsstrahlung photons are to be transported (not yet — both codes currently deposit them locally); GPU target
+  it); bremsstrahlung photons are transported since P3r; GPU target
   is Google Colab free tier.
-- Next: bremsstrahlung photon transport → CPU parallel batches → P3b (field, PDD/OCR) → Fano test etc. → GPU-oriented
+- Next: CPU parallel batches (and recovering the P3r slowdown) → P3b (field, PDD/OCR) → Fano test etc. → GPU-oriented
   rewrite → Colab.
 - Codex review originals for these plans are kept in `docs/ai/plans/reviews/`. Codex's sandbox cannot write outside the
   repository (`~/.cache`); checks that need it are run by Claude.

@@ -64,6 +64,7 @@
 | [P2c 飛行中の陽電子消滅](2026-10-11-mv-p2c-flight-annihilation.md) | Heitlerの式で追加 | 6・10 MeVでEGS5主との差が0に近づいた。[考察](../../validation/mv/p2c/DISCUSSION.md) |
 | [P3a 10 MVスペクトル](2026-10-11-mv-p3a-mohan-spectrum-slab.md) | Mohanのスペクトルをスラブで比較（本表のP5の前半） | 深部の5ブロックが1%以内。[考察](../../validation/mv/p3a/DISCUSSION.md) |
 | [P3s 刻みの規則](2026-10-11-mv-p3s-step-speedup.md) | 多重散乱の刻みをエネルギーで変える | 約1.35倍、線量は統計の範囲で不変。独自の規則を採用。[考察](../../validation/mv/p3s/DISCUSSION.md) |
+| [P3r 制動放射の光子の輸送](2026-10-12-mv-p3r-bremsstrahlung-transport.md) | 制動放射の光子を発生させて運ぶ（EGS5と同じ式、規格化はESTARへ自前で） | 光子を運ぶ設定でも深部5ブロックが1%以内（−0.04〜+0.04%）。運ぶことによる変化は両コードで同じ。計算時間は約4割増（未対処）。制動放射の回数の差−0.7%は未解明。[考察](../../validation/mv/p3r/DISCUSSION.md) |
 
 - 判定の基準は、下の「合否の目標案」ではなく、P2bの基準v2（深部のブロック平均の差が1%以内、SEM 0.33%以下）を使う（ユーザー決定、2026-10-11）。
 - 方針の決定と既知の近似は[KNOWN_APPROXIMATIONS.md](../../validation/mv/KNOWN_APPROXIMATIONS.md)にまとめた（陽電子専用の物理は入れない、カットオフは10 keVのまま、制動放射の光子は運ぶ、GPUはColabの無料版）。

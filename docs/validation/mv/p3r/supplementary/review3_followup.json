@@ -1,0 +1,97 @@
+{
+ "lock": {
+  "sha256": "f3d1bee60eb5dd4e3250bbe53bdb00d96bfbd37ecb6edeac05af74e8057c2abe",
+  "same_as_P3s_analysis": true,
+  "same_as_P3r_analysis": true
+ },
+ "runs": {
+  "p3r_egs": {
+   "N": true,
+   "seed": true,
+   "spectrum": true,
+   "sources_as_checked": true,
+   "mode": true,
+   "result_hash_as_analysed": true
+  },
+  "p3r_proto": {
+   "N": true,
+   "seed": true,
+   "spectrum": true,
+   "sources_as_checked": true,
+   "mode": true,
+   "result_hash_as_analysed": true
+  },
+  "p3r_proto_local": {
+   "N": true,
+   "seed": true,
+   "spectrum": true,
+   "sources_as_checked": true,
+   "mode": true,
+   "result_hash_as_analysed": true
+  },
+  "p3a_egs": {
+   "N": true,
+   "seed": true,
+   "spectrum": true,
+   "pegs_input_same_as_p3r": true
+  },
+  "p3a_egs_seed2": {
+   "N": true,
+   "seed": true,
+   "spectrum": true,
+   "pegs_input_same_as_p3r": true
+  },
+  "p3s_own": {
+   "N": true,
+   "seed": true,
+   "spectrum": true,
+   "rule": true
+  }
+ },
+ "all_identity_checks_pass": true,
+ "brems_prototype_vs_EGS5": {
+  "count": {
+   "relative_pct": -0.690435899540276,
+   "SEM_pct": 0.16685757101382157
+  },
+  "energy": {
+   "relative_pct": -1.2296825668445255,
+   "SEM_pct": 0.3884564075573167
+  }
+ },
+ "G3": {
+  "dN_SEM": 0.0021009437244922367,
+  "z_N": 0.2061932623303601,
+  "dE_SEM_MeV": 0.001971008347484169,
+  "z_E": -0.09583367293181172
+ },
+ "escaped_over_incident": {
+  "prototype": {
+   "value": 0.4937273414913944,
+   "SEM": 0.0001608958906155708
+  },
+  "prototype_local": {
+   "value": 0.4913457691807437,
+   "SEM": 0.00016429295107838813
+  },
+  "prototype_continuous": {
+   "value": 0.49154478790415485,
+   "SEM": 0.00018283121790852317
+  },
+  "EGS5": {
+   "value": 0.49376821701530904,
+   "SEM": 0.00016228713368192103,
+   "whole_run_escape_over_incident_from_ledger": 0.4937682170152646
+  },
+  "EGS5_local_1": {
+   "value": 0.49190391139159517,
+   "SEM": 0.00016849210326232825,
+   "whole_run_escape_over_incident_from_ledger": 0.4919039113915796
+  },
+  "EGS5_local_2": {
+   "value": 0.49173994182949876,
+   "SEM": 0.00017265710528084329,
+   "whole_run_escape_over_incident_from_ledger": 0.4917399418295264
+  }
+ }
+}

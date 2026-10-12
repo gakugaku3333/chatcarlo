@@ -55,4 +55,5 @@ docs/validation/mv/p2c/**/*.npz
 docs/validation/mv/p3a/**/*.npz
 docs/validation/mv/p3a/**/*.npy
 docs/validation/mv/p3s/**/*.npz
+docs/validation/mv/p3r/**/*.npz
 docs/validation/mv/**/*.tmp

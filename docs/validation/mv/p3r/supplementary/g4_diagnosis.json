@@ -1,0 +1,11 @@
+{
+ "p_raw_uniform_same_seed": 0.0009472650703775116,
+ "spread_of_phi_minus_2pi_u": 2.220446049250313e-16,
+ "other_seeds": {
+  "first": 30000001,
+  "count": 40,
+  "min_p": 0.039564143692446714,
+  "median_p": 0.40477068314310805,
+  "below_threshold": 0
+ }
+}

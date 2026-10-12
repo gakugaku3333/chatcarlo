@@ -1,0 +1,1098 @@
+{
+  "status": "合格",
+  "source_hashes": {
+    "prototypes/mv_electron/run_p3a.py": "8fe5f0c497b78f1b05af28eee509252c1751cc7163c8ae16dc5a639fd5f549a3",
+    "prototypes/mv_electron/photon_transport_p3.py": "1c6e7f8d4b5b9dd4bd32470321a38bf3e972b1bed8bc123de588e123fb303e3c",
+    "prototypes/mv_electron/p3_egs.f": "c9d231ee44c9c50fcfe1d074c3674592fe8515f1c179f541f853a9c7b3002086",
+    "prototypes/mv_electron/p3_egs_common.inc": "3b3d66a0cf00da256853e4ea9d39fc3545382f654d7fe09e2007114c27cf5493",
+    "prototypes/mv_electron/run_p2c.py": "23db601f7c9459926fa4fc8de33c2a9e90ace85fa01a0bcb2f06684fe59b38e0",
+    "prototypes/mv_electron/photon_transport_p2c.py": "fcf34588596422bf6a83e1e617961af9b563682307dba35ae7d9fd4260fa68a7",
+    "prototypes/mv_electron/flight_annihilation_p2c.py": "8596585268e5d9fea2110f6ebe256f9a3769f6ea548ebd16d61c0863bd57c836",
+    "prototypes/mv_electron/run_coupled_p2.py": "09aa364155911e1496ee29e60bb5584bf237710a31ac1f5f46ac54628a661ad8",
+    "prototypes/mv_electron/p2_common.py": "f1e447fcfc5ed88f20939bd44ad46eb46afe25b558e2f60458b3d788a31e8c3e",
+    "prototypes/mv_electron/photon_data_p2.py": "b76ca6c4ead288dded6f135b2f3968d1f0e1175eb952fcf661c1f8657ca99560",
+    "prototypes/mv_electron/photon_sampling_p2.py": "1451fe3ab29c40121edf6d20631317c2f1120c8dc9d5cc8388dc0a606cda2ac5",
+    "prototypes/mv_electron/physics.py": "9c0d21197acc5cb54a9fbb0f5fd3534c0638ed1cf54f0fecd2e9475d3a72b718",
+    "prototypes/mv_electron/transport.py": "e2345a5782fe4e491fd1f051790f8c0a9a4abdd07743c6729d38e5f7c92efc19",
+    "prototypes/mv_electron/sampling.py": "1bc217fb327ce4e9b71b71e35b7fc486acffc40d09022e91c457f9d1e8b4da77",
+    "prototypes/mv_electron/backend_sampling.py": "1c1442ddbd8f7bbc22e6c6e3e34567be60d2ddec1d181385ea4def807e85063c",
+    "prototypes/mv_electron/elsepa.py": "0cc02356c90c2933fe9b0619237748b12f019a777d73411b416fde48e68d9c71",
+    "prototypes/mv_electron/dcs.py": "23c0f7122b85a7ba7214c93d2b95c5459e5305a225bcb2232544d0352d84c71c",
+    "prototypes/mv_electron/mf.py": "a9b0e6e4fc3600547af3ed0d4a7797885c94e453caa03228f982b5329eddba39",
+    "prototypes/mv_electron/single_table.py": "3fda8e33bab15a5e2bb30a9507f873bfa42a0277d0b0b4a139c9a5428e774c0f",
+    "prototypes/mv_electron/gs_backend.py": "4fc40df1bcee7c6d1f6822d6c1f12bf8d7b88fcc9ab50ee49d229331db571533",
+    "prototypes/mv_electron/reference_p2.py": "b12aec291bcaba5cdbe39342a767949be0d793b0f026e21048b3755dff3e4322",
+    "prototypes/mv_electron/p1e_common.py": "cd0eb35aec47388e44849cf82a4db258c86e1e87b38cb63cab58b797dc4eabb1",
+    "prototypes/mv_electron/p1d_common.py": "ccc8748d65032ea0de231670ed8e16f4e21f07f3128e0192cf61f9532a3d505e",
+    "prototypes/mv_electron/workflow_p2.py": "c40e53f3b38335c98fbcbf07e83e788bc0eebbd1e4f93234e91fb84f29029e74",
+    "prototypes/mv_electron/compare_photon_p2.py": "fc091c85cc95010673bebec3fe1028cdbc7863dbe51746b8c57e6e3ff0919432",
+    "prototypes/mv_electron/run_p3s.py": "793a85983497ac534c7b5259ec2e6331bb489b618d997ee3d8dac7d7a9395f36",
+    "prototypes/mv_electron/photon_transport_p3s.py": "b7b6a69fc23deb327d62b6372c624718f4df69aac2225c568690ba4922af7cd0",
+    "prototypes/mv_electron/run_p3r.py": "cca0bb394ca5efb323f5788caf815447d205f085fd969012c99f249ef24647af",
+    "prototypes/mv_electron/bremsstrahlung_p3r.py": "694af96f544772a904173639a232d029dd9b2b24d3af525b966ebda4058769b7",
+    "prototypes/mv_electron/photon_transport_p3r.py": "2dc8576b573bd80b975830687e6651458ece3beb3072c9da54279b9f87b5baf6",
+    "prototypes/mv_electron/p3r_egs.f": "432727b793099e1b7b4d2b60b9a7edd76c7fc4431acb914c80d25d7b2ac3fb67",
+    "prototypes/mv_electron/p3r_egs_common.inc": "3b3d66a0cf00da256853e4ea9d39fc3545382f654d7fe09e2007114c27cf5493",
+    "prototypes/mv_electron/tests/test_p3r.py": "c26569098fbc051ede24a4fbdaaedf23c69763f1fcdf6e836d9810dc23351436"
+  },
+  "spectrum_sha256": "06fe2ba471dbfd64ca4305b5f1560479439ea4b565f993ecb21dcda86a6d8065",
+  "checks": {
+    "G1": {
+      "passed": true,
+      "points": [
+        {
+          "T": 0.01,
+          "actual": [
+            0.0,
+            0.0,
+            0.003898
+          ],
+          "independent": [
+            0.0,
+            0.0,
+            0.003898
+          ],
+          "absolute_error": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "closure": 0.0,
+          "passed": true
+        },
+        {
+          "T": 0.010000000000000002,
+          "actual": [
+            0.0,
+            0.0,
+            0.003898
+          ],
+          "independent": [
+            0.0,
+            6.07104489088781e-19,
+            0.003897999999999999
+          ],
+          "absolute_error": [
+            0.0,
+            6.07104489088781e-19,
+            8.673617379884035e-19
+          ],
+          "closure": 0.0,
+          "passed": true
+        },
+        {
+          "T": 0.010000005,
+          "actual": [
+            1.7498574500719187e-07,
+            1.749858326174012e-09,
+            0.0038979983233062747
+          ],
+          "independent": [
+            1.7498582815075732e-07,
+            1.7498587207838817e-09,
+            0.00389799832330588
+          ],
+          "absolute_error": [
+            8.314356545055933e-14,
+            3.9460986977850397e-16,
+            3.946495907847236e-16
+          ],
+          "closure": 0.0,
+          "passed": true
+        },
+        {
+          "T": 0.0101,
+          "actual": [
+            0.0034495701274890535,
+            3.4667840387275745e-05,
+            0.003864788183952402
+          ],
+          "independent": [
+            0.003449570127489053,
+            3.4667840387276145e-05,
+            0.0038647881839524016
+          ],
+          "absolute_error": [
+            4.336808689942018e-19,
+            3.9979955110402976e-19,
+            4.336808689942018e-19
+          ],
+          "closure": 2.220446049250313e-16,
+          "passed": true
+        },
+        {
+          "T": 0.0105,
+          "actual": [
+            0.01630193370423818,
+            0.00016705542730986075,
+            0.0037380618198357353
+          ],
+          "independent": [
+            0.01630224518499571,
+            0.00016705861885133586,
+            0.003738061808055509
+          ],
+          "absolute_error": [
+            3.1148075753037463e-07,
+            3.1915414751108873e-09,
+            1.1780226100155389e-11
+          ],
+          "closure": 8.142543383993228e-07,
+          "passed": true
+        },
+        {
+          "T": 0.011,
+          "actual": [
+            0.030465586393476785,
+            0.00031960042133314477,
+            0.0035913995786668565
+          ],
+          "independent": [
+            0.030465586393476785,
+            0.0003196004213331446,
+            0.0035913995786668556
+          ],
+          "absolute_error": [
+            0.0,
+            1.6263032587282567e-19,
+            8.673617379884035e-19
+          ],
+          "closure": 2.220446049250313e-16,
+          "passed": true
+        },
+        {
+          "T": 0.015,
+          "actual": [
+            0.09651137663128953,
+            0.0011867221580062802,
+            0.0027564377959803828
+          ],
+          "independent": [
+            0.09651175283068124,
+            0.0011867267534056783,
+            0.0027564376562604236
+          ],
+          "absolute_error": [
+            3.761993917078543e-07,
+            4.595399398033342e-09,
+            1.3971995912673285e-10
+          ],
+          "closure": 1.1299755668936484e-06,
+          "passed": true
+        },
+        {
+          "T": 0.02,
+          "actual": [
+            0.12572709987619313,
+            0.0017974533593412543,
+            0.0021655466406587456
+          ],
+          "independent": [
+            0.12572709987619313,
+            0.001797453359341255,
+            0.002165546640658746
+          ],
+          "absolute_error": [
+            0.0,
+            6.505213034913027e-19,
+            4.336808689942018e-19
+          ],
+          "closure": 2.220446049250313e-16,
+          "passed": true
+        },
+        {
+          "T": 0.03,
+          "actual": [
+            0.1367676404973183,
+            0.00242734276388496,
+            0.00155703604938385
+          ],
+          "independent": [
+            0.1367677295283289,
+            0.0024273443189089068,
+            0.0015570359310784685
+          ],
+          "absolute_error": [
+            8.903101061941143e-08,
+            1.555023946848283e-09,
+            1.1830538155024883e-10
+          ],
+          "closure": 3.605877135770541e-07,
+          "passed": true
+        },
+        {
+          "T": 0.05,
+          "actual": [
+            0.1274172603434003,
+            0.00297689008251873,
+            0.0010541099174812703
+          ],
+          "independent": [
+            0.1274172603434003,
+            0.00297689008251873,
+            0.0010541099174812703
+          ],
+          "absolute_error": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "closure": 0.0,
+          "passed": true
+        },
+        {
+          "T": 0.07,
+          "actual": [
+            0.11675118695056912,
+            0.0032657144908595608,
+            0.00083281724245192
+          ],
+          "independent": [
+            0.11675120502929653,
+            0.00326571506023567,
+            0.0008328171889228181
+          ],
+          "absolute_error": [
+            1.8078727417880636e-08,
+            5.693761091947469e-10,
+            5.3529101940938406e-11
+          ],
+          "closure": 1.2586140041292992e-07,
+          "passed": true
+        },
+        {
+          "T": 0.1,
+          "actual": [
+            0.10556208389753453,
+            0.003564232639355561,
+            0.0006637673606444385
+          ],
+          "independent": [
+            0.10556208389753455,
+            0.003564232639355561,
+            0.0006637673606444387
+          ],
+          "absolute_error": [
+            1.3877787807814457e-17,
+            0.0,
+            2.168404344971009e-19
+          ],
+          "closure": 0.0,
+          "passed": true
+        },
+        {
+          "T": 0.15,
+          "actual": [
+            0.09515351864303256,
+            0.003963545379837271,
+            0.000530454620162727
+          ],
+          "independent": [
+            0.09515351864303258,
+            0.0039635453798372725,
+            0.000530454620162727
+          ],
+          "absolute_error": [
+            1.3877787807814457e-17,
+            1.734723475976807e-18,
+            0.0
+          ],
+          "closure": 3.3306690738754696e-16,
+          "passed": true
+        },
+        {
+          "T": 0.3,
+          "actual": [
+            0.08605744262863155,
+            0.005116937258133951,
+            0.00039816537563212097
+          ],
+          "independent": [
+            0.08605745208908398,
+            0.0051169377056892815,
+            0.00039816542428844587
+          ],
+          "absolute_error": [
+            9.460452435328115e-09,
+            4.4755533046975104e-10,
+            4.865632490013219e-11
+          ],
+          "closure": 8.997323230897081e-08,
+          "passed": true
+        },
+        {
+          "T": 0.5,
+          "actual": [
+            0.08804465048964193,
+            0.006906085377970472,
+            0.0003530602385602154
+          ],
+          "independent": [
+            0.08804468807832844,
+            0.006906087684072206,
+            0.00035306040086831276
+          ],
+          "absolute_error": [
+            3.758868651060343e-08,
+            2.3061017340522683e-09,
+            1.623080973550857e-10
+          ],
+          "closure": 3.400412559306787e-07,
+          "passed": true
+        },
+        {
+          "T": 0.7,
+          "actual": [
+            0.09370454574734034,
+            0.008975607624593426,
+            0.00033982906991956416
+          ],
+          "independent": [
+            0.09370463063405376,
+            0.00897561415249075,
+            0.0003398293897818272
+          ],
+          "absolute_error": [
+            8.488671342232745e-08,
+            6.527897325123155e-09,
+            3.1986226303260326e-10
+          ],
+          "closure": 7.35097535176088e-07,
+          "passed": true
+        },
+        {
+          "T": 1.0,
+          "actual": [
+            0.10311784404709526,
+            0.01246516586131327,
+            0.00033483413868673213
+          ],
+          "independent": [
+            0.10311784404709526,
+            0.012465165861313266,
+            0.0003348341386867322
+          ],
+          "absolute_error": [
+            0.0,
+            3.469446951953614e-18,
+            5.421010862427522e-20
+          ],
+          "closure": 0.0,
+          "passed": true
+        },
+        {
+          "T": 1.5,
+          "actual": [
+            0.11775407140707767,
+            0.01908850794204309,
+            0.0003368455044032026
+          ],
+          "independent": [
+            0.1177542561294452,
+            0.019088534045191296,
+            0.0003368460244656831
+          ],
+          "absolute_error": [
+            1.8472236754107918e-07,
+            2.6103148205447457e-08,
+            5.200624804933829e-10
+          ],
+          "closure": 1.3705374406480786e-06,
+          "passed": true
+        },
+        {
+          "T": 3.0,
+          "actual": [
+            0.14919362975630665,
+            0.04264076017208912,
+            0.0003471980538355349
+          ],
+          "independent": [
+            0.14919390189116366,
+            0.04264083209948176,
+            0.0003471986660830117
+          ],
+          "absolute_error": [
+            2.7213485701005347e-07,
+            7.192739263917058e-08,
+            6.122474768377288e-10
+          ],
+          "closure": 1.6874380804887679e-06,
+          "passed": true
+        },
+        {
+          "T": 5.0,
+          "actual": [
+            0.17460124435460905,
+            0.07883701022271596,
+            0.0003544888321197292
+          ],
+          "independent": [
+            0.17460140329074378,
+            0.07883707831157935,
+            0.0003544891417668448
+          ],
+          "absolute_error": [
+            1.5893613472539592e-07,
+            6.808886339471076e-08,
+            3.096471155655464e-10
+          ],
+          "closure": 8.637095175734189e-07,
+          "passed": true
+        },
+        {
+          "T": 7.0,
+          "actual": [
+            0.1914560386276072,
+            0.11818768618385421,
+            0.00035828029945927264
+          ],
+          "independent": [
+            0.19145604929671192,
+            0.11818769254260846,
+            0.00035828031861984523
+          ],
+          "absolute_error": [
+            1.0669104710814281e-08,
+            6.3587542453724666e-09,
+            1.916057259685952e-11
+          ],
+          "closure": 5.380119327824673e-08,
+          "passed": true
+        },
+        {
+          "T": 10.0,
+          "actual": [
+            0.20923956755312353,
+            0.18103830299496745,
+            0.00036169700503253235
+          ],
+          "independent": [
+            0.20923956755312362,
+            0.18103830299496748,
+            0.0003616970050325324
+          ],
+          "absolute_error": [
+            8.326672684688674e-17,
+            2.7755575615628914e-17,
+            5.421010862427522e-20
+          ],
+          "closure": 1.1102230246251565e-16,
+          "passed": true
+        },
+        {
+          "T": 15.0,
+          "actual": [
+            0.22914066556126242,
+            0.29224650934431634,
+            0.0003649089434201124
+          ],
+          "independent": [
+            0.22914077594933407,
+            0.29224664905870384,
+            0.00036490911290258486
+          ],
+          "absolute_error": [
+            1.103880716557537e-07,
+            1.397143875037088e-07,
+            1.6948247248986179e-10
+          ],
+          "closure": 4.780531256409759e-07,
+          "passed": true
+        }
+      ],
+      "node_closure_max": 2.220446049250313e-16
+    },
+    "G2": {
+      "passed": true,
+      "conditions": [
+        {
+          "T": 0.02,
+          "N": 1000000,
+          "seed": 20291601,
+          "cells": 200,
+          "p": 0.26966683984461265,
+          "min_k": 0.010000019355419876,
+          "max_k": 0.019999948853514762,
+          "envelope_excess": 0,
+          "passed": true
+        },
+        {
+          "T": 0.1,
+          "N": 1000000,
+          "seed": 20291602,
+          "cells": 200,
+          "p": 0.19849116209004808,
+          "min_k": 0.010000001091805403,
+          "max_k": 0.09999907685411157,
+          "envelope_excess": 0,
+          "passed": true
+        },
+        {
+          "T": 1.0,
+          "N": 1000000,
+          "seed": 20291603,
+          "cells": 200,
+          "p": 0.8094038959504096,
+          "min_k": 0.010000007475114678,
+          "max_k": 0.9999912574429642,
+          "envelope_excess": 0,
+          "passed": true
+        },
+        {
+          "T": 10.0,
+          "N": 1000000,
+          "seed": 20291604,
+          "cells": 200,
+          "p": 0.4234786665034228,
+          "min_k": 0.010000152115081564,
+          "max_k": 9.998584252610316,
+          "envelope_excess": 0,
+          "passed": true
+        }
+      ],
+      "rule": "raw p > 0.01/4"
+    },
+    "G3": {
+      "passed": true,
+      "N": 200000,
+      "seed": 20291605,
+      "source": "10 MeV electron, 30 cm slab, mode 1",
+      "events": 175998.0,
+      "sum_k_MeV": 84224.23629668655,
+      "dN_mean": 0.0004332004405255515,
+      "dN_SEM": 0.00210093847212636,
+      "z_N": 0.20619377781544898,
+      "dE_mean_MeV": -0.00018888896931866853,
+      "dE_SEM_MeV": 0.0019710034199571405,
+      "z_E": -0.0958339125168925,
+      "k_above_T": 0.0,
+      "deterministic_tests": "34 passed in 26.85s",
+      "ledger": {
+        "finite": true,
+        "violations": [
+          0,
+          0,
+          0
+        ],
+        "failures": [
+          0,
+          0
+        ],
+        "maxima": [
+          8.526512829121202e-15,
+          8.526512829121202e-15,
+          8.704148513061228e-15
+        ]
+      }
+    },
+    "G4": {
+      "passed": true,
+      "conditions": [
+        {
+          "parent": [
+            0.0,
+            0.0,
+            1.0
+          ],
+          "N": 100000,
+          "seed": 20291625,
+          "p": 0.6317389761154597,
+          "max_angle_or_norm_error": 1.6653345369377348e-16,
+          "passed": true
+        },
+        {
+          "parent": [
+            0.0,
+            0.0,
+            -1.0
+          ],
+          "N": 100000,
+          "seed": 20291626,
+          "p": 0.34456555858551036,
+          "max_angle_or_norm_error": 1.6653345369377348e-16,
+          "passed": true
+        },
+        {
+          "parent": [
+            0.3,
+            0.4,
+            0.8660254037844386
+          ],
+          "N": 100000,
+          "seed": 20291627,
+          "p": 0.23642689595903602,
+          "max_angle_or_norm_error": 8.326672684688674e-16,
+          "passed": true
+        }
+      ],
+      "rule": "raw p > 0.01/3; errors < 1e-12",
+      "amendment_1": "seeds replaced after the first attempt failed by chance (plan, amendment 1); first attempt kept verbatim",
+      "first_attempt": {
+        "passed": false,
+        "conditions": [
+          {
+            "parent": [
+              0.0,
+              0.0,
+              1.0
+            ],
+            "N": 100000,
+            "seed": 20291606,
+            "p": 0.10162491101184572,
+            "max_angle_or_norm_error": 1.6653345369377348e-16,
+            "passed": true
+          },
+          {
+            "parent": [
+              0.0,
+              0.0,
+              -1.0
+            ],
+            "N": 100000,
+            "seed": 20291607,
+            "p": 0.0009472650703775085,
+            "max_angle_or_norm_error": 1.6653345369377348e-16,
+            "passed": false
+          },
+          {
+            "parent": [
+              0.3,
+              0.4,
+              0.8660254037844386
+            ],
+            "N": 100000,
+            "seed": 20291608,
+            "p": 0.926236557578763,
+            "max_angle_or_norm_error": 8.326672684688674e-16,
+            "passed": true
+          }
+        ],
+        "rule": "raw p > 0.01/3; errors < 1e-12"
+      },
+      "diagnosis": "docs/validation/mv/p3r/supplementary/g4_diagnosis.json"
+    },
+    "G5": {
+      "passed": true,
+      "N": 20000,
+      "seed": 20291609,
+      "source": "Mohan spectrum",
+      "modes": {
+        "0": {
+          "ledger": {
+            "finite": true,
+            "violations": [
+              0,
+              0,
+              0
+            ],
+            "failures": [
+              0,
+              0
+            ],
+            "maxima": [
+              5.868185971228312e-15,
+              6.017322189281629e-15,
+              5.8098283206857105e-15
+            ]
+          },
+          "unresolved": 0.0,
+          "passed": true
+        },
+        "1": {
+          "ledger": {
+            "finite": true,
+            "violations": [
+              0,
+              0,
+              0
+            ],
+            "failures": [
+              0,
+              0
+            ],
+            "maxima": [
+              5.5989544164400096e-15,
+              5.604434292129122e-15,
+              5.35534832359005e-15
+            ]
+          },
+          "unresolved": 0.0,
+          "passed": true
+        },
+        "2": {
+          "ledger": {
+            "finite": true,
+            "violations": [
+              0,
+              0,
+              0
+            ],
+            "failures": [
+              0,
+              0
+            ],
+            "maxima": [
+              5.6217552178465645e-15,
+              5.741367030992236e-15,
+              5.6217552178465645e-15
+            ]
+          },
+          "unresolved": 0.0,
+          "passed": true
+        }
+      }
+    },
+    "G6": {
+      "passed": true,
+      "equality": {
+        "mohan": {
+          "coarse": true,
+          "fine": true,
+          "pair": true,
+          "kerma": true,
+          "collision_kerma": true,
+          "totals": true,
+          "maxima": true,
+          "violations": true,
+          "counts": true,
+          "maxdepth": true,
+          "nspec": true,
+          "lateral": true,
+          "steps": true
+        },
+        "electron": {
+          "coarse": true,
+          "fine": true,
+          "pair": true,
+          "kerma": true,
+          "collision_kerma": true,
+          "totals": true,
+          "maxima": true,
+          "violations": true,
+          "counts": true,
+          "maxdepth": true,
+          "nspec": true,
+          "lateral": true,
+          "steps": true
+        }
+      },
+      "seeds": [
+        20291609,
+        20291610
+      ]
+    },
+    "G6b": {
+      "passed": true,
+      "runs": {
+        "mohan": {
+          "bit_identical": true,
+          "equality": {
+            "coarse": true,
+            "fine": true,
+            "pair": true,
+            "kerma": true,
+            "collision_kerma": true,
+            "totals": true,
+            "maxima": true,
+            "violations": true,
+            "counts": true,
+            "maxdepth": true,
+            "nspec": true,
+            "lateral": true,
+            "steps": true
+          },
+          "max_relative_difference": 0.0
+        },
+        "electron": {
+          "bit_identical": true,
+          "equality": {
+            "coarse": true,
+            "fine": true,
+            "pair": true,
+            "kerma": true,
+            "collision_kerma": true,
+            "totals": true,
+            "maxima": true,
+            "violations": true,
+            "counts": true,
+            "maxdepth": true,
+            "nspec": true,
+            "lateral": true,
+            "steps": true
+          },
+          "max_relative_difference": 0.0
+        }
+      },
+      "rule": "bit-identical, or relative 1e-12 if the operation order differs"
+    },
+    "G7": {
+      "passed": true,
+      "conditions": [
+        {
+          "T": 2.0,
+          "N": 800000,
+          "seed": 20291628,
+          "yield_MC": 0.007355168377485529,
+          "yield_relative_SEM": 0.006069864968042668,
+          "yield_CSDA_ESTAR": 0.007084963007731225,
+          "relative_difference": 0.0381378659930125,
+          "status": "異常なし",
+          "ledger_ok": true
+        },
+        {
+          "T": 5.0,
+          "N": 200000,
+          "seed": 20291612,
+          "yield_MC": 0.01976599945443114,
+          "yield_relative_SEM": 0.007462751907711424,
+          "yield_CSDA_ESTAR": 0.019110726914084566,
+          "relative_difference": 0.034288205953256545,
+          "status": "異常なし",
+          "ledger_ok": true
+        },
+        {
+          "T": 10.0,
+          "N": 200000,
+          "seed": 20291613,
+          "yield_MC": 0.04226154968880386,
+          "yield_relative_SEM": 0.005136705127813701,
+          "yield_CSDA_ESTAR": 0.04072499136339619,
+          "relative_difference": 0.037730108072870694,
+          "status": "異常なし",
+          "ledger_ok": true
+        }
+      ],
+      "definition": "sum k + track-length soft radiative loss of the primary electron and its Moller secondaries, mode 1, infinite water",
+      "amendment_2": "2 MeV rerun with 800000 histories and a new seed after the first run was 統計不足 (plan, amendment 2)",
+      "second_attempt": {
+        "passed": false,
+        "conditions": [
+          {
+            "T": 2.0,
+            "N": 200000,
+            "seed": 20291611,
+            "yield_MC": 0.007317962198874667,
+            "yield_relative_SEM": 0.012188925853438995,
+            "yield_CSDA_ESTAR": 0.007084963007731225,
+            "relative_difference": 0.032886437217694686,
+            "status": "統計不足",
+            "ledger_ok": true
+          },
+          {
+            "T": 5.0,
+            "N": 200000,
+            "seed": 20291612,
+            "yield_MC": 0.01976599945443114,
+            "yield_relative_SEM": 0.007462751907711424,
+            "yield_CSDA_ESTAR": 0.019110726914084566,
+            "relative_difference": 0.034288205953256545,
+            "status": "異常なし",
+            "ledger_ok": true
+          },
+          {
+            "T": 10.0,
+            "N": 200000,
+            "seed": 20291613,
+            "yield_MC": 0.04226154968880386,
+            "yield_relative_SEM": 0.005136705127813701,
+            "yield_CSDA_ESTAR": 0.04072499136339619,
+            "relative_difference": 0.037730108072870694,
+            "status": "異常なし",
+            "ledger_ok": true
+          }
+        ],
+        "definition": "sum k + track-length soft radiative loss of the primary electron and its Moller secondaries, mode 1, infinite water"
+      }
+    },
+    "G8": {
+      "passed": true,
+      "conditions": [
+        {
+          "E": 0.0101,
+          "N": 1000000,
+          "seed": 20291614,
+          "mu_independent": 5.006159898500593,
+          "thickness_cm": 0.2,
+          "expected_transmission": 0.36742650023213785,
+          "transmitted": 367473,
+          "p_transmission": 0.9231614483745525,
+          "first_compton": 26958,
+          "first_photoelectric": 605569,
+          "first_pair": 0,
+          "p_process": 0.6051877225200041,
+          "healthy": true,
+          "passed": true
+        },
+        {
+          "E": 0.02,
+          "N": 1000000,
+          "seed": 20291615,
+          "mu_independent": 0.7505065008917905,
+          "thickness_cm": 1.4000000000000001,
+          "expected_transmission": 0.3496896957742204,
+          "transmitted": 349433,
+          "p_transmission": 0.5906598606598811,
+          "first_compton": 179456,
+          "first_photoelectric": 471111,
+          "first_pair": 0,
+          "p_process": 0.2870966133462799,
+          "healthy": true,
+          "passed": true
+        },
+        {
+          "E": 0.05,
+          "N": 1000000,
+          "seed": 20291616,
+          "mu_independent": 0.21494864172209857,
+          "thickness_cm": 4.800000000000001,
+          "expected_transmission": 0.35638150443169286,
+          "transmitted": 356149,
+          "p_transmission": 0.6280925336240682,
+          "first_compton": 562133,
+          "first_photoelectric": 81718,
+          "first_pair": 0,
+          "p_process": 0.7028327284727376,
+          "healthy": true,
+          "passed": true
+        },
+        {
+          "E": 0.1,
+          "N": 1000000,
+          "seed": 20291617,
+          "mu_independent": 0.16747908875485412,
+          "thickness_cm": 6.0,
+          "expected_transmission": 0.3660905643798452,
+          "transmitted": 365315,
+          "p_transmission": 0.10744000011387192,
+          "first_compton": 624154,
+          "first_photoelectric": 10531,
+          "first_pair": 0,
+          "p_process": 0.5411195756944389,
+          "healthy": true,
+          "passed": true
+        }
+      ],
+      "rule": "8 tests, raw p > 0.01/8",
+      "subcutoff_deposit_test": "tests/test_p3r.py::test_subcutoff_compton_at_scatter_point",
+      "deterministic_tests": "34 passed in 26.85s",
+      "amendment_3": "thickness 1/mu replaced by the next multiple of 0.2 cm; expectation exp(-mu t) (plan, amendment 3)",
+      "third_attempt": {
+        "passed": false,
+        "conditions": [
+          {
+            "E": 0.0101,
+            "N": 1000000,
+            "seed": 20291614,
+            "mu_independent": 5.006159898500593,
+            "transmitted": 367942,
+            "p_transmission": 0.8968776650811794,
+            "first_compton": 26935,
+            "first_photoelectric": 605123,
+            "first_pair": 0,
+            "p_process": 0.5923127245023638,
+            "healthy": true,
+            "passed": true
+          },
+          {
+            "E": 0.02,
+            "N": 1000000,
+            "seed": 20291615,
+            "mu_independent": 0.7505065008917905,
+            "transmitted": 368403,
+            "p_transmission": 0.2776626023133816,
+            "first_compton": 174379,
+            "first_photoelectric": 457218,
+            "first_pair": 0,
+            "p_process": 0.13681158706375743,
+            "healthy": true,
+            "passed": true
+          },
+          {
+            "E": 0.05,
+            "N": 1000000,
+            "seed": 20291616,
+            "mu_independent": 0.21494864172209857,
+            "transmitted": 367210,
+            "p_transmission": 0.16534733149922493,
+            "first_compton": 552365,
+            "first_photoelectric": 80425,
+            "first_pair": 0,
+            "p_process": 0.42538232691184685,
+            "healthy": false,
+            "passed": false
+          },
+          {
+            "E": 0.1,
+            "N": 1000000,
+            "seed": 20291617,
+            "mu_independent": 0.16747908875485412,
+            "transmitted": 367327,
+            "p_transmission": 0.25233925545855107,
+            "first_compton": 622143,
+            "first_photoelectric": 10530,
+            "first_pair": 0,
+            "p_process": 0.3524717872003712,
+            "healthy": false,
+            "passed": false
+          }
+        ],
+        "rule": "8 tests, raw p > 0.01/8",
+        "subcutoff_deposit_test": "tests/test_p3r.py::test_subcutoff_compton_at_scatter_point",
+        "deterministic_tests": "34 passed in 26.90s"
+      }
+    },
+    "EGS": {
+      "passed": true,
+      "N": 10000,
+      "seed": 20291618,
+      "interrupted": true,
+      "equality": {
+        "coarse": true,
+        "fine": true,
+        "nspec": true,
+        "batchin": true,
+        "batchcb": true,
+        "totals": true,
+        "callbacks": true,
+        "N": true,
+        "seed": true,
+        "E": true,
+        "maxrel": true,
+        "escapes": true,
+        "unit": true,
+        "batch_brems": true
+      },
+      "callbacks": {
+        "brems_created": 745.0,
+        "brems_discarded": 0.0,
+        "brems_generated_MeV": 127.53897059623907,
+        "flight_annihilation": 11.0,
+        "rest_annihilation": 218.0,
+        "pairs": 232.0,
+        "wrong_tags": 0.0
+      },
+      "tests": {
+        "config": true,
+        "noflight": true,
+        "balance": true,
+        "score": true,
+        "callbacks": true,
+        "cutoffs": true,
+        "kinetic_cutoff": true,
+        "flags": true,
+        "IUNRST": true,
+        "dual_scoring": true,
+        "spectrum_total": true,
+        "batchin": true,
+        "batchcb": true,
+        "mono_input": true,
+        "coarse_integral": true,
+        "fine_integral": true,
+        "brems_batches": true,
+        "brems_bounds": true,
+        "finite": true
+      }
+    }
+  }
+}
