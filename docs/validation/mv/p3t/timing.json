@@ -1,0 +1,101 @@
+{
+ "N": 50000,
+ "seed": 777,
+ "reps": 3,
+ "machine": "arm64",
+ "python": "3.11.13",
+ "numpy": "2.4.6",
+ "numba": "0.66.0",
+ "note": "single process, arms interleaved, order reversed on odd repetitions; identity is a byte comparison",
+ "source_sha256": {
+  "photon_transport_p3s.py": "b7b6a69fc23deb327d62b6372c624718f4df69aac2225c568690ba4922af7cd0",
+  "photon_transport_p3r.py": "2dc8576b573bd80b975830687e6651458ece3beb3072c9da54279b9f87b5baf6",
+  "photon_transport_p3t.py": "d7c2fbdbfbae03c1c60c5a4a3869442176707a7a9e9b29760fdc39d255f885db",
+  "bremsstrahlung_p3r.py": "694af96f544772a904173639a232d029dd9b2b24d3af525b966ebda4058769b7",
+  "physics.py": "9c0d21197acc5cb54a9fbb0f5fd3534c0638ed1cf54f0fecd2e9475d3a72b718",
+  "run_p3t.py": "1b0e54e9f0c58c4f6d2ea03848ee00a73365a02e4bc261ca1636cf7e7e748cf4"
+ },
+ "identity": {
+  "P3t off == P3s (13 common outputs)": true,
+  "P3t off == P3r off": true,
+  "P3t local == P3r local": true,
+  "P3t transport == P3r transport": true
+ },
+ "timing": {
+  "P3s": {
+   "us_per_history": [
+    202.6,
+    205.1,
+    201.2
+   ],
+   "best": 201.2,
+   "charged_steps_per_history": 647.16276,
+   "brems_per_history": null
+  },
+  "P3r off": {
+   "us_per_history": [
+    254.2,
+    256.0,
+    254.5
+   ],
+   "best": 254.2,
+   "charged_steps_per_history": 647.16276,
+   "brems_per_history": 0.0
+  },
+  "P3t off": {
+   "us_per_history": [
+    202.2,
+    202.5,
+    201.5
+   ],
+   "best": 201.5,
+   "charged_steps_per_history": 647.16276,
+   "brems_per_history": 0.0
+  },
+  "P3r local": {
+   "us_per_history": [
+    294.1,
+    298.2,
+    296.0
+   ],
+   "best": 294.1,
+   "charged_steps_per_history": 640.87574,
+   "brems_per_history": 0.07734
+  },
+  "P3t local": {
+   "us_per_history": [
+    224.6,
+    224.1,
+    225.6
+   ],
+   "best": 224.1,
+   "charged_steps_per_history": 640.87574,
+   "brems_per_history": 0.07734
+  },
+  "P3r transport": {
+   "us_per_history": [
+    301.7,
+    301.3,
+    305.8
+   ],
+   "best": 301.3,
+   "charged_steps_per_history": 657.26368,
+   "brems_per_history": 0.07702
+  },
+  "P3t transport": {
+   "us_per_history": [
+    228.8,
+    228.2,
+    232.1
+   ],
+   "best": 228.2,
+   "charged_steps_per_history": 657.26368,
+   "brems_per_history": 0.07702
+  }
+ },
+ "T4": {
+  "off_over_P3s": 1.0017,
+  "limit": 1.03,
+  "status": "合格"
+ }
+}

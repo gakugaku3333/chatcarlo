@@ -128,14 +128,21 @@ Work toward coupled photon/electron/positron transport for nominal 10 MV is unde
   bremsstrahlung count/energy created are 0.7 ± 0.2% / 1.2 ± 0.4% lower than EGS5, unexplained (not the formula: rates agree within 0.07%; the
   −1.4% pair count covers only ≈ 0.1%; EGS5's 1%-tolerance piecewise-linear electron tables remain the candidate, not confirmed);
   the prototype got ~40% slower (≈ 310 µs/history, 4× EGS5) — about half of that remains with discrete events switched
-  off, so it is overhead in the copied loop, not optimised yet. Slab thickness must be a multiple of the 0.2 cm scoring
+  off, so it is overhead in the copied loop (cause found and removed in P3t, below). Slab thickness must be a multiple of the 0.2 cm scoring
   bin (otherwise deposits fall outside the dose array; the scoring-violation counters flag it).
+- P3t loop speed recovery (done, 2026-10-12): [docs/validation/mv/p3t/RESULTS.md](docs/validation/mv/p3t/RESULTS.md).
+  `photon_transport_p3t.py` is the P3r loop minus two redundant operations (an unused per-step `event_order` call that
+  allocated an array, ≈ 23–28 µs; a duplicated bremsstrahlung table lookup per energy update, ≈ 36–57 µs). Outputs are
+  byte-identical to P3r (and to P3s with discrete events off). Mohan slab, 50k histories, single process: P3s 201,
+  events off 201 (was 254), photons transported 228 µs/history (was 301) — ≈ 3× EGS5 again. **Use P3t for new work**;
+  `photon_transport_p3r.py` is left untouched because it is hash-frozen by `run_p3r.py`. The remaining ≈ 23 µs with
+  discrete events on is probably the table lookup itself (not separated; changing it could change bits).
 - Standing decisions and known approximations live in
   [docs/validation/mv/KNOWN_APPROXIMATIONS.md](docs/validation/mv/KNOWN_APPROXIMATIONS.md): no positron-specific
   stopping/Bhabha/elastic data (estimated effect ≤ 0.1%); electron cutoff stays at EGS5's 10 keV (do not propose raising
   it); bremsstrahlung photons are transported since P3r; GPU target
   is Google Colab free tier.
-- Next: CPU parallel batches (and recovering the P3r slowdown) → P3b (field, PDD/OCR) → Fano test etc. → GPU-oriented
+- Next: CPU parallel batches → P3b (field, PDD/OCR) → Fano test etc. → GPU-oriented
   rewrite → Colab.
 - Codex review originals for these plans are kept in `docs/ai/plans/reviews/`. Codex's sandbox cannot write outside the
   repository (`~/.cache`); checks that need it are run by Claude.

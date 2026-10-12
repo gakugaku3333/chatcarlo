@@ -1,0 +1,89 @@
+{
+ "N": 50000,
+ "seed": 777,
+ "reps": 3,
+ "note": "single process, nine arms interleaved, order reversed on odd repetitions; a = unused per-step event_order call, b = duplicated bremsstrahlung table lookup",
+ "settings": {
+  "off": {
+   "us_per_history": {
+    "P3r": [
+     274.3,
+     273.5,
+     273.0
+    ],
+    "P3r minus a": [
+     246.4,
+     245.4,
+     245.2
+    ],
+    "P3t (minus a and b)": [
+     208.9,
+     210.1,
+     209.2
+    ]
+   },
+   "best": {
+    "P3r": 273.0,
+    "P3r minus a": 245.2,
+    "P3t (minus a and b)": 208.9
+   },
+   "cost_a": 27.9,
+   "cost_b": 36.3,
+   "output_sha256": "e796bf6b875e5c20c4233236a9a60cebf5682271efce39ba9bbcb4f27fcd47cc"
+  },
+  "local": {
+   "us_per_history": {
+    "P3r": [
+     313.9,
+     313.8,
+     308.8
+    ],
+    "P3r minus a": [
+     285.7,
+     285.6,
+     296.2
+    ],
+    "P3t (minus a and b)": [
+     233.3,
+     231.3,
+     258.1
+    ]
+   },
+   "best": {
+    "P3r": 308.8,
+    "P3r minus a": 285.6,
+    "P3t (minus a and b)": 231.3
+   },
+   "cost_a": 23.1,
+   "cost_b": 54.3,
+   "output_sha256": "f05ca5f008c665a8d2b4dbaf1c189dcae3b219657fe260923fc3badae7b90d17"
+  },
+  "transport": {
+   "us_per_history": {
+    "P3r": [
+     322.0,
+     322.2,
+     327.3
+    ],
+    "P3r minus a": [
+     294.5,
+     294.4,
+     295.7
+    ],
+    "P3t (minus a and b)": [
+     237.7,
+     237.5,
+     238.9
+    ]
+   },
+   "best": {
+    "P3r": 322.0,
+    "P3r minus a": 294.4,
+    "P3t (minus a and b)": 237.5
+   },
+   "cost_a": 27.6,
+   "cost_b": 56.9,
+   "output_sha256": "73411dc18dacca28e44a552f2735cebf726adb346987fda32e8d9ff287ea91d7"
+  }
+ }
+}
