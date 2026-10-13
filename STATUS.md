@@ -1,8 +1,8 @@
 ---
 phase: 開発中
-next: P3b-2（EGS5のユーザーコードに同じ発散の線源と同じ領域の集計を足す）の計画を書いてCodexレビューへ。P3b-1（試作側の核）は完了、ただし対称性の検査B8は不合格のまま（診断では偏りなし）。結果 docs/validation/mv/p3b/RESULTS_P3B1.md
+next: 次の段階（Fano試験など、EGS5によらない検査）の計画を書く。P3b（10×10 cm²・発散のPDDと側方分布）は完了、判定した11個はすべてEGS5と許容の内側（結果 docs/validation/mv/p3b/RESULTS_P3B3.md）
 blocker: ELSEPAで作った表の配布の方法（表を置くか、生成スクリプトだけか）とリポジトリのLICENSEはユーザーの判断待ち。急がない
-updated: 2026-10-12
+updated: 2026-10-13
 ---
 
 詳細は [CLAUDE.md](CLAUDE.md) の "Therapy-energy extension" 節、発表は [docs/presentation_jsmp133.md](docs/presentation_jsmp133.md)、

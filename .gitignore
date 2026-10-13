@@ -57,3 +57,8 @@ docs/validation/mv/p3a/**/*.npy
 docs/validation/mv/p3s/**/*.npz
 docs/validation/mv/p3r/**/*.npz
 docs/validation/mv/**/*.tmp
+
+# P3b: 再生成できる大きな数値ファイルは追跡しない（EGS5の result.npz には線源のエネルギーを数えた配列があり、
+# 履歴数が多いと未追跡のスペクトルの写しに近くなる）。解析の全出力は手元に残し、要点は analysis_p3b3_summary.json を追跡する
+docs/validation/mv/p3b/**/*.npz
+docs/validation/mv/p3b/analysis_p3b3.json

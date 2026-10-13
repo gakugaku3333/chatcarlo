@@ -160,7 +160,31 @@ Work toward coupled photon/electron/positron transport for nominal 10 MV is unde
   the failure is consistent with a ≈1% chance event — B8 stays recorded as failed and symmetry is to be rechecked in the P3b-3 pilot.
   50%-dose positions match the geometric field edge (5.25/5.51/6.05 cm at 5/10/20 cm depth). Speed with regions:
   308 µs/history (1.32× the P3t slab) after removing a per-step allocation (was ≈ 700).
-- Next: P3b-2 (EGS5 user code with the same source and regions) → P3b-3 (pilot, production, analysis) → Fano test etc. →
+- P3b-2 EGS5 field user code (done, 2026-10-12; **still no prototype-vs-EGS5 dose comparison**):
+  [docs/validation/mv/p3b/RESULTS_P3B2.md](docs/validation/mv/p3b/RESULTS_P3B2.md). `p3b_egs.f` = `p3r_egs.f` plus the same
+  divergent source and the same region scoring (boxes are written by Python from `expand_regions`; the apportioning code
+  `p3b_egs_score.inc` and the `ausgab` in `p3b_egs_ausgab.inc` are the very files the standalone gfortran test drivers
+  include). All pre-fixed checks pass: legacy output identical to `p3r_egs.f` without field/regions, scorer equal to the
+  prototype's on the prototype's own recorded deposits (≤ 1e-13 MeV), per-history region ledger 0 violations, source
+  uniformity p = 0.23, stop/resume byte-identical. Region outputs have the prototype's names, shapes and unit (MeV per
+  batch). Run through `run_p3b2.run_egs` (not `run_p3r.run_egs`). Loop CPU: 68 → 124 µs/history with regions (×1.8);
+  EGS5 start-up is ≈ 78 s, so use `CPU_seconds`, not wall time, for sizing.
+- P3b-3 field PDD/OCR vs EGS5 (done, 2026-10-13): [RESULTS](docs/validation/mv/p3b/RESULTS_P3B3.md),
+  [DISCUSSION](docs/validation/mv/p3b/DISCUSSION_P3B3.md). Mohan 10 MV, 10×10 cm² at the surface, divergent, 46M histories
+  per code (count fixed from a 4M pilot ×1.5). **All 11 pre-fixed quantities are inside tolerance with the precision
+  condition met**: 2×2 cm axis-box 5 cm blocks from 5 to 30 cm −0.44 to +0.28% of `Dref` (SEM 0.17–0.27%; tolerance 1%),
+  central (±4 cm) profile means at 5/10/20 cm −0.18 to +0.05% (SEM 0.16–0.22%), 50% positions within 0.002 cm (SEM
+  0.002–0.004 cm; tolerance 0.1 cm). Symmetry on the production data: not detected in either code (max |z| 1.85/1.91;
+  detectable size 0.8–2.2% of the central mean) — P3b-1's B8 stays recorded as failed. Scope: block/central means and
+  50% positions only; penumbra shape, build-up and per-bin agreement are not judged, and it is not an equivalence test.
+  User decisions (2026-10-13): deep blocks start at a fixed 5 cm (the 97%-window rule is unstable for the small box:
+  its end moved 2.25–3.75 cm at 2M), symmetry checked on production data. Report-only: whole-slab 0–2 cm deposit
+  +0.18 ± 0.08% (the known build-up excess, still unexplained); 20–80% widths 0.006–0.010 cm narrower in the prototype
+  (each within its ≈0.01 cm error). Pilot differences of ≈ −1.5% (≈2σ at 4M) shrank to −0.2/−0.3% in production. Runs go
+  through `run_p3b3.py` (`pilot` / `production` / `analyse`; statistics in `analysis_p3b3.py`). One harness stop (a wrong
+  shape assumption for the legacy depth arrays, fixed before any comparison value was seen; plan amendment 1). Time:
+  prototype 167 µs/history wall on 2 processes, EGS5 123 µs CPU.
+- Next: Fano test etc. →
   GPU-oriented rewrite → Colab. P3b skeleton (draft, Codex skeleton review done):
   [docs/ai/plans/2026-10-12-mv-p3b-field-pdd-ocr.md](docs/ai/plans/2026-10-12-mv-p3b-field-pdd-ocr.md). User decisions
   (2026-10-12): 10×10 cm² at the surface, divergent, 100 cm source-to-surface in vacuum, 2×2 cm axis box, profiles at

@@ -1,0 +1,290 @@
+{
+  "fixed": {
+    "sources": {
+      "analysis_p3b3.py": "e5a56f4485eeedaaaf0fa854d869cb9f8dece95b50ba41a98189c47fc9b1aba7",
+      "run_p3b3.py": "5ae6b856da0211a7fe12d15700bc43ee388ab8826de821e21069775c337f8850"
+    },
+    "fingerprint": {
+      "tables": {
+        "arrays_sha256": "31d2773e4ea2ae6f4119e164a15a8b758c9b54aea41cd53d2482800b8f095f37",
+        "gs_sha256": "d225aaeedecefdc2b74a564a4ff0d2e8aae4f48e5cec4f1c1ff9f5179e8b8ca4",
+        "photon_sha256": "a84ab7f1f5bf08d15bc217a6dd86756337564ccf989d19edb1b2246dffe60456",
+        "nist_sha256": "bf03e829b040506154d6fa0cebb46d3d4680b980a45fcd113f354381f31a8d1d",
+        "electron_data_hashes": {
+          "docs/validation/mv/p1/data/metadata.json": "31b9e498cbf24601e67a0a6f79ec070806ab0fe236f509458e4873d681a5f20d",
+          "docs/validation/mv/p1/data/estar_water.html": "b50c3f710b4dcf8b277d72e51919df193ee430615b5e4ecbeab44f063df36dce",
+          "docs/validation/mv/p1/data/estar.npz": "62a623e4b7beb1b07f6b46c9009200a7c7249102dae6a2f74daf1ae964247679"
+        },
+        "electron_arrays_sha256": "d238a3444ec58176ede7626dc12002ee0a11a795aafeca319c12d606bbe54f49"
+      },
+      "spectrum": {
+        "spectrum_sha256": "06fe2ba471dbfd64ca4305b5f1560479439ea4b565f993ecb21dcda86a6d8065",
+        "spectrum_arrays_sha256": "30eebd03b8cb54fd7f069b50d27c1bd2de3a79e7fba4271f36fda2813b47908f",
+        "nb": 20
+      },
+      "brems_arrays": [
+        "327dc4fe62b64910dce031c609ba44f2cb043e1979201487792774f0220e80a8",
+        "67b3d9be3e705254bf1bf2d497d7cc2e2716dec1d7302a802cfad25e6a78f8ce"
+      ],
+      "python": "3.11.13",
+      "numpy": "2.4.6",
+      "numba": "0.66.0",
+      "llvmlite": "0.48.0",
+      "scipy": "1.17.1",
+      "machine": "arm64",
+      "field_sources": {
+        "photon_transport_p3b.py": "097e323a4e86697489f5f1d25473e702b534147770a6a500776466078ad55658",
+        "scoring_p3b.py": "589a0fcdccb5d9f1f7f8a7f4c234239db248dd5ddbe450bba2bd71f0ea957453",
+        "batch_kernels_p3b.py": "6b0175f7a19895e776462876eb4b2df3861ad81dad6c88d7e157433a98b10d50"
+      }
+    },
+    "egs_sources": {
+      "prototypes/mv_electron/p3b_egs.f": "fd3ccaf67b0c73da31decb5f4c239557a24c36ab0d0be47dcb1c872d5bd5bf1e",
+      "prototypes/mv_electron/p3b_egs_common.inc": "1497ea23ebf2c5b23f2e46f188b8b5107f61654d8e336dc59eac004e7de8c249",
+      "prototypes/mv_electron/p3b_egs_score.inc": "83b159f35852533249ed05f07e58b51631fa6391c1209fdd11320aefe84cee18",
+      "prototypes/mv_electron/p3b_egs_ausgab.inc": "37842eb154d1b0f43b405c989209cf25e926f9e11ae0d12103156b912ac78231",
+      "prototypes/mv_electron/p3b_score_driver.f": "ff747da49cd85522944ccb094717fba6dfca73ea8d4f0750198eae121f697095",
+      "prototypes/mv_electron/p3b_ausgab_driver.f": "1098769c521801a8162b270118889948db61c10629b7d24ef934c98a4c531291",
+      "prototypes/mv_electron/run_p3b2.py": "37054f57b9b346f1ca4334fccbf3152e4080de53445d69cd57a896486ec9a86b",
+      "prototypes/mv_electron/p3r_egs.f": "432727b793099e1b7b4d2b60b9a7edd76c7fc4431acb914c80d25d7b2ac3fb67",
+      "prototypes/mv_electron/p3r_egs_common.inc": "3b3d66a0cf00da256853e4ea9d39fc3545382f654d7fe09e2007114c27cf5493",
+      "prototypes/mv_electron/photon_transport_p3b.py": "097e323a4e86697489f5f1d25473e702b534147770a6a500776466078ad55658",
+      "prototypes/mv_electron/scoring_p3b.py": "589a0fcdccb5d9f1f7f8a7f4c234239db248dd5ddbe450bba2bd71f0ea957453",
+      "prototypes/mv_electron/batch_kernels_p3b.py": "6b0175f7a19895e776462876eb4b2df3861ad81dad6c88d7e157433a98b10d50",
+      "prototypes/mv_electron/run_p3r.py": "cca0bb394ca5efb323f5788caf815447d205f085fd969012c99f249ef24647af"
+    },
+    "rules": {
+      "plan": "2026-10-13-mv-p3b3-pilot-production-analysis.md",
+      "dose_tolerance_percent": 1.0,
+      "dose_sem_percent": 0.3333333333333333,
+      "position_tolerance_cm": 0.1,
+      "position_sem_cm": 0.03333333333333333,
+      "blocks": [
+        [
+          20,
+          40
+        ],
+        [
+          40,
+          60
+        ],
+        [
+          60,
+          80
+        ],
+        [
+          80,
+          100
+        ],
+        [
+          100,
+          120
+        ]
+      ],
+      "central_bins": 16,
+      "bootstraps": 2000,
+      "bootstrap_seed": 20291770,
+      "symmetry_z": 2.77,
+      "pilot_N": 4000000,
+      "margin": 1.5,
+      "quantum": 2000000,
+      "maximum_N": 160000000
+    },
+    "regions": [
+      0.0,
+      0.0,
+      1.0,
+      1.0,
+      9.0,
+      0.25,
+      0.125,
+      1.0,
+      5.0,
+      10.0,
+      20.0
+    ],
+    "params": {
+      "E": 10.0,
+      "backend": "elsepa",
+      "brems_mode": 2,
+      "spectrum": "mohan",
+      "field_half": 5.0,
+      "ssd": 100.0,
+      "dz": 0.25,
+      "dz_fine": 0.1,
+      "regions": [
+        0.0,
+        0.0,
+        1.0,
+        1.0,
+        9.0,
+        0.25,
+        0.125,
+        1.0,
+        5.0,
+        10.0,
+        20.0
+      ]
+    },
+    "seeds": {
+      "pilot_proto": 20291760,
+      "pilot_egs": 20291761,
+      "main_proto": 20291762,
+      "main_egs": 20291763
+    }
+  },
+  "pilot_hashes": {
+    "proto": "e6182c8eb77441d7d6dce88e3c052ea2a3b8830459437f7189229378db862458",
+    "proto_config": "a445b0634b71234ad6083838a4c36ff78d8a0e83f05e1e7492f87dab474fe367",
+    "egs": "6f1b750f2bcbf8e9de1ef2f59b676260af57ef9747a2330d9346da729d568550",
+    "egs_summary": "42bd756314ff1619f72eb6f4660761bbe1706a95b8b49673400ead916ec7b6e0",
+    "egs_config": "1417a3a793e5c6bb5407b31d57a4fe9b5465b2a912eae33d587b8ce754355c44"
+  },
+  "Dref": 8.90663759934512e-14,
+  "statistics": {
+    "J1": [
+      {
+        "delta": 0.7998162072680294,
+        "SEM": 0.9177845152558011,
+        "proto": 7.313751813259102e-14,
+        "egs": 7.242515082216911e-14,
+        "upper_abs_95": 2.5986738571693992,
+        "status": "統計不足",
+        "interval_cm": [
+          5.0,
+          10.0
+        ]
+      },
+      {
+        "delta": -1.4687966044247682,
+        "SEM": 0.8411265387165627,
+        "proto": 5.815322631165526e-14,
+        "egs": 5.946143021793127e-14,
+        "upper_abs_95": 3.117404620309231,
+        "status": "統計不足",
+        "interval_cm": [
+          10.0,
+          15.0
+        ]
+      },
+      {
+        "delta": -1.3201264535794854,
+        "SEM": 0.6960187018113221,
+        "proto": 4.588631539167028e-14,
+        "egs": 4.70621041824044e-14,
+        "upper_abs_95": 2.684323109129677,
+        "status": "統計不足",
+        "interval_cm": [
+          15.0,
+          20.0
+        ]
+      },
+      {
+        "delta": 0.00036821232890988986,
+        "SEM": 0.5820209772751526,
+        "proto": 3.6416346878919916e-14,
+        "egs": 3.6416018925542595e-14,
+        "upper_abs_95": 1.1411293277882089,
+        "status": "統計不足",
+        "interval_cm": [
+          20.0,
+          25.0
+        ]
+      },
+      {
+        "delta": -0.7813806128666898,
+        "SEM": 0.5666825438471014,
+        "proto": 2.836233347077369e-14,
+        "egs": 2.905828086536947e-14,
+        "upper_abs_95": 1.8920783988070085,
+        "status": "統計不足",
+        "interval_cm": [
+          25.0,
+          30.0
+        ]
+      }
+    ],
+    "J2": [
+      {
+        "delta": 0.01974529035335114,
+        "SEM": 0.7493076651809357,
+        "proto": 8.137763737572775e-14,
+        "egs": 8.136005096118064e-14,
+        "upper_abs_95": 1.488388314107985,
+        "status": "統計不足",
+        "depth_cm": 5
+      },
+      {
+        "delta": -1.5717720319158905,
+        "SEM": 0.6506684430483709,
+        "proto": 6.399497740486719e-14,
+        "egs": 6.53948977925733e-14,
+        "upper_abs_95": 2.8470821802906974,
+        "status": "統計不足",
+        "depth_cm": 10
+      },
+      {
+        "delta": -0.3456602861990956,
+        "SEM": 0.49736544463759236,
+        "proto": 4.0464737182971754e-14,
+        "egs": 4.077260427313788e-14,
+        "upper_abs_95": 1.3204965576887766,
+        "status": "統計不足",
+        "depth_cm": 20
+      }
+    ],
+    "J3": [
+      {
+        "depth_cm": 5,
+        "proto": {
+          "position": 5.255685069057072,
+          "SEM": 0.004968491817044209,
+          "missing": 0
+        },
+        "egs": {
+          "position": 5.250298817527991,
+          "SEM": 0.004465758896372826,
+          "missing": 0
+        },
+        "delta": 0.005386251529080788,
+        "SEM": 0.0066804875163844375,
+        "status": "0.1 cm以内"
+      },
+      {
+        "depth_cm": 10,
+        "proto": {
+          "position": 5.510683545140429,
+          "SEM": 0.0051838784163844446,
+          "missing": 0
+        },
+        "egs": {
+          "position": 5.513988087480482,
+          "SEM": 0.005001618775883876,
+          "missing": 0
+        },
+        "delta": -0.0033045423400528406,
+        "SEM": 0.007203387107127495,
+        "status": "0.1 cm以内"
+      },
+      {
+        "depth_cm": 20,
+        "proto": {
+          "position": 6.023820886859104,
+          "SEM": 0.007565859510062673,
+          "missing": 0
+        },
+        "egs": {
+          "position": 6.007661932588949,
+          "SEM": 0.008478950133235293,
+          "missing": 0
+        },
+        "delta": 0.016158954270155235,
+        "SEM": 0.011363750502712412,
+        "status": "0.1 cm以内"
+      }
+    ]
+  },
+  "pilot_label": "参考（判定に使わない。本番に足さない）",
+  "N_main": 46000000,
+  "status": "合格"
+}

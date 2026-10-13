@@ -1,0 +1,115 @@
+{
+  "source_hashes": {
+    "prototypes/mv_electron/p3b_egs.f": "fd3ccaf67b0c73da31decb5f4c239557a24c36ab0d0be47dcb1c872d5bd5bf1e",
+    "prototypes/mv_electron/p3b_egs_common.inc": "1497ea23ebf2c5b23f2e46f188b8b5107f61654d8e336dc59eac004e7de8c249",
+    "prototypes/mv_electron/p3b_egs_score.inc": "83b159f35852533249ed05f07e58b51631fa6391c1209fdd11320aefe84cee18",
+    "prototypes/mv_electron/p3b_egs_ausgab.inc": "37842eb154d1b0f43b405c989209cf25e926f9e11ae0d12103156b912ac78231",
+    "prototypes/mv_electron/p3b_score_driver.f": "ff747da49cd85522944ccb094717fba6dfca73ea8d4f0750198eae121f697095",
+    "prototypes/mv_electron/p3b_ausgab_driver.f": "1098769c521801a8162b270118889948db61c10629b7d24ef934c98a4c531291",
+    "prototypes/mv_electron/run_p3b2.py": "37054f57b9b346f1ca4334fccbf3152e4080de53445d69cd57a896486ec9a86b",
+    "prototypes/mv_electron/p3r_egs.f": "432727b793099e1b7b4d2b60b9a7edd76c7fc4431acb914c80d25d7b2ac3fb67",
+    "prototypes/mv_electron/p3r_egs_common.inc": "3b3d66a0cf00da256853e4ea9d39fc3545382f654d7fe09e2007114c27cf5493",
+    "prototypes/mv_electron/photon_transport_p3b.py": "097e323a4e86697489f5f1d25473e702b534147770a6a500776466078ad55658",
+    "prototypes/mv_electron/scoring_p3b.py": "589a0fcdccb5d9f1f7f8a7f4c234239db248dd5ddbe450bba2bd71f0ea957453",
+    "prototypes/mv_electron/batch_kernels_p3b.py": "6b0175f7a19895e776462876eb4b2df3861ad81dad6c88d7e157433a98b10d50",
+    "prototypes/mv_electron/run_p3r.py": "cca0bb394ca5efb323f5788caf815447d205f085fd969012c99f249ef24647af"
+  },
+  "E1": {
+    "equality": {
+      "e1b": {
+        "coarse": true,
+        "fine": true,
+        "totals": true,
+        "callbacks": true,
+        "nspec": true,
+        "batchin": true,
+        "batchcb": true,
+        "batch_brems": true,
+        "maxrel": true,
+        "escapes": true,
+        "cutoffs": true,
+        "effective_flags": true,
+        "kinetic_cutoff": true
+      },
+      "e1c": {
+        "coarse": true,
+        "fine": true,
+        "totals": true,
+        "callbacks": true,
+        "nspec": true,
+        "batchin": true,
+        "batchcb": true,
+        "batch_brems": true,
+        "maxrel": true,
+        "escapes": true,
+        "cutoffs": true,
+        "effective_flags": true,
+        "kinetic_cutoff": true
+      }
+    },
+    "status": "合格"
+  },
+  "E2a": {
+    "maximum": 0.0,
+    "status": "合格"
+  },
+  "E2b": {
+    "maximum": 9.592326932761353e-14,
+    "tolerance": 1.4288898842771678e-09,
+    "status": "合格"
+  },
+  "E2c": {
+    "maximum": 1.1368683772161603e-13,
+    "tolerance": 1.4288898842771678e-09,
+    "status": "合格"
+  },
+  "E2d": {
+    "maximum": 0.0,
+    "status": "合格"
+  },
+  "E3": {
+    "rebin": [
+      true,
+      true,
+      true
+    ],
+    "status": "合格"
+  },
+  "E4": {
+    "p": 0.22938648481474128,
+    "direction_error": 0.0,
+    "status": "合格"
+  },
+  "E5": {
+    "equality": {
+      "coarse": true,
+      "fine": true,
+      "totals": true,
+      "callbacks": true,
+      "nspec": true,
+      "batchin": true,
+      "batchcb": true,
+      "batch_brems": true,
+      "maxrel": true,
+      "escapes": true,
+      "cutoffs": true,
+      "effective_flags": true,
+      "kinetic_cutoff": true,
+      "axis_coarse": true,
+      "axis_fine": true,
+      "slab_coarse": true,
+      "profile": true,
+      "profile_fine": true,
+      "region_ledger": true,
+      "sources": true,
+      "source_hist": true
+    },
+    "status": "合格"
+  },
+  "E6": {
+    "status": "報告のみ",
+    "baseline_us": 456.685,
+    "field_us": 515.15,
+    "ratio": 1.1280204079398273
+  }
+}
