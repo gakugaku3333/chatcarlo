@@ -62,3 +62,5 @@ docs/validation/mv/**/*.tmp
 # 履歴数が多いと未追跡のスペクトルの写しに近くなる）。解析の全出力は手元に残し、要点は analysis_p3b3_summary.json を追跡する
 docs/validation/mv/p3b/**/*.npz
 docs/validation/mv/p3b/analysis_p3b3.json
+# P4の結果のnpzも追跡しない（計算の出力は ~/.cache/chatcarlo/p4/ に置く。スペクトルを使った出力を含む）
+docs/validation/mv/p4/**/*.npz

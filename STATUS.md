@@ -1,8 +1,8 @@
 ---
 phase: 開発中
-next: 次の段階（Fano試験など、EGS5によらない検査）の計画を書く。P3b（10×10 cm²・発散のPDDと側方分布）は完了、判定した11個はすべてEGS5と許容の内側（結果 docs/validation/mv/p3b/RESULTS_P3B3.md）
+next: GPU向けの書き直しの計画を書く（→ Colab）。P4（EGS5によらない検査: Fano試験・衝突カーマの総和・飛程）は完了、固定した量はすべて合格（結果 docs/validation/mv/p4/）
 blocker: ELSEPAで作った表の配布の方法（表を置くか、生成スクリプトだけか）とリポジトリのLICENSEはユーザーの判断待ち。急がない
-updated: 2026-10-13
+updated: 2026-10-14
 ---
 
 詳細は [CLAUDE.md](CLAUDE.md) の "Therapy-energy extension" 節、発表は [docs/presentation_jsmp133.md](docs/presentation_jsmp133.md)、

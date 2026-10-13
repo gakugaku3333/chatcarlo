@@ -33,7 +33,7 @@ an unquantified reference uncertainty. This is a scoped benchmark, not blanket v
 Use [current results](docs/egs5_crosscheck/revalidation_2026_10_07/RESULTS.md) for current
 numbers; the old BSF/PDD JSON, figures and reports are historical records, not regenerated data.
 
-## Therapy-energy extension (in progress, prototype only — 2026-10-12)
+## Therapy-energy extension (in progress, prototype only — 2026-10-14)
 
 Work toward coupled photon/electron/positron transport for nominal 10 MV is under way, **entirely outside
 `chatcarlo/`**. Nothing in the production package or the 150 keV limits has changed.
@@ -184,13 +184,36 @@ Work toward coupled photon/electron/positron transport for nominal 10 MV is unde
   through `run_p3b3.py` (`pilot` / `production` / `analyse`; statistics in `analysis_p3b3.py`). One harness stop (a wrong
   shape assumption for the legacy depth arrays, fixed before any comparison value was seen; plan amendment 1). Time:
   prototype 167 µs/history wall on 2 processes, EGS5 123 µs CPU.
-- Next: Fano test etc. →
-  GPU-oriented rewrite → Colab. P3b skeleton (draft, Codex skeleton review done):
-  [docs/ai/plans/2026-10-12-mv-p3b-field-pdd-ocr.md](docs/ai/plans/2026-10-12-mv-p3b-field-pdd-ocr.md). User decisions
-  (2026-10-12): 10×10 cm² at the surface, divergent, 100 cm source-to-surface in vacuum, 2×2 cm axis box, profiles at
-  5/10/20 cm, depth bins 0.25 cm (coarse) / 0.1 cm (fine). **The slab kernels up to P3t do not carry lateral position
-  for photons or for most secondaries** (only charged steps and Møller secondaries) — harmless for depth-only scoring,
-  wrong for any lateral scoring; the P3b kernel must propagate full xyz.
+- P4 EGS5-independent checks (done, 2026-10-14): [P4a Fano](docs/validation/mv/p4/RESULTS_P4A.md),
+  [P4b/P4c kerma and range](docs/validation/mv/p4/RESULTS_P4BC.md); skeleton and user decisions in
+  [docs/ai/plans/2026-10-13-mv-p4-independent-checks.md](docs/ai/plans/2026-10-13-mv-p4-independent-checks.md).
+  **All pre-fixed quantities pass.** P4a: new kernel `photon_transport_p4.py` (= P3b + per-layer density along depth,
+  mass-thickness scoring, an isotropic uniform-per-mass charged source, optional per-history RNG; byte-identical to P3b
+  when no layers are given). Fano test with electrons of 0.1/1/10 MeV in two layered systems (density ratios
+  1:1/2:2:1/4:1 and 1:1/1024:1): 18 layer doses within −0.46 to +0.35% of the analytic value (SEM 0.10–0.29%; tolerance
+  1%, user decision). With identical random numbers, layered and uniform systems agree history by history
+  (20,000/20,000 in all 12 pairs), and deliberately omitting the density factor is detected. **Read this narrowly: in
+  this kernel the Fano test holds by construction** (boundaries only cut straight segments; no boundary-dependent step),
+  so it checks density scaling and boundary crossing, *not* the accuracy of the hinge approximation, and only for a
+  laterally infinite slab scored in depth. P4b: in effectively infinite water (2,000 cm slab, photon started at the
+  centre, existing P3b kernel untouched) the summed collision kerma from NIST μen/ρ equals the incident energy within
+  +0.02 to +0.24% at 0.5–10 MeV (SEM ≈ 0.08%; tolerance 1%); all five are positive, weighted mean +0.09 ± 0.04%
+  with no visible energy dependence (χ² 4.3 / 4) — a small common offset of unknown origin, not a radiative-yield error
+  (that would grow with energy; brems radiated fraction is 0.07% at 0.5 MeV and 2.6% at 10 MeV).
+  Report-only: dose / collision kerma on the Mohan slab is 1.012 ± 0.001 over 5–25 cm. P4c: CSDA range from the P1
+  electron kernel (hard collisions off, straight) vs the integral of 1/S: −0.009/−0.008/−0.001%; that integral vs NIST
+  ESTAR's range table: within 0.02% (tolerance 0.1%). Not done: the interaction-point energy-transfer cross-check (B3),
+  a photon-source Fano test, non-slab cavities, published measurements (user decision). Production kerma scoring had
+  been switched off in all earlier runs (`score_kerma=False`), so no earlier saved run contains kerma.
+- Next: GPU-oriented rewrite → Colab. For that rewrite, prepare a history-by-history comparison against the CPU kernel
+  first (`photon_transport_p4.py` has `history_rng`: each history reseeds with `seed + h`; in P4a this kind of check
+  found a missing density factor in minutes, where the statistical test took 96 minutes) — a suggestion from P4, n=1.
+- P3b skeleton and user decisions (2026-10-12; implemented in P3b-1 to P3b-3):
+  [docs/ai/plans/2026-10-12-mv-p3b-field-pdd-ocr.md](docs/ai/plans/2026-10-12-mv-p3b-field-pdd-ocr.md) — 10×10 cm² at the
+  surface, divergent, 100 cm source-to-surface in vacuum, 2×2 cm axis box, profiles at 5/10/20 cm, depth bins 0.25 cm
+  (coarse) / 0.1 cm (fine). **The slab kernels up to P3t do not carry lateral position for photons or for most
+  secondaries** (only charged steps and Møller secondaries) — harmless for depth-only scoring, wrong for any lateral
+  scoring; use the P3b/P4 kernels for anything lateral.
 - Codex review originals for these plans are kept in `docs/ai/plans/reviews/`. Codex's sandbox cannot write outside the
   repository (`~/.cache`); checks that need it are run by Claude.
 
