@@ -1,6 +1,6 @@
 # 計画: P5a0 — 小さい試作品で道具立てを確かめる（clang++ と Colab の RawKernel）
 
-- 状態: approved（隔離された試作・Codexレビューで致命0のため、Claudeが承認。2026-10-14）
+- 状態: implemented（2026-10-14、手元・Colab・機械間の必須の項目すべて合格。結果 [RESULTS_P5A0.md](../../validation/mv/p5/RESULTS_P5A0.md)。承認: 隔離された試作・Codexレビューで致命0のため、Claudeが承認。2026-10-14）
 - 作成者: claude / 実装担当: codex / 日付: 2026-10-14 / Codexレビュー: 1巡（致命0・実質9・軽微3、すべて反映。原本 [reviews/2026-10-14-mv-p5a0-review2-codex.md](reviews/2026-10-14-mv-p5a0-review2-codex.md)）
 - 骨子: [2026-10-14-mv-p5-gpu-rewrite.md](2026-10-14-mv-p5-gpu-rewrite.md)（決定と用語はそちら。この計画はその段階P5a0）
 - 規模: 中（輸送の計算はしない。数十〜数百行の試作品と検査）

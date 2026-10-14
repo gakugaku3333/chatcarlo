@@ -1,6 +1,6 @@
 ---
 phase: 開発中
-next: P5a0の手元の検査は全部合格（docs/validation/mv/p5/RESULTS_P5A0.md）。次はコミットとプッシュ → ノートブックにコミットのハッシュを書く → ユーザーがColab（T4）で prototypes/mv_electron/gpu/p5a0_colab.ipynb を実行 → compare。そのあとP5aの詳細計画。Codexは -m gpt-6.1-sol を明示して起動する
+next: P5aの詳細計画を書く（Cの核のCPU版、鎖0=P4の核との完全一致、鎖1）。P5a0はColab（T4）を含めて合格: 乱数・表の読み出し・集計はGPUとCPUで完全一致、--fmad=false が効く、数学関数は最後の1ビットが違う（docs/validation/mv/p5/RESULTS_P5A0.md）。Codexは -m gpt-6.1-sol を明示
 blocker: ELSEPAで作った表の配布の方法（表を置くか、生成スクリプトだけか）とリポジトリのLICENSEはユーザーの判断待ち。急がない
 updated: 2026-10-14
 ---
