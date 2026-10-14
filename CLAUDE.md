@@ -205,9 +205,24 @@ Work toward coupled photon/electron/positron transport for nominal 10 MV is unde
   ESTAR's range table: within 0.02% (tolerance 0.1%). Not done: the interaction-point energy-transfer cross-check (B3),
   a photon-source Fano test, non-slab cavities, published measurements (user decision). Production kerma scoring had
   been switched off in all earlier runs (`score_kerma=False`), so no earlier saved run contains kerma.
-- Next: GPU-oriented rewrite → Colab. For that rewrite, prepare a history-by-history comparison against the CPU kernel
-  first (`photon_transport_p4.py` has `history_rng`: each history reseeds with `seed + h`; in P4a this kind of check
-  found a missing density factor in minutes, where the statistical test took 96 minutes) — a suggestion from P4, n=1.
+- P5 GPU-oriented rewrite (in progress, 2026-10-14). Skeleton and user decisions:
+  [docs/ai/plans/2026-10-14-mv-p5-gpu-rewrite.md](docs/ai/plans/2026-10-14-mv-p5-gpu-rewrite.md) — **CuPy RawKernel (CUDA C++)**,
+  first target the Mohan slab depth dose only, speed report-only, Colab is run by the user. One C++ source
+  (`prototypes/mv_electron/gpu/`) is compiled by `clang++ -ffp-contract=off` locally (ctypes) and by NVRTC `--fmad=false` on
+  Colab. Verification chain: chain 0 = the C++ kernel with MT19937 is byte-identical to the Numba kernel (only on the same
+  machine); chain 1 = Philox (counter-based, keyed by seed and global history number) vs saved MT runs, statistically;
+  chain 2 = C++ CPU vs GPU history by history (pass/fail on paired differences; the matched fraction is report-only).
+  - [P5a0](docs/validation/mv/p5/RESULTS_P5A0.md) (done): small trial on M3 and Colab T4. RNG, table read-out, stack and
+    atomic sums are bit-identical CPU↔GPU; `--fmad=false` works (without it 16% of an arithmetic expression differs);
+    GPU math functions differ in the last bit for 0.3–27% of inputs, and so do x86 g++ vs M3 clang. Toy speed GPU/CPU ≈ 4.7×.
+  - [P5a](docs/validation/mv/p5/RESULTS_P5A.md) (done): the full kernel ported to C++. Byte-identical to the Numba kernel
+    (2×20k histories) **and reproduces saved P3r production batches 0 and 2 byte for byte**. Philox 10M histories vs saved
+    P3r 10M: deep 5 blocks −0.003 to +0.139% of `Dref` (SEM 0.09–0.13%; tolerance 1%). Report-only: build-up 0–2 cm
+    −0.33 ± 0.15% (2.2σ, single observation). CPU speed 164 vs 284 µs/history (Numba), cause not examined.
+  - Next: P5b (GPU wrapper, notebook, chain-2 criteria fixed before measuring), then P5c on Colab, P5d speed.
+  - Colab hand-off: input bundles go to the user's gmail Drive `MyDrive/viveMonte/p5/` via the locally synced folder
+    (`~/Library/CloudStorage/GoogleDrive-<gmail>/マイドライブ/...`); results are read back from it. Bundles are never committed.
+    Check which account the Drive connector is signed into (it was the university one once) before concluding a file is missing.
 - P3b skeleton and user decisions (2026-10-12; implemented in P3b-1 to P3b-3):
   [docs/ai/plans/2026-10-12-mv-p3b-field-pdd-ocr.md](docs/ai/plans/2026-10-12-mv-p3b-field-pdd-ocr.md) — 10×10 cm² at the
   surface, divergent, 100 cm source-to-surface in vacuum, 2×2 cm axis box, profiles at 5/10/20 cm, depth bins 0.25 cm

@@ -1,6 +1,6 @@
 ---
 phase: 開発中
-next: P5aの詳細計画を書く（Cの核のCPU版、鎖0=P4の核との完全一致、鎖1）。P5a0はColab（T4）を含めて合格: 乱数・表の読み出し・集計はGPUとCPUで完全一致、--fmad=false が効く、数学関数は最後の1ビットが違う（docs/validation/mv/p5/RESULTS_P5A0.md）。Codexは -m gpt-6.1-sol を明示
+next: P5b（GPUのラッパーとColab用のノートブック、鎖2の基準を固定）の詳細計画を書く。P5aは合格: C++の核がいまの核とバイト単位で一致（保存済みのP3rの本番のバッチも再現）、新しい乱数で1,000万履歴の深い5ブロックの差は−0.003〜+0.14%（SEM 0.09〜0.13%）、CPUで約1.7倍速い（docs/validation/mv/p5/RESULTS_P5A.md）
 blocker: ELSEPAで作った表の配布の方法（表を置くか、生成スクリプトだけか）とリポジトリのLICENSEはユーザーの判断待ち。急がない
 updated: 2026-10-14
 ---
