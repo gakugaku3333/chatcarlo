@@ -1,6 +1,6 @@
 ---
 phase: 開発中
-next: GPU向けの書き直しの計画を書く（→ Colab）。P4（EGS5によらない検査: Fano試験・衝突カーマの総和・飛程）は完了、固定した量はすべて合格（結果 docs/validation/mv/p4/）
+next: P5a0の手元の検査は全部合格（docs/validation/mv/p5/RESULTS_P5A0.md）。次はコミットとプッシュ → ノートブックにコミットのハッシュを書く → ユーザーがColab（T4）で prototypes/mv_electron/gpu/p5a0_colab.ipynb を実行 → compare。そのあとP5aの詳細計画。Codexは -m gpt-6.1-sol を明示して起動する
 blocker: ELSEPAで作った表の配布の方法（表を置くか、生成スクリプトだけか）とリポジトリのLICENSEはユーザーの判断待ち。急がない
 updated: 2026-10-14
 ---
