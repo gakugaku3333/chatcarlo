@@ -1,7 +1,9 @@
 """P5f-1 CPU regression, uncommon paths and fail-closed artifact contracts."""
 import json
+from pathlib import Path
 import re
 import subprocess
+import struct
 import sys
 import numpy as np
 import pytest
@@ -68,10 +70,30 @@ def test_map_weights_and_csv():
     with pytest.raises(core.Stop):parse_source_csv('no counters')
 
 
+def _synthetic_elf(bits=64,endian='<',extent='table'):
+    wide=bits==64
+    ehsize,shsize,phsize=(64,64,56) if wide else (52,40,32)
+    phoff=ehsize;shoff=ehsize+phsize
+    table_end=shoff+2*shsize
+    end=table_end+(32 if extent!='table' else 0)
+    data=bytearray(end)
+    data[:16]=b'\x7fELF'+bytes([2 if wide else 1,1 if endian=='<' else 2,1])+bytes(9)
+    struct.pack_into(endian+('HHIQQQIHHHHHH' if wide else 'HHIIIIIHHHHHH'),data,16,
+                     2,190,1,0,phoff,shoff,0,ehsize,phsize,1,shsize,2,0)
+    # A file-backed section, or a large memory-only SHT_NOBITS section.
+    section=[0,8 if extent=='program' else 1,0,0,
+             table_end if extent!='table' else 0,32 if extent=='section' else 4096 if extent=='program' else 0,0,0,1,0]
+    struct.pack_into(endian+('IIQQQQIIQQ' if wide else 'IIIIIIIIII'),data,shoff+shsize,*section)
+    if extent=='program':
+        program=(1,0,table_end,0,0,32,8192,1) if wide else (1,table_end,0,0,32,8192,0,1)
+        struct.pack_into(endian+('IIQQQQQQ' if wide else 'IIIIIIII'),data,phoff,*program)
+    return bytes(data)
+
+
 def test_sass_extracts_cached_elf(tmp_path,monkeypatch):
     from prototypes.mv_electron.gpu import p5g_colab
     cache=tmp_path/'nvrtc_cache';cache.mkdir()
-    elf=b'\x7fELF\x00synthetic device code\xff'
+    elf=_synthetic_elf()
     cached=b'CuPy cache header\n'+elf
     path=cache/'kernel.cubin';path.write_bytes(cached)
     monkeypatch.setattr(p5g_colab.shutil,'which',lambda name:'/fake/cuobjdump')
@@ -168,3 +190,93 @@ def test_map_notebook_runs_available_maps(tmp_path,capsys,has_gate2,has_gate3):
     else:
         assert capsys.readouterr().out.strip()=='比較の地図は関門2・3の後'
     assert calls==expected
+
+
+@pytest.mark.parametrize('bits',[32,64])
+@pytest.mark.parametrize('endian',['<','>'])
+@pytest.mark.parametrize('extent',['table','section','program'])
+def test_sass_trims_elf_trailer(tmp_path,monkeypatch,bits,endian,extent):
+    from prototypes.mv_electron.gpu import p5g_colab
+    cache=tmp_path/'nvrtc_cache';cache.mkdir()
+    elf=_synthetic_elf(bits,endian,extent)
+    cached=b'CuPy header'+elf+b'x'*223
+    original=cache/'kernel.cubin';original.write_bytes(cached)
+    monkeypatch.setattr(p5g_colab.shutil,'which',lambda name:'/fake/'+name)
+    def dump(args,**kwargs):
+        assert args==['/fake/cuobjdump','--dump-sass',str(tmp_path/'sass_0.cubin')]
+        assert (tmp_path/'sass_0.cubin').read_bytes()==elf
+        return subprocess.CompletedProcess(args,0,'Function : target\n /*0000*/ EXIT;\n','')
+    monkeypatch.setattr(p5g_colab.subprocess,'run',dump)
+    assert p5g_colab.sass(tmp_path,'target')==['/*0000*/ EXIT;']
+    assert original.read_bytes()==cached
+
+
+@pytest.mark.parametrize('reason',['failure','missing','empty','oserror','unavailable'])
+@pytest.mark.parametrize('cuda_path',[False,True])
+def test_sass_nvdisasm_fallback(tmp_path,monkeypatch,reason,cuda_path):
+    from prototypes.mv_electron.gpu import p5g_colab
+    cache=tmp_path/'nvrtc_cache';cache.mkdir()
+    elf=_synthetic_elf();(cache/'kernel.cubin').write_bytes(b'header'+elf+b'trailer')
+    def which(name):
+        if name=='cuobjdump':return None if reason=='unavailable' else '/fake/cuobjdump'
+        return None if cuda_path else '/fake/nvdisasm'
+    monkeypatch.setattr(p5g_colab.shutil,'which',which)
+    if cuda_path:
+        original_is_file=Path.is_file
+        monkeypatch.setattr(Path,'is_file',lambda self: str(self)=='/usr/local/cuda/bin/nvdisasm' or original_is_file(self))
+    calls=[]
+    # Section headers, labels, predicates and instruction rows follow NVIDIA's
+    # CUDA Binary Utilities documentation (Basic Disassembly / Source Line Information).
+    output="""//--------------------- .text.target_extra --------------------------
+        .section .text.target_extra,"ax",@progbits
+        /*0000*/ NOP;
+//--------------------- .text.target --------------------------
+        .section .text.target,"ax",@progbits
+        .sectioninfo @"SHI_REGISTERS=24"
+        .type target,@function
+target:
+.text.target:
+        /*0000*/ MOV R1, c[0x0][0x28] ;
+        //## File "sample.cu", line 25
+.L_1:
+        /*0010*/ @!P0 EXIT ; /* 0x1234567890abcdef */
+        .section .text.other,"ax",@progbits
+other:
+        /*0000*/ NOP;
+"""
+    def dump(args,**kwargs):
+        calls.append(args)
+        assert (tmp_path/'sass_0.cubin').read_bytes()==elf
+        if args[0]=='/fake/cuobjdump':
+            if reason=='oserror':raise OSError('cannot execute')
+            text='Function : other\n /*0000*/ NOP;\n' if reason=='missing' else 'Function : target\n'
+            return subprocess.CompletedProcess(args,1 if reason=='failure' else 0,text,'')
+        expected='/usr/local/cuda/bin/nvdisasm' if cuda_path else '/fake/nvdisasm'
+        assert args==[expected,str(tmp_path/'sass_0.cubin')]
+        return subprocess.CompletedProcess(args,0,output,'')
+    monkeypatch.setattr(p5g_colab.subprocess,'run',dump)
+    assert p5g_colab.sass(tmp_path,'target')==[
+        '/*0000*/ MOV R1, c[0x0][0x28] ;',
+        '/*0010*/ @!P0 EXIT ; /* 0x1234567890abcdef */']
+    assert len(calls)==(1 if reason=='unavailable' else 2)
+    assert (tmp_path/'sass_0_nvdisasm.txt').read_text()==output
+
+
+@pytest.mark.parametrize('returncode,text',[(1,''),(0,'other:\n /*0000*/ EXIT;'),
+                                           (0,'.section .text.target,"ax",@progbits\ntarget:\n')])
+def test_sass_stops_when_both_tools_cannot_extract(tmp_path,monkeypatch,returncode,text):
+    from prototypes.mv_electron.gpu import p5g_colab
+    cache=tmp_path/'nvrtc_cache';cache.mkdir()
+    (cache/'kernel.cubin').write_bytes(_synthetic_elf())
+    monkeypatch.setattr(p5g_colab.shutil,'which',lambda name:'/fake/'+name)
+    monkeypatch.setattr(p5g_colab.subprocess,'run',lambda args,**kwargs:
+                        subprocess.CompletedProcess(args,returncode,text,''))
+    with pytest.raises(core.Stop,match='target SASS unavailable'):
+        p5g_colab.sass(tmp_path,'target')
+
+
+@pytest.mark.parametrize('data',[b'\x7fELF',_synthetic_elf()[:-1]])
+def test_sass_rejects_truncated_elf(data):
+    from prototypes.mv_electron.gpu import p5g_colab
+    with pytest.raises(core.Stop,match='invalid retained NVRTC ELF'):
+        p5g_colab._sass_elf(data)

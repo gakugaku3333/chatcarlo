@@ -7,6 +7,7 @@ import os
 from pathlib import Path
 import re
 import shutil
+import struct
 import subprocess
 import sys
 import time
@@ -254,21 +255,78 @@ def target(bundle,root,variant,lineinfo):
     core.write_json(root/'target.json',dict(environment=environment(cp),options=list(gpu.options),launches=gpu.launches))
 
 
+def _sass_elf(data):
+    """Retain only the file-backed ELF extent, excluding CuPy cache trailers."""
+    try:
+        if data[:4]!=b'\x7fELF' or data[4] not in (1,2) or data[5] not in (1,2):
+            raise ValueError('unsupported ELF identification')
+        endian='<' if data[5]==1 else '>'
+        wide=data[4]==2
+        header=struct.unpack_from(endian+('HHIQQQIHHHHHH' if wide else 'HHIIIIIHHHHHH'),data,16)
+        phoff,shoff=header[4:6]
+        ehsize,phsize,phnum,shsize,shnum=header[7:12]
+        header_size=64 if wide else 52
+        if ehsize<header_size:raise ValueError('short ELF header')
+        end=ehsize
+        for offset,stride,count,fmt,section in (
+            (shoff,shsize,shnum,'IIQQQQIIQQ' if wide else 'IIIIIIIIII',True),
+            (phoff,phsize,phnum,'IIQQQQQQ' if wide else 'IIIIIIII',False)):
+            if not count:continue
+            if stride<struct.calcsize(endian+fmt) or offset+stride*count>len(data):
+                raise ValueError('invalid ELF header table')
+            end=max(end,offset+stride*count)
+            for i in range(count):
+                entry=struct.unpack_from(endian+fmt,data,offset+i*stride)
+                if section:
+                    # SHT_NOBITS occupies memory, not bytes in the cubin.
+                    if entry[1]==8:continue
+                    start,size=entry[4:6]
+                else:
+                    start,size=(entry[2],entry[5]) if wide else (entry[1],entry[4])
+                if size:end=max(end,start+size)
+        if end>len(data):raise ValueError('truncated ELF')
+        return data[:end]
+    except (IndexError,struct.error,ValueError) as exc:
+        raise core.Stop(f'invalid retained NVRTC ELF: {exc}') from exc
+
+
+def _sass_instructions(text,kernel,nvdisasm=False):
+    if nvdisasm:
+        # NVIDIA CUDA Binary Utilities, Basic Disassembly:
+        # https://docs.nvidia.com/cuda/cuda-binary-utilities/index.html#basic-disassembly
+        # Each function has a .section .text.<name>, followed by address-comment instructions.
+        match=re.search(r'^\s*\.section\s+\.text\.'+re.escape(kernel)+
+                        r'(?=\s|,|$)[^\n]*\n(.*?)(?=^\s*\.section\s|\Z)',text,re.M|re.S)
+    else:
+        match=re.search(r'Function : '+re.escape(kernel)+r'\s*\n(.*?)(?=Function : |\Z)',text,re.S)
+    if not match:return []
+    # Keep the same instruction strings (including addresses/encodings) for both tools.
+    # Source line annotations are excluded, as in the original cuobjdump path.
+    return [line.strip() for line in match[1].splitlines()
+            if re.search(r'/\*\s*(?:0x)?[0-9a-fA-F]+\s*\*/',line)]
+
+
 def sass(root,kernel):
     binary=shutil.which('cuobjdump')
-    if not binary:raise core.Stop('cuobjdump unavailable')
+    nvdisasm=shutil.which('nvdisasm')
+    if not nvdisasm and Path('/usr/local/cuda/bin/nvdisasm').is_file():
+        nvdisasm='/usr/local/cuda/bin/nvdisasm'
+    if not binary and not nvdisasm:raise core.Stop('cuobjdump and nvdisasm unavailable')
     for i,path in enumerate(sorted((root/'nvrtc_cache').glob('*.cubin'))):
         cached=path.read_bytes();elf=cached.find(b'\x7fELF')
         if elf<0:raise core.Stop(f'ELF unavailable in retained NVRTC cubin: {path}')
         cubin=root/f'sass_{i}.cubin'
-        cubin.write_bytes(cached[elf:])
-        r=subprocess.run([binary,'--dump-sass',str(cubin)],capture_output=True,text=True)
-        (root/f'sass_{i}.txt').write_text(r.stdout+r.stderr)
-        if r.returncode:continue
-        match=re.search(r'Function : '+re.escape(kernel)+r'\s*\n(.*?)(?=Function : |\Z)',r.stdout,re.S)
-        if match:
-            # Source line annotations are deliberately excluded; compare instruction text and encodings.
-            instructions=[line.strip() for line in match[1].splitlines() if re.search(r'/\*\s*(?:0x)?[0-9a-fA-F]+\s*\*/',line)]
+        cubin.write_bytes(_sass_elf(cached[elf:]))
+        for tool,args,suffix in ((binary,['--dump-sass'],''),(nvdisasm,[],'_nvdisasm')):
+            if not tool:continue
+            try:
+                r=subprocess.run([tool,*args,str(cubin)],capture_output=True,text=True)
+            except OSError as exc:
+                (root/f'sass_{i}{suffix}.txt').write_text(str(exc))
+                continue
+            (root/f'sass_{i}{suffix}.txt').write_text(r.stdout+r.stderr)
+            if r.returncode:continue
+            instructions=_sass_instructions(r.stdout,kernel,nvdisasm=bool(suffix))
             if instructions:return instructions
     raise core.Stop('target SASS unavailable in retained NVRTC cubins')
 

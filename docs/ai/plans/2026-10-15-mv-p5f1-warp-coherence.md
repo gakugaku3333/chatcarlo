@@ -85,3 +85,7 @@
 ## 修正2（2026-10-16、手順の変更。ユーザーの指示）
 
 ユーザーの手間を減らすため、残りの地図（`divergence_map` の V0 単独と比較）を、旗のない新しいノートブック `p5g_map_colab.ipynb` で走らせる。中身: 準備のセル（`p5g_colab.ipynb` の最初のセルと同じ: 固定コミット・束の指紋の照合・`git fetch` してから checkout、checkout の後で読み込む）と、地図のセル1つ（`divergence_map(BUNDLE, RESULTS/'map_v0', GATE1)` の後、関門2・3の記録が Drive にあれば `compare=True` の地図も走らせる。なければ「比較の地図は関門2・3の後」と表示して正常に終える）。承認の旗（`APPROVE_*`）は作らない。「すべてのセルを実行」1回で済むこと。既存の `p5g_colab.ipynb` は変えない。テスト: 新しいノートブックのセルが構文として正しく、出力が空で、`APPROVE_` を含まず、fetch が checkout より前にあり、固定コミットは空欄か40桁。
+
+## 修正3（2026-10-16、Colab で発覚。測定の道具の誤り）
+
+修正1で取り出した ELF（CUDA の cubin、e_machine 190、`.text.p5b_run_kernel` などを含む）を `cuobjdump --dump-sass` が「device code を含まない」とした。取り出した 958,639 バイトのうち、ELF の見出しから計算した終わり（section header table の終わり = e_shoff + e_shnum × e_shentsize = 958,416）より後ろに 223 バイトの余分がある（CuPy のキャッシュの付加とみられる）。直し方: (1) ELF の見出しから、section header table の終わりと、各 section・program header の (offset+size) の最大のうち大きいほうを ELF の長さとし、そこで切って `.cubin` に書く。(2) `cuobjdump --dump-sass` が失敗するか対象の関数が見つからなければ、`nvdisasm`（`shutil.which` か `/usr/local/cuda/bin/nvdisasm`）で同じ `.cubin` を逆アセンブルし、対象の関数の命令を取り出す（命令の文字列の比較に使う。比較の規則は変えない）。どちらでも取れなければ今と同じく停止。ほかは変えない。テスト: 人工の ELF（見出しと section header を持つ最小のもの）＋末尾の余分から、正しい長さで切れること。
