@@ -1,6 +1,6 @@
 # 計画: P5b — GPUの入口・Colab用のノートブック・入力の束と、鎖2の基準の固定
 
-- 状態: approved（2026-10-14。隔離された試作・Codexレビュー2巡目で致命0のため、Claudeが承認）
+- 状態: implemented（2026-10-15、L0〜L4合格。P5cは未実行）。承認: approved（2026-10-14。隔離された試作・Codexレビュー2巡目で致命0のため、Claudeが承認）
 - 作成者: claude / 実装担当: codex（`-m gpt-6.1-sol`） / 日付: 2026-10-14 / Codexレビュー: 2巡（1巡目 致命1・実質8・軽微3・参考1、2巡目 致命0・実質2・参考1、すべて反映。原本 [reviews/2026-10-14-mv-p5b-review1-codex.md](reviews/2026-10-14-mv-p5b-review1-codex.md)、[review2](reviews/2026-10-14-mv-p5b-review2-codex.md)）
 - 骨子: [2026-10-14-mv-p5-gpu-rewrite.md](2026-10-14-mv-p5-gpu-rewrite.md)（鎖0/1/2、翻訳と配列の規則、2-3「鎖2はビットの一致を合格条件にしない」）
 - 前段: [P5a](2026-10-14-mv-p5a-cpu-kernel.md)（implemented。結果 [RESULTS_P5A.md](../../validation/mv/p5/RESULTS_P5A.md)）

@@ -1,8 +1,8 @@
 ---
 phase: 開発中
-next: P5b（GPUのラッパーとColab用のノートブック、鎖2の基準を固定）の詳細計画を書く。P5aは合格: C++の核がいまの核とバイト単位で一致（保存済みのP3rの本番のバッチも再現）、新しい乱数で1,000万履歴の深い5ブロックの差は−0.003〜+0.14%（SEM 0.09〜0.13%）、CPUで約1.7倍速い（docs/validation/mv/p5/RESULTS_P5A.md）
+next: P5c（Colab T4で鎖2・集計・1,000万履歴の対の比較）の実行の承認をもらい、ユーザーにノートブックのP5cのセルを実行してもらう
 blocker: ELSEPAで作った表の配布の方法（表を置くか、生成スクリプトだけか）とリポジトリのLICENSEはユーザーの判断待ち。急がない
-updated: 2026-10-14
+updated: 2026-10-15
 ---
 
 詳細は [CLAUDE.md](CLAUDE.md) の "Therapy-energy extension" 節、発表は [docs/presentation_jsmp133.md](docs/presentation_jsmp133.md)、
