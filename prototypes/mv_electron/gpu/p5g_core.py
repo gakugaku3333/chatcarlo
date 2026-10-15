@@ -5,7 +5,7 @@ import numpy as np
 from . import p5b_core as core
 
 SOURCES = ('p5g_kernel.h', 'p5g_cpu.cpp', 'p5g_gpu.cu', 'p5g_core.py',
-           'p5g.py', 'p5g_colab.py', 'p5g_colab.ipynb')
+           'p5g.py', 'p5g_colab.py')
 STATES = ('P', 'C', 'E', 'H', 'D')
 TRACE_COLUMNS = ('from', 'to', 'steps', 'calls', 'top', 'charge', 'energy',
                  'reason', 'hard_count', 'brems_count')

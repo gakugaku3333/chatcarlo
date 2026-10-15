@@ -122,6 +122,14 @@ def test_sass_rejects_cache_without_elf(tmp_path,monkeypatch):
     assert not (tmp_path/'sass_0.cubin').exists()
 
 
+def test_sources_exclude_notebooks():
+    assert not any(Path(name).suffix == '.ipynb' for name in g.SOURCES)
+    assert set(g.SOURCES) == {
+        'p5g_kernel.h', 'p5g_cpu.cpp', 'p5g_gpu.cu', 'p5g_core.py',
+        'p5g.py', 'p5g_colab.py',
+    }
+
+
 def test_gate1_rejects_missing_and_stale(tmp_path):
     path=tmp_path/'gate1.json'
     report=dict(status='pass',batches=100,sources={k:core.file_sha(core.HERE/k) for k in (*core.FROZEN,'p5b_wrap.h',*g.SOURCES)},

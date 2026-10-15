@@ -89,3 +89,7 @@
 ## 修正3（2026-10-16、Colab で発覚。測定の道具の誤り）
 
 修正1で取り出した ELF（CUDA の cubin、e_machine 190、`.text.p5b_run_kernel` などを含む）を `cuobjdump --dump-sass` が「device code を含まない」とした。取り出した 958,639 バイトのうち、ELF の見出しから計算した終わり（section header table の終わり = e_shoff + e_shnum × e_shentsize = 958,416）より後ろに 223 バイトの余分がある（CuPy のキャッシュの付加とみられる）。直し方: (1) ELF の見出しから、section header table の終わりと、各 section・program header の (offset+size) の最大のうち大きいほうを ELF の長さとし、そこで切って `.cubin` に書く。(2) `cuobjdump --dump-sass` が失敗するか対象の関数が見つからなければ、`nvdisasm`（`shutil.which` か `/usr/local/cuda/bin/nvdisasm`）で同じ `.cubin` を逆アセンブルし、対象の関数の命令を取り出す（命令の文字列の比較に使う。比較の規則は変えない）。どちらでも取れなければ今と同じく停止。ほかは変えない。テスト: 人工の ELF（見出しと section header を持つ最小のもの）＋末尾の余分から、正しい長さで切れること。
+
+## 修正4（2026-10-16、関門1の記録の指紋の範囲の誤り）
+
+関門1の記録（`gate1.json`）の指紋 `p5g_core.SOURCES` に、Colab の起動用のノートブック `p5g_colab.ipynb` が入っていた。ノートブックに固定コミットを書き込むたびに指紋が変わり、関門1の記録が古いと判定されて GPU に進めない（自己参照になり、どのコミットでも一致させられない）。直し方: `SOURCES` から `p5g_colab.ipynb` を外す（計算と判定のファイル `p5g_kernel.h`・`p5g_cpu.cpp`・`p5g_gpu.cu`・`p5g_core.py`・`p5g.py`・`p5g_colab.py` と凍結ファイルの指紋は残す）。起動用のノートブックの正しさは、固定コミットの checkout と、そこで読み込むファイルの指紋の照合で担保される。テスト: `SOURCES` にノートブックが含まれないこと。関門1は Claude が手元でやり直す。
