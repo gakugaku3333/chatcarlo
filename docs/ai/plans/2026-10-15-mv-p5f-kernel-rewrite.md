@@ -1,6 +1,6 @@
 # 計画: P5f-0 — GPUの核の作り直しの第1段（本体の測定と、書き直しの候補の選定）
 
-- 状態: approved（2026-10-15。隔離された診断・Codexレビュー2巡目で致命0のため、Claudeが承認）
+- 状態: implemented（2026-10-15、RESULTS_P5F0.md。候補: ワープの中の処理を揃える組み直し）。承認: approved（2026-10-15。隔離された診断・Codexレビュー2巡目で致命0のため、Claudeが承認）
 - 作成者: claude / 実装担当: codex（`-m gpt-6.1-sol`） / 日付: 2026-10-15 / Codexレビュー: 2巡（1巡目 致命1・実質7で骨子を作り直し。2巡目 致命0・実質4・軽微2・参考1、§6 で Claude が反映し3巡目は行わない。原本 [review1](reviews/2026-10-15-mv-p5f-review1-codex.md)、[review2](reviews/2026-10-15-mv-p5f-review2-codex.md)）
 - 前段: [P5e](../../validation/mv/p5/RESULTS_P5E.md)（入口とコンパイル指定だけでは ±2%）、[P5d](../../validation/mv/p5/RESULTS_P5D.md)
 - ユーザーの決定（2026-10-15）: 「核そのものを作り直す」。速さは報告のみ（目標値なし）の方針は変えない。

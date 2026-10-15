@@ -239,7 +239,11 @@ Work toward coupled photon/electron/positron transport for nominal 10 MV is unde
     fetch, stack 64/16, register cap none/168/128), all bit-identical to V0 per history, **all within ±2% of V0**. Dynamic fetch −1.7%
     (selected by the pre-fixed rule, **not adopted** by user decision; V0 stays the passed configuration). Doubling resident blocks
     did not help; sorting histories by step count made it 33% slower. Claude's reading: a shared throughput limit (local-memory
-    traffic or FP64), not warp imbalance or latency. Next (user decision 2026-10-15): rewrite the kernel itself, under a new plan.
+    traffic or FP64), not warp imbalance or latency (superseded by P5f-0). User decision 2026-10-15: rewrite the kernel itself.
+  - [P5f-0](docs/validation/mv/p5/RESULTS_P5F0.md) (done): ncu works on Colab T4. V0: **FP64 pipe 83% busy but only 2.1 of 32
+    threads active per warp** (branch divergence: each lane follows a different particle/process); memory 5%, L2 hit 99%. Whole-kernel
+    switches: moving the 72 MB `ys` reads into a cache-sized panel −0.4% (table is not the bottleneck); shrinking the dose path −8.6%.
+    First rewrite candidate (P5f-1, not planned yet): make lanes in a warp do the same work (event/particle-type based processing).
   - Colab hand-off: input bundles go to the user's gmail Drive `MyDrive/viveMonte/p5/` via the locally synced folder
     (`~/Library/CloudStorage/GoogleDrive-<gmail>/マイドライブ/...`); results are read back from it. Bundles are never committed.
     Check which account the Drive connector is signed into (it was the university one once) before concluding a file is missing.
