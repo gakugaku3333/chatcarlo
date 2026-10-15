@@ -126,3 +126,45 @@ def test_isolation_notebook():
     assert 'viveMonte/p5/p5g' in first
     flags=['APPROVE_MAP','APPROVE_GATE2','APPROVE_GATE3','APPROVE_TIMING','APPROVE_COMPARISON_MAP']
     for flag,cell in zip(flags,book['cells'][2:]):assert flag+' = False' in ''.join(cell['source'])
+
+
+def test_map_notebook_contract():
+    path=core.HERE/'p5g_map_colab.ipynb'
+    book=json.loads(path.read_text())
+    assert 'APPROVE_' not in path.read_text()
+    cells=[cell for cell in book['cells'] if cell['cell_type']=='code']
+    assert len(cells)==2
+    for cell in cells:
+        compile(''.join(cell['source']),'<map-notebook>','exec')
+        assert cell['outputs']==[]
+        assert cell['execution_count'] is None
+    first=''.join(cells[0]['source'])
+    original=json.loads((core.HERE/'p5g_colab.ipynb').read_text())
+    assert cells[0]==original['cells'][1]
+    assert first.index("'fetch'")<first.index("'checkout'")<first.index('from prototypes.')
+    assert re.search(r'CODE_COMMIT = "([0-9a-f]{40})?"',first)
+
+
+@pytest.mark.parametrize('has_gate2,has_gate3',[(False,False),(True,False),(False,True),(True,True)])
+def test_map_notebook_runs_available_maps(tmp_path,capsys,has_gate2,has_gate3):
+    from types import SimpleNamespace
+    book=json.loads((core.HERE/'p5g_map_colab.ipynb').read_text())
+    reports=[tmp_path/'gate2/gate2.json',tmp_path/'gate3/gate3.json']
+    for present,path in zip((has_gate2,has_gate3),reports):
+        if present:
+            path.parent.mkdir(parents=True)
+            path.write_text('{}')
+    calls=[]
+    def divergence_map(*args,**kwargs):
+        calls.append((args,kwargs))
+    exec(compile(''.join(book['cells'][2]['source']),'<map-notebook>','exec'),
+         dict(p5g_colab=SimpleNamespace(divergence_map=divergence_map),
+              BUNDLE='bundle',RESULTS=tmp_path,GATE1='gate1'))
+    expected=[(('bundle',tmp_path/'map_v0','gate1'),{})]
+    if has_gate2 and has_gate3:
+        expected.append((('bundle',tmp_path/'map_comparison','gate1'),
+                         dict(compare=True,gate2_report=reports[0],gate3_report=reports[1])))
+        assert capsys.readouterr().out==''
+    else:
+        assert capsys.readouterr().out.strip()=='比較の地図は関門2・3の後'
+    assert calls==expected
