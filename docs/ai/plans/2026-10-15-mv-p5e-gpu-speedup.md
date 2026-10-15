@@ -1,6 +1,6 @@
 # 計画: P5e — GPUの高速化（入口の改良と、合格した構成を変えたあとの検査のやり直し）
 
-- 状態: approved（2026-10-15。隔離された試作・Codexレビュー2巡目で致命0のため、Claudeが承認）
+- 状態: implemented（2026-10-15、探索のみ。候補 V6 −1.7% はユーザーの決定で採用せず。RESULTS_P5E.md）。承認: approved（2026-10-15。隔離された試作・Codexレビュー2巡目で致命0のため、Claudeが承認）
 - 作成者: claude / 実装担当: codex（`-m gpt-6.1-sol`） / 日付: 2026-10-15 / Codexレビュー: 2巡（骨子: 致命0・実質6・軽微3・参考1／詳細: 致命0・実質7・軽微4・参考2。2巡目は同種の精密化のため §8 で Claude が反映し、3巡目は行わない。原本 [review1](reviews/2026-10-15-mv-p5e-review1-codex.md)、[review2](reviews/2026-10-15-mv-p5e-review2-codex.md)）
 - 前段: [P5d](2026-10-15-mv-p5d-speed.md)（implemented。[RESULTS_P5D.md](../../validation/mv/p5/RESULTS_P5D.md)）、[P5b](2026-10-14-mv-p5b-gpu-wrapper.md)、[P5c](../../validation/mv/p5/RESULTS_P5C.md)
 - ユーザーの決定（2026-10-15）: 「GPUを速くする。合格した構成を変えるので、GPUとCPUを履歴ごとに比べる検査をやり直す」。速さは引き続き報告のみ（目標値なし）。

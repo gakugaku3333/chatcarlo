@@ -235,6 +235,11 @@ Work toward coupled photon/electron/positron transport for nominal 10 MV is unde
     within 2.6%; the kernel uses 255 registers (the cap) and 30 KB local memory per thread → only 256 threads/SM resident.
     Claude's reading (not proven): register/local-memory pressure, with FP64, limits it. Speeding up changes the passed
     configuration → separate plan back through chain 2. Colab g++ needs `p5d_gxx_compat.h` (frozen kernel calls bare `isfinite`).
+  - [P5e](docs/validation/mv/p5/RESULTS_P5E.md) (done, exploration only): 12 wrapper/compile variants (static vs dynamic history
+    fetch, stack 64/16, register cap none/168/128), all bit-identical to V0 per history, **all within ±2% of V0**. Dynamic fetch −1.7%
+    (selected by the pre-fixed rule, **not adopted** by user decision; V0 stays the passed configuration). Doubling resident blocks
+    did not help; sorting histories by step count made it 33% slower. Claude's reading: a shared throughput limit (local-memory
+    traffic or FP64), not warp imbalance or latency. Next (user decision 2026-10-15): rewrite the kernel itself, under a new plan.
   - Colab hand-off: input bundles go to the user's gmail Drive `MyDrive/viveMonte/p5/` via the locally synced folder
     (`~/Library/CloudStorage/GoogleDrive-<gmail>/マイドライブ/...`); results are read back from it. Bundles are never committed.
     Check which account the Drive connector is signed into (it was the university one once) before concluding a file is missing.
