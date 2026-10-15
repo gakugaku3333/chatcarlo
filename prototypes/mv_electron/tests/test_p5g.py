@@ -340,3 +340,52 @@ def test_divergence_map_sass_unavailable(tmp_path,monkeypatch,failed_variant,bit
     assert (root/'V0_profile/sass_records.json').is_file()
     assert (root/'V0_profile/line_summary.json').is_file()
     assert len(calls)==4
+
+
+@pytest.mark.parametrize('parse_error',[core.Stop('unsupported CSV schema'),ValueError('invalid counter')])
+def test_divergence_map_parse_failure_continues(tmp_path,monkeypatch,parse_error):
+    from types import SimpleNamespace
+    from prototypes.mv_electron.gpu import p5g_colab
+    monkeypatch.setattr(g,'require_gate1',lambda path:None)
+    monkeypatch.setitem(sys.modules,'cupy',SimpleNamespace())
+    monkeypatch.setattr(p5g_colab.d,'load_bundle',lambda bundle:({},None,{}))
+    monkeypatch.setattr(p5g_colab,'GPU',lambda cp,data:None)
+    monkeypatch.setattr(p5g_colab,'environment',lambda cp:{})
+    monkeypatch.setattr(p5g_colab,'require_gate2',lambda *args:None)
+    monkeypatch.setattr(p5g_colab,'require_gate3',lambda *args:None)
+    monkeypatch.setattr(p5g_colab,'sass',lambda *args:['/*0000*/ EXIT;'])
+    outputs=core.empty_output(core.history_shapes(1))
+    csv='Function,Address,SASS,File,Line,Instructions Executed,Thread Instructions Executed,Predicated-On Thread Instructions Executed\np5g_run_kernel,0x0,DADD R1 R2,x.h,10,2,32,16\n'
+    profiled=[];parsed=[]
+    def run(args,**kwargs):
+        if '--target' in args:
+            folder=Path(args[args.index('--results')+1]);folder.mkdir(parents=True,exist_ok=True)
+            if args[0]=='ncu':
+                profiled.append(args[args.index('--target')+1])
+                (folder/'instructions.ncu-rep').write_bytes(b'raw report')
+            else:
+                core.save_npz(folder/'history.npz',outputs)
+                core.write_json(folder/'target.json',dict(launches={'p5b_run_kernel':dict(attributes={})}))
+        return subprocess.CompletedProcess(args,0,csv,'')
+    original_parse=p5g_colab.parse_source_csv
+    def parse(text,function=None):
+        parsed.append(function)
+        if function=='p5b_run_kernel':raise parse_error
+        return original_parse(text,function=function)
+    monkeypatch.setattr(p5g_colab.subprocess,'run',run)
+    monkeypatch.setattr(p5g_colab,'parse_source_csv',parse)
+    root=tmp_path/'map'
+    report=p5g_colab.divergence_map('bundle',root,'gate1',compare=True,
+                                     gate2_report='gate2',gate3_report='gate3')
+    assert report['status']=='pass'
+    assert profiled==['V0','P5g']
+    assert parsed==['p5b_run_kernel','p5g_run_kernel']
+    record=report['profiles']['V0']
+    assert record['status']=='unavailable'
+    assert record['parse_note']==str(parse_error)
+    assert Path(record['source_csv']).read_text()==csv
+    assert Path(record['ncu_report']).read_bytes()==b'raw report'
+    assert report['profiles']['P5g']['status']=='pass'
+    assert (root/'P5g_profile/sass_records.json').is_file()
+    assert (root/'P5g_profile/line_summary.json').is_file()
+    assert json.loads((root/'map.json').read_text())==report

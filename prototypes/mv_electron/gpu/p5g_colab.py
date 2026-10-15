@@ -373,7 +373,12 @@ def divergence_map(bundle,results,gate1,ncu='ncu',compare=False,gate2_report=Non
             r=subprocess.run(export,capture_output=True,text=True)
             (folder/'source.csv').write_text(r.stdout);(folder/'export.log').write_text(r.stderr)
             if r.returncode:raise core.Stop('ncu source export unavailable')
-            records=parse_source_csv(r.stdout,function=kernel)
+            try:
+                records=parse_source_csv(r.stdout,function=kernel)
+            except Exception as exc:
+                record.update(parse_note=str(exc),source_csv=str(folder/'source.csv'),
+                              ncu_report=str(folder/'instructions.ncu-rep'))
+                continue
             core.write_json(folder/'sass_records.json',records)
             core.write_json(folder/'line_summary.json',g.weighted_map(records))
             record['status']='pass'

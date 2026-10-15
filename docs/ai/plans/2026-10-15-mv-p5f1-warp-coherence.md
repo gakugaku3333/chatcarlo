@@ -97,3 +97,7 @@
 ## 修正5（2026-10-16、SASS の取り出しをあきらめる）
 
 修正3でも Colab で「invalid ELF header table」で止まった。実物（CuPy のキャッシュのファイル）を手元で調べると、ELF の見出しは e_phoff 958,416、e_phnum 4、e_phentsize 56 で、program header table の終わりは 958,640 バイトだが、取り出せる ELF は 958,639 バイトで **1 バイト足りない**（修正3で「余分」とした 223 バイトは program header table だった）。CuPy のキャッシュから完全な cubin は得られない。この SASS の比較は「行の情報の指定で実行コードが変わらないこと」の補足で、地図の読み方（§1: 変わったなら「行の情報付きの構成の地図」と明記）を決めるだけのもの。直し方: `divergence_map` で SASS が取れない（`core.Stop` が出る）ときは停止せず、`sass_equal=None`、`sass_note` にエラーの文、`attribution='行の情報付きの構成の地図。SASSの同一性は確認できず、V0への直接の帰属は保留'` を記録して、資源の比較と `ncu` の地図に進む。出力のビット一致（`lineinfo_bits`）は今までどおり必須（不一致なら停止）。テスト: SASS が取れない場合に停止せず上の値が記録されること、ビット不一致では停止すること。
+
+## 修正6（2026-10-16、ncu の CSV の読み取りで止めない）
+
+V0 の地図で `ncu` の測定と書き出し（`source.csv`、`instructions.ncu-rep`）は成功したが、Colab 側の CSV の読み取りが列の形を受け付けずに停止し、P5g の比較の地図まで進まなかった。CSV の形は「File Path」「Function Name」の2行の後に見出しの行、その後にソースの行（Line No あり）と SASS の行（Line No 空、Address と命令あり）が交互、数値の欄に `-` がある。直し方: `divergence_map` で CSV の読み取りに失敗しても停止せず、`profiles[variant]` に `parse_note`（エラーの文）と生の書き出しの場所を記録して次の変種へ進む。集計（行ごとの参加レーン、FP64 の命令の参加レーン）は Claude が手元で生の CSV から行う。ほかは変えない。テスト: CSV の読み取りの失敗で停止せず、次の変種に進むこと。
