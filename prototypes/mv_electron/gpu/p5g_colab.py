@@ -349,10 +349,16 @@ def divergence_map(bundle,results,gate1,ncu='ncu',compare=False,gate2_report=Non
         a,b=(core.read_npz(root/k/'history.npz') for k in ('v0_plain','v0_line'))
         report['lineinfo_bits']=g.exact(a,b,core.HISTORY_ORDER)
         core.require(report['lineinfo_bits'],'line-info 20000 history bits')
-        same_sass=sass(root/'v0_plain','p5b_run_kernel')==sass(root/'v0_line','p5b_run_kernel')
+        try:
+            same_sass=sass(root/'v0_plain','p5b_run_kernel')==sass(root/'v0_line','p5b_run_kernel')
+        except core.Stop as exc:
+            same_sass=None
+            report['sass_note']=str(exc)
         attrs=[json.loads((root/k/'target.json').read_text())['launches']['p5b_run_kernel']['attributes'] for k in ('v0_plain','v0_line')]
         report.update(sass_equal=same_sass,resources_equal=attrs[0]==attrs[1],resources=attrs,
             attribution='V0' if same_sass and attrs[0]==attrs[1] else '行の情報付きの構成の地図。V0への直接の帰属は保留')
+        if same_sass is None:
+            report['attribution']='行の情報付きの構成の地図。SASSの同一性は確認できず、V0への直接の帰属は保留'
         for variant,kernel in ((('V0','p5b_run_kernel'),('P5g','p5g_run_kernel')) if compare else (('V0','p5b_run_kernel'),)):
             folder=root/(variant+'_profile');folder.mkdir(parents=True,exist_ok=True)
             cmd=[ncu,'--section','SourceCounters','--replay-mode','kernel','--cache-control','all',

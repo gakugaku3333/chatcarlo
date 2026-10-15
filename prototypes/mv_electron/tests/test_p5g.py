@@ -288,3 +288,55 @@ def test_sass_rejects_truncated_elf(data):
     from prototypes.mv_electron.gpu import p5g_colab
     with pytest.raises(core.Stop,match='invalid retained NVRTC ELF'):
         p5g_colab._sass_elf(data)
+
+
+@pytest.mark.parametrize('failed_variant',['v0_plain','v0_line'])
+@pytest.mark.parametrize('bits_match',[True,False])
+def test_divergence_map_sass_unavailable(tmp_path,monkeypatch,failed_variant,bits_match):
+    from prototypes.mv_electron.gpu import p5g_colab
+    monkeypatch.setattr(g,'require_gate1',lambda path:None)
+    outputs=core.empty_output(core.history_shapes(1))
+    attrs=[dict(num_regs=255,local_size_bytes=30000),
+           dict(num_regs=254,local_size_bytes=30000)]
+    calls=[];sass_calls=[]
+    def run(args,**kwargs):
+        calls.append(args)
+        if '--target' in args:
+            folder=Path(args[args.index('--results')+1]);folder.mkdir(parents=True,exist_ok=True)
+            index=int('--line-info' in args)
+            values={k:v.copy() for k,v in outputs.items()}
+            if index and not bits_match:
+                values[core.HISTORY_ORDER[0]].view(np.uint64).flat[0]^=np.uint64(1)
+            core.save_npz(folder/'history.npz',values)
+            core.write_json(folder/'target.json',dict(launches={'p5b_run_kernel':dict(attributes=attrs[index])}))
+        csv='Function,Address,SASS,File,Line,Instructions Executed,Thread Instructions Executed,Predicated-On Thread Instructions Executed\np5b_run_kernel,0x0,DADD R1 R2,x.h,10,2,32,16\n'
+        return subprocess.CompletedProcess(args,0,csv,'')
+    def unavailable(folder,kernel):
+        sass_calls.append(folder.name)
+        if folder.name==failed_variant:raise core.Stop('invalid ELF header table')
+        return ['/*0000*/ EXIT;']
+    monkeypatch.setattr(p5g_colab.subprocess,'run',run)
+    monkeypatch.setattr(p5g_colab,'sass',unavailable)
+    root=tmp_path/'map'
+    if not bits_match:
+        with pytest.raises(core.Stop,match='line-info 20000 history bits'):
+            p5g_colab.divergence_map('bundle',root,'gate1')
+        report=json.loads((root/'map.json').read_text())
+        assert report['lineinfo_bits']['status']=='fail'
+        assert report['status']=='unavailable'
+        assert sass_calls==[]
+        assert len(calls)==2
+        return
+    report=p5g_colab.divergence_map('bundle',root,'gate1')
+    assert json.loads((root/'map.json').read_text())==report
+    assert report['status']=='pass'
+    assert report['lineinfo_bits']['status']=='pass'
+    assert report['sass_equal'] is None
+    assert report['sass_note']=='invalid ELF header table'
+    assert report['attribution']=='行の情報付きの構成の地図。SASSの同一性は確認できず、V0への直接の帰属は保留'
+    assert report['resources']==attrs
+    assert report['resources_equal'] is False
+    assert report['profiles']['V0']['status']=='pass'
+    assert (root/'V0_profile/sass_records.json').is_file()
+    assert (root/'V0_profile/line_summary.json').is_file()
+    assert len(calls)==4
