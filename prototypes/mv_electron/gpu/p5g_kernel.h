@@ -1,0 +1,335 @@
+#ifndef P5G_KERNEL_H
+#define P5G_KERNEL_H
+// Frozen helpers are reused read-only; history() is never called by the new driver.
+#include "p5_kernel.h"
+enum P5gPhase {P5G_P=0,P5G_C=1,P5G_E=2,P5G_H=3,P5G_D=4};
+struct P5gState {
+    P5State stack[P5_STACK_CAP],state;
+    double hs[150],fine[600];int touch[4],top,steps,phase,batch;
+    double hn,expected_n,de,radiation,source_energy,dep,escaped,rest,positron_escape_rest;
+    double cached_ev,arate,S,rate,total,G1,brate,bsoft;
+    bool failed,annihilated,suspended;
+};
+// Trace: from,to,steps,calls,top,charge,energy,reason,hard_count,brems_count.
+// reason bits: failed=1, suspended=2, annihilated=4, exterior=8. Exact integers, no RNG calls.
+struct P5gTrace {double *data;int capacity,used;long long overflow;};
+P5_FN void p5g_record(P5gTrace *tr,int from,const P5gState *q,const RngState *s,const P5Output *o) {
+    if(!tr)return;
+    if(tr->used<tr->capacity) {
+        double *v=tr->data+10*tr->used;
+        v[0]=from;v[1]=q->phase;v[2]=q->steps;v[3]=double(s->calls);v[4]=q->top;
+        v[5]=q->state.a[19];v[6]=q->state.a[6];
+        v[7]=int(q->failed)+2*int(q->suspended)+4*int(q->annihilated)
+            +8*int(q->phase==P5G_E && (q->state.a[16]<0 || q->state.a[16]>=1));
+        v[8]=double(o->counts[2]);v[9]=o->brems[0];
+    } else ++tr->overflow;
+    ++tr->used;
+}
+P5_FN void p5g_init(P5gState *q,const P5Tables *t,RngState *s,int batch0,P5Output *o,P5gTrace *tr) {
+    *q=P5gState{};q->touch[0]=150;q->touch[1]=-1;q->touch[2]=600;q->touch[3]=-1;q->batch=batch0;
+    P5State (&stack)[P5_STACK_CAP]=q->stack;P5State &state=q->state;double *a=state.a;
+    double *hs=q->hs,*fine=q->fine;int *touch=q->touch;
+    int &top=q->top,&steps=q->steps,&phase=q->phase;
+    double M=t->constants[0];
+    double &hn=q->hn;
+    double &expected_n=q->expected_n;
+    double &de=q->de;
+    double &radiation=q->radiation;
+    double &source_energy=q->source_energy;
+    double &dep=q->dep;
+    double &escaped=q->escaped;
+    double &rest=q->rest;
+    double &positron_escape_rest=q->positron_escape_rest;
+    double &cached_ev=q->cached_ev;
+    double &arate=q->arate;
+    double &S=q->S;
+    double &rate=q->rate;
+    double &total=q->total;
+    double &G1=q->G1;
+    double &brate=q->brate;
+    double &bsoft=q->bsoft;
+    bool &failed=q->failed;
+    bool &annihilated=q->annihilated;
+    bool &suspended=q->suspended;
+    long long *counts=o->counts;int batch=q->batch;
+    double u1=rng_uniform(s);double u2=rng_uniform(s);int j=0;
+    while(t->cum[j]<u1)++j;
+    double width=t->edges[j+1]-t->edges[j];source_energy=t->edges[j]+u2*width;
+    int cell=int((source_energy-t->edges[j])/width*10);if(cell>9)cell=9;++o->nspec[j*10+cell];
+    p5_photon(stack,source_energy,0.,0.,0.,0.,0.,1.,0,0);
+    top=0; phase=P5G_P;
+    p5g_record(tr,-1,q,s,o);
+}
+P5_FN void p5g_particle(P5gState *q,const P5Tables *t,RngState *s,int maxsteps,P5Output *o,P5Diagnostic *diagnostic) {
+    P5State (&stack)[P5_STACK_CAP]=q->stack;P5State &state=q->state;double *a=state.a;
+    double *hs=q->hs,*fine=q->fine;int *touch=q->touch;
+    int &top=q->top,&steps=q->steps,&phase=q->phase;
+    double M=t->constants[0];
+    double &hn=q->hn;
+    double &expected_n=q->expected_n;
+    double &de=q->de;
+    double &radiation=q->radiation;
+    double &source_energy=q->source_energy;
+    double &dep=q->dep;
+    double &escaped=q->escaped;
+    double &rest=q->rest;
+    double &positron_escape_rest=q->positron_escape_rest;
+    double &cached_ev=q->cached_ev;
+    double &arate=q->arate;
+    double &S=q->S;
+    double &rate=q->rate;
+    double &total=q->total;
+    double &G1=q->G1;
+    double &brate=q->brate;
+    double &bsoft=q->bsoft;
+    bool &failed=q->failed;
+    bool &annihilated=q->annihilated;
+    bool &suspended=q->suspended;
+    long long *counts=o->counts;int batch=q->batch;
+        if(top<0) {phase=P5G_H;return;}
+        state=stack[top--];
+        if(a[19]==0) {
+            ++steps;p5_record(diagnostic,&state,s->calls);
+            if(steps>maxsteps) {failed=true;++counts[5];phase=P5G_H;return;}
+            double E=a[6];
+            if(E<.01) {
+                // The fault macro for charged deposits must not change photons.
+                p5_local(hs,150,a[2],E,.2);p5_local(fine,600,a[2],E,.05);
+                int b0=p5_clip_bin(int(a[2]/.2),150),b1=p5_clip_bin(int(a[2]/.05),600);
+                if(b0<touch[0])touch[0]=b0;if(b0>touch[1])touch[1]=b0;
+                if(b1<touch[2])touch[2]=b1;if(b1>touch[3])touch[3]=b1;
+                dep+=E;phase=P5G_P;return;
+            }
+            double c[4];p5_coefficients(E,t,c);double mu=0.;for(int z=0;z<4;++z)mu+=c[z];
+            double bb;int nr;p5_boundary(a[2],a[5],int(a[16]),&bb,&nr);
+            double flight_u=rng_uniform(s),tau=-log(flight_u),flight=tau/mu,length=p5_min(flight,bb);
+            a[0]+=length*a[3];a[1]+=length*a[4];a[2]+=length*a[5];
+            if(bb<=flight) {escaped+=E;++counts[7];phase=P5G_P;return;}
+#if P5_TRANSPORT_FAULT == 3
+            double unused=rng_uniform(s);(void)unused;
+#endif
+            double select=rng_uniform(s),r=select*mu;int process=0;
+            while(process<3 && r>=c[process]) {r-=c[process];++process;}
+            ++counts[8+process];
+            if(top+3>=P5_STACK_CAP) {failed=true;++counts[6];phase=P5G_H;return;}
+            if(process==0) {
+                double p[8];p5_compton(E,a[3],a[4],a[5],t,s,p);
+                ++top;p5_photon(stack+top,p[0],a[0],a[1],a[2],p[1],p[2],p[3],int(a[16]),int(a[20]));
+                ++top;p5_initial(stack+top,p[4],a[0],a[1],a[2],p[5],p[6],p[7],int(a[16]),int(a[20]),t,s);
+            } else if(process==1) {
+                ++top;p5_initial(stack+top,E,a[0],a[1],a[2],a[3],a[4],a[5],int(a[16]),int(a[20]),t,s);
+            } else {
+                double p[10];p5_pair(E,a[3],a[4],a[5],t,s,p);rest+=2*M;
+                P5State first,second;
+                p5_initial(&first,p[0],a[0],a[1],a[2],p[1],p[2],p[3],int(a[16]),1,t,s);first.a[19]=p[4];
+                p5_initial(&second,p[5],a[0],a[1],a[2],p[6],p[7],p[8],int(a[16]),1,t,s);second.a[19]=p[9];
+                if(first.a[19]==1) {double u=rng_uniform(s);first.a[21]=-log(u);}
+                if(second.a[19]==1) {double u=rng_uniform(s);second.a[21]=-log(u);}
+                stack[++top]=first;stack[++top]=second;
+            }
+            if(top+1>o->maxdepth)o->maxdepth=top+1;phase=P5G_P;return;
+        }
+        cached_ev=-1.;arate=0.;S=0.;rate=0.;total=0.;G1=0.;brate=0.;bsoft=0.;
+        annihilated=false;suspended=false;phase=P5G_C;
+}
+P5_FN void p5g_charged(P5gState *q,const P5Tables *t,RngState *s,int maxsteps,P5Output *o,P5Diagnostic *diagnostic) {
+    P5State (&stack)[P5_STACK_CAP]=q->stack;P5State &state=q->state;double *a=state.a;
+    double *hs=q->hs,*fine=q->fine;int *touch=q->touch;
+    int &top=q->top,&steps=q->steps,&phase=q->phase;
+    double M=t->constants[0];
+    double &hn=q->hn;
+    double &expected_n=q->expected_n;
+    double &de=q->de;
+    double &radiation=q->radiation;
+    double &source_energy=q->source_energy;
+    double &dep=q->dep;
+    double &escaped=q->escaped;
+    double &rest=q->rest;
+    double &positron_escape_rest=q->positron_escape_rest;
+    double &cached_ev=q->cached_ev;
+    double &arate=q->arate;
+    double &S=q->S;
+    double &rate=q->rate;
+    double &total=q->total;
+    double &G1=q->G1;
+    double &brate=q->brate;
+    double &bsoft=q->bsoft;
+    bool &failed=q->failed;
+    bool &annihilated=q->annihilated;
+    bool &suspended=q->suspended;
+    long long *counts=o->counts;int batch=q->batch;
+            ++steps;p5_record(diagnostic,&state,s->calls);
+            if(steps>maxsteps) {failed=true;++counts[5];phase=failed?P5G_H:P5G_E;return;}
+            int region=int(a[16]);
+            if(region<0 || region>=1) {escaped+=a[6];if(a[19]==1) {++counts[13];positron_escape_rest+=2*M;}phase=failed?P5G_H:P5G_E;return;}
+            if(a[6]<=.01+1e-14 && a[18]!=1) {
+                p5_track_local(hs,150,a[2],a[6],.2,touch);p5_track_local(fine,600,a[2],a[6],.05,touch+2);
+                dep+=a[6];a[6]=0.;phase=failed?P5G_H:P5G_E;return;
+            }
+            double ev=p5_max(.01,a[7]);
+            if(ev!=cached_ev) {
+                double q[4];p5_quantities(ev,t,q);brate=q[0];bsoft=q[2];double hardrate,hardstop;
+                p5_hard(ev,t,&hardrate,&hardstop);S=p5_collision(ev,t)-hardstop+bsoft;rate=hardrate;
+                p5_table_rates(ev,t,&total,&G1);
+                if(a[19]==1)arate=p5_annihilation_rate(ev,t);cached_ev=ev;
+            }
+            double Sq=S*1.,rateq=rate*1.,G1q=G1*1.,brateq=brate*1.,bsoftq=bsoft*1.,arateq=arate*1.;
+            double eb=a[8]/Sq,mb=G1q>0?a[12]/G1q:INFINITY,hb=rateq>0?a[15]/rateq:INFINITY;
+            if(a[18]==1) {mb=INFINITY;hb=INFINITY;}
+            double bb;int nr;p5_boundary(a[2],a[5],region,&bb,&nr);++counts[4];
+            double rb=brateq>0 && a[18]!=1?a[22]/brateq:INFINITY;
+            double step=p5_min(p5_min(p5_min(p5_min(p5_min(eb,mb),hb),bb),rb),a[6]/Sq),ab=INFINITY;
+            if(a[19]==1 && a[18]!=1) {ab=arateq>0?a[21]/arateq:INFINITY;step=p5_min(step,ab);}
+            if(!isfinite(step) || step<0) {failed=true;++counts[6];phase=failed?P5G_H:P5G_E;return;}
+            double z0=a[2];a[0]+=step*a[3];a[1]+=step*a[4];a[2]+=step*a[5];
+            double loss=step*Sq;a[6]-=loss;dep+=loss;radiation+=step*bsoftq;
+            if(a[18]!=1) {expected_n+=step*brateq;a[22]=p5_max(0.,a[22]-step*brateq);}
+            p5_track_segment(hs,150,z0,a[2],loss,.2,touch);p5_track_segment(fine,600,z0,a[2],loss,.05,touch+2);
+            a[8]=p5_max(0.,a[8]-loss);a[12]=p5_max(0.,a[12]-step*G1q);a[15]=p5_max(0.,a[15]-step*rateq);
+            if(a[19]==1 && a[18]!=1)a[21]=p5_max(0.,a[21]-step*arateq);++counts[0];
+            if(bb<=step+1e-13) {a[2]=a[5]>0?30.:0.;a[16]=nr;++counts[3];phase=P5G_C;return;}
+            if(eb<=step+1e-13) {
+                if(a[18]==1) {
+                    p5_track_local(hs,150,a[2],a[6],.2,touch);p5_track_local(fine,600,a[2],a[6],.05,touch+2);
+                    dep+=a[6];a[6]=0.;phase=failed?P5G_H:P5G_E;return;
+                }
+                a[7]=p5_max(.01,a[7]-a[11]);
+                if(a[7]<=.01+1e-14) {a[8]=a[9];a[9]=0.;a[10]=0.;a[18]=1.;phase=P5G_C;return;}
+                double prev=a[9];a[11]=p5_min(.05*a[7],a[7]-.01);double u=rng_uniform(s);a[10]=u*a[11];
+                a[9]=a[11]-a[10];a[8]=prev+a[10];phase=P5G_C;return;
+            }
+            if(mb<=step+1e-13) {
+                double mu=p5_gs_mu_cached(ev,a[14],t,total,G1,s);
+                double angle=rng_uniform(s),v[3];p5_rotate(a[3],a[4],a[5],mu,2*3.141592653589793*angle,v);
+                for(int z=0;z<3;++z)a[3+z]=v[z];
+                double u=rng_uniform(s),knew=p5_rule(ev);a[12]=a[13]+u*knew;a[13]=(1-u)*knew;a[14]=knew;
+                ++counts[1];phase=P5G_C;return;
+            }
+            if(hb<=step+1e-13) {
+                p5_energy_init(&state,s);double u=rng_uniform(s);a[15]=-log(u);if(a[6]<=2*.01) {phase=P5G_C;return;}
+                double W=p5_sample_W(a[6],t,s),dp[3],ds[3],k=(a[6]+2*M)/a[6];
+                double mp=sqrt((a[6]-W)/(a[6]-W+2*M)*k),ms=sqrt(W/(W+2*M)*k);
+                double angle=rng_uniform(s),phi=2*3.141592653589793*angle;
+                p5_rotate(a[3],a[4],a[5],mp,phi,dp);p5_rotate(a[3],a[4],a[5],ms,phi+3.141592653589793,ds);
+                a[6]-=W;for(int z=0;z<3;++z)a[3+z]=dp[z];p5_energy_init(&state,s);++counts[2];
+                if(top+2>=P5_STACK_CAP) {a[6]+=W;failed=true;++counts[6];phase=failed?P5G_H:P5G_E;return;}
+                stack[++top]=state;++top;p5_initial(stack+top,W,a[0],a[1],a[2],ds[0],ds[1],ds[2],int(a[16]),int(a[20]),t,s);
+                if(top+1>o->maxdepth)o->maxdepth=top+1;phase=failed?P5G_H:P5G_E;return;
+            }
+            if(rb<=step+1e-13) {
+                p5_energy_init(&state,s);double T=a[6],u=rng_uniform(s);a[22]=-log(u);if(T<=.01) {phase=P5G_C;return;}
+                int excess;double photon_k=p5_sample_k(T,t,s,&excess);
+#if P5_TRANSPORT_FAULT == 1
+                photon_k*=1+1e-12;
+#endif
+                o->brems[2]+=excess;if(photon_k>T)o->brems[3]+=1.;
+                if(excess || photon_k>T) {failed=true;++counts[6];phase=failed?P5G_H:P5G_E;return;}
+                double q[4];p5_quantities(T,t,q);hn+=1.;de+=photon_k-q[1]/q[0];radiation+=photon_k;
+                o->brems[0]+=1.;o->brems[1]+=photon_k;
+                double angle=rng_uniform(s),theta=M/(T+M),v[3];
+                p5_rotate(a[3],a[4],a[5],cos(theta),2*3.141592653589793*angle,v);
+                if(top+2>=P5_STACK_CAP) {failed=true;++counts[6];phase=failed?P5G_H:P5G_E;return;}
+                a[6]-=photon_k;p5_energy_init(&state,s);stack[++top]=state;++top;
+                p5_photon(stack+top,photon_k,a[0],a[1],a[2],v[0],v[1],v[2],int(a[16]),int(a[20]));
+                if(top+1>o->maxdepth)o->maxdepth=top+1;suspended=true;phase=failed?P5G_H:P5G_E;return;
+            }
+            if(a[19]==1 && ab<=step+1e-13) {
+                double T=a[6];if(T<=.01) {double u=rng_uniform(s);a[21]=-log(u);phase=P5G_C;return;}
+                if(top+3>=P5_STACK_CAP) {failed=true;++counts[6];phase=failed?P5G_H:P5G_E;return;}
+                double g[8];p5_flight_photons(T,a[3],a[4],a[5],t,s,g);++top;
+                p5_photon(stack+top,g[0],a[0],a[1],a[2],g[1],g[2],g[3],int(a[16]),int(a[20]));++top;
+                p5_photon(stack+top,g[4],a[0],a[1],a[2],g[5],g[6],g[7],int(a[16]),int(a[20]));
+                rest-=2*M;a[6]=0.;annihilated=true;++counts[14];if(a[17]==1)++counts[15];
+                if(top+1>o->maxdepth)o->maxdepth=top+1;phase=failed?P5G_H:P5G_E;return;
+            }
+            p5_track_local(hs,150,a[2],a[6],.2,touch);p5_track_local(fine,600,a[2],a[6],.05,touch+2);
+            dep+=a[6];a[6]=0.;phase=failed?P5G_H:P5G_E;return;
+}
+P5_FN void p5g_end(P5gState *q,const P5Tables *t,RngState *s,int maxsteps,P5Output *o,P5Diagnostic *diagnostic) {
+    P5State (&stack)[P5_STACK_CAP]=q->stack;P5State &state=q->state;double *a=state.a;
+    double *hs=q->hs,*fine=q->fine;int *touch=q->touch;
+    int &top=q->top,&steps=q->steps,&phase=q->phase;
+    double M=t->constants[0];
+    double &hn=q->hn;
+    double &expected_n=q->expected_n;
+    double &de=q->de;
+    double &radiation=q->radiation;
+    double &source_energy=q->source_energy;
+    double &dep=q->dep;
+    double &escaped=q->escaped;
+    double &rest=q->rest;
+    double &positron_escape_rest=q->positron_escape_rest;
+    double &cached_ev=q->cached_ev;
+    double &arate=q->arate;
+    double &S=q->S;
+    double &rate=q->rate;
+    double &total=q->total;
+    double &G1=q->G1;
+    double &brate=q->brate;
+    double &bsoft=q->bsoft;
+    bool &failed=q->failed;
+    bool &annihilated=q->annihilated;
+    bool &suspended=q->suspended;
+    long long *counts=o->counts;int batch=q->batch;
+        if(!suspended && !annihilated && a[19]==1 && a[6]==0 && a[16]>=0 && a[16]<1) {
+            if(top+3>=P5_STACK_CAP) {a[6]=0.;failed=true;++counts[6];phase=P5G_H;return;}
+            double v[3];p5_annihilation(s,v);rest-=2*M;++counts[12];++top;
+            p5_photon(stack+top,M,a[0],a[1],a[2],v[0],v[1],v[2],int(a[16]),int(a[20]));++top;
+            p5_photon(stack+top,M,a[0],a[1],a[2],-v[0],-v[1],-v[2],int(a[16]),int(a[20]));
+            if(top+1>o->maxdepth)o->maxdepth=top+1;
+        }
+    phase=P5G_P;
+}
+P5_FN void p5g_finish(P5gState *q,const P5Tables *t,RngState *s,int maxsteps,P5Output *o,P5Diagnostic *diagnostic) {
+    P5State (&stack)[P5_STACK_CAP]=q->stack;P5State &state=q->state;double *a=state.a;
+    double *hs=q->hs,*fine=q->fine;int *touch=q->touch;
+    int &top=q->top,&steps=q->steps,&phase=q->phase;
+    double M=t->constants[0];
+    double &hn=q->hn;
+    double &expected_n=q->expected_n;
+    double &de=q->de;
+    double &radiation=q->radiation;
+    double &source_energy=q->source_energy;
+    double &dep=q->dep;
+    double &escaped=q->escaped;
+    double &rest=q->rest;
+    double &positron_escape_rest=q->positron_escape_rest;
+    double &cached_ev=q->cached_ev;
+    double &arate=q->arate;
+    double &S=q->S;
+    double &rate=q->rate;
+    double &total=q->total;
+    double &G1=q->G1;
+    double &brate=q->brate;
+    double &bsoft=q->bsoft;
+    bool &failed=q->failed;
+    bool &annihilated=q->annihilated;
+    bool &suspended=q->suspended;
+    long long *counts=o->counts;int batch=q->batch;
+    double unresolved=0.;if(failed) {unresolved=state.a[6];for(int z=0;z<=top;++z)unresolved+=stack[z].a[6];}
+    double residual=source_energy-dep-escaped-unresolved-rest;
+    double coarse_error=fabs(p5_touched_sum(hs,touch)-dep),fine_error=fabs(p5_touched_sum(fine,touch+2)-dep);
+    double dn=hn-expected_n;
+    o->brems[4]+=dn;o->brems[5]+=dn*dn;o->brems[6]+=de;o->brems[7]+=de*de;o->brems[8]+=radiation;o->brems[9]+=radiation*radiation;
+    o->maxima[0]=p5_max(o->maxima[0],fabs(residual)/source_energy);
+    o->maxima[1]=p5_max(o->maxima[1],coarse_error/source_energy);o->maxima[2]=p5_max(o->maxima[2],fine_error/source_energy);
+    if(fabs(residual)>source_energy*1e-9)++o->violations[0];if(coarse_error>source_energy*1e-9)++o->violations[1];if(fine_error>source_energy*1e-9)++o->violations[2];
+    o->totals[0]+=source_energy;o->totals[1]+=dep;o->totals[2]+=escaped;o->totals[3]+=unresolved;o->totals[4]+=rest;o->totals[5]+=positron_escape_rest;
+    for(int z=touch[0];z<=touch[1];++z)o->batches[batch*150+z]+=hs[z];
+    for(int z=touch[2];z<=touch[3];++z)o->fine_batches[batch*600+z]+=fine[z];
+    o->step_batches[batch]+=steps;
+    phase=P5G_D;
+}
+P5_FN void p5g_transition(P5gState *q,const P5Tables *t,RngState *s,int maxsteps,P5Output *o,P5Diagnostic *d,P5gTrace *tr) {
+    int from=q->phase;
+    if(from==P5G_P)p5g_particle(q,t,s,maxsteps,o,d);
+    else if(from==P5G_C)p5g_charged(q,t,s,maxsteps,o,d);
+    else if(from==P5G_E)p5g_end(q,t,s,maxsteps,o,d);
+    else if(from==P5G_H)p5g_finish(q,t,s,maxsteps,o,d);
+    p5g_record(tr,from,q,s,o);
+}
+P5_FN void p5g_history(const P5Tables *t,RngState *s,int batch,int maxsteps,P5Output *o,P5Diagnostic *d,P5gTrace *tr=0) {
+    P5gState q;p5g_init(&q,t,s,batch,o,tr);
+    while(q.phase!=P5G_D)p5g_transition(&q,t,s,maxsteps,o,d,tr);
+}
+#endif
