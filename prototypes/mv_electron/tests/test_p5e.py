@@ -1,5 +1,6 @@
 """P5e local contracts; no GPU execution."""
 import json
+import re
 import subprocess
 import sys
 import numpy as np
@@ -101,4 +102,5 @@ def test_isolation_notebook():
             assert cell['outputs']==[]
     first=''.join(book['cells'][1]['source'])
     assert first.index("'fetch'")<first.index("'checkout'")
-    assert 'CODE_COMMIT = ""' in first
+    # Empty until Claude pins the implementation commit; afterwards exactly 40 hex digits.
+    assert re.search(r'CODE_COMMIT = "([0-9a-f]{40})?"', first)
