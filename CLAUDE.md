@@ -228,7 +228,13 @@ Work toward coupled photon/electron/positron transport for nominal 10 MV is unde
     history numbers as the saved P5a Philox run: **every history took the same path** (counts and steps identical in all 100
     batches); dose bins differ only in the last bits (max relative 2.9e-11), deep-block paired differences ~1e-15 % of `Dref`.
     So Numba → C++ CPU → T4 GPU is chained for the slab depth dose. Rough speed from file times: ≈80 µs/history on T4 vs
-    164 on M3 C++ (only ≈2×; FP64 and ~30 KB per-thread state are suspects). Next: P5d speed measurement.
+    164 on M3 C++ (superseded by P5d).
+  - [P5d](docs/validation/mv/p5/RESULTS_P5D.md) (done, report only): every timed run passed its correctness gate. µs/history:
+    M3 Numba 257, M3 C++ 122 (P5a's 284/164 did not reproduce — use these), Colab Xeon C++ 358, **T4 79 (100k) / 77 (1M)**.
+    T4 vs same-machine CPU ×4.5–4.7; vs M3 C++ only ×1.5–1.6. Diagnostics: atomic merge costs ~0 (0.1%), block size 64/128/256
+    within 2.6%; the kernel uses 255 registers (the cap) and 30 KB local memory per thread → only 256 threads/SM resident.
+    Claude's reading (not proven): register/local-memory pressure, with FP64, limits it. Speeding up changes the passed
+    configuration → separate plan back through chain 2. Colab g++ needs `p5d_gxx_compat.h` (frozen kernel calls bare `isfinite`).
   - Colab hand-off: input bundles go to the user's gmail Drive `MyDrive/viveMonte/p5/` via the locally synced folder
     (`~/Library/CloudStorage/GoogleDrive-<gmail>/マイドライブ/...`); results are read back from it. Bundles are never committed.
     Check which account the Drive connector is signed into (it was the university one once) before concluding a file is missing.
