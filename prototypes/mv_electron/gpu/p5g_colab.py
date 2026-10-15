@@ -258,7 +258,11 @@ def sass(root,kernel):
     binary=shutil.which('cuobjdump')
     if not binary:raise core.Stop('cuobjdump unavailable')
     for i,path in enumerate(sorted((root/'nvrtc_cache').glob('*.cubin'))):
-        r=subprocess.run([binary,'--dump-sass',str(path)],capture_output=True,text=True)
+        cached=path.read_bytes();elf=cached.find(b'\x7fELF')
+        if elf<0:raise core.Stop(f'ELF unavailable in retained NVRTC cubin: {path}')
+        cubin=root/f'sass_{i}.cubin'
+        cubin.write_bytes(cached[elf:])
+        r=subprocess.run([binary,'--dump-sass',str(cubin)],capture_output=True,text=True)
         (root/f'sass_{i}.txt').write_text(r.stdout+r.stderr)
         if r.returncode:continue
         match=re.search(r'Function : '+re.escape(kernel)+r'\s*\n(.*?)(?=Function : |\Z)',r.stdout,re.S)

@@ -68,6 +68,38 @@ def test_map_weights_and_csv():
     with pytest.raises(core.Stop):parse_source_csv('no counters')
 
 
+def test_sass_extracts_cached_elf(tmp_path,monkeypatch):
+    from prototypes.mv_electron.gpu import p5g_colab
+    cache=tmp_path/'nvrtc_cache';cache.mkdir()
+    elf=b'\x7fELF\x00synthetic device code\xff'
+    cached=b'CuPy cache header\n'+elf
+    path=cache/'kernel.cubin';path.write_bytes(cached)
+    monkeypatch.setattr(p5g_colab.shutil,'which',lambda name:'/fake/cuobjdump')
+    calls=[]
+    def dump(args,**kwargs):
+        calls.append(args)
+        assert args==['/fake/cuobjdump','--dump-sass',str(tmp_path/'sass_0.cubin')]
+        assert (tmp_path/'sass_0.cubin').read_bytes()==elf
+        return subprocess.CompletedProcess(args,0,'Function : target\n /*0000*/ DADD R1, R2, R3;\n','')
+    monkeypatch.setattr(p5g_colab.subprocess,'run',dump)
+    assert p5g_colab.sass(tmp_path,'target')==['/*0000*/ DADD R1, R2, R3;']
+    assert len(calls)==1
+    assert path.read_bytes()==cached
+
+
+def test_sass_rejects_cache_without_elf(tmp_path,monkeypatch):
+    from prototypes.mv_electron.gpu import p5g_colab
+    cache=tmp_path/'nvrtc_cache';cache.mkdir()
+    (cache/'kernel.cubin').write_bytes(b'CuPy cache header without device code')
+    monkeypatch.setattr(p5g_colab.shutil,'which',lambda name:'/fake/cuobjdump')
+    def unexpected_dump(*args,**kwargs):
+        pytest.fail('cuobjdump must not run without ELF')
+    monkeypatch.setattr(p5g_colab.subprocess,'run',unexpected_dump)
+    with pytest.raises(core.Stop,match='ELF unavailable'):
+        p5g_colab.sass(tmp_path,'target')
+    assert not (tmp_path/'sass_0.cubin').exists()
+
+
 def test_gate1_rejects_missing_and_stale(tmp_path):
     path=tmp_path/'gate1.json'
     report=dict(status='pass',batches=100,sources={k:core.file_sha(core.HERE/k) for k in (*core.FROZEN,'p5b_wrap.h',*g.SOURCES)},
