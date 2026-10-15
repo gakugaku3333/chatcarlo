@@ -219,7 +219,16 @@ Work toward coupled photon/electron/positron transport for nominal 10 MV is unde
     (2×20k histories) **and reproduces saved P3r production batches 0 and 2 byte for byte**. Philox 10M histories vs saved
     P3r 10M: deep 5 blocks −0.003 to +0.139% of `Dref` (SEM 0.09–0.13%; tolerance 1%). Report-only: build-up 0–2 cm
     −0.33 ± 0.15% (2.2σ, single observation). CPU speed 164 vs 284 µs/history (Numba), cause not examined.
-  - Next: P5b (GPU wrapper, notebook, chain-2 criteria fixed before measuring), then P5c on Colab, P5d speed.
+  - [P5b](docs/validation/mv/p5/RESULTS_P5B.md) (done): GPU wrapper without editing the P5a kernel (each thread runs one
+    history into its own local output, then merges by atomics), NumPy-only judging shared by Mac and Colab, Drive bundle.
+    Local checks L0–L3 pass (incl. planted faults rejected as pre-registered); all 7 kernels compile on Colab T4 (no warnings).
+    Note: `brems[1]` is accumulated mid-history, so per-history merging changes its summation order (≈1e-13 MeV) — compare it
+    within a computed bound, everything else bitwise.
+  - [P5c](docs/validation/mv/p5/RESULTS_P5C.md) (done, Colab T4): all pre-fixed checks pass. 10M histories, same seed and
+    history numbers as the saved P5a Philox run: **every history took the same path** (counts and steps identical in all 100
+    batches); dose bins differ only in the last bits (max relative 2.9e-11), deep-block paired differences ~1e-15 % of `Dref`.
+    So Numba → C++ CPU → T4 GPU is chained for the slab depth dose. Rough speed from file times: ≈80 µs/history on T4 vs
+    164 on M3 C++ (only ≈2×; FP64 and ~30 KB per-thread state are suspects). Next: P5d speed measurement.
   - Colab hand-off: input bundles go to the user's gmail Drive `MyDrive/viveMonte/p5/` via the locally synced folder
     (`~/Library/CloudStorage/GoogleDrive-<gmail>/マイドライブ/...`); results are read back from it. Bundles are never committed.
     Check which account the Drive connector is signed into (it was the university one once) before concluding a file is missing.
