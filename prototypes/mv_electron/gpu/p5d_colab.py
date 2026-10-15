@@ -84,7 +84,7 @@ def setup(bundle, results):
     report['costs']['tables_transfer_s'] = time.perf_counter()-begin
     results = Path(results)
     results.mkdir(parents=True, exist_ok=True)
-    cpu = d.CPU(results/'build', data, compiler='g++')
+    cpu = d.CPU(results/'build', data, compiler='g++', compat=True)
     report['cpu_compiler'], report['cpu_flags'] = cpu.compiler, cpu.flags
     return gpu, cpu, reference, report
 

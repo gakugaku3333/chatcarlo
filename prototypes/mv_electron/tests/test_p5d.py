@@ -28,6 +28,20 @@ def test_abi(cpus,start,seed,maxsteps):
     assert (d.cpu_health(r,2000)['status']=='pass') == (maxsteps!=2)
 
 
+def test_abi_with_compat(cpus, tmp_path):
+    from prototypes.mv_electron.gpu import p5a
+    cpu, original = cpus
+    compat = d.CPU(tmp_path, cpu.data, compiler='clang++', compat=True)
+    header = (d.HERE/'p5d_gxx_compat.h').resolve()
+    assert compat.flags == d.FLAGS + ['-include', str(header)]
+    identity = dict(compiler=compat.compiler, flags=compat.flags,
+                    sources={**core.FROZEN, header.name: core.sha(header.read_bytes())})
+    assert compat.identity == core.sha(json.dumps(identity, sort_keys=True).encode())
+    assert compat.identity != cpu.identity
+    assert p5a.compare_outputs(original.run(2000, core.SEED),
+                               compat.run(2000, core.SEED))['status'] == 'pass'
+
+
 def valid():
     r = core.empty_output(core.run_shapes(20))
     r.pop('nan_count')

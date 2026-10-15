@@ -45,7 +45,7 @@ class Tables(ct.Structure):
 
 
 class CPU:
-    def __init__(self, work, data, compiler='clang++', flags=None):
+    def __init__(self, work, data, compiler='clang++', flags=None, compat=False):
         core.fingerprints()
         core.check_inputs(data)
         if flags is not None and flags != FLAGS:
@@ -58,9 +58,14 @@ class CPU:
         work = Path(work)
         work.mkdir(parents=True, exist_ok=True)
         self.flags = list(FLAGS)
+        sources = dict(core.FROZEN)
+        if compat:
+            header = (HERE/'p5d_gxx_compat.h').resolve()
+            self.flags += ['-include', str(header)]
+            sources[header.name] = core.sha(header.read_bytes())
         self.compiler = subprocess.check_output([exe, '--version'], text=True).splitlines()[0]
         self.identity = core.sha(json.dumps(dict(compiler=self.compiler, flags=self.flags,
-                                                sources=core.FROZEN), sort_keys=True).encode())
+                                                sources=sources), sort_keys=True).encode())
         library = work/('p5d_'+self.identity[:16]+('.dylib' if sys.platform == 'darwin' else '.so'))
         build = subprocess.run([exe, *self.flags, str(HERE/'p5_cpu.cpp'), '-o', str(library)],
                                capture_output=True, text=True)
