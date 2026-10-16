@@ -244,7 +244,7 @@ Work toward coupled photon/electron/positron transport for nominal 10 MV is unde
     threads active per warp** (branch divergence: each lane follows a different particle/process); memory 5%, L2 hit 99%. Whole-kernel
     switches: moving the 72 MB `ys` reads into a cache-sized panel −0.4% (table is not the bottleneck); shrinking the dose path −8.6%.
     First rewrite candidate: make lanes in a warp do the same work.
-  - [P5f-1](docs/validation/mv/p5/RESULTS_P5F1.md) (done, adoption pending user decision): kernel rewritten as a per-history state
+  - [P5f-1](docs/validation/mv/p5/RESULTS_P5F1.md) (done; **P5g adopted as the passed GPU configuration**, user decision 2026-10-16): kernel rewritten as a per-history state
     machine (`p5g_*`, P/C/E/H/D states) with the GPU driver advancing all lanes of one state together each round (ballot masks).
     Each history's operation order is unchanged: **CPU build byte-identical to the 100 saved P5a Philox batches; on T4, 20k histories
     bit-identical to V0 per history; P5c's C0–C4 (10M) all pass. T4 speed 79.2 → 42.5 µs/history (×1.87)**, same-session alternation.
