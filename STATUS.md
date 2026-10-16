@@ -1,8 +1,8 @@
 ---
 phase: 開発中
-next: P5gの地図（参加レーン4.80/32）を受けて、次の改良（事象ごとのキュー／表の探し方の置き換え）をユーザーと決める
+next: P5h（表の探し方の置き換え）は関門合格だが速さは約1.5%遅い。採否と、次（事象ごとのキュー等）をユーザーと決める
 blocker: ELSEPAで作った表の配布の方法（表を置くか、生成スクリプトだけか）とリポジトリのLICENSEはユーザーの判断待ち。急がない
-updated: 2026-10-15
+updated: 2026-10-16
 ---
 
 詳細は [CLAUDE.md](CLAUDE.md) の "Therapy-energy extension" 節、発表は [docs/presentation_jsmp133.md](docs/presentation_jsmp133.md)、
