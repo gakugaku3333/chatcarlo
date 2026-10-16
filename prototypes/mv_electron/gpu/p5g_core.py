@@ -4,8 +4,9 @@ import re
 import numpy as np
 from . import p5b_core as core
 
-SOURCES = ('p5g_kernel.h', 'p5g_cpu.cpp', 'p5g_gpu.cu', 'p5g_core.py',
-           'p5g.py', 'p5g_colab.py')
+# Retain the gate1 writer's SOURCES contract without fingerprinting tools.
+SOURCES = ('p5g_kernel.h', 'p5g_cpu.cpp', 'p5g_gpu.cu')
+KERNEL_SOURCES = (*core.FROZEN, 'p5b_wrap.h', *SOURCES)
 STATES = ('P', 'C', 'E', 'H', 'D')
 TRACE_COLUMNS = ('from', 'to', 'steps', 'calls', 'top', 'charge', 'energy',
                  'reason', 'hard_count', 'brems_count')
@@ -33,7 +34,7 @@ def source(mapped=False):
 
 def identity(manifest, environment, launches, options=core.OPTIONS):
     return dict(source_sha256=core.sha(source().encode()),
-        sources={k:core.file_sha(core.HERE/k) for k in (*core.FROZEN, 'p5b_wrap.h', *SOURCES)},
+        sources={k:core.file_sha(core.HERE/k) for k in KERNEL_SOURCES},
         entries=list(KERNELS)+['p5g_run_kernel_fault'], options=list(options),
         state=json.loads(json.dumps(STATE_SPEC)), launches=launches, environment=environment,
         bundle_sha256={k:v['sha256'] for k,v in manifest['files'].items()},
@@ -73,7 +74,7 @@ def trace_check(trace, meta, stored=False):
 
 def require_gate1(path):
     r = json.loads(path.read_text())
-    names=(*core.FROZEN,'p5b_wrap.h',*SOURCES)
+    names=KERNEL_SOURCES
     hashes={k:core.file_sha(core.HERE/k) for k in names}
     if (r.get('status') != 'pass' or r.get('batches') != 100 or r.get('sources') != hashes
         or r.get('outputs') != list(core.RUN_ORDER[:-1])

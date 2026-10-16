@@ -125,14 +125,13 @@ def test_sass_rejects_cache_without_elf(tmp_path,monkeypatch):
 def test_sources_exclude_notebooks():
     assert not any(Path(name).suffix == '.ipynb' for name in g.SOURCES)
     assert set(g.SOURCES) == {
-        'p5g_kernel.h', 'p5g_cpu.cpp', 'p5g_gpu.cu', 'p5g_core.py',
-        'p5g.py', 'p5g_colab.py',
+        'p5g_kernel.h', 'p5g_cpu.cpp', 'p5g_gpu.cu',
     }
 
 
 def test_gate1_rejects_missing_and_stale(tmp_path):
     path=tmp_path/'gate1.json'
-    report=dict(status='pass',batches=100,sources={k:core.file_sha(core.HERE/k) for k in (*core.FROZEN,'p5b_wrap.h',*g.SOURCES)},
+    report=dict(status='pass',batches=100,sources={k:core.file_sha(core.HERE/k) for k in g.KERNEL_SOURCES},
                 outputs=list(core.RUN_ORDER[:-1]),checks={str(b):dict(status='pass',fields={k:True for k in core.RUN_ORDER[:-1]}) for b in range(100)})
     core.write_json(path,report)
     assert g.require_gate1(path)['status']=='pass'
@@ -389,3 +388,99 @@ def test_divergence_map_parse_failure_continues(tmp_path,monkeypatch,parse_error
     assert (root/'P5g_profile/sass_records.json').is_file()
     assert (root/'P5g_profile/line_summary.json').is_file()
     assert json.loads((root/'map.json').read_text())==report
+
+
+def test_kernel_sources_contract():
+    assert set(g.KERNEL_SOURCES)=={
+        *core.FROZEN, 'p5b_wrap.h', 'p5g_kernel.h', 'p5g_cpu.cpp', 'p5g_gpu.cu',
+    }
+    assert set(g.KERNEL_SOURCES).isdisjoint({
+        'p5g.py', 'p5g_core.py', 'p5g_colab.py', 'p5g_colab.ipynb',
+        'p5g_map_colab.ipynb', 'p5g_rerun_colab.ipynb',
+    })
+    # The unchanged gate1 writer uses this expression to produce its sources.
+    assert set((*core.FROZEN,'p5b_wrap.h',*g.SOURCES))==set(g.KERNEL_SOURCES)
+
+
+@pytest.mark.parametrize('tool',['p5g.py','p5g_core.py','p5g_colab.py','p5g_rerun_colab.ipynb'])
+def test_gate_identities_ignore_tool_changes(tmp_path,monkeypatch,tool):
+    from types import SimpleNamespace
+    from prototypes.mv_electron.gpu import p5g_colab
+    source_dir=tmp_path/'sources';source_dir.mkdir()
+    for name in (*g.KERNEL_SOURCES,tool):
+        (source_dir/name).write_bytes((core.HERE/name).read_bytes())
+    monkeypatch.setattr(core,'HERE',source_dir)
+    manifest=dict(files={'inputs':dict(sha256='bundle hash')})
+    env={'device':'test'};gpu=SimpleNamespace(launches={})
+    identity=g.identity(manifest,env,gpu.launches)
+    assert identity['source_sha256']==core.sha(g.source().encode())
+    gate1=tmp_path/'gate1.json'
+    report=dict(status='pass',batches=100,
+                sources={k:core.file_sha(source_dir/k) for k in g.KERNEL_SOURCES},
+                outputs=list(core.RUN_ORDER[:-1]),
+                checks={str(b):dict(status='pass',fields={k:True for k in core.RUN_ORDER[:-1]}) for b in range(100)})
+    core.write_json(gate1,report)
+    gate2=tmp_path/'gate2.json';gate3=tmp_path/'gate3.json'
+    core.write_json(gate2,dict(status='pass',identity=identity))
+    core.write_json(gate3,dict(overall='pass; adoption pending user decision',identity=identity))
+    assert g.require_gate1(gate1)==report
+    (source_dir/tool).write_text('changed tool\n')
+    assert g.require_gate1(gate1)==report
+    assert g.identity(manifest,env,gpu.launches)==identity
+    p5g_colab.require_gate2(gate2,manifest,env,gpu)
+    p5g_colab.require_gate3(gate3,manifest,env,gpu)
+    kernel=source_dir/'p5g_kernel.h'
+    kernel.write_text(kernel.read_text()+'\n// changed calculation\n')
+    assert g.identity(manifest,env,gpu.launches)!=identity
+    with pytest.raises(core.Stop):g.require_gate1(gate1)
+    with pytest.raises(core.Stop):p5g_colab.require_gate2(gate2,manifest,env,gpu)
+    with pytest.raises(core.Stop):p5g_colab.require_gate3(gate3,manifest,env,gpu)
+
+
+def test_rerun_notebook_contract(tmp_path):
+    from types import SimpleNamespace
+    path=core.HERE/'p5g_rerun_colab.ipynb'
+    book=json.loads(path.read_text())
+    assert 'APPROVE_' not in path.read_text()
+    cells=[c for c in book['cells'] if c['cell_type']=='code']
+    assert len(cells)==4
+    for cell in cells:
+        compile(''.join(cell['source']),'<rerun-notebook>','exec')
+        assert cell['outputs']==[]
+        assert cell['execution_count'] is None
+    first=''.join(cells[0]['source'])
+    assert re.search(r'CODE_COMMIT = "([0-9a-f]{40})?"',first)
+    assert first.index("'fetch'")<first.index("'checkout'")<first.index('from prototypes.')
+    original=json.loads((core.HERE/'p5g_map_colab.ipynb').read_text())
+    assert cells[0]['source'][1:]==original['cells'][1]['source'][1:]
+    calls=[]
+    def record(name):
+        def run(*args,**kwargs):calls.append((name,args,kwargs))
+        return run
+    scope=dict(p5g_colab=SimpleNamespace(**{name:record(name) for name in ('gate2','gate3','divergence_map')}),
+               BUNDLE='bundle',RESULTS=tmp_path,GATE1='gate1')
+    for cell in cells[1:]:exec(''.join(cell['source']),scope)
+    assert calls==[
+        ('gate2',('bundle',tmp_path/'gate2_r2','gate1'),{}),
+        ('gate3',('bundle',tmp_path/'gate3_r2','gate1',tmp_path/'gate2_r2/gate2.json'),{}),
+        ('divergence_map',('bundle',tmp_path/'map_comparison_r2','gate1'),
+         dict(compare=True,gate2_report=tmp_path/'gate2_r2/gate2.json',gate3_report=tmp_path/'gate3_r2/gate3.json')),
+    ]
+
+
+@pytest.mark.parametrize('failed_gate',['gate2','gate3'])
+def test_rerun_notebook_stops_on_failed_gate(tmp_path,failed_gate):
+    from types import SimpleNamespace
+    book=json.loads((core.HERE/'p5g_rerun_colab.ipynb').read_text())
+    cells=[c for c in book['cells'] if c['cell_type']=='code']
+    calls=[]
+    def run(name):
+        def call(*args,**kwargs):
+            calls.append(name)
+            if name==failed_gate:raise core.Stop('failed gate')
+        return call
+    scope=dict(p5g_colab=SimpleNamespace(**{name:run(name) for name in ('gate2','gate3','divergence_map')}),
+               BUNDLE='bundle',RESULTS=tmp_path,GATE1='gate1')
+    with pytest.raises(core.Stop,match='failed gate'):
+        exec('\n'.join(''.join(cell['source']) for cell in cells[1:]),scope)
+    assert calls==(['gate2'] if failed_gate=='gate2' else ['gate2','gate3'])
