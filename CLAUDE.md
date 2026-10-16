@@ -243,7 +243,15 @@ Work toward coupled photon/electron/positron transport for nominal 10 MV is unde
   - [P5f-0](docs/validation/mv/p5/RESULTS_P5F0.md) (done): ncu works on Colab T4. V0: **FP64 pipe 83% busy but only 2.1 of 32
     threads active per warp** (branch divergence: each lane follows a different particle/process); memory 5%, L2 hit 99%. Whole-kernel
     switches: moving the 72 MB `ys` reads into a cache-sized panel −0.4% (table is not the bottleneck); shrinking the dose path −8.6%.
-    First rewrite candidate (P5f-1, not planned yet): make lanes in a warp do the same work (event/particle-type based processing).
+    First rewrite candidate: make lanes in a warp do the same work.
+  - [P5f-1](docs/validation/mv/p5/RESULTS_P5F1.md) (done, adoption pending user decision): kernel rewritten as a per-history state
+    machine (`p5g_*`, P/C/E/H/D states) with the GPU driver advancing all lanes of one state together each round (ballot masks).
+    Each history's operation order is unchanged: **CPU build byte-identical to the 100 saved P5a Philox batches; on T4, 20k histories
+    bit-identical to V0 per history; P5c's C0–C4 (10M) all pass. T4 speed 79.2 → 42.5 µs/history (×1.87)**, same-session alternation.
+    V0 divergence map (ncu source counters): 2.08 lanes/32 overall, 2.04 on FP64, and ~2 even on lines every history runs (Philox,
+    step length) — consistent with lanes not reconverging inside the nested loops. P5g's own map not taken (gate-2 record fingerprints
+    the measurement script). Lesson: never fingerprint launch/measurement tools in gate records; read the real artefact shape locally
+    before shipping a Colab step.
   - Colab hand-off: input bundles go to the user's gmail Drive `MyDrive/viveMonte/p5/` via the locally synced folder
     (`~/Library/CloudStorage/GoogleDrive-<gmail>/マイドライブ/...`); results are read back from it. Bundles are never committed.
     Check which account the Drive connector is signed into (it was the university one once) before concluding a file is missing.
