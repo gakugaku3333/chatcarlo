@@ -251,10 +251,32 @@ Work toward coupled photon/electron/positron transport for nominal 10 MV is unde
     V0 divergence map (ncu source counters): 2.08 lanes/32 overall, 2.04 on FP64, and ~2 even on lines every history runs (Philox,
     step length) — consistent with lanes not reconverging inside the nested loops. P5g's own map not taken (gate-2 record fingerprints
     the measurement script). Lesson: never fingerprint launch/measurement tools in gate records; read the real artefact shape locally
-    before shipping a Colab step.
+    before shipping a Colab step. (Superseded as the passed configuration by P5i, then P5j — below.) P5g's map, taken later:
+    4.80 lanes/32, warp instructions 9.36e10 → 4.49e10.
+  - [P5h](docs/validation/mv/p5/RESULTS_P5H.md) (done, **not adopted**, user decision 2026-10-16): binary searches replaced by a
+    bucket table + verified short search; all gates pass (bit-identical) but T4 **≈1.5% slower**. Search lines were 20.3% of warp
+    instructions, yet removing integer work did not buy time.
+  - [P5i](docs/validation/mv/p5/RESULTS_P5I.md) (done, **adopted** 2026-10-16): logs of table constants computed once per device
+    with the same `log` (never host-computed). Gates 0–3 pass, bit-identical to P5g. Same-session T4 42.98 → 34.41 µs/history
+    (×1.25); FP64 warp instructions −22%, all instructions −13%.
+  - [P5j](docs/validation/mv/p5/RESULTS_P5J.md) (done, **adopted as the current passed configuration**, user decision 2026-10-17):
+    removes the Møller constant-argument logs, `log1p(-d/tau)` (always exactly −0.5, guarded by an exact `==` check) and repeated
+    `log(ev)` per energy update. Gates 0–3 pass, bit-identical to P5i. Same-session T4 33.12 → 30.83 µs/history (×1.074); FP64
+    −12.7%, all instructions −4.0%. Claude's reading (n=3, hypothesis): time tracks FP64 instructions (P5h/P5i), less so once FP64
+    share drops (P5j). Bit-preserving FP64 savings are now mostly used up; next candidate is cross-warp event queues.
+    Compare speeds only within one session (the same P5i measured 34.41 and 33.12 in two sessions); "≈2.6× over V0" (79.2 → 30.8)
+    is a cross-session ratio, roughly 2.5–2.7×. ncu CSV parsing inside Colab failed in all four runs; keep the raw export and
+    parse locally.
+  - P2 freeze list (2026-10-16): 137 regenerable P1b–P1f output `.npz` files were deleted (user ran `rm` on Claude's
+    recommendation, without checking that `docs/validation/mv/p2/manifest.json` `protected` listed them), which stopped every
+    input load. By user decision the code was left untouched and those 137 entries were removed from `protected`; their hashes
+    are kept in `docs/validation/mv/p2/removed_2026-10-16.json` (831 files still checked). See docs/lessons_learned.md.
   - Colab hand-off: input bundles go to the user's gmail Drive `MyDrive/viveMonte/p5/` via the locally synced folder
     (`~/Library/CloudStorage/GoogleDrive-<gmail>/マイドライブ/...`); results are read back from it. Bundles are never committed.
     Check which account the Drive connector is signed into (it was the university one once) before concluding a file is missing.
+    **Browser steps are done by the user** (user decision 2026-10-17, to save tokens): Claude gives the Colab URL, "T4", "Run all"
+    and the Drive permission (gmail account) in a few lines, then watches the synced Drive folder for results. Keep every Colab
+    step a single "Run all". The Drive mount often times out while the permission is pending; rerunning "Run all" fixes it.
 - P3b skeleton and user decisions (2026-10-12; implemented in P3b-1 to P3b-3):
   [docs/ai/plans/2026-10-12-mv-p3b-field-pdd-ocr.md](docs/ai/plans/2026-10-12-mv-p3b-field-pdd-ocr.md) — 10×10 cm² at the
   surface, divergent, 100 cm source-to-surface in vacuum, 2×2 cm axis box, profiles at 5/10/20 cm, depth bins 0.25 cm
