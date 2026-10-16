@@ -203,3 +203,32 @@ def test_p5g_reference_wrapper(monkeypatch):
     assert reference.baseline is True
     assert reference.entries[0]=='p5g_run_kernel'
     assert not hasattr(reference,'counts')
+
+
+def test_gate3_identity_checkpoint_roundtrip(data,tmp_path):
+    from types import SimpleNamespace
+    from prototypes.mv_electron.gpu import p5h_colab as colab
+    env={'gpu':'T4'}
+    gpu=SimpleNamespace(launches={'p5h_run_kernel':{'block':128}})
+    base=h.identity(data,env,gpu.launches)
+    identity=colab.gate3_identity(data,env,gpu)
+    assert 'nspec' not in base
+    assert identity==dict(base,nspec=20)
+
+    # One synthetic production batch exercises the real checkpoint metadata/reader.
+    out=core.empty_output(core.run_shapes(20))
+    out['batches'][0,0]=1.25
+    out['nspec'][19,9]=1
+    path=tmp_path/'batch_000.npz'
+    core.save_npz(path,out,core.checkpoint_meta(identity,0,out))
+    restored=core.read_checkpoint(path,identity,0)
+    assert all(core.bits(restored[k],out[k]) for k in core.RUN_ORDER)
+
+    report={'overall':'pass; adoption pending user decision','identity':identity}
+    gate3=tmp_path/'gate3.json'
+    core.write_json(gate3,report)
+    assert colab.require_gate3(gate3,data,env,gpu)==report
+    for incompatible in (base,dict(identity,nspec=19)):
+        core.write_json(gate3,dict(report,identity=incompatible))
+        with pytest.raises(core.Stop,match='current gate3 required'):
+            colab.require_gate3(gate3,data,env,gpu)

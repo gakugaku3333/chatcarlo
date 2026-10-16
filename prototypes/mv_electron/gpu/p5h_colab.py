@@ -113,10 +113,15 @@ def require_gate2(path, data, env, gpu):
     for v in r['checks'].values():core.require(v,'gate2 check')
 
 
+def gate3_identity(data, env, gpu):
+    """Gate3 checkpoint identity; keep the gate1/2 identity unchanged."""
+    return dict(h.identity(data,env,gpu.launches),nspec=20)
+
+
 def require_gate3(path, data, env, gpu):
     r=json.loads(Path(path).read_text())
     if (r.get('overall')!='pass; adoption pending user decision'
-        or r.get('identity')!=h.identity(data,env,gpu.launches)):
+        or r.get('identity')!=gate3_identity(data,env,gpu)):
         raise core.Stop('current gate3 required')
     return r
 
@@ -127,7 +132,7 @@ def gate3(bundle,results,gate1,gate2_report):
     data,ref,manifest=d.load_bundle(bundle);h.require_gate1(gate1,data);gpu=GPU(cp,data);env=environment(cp)
     require_gate2(gate2_report,data,env,gpu)
     root=Path(results);root.mkdir(parents=True,exist_ok=True)
-    identity=h.identity(data,env,gpu.launches)
+    identity=gate3_identity(data,env,gpu)
     path=root/'identity.json'
     if path.exists() and json.loads(path.read_text())!=json.loads(json.dumps(identity)):
         raise core.Stop('C0 identity mismatch')
@@ -167,7 +172,7 @@ def timing(bundle,results,gate1,gate2_report,gate3_report):
     require_gate2(gate2_report,data,environment(cp),new)
     require_gate3(gate3_report,data,environment(cp),new)
     root=Path(results);root.mkdir(parents=True,exist_ok=True)
-    report=dict(status='incomplete',measurements=[],identity=h.identity(data,environment(cp),new.launches),
+    report=dict(status='incomplete',measurements=[],identity=gate3_identity(data,environment(cp),new),
                 decision='report only; adoption is a user decision')
     try:
         for gpu in (old,new):core.require(core.health(gpu.production(1000)),'warmup health')
