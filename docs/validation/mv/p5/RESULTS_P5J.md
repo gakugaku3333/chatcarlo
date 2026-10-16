@@ -1,0 +1,78 @@
+# P5j — エネルギー更新の定数対数と重複 log の削減
+
+2026-10-16。計画 `docs/ai/plans/2026-10-16-mv-p5j-constant-terms.md` の §6 を優先した隔離試作。
+
+CPU 関門0と、n=2,000・start=7,000・固定 Philox seed による P5i との比較は、通常版・検査版とも合格。輸送10出力と診断2出力がすべてビット一致した。この結論は、Apple clang 21.0.0、`-O2 -ffp-contract=off -std=c++11` と記録した入力・計算ソースの構成に限る。
+
+指定に従い、100バッチの関門1は実行していない。T4 関門0・2・3、速度、実機の命令地図も未実行。採用の判断は未了で、P5i が採用済みの構成のままである。
+
+
+## 関門1（2026-10-16、Claude が手元の M3 で実行）
+
+**合格。** 保存済みの P5a Philox 100バッチで、通常版・検査版とも10出力がバイト一致。検査版の数え上げ（バッチ99、10万履歴）: A 1,501万、B（`log`・`log1p`）各1,501万、C の定数 2,684万・元の式に戻った回数 0、D の再利用は放射の割合 2,684万・補間の `u` 2,580万・密度 2,684万、元の式に戻った回数は放射の割合と `u` が各 15,188、密度が 0。記録は `~/.cache/chatcarlo/p5/p5j/gate1.json`（Drive の `viveMonte/p5/p5j/` にも複製）。
+
+## 実装
+
+- A・B: 上端 `.5` の原始関数の対数だけを K0〜K2 の参照に変更。下端 `.01/T` の原始関数と、定数参照後の演算順序を保持。
+- C: `double arg=-d/tau; double L=(arg==-0.5)?K2:log1p(arg);` の分岐。`tau-d` と `tau/(tau-d)` は元の式を保持。
+- D: エネルギー更新で `Lsrc=ev`・`Lval=log(ev)` を一度生成。実際の引数と `Lsrc` のビットを `memcpy` で比較し、NaN の `Lsrc` を拒否。一致しなければ元の `log` を計算する。低水準 `quantities` の早期 return、`sample_k` と制動放射後の独立した対数計算を保持。
+- CPU の初期化と GPU の初期化核で、各端末の同一翻訳単位・同一指定から定数と継承した対数配列を生成。実値の SHA-256 を関門記録・関門3の再開指紋に含める。`nspec=20` を固定。
+- CPU 関門0・関門1の合格を GPU 実行前に検査し、T4 関門0の通常版・検査版の記録を後続関門でも照合。不一致なら後続を停止する。
+- 関門2、交互測定、地図の比較基準を P5i に固定。地図は一方の失敗後ももう一方を取得し、`map.json` の `variants` と `profiles` に構成ごとの状態を保存。各 `profiles` は capture・export・parse を別々に記録する。生の記録と CSV を保存し、初期化時間を輸送時間から分ける。
+
+## CPU の確認結果
+
+関門0は、各ビルドで乱数100万個に格子点・隣接 binary64・cut・`.02`・`.5-x<1e-7` の切替隣接点を加え、各主要比較につき **1,012,372 入力**を使用。hard の2出力、collision、P5i quantities の4出力・idx・raw 全12要素を比較した。disabled、再利用可能な引数、異なる引数、NaN の Lsrc も含む。C の独立した分岐検査は、±0・非正規数・±∞・符号と payload が異なる NaN を含む13入力。D の追加契約検査には符号付きゼロを含む。
+
+検査版の関門0の到達数:
+
+| 場所 | 定数／再利用 | 戻り |
+|---|---:|---:|
+| A | 919,122 | 対象外 |
+| B log | 919,122 | 対象外 |
+| B log1p | 919,122 | 対象外 |
+| C | 1,012,380 | 9 |
+| D rad | 2,024,743 | 2,024,749 |
+| D u | 1,012,370 | 2,024,740 |
+| D density | 1,012,372 | 4 |
+
+n=2,000 の輸送では A と B が各298,794回、C 定数が534,117回、C の戻りは0回。D の3か所の再利用は534,117／513,531／534,117回で、すべて到達した。C の戻りは関門0で確認済み。
+
+補助診断で K0=0、K1=K2=−0.6931471805599453 がその場で計算した元の式とビット一致した。これ自体は正式な合否条件ではない。生成値の SHA-256:
+
+- 継承した対数16,731要素: `a2605db46014d2a25056cdea480e2faa0d9f4e0a93a89fe638d8185e5613106f`
+- K0〜K2 の3要素: `3eeaf254502758f2eca5ee11981b49cf48189b7c8bed8ebf7c4c228bf52595e0`
+
+CPU の対数配列全体は133,872バイトで、P5i からの増分は24バイト。CPU の到達数配列は320バイト。
+
+## テスト
+
+- `.venv/bin/python -m pytest prototypes/mv_electron/tests/test_p5j.py -q`: **8 passed**。
+- `.venv/bin/python -m pytest prototypes/mv_electron/tests -q`: 初回は **820 passed, 2 skipped, 5 failed, 50 errors**（1,035.15秒）。失敗・エラーは容量不足による一時ファイル作成・NPZ 保存の失敗と、それに続くファイル未生成。
+- 容量確保後の `.venv/bin/python -m pytest prototypes/mv_electron/tests -q --lf`: 初回に失敗・エラーとなった **55件すべて合格**（40.83秒）。未解消の失敗はない。
+- 切り分けのための P3b2・P3b3 の再実行も **187 passed**（47.93秒）。
+- `.venv/bin/python -m pytest tests/ -q`: **403 passed, 2 warnings**。
+
+全体テストの初回集計は877件で、最終追加の静的検査1件は専用テスト8件の実行で確認した。全体の一括実行が最初から全件合格したとは扱わない。テストのために作られた今回の完了済み一時出力だけを整理し、ソースや条件を変えずに再確認した。実行ログは `data/p5j_focused_tests.log`、`data/p5j_prototype_tests.log`、`data/p5j_failed_recheck.log`、`data/p5j_p3b_recheck.log`、`data/p5j_main_tests.log` に保存した。
+
+専用テストは通常版・検査版の CPU 関門0と P5i との2,000履歴一致、改変した定数の検出、対象位置だけのトークン差分、C・D の戻り、生成値の指紋、関門0の不完全な記録の拒否、関門3の `nspec=20`、P5i を基準とする比較、ノートブックと zip、地図取得の両方向の片側失敗を検査する。
+
+## 成果物
+
+新規ソースと文書は11件。既存の凍結ファイル、p5g・p5h・p5i、本体のコードとテスト、scripts、examples は編集していない。git add・commit は実施していない。
+
+| 相対位置 | 内容 |
+|---|---|
+| `prototypes/mv_electron/gpu/p5j_logs.h` | 継承した対数配列と K0〜K2 の初期化 |
+| `prototypes/mv_electron/gpu/p5j_terms.h` | A〜D の置換と戻り、場所別の到達数 |
+| `prototypes/mv_electron/gpu/p5j_kernel.h` | P5i 由来の輸送と最終関数の比較 |
+| `prototypes/mv_electron/gpu/p5j_cpu.cpp` | CPU 駆動、初期化、関門0・契約検査 |
+| `prototypes/mv_electron/gpu/p5j_gpu.cu` | CUDA の初期化・輸送・比較核 |
+| `prototypes/mv_electron/gpu/p5j_core.py` | 計算指紋、到達数と関門記録の検査 |
+| `prototypes/mv_electron/gpu/p5j.py` | CPU 関門0、2,000履歴比較、明示的な関門1、zip 出力 |
+| `prototypes/mv_electron/gpu/p5j_colab.py` | T4 関門0〜3、交互測定、独立した地図取得 |
+| `prototypes/mv_electron/gpu/p5j_colab.ipynb` | Drive のソース zip から全セル実行する入口 |
+| `prototypes/mv_electron/tests/test_p5j.py` | 専用テスト |
+| `docs/validation/mv/p5/RESULTS_P5J.md` | 本報告 |
+
+ローカルの確認記録は `data/p5j_local/local_2000.json`、各ビルドの関門0は `data/p5j_local/{ordinary,checked}/gate0_cpu.json`。出力 NPZ と生成対数も同じディレクトリに保存した。Colab 用ソースは `data/p5j_export/p5j_sources.zip`。関門1の実行は `p5j gate1` を明示的に指定した場合だけであり、この zip や小規模比較だけでは GPU 関門を許可しない。
