@@ -275,6 +275,8 @@ Work toward coupled photon/electron/positron transport for nominal 10 MV is unde
     F map: lanes 5.30 → 9.94, warp instructions −48.5%, FP64 −53.6% — the lost lanes were finished histories idling until the warp's
     longest one ended. Q beat F in the equal-cost CPU emulation (0.74 vs 0.39 utilisation) but lost on T4; not profiled (candidates:
     scattered slot access, block barriers, reloading values that F keeps in registers). ≈4.8× over V0 is a cross-session ratio.
+    Q map taken later (report only): Q is slow because of the end-of-round `__syncthreads` — 37–47% of stall samples, issue-active
+    5.29% (F) → 3.40% (Q1), although Q executes 7–14% fewer warp instructions with more lanes (12.98); memory is not the cause.
     Codex hit its usage limit at the final test run; Claude finished it by user instruction (tests, gates, docs; no source change).
   - P2 freeze list (2026-10-16): 137 regenerable P1b–P1f output `.npz` files were deleted (user ran `rm` on Claude's
     recommendation, without checking that `docs/validation/mv/p2/manifest.json` `protected` listed them), which stopped every
