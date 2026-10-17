@@ -278,6 +278,11 @@ Work toward coupled photon/electron/positron transport for nominal 10 MV is unde
     Q map taken later (report only): Q is slow because of the end-of-round `__syncthreads` — 37–47% of stall samples, issue-active
     5.29% (F) → 3.40% (Q1), although Q executes 7–14% fewer warp instructions with more lanes (12.98); memory is not the cause.
     Codex hit its usage limit at the final test run; Claude finished it by user instruction (tests, gates, docs; no source change).
+  - [P5l](docs/validation/mv/p5/RESULTS_P5L.md) (done, report only; **no variant beat F**, adoption pending user decision): warp-local
+    repacking (`__syncwarp` only, 64/128 slots per warp) and C repeated K=4 times. Gates 0–3 pass (gate 3 on W4K4). Same-session T4:
+    F 17.41, FK4 19.32 (+11%), W2K4/W4K4 19.98, GK4 20.07, G1 20.93 µs/history. Map: FK4 lanes 9.94 → 8.29 (lanes that leave C wait
+    inside the K loop; +11% warp instructions); W4K4 lanes 9.62 (repacking gain cancelled) and global slots add lg-throttle stalls
+    (24%, RNG/driver lines). Equal-cost emulation predicted the opposite for both — do not trust it for K or pool size.
   - P2 freeze list (2026-10-16): 137 regenerable P1b–P1f output `.npz` files were deleted (user ran `rm` on Claude's
     recommendation, without checking that `docs/validation/mv/p2/manifest.json` `protected` listed them), which stopped every
     input load. By user decision the code was left untouched and those 137 entries were removed from `protected`; their hashes
