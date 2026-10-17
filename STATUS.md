@@ -1,8 +1,8 @@
 ---
 phase: 開発中
-next: P5kのF採用（T4 16.5 µs/履歴、P5jの1.83倍）。次の一手（Q系が遅い理由の地図か、Fの上で遷移の中の分岐を減らすか）をユーザーと決める
+next: F（P5k）を据え置き。次の高速化の一手（Fの長いメモリ待ちの箇所の絞り込み、またはブロック数を増やした起動）をユーザーと決める
 blocker: ELSEPAで作った表の配布の方法（表を置くか、生成スクリプトだけか）とリポジトリのLICENSEはユーザーの判断待ち。急がない
-updated: 2026-10-17
+updated: 2026-10-18
 ---
 
 詳細は [CLAUDE.md](CLAUDE.md) の "Therapy-energy extension" 節、発表は [docs/presentation_jsmp133.md](docs/presentation_jsmp133.md)、
