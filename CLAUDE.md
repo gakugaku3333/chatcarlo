@@ -283,6 +283,7 @@ Work toward coupled photon/electron/positron transport for nominal 10 MV is unde
     F 17.41, FK4 19.32 (+11%), W2K4/W4K4 19.98, GK4 20.07, G1 20.93 µs/history. Map: FK4 lanes 9.94 → 8.29 (lanes that leave C wait
     inside the K loop; +11% warp instructions); W4K4 lanes 9.62 (repacking gain cancelled) and global slots add lg-throttle stalls
     (24%, RNG/driver lines). Equal-cost emulation predicted the opposite for both — do not trust it for K or pool size.
+  - **GPU speed-up paused at P5k F** (user decision 2026-10-18). Codex consultation `data/logs/codex_p5_next2.md` (not tracked); lessons in docs/lessons_learned.md (2026-10-18). If resumed: compute resident blocks from registers (allocation granularity), shared memory and launch first — P5l at 130 registers was still 1 block/SM (registers and shared memory). Next stage (e.g. field PDD/OCR on GPU) to be decided with the user.
   - P2 freeze list (2026-10-16): 137 regenerable P1b–P1f output `.npz` files were deleted (user ran `rm` on Claude's
     recommendation, without checking that `docs/validation/mv/p2/manifest.json` `protected` listed them), which stopped every
     input load. By user decision the code was left untouched and those 137 entries were removed from `protected`; their hashes
