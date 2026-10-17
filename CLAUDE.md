@@ -259,7 +259,7 @@ Work toward coupled photon/electron/positron transport for nominal 10 MV is unde
   - [P5i](docs/validation/mv/p5/RESULTS_P5I.md) (done, **adopted** 2026-10-16): logs of table constants computed once per device
     with the same `log` (never host-computed). Gates 0–3 pass, bit-identical to P5g. Same-session T4 42.98 → 34.41 µs/history
     (×1.25); FP64 warp instructions −22%, all instructions −13%.
-  - [P5j](docs/validation/mv/p5/RESULTS_P5J.md) (done, **adopted as the current passed configuration**, user decision 2026-10-17):
+  - [P5j](docs/validation/mv/p5/RESULTS_P5J.md) (done, adopted 2026-10-17; superseded by P5k F):
     removes the Møller constant-argument logs, `log1p(-d/tau)` (always exactly −0.5, guarded by an exact `==` check) and repeated
     `log(ev)` per energy update. Gates 0–3 pass, bit-identical to P5i. Same-session T4 33.12 → 30.83 µs/history (×1.074); FP64
     −12.7%, all instructions −4.0%. Claude's reading (n=3, hypothesis): time tracks FP64 instructions (P5h/P5i), less so once FP64
@@ -267,6 +267,15 @@ Work toward coupled photon/electron/positron transport for nominal 10 MV is unde
     Compare speeds only within one session (the same P5i measured 34.41 and 33.12 in two sessions); "≈2.6× over V0" (79.2 → 30.8)
     is a cross-session ratio, roughly 2.5–2.7×. ncu CSV parsing inside Colab failed in all four runs; keep the raw export and
     parse locally.
+  - [P5k](docs/validation/mv/p5/RESULTS_P5K.md) (done, **variant F adopted as the current passed configuration**, user decision
+    2026-10-17): new GPU drivers only, the P5j transition functions are `#include`d unchanged. F = when a lane's history ends it writes
+    its outputs and fetches the next history index (`atomicAdd`), keeping the per-warp ballot; Q1/Q4/Q8/Q1-512 = block-local slots
+    in global memory regrouped by state each round. Gates 0–3 pass (gate 1: every history of all 5 variants bit-identical to P5j over
+    the 100 saved batches; gate 3 on F). Same-session T4: P5j 30.27, **F 16.51 µs/history (×1.83)**, Q8 19.20, Q4 19.71, Q1 23.98.
+    F map: lanes 5.30 → 9.94, warp instructions −48.5%, FP64 −53.6% — the lost lanes were finished histories idling until the warp's
+    longest one ended. Q beat F in the equal-cost CPU emulation (0.74 vs 0.39 utilisation) but lost on T4; not profiled (candidates:
+    scattered slot access, block barriers, reloading values that F keeps in registers). ≈4.8× over V0 is a cross-session ratio.
+    Codex hit its usage limit at the final test run; Claude finished it by user instruction (tests, gates, docs; no source change).
   - P2 freeze list (2026-10-16): 137 regenerable P1b–P1f output `.npz` files were deleted (user ran `rm` on Claude's
     recommendation, without checking that `docs/validation/mv/p2/manifest.json` `protected` listed them), which stopped every
     input load. By user decision the code was left untouched and those 137 entries were removed from `protected`; their hashes
