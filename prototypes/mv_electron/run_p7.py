@@ -78,7 +78,7 @@ def run_egs(name, stage, N):
             resume = (work/'checkpoint.bin').is_file()
             egs.run_egs(label, N, seed, edges, cum, field=[c['field_half'], c['ssd']],
                         regions=h.layout('p7')['regions'], resume=resume)
-    return read_egs(name, stage, N, record)
+    return read_egs(name, stage, N, record, seal=True)
 
 
 def egs_config(name, stage, N):
@@ -90,13 +90,16 @@ def egs_config(name, stage, N):
         source_hashes=egs.source_hashes(), **egs.r.spec_config(edges, cum, c['spectrum_sha256'])))
 
 
-def read_egs(name, stage, N, record=None):
+def read_egs(name, stage, N, record=None, seal=False):
     from .gpu import p5b_core as core
     c = h.condition(name); label = egs_label(stage, name); dest = OUT/'egs5'/label
     files = {f: core.file_sha(dest/f) for f in ('result.npz', 'summary.json', 'config.json')}
     rec = dest/'p7_record.json'
-    if rec.exists() and 'files' in json.loads(rec.read_text()) and json.loads(rec.read_text())['files'] != files:
+    sealed = rec.exists() and 'files' in json.loads(rec.read_text())
+    if sealed and json.loads(rec.read_text())['files'] != files:
         raise h.Stop('EGS5 result/summary/config changed after completion: '+label)
+    if not sealed and not seal:
+        raise h.Stop('EGS5 result not sealed (run the egs command once after completion): '+label)
     v = dict(np.load(dest/'result.npz', allow_pickle=False)); summary = json.loads((dest/'summary.json').read_text())
     config = json.loads((dest/'config.json').read_text())
     if config != json.loads(json.dumps(egs_config(name, stage, N))):
@@ -104,8 +107,13 @@ def read_egs(name, stage, N, record=None):
     if (summary.get('status') != '合格' or not isinstance(summary.get('tests'), dict) or not summary['tests']
             or not all(x is True for x in summary['tests'].values())):
         raise h.Stop('EGS5 summary checks failed')
-    if int(v['N']) != N or int(v['seed']) != c['seeds'][stage+'_egs']:
-        raise h.Stop('EGS5 result N/seed differ')
+    for key, want in (('N', N), ('seed', c['seeds'][stage+'_egs'])):
+        a = np.asarray(v[key])
+        if a.shape != () or a.dtype.kind not in 'iu' or a.item() != want:
+            raise h.Stop('EGS5 result N/seed differ')
+    if np.asarray(v['totals']).shape != (8,) or np.asarray(v['batchin']).shape != (100,) \
+            or not np.array_equal(np.asarray(v['totals']), np.asarray(summary.get('ledger'), float)):
+        raise h.Stop('EGS5 totals/batchin shape or ledger mismatch')
     if np.asarray(v['region_ledger']).shape != (15,) or np.any(v['region_ledger']):
         raise h.Stop('EGS5 region ledger violation or shape')
     if not all(np.all(np.isfinite(x)) for x in v.values() if np.asarray(x).dtype.kind in 'fiu'):
@@ -113,7 +121,7 @@ def read_egs(name, stage, N, record=None):
     check = source_check(v, name, N)
     if check['status'] != 'pass':
         raise h.Stop('EGS5 source check failed: '+json.dumps(check))
-    if not rec.exists() or 'files' not in json.loads(rec.read_text()):
+    if not sealed:
         # Fixed at first read after completion (records written before this fix get their hashes added once,
         # before any judgement value exists); every later read compares against these hashes.
         rec.write_text(json.dumps(dict(record or egs_record(name, stage, N), source_check=check, files=files), ensure_ascii=False, indent=1))
@@ -194,7 +202,7 @@ def require_lock(name, work=DEFAULT_WORK):
 
 
 def production_egs(work, data):
-    locks = {n: require_lock(n) for n in 'ABC'}
+    locks = {n: require_lock(n, work) for n in 'ABC'}
     # Longest first so the two parallel lanes finish closer together.
     order = sorted('ABC', key=lambda n: -locks[n]['N_main'])
     parallel_egs([(n, 'main', locks[n]['N_main']) for n in order])
@@ -209,7 +217,7 @@ def export(work, data, destination=None):
     dest = Path(destination) if destination else work/'export'; dest.mkdir(parents=True, exist_ok=True)
     files = []; conditions = {}
     for name in 'ABC':
-        lock = require_lock(name); _, report = proto_pilot(work, name)
+        lock = require_lock(name, work); _, report = proto_pilot(work, name)
         if report['identity'] != idents[name]:
             raise h.Stop('pilot identity differs: '+name)
         d = h.condition_inputs(data, name); core.save_npz(dest/f'p7_inputs_{name}.npz', d); files.append(dest/f'p7_inputs_{name}.npz')

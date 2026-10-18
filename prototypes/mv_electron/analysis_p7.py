@@ -216,7 +216,9 @@ def slab_ratios(left, right):
     rows = []
     for lo, hi in SLAB_INTERVALS:
         lm, ls = mean_sem(left['slab_coarse'][:, lo:hi].mean(1)); rm, rs = mean_sem(right['slab_coarse'][:, lo:hi].mean(1))
+        if not rm > 0:
+            rows.append(dict(interval_cm=[lo*COARSE, hi*COARSE], ratio_minus_1_percent=None, SEM_percent=None)); continue
         ratio = float(lm/rm)
         rows.append(dict(interval_cm=[lo*COARSE, hi*COARSE], ratio_minus_1_percent=100*(ratio-1),
-                         SEM_percent=float(100*ratio*np.hypot(ls/lm, rs/rm))))
+                         SEM_percent=float(100*np.hypot(ls/rm, lm*rs/rm**2))))
     return rows
