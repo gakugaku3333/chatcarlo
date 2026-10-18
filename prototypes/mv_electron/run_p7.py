@@ -81,25 +81,42 @@ def run_egs(name, stage, N):
     return read_egs(name, stage, N, record)
 
 
+def egs_config(name, stage, N):
+    """The complete config run_p3b2.run_egs writes for this condition (same construction, P7 SHA)."""
+    c = h.condition(name); edges, _, cum = h.spectrum(c['spectrum'])
+    return egs.r.plain(dict(N=N, seed=c['seeds'][stage+'_egs'], E=10., IUNRST=0, noflight=0, thickness=30., batches=100,
+        input=egs.r.pegs_input(0), user_code='p3b_egs', field=[float(c['field_half']), float(c['ssd'])],
+        regions=list(map(float, h.layout('p7')['regions'])), egs_input_hashes=egs.egs_hashes(),
+        source_hashes=egs.source_hashes(), **egs.r.spec_config(edges, cum, c['spectrum_sha256'])))
+
+
 def read_egs(name, stage, N, record=None):
+    from .gpu import p5b_core as core
     c = h.condition(name); label = egs_label(stage, name); dest = OUT/'egs5'/label
+    files = {f: core.file_sha(dest/f) for f in ('result.npz', 'summary.json', 'config.json')}
+    rec = dest/'p7_record.json'
+    if rec.exists() and 'files' in json.loads(rec.read_text()) and json.loads(rec.read_text())['files'] != files:
+        raise h.Stop('EGS5 result/summary/config changed after completion: '+label)
     v = dict(np.load(dest/'result.npz', allow_pickle=False)); summary = json.loads((dest/'summary.json').read_text())
     config = json.loads((dest/'config.json').read_text())
-    edges, _, cum = h.spectrum(c['spectrum'])
-    expected = dict(N=N, seed=c['seeds'][stage+'_egs'], field=[c['field_half'], c['ssd']],
-                    regions=list(map(float, h.layout('p7')['regions'])), spectrum_sha256=c['spectrum_sha256'],
-                    spectrum_arrays_sha256=egs.r.spec_config(edges, cum, c['spectrum_sha256'])['spectrum_arrays_sha256'],
-                    nb=c['nspec'])
-    if any(config.get(k) != x for k, x in expected.items()):
+    if config != json.loads(json.dumps(egs_config(name, stage, N))):
         raise h.Stop('EGS5 config differs from condition '+name)
-    if summary.get('status') != '合格' or np.any(v['region_ledger']):
-        raise h.Stop('EGS5 checks failed')
+    if (summary.get('status') != '合格' or not isinstance(summary.get('tests'), dict) or not summary['tests']
+            or not all(x is True for x in summary['tests'].values())):
+        raise h.Stop('EGS5 summary checks failed')
+    if int(v['N']) != N or int(v['seed']) != c['seeds'][stage+'_egs']:
+        raise h.Stop('EGS5 result N/seed differ')
+    if np.asarray(v['region_ledger']).shape != (15,) or np.any(v['region_ledger']):
+        raise h.Stop('EGS5 region ledger violation or shape')
+    if not all(np.all(np.isfinite(x)) for x in v.values() if np.asarray(x).dtype.kind in 'fiu'):
+        raise h.Stop('EGS5 result has non-finite values')
     check = source_check(v, name, N)
     if check['status'] != 'pass':
         raise h.Stop('EGS5 source check failed: '+json.dumps(check))
-    rec = OUT/'egs5'/label/'p7_record.json'
-    if record is not None and not rec.exists():
-        rec.write_text(json.dumps(dict(record, source_check=check), ensure_ascii=False, indent=1))
+    if not rec.exists() or 'files' not in json.loads(rec.read_text()):
+        # Fixed at first read after completion (records written before this fix get their hashes added once,
+        # before any judgement value exists); every later read compares against these hashes.
+        rec.write_text(json.dumps(dict(record or egs_record(name, stage, N), source_check=check, files=files), ensure_ascii=False, indent=1))
     data = {k: v[k] for k in ('axis_coarse', 'axis_fine', 'slab_coarse', 'profile', 'profile_fine')}
     data.update(N=np.array(N), nbatch=np.array(100))
     stats.dose(data, stats.spec(c['field_half']))
@@ -165,11 +182,15 @@ def pilot(work, data):
     return dict(status='pass', checks={n: dict(status='pass', **v) for n, v in locks.items()})
 
 
-def require_lock(name):
+def require_lock(name, work=DEFAULT_WORK):
+    """Re-derive the lock from the hashed pilot data (CPU pilot + EGS5 pilot) and compare in full."""
     path = OUT/f'pilot_lock_{name}.json'
     if not path.exists():
         raise h.Stop('pilot lock missing: '+name)
-    return json.loads(path.read_text())
+    lock = json.loads(path.read_text())
+    if lock != json.loads(json.dumps(lock_content(work, name))):
+        raise h.Stop('pilot lock does not re-derive from the pilot data: '+name)
+    return lock
 
 
 def production_egs(work, data):
@@ -240,7 +261,7 @@ def analyse(work, data, results=None, bundle=None):
     bundle = Path(bundle) if bundle else work/'export'; results = Path(results) if results else work/'results'
     manifest = json.loads((bundle/'p7_manifest.json').read_text()); out = dict(conditions={})
     for name in 'ABC':
-        c = h.condition(name); ident = idents[name]; lock = require_lock(name); m = manifest['conditions'][name]
+        c = h.condition(name); ident = idents[name]; lock = require_lock(name, work); m = manifest['conditions'][name]
         if m['identity'] != ident or m['Dref'] != lock['Dref'] or m['N_main'] != lock['N_main'] \
                 or m['lock_sha256'] != core.file_sha(OUT/f'pilot_lock_{name}.json'):
             raise h.Stop('manifest / pilot lock mismatch: '+name)
@@ -256,16 +277,22 @@ def analyse(work, data, results=None, bundle=None):
         if any(np.any(r['region_ledger']) for r in rows):
             raise h.Stop('region ledger violation: '+name)
         egs = read_egs(name, 'main', N)
+        before = {p: core.file_sha(p) for p in (results/f'production_{name}'/'result.npz', OUT/'egs5'/egs_label('main', name)/'result.npz')}
         s = stats.spec(c['field_half']); gd = stats.dose(gpu, s); ed = stats.dose(egs, s)
         comparison = stats.compare(gd, ed, lock['Dref'], s)
+        stats.stop_on_missing(comparison)  # plan section 3: a missing 50% crossing stops, never a verdict
         statuses = [x['status'] for group in comparison.values() for x in group]
+        if '判定できない' in statuses:
+            raise h.Stop('undeterminable quantity: '+name)
         verdict = ('統計不足' if '統計不足' in statuses else
-                   '合格' if all(x in ('1%以内', '0.1 cm以内') for x in statuses) else '不合格または判定不能')
+                   '合格' if all(x in ('1%以内', '0.1 cm以内') for x in statuses) else '不合格')
         out['conditions'][name] = dict(status=verdict, Dref=lock['Dref'], N_main=N, spec=s, comparison=comparison,
-            report_only=dict(reports=stats.reports(gd, ed, lock['Dref'], s),
+            report_only=dict(reports=stats.reports(gd, ed, lock['Dref'], s), slab_ratios=stats.slab_ratios(gd, ed),
                              symmetry={k: stats.symmetry(v['profile'], s) for k, v in (('GPU', gd), ('EGS5', ed))}),
             production_sha256=core.file_sha(results/f'production_{name}'/'result.npz'),
             egs_sha256=core.file_sha(OUT/'egs5'/egs_label('main', name)/'result.npz'))
+        if {p: core.file_sha(p) for p in before} != before:
+            raise h.Stop('comparison inputs changed during analysis: '+name)
     out['note'] = '条件ごとの判定。3条件まとめての合否は出さない。厳密な同等性の検定ではない。'
     OUT.mkdir(parents=True, exist_ok=True)
     (OUT/'analysis.json').write_text(json.dumps(out, ensure_ascii=False, indent=1))

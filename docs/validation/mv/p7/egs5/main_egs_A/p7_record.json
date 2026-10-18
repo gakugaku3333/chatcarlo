@@ -1,0 +1,45 @@
+{
+ "condition": "A",
+ "stage": "main",
+ "N": 20000000,
+ "seed": 20291821,
+ "spectrum": "mohan10",
+ "spectrum_sha256": "06fe2ba471dbfd64ca4305b5f1560479439ea4b565f993ecb21dcda86a6d8065",
+ "spectrum_top_MeV": 10.0,
+ "config_E_note": "config E=10 is the P3b-2 runner constant; with spectrum.dat present p3b_egs.f sets emaxe to the spectrum top",
+ "pegs_limits": {
+  "UE": 20.511,
+  "UP": 21.0
+ },
+ "field": [
+  2.5,
+  100.0
+ ],
+ "regions": [
+  0.0,
+  0.0,
+  1.0,
+  1.0,
+  20.0,
+  0.25,
+  0.125,
+  1.0,
+  5.0,
+  10.0,
+  20.0
+ ],
+ "source_check": {
+  "p": [
+   0.9005694507896371,
+   0.994944165607944
+  ],
+  "direction_relative_error": 0.0,
+  "records": 1000,
+  "status": "pass"
+ },
+ "files": {
+  "result.npz": "a41decc231beff3a8dd22dcc3d8bce30fe3e3d0e60de10c2b9b74f95efa9761d",
+  "summary.json": "238423e14998f5017fa96527406ed6b9b3a658653b61b5e88d1a95e06c1eba4f",
+  "config.json": "9cafb3b76635e67e1221efe0b93443503f83eb9e3c09d7ff27b2783f3afa663b"
+ }
+}

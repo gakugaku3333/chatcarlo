@@ -206,3 +206,17 @@ def reports(left, right, reference, s):
     for row in result['profiles']:
         row['outside'].pop('status')
     return result
+
+
+SLAB_INTERVALS = ((0, 8), (8, 20), (20, 40), (40, 60), (60, 80), (80, 100), (100, 120))
+
+
+def slab_ratios(left, right):
+    """Report only (P3b-3 method): whole-slab deposit ratio - 1 per depth interval, SEMs propagated."""
+    rows = []
+    for lo, hi in SLAB_INTERVALS:
+        lm, ls = mean_sem(left['slab_coarse'][:, lo:hi].mean(1)); rm, rs = mean_sem(right['slab_coarse'][:, lo:hi].mean(1))
+        ratio = float(lm/rm)
+        rows.append(dict(interval_cm=[lo*COARSE, hi*COARSE], ratio_minus_1_percent=100*(ratio-1),
+                         SEM_percent=float(100*ratio*np.hypot(ls/lm, rs/rm))))
+    return rows
