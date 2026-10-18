@@ -303,7 +303,7 @@ Work toward coupled photon/electron/positron transport for nominal 10 MV is unde
     `~/.cache/chatcarlo` with `scripts/archive_run.sh <dir>` (tar + zstd -19 into `~/.cache/chatcarlo/archive/`, every file's SHA256
     recorded, extracted and compared before the original is moved to the Trash; restore command at the top of the script).
     Lossless, so recorded hashes still verify after restoring. Done for `p6` (1.9 GB → 728 MB), `p7/results` (2.04 GB → 733 MB) and
-    `p7/work/pilot` (2.9 GB → 287 MB; the per-history `histories.npz` files are mostly zeros, 682 MB → 9 MB each). Extract before rerunning
+    `p7/work/pilot` (2.9 GB → 287 MB; the per-history `histories.npz` files are mostly zeros, 682 MB → 9 MB each). Also archived (2026-10-19): `p2/egs5` (1.4 GB → 276 MB, 1,741 files; checked by `docs/validation/mv/p2/manifest.json`, so P2 input loads stop until it is extracted), `p2b` (422 → 82 MB) and `p3a` (328 → 64 MB). Extract before rerunning
     `p6 analyse`, `run_p7 analyse` or a pilot-lock check. Keep `p7/spectra` (read by P7 code). Do not change `np.savez` in the shared
     saving helpers instead: P5-era frozen code uses them. A Drive-copied export bundle may be moved to the Trash after its manifest
     hashes are checked against the Drive copy.
