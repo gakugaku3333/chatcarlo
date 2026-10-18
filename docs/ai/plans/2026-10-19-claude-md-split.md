@@ -93,3 +93,10 @@ CLAUDE.md（632 行・64 KB）は毎回のセッションで全文が読まれ�
 4. mv.md に「結果を引くときの留保」の節を足した（P1c 未判定と P1b の但し書き、P3s の S4 統計不足、P3b-1 の B8 不合格の維持、
    P4a の Fano の適用範囲、判定の範囲とビルドアップの過剰）。
 5. 本体の計画・レビューでも先に chatcarlo.md を読むよう、CLAUDE.md と AGENTS.md に書いた（`paths:` は広げていない）。
+
+## 追補3（2026-10-19、振り返りでの修正）
+
+- AGENTS.md 5 行目の「アーキテクチャ…物理…はすべて CLAUDE.md に書かれている」を、正典が CLAUDE.md と `.claude/rules/` の 2 か所になった現状に合わせた（Codex のレビューでも見落としていた）。
+- CLAUDE.md に残していた段階の状況（P1–P7 完了、P5k F、高速化の一時停止）を消し、STATUS.md の一覧の下の「現在」の行に移した。自分で決めた「CLAUDE.md に段階の経過を書かない」に反していたため。
+- 照合スクリプトを [2026-10-19-claude-md-split_coverage.py](2026-10-19-claude-md-split_coverage.py) として残した（使い方と限界は冒頭のコメント）。
+- S6: `/shime`（`~/.claude/skills/shime/SKILL.md`）に「CLAUDE.md・AGENTS.md には常設ルールだけを書く」を足した（skills リポジトリ `da383cf`）。

@@ -50,6 +50,8 @@
 | P6 | 2026-10-18 | 11 量すべて合格 | [RESULTS](p6/RESULTS.md)・[plan](../../ai/plans/2026-10-18-mv-p6-gpu-field.md) | 照射野の PDD/OCR を GPU で |
 | P7 | 2026-10-18 | 3 条件とも 11 量すべて合格 | [RESULTS](p7/RESULTS.md)・[plan](../../ai/plans/2026-10-18-mv-p7-field-energy-variants.md) | 5×5・20×20、4 MV |
 
+**現在（2026-10-19）**: P7 まで完了。GPU の合格構成は P5k の変種 F。GPU の高速化は一時停止中で、次の段階はユーザーと相談して決める。
+
 常設の決定と既知の近似: [KNOWN_APPROXIMATIONS.md](KNOWN_APPROXIMATIONS.md)。
 
 ## 注記（2026-10-19、CLAUDE.md から移した。判定は変えない）

@@ -42,9 +42,8 @@ old BSF/PDD JSON, figures and reports are historical records, not regenerated da
 **Therapy-energy (10 MV) extension**: a prototype in `prototypes/mv_electron/`, entirely outside `chatcarlo/`; nothing in
 the production package or the 150 keV limits has changed. Its standing rules are in
 [.claude/rules/mv.md](.claude/rules/mv.md) — **read it first when starting MV work from anywhere** (cache folders,
-Colab/Drive results, plans), since it only auto-loads when a matching repo file is touched. Stage status:
-[docs/validation/mv/STATUS.md](docs/validation/mv/STATUS.md). Currently P1–P7 are done; the passed GPU configuration is
-P5k variant F; GPU speed-up is paused and the next stage is to be decided with the user.
+Colab/Drive results, plans), since it only auto-loads when a matching repo file is touched. Current stage, passed
+configurations and what comes next: [docs/validation/mv/STATUS.md](docs/validation/mv/STATUS.md) (not repeated here).
 
 **Scatter correction moved out (2026-08-20)**: the MC scatter-correction research line now lives in `~/Projects/mcscatter`
 (engine: unmodified `DIDSR/MCGPUv1.3_PCD`, user decision). **`chatcarlo/detector.py`, its two test files and its plan
