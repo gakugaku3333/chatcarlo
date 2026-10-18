@@ -2,7 +2,7 @@
 
 - 計画: [2026-10-18-mv-p7-field-energy-variants.md](../../../ai/plans/2026-10-18-mv-p7-field-energy-variants.md)（骨子1巡・詳細1巡、致命0で Claude が承認）
 - 実装: Claude。Codex が利用上限で止まったため、ユーザーの指示で代わりに実装した。判定のコードは値を出す前に Codex が3巡レビューした（1巡目: 致命0・実質5・軽微2、2巡目: 残り2件と新規2件、3巡目: すべて解消・新規なし）。
-- 判定の数値: [analysis.json](analysis.json)。GPU 本番の結果（619 ファイル、2.0 GB、リポジトリの外）: Drive の `viveMonte/p7/results` と `~/.cache/chatcarlo/p7/results`（同じもの、SHA256 で照合）。計画から外れた点は計画の追補1。試し計算の固定値: `pilot_lock_A/B/C.json`。EGS5 の結果: `egs5/`。
+- 判定の数値: [analysis.json](analysis.json)。GPU 本番の結果（619 ファイル、2.0 GB、リポジトリの外）: Drive の `viveMonte/p7/results` と、手元の圧縮アーカイブ `~/.cache/chatcarlo/archive/p7_results.tar.zst`（733 MB、619 ファイルの SHA256 は同じ場所の `p7_results.sha256`）。CPU の試し計算と関門2用の参照は `p7_work_pilot.tar.zst`。判定（`run_p7 analyse`）や pilot lock の作り直しをやり直すときは、先に `scripts/archive_run.sh` の先頭に書いた方法で展開する。計画から外れた点は計画の追補1。試し計算の固定値: `pilot_lock_A/B/C.json`。EGS5 の結果: `egs5/`。
 
 ## 結論
 

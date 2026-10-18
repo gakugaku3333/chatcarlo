@@ -299,6 +299,14 @@ Work toward coupled photon/electron/positron transport for nominal 10 MV is unde
     Large bundles (P7: ~750 MB) take minutes to upload: Colab started before the sync finished and stopped on a missing
     `p7_inputs_A.npz` (2026-10-18). Name the files the user should see in the Drive folder and ask them to wait until all
     are listed before "Run all" (the bundle check stops safely on a partial file, but the run is wasted).
+  - Finished-stage cache data (2026-10-19, user decision): when a stage is closed, archive its large run directories under
+    `~/.cache/chatcarlo` with `scripts/archive_run.sh <dir>` (tar + zstd -19 into `~/.cache/chatcarlo/archive/`, every file's SHA256
+    recorded, extracted and compared before the original is moved to the Trash; restore command at the top of the script).
+    Lossless, so recorded hashes still verify after restoring. Done for `p6` (1.9 GB → 728 MB), `p7/results` (2.04 GB → 733 MB) and
+    `p7/work/pilot` (2.9 GB → 287 MB; the per-history `histories.npz` files are mostly zeros, 682 MB → 9 MB each). Extract before rerunning
+    `p6 analyse`, `run_p7 analyse` or a pilot-lock check. Keep `p7/spectra` (read by P7 code). Do not change `np.savez` in the shared
+    saving helpers instead: P5-era frozen code uses them. A Drive-copied export bundle may be moved to the Trash after its manifest
+    hashes are checked against the Drive copy.
 - P3b skeleton and user decisions (2026-10-12; implemented in P3b-1 to P3b-3):
   [docs/ai/plans/2026-10-12-mv-p3b-field-pdd-ocr.md](docs/ai/plans/2026-10-12-mv-p3b-field-pdd-ocr.md) — 10×10 cm² at the
   surface, divergent, 100 cm source-to-surface in vacuum, 2×2 cm axis box, profiles at 5/10/20 cm, depth bins 0.25 cm
