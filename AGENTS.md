@@ -4,6 +4,13 @@ AIエージェント（Claude Code、OpenAI Codex、Google Antigravity など）
 
 このリポジトリの技術的な正典は [CLAUDE.md](CLAUDE.md)。作業前に必ず読むこと（アーキテクチャ、コマンド、既知の落とし穴、物理・データの出典など、どのAIにも共通で従う内容はすべてそちらに書かれている）。内容をこのファイルに複製しない。
 
+CLAUDE.md には全体に効く決まりだけがある。場面ごとの常設ルールは `.claude/rules/` にあり、Claude Code 以外の AI では自動で読まれないので、該当する作業の前に直接読むこと。
+
+| 作業 | 先に読むファイル |
+|---|---|
+| 治療領域（MV）の試作: `prototypes/mv_electron/`、`docs/validation/mv/`、MV の計画、`~/.cache/chatcarlo` の計算データ | [.claude/rules/mv.md](.claude/rules/mv.md)、段階の状況は [docs/validation/mv/STATUS.md](docs/validation/mv/STATUS.md) |
+| 本体 `chatcarlo/`・`tests/`・`examples/` の実装（その計画・レビューを含む） | [.claude/rules/chatcarlo.md](.claude/rules/chatcarlo.md) |
+
 親ディレクトリに `../AGENTS.md` がある場合は、それを先に読むこと。
 
 ## 使用者がシミュレーションを頼んできたとき
