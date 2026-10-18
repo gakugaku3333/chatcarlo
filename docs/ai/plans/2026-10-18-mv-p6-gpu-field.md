@@ -1,6 +1,6 @@
-# P6: 照射野の PDD/OCR を GPU で計算する（骨子）
+# P6: 照射野の PDD/OCR を GPU で計算する
 
-- 状態: approved（2026-10-18、致命0のため取り決めにより Claude が承認）。骨子1巡・詳細1巡。詳細: 致命0・実質7・軽微3・参考1、すべて反映。原本 `data/logs/codex_p6_review2.md`）
+- 状態: implemented（2026-10-18、P6 合格。結果は `docs/validation/mv/p6/RESULTS.md`）。approved は 2026-10-18（致命0のため取り決めにより Claude が承認）。骨子1巡・詳細1巡。詳細: 致命0・実質7・軽微3・参考1、すべて反映。原本 `data/logs/codex_p6_review2.md`）
 - 作成: 2026-10-18 / 計画: Claude / Codexレビュー: 1巡（骨子。致命0・実質5・軽微2・参考2、すべて反映。原本 `data/logs/codex_p6_review1.md`）
 - 上位の計画: [2026-10-14-mv-p5-gpu-rewrite.md](2026-10-14-mv-p5-gpu-rewrite.md)（P5 は板の深さ線量だけ）、[2026-10-12-mv-p3b-field-pdd-ocr.md](2026-10-12-mv-p3b-field-pdd-ocr.md)
 - 規模: 重（数値計算。側方の位置を運ばない誤りは、深さ線量だけを見ると気づけない）
