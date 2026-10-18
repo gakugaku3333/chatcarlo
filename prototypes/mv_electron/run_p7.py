@@ -180,9 +180,101 @@ def production_egs(work, data):
     return dict(status='pass', checks={n: dict(status='pass', N=locks[n]['N_main']) for n in 'ABC'})
 
 
+def export(work, data, destination=None):
+    """Drive bundle: per-condition inputs, sources, CPU pilot references and the pilot locks."""
+    import shutil, zipfile
+    from .gpu import p7, p5b_core as core
+    work = Path(work); idents = p7.require_gates(work, data)
+    dest = Path(destination) if destination else work/'export'; dest.mkdir(parents=True, exist_ok=True)
+    files = []; conditions = {}
+    for name in 'ABC':
+        lock = require_lock(name); _, report = proto_pilot(work, name)
+        if report['identity'] != idents[name]:
+            raise h.Stop('pilot identity differs: '+name)
+        d = h.condition_inputs(data, name); core.save_npz(dest/f'p7_inputs_{name}.npz', d); files.append(dest/f'p7_inputs_{name}.npz')
+        conditions[name] = dict(identity=idents[name], pilot=report, Dref=lock['Dref'], N_main=lock['N_main'],
+                                lock_sha256=core.file_sha(OUT/f'pilot_lock_{name}.json'))
+    with zipfile.ZipFile(dest/'p7_sources.zip', 'w', compression=zipfile.ZIP_DEFLATED) as z:
+        # Sources only; never spectrum values or transport tables (those travel in p7_inputs_*.npz on the user's Drive).
+        for p in sorted(h.HERE.iterdir()):
+            if p.suffix in ('.py', '.h', '.cpp', '.cu', '.ipynb'):
+                z.write(p, Path('prototypes/mv_electron/gpu')/p.name)
+        for rel in ('prototypes/mv_electron/analysis_p3b3.py', 'prototypes/mv_electron/analysis_p7.py', 'prototypes/__init__.py',
+                    'prototypes/mv_electron/__init__.py'):
+            if (ROOT/rel).exists():
+                z.write(ROOT/rel, rel)
+    files.append(dest/'p7_sources.zip')
+    with zipfile.ZipFile(dest/'p7_reference.zip', 'w', compression=zipfile.ZIP_DEFLATED) as z:
+        for name in 'ABC':
+            target = Path(work)/'pilot'/name
+            for p in sorted(target.rglob('*')):
+                if p.is_file() and p.suffix in ('.npz', '.json'):
+                    z.write(p, Path(name)/p.relative_to(target))
+    files.append(dest/'p7_reference.zip')
+    shutil.copyfile(h.HERE/'p7_colab.ipynb', dest/'p7_colab.ipynb')  # not hashed: Colab saves outputs into it
+    manifest = dict(status='pass', files={p.name: dict(sha256=core.file_sha(p), bytes=p.stat().st_size) for p in files},
+                    conditions=conditions)
+    core.write_json(dest/'p7_manifest.json', manifest)
+    print(str(dest), flush=True)
+    return dict(status='pass', checks={n: dict(status='pass', N_main=c['N_main']) for n, c in conditions.items()})
+
+
+def check_bundle_import(bundle):
+    """Plan section 7: the bundle alone must be importable (sources zip extracted into an empty directory)."""
+    import subprocess, sys, tempfile, zipfile
+    with tempfile.TemporaryDirectory() as tmp:
+        with zipfile.ZipFile(Path(bundle)/'p7_sources.zip') as z:
+            z.extractall(tmp)
+        code = 'from prototypes.mv_electron.gpu import p7_colab, p7_core; from prototypes.mv_electron import analysis_p7; print("ok")'
+        p = subprocess.run([sys.executable, '-I', '-c', 'import sys; sys.path.insert(0, %r); ' % tmp + code],
+                           capture_output=True, text=True, cwd=tmp)
+        return dict(status='pass' if p.stdout.strip() == 'ok' else 'fail', stderr=p.stderr[-2000:])
+
+
+def analyse(work, data, results=None, bundle=None):
+    """Judgement per condition (plan section 8): GPU production vs EGS5 production, 11 quantities,
+    fixed Dref from the EGS5 pilot, ranges from analysis_p7.spec. Report-only items alongside."""
+    from .gpu import p7, p5b_core as core
+    from .gpu.p7_colab import require_gate
+    work = Path(work); idents = p7.require_gates(work, data)
+    bundle = Path(bundle) if bundle else work/'export'; results = Path(results) if results else work/'results'
+    manifest = json.loads((bundle/'p7_manifest.json').read_text()); out = dict(conditions={})
+    for name in 'ABC':
+        c = h.condition(name); ident = idents[name]; lock = require_lock(name); m = manifest['conditions'][name]
+        if m['identity'] != ident or m['Dref'] != lock['Dref'] or m['N_main'] != lock['N_main'] \
+                or m['lock_sha256'] != core.file_sha(OUT/f'pilot_lock_{name}.json'):
+            raise h.Stop('manifest / pilot lock mismatch: '+name)
+        require_gate(json.loads((results/f'gate2_{name}.json').read_text()), ident, 'gate2')
+        require_gate(json.loads((results/f'gate3_{name}.json').read_text()), ident, 'gate3')
+        N = lock['N_main']
+        rows = [h.read_checkpoint(results/f'production_{name}'/f'batch_{b:03}.npz', ident, 'production', name, b, N) for b in range(100)]
+        gpu = core.read_npz(results/f'production_{name}'/'result.npz'); meta = json.loads(str(gpu.pop('metadata')))
+        expected = h.stacked(rows, 'production', name, N)
+        if meta != dict(identity=ident, contract=h.contract('production', name, N), outputs=core.describe(expected)) \
+                or h.exact(gpu, expected)['status'] != 'pass':
+            raise h.Stop('production stacked data or metadata mismatch: '+name)
+        if any(np.any(r['region_ledger']) for r in rows):
+            raise h.Stop('region ledger violation: '+name)
+        egs = read_egs(name, 'main', N)
+        s = stats.spec(c['field_half']); gd = stats.dose(gpu, s); ed = stats.dose(egs, s)
+        comparison = stats.compare(gd, ed, lock['Dref'], s)
+        statuses = [x['status'] for group in comparison.values() for x in group]
+        verdict = ('統計不足' if '統計不足' in statuses else
+                   '合格' if all(x in ('1%以内', '0.1 cm以内') for x in statuses) else '不合格または判定不能')
+        out['conditions'][name] = dict(status=verdict, Dref=lock['Dref'], N_main=N, spec=s, comparison=comparison,
+            report_only=dict(reports=stats.reports(gd, ed, lock['Dref'], s),
+                             symmetry={k: stats.symmetry(v['profile'], s) for k, v in (('GPU', gd), ('EGS5', ed))}),
+            production_sha256=core.file_sha(results/f'production_{name}'/'result.npz'),
+            egs_sha256=core.file_sha(OUT/'egs5'/egs_label('main', name)/'result.npz'))
+    out['note'] = '条件ごとの判定。3条件まとめての合否は出さない。厳密な同等性の検定ではない。'
+    OUT.mkdir(parents=True, exist_ok=True)
+    (OUT/'analysis.json').write_text(json.dumps(out, ensure_ascii=False, indent=1))
+    return dict(status='done', checks={n: dict(status=v['status']) for n, v in out['conditions'].items()})
+
+
 def main():
     p = argparse.ArgumentParser(description=__doc__)
-    p.add_argument('command', choices=('local', 'gate1', 'pilot', 'egs'))
+    p.add_argument('command', choices=('local', 'gate1', 'pilot', 'egs', 'export', 'analyse'))
     p.add_argument('--work', type=Path, default=DEFAULT_WORK)
     a = p.parse_args()
     from .gpu import p7
@@ -192,8 +284,15 @@ def main():
         r = getattr(p7, a.command)(a.work, data)
     elif a.command == 'pilot':
         r = pilot(a.work, data)
-    else:
+    elif a.command == 'egs':
         r = production_egs(a.work, data)
+    elif a.command == 'analyse':
+        r = analyse(a.work, data)
+    else:
+        r = export(a.work, data)
+        check = check_bundle_import(a.work/'export')
+        if check['status'] != 'pass':
+            raise h.Stop('bundle-only import failed: '+check['stderr'])
     print(json.dumps(dict(status=r.get('status'), checks={k: v['status'] for k, v in r['checks'].items()},
                           work=str(a.work)), ensure_ascii=False), flush=True)
 

@@ -109,7 +109,11 @@ def params(name):
 def identity(data,name):
     """Fingerprint of sources, inputs, geometry and condition. Launch tools are excluded (P5g/P6 lesson)."""
     k.frozen();base.check_inputs(data);c=condition(name)
-    if not np.array_equal(data['cum'],spectrum(c['spectrum'])[2]):raise Stop('inputs do not carry this condition spectrum')
+    # Locally the spectrum file is re-read; on Colab (no file) the input hashes in `inputs` are
+    # compared against the manifest written locally after this same check.
+    if SPECTRA[c['spectrum']]['path'].exists() and not np.array_equal(data['cum'],spectrum(c['spectrum'])[2]):
+        raise Stop('inputs do not carry this condition spectrum')
+    if len(data['cum'])!=c['nspec']:raise Stop('inputs do not carry this condition spectrum')
     return dict(condition=name,sources={n:base.file_sha(HERE/n) for n in (*j.KERNEL_SOURCES,*k.SOURCES,*SOURCES)},
                 inputs=base.describe(data),geometry=base.describe(geometry('p7')[1]),options=list(base.OPTIONS),params=params(name))
 
@@ -235,3 +239,66 @@ def resume(directory,ident,stage,name,N=None):
         if not re.fullmatch(r'batch_\d{3}\.npz',path.name):raise Stop('invalid checkpoint name')
         b=int(path.stem[-3:]);read_checkpoint(path,ident,stage,name,b,N);found[b]=path
     return found
+
+
+# ---- CPU/GPU comparisons (gates 2 and 3), generalised from P6 to the P7 layout ----
+
+def c2(cpu,gpu,dref,conversion,nspec):
+    """P6's c2: health, sources, RNG calls are pass/fail; region bin differences are report only."""
+    n=len(cpu['steps']);validate(cpu,True,n,nspec);validate(gpu,True,n,nspec)
+    a={x:cpu[x] for x in base.HISTORY_ORDER};b={x:gpu[x] for x in base.HISTORY_ORDER}
+    checks=dict(cpu_health=health(cpu),gpu_health=health(gpu),source=base.c2_source(a,b),calls=base.c2_calls(a,b))
+    delta=np.abs(cpu['sources']-gpu['sources'])
+    checks['field_source']=base.verdict(bool(np.all(delta<=1e-13)),max_abs=float(delta.max(initial=0)))
+    L=layout('p7');regions={}
+    for index,(off,size) in enumerate(zip(L['offsets'],L['sizes'])):
+        d=(gpu['regions'][:,off:off+size]-cpu['regions'][:,off:off+size])*conversion/L['volumes'][index]
+        regions[str(index)]=dict(status='report',paired=base.paired(d,dref),
+            bit_fraction=float(np.mean(base.bit_elements(cpu['regions'][:,off:off+size],gpu['regions'][:,off:off+size]))))
+    return base.verdict(all(v['status']=='pass' for v in checks.values()),checks=checks,
+                        legacy_bins=base.c2_bins(a,b,dref=dref,conversion=conversion),regions=regions)
+
+
+def c3(histories,production,nspec,*,region_additions):
+    n=len(histories['steps']);validate(histories,True,n,nspec);validate(production,False,nspec=nspec)
+    old=base.c3({x:histories[x] for x in base.HISTORY_ORDER},{x:production[x] for x in base.RUN_ORDER},nspec)
+    total=np.zeros((100,BINS));absolute=total.copy();rows=np.arange(n)*100//n
+    np.add.at(total,rows,histories['regions']);np.add.at(absolute,rows,np.abs(histories['regions']))
+    K=np.bincount(rows,minlength=100)[:,None]
+    if region_additions.shape!=total.shape or region_additions.dtype!=np.uint64:raise Stop('2c requires per-bin addition counts')
+    delta=np.abs(total-production['regions']);bound=(region_additions+K)*2**-52*absolute
+    ledger=base.bits(histories['region_ledger'].sum(0),production['region_ledger'])
+    finite=all(np.isfinite(v).all() for r in (histories,production) for v in r.values())
+    failures=int(np.count_nonzero(~(delta<=bound)))
+    return base.verdict(old['status']=='pass' and failures==0 and ledger and finite,legacy=old,region_exceeding=failures,ledger_exact=ledger,finite=finite)
+
+
+def stacked(rows,stage,name,N=None):
+    if len(rows)!=100:raise Stop('100 outer batches required')
+    vals=[reduced(r) for r in rows];c=contract(stage,name,N)
+    return dict(**{x:np.stack([v[x] for v in vals]) for x in vals[0]},N=np.array(c['n']*100),
+                nbatch=np.array(100),seed=np.array(c['seed']),starts=np.arange(100,dtype=np.int64)*c['n'],
+                ends=np.arange(1,101,dtype=np.int64)*c['n'],params=np.array(json.dumps(params(name),sort_keys=True)))
+
+
+def c4(reference,actual,dref,name):
+    """Gate 3: paired outer-batch differences (mean <= 0.5 %, SEM <= 0.2 % of Dref) on the legacy deep
+    blocks, the axis-box 5 cm blocks and the condition's central profile means."""
+    from .. import analysis_p7 as stats
+    s=stats.spec(condition(name)['field_half']);n=contract('gate3',name)['n']
+    left=stacked(reference,'gate3',name);right=stacked(actual,'gate3',name)
+    ld,rd=stats.dose(left,s),stats.dose(right,s)
+    legacy_left=np.stack([base.deep_blocks(r['batches'].sum(0),n,stats.MEV_TO_GY) for r in reference])
+    legacy_right=np.stack([base.deep_blocks(r['batches'].sum(0),n,stats.MEV_TO_GY) for r in actual])
+    box_left=np.stack([ld['axis_coarse'][:,lo:hi].mean(1) for lo,hi in stats.BLOCKS],axis=1)
+    box_right=np.stack([rd['axis_coarse'][:,lo:hi].mean(1) for lo,hi in stats.BLOCKS],axis=1)
+    fl,fr=stats.fold(ld['profile']),stats.fold(rd['profile'])
+    profile_left=np.stack([fl[:,j,:s['central'][j]].mean(1) for j in range(3)],axis=1)
+    profile_right=np.stack([fr[:,j,:s['central'][j]].mean(1) for j in range(3)],axis=1)
+    quantities={};passed=True
+    for label,a,b in (('legacy_deep',legacy_left,legacy_right),('axis_blocks',box_left,box_right),('profile_central',profile_left,profile_right)):
+        p=base.paired(b-a,dref);ok=(np.abs(p['mean_pct'])<=.5)&(np.array(p['SEM_pct'])<=.2)
+        quantities[label]=dict(p,passed=ok.tolist());passed &= bool(np.all(ok))
+    spectra=all(base.bits(a['nspec'],b['nspec']) for a,b in zip(reference,actual))
+    healthy=all(health(r)['status']=='pass' for r in reference+actual)
+    return base.verdict(passed and spectra and healthy,quantities=quantities,spectra_exact=spectra,healthy=healthy)
