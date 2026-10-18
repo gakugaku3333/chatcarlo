@@ -1,6 +1,6 @@
 # P7: 照射野の大きさとエネルギーを変えて、P6 と同じ 11 量を判定する
 
-- 状態: approved（2026-10-18、致命0のため取り決めにより Claude が承認。骨子1巡・詳細1巡。詳細: 致命0・実質4・軽微4、すべて反映。原本 `data/logs/codex_p7_review2.md`）
+- 状態: implemented（2026-10-18、3条件とも合格。結果は `docs/validation/mv/p7/RESULTS.md`。Codex の利用上限のためユーザーの指示で Claude が実装、判定のコードは Codex が3巡レビュー）。approved は 2026-10-18（致命0のため取り決めにより Claude が承認。骨子1巡・詳細1巡。詳細: 致命0・実質4・軽微4、すべて反映。原本 `data/logs/codex_p7_review2.md`）
 - 作成: 2026-10-18 / 計画: Claude / Codexレビュー: 1巡（骨子。致命0・実質4・軽微2・参考2、すべて反映。原本 `data/logs/codex_p7_review1.md`）
 - 上位の計画: [2026-10-18-mv-p6-gpu-field.md](2026-10-18-mv-p6-gpu-field.md)（P6、10 MV 10×10 cm² で合格）、[2026-10-13 P3b-3](2026-10-13-mv-p3b3-pilot-production-analysis.md)（判定と履歴数の決め方の原典）
 - 規模: 重（数値計算。照射野の端が採点範囲の外に出る、中心の範囲が照射野の外に入る、といった誤りは静かに数値をずらす）
