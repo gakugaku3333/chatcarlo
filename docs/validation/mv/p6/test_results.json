@@ -1,0 +1,49 @@
+{
+  "status": "stopped at gate 0b",
+  "commands": [
+    {
+      "command": ".venv/bin/python -m pytest tests/ -q",
+      "exit_code": 0,
+      "passed": 403,
+      "warnings": 2,
+      "seconds": 92.5
+    },
+    {
+      "command": ".venv/bin/python -m pytest prototypes/mv_electron/tests -q -k p6",
+      "exit_code": 1,
+      "passed": 20,
+      "failed": 1,
+      "deselected": 966,
+      "seconds": 21.84
+    },
+    {
+      "command": ".venv/bin/python -m prototypes.mv_electron.gpu.p6 local",
+      "exit_code": 1,
+      "reason": "PermissionError: mkdir ~/.cache/chatcarlo/p6; Operation not permitted"
+    },
+    {
+      "command": ".venv/bin/python -m prototypes.mv_electron.gpu.p6 local --work /private/tmp/chatcarlo-p6-20261018",
+      "exit_code": 1,
+      "reason": "0a pass; 0b fail, 17 bins exceed preregistered bound"
+    }
+  ],
+  "unexecuted": [
+    {
+      "command": ".venv/bin/python -m prototypes.mv_electron.gpu.p6 gate1",
+      "reason": "gate 0b failed; default ~/.cache output also not writable"
+    },
+    {
+      "command": ".venv/bin/python -m prototypes.mv_electron.gpu.p6 reference",
+      "reason": "gate 0b failed; default ~/.cache output also not writable"
+    },
+    {
+      "command": ".venv/bin/python -m prototypes.mv_electron.gpu.p6 export",
+      "reason": "gate 0b failed; default ~/.cache output also not writable"
+    }
+  ],
+  "deferred_by_user": [
+    "Colab T4 execution",
+    "production analysis (p6 analyse)"
+  ],
+  "frozen_files_changed": false
+}

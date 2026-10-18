@@ -1,0 +1,184 @@
+{
+  "status": "fail",
+  "rule": "各群・各ビン: |localを履歴順に加えた値−付与ごとに直接加えた値| <= 群内の履歴数 × 2^-52 × 絶対値の和",
+  "seed": 2026101801,
+  "histories": 321,
+  "deposits": 20000,
+  "groups": 100,
+  "region_sums_bitwise": true,
+  "exceeding_bins": 17,
+  "max_abs_difference_all_bins": 5.329070518200751e-15,
+  "inputs": {
+    "records": {
+      "shape": [
+        20000,
+        9
+      ],
+      "dtype": "float64",
+      "sha256": "4c5ffe36adde5ae4661c10a719c8a6f652cceaae5483aacfa109c7c0727c7244"
+    },
+    "histories": {
+      "shape": [
+        20000
+      ],
+      "dtype": "int64",
+      "sha256": "590a8e9b56330148b729aa419f1df39b2a2efe3418d1d6caab3dc05cddf61063"
+    }
+  },
+  "raw_evidence_path": "/private/tmp/chatcarlo-p6-20261018/sinks_failure.npz",
+  "failures": [
+    {
+      "group": 2,
+      "packed_bin": 497,
+      "group_value": 1.3185752476885664,
+      "local_reduced_value": 1.3185752476885673,
+      "difference": 8.881784197001252e-16,
+      "bound": 8.783475598107996e-16,
+      "ratio": 1.011192448569497
+    },
+    {
+      "group": 9,
+      "packed_bin": 464,
+      "group_value": 2.406008568752764,
+      "local_reduced_value": 2.4060085687527617,
+      "difference": 2.220446049250313e-15,
+      "bound": 2.136964888379788e-15,
+      "ratio": 1.0390652936435558
+    },
+    {
+      "group": 17,
+      "packed_bin": 452,
+      "group_value": 1.5915218460901177,
+      "local_reduced_value": 1.5915218460901188,
+      "difference": 1.1102230246251565e-15,
+      "bound": 1.0601665186339107e-15,
+      "ratio": 1.0472157016010528
+    },
+    {
+      "group": 21,
+      "packed_bin": 485,
+      "group_value": 2.5679179728738237,
+      "local_reduced_value": 2.5679179728738215,
+      "difference": 2.220446049250313e-15,
+      "bound": 1.7105769952999648e-15,
+      "ratio": 1.2980684618998621
+    },
+    {
+      "group": 25,
+      "packed_bin": 504,
+      "group_value": 2.5448374709338593,
+      "local_reduced_value": 2.5448374709338575,
+      "difference": 1.7763568394002505e-15,
+      "bound": 1.6952022924957727e-15,
+      "ratio": 1.0478730752451952
+    },
+    {
+      "group": 26,
+      "packed_bin": 502,
+      "group_value": 2.613911541232802,
+      "local_reduced_value": 2.6139115412328002,
+      "difference": 1.7763568394002505e-15,
+      "bound": 1.7412148664460503e-15,
+      "ratio": 1.020182444815629
+    },
+    {
+      "group": 36,
+      "packed_bin": 482,
+      "group_value": 2.371869519458105,
+      "local_reduced_value": 2.371869519458107,
+      "difference": 1.7763568394002505e-15,
+      "bound": 1.5799824911453977e-15,
+      "ratio": 1.124288939501154
+    },
+    {
+      "group": 41,
+      "packed_bin": 459,
+      "group_value": 2.8910695801176245,
+      "local_reduced_value": 2.8910695801176223,
+      "difference": 2.220446049250313e-15,
+      "bound": 1.9258392081839806e-15,
+      "ratio": 1.152975824676526
+    },
+    {
+      "group": 50,
+      "packed_bin": 492,
+      "group_value": 2.5440008602200734,
+      "local_reduced_value": 2.5440008602200717,
+      "difference": 1.7763568394002505e-15,
+      "bound": 1.6946449978095168e-15,
+      "ratio": 1.048217674909113
+    },
+    {
+      "group": 62,
+      "packed_bin": 468,
+      "group_value": 2.4318946335662455,
+      "local_reduced_value": 2.4318946335662472,
+      "difference": 1.7763568394002505e-15,
+      "bound": 1.6199672493885635e-15,
+      "ratio": 1.096538735626115
+    },
+    {
+      "group": 63,
+      "packed_bin": 509,
+      "group_value": 2.3528457494208044,
+      "local_reduced_value": 2.352845749420806,
+      "difference": 1.7763568394002505e-15,
+      "bound": 1.5673101146390462e-15,
+      "ratio": 1.1333792992265272
+    },
+    {
+      "group": 65,
+      "packed_bin": 506,
+      "group_value": 2.388557792178053,
+      "local_reduced_value": 2.3885577921780548,
+      "difference": 1.7763568394002505e-15,
+      "bound": 1.5910991139143435e-15,
+      "ratio": 1.1164338059557741
+    },
+    {
+      "group": 84,
+      "packed_bin": 458,
+      "group_value": 2.5474739331368315,
+      "local_reduced_value": 2.5474739331368297,
+      "difference": 1.7763568394002505e-15,
+      "bound": 1.6969585291205488e-15,
+      "ratio": 1.0467885979045404
+    },
+    {
+      "group": 84,
+      "packed_bin": 488,
+      "group_value": 1.2357588899989274,
+      "local_reduced_value": 1.2357588899989282,
+      "difference": 8.881784197001252e-16,
+      "bound": 8.231807835372217e-16,
+      "ratio": 1.0789591271599024
+    },
+    {
+      "group": 93,
+      "packed_bin": 441,
+      "group_value": 0.7388934215593431,
+      "local_reduced_value": 0.7388934215593426,
+      "difference": 5.551115123125783e-16,
+      "bound": 4.922018936155465e-16,
+      "ratio": 1.1278126303718974
+    },
+    {
+      "group": 98,
+      "packed_bin": 519,
+      "group_value": 1.2810500047045856,
+      "local_reduced_value": 1.2810500047045865,
+      "difference": 8.881784197001252e-16,
+      "bound": 8.533507265515182e-16,
+      "ratio": 1.0408128710329332
+    },
+    {
+      "group": 99,
+      "packed_bin": 485,
+      "group_value": 0.8145133232442375,
+      "local_reduced_value": 0.8145133232442381,
+      "difference": 5.551115123125783e-16,
+      "bound": 5.425748671978234e-16,
+      "ratio": 1.0231058345542274
+    }
+  ]
+}

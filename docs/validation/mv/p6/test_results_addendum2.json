@@ -1,0 +1,77 @@
+{
+  "date": "2026-10-18",
+  "basis": "2026-10-18-mv-p6-gpu-field.md 追補2",
+  "commands": [
+    {
+      "command": ".venv/bin/python -m pytest prototypes/mv_electron/tests -q -k p6",
+      "exit_code": 0,
+      "passed": 24,
+      "deselected": 966,
+      "seconds": 29.5,
+      "log": "data/p6_work/pytest_p6_addendum2.log"
+    },
+    {
+      "command": ".venv/bin/python -m prototypes.mv_electron.gpu.p6 local --work data/p6_work",
+      "exit_code": 0,
+      "status": "pass",
+      "checks": {
+        "0a": "pass",
+        "0b": "pass",
+        "0c": "pass",
+        "0d": "pass",
+        "0e": "pass"
+      },
+      "log": "data/p6_work/local_addendum2.log"
+    },
+    {
+      "command": ".venv/bin/python -m pytest tests/ -q",
+      "exit_code": 0,
+      "passed": 403,
+      "warnings": 2,
+      "seconds": 90.76,
+      "log": "data/p6_work/pytest_main_addendum2.log"
+    }
+  ],
+  "unexecuted": [
+    "gate1",
+    "reference",
+    "export",
+    "Colab",
+    "production",
+    "analyse"
+  ],
+  "verification": {
+    "tracked_count": 1916,
+    "tracked_changed": [],
+    "unchanged_sources": [
+      "prototypes/mv_electron/gpu/p6_gpu.cu",
+      "prototypes/mv_electron/gpu/p6_colab.py",
+      "prototypes/mv_electron/gpu/p6_core.py",
+      "prototypes/mv_electron/gpu/p6_kernel.h",
+      "prototypes/mv_electron/gpu/p6_colab.ipynb"
+    ],
+    "historical_reports_unchanged": [
+      "docs/validation/mv/p6/local_addendum1.json",
+      "docs/validation/mv/p6/sinks_diagnostic.json",
+      "docs/validation/mv/p6/test_results.json",
+      "docs/validation/mv/p6/test_results_addendum1.json",
+      "docs/validation/mv/p6/local.json",
+      "docs/validation/mv/p6/sinks_addendum1.json"
+    ],
+    "unchanged_functions": [
+      "reference",
+      "export",
+      "analyse",
+      "verify_saved",
+      "check_scorer",
+      "check_sinks"
+    ],
+    "local_0d_0e_unchanged": true,
+    "results_before_append_identical": true,
+    "results_append_only": true
+  },
+  "artifacts": {
+    "local_addendum2.json": "3ce7225973b64967fb87bfa6f6e4b4aa8e8a50db91732d582f0d102a4f5b7ee6",
+    "endpoint_addendum2.npz": "d513755358c47e208d50361c8643876a05c70a48c72a814ad46af6e71cee4eae"
+  }
+}

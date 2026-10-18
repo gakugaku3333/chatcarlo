@@ -1,0 +1,164 @@
+{
+  "amendment": "追補1",
+  "status": "stopped at gate 0c",
+  "commands": [
+    {
+      "command": ".venv/bin/python -m pytest prototypes/mv_electron/tests -q -k p6",
+      "exit_code": 0,
+      "passed": 23,
+      "deselected": 966,
+      "seconds": 25.33,
+      "log": "data/p6_work/pytest_p6_final.log"
+    },
+    {
+      "command": ".venv/bin/python -m pytest tests/ -q",
+      "exit_code": 0,
+      "passed": 403,
+      "warnings": 2,
+      "seconds": 91.1,
+      "log": "data/p6_work/pytest_main.log"
+    },
+    {
+      "command": ".venv/bin/python -m prototypes.mv_electron.gpu.p6 local --work data/p6_work",
+      "exit_code": 1,
+      "reason": "0c records failed",
+      "log": "data/p6_work/local.log"
+    }
+  ],
+  "local_checks": {
+    "0a": {
+      "status": "pass",
+      "randoms": 100000,
+      "edges": 33,
+      "outputs": [
+        "clip",
+        "score_box_bins",
+        "score_box_point",
+        "arrays"
+      ]
+    },
+    "0b": {
+      "status": "pass",
+      "region_sums_bitwise": true,
+      "histories": 321,
+      "deposits": 20000,
+      "bin_exceeding": 0,
+      "max_abs_difference": 5.329070518200751e-15,
+      "max_histories_per_group": 4,
+      "seed": 2026101801,
+      "inputs": {
+        "records": {
+          "shape": [
+            20000,
+            9
+          ],
+          "dtype": "float64",
+          "sha256": "4c5ffe36adde5ae4661c10a719c8a6f652cceaae5483aacfa109c7c0727c7244"
+        },
+        "histories": {
+          "shape": [
+            20000
+          ],
+          "dtype": "int64",
+          "sha256": "590a8e9b56330148b729aa419f1df39b2a2efe3418d1d6caab3dc05cddf61063"
+        }
+      },
+      "max_additions_per_bin": 79,
+      "bound_rule": "per-bin deposits in group * 2^-52 * sum_abs"
+    },
+    "0c": {
+      "status": "fail",
+      "deposits_bitwise": true,
+      "sources_bitwise": true,
+      "coverage": {
+        "1": 2,
+        "2": 3641,
+        "3": 1314408,
+        "4": 21004,
+        "5": 0
+      },
+      "cpp_meta": [
+        1339055,
+        0,
+        2000,
+        0
+      ],
+      "numba_deposit_overflow": 0,
+      "numba_source_overflow": 0,
+      "outputs": {
+        "status": "pass",
+        "fields": {
+          "coarse": true,
+          "fine": true,
+          "pair": true,
+          "kerma": true,
+          "collision_kerma": true,
+          "totals": true,
+          "maxima": true,
+          "violations": true,
+          "counts": true,
+          "maxdepth": true,
+          "nspec": true,
+          "lateral": true,
+          "steps": true,
+          "brems": true,
+          "first_record": true,
+          "region_ledger": true,
+          "axis_coarse": true,
+          "axis_fine": true,
+          "slab_coarse": true,
+          "profile": true,
+          "profile_fine": true
+        }
+      }
+    }
+  },
+  "unexecuted": {
+    "0d": "0c failed; ordered local gate stops unchanged",
+    "0e": "0c failed; ordered local gate stops unchanged",
+    "gate1": "user assigned to Claude",
+    "reference": "user assigned to Claude",
+    "export": "user assigned to Claude",
+    "GPU": "not run or CUDA-compiled",
+    "analyse": "not run"
+  },
+  "historical_records_bitwise": {
+    "sinks_diagnostic.json": true,
+    "local.json": true,
+    "test_results.json": true
+  },
+  "results_append_only": true,
+  "tracked_files_checked": 1916,
+  "tracked_files_changed": [],
+  "unchanged_functions": {
+    "p6.py": {
+      "scorer_vectors": true,
+      "check_scorer": true,
+      "numba_reference": true,
+      "local": true,
+      "gate1": true,
+      "reference": true,
+      "export": true,
+      "analyse": true
+    },
+    "p6_core.py": {
+      "health": true,
+      "c2": true,
+      "c4": true
+    }
+  },
+  "files": {
+    "local_addendum1.json": "3182886342a84960f60013ff9fc2e6fa830bb94c7588f78d7da1d5e955316637",
+    "sinks_addendum1.json": "3ed999443da86e12cf1269d76a3f425a3c492d9b73258ef4e9ea733f61a1a3d7"
+  },
+  "source_files": {
+    "prototypes/mv_electron/gpu/p6_cpu.cpp": "a5663ba5893874dd39c824178e6b472a2975049140688837b4a142338b0a0433",
+    "prototypes/mv_electron/gpu/p6_gpu.cu": "b47b487980bc88f0e74a26b601f6648af10b504ca7df7f95d1211425f5b777ed",
+    "prototypes/mv_electron/gpu/p6_colab.py": "d1ded9b7b3ffe74e49305498e1ecc0f1f1f5fe4a5da53a9da8b3dc4519b00a61",
+    "prototypes/mv_electron/gpu/p6_core.py": "8f9149c55150912b77d7d0795e82d6b528a395c0508f84848fbb3a4bc3f4edbf",
+    "prototypes/mv_electron/gpu/p6_field.h": "ee7da7dbf4d03f093af1000bd33430b32647073c5e81675bac0f221d0f86bdec",
+    "prototypes/mv_electron/gpu/p6_kernel.h": "0a4505a3707e8028984302d8c23e92552d71719e4e5dd7f8687211ac02d9c108",
+    "prototypes/mv_electron/gpu/p6_colab.ipynb": "96e93af1131e2e46f9eab1debfbd31be49d9e08a62023b3b0cbbc653ef9ac8e9",
+    "prototypes/mv_electron/gpu/p6.py": "468d39f22bf02402cfc15f50c25115f90526d3ebe35f2942128492853491f696"
+  }
+}
