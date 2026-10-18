@@ -51,7 +51,8 @@ def geometry():
 def identity(data):
     k.frozen();base.check_inputs(data)
     return dict(sources={n:base.file_sha(HERE/n) for n in (*j.KERNEL_SOURCES,*k.SOURCES,*SOURCES)},
-                tools={n:base.file_sha(HERE/n) for n in TOOLS},inputs=base.describe(data),
+                # Launch/measurement tools are not fingerprinted (P5g lesson; Colab rewrites the notebook).
+                inputs=base.describe(data),
                 geometry=base.describe(geometry()[1]),options=list(base.OPTIONS),params=PARAMS,
                 gate3=dict(seed=SEED,n=100000,batches=100),production=dict(seed=MAIN_SEED,n=460000,batches=100))
 

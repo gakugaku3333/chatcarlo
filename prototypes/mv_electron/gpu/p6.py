@@ -394,7 +394,7 @@ def export(work,data,destination=None):
     files.append(dest/'p6_reference.zip')
     for name in ('local.json','gate1.json'):
         shutil.copyfile(work/name,dest/name);files.append(dest/name)
-    shutil.copyfile(h.HERE/'p6_colab.ipynb',dest/'p6_colab.ipynb');files.append(dest/'p6_colab.ipynb')
+    shutil.copyfile(h.HERE/'p6_colab.ipynb',dest/'p6_colab.ipynb')  # not hashed: Colab saves outputs into it
     # Lock every saved comparison input now; analysis verifies these before computing comparisons.
     comparison_paths=[h.ROOT/'docs/validation/mv/p3b'/p for p in (
         'pilot_lock_p3b3.json','runs/main_proto/result.npz','runs/main_proto/config.json',
