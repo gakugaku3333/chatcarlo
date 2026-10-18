@@ -296,6 +296,9 @@ Work toward coupled photon/electron/positron transport for nominal 10 MV is unde
     **Browser steps are done by the user** (user decision 2026-10-17, to save tokens): Claude gives the Colab URL, "T4", "Run all"
     and the Drive permission (gmail account) in a few lines, then watches the synced Drive folder for results. Keep every Colab
     step a single "Run all". The Drive mount often times out while the permission is pending; rerunning "Run all" fixes it.
+    Large bundles (P7: ~750 MB) take minutes to upload: Colab started before the sync finished and stopped on a missing
+    `p7_inputs_A.npz` (2026-10-18). Name the files the user should see in the Drive folder and ask them to wait until all
+    are listed before "Run all" (the bundle check stops safely on a partial file, but the run is wasted).
 - P3b skeleton and user decisions (2026-10-12; implemented in P3b-1 to P3b-3):
   [docs/ai/plans/2026-10-12-mv-p3b-field-pdd-ocr.md](docs/ai/plans/2026-10-12-mv-p3b-field-pdd-ocr.md) — 10×10 cm² at the
   surface, divergent, 100 cm source-to-surface in vacuum, 2×2 cm axis box, profiles at 5/10/20 cm, depth bins 0.25 cm
