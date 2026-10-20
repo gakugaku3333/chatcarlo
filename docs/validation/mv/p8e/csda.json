@@ -1,0 +1,30 @@
+{
+  "status": "pass",
+  "values": [
+    {
+      "T_MeV": 0.1,
+      "actual_g_cm2": 0.031129095866542934,
+      "ESTAR_g_cm2": 0.03113,
+      "relative": -2.9043798813632726e-05
+    },
+    {
+      "T_MeV": 1.0,
+      "actual_g_cm2": 0.7842982131994803,
+      "ESTAR_g_cm2": 0.7843,
+      "relative": -2.2782105312257883e-06
+    },
+    {
+      "T_MeV": 10.0,
+      "actual_g_cm2": 6.132658333345848,
+      "ESTAR_g_cm2": 6.133000000000001,
+      "relative": -5.570954739164691e-05
+    }
+  ],
+  "bundle_sha256": "1186c4e304033dae26e62e7a4fe7195e024272fd2487b782c1eb917be2b1f8e8",
+  "lower_boundary": {
+    "T_MeV": 0.01,
+    "ESTAR_residual_g_cm2": 0.0008254999999999998,
+    "source_sha256": "4ad2db5864d919e77869c2f61e4dd4d7ae540382b0532705cf5b45ad1b3188b0"
+  },
+  "note": "stopping-integral consistency above 10 keV with the ESTAR residual-range boundary condition; no validation below cutoff or of lead transport"
+}

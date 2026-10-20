@@ -100,3 +100,7 @@ KERNELS={'p3t_slab':Kernel(slab_run,KEYS,slab_healthy,slab_fingerprint,slab_para
 # Field adapter stays light; transport and tables are imported inside its calls.
 from . import batch_kernels_p3b as field
 KERNELS['p3b_field']=Kernel(field.run,field.KEYS,field.healthy,field.fingerprint,field.check_params)
+
+# P8e imports only code; material files are read/verified by its adapter calls.
+from . import photon_transport_p8e as p8e
+KERNELS['p8e_stack']=Kernel(p8e.batch_run,p8e.KEYS,p8e.healthy,p8e.fingerprint,p8e.check_params)

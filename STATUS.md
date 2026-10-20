@@ -1,8 +1,8 @@
 ---
 phase: 開発中
-next: P8b の計画（材料ごとの 1 枚の板で EGS5 と比較。鉛の K・L 殻の蛍光 X 線を試作に足す）。Colab CLI の試験導入は提案カードあり
+next: P8e 合格（19/19）。次の段階をユーザーと決める（多材料の核の GPU 化、単体の板・後方散乱の検査、照射野つき不均質など）。抄録に P8e の結果を使えるか確認
 blocker: ELSEPAで作った表の配布の方法（表を置くか、生成スクリプトだけか）とリポジトリのLICENSEはユーザーの判断待ち。急がない
-updated: 2026-10-20
+updated: 2026-10-21
 ---
 
 治療領域拡張の段階の状況は [docs/validation/mv/STATUS.md](docs/validation/mv/STATUS.md)、常設ルールは

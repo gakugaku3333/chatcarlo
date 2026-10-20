@@ -1,0 +1,237 @@
+{
+  "N": 8564600,
+  "seed": 820003,
+  "layers": [
+    [
+      1,
+      5.0,
+      0.1
+    ],
+    [
+      2,
+      6.0,
+      0.1
+    ],
+    [
+      1,
+      4.0,
+      0.1
+    ],
+    [
+      3,
+      2.0,
+      0.1
+    ],
+    [
+      1,
+      4.0,
+      0.1
+    ],
+    [
+      4,
+      0.5,
+      0.05
+    ]
+  ],
+  "densities_g_cm3": [
+    1.0,
+    0.26,
+    1.85,
+    11.35
+  ],
+  "units": "MeV cm2/g/history",
+  "artifact": "/Users/oishifamily/Projects/viveMonte/docs/validation/mv/p8e/proto_production.npz",
+  "artifact_sha256": "1c8ae6c8ef13dbd248267fd8cdbf785d451801b0923a5cda1041791132ca56f7",
+  "complete_sha256": "c8d8fcab6fe2a33244f61c3a63b78d55605ce140c9a3419a272ba55b31844cae",
+  "fingerprint": {
+    "source_hashes": {
+      "photon_transport_p8e.py": "e20fb75b2bc2a829fee563aa3d2668daa27c2531320a99b85718824e1087262b",
+      "generate_fluorescence_p8e.py": "dad344f95e87304804c62e4737b2bfaeb93da1b79466387ddfaf8d237c324fcd",
+      "run_p8e.py": "e6a7e2816b2013fd6bd5b12e862cbb59fed92723dc79413d8645a6d1cf90eca3",
+      "materials_p8a.py": "9a74192e8c92677218271c2f963892ba731bcabbf5cf50e58760380279c4b0d3",
+      "pegs_p8a.py": "3f91b55356af874b331e9e7f46082c05482743a7f97cc521513a5d267104fbfa",
+      "physics.py": "9c0d21197acc5cb54a9fbb0f5fd3534c0638ed1cf54f0fecd2e9475d3a72b718",
+      "sampling.py": "1bc217fb327ce4e9b71b71e35b7fc486acffc40d09022e91c457f9d1e8b4da77",
+      "backend_sampling.py": "1c1442ddbd8f7bbc22e6c6e3e34567be60d2ddec1d181385ea4def807e85063c",
+      "photon_sampling_p2.py": "1451fe3ab29c40121edf6d20631317c2f1120c8dc9d5cc8388dc0a606cda2ac5",
+      "flight_annihilation_p2c.py": "8596585268e5d9fea2110f6ebe256f9a3769f6ea548ebd16d61c0863bd57c836",
+      "transport.py": "e2345a5782fe4e491fd1f051790f8c0a9a4abdd07743c6729d38e5f7c92efc19",
+      "bremsstrahlung_p3r.py": "694af96f544772a904173639a232d029dd9b2b24d3af525b966ebda4058769b7",
+      "photon_data_p2.py": "b76ca6c4ead288dded6f135b2f3968d1f0e1175eb952fcf661c1f8657ca99560",
+      "scoring_p3b.py": "589a0fcdccb5d9f1f7f8a7f4c234239db248dd5ddbe450bba2bd71f0ea957453",
+      "batch_runner_p3u.py": "d2d4b9510eb654a45d6092a5e4687c85dc1818ae22f84625a2922ebaa52eff82",
+      "batch_kernels_p3u.py": "d80f27194f7495eb6369bf149514359cd67ff6ac6a04e8ec4a71b3411966a0a2",
+      "docs/validation/mv/p1/data/metadata.json": "31b9e498cbf24601e67a0a6f79ec070806ab0fe236f509458e4873d681a5f20d"
+    },
+    "bundle_sha256": "1186c4e304033dae26e62e7a4fe7195e024272fd2487b782c1eb917be2b1f8e8",
+    "inputs": {
+      "lung_fluorescence.npz": "806913be371ca5ebecb29c55fcf47701d06e4ff6f47020d2a8ff2f6626b92504",
+      "lung_bundle.npz": "a490cd825c3494d4ae748adeefb51d772d8cb8ae0e7daec735c36529ed6ecafe",
+      "lead_bundle.npz": "f692ee7f0f81214a25bcb722af783c7bad66fe56c5b83bd7206642e10a711d1b",
+      "bone_bundle.npz": "f79e3655c1aa7cda50e758ddf44d121aa8826bef2b8b04efc41f426216179d00",
+      "water_bundle.npz": "0256d69c48b9530f3d3f204b1930869fcd9e8509493eb6dc038c737b00c86cbf",
+      "bone_fluorescence.npz": "0627283737f033895ed06cbcf75bc82b975280bc521c8e8f99f0c3a2c00c3a77",
+      "lead_fluorescence.npz": "4e52e0c15c2034897e9fb44db79dc2cf40d323351f7da0403f0bead986a08413",
+      "water_fluorescence.npz": "19c1601c4df938ee2b8debdd76a001e7a7e468484c2f0caaa8ac463d63235f7a"
+    },
+    "spectrum_sha256": "06fe2ba471dbfd64ca4305b5f1560479439ea4b565f993ecb21dcda86a6d8065",
+    "python": "3.11.13",
+    "numpy": "2.4.6",
+    "numba": "0.66.0",
+    "llvmlite": "0.48.0",
+    "scipy": "1.17.1",
+    "machine": "arm64"
+  },
+  "block_mean": [
+    0.06077499456962036,
+    0.0601820199508533,
+    0.05975624426547971,
+    0.05924685171852623,
+    0.05864928536662029,
+    0.05836139197363379,
+    0.05769254842318231,
+    0.05749156571139615,
+    0.05667441678783903,
+    0.05578990070224424,
+    0.05482818682941552,
+    0.0539451388090698,
+    0.05162775183531115,
+    0.049097666691082884,
+    0.04803486947033582,
+    0.04680690203223662,
+    0.04595831560349446,
+    0.05165441570577565,
+    0.05957541420885854
+  ],
+  "block_SEM": [
+    9.913135179159078e-05,
+    0.00010162899594195679,
+    0.00015489308340712094,
+    0.00013278780002695358,
+    0.00013691166684327787,
+    0.00015139059527010667,
+    0.00014069893676865722,
+    0.00014360939569045824,
+    0.00010399396761524054,
+    0.0001048965763959198,
+    0.00010761532940104774,
+    8.62671206046497e-05,
+    8.188220331379649e-05,
+    8.135159095371061e-05,
+    9.138734578028477e-05,
+    9.908499957486426e-05,
+    8.677510340037417e-05,
+    9.946082645065989e-05,
+    5.537431492518398e-05
+  ],
+  "wall_seconds": 11193.053680709098,
+  "energy_totals": [
+    23986651.112510536,
+    11156381.135372736,
+    12816549.655311672,
+    0.0,
+    13720.321826026518,
+    13720.321826026518
+  ],
+  "max_history_relative": 2.3167196577580043e-14,
+  "max_score_deposition_MeV": 1.9184653865522705e-13,
+  "boundary_count": [
+    791656,
+    12864,
+    390517,
+    75,
+    1451
+  ],
+  "omitted_small_strength_fraction": 0.016249482098285115,
+  "boundary_strength_histogram": [
+    0,
+    390517,
+    0,
+    1,
+    25,
+    237,
+    2336,
+    10265,
+    12560,
+    50737,
+    67120,
+    106621,
+    108570,
+    42070,
+    597,
+    0,
+    0,
+    0
+  ],
+  "boundary_strength_edges": [
+    0.0,
+    1e-12,
+    1e-10,
+    1e-08,
+    1e-06,
+    1e-05,
+    0.0001,
+    0.0005,
+    0.001,
+    0.003125,
+    0.00625,
+    0.0125,
+    0.025,
+    0.05,
+    0.1,
+    0.2,
+    1.0
+  ],
+  "omitted_boundary_strength_histogram": [
+    0,
+    0,
+    0,
+    1,
+    25,
+    237,
+    2336,
+    10265,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+  ],
+  "boundary_count_labels": [
+    "attempts",
+    "omitted_small_s",
+    "zero_s",
+    "terminal",
+    "reflections"
+  ],
+  "fluorescence_counts": [
+    3430926,
+    28027,
+    3402896,
+    3,
+    2028292,
+    27798,
+    2000494,
+    0
+  ],
+  "fluorescence_count_labels": [
+    "emitted",
+    "escaped",
+    "photoabsorbed",
+    "subcutoff_absorbed",
+    "K_emitted",
+    "K_escaped",
+    "K_photoabsorbed",
+    "K_subcutoff_absorbed"
+  ],
+  "approximations": [
+    "Auger/Coster-Kronig terminate locally without subsequent fluorescence",
+    "boundary scattering below the GS minimum strength is omitted"
+  ],
+  "speed_status": "report-only"
+}
