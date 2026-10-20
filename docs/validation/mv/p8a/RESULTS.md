@@ -2,7 +2,7 @@
 
 - 計画: [2026-10-19-mv-p8a-materials.md](../../../ai/plans/2026-10-19-mv-p8a-materials.md)（骨子は [P8](../../../ai/plans/2026-10-19-mv-p8-heterogeneity.md)）。追補1〜12 に、実行中に見つけた誤りと、ユーザーの決定を順に書いた。
 - 実装: スクリプトとテストは Codex、実行・PEGS5・EGS5・この記録は Claude。Claude が直した箇所は追補2・7・8 と下の「実行中の修正」。
-- 検査の結果: [checks.json](checks.json)（総合 `pass-with-recorded-omission`）。表と作業フォルダは `~/.cache/chatcarlo/p8a/`（リポジトリの外、約 1.9 GB。大半は ELSEPA）。
+- 検査の結果: [checks.json](checks.json)（総合 `pass-with-recorded-omission`）。表と作業フォルダは `~/.cache/chatcarlo/p8a/`（リポジトリの外、3.2 GB。ELSEPA 1.3 GB、S7 の EGS5 の作業フォルダ 1.3 GB。P8b で使う ELSEPA・材料の表以外は、P8a の検証が済んだら `scripts/archive_run.sh` で圧縮する予定）。
 
 ## 結論
 
@@ -64,7 +64,7 @@
 | 30 Zn | 4 | 4 | 2.1e-7 |
 | 82 Pb | 6 | 6 | 1.3e-6 |
 
-すべて TST ≤ 1e-4（許した条件）で、表と級数の全断面積の差は最大 0.16%、G1・G2 は 0.03% 以内。
+すべて TST ≤ 1e-4（許した条件）で、表と級数の全断面積の差は最大 0.16%、G1 は最大 0.032%、G2 は 0.0003%。
 
 ### そのほか
 
