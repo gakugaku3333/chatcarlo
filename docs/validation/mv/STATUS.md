@@ -49,6 +49,7 @@
 | P5l | 2026-10-18 | 不採用（F を超えず） | [RESULTS](p5/RESULTS_P5L.md) | GPU の高速化はここで一時停止（ユーザー決定） |
 | P6 | 2026-10-18 | 11 量すべて合格 | [RESULTS](p6/RESULTS.md)・[plan](../../ai/plans/2026-10-18-mv-p6-gpu-field.md) | 照射野の PDD/OCR を GPU で |
 | P7 | 2026-10-18 | 3 条件とも 11 量すべて合格 | [RESULTS](p7/RESULTS.md)・[plan](../../ai/plans/2026-10-18-mv-p7-field-energy-variants.md) | 5×5・20×20、4 MV |
+| P8a | 2026-10-20 | 材料の検査は合格（未実施 2 点を記録して許可）。蛍光の感度は未決 → ユーザー決定で試作に蛍光を足す | [RESULTS](p8a/RESULTS.md)・[plan](../../ai/plans/2026-10-19-mv-p8a-materials.md) | 肺 0.26・骨・鉛。蛍光で鉛の線量 −0.26 ± 0.06% |
 
 **現在（2026-10-19）**: P7 まで完了。GPU の合格構成は P5k の変種 F。GPU の高速化は一時停止中で、次の段階はユーザーと相談して決める。
 

@@ -1,0 +1,8 @@
+{
+  "url": "https://physics.nist.gov/cgi-bin/Star/e_table-t.pl",
+  "fields": {
+    "matno": "276",
+    "Energies": "20"
+  },
+  "sha256": "2c0e0f5ee0924c2d97e5aff36a75ea54f2c162675e789b0fccd7e3252ec38fb9"
+}

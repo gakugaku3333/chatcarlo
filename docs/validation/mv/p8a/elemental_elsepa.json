@@ -1,0 +1,2626 @@
+{
+  "z1_q-1.npz": {
+    "path": "/Users/oishifamily/.cache/chatcarlo/elsepa/p1f/tables/z1_q-1.npz",
+    "sha256": "025aa2030f698b844424d550af9d4c0dea4270a8297d486934dbf87de6a93508",
+    "source": "P1f T1",
+    "method": "reused without generation",
+    "units": "cm2/sr; MeV",
+    "shape": {
+      "dcs": [
+        51,
+        606
+      ],
+      "error": [
+        51,
+        606
+      ],
+      "series_xs": [
+        51,
+        3
+      ],
+      "series_available": [
+        51,
+        3
+      ],
+      "table_xs": [
+        51,
+        3
+      ],
+      "input_sha256": [
+        51
+      ],
+      "program_sha256": [
+        51
+      ],
+      "printed_energy_eV": [
+        51
+      ],
+      "convergence": [
+        51
+      ],
+      "IHEF": [],
+      "energy_MeV": [
+        51
+      ],
+      "theta_deg": [
+        606
+      ],
+      "mu": [
+        606
+      ],
+      "Z": [],
+      "charge": [],
+      "warnings": [
+        51
+      ],
+      "notices": [
+        51
+      ]
+    },
+    "material": "element",
+    "Z": 1,
+    "charge": -1
+  },
+  "z1_q1.npz": {
+    "path": "/Users/oishifamily/.cache/chatcarlo/elsepa/p1f/tables/z1_q1.npz",
+    "sha256": "88c3033ee5c47d97f3fc6a50bcef3d3665e86b511db38dbd34d270e17f0165f3",
+    "source": "P1f T1",
+    "method": "reused without generation",
+    "units": "cm2/sr; MeV",
+    "shape": {
+      "dcs": [
+        51,
+        606
+      ],
+      "error": [
+        51,
+        606
+      ],
+      "series_xs": [
+        51,
+        3
+      ],
+      "series_available": [
+        51,
+        3
+      ],
+      "table_xs": [
+        51,
+        3
+      ],
+      "input_sha256": [
+        51
+      ],
+      "program_sha256": [
+        51
+      ],
+      "printed_energy_eV": [
+        51
+      ],
+      "convergence": [
+        51
+      ],
+      "IHEF": [],
+      "energy_MeV": [
+        51
+      ],
+      "theta_deg": [
+        606
+      ],
+      "mu": [
+        606
+      ],
+      "Z": [],
+      "charge": [],
+      "warnings": [
+        51
+      ],
+      "notices": [
+        51
+      ]
+    },
+    "material": "element",
+    "Z": 1,
+    "charge": 1
+  },
+  "z6_q-1.npz": {
+    "path": "/Users/oishifamily/.cache/chatcarlo/p8a/elsepa/z6_q-1/z6_q-1.npz",
+    "sha256": "770dcf803a7d8ac7c4e32a361ae3f6c7f2be4ddca58998cfe64f53593bfddd46",
+    "source": "/Users/oishifamily/.cache/chatcarlo/p8a/elsepa/z6_q-1/generation.json",
+    "method": "two independent ELSEPA IHEF=0 passes",
+    "units": "cm2/sr; MeV",
+    "shape": {
+      "dcs": [
+        51,
+        606
+      ],
+      "error": [
+        51,
+        606
+      ],
+      "series_xs": [
+        51,
+        3
+      ],
+      "table_xs": [
+        51,
+        3
+      ],
+      "Z": [],
+      "charge": [],
+      "IHEF": [],
+      "energy_MeV": [
+        51
+      ],
+      "mu": [
+        606
+      ],
+      "theta_deg": [
+        606
+      ],
+      "warnings": [
+        51
+      ],
+      "notices": [
+        51
+      ]
+    },
+    "material": "element",
+    "Z": 6,
+    "charge": -1,
+    "direct": {
+      "path": "/Users/oishifamily/.cache/chatcarlo/p8a/elsepa/z6_q-1/direct.npz",
+      "sha256": "4c6505aaf3874cd0b6f3c32a0e1c6f803a285c4e6562da30436d1d1db11b216b",
+      "source": "/Users/oishifamily/.cache/chatcarlo/p8a/elsepa/z6_q-1/direct",
+      "method": "independent midpoints/probes",
+      "units": "cm2/sr; MeV",
+      "shape": {
+        "dcs": [
+          52,
+          606
+        ],
+        "error": [
+          52,
+          606
+        ],
+        "series_xs": [
+          52,
+          3
+        ],
+        "table_xs": [
+          52,
+          3
+        ],
+        "Z": [],
+        "charge": [],
+        "IHEF": [],
+        "energy_MeV": [
+          52
+        ],
+        "mu": [
+          606
+        ],
+        "theta_deg": [
+          606
+        ],
+        "warnings": [
+          52
+        ],
+        "notices": [
+          52
+        ]
+      },
+      "material": "element"
+    },
+    "direct_status": {
+      "path": "/Users/oishifamily/.cache/chatcarlo/p8a/elsepa/z6_q-1/direct_status.json",
+      "sha256": "4b076076a96117bc016d2d40cdbed662851d84ba976c6866bcbe651418e08574",
+      "source": "/Users/oishifamily/.cache/chatcarlo/p8a/elsepa/z6_q-1/direct",
+      "method": "appendix 4 coverage and timeouts",
+      "units": "MeV; count",
+      "shape": [],
+      "material": "element"
+    }
+  },
+  "z6_q1.npz": {
+    "path": "/Users/oishifamily/.cache/chatcarlo/p8a/elsepa/z6_q1/z6_q1.npz",
+    "sha256": "81bc1d837c364653e2958ece67a615ac1b97290aaf56c6a95ebee7e9a9c0a4f4",
+    "source": "/Users/oishifamily/.cache/chatcarlo/p8a/elsepa/z6_q1/generation.json",
+    "method": "two independent ELSEPA IHEF=0 passes",
+    "units": "cm2/sr; MeV",
+    "shape": {
+      "dcs": [
+        51,
+        606
+      ],
+      "error": [
+        51,
+        606
+      ],
+      "series_xs": [
+        51,
+        3
+      ],
+      "table_xs": [
+        51,
+        3
+      ],
+      "Z": [],
+      "charge": [],
+      "IHEF": [],
+      "energy_MeV": [
+        51
+      ],
+      "mu": [
+        606
+      ],
+      "theta_deg": [
+        606
+      ],
+      "warnings": [
+        51
+      ],
+      "notices": [
+        51
+      ]
+    },
+    "material": "element",
+    "Z": 6,
+    "charge": 1,
+    "direct": {
+      "path": "/Users/oishifamily/.cache/chatcarlo/p8a/elsepa/z6_q1/direct.npz",
+      "sha256": "b994db653de32a04e1410f68756c3f7c6ef31c00342f4c5e80405ffca916cd1d",
+      "source": "/Users/oishifamily/.cache/chatcarlo/p8a/elsepa/z6_q1/direct",
+      "method": "independent midpoints/probes",
+      "units": "cm2/sr; MeV",
+      "shape": {
+        "dcs": [
+          52,
+          606
+        ],
+        "error": [
+          52,
+          606
+        ],
+        "series_xs": [
+          52,
+          3
+        ],
+        "table_xs": [
+          52,
+          3
+        ],
+        "Z": [],
+        "charge": [],
+        "IHEF": [],
+        "energy_MeV": [
+          52
+        ],
+        "mu": [
+          606
+        ],
+        "theta_deg": [
+          606
+        ],
+        "warnings": [
+          52
+        ],
+        "notices": [
+          52
+        ]
+      },
+      "material": "element"
+    },
+    "direct_status": {
+      "path": "/Users/oishifamily/.cache/chatcarlo/p8a/elsepa/z6_q1/direct_status.json",
+      "sha256": "e22215f37e6a57d1a70c00551d5236ceec6cffc59f6bbebbeddd008c0531ec32",
+      "source": "/Users/oishifamily/.cache/chatcarlo/p8a/elsepa/z6_q1/direct",
+      "method": "appendix 4 coverage and timeouts",
+      "units": "MeV; count",
+      "shape": [],
+      "material": "element"
+    }
+  },
+  "z7_q-1.npz": {
+    "path": "/Users/oishifamily/.cache/chatcarlo/p8a/elsepa/z7_q-1/z7_q-1.npz",
+    "sha256": "834b7fa3ad0a6a7e94b707bcab644be5b32e474cd8484e9d2d2486c0f67b9c28",
+    "source": "/Users/oishifamily/.cache/chatcarlo/p8a/elsepa/z7_q-1/generation.json",
+    "method": "two independent ELSEPA IHEF=0 passes",
+    "units": "cm2/sr; MeV",
+    "shape": {
+      "dcs": [
+        51,
+        606
+      ],
+      "error": [
+        51,
+        606
+      ],
+      "series_xs": [
+        51,
+        3
+      ],
+      "table_xs": [
+        51,
+        3
+      ],
+      "Z": [],
+      "charge": [],
+      "IHEF": [],
+      "energy_MeV": [
+        51
+      ],
+      "mu": [
+        606
+      ],
+      "theta_deg": [
+        606
+      ],
+      "warnings": [
+        51
+      ],
+      "notices": [
+        51
+      ]
+    },
+    "material": "element",
+    "Z": 7,
+    "charge": -1,
+    "direct": {
+      "path": "/Users/oishifamily/.cache/chatcarlo/p8a/elsepa/z7_q-1/direct.npz",
+      "sha256": "6d1fd398d69f2157366d68cabe5346931f08ac5229579c1288c997d768b81d87",
+      "source": "/Users/oishifamily/.cache/chatcarlo/p8a/elsepa/z7_q-1/direct",
+      "method": "independent midpoints/probes",
+      "units": "cm2/sr; MeV",
+      "shape": {
+        "dcs": [
+          52,
+          606
+        ],
+        "error": [
+          52,
+          606
+        ],
+        "series_xs": [
+          52,
+          3
+        ],
+        "table_xs": [
+          52,
+          3
+        ],
+        "Z": [],
+        "charge": [],
+        "IHEF": [],
+        "energy_MeV": [
+          52
+        ],
+        "mu": [
+          606
+        ],
+        "theta_deg": [
+          606
+        ],
+        "warnings": [
+          52
+        ],
+        "notices": [
+          52
+        ]
+      },
+      "material": "element"
+    },
+    "direct_status": {
+      "path": "/Users/oishifamily/.cache/chatcarlo/p8a/elsepa/z7_q-1/direct_status.json",
+      "sha256": "c3b91b9c9f2ea2f57aca642574cd4418489ef4735bb4362b05c6bd7dd80289b7",
+      "source": "/Users/oishifamily/.cache/chatcarlo/p8a/elsepa/z7_q-1/direct",
+      "method": "appendix 4 coverage and timeouts",
+      "units": "MeV; count",
+      "shape": [],
+      "material": "element"
+    }
+  },
+  "z7_q1.npz": {
+    "path": "/Users/oishifamily/.cache/chatcarlo/p8a/elsepa/z7_q1/z7_q1.npz",
+    "sha256": "6122395bf0373bf33d16d792f1e381c2abf706a0d3fb4ab39a8df59e21eb2494",
+    "source": "/Users/oishifamily/.cache/chatcarlo/p8a/elsepa/z7_q1/generation.json",
+    "method": "two independent ELSEPA IHEF=0 passes",
+    "units": "cm2/sr; MeV",
+    "shape": {
+      "dcs": [
+        51,
+        606
+      ],
+      "error": [
+        51,
+        606
+      ],
+      "series_xs": [
+        51,
+        3
+      ],
+      "table_xs": [
+        51,
+        3
+      ],
+      "Z": [],
+      "charge": [],
+      "IHEF": [],
+      "energy_MeV": [
+        51
+      ],
+      "mu": [
+        606
+      ],
+      "theta_deg": [
+        606
+      ],
+      "warnings": [
+        51
+      ],
+      "notices": [
+        51
+      ]
+    },
+    "material": "element",
+    "Z": 7,
+    "charge": 1,
+    "direct": {
+      "path": "/Users/oishifamily/.cache/chatcarlo/p8a/elsepa/z7_q1/direct.npz",
+      "sha256": "d64b1623123c3e44abd31fdb4543fca716c515971934b53c7e84c5dc602e711d",
+      "source": "/Users/oishifamily/.cache/chatcarlo/p8a/elsepa/z7_q1/direct",
+      "method": "independent midpoints/probes",
+      "units": "cm2/sr; MeV",
+      "shape": {
+        "dcs": [
+          52,
+          606
+        ],
+        "error": [
+          52,
+          606
+        ],
+        "series_xs": [
+          52,
+          3
+        ],
+        "table_xs": [
+          52,
+          3
+        ],
+        "Z": [],
+        "charge": [],
+        "IHEF": [],
+        "energy_MeV": [
+          52
+        ],
+        "mu": [
+          606
+        ],
+        "theta_deg": [
+          606
+        ],
+        "warnings": [
+          52
+        ],
+        "notices": [
+          52
+        ]
+      },
+      "material": "element"
+    },
+    "direct_status": {
+      "path": "/Users/oishifamily/.cache/chatcarlo/p8a/elsepa/z7_q1/direct_status.json",
+      "sha256": "8c450ce00fc9461a27ce041fbed531ab6d62b5cd16f758cfe08d4541810c7506",
+      "source": "/Users/oishifamily/.cache/chatcarlo/p8a/elsepa/z7_q1/direct",
+      "method": "appendix 4 coverage and timeouts",
+      "units": "MeV; count",
+      "shape": [],
+      "material": "element"
+    }
+  },
+  "z8_q-1.npz": {
+    "path": "/Users/oishifamily/.cache/chatcarlo/elsepa/p1f/tables/z8_q-1.npz",
+    "sha256": "a1a520506eef00c38ab3793004654331f1741ac542fe2fea128228fe88b5c74a",
+    "source": "P1f T1",
+    "method": "reused without generation",
+    "units": "cm2/sr; MeV",
+    "shape": {
+      "dcs": [
+        51,
+        606
+      ],
+      "error": [
+        51,
+        606
+      ],
+      "series_xs": [
+        51,
+        3
+      ],
+      "series_available": [
+        51,
+        3
+      ],
+      "table_xs": [
+        51,
+        3
+      ],
+      "input_sha256": [
+        51
+      ],
+      "program_sha256": [
+        51
+      ],
+      "printed_energy_eV": [
+        51
+      ],
+      "convergence": [
+        51
+      ],
+      "IHEF": [],
+      "energy_MeV": [
+        51
+      ],
+      "theta_deg": [
+        606
+      ],
+      "mu": [
+        606
+      ],
+      "Z": [],
+      "charge": [],
+      "warnings": [
+        51
+      ],
+      "notices": [
+        51
+      ]
+    },
+    "material": "element",
+    "Z": 8,
+    "charge": -1
+  },
+  "z8_q1.npz": {
+    "path": "/Users/oishifamily/.cache/chatcarlo/elsepa/p1f/tables/z8_q1.npz",
+    "sha256": "bc615cec6c37dba736c0f04391512c57c8ecfbef2cc93a97b9a3deb602b3d853",
+    "source": "P1f T1",
+    "method": "reused without generation",
+    "units": "cm2/sr; MeV",
+    "shape": {
+      "dcs": [
+        51,
+        606
+      ],
+      "error": [
+        51,
+        606
+      ],
+      "series_xs": [
+        51,
+        3
+      ],
+      "series_available": [
+        51,
+        3
+      ],
+      "table_xs": [
+        51,
+        3
+      ],
+      "input_sha256": [
+        51
+      ],
+      "program_sha256": [
+        51
+      ],
+      "printed_energy_eV": [
+        51
+      ],
+      "convergence": [
+        51
+      ],
+      "IHEF": [],
+      "energy_MeV": [
+        51
+      ],
+      "theta_deg": [
+        606
+      ],
+      "mu": [
+        606
+      ],
+      "Z": [],
+      "charge": [],
+      "warnings": [
+        51
+      ],
+      "notices": [
+        51
+      ]
+    },
+    "material": "element",
+    "Z": 8,
+    "charge": 1
+  },
+  "z11_q-1.npz": {
+    "path": "/Users/oishifamily/.cache/chatcarlo/p8a/elsepa/z11_q-1/z11_q-1.npz",
+    "sha256": "3d48cfb1c209c94e5c588a68d01defc0362a99c8a266b3b837fa707aaab0f6ea",
+    "source": "/Users/oishifamily/.cache/chatcarlo/p8a/elsepa/z11_q-1/generation.json",
+    "method": "two independent ELSEPA IHEF=0 passes",
+    "units": "cm2/sr; MeV",
+    "shape": {
+      "dcs": [
+        51,
+        606
+      ],
+      "error": [
+        51,
+        606
+      ],
+      "series_xs": [
+        51,
+        3
+      ],
+      "table_xs": [
+        51,
+        3
+      ],
+      "Z": [],
+      "charge": [],
+      "IHEF": [],
+      "energy_MeV": [
+        51
+      ],
+      "mu": [
+        606
+      ],
+      "theta_deg": [
+        606
+      ],
+      "warnings": [
+        51
+      ],
+      "notices": [
+        51
+      ]
+    },
+    "material": "element",
+    "Z": 11,
+    "charge": -1,
+    "direct": {
+      "path": "/Users/oishifamily/.cache/chatcarlo/p8a/elsepa/z11_q-1/direct.npz",
+      "sha256": "ede69b5ff1fe2f2a84263429b8bfe84488067bd9b31558e9359c94adea28a11f",
+      "source": "/Users/oishifamily/.cache/chatcarlo/p8a/elsepa/z11_q-1/direct",
+      "method": "independent midpoints/probes",
+      "units": "cm2/sr; MeV",
+      "shape": {
+        "dcs": [
+          52,
+          606
+        ],
+        "error": [
+          52,
+          606
+        ],
+        "series_xs": [
+          52,
+          3
+        ],
+        "table_xs": [
+          52,
+          3
+        ],
+        "Z": [],
+        "charge": [],
+        "IHEF": [],
+        "energy_MeV": [
+          52
+        ],
+        "mu": [
+          606
+        ],
+        "theta_deg": [
+          606
+        ],
+        "warnings": [
+          52
+        ],
+        "notices": [
+          52
+        ]
+      },
+      "material": "element"
+    },
+    "direct_status": {
+      "path": "/Users/oishifamily/.cache/chatcarlo/p8a/elsepa/z11_q-1/direct_status.json",
+      "sha256": "bec291d09a4b3be14a1405a3a97be1c281e68751187d5077a2859306ee0ebf00",
+      "source": "/Users/oishifamily/.cache/chatcarlo/p8a/elsepa/z11_q-1/direct",
+      "method": "appendix 4 coverage and timeouts",
+      "units": "MeV; count",
+      "shape": [],
+      "material": "element"
+    }
+  },
+  "z11_q1.npz": {
+    "path": "/Users/oishifamily/.cache/chatcarlo/p8a/elsepa/z11_q1/z11_q1.npz",
+    "sha256": "f33e353eec4670080f29e0023b5138530f25e62f86e4d86a79bb3e0774056d57",
+    "source": "/Users/oishifamily/.cache/chatcarlo/p8a/elsepa/z11_q1/generation.json",
+    "method": "two independent ELSEPA IHEF=0 passes",
+    "units": "cm2/sr; MeV",
+    "shape": {
+      "dcs": [
+        51,
+        606
+      ],
+      "error": [
+        51,
+        606
+      ],
+      "series_xs": [
+        51,
+        3
+      ],
+      "table_xs": [
+        51,
+        3
+      ],
+      "Z": [],
+      "charge": [],
+      "IHEF": [],
+      "energy_MeV": [
+        51
+      ],
+      "mu": [
+        606
+      ],
+      "theta_deg": [
+        606
+      ],
+      "warnings": [
+        51
+      ],
+      "notices": [
+        51
+      ]
+    },
+    "material": "element",
+    "Z": 11,
+    "charge": 1,
+    "direct": {
+      "path": "/Users/oishifamily/.cache/chatcarlo/p8a/elsepa/z11_q1/direct.npz",
+      "sha256": "42256974b20de3b42f6dea623048d54e2d3f8c4bdc3ab9c46118afa9506235b4",
+      "source": "/Users/oishifamily/.cache/chatcarlo/p8a/elsepa/z11_q1/direct",
+      "method": "independent midpoints/probes",
+      "units": "cm2/sr; MeV",
+      "shape": {
+        "dcs": [
+          52,
+          606
+        ],
+        "error": [
+          52,
+          606
+        ],
+        "series_xs": [
+          52,
+          3
+        ],
+        "table_xs": [
+          52,
+          3
+        ],
+        "Z": [],
+        "charge": [],
+        "IHEF": [],
+        "energy_MeV": [
+          52
+        ],
+        "mu": [
+          606
+        ],
+        "theta_deg": [
+          606
+        ],
+        "warnings": [
+          52
+        ],
+        "notices": [
+          52
+        ]
+      },
+      "material": "element"
+    },
+    "direct_status": {
+      "path": "/Users/oishifamily/.cache/chatcarlo/p8a/elsepa/z11_q1/direct_status.json",
+      "sha256": "66896421cc3c37cfb0cdbd3946847dcdb17637c9376f6b22dcb751e4e3cbcb9e",
+      "source": "/Users/oishifamily/.cache/chatcarlo/p8a/elsepa/z11_q1/direct",
+      "method": "appendix 4 coverage and timeouts",
+      "units": "MeV; count",
+      "shape": [],
+      "material": "element"
+    }
+  },
+  "z12_q-1.npz": {
+    "path": "/Users/oishifamily/.cache/chatcarlo/p8a/elsepa/z12_q-1/z12_q-1.npz",
+    "sha256": "ea5843edd09274d4a0923137c92d2b82ceb615f8e588238e333468dcbe777ccc",
+    "source": "/Users/oishifamily/.cache/chatcarlo/p8a/elsepa/z12_q-1/generation.json",
+    "method": "two independent ELSEPA IHEF=0 passes",
+    "units": "cm2/sr; MeV",
+    "shape": {
+      "dcs": [
+        51,
+        606
+      ],
+      "error": [
+        51,
+        606
+      ],
+      "series_xs": [
+        51,
+        3
+      ],
+      "table_xs": [
+        51,
+        3
+      ],
+      "Z": [],
+      "charge": [],
+      "IHEF": [],
+      "energy_MeV": [
+        51
+      ],
+      "mu": [
+        606
+      ],
+      "theta_deg": [
+        606
+      ],
+      "warnings": [
+        51
+      ],
+      "notices": [
+        51
+      ]
+    },
+    "material": "element",
+    "Z": 12,
+    "charge": -1,
+    "direct": {
+      "path": "/Users/oishifamily/.cache/chatcarlo/p8a/elsepa/z12_q-1/direct.npz",
+      "sha256": "08d93879df13ed5ddddcb1db975e8d151c62b6d199a2721354f868cbf42bb203",
+      "source": "/Users/oishifamily/.cache/chatcarlo/p8a/elsepa/z12_q-1/direct",
+      "method": "independent midpoints/probes",
+      "units": "cm2/sr; MeV",
+      "shape": {
+        "dcs": [
+          52,
+          606
+        ],
+        "error": [
+          52,
+          606
+        ],
+        "series_xs": [
+          52,
+          3
+        ],
+        "table_xs": [
+          52,
+          3
+        ],
+        "Z": [],
+        "charge": [],
+        "IHEF": [],
+        "energy_MeV": [
+          52
+        ],
+        "mu": [
+          606
+        ],
+        "theta_deg": [
+          606
+        ],
+        "warnings": [
+          52
+        ],
+        "notices": [
+          52
+        ]
+      },
+      "material": "element"
+    },
+    "direct_status": {
+      "path": "/Users/oishifamily/.cache/chatcarlo/p8a/elsepa/z12_q-1/direct_status.json",
+      "sha256": "a229af6d359a3fe17cfbde707f25726133b46beecdb8e2fb741dfc47b6c6c00c",
+      "source": "/Users/oishifamily/.cache/chatcarlo/p8a/elsepa/z12_q-1/direct",
+      "method": "appendix 4 coverage and timeouts",
+      "units": "MeV; count",
+      "shape": [],
+      "material": "element"
+    }
+  },
+  "z12_q1.npz": {
+    "path": "/Users/oishifamily/.cache/chatcarlo/p8a/elsepa/z12_q1/z12_q1.npz",
+    "sha256": "352d910ace45fdd2576796c707504ace11540a08142a44c09502cd9bd76de4ad",
+    "source": "/Users/oishifamily/.cache/chatcarlo/p8a/elsepa/z12_q1/generation.json",
+    "method": "two independent ELSEPA IHEF=0 passes",
+    "units": "cm2/sr; MeV",
+    "shape": {
+      "dcs": [
+        51,
+        606
+      ],
+      "error": [
+        51,
+        606
+      ],
+      "series_xs": [
+        51,
+        3
+      ],
+      "table_xs": [
+        51,
+        3
+      ],
+      "Z": [],
+      "charge": [],
+      "IHEF": [],
+      "energy_MeV": [
+        51
+      ],
+      "mu": [
+        606
+      ],
+      "theta_deg": [
+        606
+      ],
+      "warnings": [
+        51
+      ],
+      "notices": [
+        51
+      ]
+    },
+    "material": "element",
+    "Z": 12,
+    "charge": 1,
+    "direct": {
+      "path": "/Users/oishifamily/.cache/chatcarlo/p8a/elsepa/z12_q1/direct.npz",
+      "sha256": "41c202b3ccca978eb64f4117ea816d54a7686ad2dbe009993d8f71c89652c9ed",
+      "source": "/Users/oishifamily/.cache/chatcarlo/p8a/elsepa/z12_q1/direct",
+      "method": "independent midpoints/probes",
+      "units": "cm2/sr; MeV",
+      "shape": {
+        "dcs": [
+          52,
+          606
+        ],
+        "error": [
+          52,
+          606
+        ],
+        "series_xs": [
+          52,
+          3
+        ],
+        "table_xs": [
+          52,
+          3
+        ],
+        "Z": [],
+        "charge": [],
+        "IHEF": [],
+        "energy_MeV": [
+          52
+        ],
+        "mu": [
+          606
+        ],
+        "theta_deg": [
+          606
+        ],
+        "warnings": [
+          52
+        ],
+        "notices": [
+          52
+        ]
+      },
+      "material": "element"
+    },
+    "direct_status": {
+      "path": "/Users/oishifamily/.cache/chatcarlo/p8a/elsepa/z12_q1/direct_status.json",
+      "sha256": "601b70668282683b7bc0d84eaf5b793d8004bbab498b089b07a937ed937b7cac",
+      "source": "/Users/oishifamily/.cache/chatcarlo/p8a/elsepa/z12_q1/direct",
+      "method": "appendix 4 coverage and timeouts",
+      "units": "MeV; count",
+      "shape": [],
+      "material": "element"
+    }
+  },
+  "z15_q-1.npz": {
+    "path": "/Users/oishifamily/.cache/chatcarlo/p8a/elsepa/z15_q-1/z15_q-1.npz",
+    "sha256": "f3c09b2673032beb42f0b50ad12dc2f2ed925ec098efab162e67226907027bd7",
+    "source": "/Users/oishifamily/.cache/chatcarlo/p8a/elsepa/z15_q-1/generation.json",
+    "method": "two independent ELSEPA IHEF=0 passes",
+    "units": "cm2/sr; MeV",
+    "shape": {
+      "dcs": [
+        51,
+        606
+      ],
+      "error": [
+        51,
+        606
+      ],
+      "series_xs": [
+        51,
+        3
+      ],
+      "table_xs": [
+        51,
+        3
+      ],
+      "Z": [],
+      "charge": [],
+      "IHEF": [],
+      "energy_MeV": [
+        51
+      ],
+      "mu": [
+        606
+      ],
+      "theta_deg": [
+        606
+      ],
+      "warnings": [
+        51
+      ],
+      "notices": [
+        51
+      ]
+    },
+    "material": "element",
+    "Z": 15,
+    "charge": -1,
+    "direct": {
+      "path": "/Users/oishifamily/.cache/chatcarlo/p8a/elsepa/z15_q-1/direct.npz",
+      "sha256": "7a2f72262482d729fddc70d3bdff0c9e6c94117a96b7727a1293196ecb5e5d53",
+      "source": "/Users/oishifamily/.cache/chatcarlo/p8a/elsepa/z15_q-1/direct",
+      "method": "independent midpoints/probes",
+      "units": "cm2/sr; MeV",
+      "shape": {
+        "dcs": [
+          52,
+          606
+        ],
+        "error": [
+          52,
+          606
+        ],
+        "series_xs": [
+          52,
+          3
+        ],
+        "table_xs": [
+          52,
+          3
+        ],
+        "Z": [],
+        "charge": [],
+        "IHEF": [],
+        "energy_MeV": [
+          52
+        ],
+        "mu": [
+          606
+        ],
+        "theta_deg": [
+          606
+        ],
+        "warnings": [
+          52
+        ],
+        "notices": [
+          52
+        ]
+      },
+      "material": "element"
+    },
+    "direct_status": {
+      "path": "/Users/oishifamily/.cache/chatcarlo/p8a/elsepa/z15_q-1/direct_status.json",
+      "sha256": "df7c215ae78ba1150400b142bb3771c0d3c9d8e9a867a3875e71bc849696d899",
+      "source": "/Users/oishifamily/.cache/chatcarlo/p8a/elsepa/z15_q-1/direct",
+      "method": "appendix 4 coverage and timeouts",
+      "units": "MeV; count",
+      "shape": [],
+      "material": "element"
+    }
+  },
+  "z15_q1.npz": {
+    "path": "/Users/oishifamily/.cache/chatcarlo/p8a/elsepa/z15_q1/z15_q1.npz",
+    "sha256": "2970c98de4314d88346b509b1b84400c0a6e84ff022d4ed16aca2b2c2b6d4ce0",
+    "source": "/Users/oishifamily/.cache/chatcarlo/p8a/elsepa/z15_q1/generation.json",
+    "method": "two independent ELSEPA IHEF=0 passes",
+    "units": "cm2/sr; MeV",
+    "shape": {
+      "dcs": [
+        51,
+        606
+      ],
+      "error": [
+        51,
+        606
+      ],
+      "series_xs": [
+        51,
+        3
+      ],
+      "table_xs": [
+        51,
+        3
+      ],
+      "Z": [],
+      "charge": [],
+      "IHEF": [],
+      "energy_MeV": [
+        51
+      ],
+      "mu": [
+        606
+      ],
+      "theta_deg": [
+        606
+      ],
+      "warnings": [
+        51
+      ],
+      "notices": [
+        51
+      ]
+    },
+    "material": "element",
+    "Z": 15,
+    "charge": 1,
+    "direct": {
+      "path": "/Users/oishifamily/.cache/chatcarlo/p8a/elsepa/z15_q1/direct.npz",
+      "sha256": "ab00fa24fd9d97181629f517af2741308bb7bcc42208356dee8f44cbc8b7eb3f",
+      "source": "/Users/oishifamily/.cache/chatcarlo/p8a/elsepa/z15_q1/direct",
+      "method": "independent midpoints/probes",
+      "units": "cm2/sr; MeV",
+      "shape": {
+        "dcs": [
+          52,
+          606
+        ],
+        "error": [
+          52,
+          606
+        ],
+        "series_xs": [
+          52,
+          3
+        ],
+        "table_xs": [
+          52,
+          3
+        ],
+        "Z": [],
+        "charge": [],
+        "IHEF": [],
+        "energy_MeV": [
+          52
+        ],
+        "mu": [
+          606
+        ],
+        "theta_deg": [
+          606
+        ],
+        "warnings": [
+          52
+        ],
+        "notices": [
+          52
+        ]
+      },
+      "material": "element"
+    },
+    "direct_status": {
+      "path": "/Users/oishifamily/.cache/chatcarlo/p8a/elsepa/z15_q1/direct_status.json",
+      "sha256": "571b2ffd5ec5f460904aae71b4e1ae197835a6608cddc3a4119ed2bef7b30452",
+      "source": "/Users/oishifamily/.cache/chatcarlo/p8a/elsepa/z15_q1/direct",
+      "method": "appendix 4 coverage and timeouts",
+      "units": "MeV; count",
+      "shape": [],
+      "material": "element"
+    }
+  },
+  "z16_q-1.npz": {
+    "path": "/Users/oishifamily/.cache/chatcarlo/p8a/elsepa/z16_q-1/z16_q-1.npz",
+    "sha256": "ee82bc3438b634c25959e83ea30e28c1802360ada6ec8be08d189e0372e1f512",
+    "source": "/Users/oishifamily/.cache/chatcarlo/p8a/elsepa/z16_q-1/generation.json",
+    "method": "two independent ELSEPA IHEF=0 passes",
+    "units": "cm2/sr; MeV",
+    "shape": {
+      "dcs": [
+        51,
+        606
+      ],
+      "error": [
+        51,
+        606
+      ],
+      "series_xs": [
+        51,
+        3
+      ],
+      "table_xs": [
+        51,
+        3
+      ],
+      "Z": [],
+      "charge": [],
+      "IHEF": [],
+      "energy_MeV": [
+        51
+      ],
+      "mu": [
+        606
+      ],
+      "theta_deg": [
+        606
+      ],
+      "warnings": [
+        51
+      ],
+      "notices": [
+        51
+      ]
+    },
+    "material": "element",
+    "Z": 16,
+    "charge": -1,
+    "direct": {
+      "path": "/Users/oishifamily/.cache/chatcarlo/p8a/elsepa/z16_q-1/direct.npz",
+      "sha256": "0fe03b4f3e4b389f3018de4af7d88d5a44d8b45a8e89f16de219402d0ca7604e",
+      "source": "/Users/oishifamily/.cache/chatcarlo/p8a/elsepa/z16_q-1/direct",
+      "method": "independent midpoints/probes",
+      "units": "cm2/sr; MeV",
+      "shape": {
+        "dcs": [
+          52,
+          606
+        ],
+        "error": [
+          52,
+          606
+        ],
+        "series_xs": [
+          52,
+          3
+        ],
+        "table_xs": [
+          52,
+          3
+        ],
+        "Z": [],
+        "charge": [],
+        "IHEF": [],
+        "energy_MeV": [
+          52
+        ],
+        "mu": [
+          606
+        ],
+        "theta_deg": [
+          606
+        ],
+        "warnings": [
+          52
+        ],
+        "notices": [
+          52
+        ]
+      },
+      "material": "element"
+    },
+    "direct_status": {
+      "path": "/Users/oishifamily/.cache/chatcarlo/p8a/elsepa/z16_q-1/direct_status.json",
+      "sha256": "4f6d23f65d58f51c8281c0eae0554fc0daa8080229c574669263ecf72f88e02e",
+      "source": "/Users/oishifamily/.cache/chatcarlo/p8a/elsepa/z16_q-1/direct",
+      "method": "appendix 4 coverage and timeouts",
+      "units": "MeV; count",
+      "shape": [],
+      "material": "element"
+    }
+  },
+  "z16_q1.npz": {
+    "path": "/Users/oishifamily/.cache/chatcarlo/p8a/elsepa/z16_q1/z16_q1.npz",
+    "sha256": "977d34b0b6375851f1b74f194af65f65d0eaa5a2496d3cc7e0ae8e4c3aa94481",
+    "source": "/Users/oishifamily/.cache/chatcarlo/p8a/elsepa/z16_q1/generation.json",
+    "method": "two independent ELSEPA IHEF=0 passes",
+    "units": "cm2/sr; MeV",
+    "shape": {
+      "dcs": [
+        51,
+        606
+      ],
+      "error": [
+        51,
+        606
+      ],
+      "series_xs": [
+        51,
+        3
+      ],
+      "table_xs": [
+        51,
+        3
+      ],
+      "Z": [],
+      "charge": [],
+      "IHEF": [],
+      "energy_MeV": [
+        51
+      ],
+      "mu": [
+        606
+      ],
+      "theta_deg": [
+        606
+      ],
+      "warnings": [
+        51
+      ],
+      "notices": [
+        51
+      ]
+    },
+    "material": "element",
+    "Z": 16,
+    "charge": 1,
+    "direct": {
+      "path": "/Users/oishifamily/.cache/chatcarlo/p8a/elsepa/z16_q1/direct.npz",
+      "sha256": "b191a55dbeba0efeca91eb0b8a00cab31ab71d86dab1d838237c8c271571f24f",
+      "source": "/Users/oishifamily/.cache/chatcarlo/p8a/elsepa/z16_q1/direct",
+      "method": "independent midpoints/probes",
+      "units": "cm2/sr; MeV",
+      "shape": {
+        "dcs": [
+          52,
+          606
+        ],
+        "error": [
+          52,
+          606
+        ],
+        "series_xs": [
+          52,
+          3
+        ],
+        "table_xs": [
+          52,
+          3
+        ],
+        "Z": [],
+        "charge": [],
+        "IHEF": [],
+        "energy_MeV": [
+          52
+        ],
+        "mu": [
+          606
+        ],
+        "theta_deg": [
+          606
+        ],
+        "warnings": [
+          52
+        ],
+        "notices": [
+          52
+        ]
+      },
+      "material": "element"
+    },
+    "direct_status": {
+      "path": "/Users/oishifamily/.cache/chatcarlo/p8a/elsepa/z16_q1/direct_status.json",
+      "sha256": "7d54ef51946dedb142bd8ddd05c515b38bf59a2efed93a0e14706f248f7b6649",
+      "source": "/Users/oishifamily/.cache/chatcarlo/p8a/elsepa/z16_q1/direct",
+      "method": "appendix 4 coverage and timeouts",
+      "units": "MeV; count",
+      "shape": [],
+      "material": "element"
+    }
+  },
+  "z17_q-1.npz": {
+    "path": "/Users/oishifamily/.cache/chatcarlo/p8a/elsepa/z17_q-1/z17_q-1.npz",
+    "sha256": "1e58d87ce5d1122c36c2eb3b8e6b6259d1a4753dbc88b82119d4cb702542b1a9",
+    "source": "/Users/oishifamily/.cache/chatcarlo/p8a/elsepa/z17_q-1/generation.json",
+    "method": "two independent ELSEPA IHEF=0 passes",
+    "units": "cm2/sr; MeV",
+    "shape": {
+      "dcs": [
+        51,
+        606
+      ],
+      "error": [
+        51,
+        606
+      ],
+      "series_xs": [
+        51,
+        3
+      ],
+      "table_xs": [
+        51,
+        3
+      ],
+      "Z": [],
+      "charge": [],
+      "IHEF": [],
+      "energy_MeV": [
+        51
+      ],
+      "mu": [
+        606
+      ],
+      "theta_deg": [
+        606
+      ],
+      "warnings": [
+        51
+      ],
+      "notices": [
+        51
+      ]
+    },
+    "material": "element",
+    "Z": 17,
+    "charge": -1,
+    "direct": {
+      "path": "/Users/oishifamily/.cache/chatcarlo/p8a/elsepa/z17_q-1/direct.npz",
+      "sha256": "4be5d8ff73cac0e31455762d8f644cdab9d8c76d8b4295a50111d73a890f7875",
+      "source": "/Users/oishifamily/.cache/chatcarlo/p8a/elsepa/z17_q-1/direct",
+      "method": "independent midpoints/probes",
+      "units": "cm2/sr; MeV",
+      "shape": {
+        "dcs": [
+          52,
+          606
+        ],
+        "error": [
+          52,
+          606
+        ],
+        "series_xs": [
+          52,
+          3
+        ],
+        "table_xs": [
+          52,
+          3
+        ],
+        "Z": [],
+        "charge": [],
+        "IHEF": [],
+        "energy_MeV": [
+          52
+        ],
+        "mu": [
+          606
+        ],
+        "theta_deg": [
+          606
+        ],
+        "warnings": [
+          52
+        ],
+        "notices": [
+          52
+        ]
+      },
+      "material": "element"
+    },
+    "direct_status": {
+      "path": "/Users/oishifamily/.cache/chatcarlo/p8a/elsepa/z17_q-1/direct_status.json",
+      "sha256": "1895f26efc12458077870ae045f3484b3f26998e63066939d864c59c9b8591be",
+      "source": "/Users/oishifamily/.cache/chatcarlo/p8a/elsepa/z17_q-1/direct",
+      "method": "appendix 4 coverage and timeouts",
+      "units": "MeV; count",
+      "shape": [],
+      "material": "element"
+    }
+  },
+  "z17_q1.npz": {
+    "path": "/Users/oishifamily/.cache/chatcarlo/p8a/elsepa/z17_q1/z17_q1.npz",
+    "sha256": "08a9e1634ba231951bf276a8f313cba4088f1dde9b3a21395529a1211aadb23d",
+    "source": "/Users/oishifamily/.cache/chatcarlo/p8a/elsepa/z17_q1/generation.json",
+    "method": "two independent ELSEPA IHEF=0 passes",
+    "units": "cm2/sr; MeV",
+    "shape": {
+      "dcs": [
+        51,
+        606
+      ],
+      "error": [
+        51,
+        606
+      ],
+      "series_xs": [
+        51,
+        3
+      ],
+      "table_xs": [
+        51,
+        3
+      ],
+      "Z": [],
+      "charge": [],
+      "IHEF": [],
+      "energy_MeV": [
+        51
+      ],
+      "mu": [
+        606
+      ],
+      "theta_deg": [
+        606
+      ],
+      "warnings": [
+        51
+      ],
+      "notices": [
+        51
+      ]
+    },
+    "material": "element",
+    "Z": 17,
+    "charge": 1,
+    "direct": {
+      "path": "/Users/oishifamily/.cache/chatcarlo/p8a/elsepa/z17_q1/direct.npz",
+      "sha256": "0761a619eff3d97251ba4e0f4b8364d68eec894b4fceb24c8fa8f8233d5dcd85",
+      "source": "/Users/oishifamily/.cache/chatcarlo/p8a/elsepa/z17_q1/direct",
+      "method": "independent midpoints/probes",
+      "units": "cm2/sr; MeV",
+      "shape": {
+        "dcs": [
+          51,
+          606
+        ],
+        "error": [
+          51,
+          606
+        ],
+        "series_xs": [
+          51,
+          3
+        ],
+        "table_xs": [
+          51,
+          3
+        ],
+        "Z": [],
+        "charge": [],
+        "IHEF": [],
+        "energy_MeV": [
+          51
+        ],
+        "mu": [
+          606
+        ],
+        "theta_deg": [
+          606
+        ],
+        "warnings": [
+          51
+        ],
+        "notices": [
+          51
+        ]
+      },
+      "material": "element"
+    },
+    "direct_status": {
+      "path": "/Users/oishifamily/.cache/chatcarlo/p8a/elsepa/z17_q1/direct_status.json",
+      "sha256": "4309edf397d7af607d3a4ab6732d60a143ffc87f243b10608b3649bbf6d4c2ce",
+      "source": "/Users/oishifamily/.cache/chatcarlo/p8a/elsepa/z17_q1/direct",
+      "method": "appendix 4 coverage and timeouts",
+      "units": "MeV; count",
+      "shape": [],
+      "material": "element"
+    }
+  },
+  "z19_q-1.npz": {
+    "path": "/Users/oishifamily/.cache/chatcarlo/p8a/elsepa/z19_q-1/z19_q-1.npz",
+    "sha256": "7f6f6265c9a725ff1c0175fc278e99e8a6fb8b47a36e3f300d1a03906159797d",
+    "source": "/Users/oishifamily/.cache/chatcarlo/p8a/elsepa/z19_q-1/generation.json",
+    "method": "two independent ELSEPA IHEF=0 passes",
+    "units": "cm2/sr; MeV",
+    "shape": {
+      "dcs": [
+        51,
+        606
+      ],
+      "error": [
+        51,
+        606
+      ],
+      "series_xs": [
+        51,
+        3
+      ],
+      "table_xs": [
+        51,
+        3
+      ],
+      "Z": [],
+      "charge": [],
+      "IHEF": [],
+      "energy_MeV": [
+        51
+      ],
+      "mu": [
+        606
+      ],
+      "theta_deg": [
+        606
+      ],
+      "warnings": [
+        51
+      ],
+      "notices": [
+        51
+      ]
+    },
+    "material": "element",
+    "Z": 19,
+    "charge": -1,
+    "direct": {
+      "path": "/Users/oishifamily/.cache/chatcarlo/p8a/elsepa/z19_q-1/direct.npz",
+      "sha256": "44bb5ea415c922f3374c8f6352e17fa69ce62d717e039d5f4d5a95877447ddf3",
+      "source": "/Users/oishifamily/.cache/chatcarlo/p8a/elsepa/z19_q-1/direct",
+      "method": "independent midpoints/probes",
+      "units": "cm2/sr; MeV",
+      "shape": {
+        "dcs": [
+          52,
+          606
+        ],
+        "error": [
+          52,
+          606
+        ],
+        "series_xs": [
+          52,
+          3
+        ],
+        "table_xs": [
+          52,
+          3
+        ],
+        "Z": [],
+        "charge": [],
+        "IHEF": [],
+        "energy_MeV": [
+          52
+        ],
+        "mu": [
+          606
+        ],
+        "theta_deg": [
+          606
+        ],
+        "warnings": [
+          52
+        ],
+        "notices": [
+          52
+        ]
+      },
+      "material": "element"
+    },
+    "direct_status": {
+      "path": "/Users/oishifamily/.cache/chatcarlo/p8a/elsepa/z19_q-1/direct_status.json",
+      "sha256": "25137b7393cb6b13e35d86c87775eb28a8f623da9e798907afa24fa95d901d1d",
+      "source": "/Users/oishifamily/.cache/chatcarlo/p8a/elsepa/z19_q-1/direct",
+      "method": "appendix 4 coverage and timeouts",
+      "units": "MeV; count",
+      "shape": [],
+      "material": "element"
+    }
+  },
+  "z19_q1.npz": {
+    "path": "/Users/oishifamily/.cache/chatcarlo/p8a/elsepa/z19_q1/z19_q1.npz",
+    "sha256": "f6d39e9301eb4ba12e32c808f783fce422c371f17ab2a0c51b33c9e6ef34bb87",
+    "source": "/Users/oishifamily/.cache/chatcarlo/p8a/elsepa/z19_q1/generation.json",
+    "method": "two independent ELSEPA IHEF=0 passes",
+    "units": "cm2/sr; MeV",
+    "shape": {
+      "dcs": [
+        51,
+        606
+      ],
+      "error": [
+        51,
+        606
+      ],
+      "series_xs": [
+        51,
+        3
+      ],
+      "table_xs": [
+        51,
+        3
+      ],
+      "Z": [],
+      "charge": [],
+      "IHEF": [],
+      "energy_MeV": [
+        51
+      ],
+      "mu": [
+        606
+      ],
+      "theta_deg": [
+        606
+      ],
+      "warnings": [
+        51
+      ],
+      "notices": [
+        51
+      ]
+    },
+    "material": "element",
+    "Z": 19,
+    "charge": 1,
+    "direct": {
+      "path": "/Users/oishifamily/.cache/chatcarlo/p8a/elsepa/z19_q1/direct.npz",
+      "sha256": "f63a85220d4a2fc5fb01ac7ada3a8ea980e8853da62c2436be26f721a721d80d",
+      "source": "/Users/oishifamily/.cache/chatcarlo/p8a/elsepa/z19_q1/direct",
+      "method": "independent midpoints/probes",
+      "units": "cm2/sr; MeV",
+      "shape": {
+        "dcs": [
+          52,
+          606
+        ],
+        "error": [
+          52,
+          606
+        ],
+        "series_xs": [
+          52,
+          3
+        ],
+        "table_xs": [
+          52,
+          3
+        ],
+        "Z": [],
+        "charge": [],
+        "IHEF": [],
+        "energy_MeV": [
+          52
+        ],
+        "mu": [
+          606
+        ],
+        "theta_deg": [
+          606
+        ],
+        "warnings": [
+          52
+        ],
+        "notices": [
+          52
+        ]
+      },
+      "material": "element"
+    },
+    "direct_status": {
+      "path": "/Users/oishifamily/.cache/chatcarlo/p8a/elsepa/z19_q1/direct_status.json",
+      "sha256": "68c6a3d7b022da2433a08a5e9213b6b01f48acf1cd9019fce8be6a80234581e9",
+      "source": "/Users/oishifamily/.cache/chatcarlo/p8a/elsepa/z19_q1/direct",
+      "method": "appendix 4 coverage and timeouts",
+      "units": "MeV; count",
+      "shape": [],
+      "material": "element"
+    }
+  },
+  "z20_q-1.npz": {
+    "path": "/Users/oishifamily/.cache/chatcarlo/p8a/elsepa/z20_q-1/z20_q-1.npz",
+    "sha256": "560aad6a2841818590d04ce02b3443dcf617b8d21ffca2326fd0287363f8059c",
+    "source": "/Users/oishifamily/.cache/chatcarlo/p8a/elsepa/z20_q-1/generation.json",
+    "method": "two independent ELSEPA IHEF=0 passes",
+    "units": "cm2/sr; MeV",
+    "shape": {
+      "dcs": [
+        51,
+        606
+      ],
+      "error": [
+        51,
+        606
+      ],
+      "series_xs": [
+        51,
+        3
+      ],
+      "table_xs": [
+        51,
+        3
+      ],
+      "Z": [],
+      "charge": [],
+      "IHEF": [],
+      "energy_MeV": [
+        51
+      ],
+      "mu": [
+        606
+      ],
+      "theta_deg": [
+        606
+      ],
+      "warnings": [
+        51
+      ],
+      "notices": [
+        51
+      ]
+    },
+    "material": "element",
+    "Z": 20,
+    "charge": -1,
+    "direct": {
+      "path": "/Users/oishifamily/.cache/chatcarlo/p8a/elsepa/z20_q-1/direct.npz",
+      "sha256": "33dd5a4a60a5814a7b0de97080a661c24e1da0a27d8ea41b6abdb2165e925a06",
+      "source": "/Users/oishifamily/.cache/chatcarlo/p8a/elsepa/z20_q-1/direct",
+      "method": "independent midpoints/probes",
+      "units": "cm2/sr; MeV",
+      "shape": {
+        "dcs": [
+          52,
+          606
+        ],
+        "error": [
+          52,
+          606
+        ],
+        "series_xs": [
+          52,
+          3
+        ],
+        "table_xs": [
+          52,
+          3
+        ],
+        "Z": [],
+        "charge": [],
+        "IHEF": [],
+        "energy_MeV": [
+          52
+        ],
+        "mu": [
+          606
+        ],
+        "theta_deg": [
+          606
+        ],
+        "warnings": [
+          52
+        ],
+        "notices": [
+          52
+        ]
+      },
+      "material": "element"
+    },
+    "direct_status": {
+      "path": "/Users/oishifamily/.cache/chatcarlo/p8a/elsepa/z20_q-1/direct_status.json",
+      "sha256": "32c8e7eb473d9f3a4a48e49aba3fbb23bf63e076e9db73d8389858a799dcb355",
+      "source": "/Users/oishifamily/.cache/chatcarlo/p8a/elsepa/z20_q-1/direct",
+      "method": "appendix 4 coverage and timeouts",
+      "units": "MeV; count",
+      "shape": [],
+      "material": "element"
+    }
+  },
+  "z20_q1.npz": {
+    "path": "/Users/oishifamily/.cache/chatcarlo/p8a/elsepa/z20_q1/z20_q1.npz",
+    "sha256": "29aeec18010404215d8ee041bc27017981bad8f821ab633af920a4cb925665f6",
+    "source": "/Users/oishifamily/.cache/chatcarlo/p8a/elsepa/z20_q1/generation.json",
+    "method": "two independent ELSEPA IHEF=0 passes",
+    "units": "cm2/sr; MeV",
+    "shape": {
+      "dcs": [
+        51,
+        606
+      ],
+      "error": [
+        51,
+        606
+      ],
+      "series_xs": [
+        51,
+        3
+      ],
+      "table_xs": [
+        51,
+        3
+      ],
+      "Z": [],
+      "charge": [],
+      "IHEF": [],
+      "energy_MeV": [
+        51
+      ],
+      "mu": [
+        606
+      ],
+      "theta_deg": [
+        606
+      ],
+      "warnings": [
+        51
+      ],
+      "notices": [
+        51
+      ]
+    },
+    "material": "element",
+    "Z": 20,
+    "charge": 1,
+    "direct": {
+      "path": "/Users/oishifamily/.cache/chatcarlo/p8a/elsepa/z20_q1/direct.npz",
+      "sha256": "4c798db10e8836368e2a5618aa3835abf31a4a1b310ad4975cc2a62d67ed5443",
+      "source": "/Users/oishifamily/.cache/chatcarlo/p8a/elsepa/z20_q1/direct",
+      "method": "independent midpoints/probes",
+      "units": "cm2/sr; MeV",
+      "shape": {
+        "dcs": [
+          51,
+          606
+        ],
+        "error": [
+          51,
+          606
+        ],
+        "series_xs": [
+          51,
+          3
+        ],
+        "table_xs": [
+          51,
+          3
+        ],
+        "Z": [],
+        "charge": [],
+        "IHEF": [],
+        "energy_MeV": [
+          51
+        ],
+        "mu": [
+          606
+        ],
+        "theta_deg": [
+          606
+        ],
+        "warnings": [
+          51
+        ],
+        "notices": [
+          51
+        ]
+      },
+      "material": "element"
+    },
+    "direct_status": {
+      "path": "/Users/oishifamily/.cache/chatcarlo/p8a/elsepa/z20_q1/direct_status.json",
+      "sha256": "9978e69e215fc6aefc539bead6c3e066cb526e9b9d9b1cb69303adea391e519e",
+      "source": "/Users/oishifamily/.cache/chatcarlo/p8a/elsepa/z20_q1/direct",
+      "method": "appendix 4 coverage and timeouts",
+      "units": "MeV; count",
+      "shape": [],
+      "material": "element"
+    }
+  },
+  "z26_q-1.npz": {
+    "path": "/Users/oishifamily/.cache/chatcarlo/p8a/elsepa/z26_q-1/z26_q-1.npz",
+    "sha256": "dcb3bea94e12aca92eb8eae0f9f2e94c8c62bdda4cf9abc5e9ccc3866e91da80",
+    "source": "/Users/oishifamily/.cache/chatcarlo/p8a/elsepa/z26_q-1/generation.json",
+    "method": "two independent ELSEPA IHEF=0 passes",
+    "units": "cm2/sr; MeV",
+    "shape": {
+      "dcs": [
+        51,
+        606
+      ],
+      "error": [
+        51,
+        606
+      ],
+      "series_xs": [
+        51,
+        3
+      ],
+      "table_xs": [
+        51,
+        3
+      ],
+      "Z": [],
+      "charge": [],
+      "IHEF": [],
+      "energy_MeV": [
+        51
+      ],
+      "mu": [
+        606
+      ],
+      "theta_deg": [
+        606
+      ],
+      "warnings": [
+        51
+      ],
+      "notices": [
+        51
+      ]
+    },
+    "material": "element",
+    "Z": 26,
+    "charge": -1,
+    "direct": {
+      "path": "/Users/oishifamily/.cache/chatcarlo/p8a/elsepa/z26_q-1/direct.npz",
+      "sha256": "eea46b0b1234091b006c98c3b75a8542c464d87ee070b6181c4920f3a84c72ac",
+      "source": "/Users/oishifamily/.cache/chatcarlo/p8a/elsepa/z26_q-1/direct",
+      "method": "independent midpoints/probes",
+      "units": "cm2/sr; MeV",
+      "shape": {
+        "dcs": [
+          52,
+          606
+        ],
+        "error": [
+          52,
+          606
+        ],
+        "series_xs": [
+          52,
+          3
+        ],
+        "table_xs": [
+          52,
+          3
+        ],
+        "Z": [],
+        "charge": [],
+        "IHEF": [],
+        "energy_MeV": [
+          52
+        ],
+        "mu": [
+          606
+        ],
+        "theta_deg": [
+          606
+        ],
+        "warnings": [
+          52
+        ],
+        "notices": [
+          52
+        ]
+      },
+      "material": "element"
+    },
+    "direct_status": {
+      "path": "/Users/oishifamily/.cache/chatcarlo/p8a/elsepa/z26_q-1/direct_status.json",
+      "sha256": "7e49b169ae22ac9bfa48fd93124bf10119b753c4b5db72d084e5d60e1e929ad3",
+      "source": "/Users/oishifamily/.cache/chatcarlo/p8a/elsepa/z26_q-1/direct",
+      "method": "appendix 4 coverage and timeouts",
+      "units": "MeV; count",
+      "shape": [],
+      "material": "element"
+    }
+  },
+  "z26_q1.npz": {
+    "path": "/Users/oishifamily/.cache/chatcarlo/p8a/elsepa/z26_q1/z26_q1.npz",
+    "sha256": "419158d67b65709362dd05f814e1e24df904142c20849d239c95ecb1eeb758e7",
+    "source": "/Users/oishifamily/.cache/chatcarlo/p8a/elsepa/z26_q1/generation.json",
+    "method": "two independent ELSEPA IHEF=0 passes",
+    "units": "cm2/sr; MeV",
+    "shape": {
+      "dcs": [
+        51,
+        606
+      ],
+      "error": [
+        51,
+        606
+      ],
+      "series_xs": [
+        51,
+        3
+      ],
+      "table_xs": [
+        51,
+        3
+      ],
+      "Z": [],
+      "charge": [],
+      "IHEF": [],
+      "energy_MeV": [
+        51
+      ],
+      "mu": [
+        606
+      ],
+      "theta_deg": [
+        606
+      ],
+      "warnings": [
+        51
+      ],
+      "notices": [
+        51
+      ]
+    },
+    "material": "element",
+    "Z": 26,
+    "charge": 1,
+    "direct": {
+      "path": "/Users/oishifamily/.cache/chatcarlo/p8a/elsepa/z26_q1/direct.npz",
+      "sha256": "9e4f1f243706b97cef34ea8910070b2fec334b53fb9eeeb64a192a4a30382e2a",
+      "source": "/Users/oishifamily/.cache/chatcarlo/p8a/elsepa/z26_q1/direct",
+      "method": "independent midpoints/probes",
+      "units": "cm2/sr; MeV",
+      "shape": {
+        "dcs": [
+          52,
+          606
+        ],
+        "error": [
+          52,
+          606
+        ],
+        "series_xs": [
+          52,
+          3
+        ],
+        "table_xs": [
+          52,
+          3
+        ],
+        "Z": [],
+        "charge": [],
+        "IHEF": [],
+        "energy_MeV": [
+          52
+        ],
+        "mu": [
+          606
+        ],
+        "theta_deg": [
+          606
+        ],
+        "warnings": [
+          52
+        ],
+        "notices": [
+          52
+        ]
+      },
+      "material": "element"
+    },
+    "direct_status": {
+      "path": "/Users/oishifamily/.cache/chatcarlo/p8a/elsepa/z26_q1/direct_status.json",
+      "sha256": "81c2a97a5c0ae9f8ca38292b016b0d26dc9501ca751bd479191ce9031dc931ba",
+      "source": "/Users/oishifamily/.cache/chatcarlo/p8a/elsepa/z26_q1/direct",
+      "method": "appendix 4 coverage and timeouts",
+      "units": "MeV; count",
+      "shape": [],
+      "material": "element"
+    }
+  },
+  "z30_q-1.npz": {
+    "path": "/Users/oishifamily/.cache/chatcarlo/p8a/elsepa/z30_q-1/z30_q-1.npz",
+    "sha256": "4b09578e78c3b145f164bf3209015c02af97b363a439ab831323cbd46d15c70d",
+    "source": "/Users/oishifamily/.cache/chatcarlo/p8a/elsepa/z30_q-1/generation.json",
+    "method": "two independent ELSEPA IHEF=0 passes",
+    "units": "cm2/sr; MeV",
+    "shape": {
+      "dcs": [
+        51,
+        606
+      ],
+      "error": [
+        51,
+        606
+      ],
+      "series_xs": [
+        51,
+        3
+      ],
+      "table_xs": [
+        51,
+        3
+      ],
+      "Z": [],
+      "charge": [],
+      "IHEF": [],
+      "energy_MeV": [
+        51
+      ],
+      "mu": [
+        606
+      ],
+      "theta_deg": [
+        606
+      ],
+      "warnings": [
+        51
+      ],
+      "notices": [
+        51
+      ]
+    },
+    "material": "element",
+    "Z": 30,
+    "charge": -1,
+    "direct": {
+      "path": "/Users/oishifamily/.cache/chatcarlo/p8a/elsepa/z30_q-1/direct.npz",
+      "sha256": "e033ba73a6d370bc3ab1755edc27828dd19e63d910fff636239aca8f68ee09fd",
+      "source": "/Users/oishifamily/.cache/chatcarlo/p8a/elsepa/z30_q-1/direct",
+      "method": "independent midpoints/probes",
+      "units": "cm2/sr; MeV",
+      "shape": {
+        "dcs": [
+          52,
+          606
+        ],
+        "error": [
+          52,
+          606
+        ],
+        "series_xs": [
+          52,
+          3
+        ],
+        "table_xs": [
+          52,
+          3
+        ],
+        "Z": [],
+        "charge": [],
+        "IHEF": [],
+        "energy_MeV": [
+          52
+        ],
+        "mu": [
+          606
+        ],
+        "theta_deg": [
+          606
+        ],
+        "warnings": [
+          52
+        ],
+        "notices": [
+          52
+        ]
+      },
+      "material": "element"
+    },
+    "direct_status": {
+      "path": "/Users/oishifamily/.cache/chatcarlo/p8a/elsepa/z30_q-1/direct_status.json",
+      "sha256": "da733a7c158029c3ef63110a7f446319751f19513810bd7e3cb25d394fb9bd0e",
+      "source": "/Users/oishifamily/.cache/chatcarlo/p8a/elsepa/z30_q-1/direct",
+      "method": "appendix 4 coverage and timeouts",
+      "units": "MeV; count",
+      "shape": [],
+      "material": "element"
+    }
+  },
+  "z30_q1.npz": {
+    "path": "/Users/oishifamily/.cache/chatcarlo/p8a/elsepa/z30_q1/z30_q1.npz",
+    "sha256": "a0a7381ea54e3d3e8ea3be99dad91d1987fb07b7d2c01085a35b348d79cfaaa8",
+    "source": "/Users/oishifamily/.cache/chatcarlo/p8a/elsepa/z30_q1/generation.json",
+    "method": "two independent ELSEPA IHEF=0 passes",
+    "units": "cm2/sr; MeV",
+    "shape": {
+      "dcs": [
+        51,
+        606
+      ],
+      "error": [
+        51,
+        606
+      ],
+      "series_xs": [
+        51,
+        3
+      ],
+      "table_xs": [
+        51,
+        3
+      ],
+      "Z": [],
+      "charge": [],
+      "IHEF": [],
+      "energy_MeV": [
+        51
+      ],
+      "mu": [
+        606
+      ],
+      "theta_deg": [
+        606
+      ],
+      "warnings": [
+        51
+      ],
+      "notices": [
+        51
+      ]
+    },
+    "material": "element",
+    "Z": 30,
+    "charge": 1,
+    "direct": {
+      "path": "/Users/oishifamily/.cache/chatcarlo/p8a/elsepa/z30_q1/direct.npz",
+      "sha256": "034a155aefa98cd6a2db9d52d5da62aebad7fe32db01ef1d85409419ab44b43d",
+      "source": "/Users/oishifamily/.cache/chatcarlo/p8a/elsepa/z30_q1/direct",
+      "method": "independent midpoints/probes",
+      "units": "cm2/sr; MeV",
+      "shape": {
+        "dcs": [
+          52,
+          606
+        ],
+        "error": [
+          52,
+          606
+        ],
+        "series_xs": [
+          52,
+          3
+        ],
+        "table_xs": [
+          52,
+          3
+        ],
+        "Z": [],
+        "charge": [],
+        "IHEF": [],
+        "energy_MeV": [
+          52
+        ],
+        "mu": [
+          606
+        ],
+        "theta_deg": [
+          606
+        ],
+        "warnings": [
+          52
+        ],
+        "notices": [
+          52
+        ]
+      },
+      "material": "element"
+    },
+    "direct_status": {
+      "path": "/Users/oishifamily/.cache/chatcarlo/p8a/elsepa/z30_q1/direct_status.json",
+      "sha256": "3a7bdb949b35b3cf13ff263c13bc8fb960a3caff6c684da6fdca1a30c6802620",
+      "source": "/Users/oishifamily/.cache/chatcarlo/p8a/elsepa/z30_q1/direct",
+      "method": "appendix 4 coverage and timeouts",
+      "units": "MeV; count",
+      "shape": [],
+      "material": "element"
+    }
+  },
+  "z82_q-1.npz": {
+    "path": "/Users/oishifamily/.cache/chatcarlo/p8a/elsepa/z82_q-1/z82_q-1.npz",
+    "sha256": "008e9ec2055097de5251c666a40acf4c5ddf594e3726d7e80634e6e261da42e5",
+    "source": "/Users/oishifamily/.cache/chatcarlo/p8a/elsepa/z82_q-1/generation.json",
+    "method": "two independent ELSEPA IHEF=0 passes",
+    "units": "cm2/sr; MeV",
+    "shape": {
+      "dcs": [
+        51,
+        606
+      ],
+      "error": [
+        51,
+        606
+      ],
+      "series_xs": [
+        51,
+        3
+      ],
+      "table_xs": [
+        51,
+        3
+      ],
+      "Z": [],
+      "charge": [],
+      "IHEF": [],
+      "energy_MeV": [
+        51
+      ],
+      "mu": [
+        606
+      ],
+      "theta_deg": [
+        606
+      ],
+      "warnings": [
+        51
+      ],
+      "notices": [
+        51
+      ]
+    },
+    "material": "element",
+    "Z": 82,
+    "charge": -1,
+    "direct": {
+      "path": "/Users/oishifamily/.cache/chatcarlo/p8a/elsepa/z82_q-1/direct.npz",
+      "sha256": "87f4d3c0f7a87e357d08c05ed5d5ce0638c2c7ac88d9500cab5466b1e4cade53",
+      "source": "/Users/oishifamily/.cache/chatcarlo/p8a/elsepa/z82_q-1/direct",
+      "method": "independent midpoints/probes",
+      "units": "cm2/sr; MeV",
+      "shape": {
+        "dcs": [
+          52,
+          606
+        ],
+        "error": [
+          52,
+          606
+        ],
+        "series_xs": [
+          52,
+          3
+        ],
+        "table_xs": [
+          52,
+          3
+        ],
+        "Z": [],
+        "charge": [],
+        "IHEF": [],
+        "energy_MeV": [
+          52
+        ],
+        "mu": [
+          606
+        ],
+        "theta_deg": [
+          606
+        ],
+        "warnings": [
+          52
+        ],
+        "notices": [
+          52
+        ]
+      },
+      "material": "element"
+    },
+    "direct_status": {
+      "path": "/Users/oishifamily/.cache/chatcarlo/p8a/elsepa/z82_q-1/direct_status.json",
+      "sha256": "c764fbc9521298b8280b464a202f172474e337c16e9c3105cef3397f7cf303f6",
+      "source": "/Users/oishifamily/.cache/chatcarlo/p8a/elsepa/z82_q-1/direct",
+      "method": "appendix 4 coverage and timeouts",
+      "units": "MeV; count",
+      "shape": [],
+      "material": "element"
+    }
+  },
+  "z82_q1.npz": {
+    "path": "/Users/oishifamily/.cache/chatcarlo/p8a/elsepa/z82_q1/z82_q1.npz",
+    "sha256": "976d321756942ee904ded53023dbeecd79fa3863bf018226684fc3fefab7012d",
+    "source": "/Users/oishifamily/.cache/chatcarlo/p8a/elsepa/z82_q1/generation.json",
+    "method": "two independent ELSEPA IHEF=0 passes",
+    "units": "cm2/sr; MeV",
+    "shape": {
+      "dcs": [
+        51,
+        606
+      ],
+      "error": [
+        51,
+        606
+      ],
+      "series_xs": [
+        51,
+        3
+      ],
+      "table_xs": [
+        51,
+        3
+      ],
+      "Z": [],
+      "charge": [],
+      "IHEF": [],
+      "energy_MeV": [
+        51
+      ],
+      "mu": [
+        606
+      ],
+      "theta_deg": [
+        606
+      ],
+      "warnings": [
+        51
+      ],
+      "notices": [
+        51
+      ]
+    },
+    "material": "element",
+    "Z": 82,
+    "charge": 1,
+    "direct": {
+      "path": "/Users/oishifamily/.cache/chatcarlo/p8a/elsepa/z82_q1/direct.npz",
+      "sha256": "0a9cc285a6a1be6a23ad40a07dc7850f7819e9ee6ac6df6bf3cc3f259feae15f",
+      "source": "/Users/oishifamily/.cache/chatcarlo/p8a/elsepa/z82_q1/direct",
+      "method": "independent midpoints/probes",
+      "units": "cm2/sr; MeV",
+      "shape": {
+        "dcs": [
+          52,
+          606
+        ],
+        "error": [
+          52,
+          606
+        ],
+        "series_xs": [
+          52,
+          3
+        ],
+        "table_xs": [
+          52,
+          3
+        ],
+        "Z": [],
+        "charge": [],
+        "IHEF": [],
+        "energy_MeV": [
+          52
+        ],
+        "mu": [
+          606
+        ],
+        "theta_deg": [
+          606
+        ],
+        "warnings": [
+          52
+        ],
+        "notices": [
+          52
+        ]
+      },
+      "material": "element"
+    },
+    "direct_status": {
+      "path": "/Users/oishifamily/.cache/chatcarlo/p8a/elsepa/z82_q1/direct_status.json",
+      "sha256": "b6d2b976dc2d3103c74fb818b198ef25219750d970b31ac6b7586f1cb28d384d",
+      "source": "/Users/oishifamily/.cache/chatcarlo/p8a/elsepa/z82_q1/direct",
+      "method": "appendix 4 coverage and timeouts",
+      "units": "MeV; count",
+      "shape": [],
+      "material": "element"
+    }
+  }
+}

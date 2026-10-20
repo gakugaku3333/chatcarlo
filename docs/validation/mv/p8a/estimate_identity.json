@@ -1,0 +1,30 @@
+{
+  "manifest_sha256": "0220a9d3b35198a64a9faeaf9e4ebfdf49b98c1c214cbf0d064cbbde09d5241a",
+  "spectrum_sha256": "06fe2ba471dbfd64ca4305b5f1560479439ea4b565f993ecb21dcda86a6d8065",
+  "code_sha256": "0f9d472979fabe1ab0daf4eac7c4e1ca411b2d3e85486adfbfd75ad15504fa7a",
+  "implementations": {
+    "materials_p8a.py": "9a74192e8c92677218271c2f963892ba731bcabbf5cf50e58760380279c4b0d3",
+    "fetch_materials_p8a.py": "4844635411f854e37eb6b7fc7081b4122171c65fffcac108c1845077dffd2dae",
+    "generate_elsepa_p8a.py": "ebc334410d710d03702c2cb9ef62a0aad1928f59652e10ea97a541532d7a5528",
+    "pegs_p8a.py": "3f91b55356af874b331e9e7f46082c05482743a7f97cc521513a5d267104fbfa",
+    "check_p8a.py": "5e620d62958a00c50c5eab15c56b490558109831defe382667af4d44cdc624ab",
+    "estimate_p8a.py": "0f9d472979fabe1ab0daf4eac7c4e1ca411b2d3e85486adfbfd75ad15504fa7a",
+    "p8a_egs.f": "9ac8c2f4b3cec4b905e64c70acd86b7614650a48765b22a860e2dafcd5c44a2d",
+    "gs_backend.py": "4fc40df1bcee7c6d1f6822d6c1f12bf8d7b88fcc9ab50ee49d229331db571533",
+    "single_table.py": "3fda8e33bab15a5e2bb30a9507f873bfa42a0277d0b0b4a139c9a5428e774c0f",
+    "dcs.py": "23c0f7122b85a7ba7214c93d2b95c5459e5305a225bcb2232544d0352d84c71c",
+    "physics.py": "9c0d21197acc5cb54a9fbb0f5fd3534c0638ed1cf54f0fecd2e9475d3a72b718"
+  },
+  "seeds": {
+    "control": 202610191,
+    "reference": 202610192,
+    "pilot_off": 202610193,
+    "pilot_on": 202610194,
+    "production_off": 202610195,
+    "production_on": 202610196
+  },
+  "pilot_each": 1000000,
+  "cap_each": 100000000,
+  "sem_target": 0.001,
+  "limit": 0.003
+}

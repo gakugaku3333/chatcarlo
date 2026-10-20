@@ -1,0 +1,18 @@
+{
+  "water": {
+    "matno": "276",
+    "name": "Water, Liquid"
+  },
+  "lung": {
+    "matno": "190",
+    "name": "Lung (ICRP)"
+  },
+  "bone": {
+    "matno": "120",
+    "name": "Bone, Cortical (ICRP)"
+  },
+  "lead": {
+    "matno": "082",
+    "name": "82: Lead"
+  }
+}

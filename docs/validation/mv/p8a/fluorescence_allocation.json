@@ -1,0 +1,28 @@
+{
+  "pilot": {
+    "Dref": 0.05842825688419781,
+    "difference": [
+      0.00016618476276729664,
+      -0.0007304573997330953
+    ],
+    "sem": [
+      0.007721068150765193,
+      0.004444557492224513
+    ],
+    "decisions": [
+      "insufficient-statistics",
+      "insufficient-statistics"
+    ],
+    "units": "fraction of fixed off-run Dref",
+    "seed_off": 202610193,
+    "seed_on": 202610194,
+    "note": "A is a 1 cm average; it does not validate fine P8d interface bins"
+  },
+  "allocation": {
+    "required_each": 59614900,
+    "histories_each": 59614900,
+    "status": "ready",
+    "target_SEM": 0.001,
+    "cap_each": 100000000
+  }
+}

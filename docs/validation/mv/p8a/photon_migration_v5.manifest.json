@@ -1,0 +1,1210 @@
+{
+  "version": 1,
+  "materials": {
+    "water": {
+      "definition": {
+        "path": "/Users/oishifamily/.cache/chatcarlo/p8a/water/definition.json",
+        "sha256": "53c4abf73b532747bf743ae7ba630dafd88b10a0676f584ac2f3ee7da57ea6ba",
+        "source": [
+          "https://physics.nist.gov/cgi-bin/Star/compos.pl",
+          "xraylib.AtomicWeight",
+          "https://physics.nist.gov/cgi-bin/Star/e_table-t.pl",
+          "https://physics.nist.gov/PhysRefData/Xcom/XCOM.tar.gz"
+        ],
+        "method": "fetch_materials_p8a",
+        "units": "g/cm3; MeV; mass fraction",
+        "shape": [],
+        "material": "water"
+      },
+      "constants": {
+        "path": "/Users/oishifamily/.cache/chatcarlo/p8a/water/constants.json",
+        "sha256": "ea5a7378f963223adec7bebec950ca4e7da631930c8df77e0663926f940832c2",
+        "source": [
+          "https://physics.nist.gov/cgi-bin/Star/compos.pl",
+          "xraylib.AtomicWeight",
+          "https://physics.nist.gov/cgi-bin/Star/e_table-t.pl",
+          "https://physics.nist.gov/PhysRefData/Xcom/XCOM.tar.gz"
+        ],
+        "method": "P8a composition-based",
+        "units": "1/g; MeV; g/cm3",
+        "shape": [],
+        "material": "water"
+      },
+      "stopping": {
+        "path": "/Users/oishifamily/.cache/chatcarlo/p8a/water/stopping.npz",
+        "sha256": "db6c2fe0dd5fdbe19f1dcd32b98b56ff979862e9647ca92f500525432f65b83f",
+        "source": [
+          "https://physics.nist.gov/cgi-bin/Star/compos.pl",
+          "xraylib.AtomicWeight",
+          "https://physics.nist.gov/cgi-bin/Star/e_table-t.pl",
+          "https://physics.nist.gov/PhysRefData/Xcom/XCOM.tar.gz"
+        ],
+        "method": "fetch_materials_p8a",
+        "units": "MeV; MeV cm2/g; dimensionless",
+        "shape": {
+          "T": [
+            1201
+          ],
+          "collision": [
+            1201
+          ],
+          "radiative": [
+            1201
+          ],
+          "total": [
+            1201
+          ],
+          "delta": [
+            1201
+          ],
+          "check_T": [
+            1200
+          ],
+          "check_collision": [
+            1200
+          ],
+          "check_radiative": [
+            1200
+          ],
+          "check_total": [
+            1200
+          ],
+          "check_delta": [
+            1200
+          ],
+          "material": [],
+          "composition_sha256": [],
+          "density_g_cm3": []
+        },
+        "material": "water"
+      },
+      "range": {
+        "path": "/Users/oishifamily/.cache/chatcarlo/p8a/water/range.npz",
+        "sha256": "2405f2dfc8ba469994df6ca5d2b4ed785493f5e2cdc0af01b767851f62306d92",
+        "source": [
+          "https://physics.nist.gov/cgi-bin/Star/compos.pl",
+          "xraylib.AtomicWeight",
+          "https://physics.nist.gov/cgi-bin/Star/e_table-t.pl",
+          "https://physics.nist.gov/PhysRefData/Xcom/XCOM.tar.gz"
+        ],
+        "method": "ESTAR standard-density separate CSDA response",
+        "units": "MeV; g/cm2",
+        "shape": {
+          "T": [
+            81
+          ],
+          "csda_g_cm2": [
+            81
+          ],
+          "material": [],
+          "composition_sha256": [],
+          "density_g_cm3": []
+        },
+        "material": "water"
+      },
+      "photon": {
+        "path": "/Users/oishifamily/.cache/chatcarlo/p8a/water/photon.npz",
+        "sha256": "5a759ebb38f3168673044fdee3cca216edfd0a25a950ec6e53bddcc54fa2831e",
+        "source": [
+          "https://physics.nist.gov/cgi-bin/Star/compos.pl",
+          "xraylib.AtomicWeight",
+          "https://physics.nist.gov/cgi-bin/Star/e_table-t.pl",
+          "https://physics.nist.gov/PhysRefData/Xcom/XCOM.tar.gz"
+        ],
+        "method": "fetch_materials_p8a --photon-only; appendix 5 (1)",
+        "units": "MeV; cm2/g",
+        "shape": {
+          "E": [
+            711
+          ],
+          "photo_E": [
+            711
+          ],
+          "photo": [
+            711
+          ],
+          "pair_nuclear": [
+            711
+          ],
+          "pair_electron": [
+            711
+          ],
+          "thresholds": [
+            2
+          ],
+          "edges": [
+            0
+          ],
+          "edge_lower_requests": [
+            0
+          ],
+          "edge_upper_requests": [
+            0
+          ],
+          "check_E": [
+            710
+          ],
+          "check_photo": [
+            710
+          ],
+          "check_total": [
+            710
+          ],
+          "check_pair_nuclear": [
+            710
+          ],
+          "check_pair_electron": [
+            710
+          ],
+          "xcom_incoherent": [
+            711
+          ],
+          "material": [],
+          "composition_sha256": []
+        },
+        "material": "water"
+      },
+      "elastic": {
+        "path": "/Users/oishifamily/.cache/chatcarlo/p8a/water/elastic.json",
+        "sha256": "19a7394939fd9a5598bfc9b8bb129e647daeefe627f2c020cef75d67b76a6f13",
+        "source": "/Users/oishifamily/Projects/viveMonte/docs/validation/mv/p8a/elemental_elsepa.json",
+        "method": "composition-sorted ELSEPA mixture",
+        "units": "cm-1; cm2/sr",
+        "shape": [],
+        "material": "water"
+      },
+      "gs": {
+        "path": "/Users/oishifamily/.cache/chatcarlo/elsepa/p1f/gs.npz",
+        "sha256": "d225aaeedecefdc2b74a564a4ff0d2e8aae4f48e5cec4f1c1ff9f5179e8b8ca4",
+        "source": "P1f GS",
+        "method": "byte-preserving legacy water path",
+        "units": "MeV; dimensionless; cm-1",
+        "shape": {
+          "T": [
+            49
+          ],
+          "K": [
+            9
+          ],
+          "u": [
+            20483
+          ],
+          "y": [
+            49,
+            9,
+            20483
+          ],
+          "p0": [
+            49,
+            9
+          ],
+          "G1": [
+            49
+          ],
+          "total": [
+            49
+          ],
+          "rates": [
+            480,
+            3
+          ],
+          "single": [
+            480,
+            20484
+          ],
+          "lookup_diagnostics": [],
+          "build_seconds": [],
+          "normalization": [
+            441
+          ],
+          "L": [
+            441
+          ],
+          "backend": [],
+          "IHEF": [],
+          "elsepa_table_hashes": []
+        },
+        "material": "water"
+      },
+      "pair": {
+        "path": "/Users/oishifamily/.cache/chatcarlo/p8a/water/pair.npz",
+        "sha256": "a7e34272826bdcb81ea97841dd34367ad273af6298da0bc6ddb353ddef8018d7",
+        "source": "/Users/oishifamily/.cache/chatcarlo/p8a/pegs/water/pgs5job.pegs5dat",
+        "method": "PEGS DECK/HATCH 36+7 fields; research only",
+        "units": "dimensionless; MeV",
+        "shape": {
+          "dl": [
+            6,
+            6
+          ],
+          "delcm": [],
+          "alphi": [
+            2
+          ],
+          "bpar": [
+            2
+          ],
+          "delpos": [
+            2
+          ],
+          "medium": [],
+          "medium_line": [],
+          "dl_line": [],
+          "AE": [],
+          "AP": [],
+          "source_sha256": [],
+          "material": []
+        },
+        "material": "water",
+        "source_sha256": "816b1acaed9a5749fb74c9f795899391a24d6d37a3ef6fa660cf44d102b8b25b",
+        "medium_line": 0,
+        "dl_line": 6
+      },
+      "shells": {
+        "path": "/Users/oishifamily/.cache/chatcarlo/p8a/water/shells.npz",
+        "sha256": "f9c3bbe2b9c8025061b90db4c665f536d12d2cd6cbd276311bca9213700c7658",
+        "source": "/Users/oishifamily/.cache/chatcarlo/p8a/pegs/water/direct.txt",
+        "method": "EGS5 block_data_atom; research only",
+        "units": "MeV; atoms/g; log(keV) polynomial",
+        "shape": {
+          "Z": [
+            2
+          ],
+          "NJ": [
+            2
+          ],
+          "binding_MeV": [
+            2,
+            5
+          ],
+          "pm": [
+            2,
+            5,
+            4
+          ],
+          "shell_labels": [
+            5
+          ]
+        },
+        "material": "water",
+        "source_sha256": "428573114889db854ffd682433aacd0f18eebb3203adf7413bbcc74a8d84696a"
+      }
+    },
+    "lung": {
+      "definition": {
+        "path": "/Users/oishifamily/.cache/chatcarlo/p8a/lung/definition.json",
+        "sha256": "f3f278ecd9ffcd1bfa56c8155777b60b888547b7ad3fd4291489e74c58308634",
+        "source": [
+          "https://physics.nist.gov/cgi-bin/Star/compos.pl",
+          "xraylib.AtomicWeight",
+          "https://physics.nist.gov/cgi-bin/Star/e_table-t.pl",
+          "https://physics.nist.gov/PhysRefData/Xcom/XCOM.tar.gz"
+        ],
+        "method": "fetch_materials_p8a",
+        "units": "g/cm3; MeV; mass fraction",
+        "shape": [],
+        "material": "lung"
+      },
+      "constants": {
+        "path": "/Users/oishifamily/.cache/chatcarlo/p8a/lung/constants.json",
+        "sha256": "646a2f7e8b9676455f1dbf1dca3c7a8cac8a8499b6518b5fc5b6b36845402c2d",
+        "source": [
+          "https://physics.nist.gov/cgi-bin/Star/compos.pl",
+          "xraylib.AtomicWeight",
+          "https://physics.nist.gov/cgi-bin/Star/e_table-t.pl",
+          "https://physics.nist.gov/PhysRefData/Xcom/XCOM.tar.gz"
+        ],
+        "method": "P8a composition-based",
+        "units": "1/g; MeV; g/cm3",
+        "shape": [],
+        "material": "lung"
+      },
+      "stopping": {
+        "path": "/Users/oishifamily/.cache/chatcarlo/p8a/lung/stopping.npz",
+        "sha256": "bc90de82f2af5861c3dd04a88a34fe3d716e2edf082e997d1f050a1de60bf0ec",
+        "source": [
+          "https://physics.nist.gov/cgi-bin/Star/compos.pl",
+          "xraylib.AtomicWeight",
+          "https://physics.nist.gov/cgi-bin/Star/e_table-t.pl",
+          "https://physics.nist.gov/PhysRefData/Xcom/XCOM.tar.gz"
+        ],
+        "method": "fetch_materials_p8a",
+        "units": "MeV; MeV cm2/g; dimensionless",
+        "shape": {
+          "T": [
+            1201
+          ],
+          "collision": [
+            1201
+          ],
+          "radiative": [
+            1201
+          ],
+          "total": [
+            1201
+          ],
+          "delta": [
+            1201
+          ],
+          "check_T": [
+            1200
+          ],
+          "check_collision": [
+            1200
+          ],
+          "check_radiative": [
+            1200
+          ],
+          "check_total": [
+            1200
+          ],
+          "check_delta": [
+            1200
+          ],
+          "material": [],
+          "composition_sha256": [],
+          "density_g_cm3": []
+        },
+        "material": "lung"
+      },
+      "range": {
+        "path": "/Users/oishifamily/.cache/chatcarlo/p8a/lung/range.npz",
+        "sha256": "336ecd04306afd79366374b8bed47b55402a407bd0440223b01b43e554ce4d27",
+        "source": [
+          "https://physics.nist.gov/cgi-bin/Star/compos.pl",
+          "xraylib.AtomicWeight",
+          "https://physics.nist.gov/cgi-bin/Star/e_table-t.pl",
+          "https://physics.nist.gov/PhysRefData/Xcom/XCOM.tar.gz"
+        ],
+        "method": "ESTAR standard-density separate CSDA response",
+        "units": "MeV; g/cm2",
+        "shape": {
+          "T": [
+            81
+          ],
+          "csda_g_cm2": [
+            81
+          ],
+          "material": [],
+          "composition_sha256": [],
+          "density_g_cm3": []
+        },
+        "material": "lung"
+      },
+      "photon": {
+        "path": "/Users/oishifamily/.cache/chatcarlo/p8a/lung/photon.npz",
+        "sha256": "93a67f04adbfa1483e423cef34e66023f9a336524382c518914210785d069aab",
+        "source": [
+          "https://physics.nist.gov/cgi-bin/Star/compos.pl",
+          "xraylib.AtomicWeight",
+          "https://physics.nist.gov/cgi-bin/Star/e_table-t.pl",
+          "https://physics.nist.gov/PhysRefData/Xcom/XCOM.tar.gz"
+        ],
+        "method": "fetch_materials_p8a --photon-only; appendix 5 (1)",
+        "units": "MeV; cm2/g",
+        "shape": {
+          "E": [
+            735
+          ],
+          "photo_E": [
+            735
+          ],
+          "photo": [
+            735
+          ],
+          "pair_nuclear": [
+            735
+          ],
+          "pair_electron": [
+            735
+          ],
+          "thresholds": [
+            2
+          ],
+          "edges": [
+            12
+          ],
+          "edge_lower_requests": [
+            12
+          ],
+          "edge_upper_requests": [
+            12
+          ],
+          "check_E": [
+            734
+          ],
+          "check_photo": [
+            734
+          ],
+          "check_total": [
+            734
+          ],
+          "check_pair_nuclear": [
+            734
+          ],
+          "check_pair_electron": [
+            734
+          ],
+          "xcom_incoherent": [
+            735
+          ],
+          "material": [],
+          "composition_sha256": []
+        },
+        "material": "lung"
+      },
+      "elastic": {
+        "path": "/Users/oishifamily/.cache/chatcarlo/p8a/lung/elastic.json",
+        "sha256": "782d01718946746057216739ab9e137f76dd7ac78f31e45563aaf1ac35a1ae7e",
+        "source": "/Users/oishifamily/Projects/viveMonte/docs/validation/mv/p8a/elemental_elsepa.json",
+        "method": "composition-sorted ELSEPA mixture",
+        "units": "cm-1; cm2/sr",
+        "shape": [],
+        "material": "lung"
+      },
+      "gs": {
+        "path": "/Users/oishifamily/.cache/chatcarlo/p8a/lung/gs.npz",
+        "sha256": "e01c98febd3495fed96f5fb780c9e9b047cd5610728adfee72761b573e2b0339",
+        "source": [
+          "z1_q-1.npz",
+          "z1_q1.npz",
+          "z6_q-1.npz",
+          "z6_q1.npz",
+          "z7_q-1.npz",
+          "z7_q1.npz",
+          "z8_q-1.npz",
+          "z8_q1.npz",
+          "z11_q-1.npz",
+          "z11_q1.npz",
+          "z12_q-1.npz",
+          "z12_q1.npz",
+          "z15_q-1.npz",
+          "z15_q1.npz",
+          "z16_q-1.npz",
+          "z16_q1.npz",
+          "z17_q-1.npz",
+          "z17_q1.npz",
+          "z19_q-1.npz",
+          "z19_q1.npz",
+          "z20_q-1.npz",
+          "z20_q1.npz",
+          "z26_q-1.npz",
+          "z26_q1.npz",
+          "z30_q-1.npz",
+          "z30_q1.npz"
+        ],
+        "method": "gs_backend.build(MixtureElsepa)",
+        "units": "MeV; dimensionless; cm-1",
+        "shape": {
+          "T": [
+            49
+          ],
+          "K": [
+            9
+          ],
+          "u": [
+            20483
+          ],
+          "y": [
+            49,
+            9,
+            20483
+          ],
+          "p0": [
+            49,
+            9
+          ],
+          "G1": [
+            49
+          ],
+          "total": [
+            49
+          ],
+          "rates": [
+            480,
+            3
+          ],
+          "single": [
+            480,
+            20484
+          ],
+          "lookup_diagnostics": [],
+          "build_seconds": [],
+          "normalization": [
+            441
+          ],
+          "L": [
+            441
+          ],
+          "backend": [],
+          "material": [],
+          "density_g_cm3": []
+        },
+        "material": "lung"
+      },
+      "pair": {
+        "path": "/Users/oishifamily/.cache/chatcarlo/p8a/lung/pair.npz",
+        "sha256": "621ac52e2f98a5796822f7124705512c97a57188e00e96ed3e1389046a8dcf28",
+        "source": "/Users/oishifamily/.cache/chatcarlo/p8a/pegs/lung/pgs5job.pegs5dat",
+        "method": "PEGS DECK/HATCH 36+7 fields; research only",
+        "units": "dimensionless; MeV",
+        "shape": {
+          "dl": [
+            6,
+            6
+          ],
+          "delcm": [],
+          "alphi": [
+            2
+          ],
+          "bpar": [
+            2
+          ],
+          "delpos": [
+            2
+          ],
+          "medium": [],
+          "medium_line": [],
+          "dl_line": [],
+          "AE": [],
+          "AP": [],
+          "source_sha256": [],
+          "material": []
+        },
+        "material": "lung",
+        "source_sha256": "65ecb0cbf360ad5093250156ae969619d760fe829f10fecd86e2777565905920",
+        "medium_line": 0,
+        "dl_line": 17
+      },
+      "shells": {
+        "path": "/Users/oishifamily/.cache/chatcarlo/p8a/lung/shells.npz",
+        "sha256": "1f62bc3ec89a0cda5c8e09b1e2dc8c535bbe9f3ac008ec887c083811074eeefc",
+        "source": "/Users/oishifamily/.cache/chatcarlo/p8a/pegs/lung/direct.txt",
+        "method": "EGS5 block_data_atom; research only",
+        "units": "MeV; atoms/g; log(keV) polynomial",
+        "shape": {
+          "Z": [
+            13
+          ],
+          "NJ": [
+            13
+          ],
+          "binding_MeV": [
+            13,
+            5
+          ],
+          "pm": [
+            13,
+            5,
+            4
+          ],
+          "shell_labels": [
+            5
+          ]
+        },
+        "material": "lung",
+        "source_sha256": "44f6498fba3d10640746ba0ccb9705dfe9bcd30aaad907c51690064daaaf42f4"
+      }
+    },
+    "bone": {
+      "definition": {
+        "path": "/Users/oishifamily/.cache/chatcarlo/p8a/bone/definition.json",
+        "sha256": "b5b4e45e720efda9f6ab110b8018596ffe05ed8517c618d6470113870feda25c",
+        "source": [
+          "https://physics.nist.gov/cgi-bin/Star/compos.pl",
+          "xraylib.AtomicWeight",
+          "https://physics.nist.gov/cgi-bin/Star/e_table-t.pl",
+          "https://physics.nist.gov/PhysRefData/Xcom/XCOM.tar.gz"
+        ],
+        "method": "fetch_materials_p8a",
+        "units": "g/cm3; MeV; mass fraction",
+        "shape": [],
+        "material": "bone"
+      },
+      "constants": {
+        "path": "/Users/oishifamily/.cache/chatcarlo/p8a/bone/constants.json",
+        "sha256": "c573021def6f6cc19a13d327ddaa55245711112b821786f79f37b760958b2926",
+        "source": [
+          "https://physics.nist.gov/cgi-bin/Star/compos.pl",
+          "xraylib.AtomicWeight",
+          "https://physics.nist.gov/cgi-bin/Star/e_table-t.pl",
+          "https://physics.nist.gov/PhysRefData/Xcom/XCOM.tar.gz"
+        ],
+        "method": "P8a composition-based",
+        "units": "1/g; MeV; g/cm3",
+        "shape": [],
+        "material": "bone"
+      },
+      "stopping": {
+        "path": "/Users/oishifamily/.cache/chatcarlo/p8a/bone/stopping.npz",
+        "sha256": "fb3b23c1a353010f6b156b878d2ea2fb0529978647bfeb506656ae5d9272de1d",
+        "source": [
+          "https://physics.nist.gov/cgi-bin/Star/compos.pl",
+          "xraylib.AtomicWeight",
+          "https://physics.nist.gov/cgi-bin/Star/e_table-t.pl",
+          "https://physics.nist.gov/PhysRefData/Xcom/XCOM.tar.gz"
+        ],
+        "method": "fetch_materials_p8a",
+        "units": "MeV; MeV cm2/g; dimensionless",
+        "shape": {
+          "T": [
+            1201
+          ],
+          "collision": [
+            1201
+          ],
+          "radiative": [
+            1201
+          ],
+          "total": [
+            1201
+          ],
+          "delta": [
+            1201
+          ],
+          "check_T": [
+            1200
+          ],
+          "check_collision": [
+            1200
+          ],
+          "check_radiative": [
+            1200
+          ],
+          "check_total": [
+            1200
+          ],
+          "check_delta": [
+            1200
+          ],
+          "material": [],
+          "composition_sha256": [],
+          "density_g_cm3": []
+        },
+        "material": "bone"
+      },
+      "range": {
+        "path": "/Users/oishifamily/.cache/chatcarlo/p8a/bone/range.npz",
+        "sha256": "00dc93947ad8f286a8825fe2cea4c105e8b1fd547372ae3d4eb6b1995a846f0e",
+        "source": [
+          "https://physics.nist.gov/cgi-bin/Star/compos.pl",
+          "xraylib.AtomicWeight",
+          "https://physics.nist.gov/cgi-bin/Star/e_table-t.pl",
+          "https://physics.nist.gov/PhysRefData/Xcom/XCOM.tar.gz"
+        ],
+        "method": "ESTAR standard-density separate CSDA response",
+        "units": "MeV; g/cm2",
+        "shape": {
+          "T": [
+            81
+          ],
+          "csda_g_cm2": [
+            81
+          ],
+          "material": [],
+          "composition_sha256": [],
+          "density_g_cm3": []
+        },
+        "material": "bone"
+      },
+      "photon": {
+        "path": "/Users/oishifamily/.cache/chatcarlo/p8a/bone/photon.npz",
+        "sha256": "07a1a9901d28251e0ca6032235e420a2c2226fab86a429bb4184ed97db3409c4",
+        "source": [
+          "https://physics.nist.gov/cgi-bin/Star/compos.pl",
+          "xraylib.AtomicWeight",
+          "https://physics.nist.gov/cgi-bin/Star/e_table-t.pl",
+          "https://physics.nist.gov/PhysRefData/Xcom/XCOM.tar.gz"
+        ],
+        "method": "fetch_materials_p8a --photon-only; appendix 5 (1)",
+        "units": "MeV; cm2/g",
+        "shape": {
+          "E": [
+            727
+          ],
+          "photo_E": [
+            727
+          ],
+          "photo": [
+            727
+          ],
+          "pair_nuclear": [
+            727
+          ],
+          "pair_electron": [
+            727
+          ],
+          "thresholds": [
+            2
+          ],
+          "edges": [
+            8
+          ],
+          "edge_lower_requests": [
+            8
+          ],
+          "edge_upper_requests": [
+            8
+          ],
+          "check_E": [
+            726
+          ],
+          "check_photo": [
+            726
+          ],
+          "check_total": [
+            726
+          ],
+          "check_pair_nuclear": [
+            726
+          ],
+          "check_pair_electron": [
+            726
+          ],
+          "xcom_incoherent": [
+            727
+          ],
+          "material": [],
+          "composition_sha256": []
+        },
+        "material": "bone"
+      },
+      "elastic": {
+        "path": "/Users/oishifamily/.cache/chatcarlo/p8a/bone/elastic.json",
+        "sha256": "1151e30504984190a6ee70a7ae36400cd5a60571ae43cefdd697432e792e14e1",
+        "source": "/Users/oishifamily/Projects/viveMonte/docs/validation/mv/p8a/elemental_elsepa.json",
+        "method": "composition-sorted ELSEPA mixture",
+        "units": "cm-1; cm2/sr",
+        "shape": [],
+        "material": "bone"
+      },
+      "gs": {
+        "path": "/Users/oishifamily/.cache/chatcarlo/p8a/bone/gs.npz",
+        "sha256": "9d464b5b64e39e10ba3b300302724a78cd698d7c6138f4b0515c9a8a5a7954ce",
+        "source": [
+          "z1_q-1.npz",
+          "z1_q1.npz",
+          "z6_q-1.npz",
+          "z6_q1.npz",
+          "z7_q-1.npz",
+          "z7_q1.npz",
+          "z8_q-1.npz",
+          "z8_q1.npz",
+          "z12_q-1.npz",
+          "z12_q1.npz",
+          "z15_q-1.npz",
+          "z15_q1.npz",
+          "z16_q-1.npz",
+          "z16_q1.npz",
+          "z20_q-1.npz",
+          "z20_q1.npz",
+          "z30_q-1.npz",
+          "z30_q1.npz"
+        ],
+        "method": "gs_backend.build(MixtureElsepa)",
+        "units": "MeV; dimensionless; cm-1",
+        "shape": {
+          "T": [
+            49
+          ],
+          "K": [
+            9
+          ],
+          "u": [
+            20483
+          ],
+          "y": [
+            49,
+            9,
+            20483
+          ],
+          "p0": [
+            49,
+            9
+          ],
+          "G1": [
+            49
+          ],
+          "total": [
+            49
+          ],
+          "rates": [
+            481,
+            3
+          ],
+          "single": [
+            481,
+            20484
+          ],
+          "lookup_diagnostics": [],
+          "build_seconds": [],
+          "normalization": [
+            441
+          ],
+          "L": [
+            441
+          ],
+          "backend": [],
+          "material": [],
+          "density_g_cm3": []
+        },
+        "material": "bone"
+      },
+      "pair": {
+        "path": "/Users/oishifamily/.cache/chatcarlo/p8a/bone/pair.npz",
+        "sha256": "519c32f906baf3961ab5c1189bae3d61699de8a67271116984697d6f26d51de8",
+        "source": "/Users/oishifamily/.cache/chatcarlo/p8a/pegs/bone/pgs5job.pegs5dat",
+        "method": "PEGS DECK/HATCH 36+7 fields; research only",
+        "units": "dimensionless; MeV",
+        "shape": {
+          "dl": [
+            6,
+            6
+          ],
+          "delcm": [],
+          "alphi": [
+            2
+          ],
+          "bpar": [
+            2
+          ],
+          "delpos": [
+            2
+          ],
+          "medium": [],
+          "medium_line": [],
+          "dl_line": [],
+          "AE": [],
+          "AP": [],
+          "source_sha256": [],
+          "material": []
+        },
+        "material": "bone",
+        "source_sha256": "5c8ec79106cd40551231f0d6830056fb19baec77c516853d2b7ae6adfef978b8",
+        "medium_line": 0,
+        "dl_line": 13
+      },
+      "shells": {
+        "path": "/Users/oishifamily/.cache/chatcarlo/p8a/bone/shells.npz",
+        "sha256": "8504e0bf75e2481a1b40f583afe06e423ea072830b2524190236a53391a69930",
+        "source": "/Users/oishifamily/.cache/chatcarlo/p8a/pegs/bone/direct.txt",
+        "method": "EGS5 block_data_atom; research only",
+        "units": "MeV; atoms/g; log(keV) polynomial",
+        "shape": {
+          "Z": [
+            9
+          ],
+          "NJ": [
+            9
+          ],
+          "binding_MeV": [
+            9,
+            5
+          ],
+          "pm": [
+            9,
+            5,
+            4
+          ],
+          "shell_labels": [
+            5
+          ]
+        },
+        "material": "bone",
+        "source_sha256": "628a6ab1c9d2e37f21fdb5fd5c989ef1787e80460b4ddb4ed933113353c81b33"
+      }
+    },
+    "lead": {
+      "definition": {
+        "path": "/Users/oishifamily/.cache/chatcarlo/p8a/lead/definition.json",
+        "sha256": "58c61399afa062aba7f110435e2090aef3da64484094309f3f58bb68638e2507",
+        "source": [
+          "https://physics.nist.gov/cgi-bin/Star/compos.pl",
+          "xraylib.AtomicWeight",
+          "https://physics.nist.gov/cgi-bin/Star/e_table-t.pl",
+          "https://physics.nist.gov/PhysRefData/Xcom/XCOM.tar.gz"
+        ],
+        "method": "fetch_materials_p8a",
+        "units": "g/cm3; MeV; mass fraction",
+        "shape": [],
+        "material": "lead"
+      },
+      "constants": {
+        "path": "/Users/oishifamily/.cache/chatcarlo/p8a/lead/constants.json",
+        "sha256": "0988023060ddc7feaf465dd6b2d4fc2a66e05f800956937c9121555ef9e8a1bf",
+        "source": [
+          "https://physics.nist.gov/cgi-bin/Star/compos.pl",
+          "xraylib.AtomicWeight",
+          "https://physics.nist.gov/cgi-bin/Star/e_table-t.pl",
+          "https://physics.nist.gov/PhysRefData/Xcom/XCOM.tar.gz"
+        ],
+        "method": "P8a composition-based",
+        "units": "1/g; MeV; g/cm3",
+        "shape": [],
+        "material": "lead"
+      },
+      "stopping": {
+        "path": "/Users/oishifamily/.cache/chatcarlo/p8a/lead/stopping.npz",
+        "sha256": "b822eb452f1f9ecfdd6b85367e54fb1c11b5a51ad2411438379a0ae5805a4ec8",
+        "source": [
+          "https://physics.nist.gov/cgi-bin/Star/compos.pl",
+          "xraylib.AtomicWeight",
+          "https://physics.nist.gov/cgi-bin/Star/e_table-t.pl",
+          "https://physics.nist.gov/PhysRefData/Xcom/XCOM.tar.gz"
+        ],
+        "method": "fetch_materials_p8a",
+        "units": "MeV; MeV cm2/g; dimensionless",
+        "shape": {
+          "T": [
+            1201
+          ],
+          "collision": [
+            1201
+          ],
+          "radiative": [
+            1201
+          ],
+          "total": [
+            1201
+          ],
+          "delta": [
+            1201
+          ],
+          "check_T": [
+            1200
+          ],
+          "check_collision": [
+            1200
+          ],
+          "check_radiative": [
+            1200
+          ],
+          "check_total": [
+            1200
+          ],
+          "check_delta": [
+            1200
+          ],
+          "material": [],
+          "composition_sha256": [],
+          "density_g_cm3": []
+        },
+        "material": "lead"
+      },
+      "range": {
+        "path": "/Users/oishifamily/.cache/chatcarlo/p8a/lead/range.npz",
+        "sha256": "4ad2db5864d919e77869c2f61e4dd4d7ae540382b0532705cf5b45ad1b3188b0",
+        "source": [
+          "https://physics.nist.gov/cgi-bin/Star/compos.pl",
+          "xraylib.AtomicWeight",
+          "https://physics.nist.gov/cgi-bin/Star/e_table-t.pl",
+          "https://physics.nist.gov/PhysRefData/Xcom/XCOM.tar.gz"
+        ],
+        "method": "ESTAR standard-density separate CSDA response",
+        "units": "MeV; g/cm2",
+        "shape": {
+          "T": [
+            81
+          ],
+          "csda_g_cm2": [
+            81
+          ],
+          "material": [],
+          "composition_sha256": [],
+          "density_g_cm3": []
+        },
+        "material": "lead"
+      },
+      "photon": {
+        "path": "/Users/oishifamily/.cache/chatcarlo/p8a/lead/photon.npz",
+        "sha256": "cdb7b9d7fccbe3050c2795e0d049ef8cb1377611336c21a243e7e9d83b78b357",
+        "source": [
+          "https://physics.nist.gov/cgi-bin/Star/compos.pl",
+          "xraylib.AtomicWeight",
+          "https://physics.nist.gov/cgi-bin/Star/e_table-t.pl",
+          "https://physics.nist.gov/PhysRefData/Xcom/XCOM.tar.gz"
+        ],
+        "method": "fetch_materials_p8a --photon-only; appendix 5 (1)",
+        "units": "MeV; cm2/g",
+        "shape": {
+          "E": [
+            729
+          ],
+          "photo_E": [
+            729
+          ],
+          "photo": [
+            729
+          ],
+          "pair_nuclear": [
+            729
+          ],
+          "pair_electron": [
+            729
+          ],
+          "thresholds": [
+            2
+          ],
+          "edges": [
+            9
+          ],
+          "edge_lower_requests": [
+            9
+          ],
+          "edge_upper_requests": [
+            9
+          ],
+          "check_E": [
+            728
+          ],
+          "check_photo": [
+            728
+          ],
+          "check_total": [
+            728
+          ],
+          "check_pair_nuclear": [
+            728
+          ],
+          "check_pair_electron": [
+            728
+          ],
+          "xcom_incoherent": [
+            729
+          ],
+          "material": [],
+          "composition_sha256": []
+        },
+        "material": "lead"
+      },
+      "elastic": {
+        "path": "/Users/oishifamily/.cache/chatcarlo/p8a/lead/elastic.json",
+        "sha256": "5859e07f526543e4cfb616a26b6b22472e222011ff09f13e28e59e2acfd44974",
+        "source": "/Users/oishifamily/Projects/viveMonte/docs/validation/mv/p8a/elemental_elsepa.json",
+        "method": "composition-sorted ELSEPA mixture",
+        "units": "cm-1; cm2/sr",
+        "shape": [],
+        "material": "lead"
+      },
+      "gs": {
+        "path": "/Users/oishifamily/.cache/chatcarlo/p8a/lead/gs.npz",
+        "sha256": "fb9f887f3af1a03c5af3a69a61fdb5815eeddc10ee15b5ad53c4c9a670657cde",
+        "source": [
+          "z82_q-1.npz",
+          "z82_q1.npz"
+        ],
+        "method": "gs_backend.build(MixtureElsepa)",
+        "units": "MeV; dimensionless; cm-1",
+        "shape": {
+          "T": [
+            49
+          ],
+          "K": [
+            9
+          ],
+          "u": [
+            20483
+          ],
+          "y": [
+            49,
+            9,
+            20483
+          ],
+          "p0": [
+            49,
+            9
+          ],
+          "G1": [
+            49
+          ],
+          "total": [
+            49
+          ],
+          "rates": [
+            496,
+            3
+          ],
+          "single": [
+            496,
+            20484
+          ],
+          "lookup_diagnostics": [],
+          "build_seconds": [],
+          "normalization": [
+            441
+          ],
+          "L": [
+            441
+          ],
+          "backend": [],
+          "material": [],
+          "density_g_cm3": []
+        },
+        "material": "lead"
+      },
+      "pair": {
+        "path": "/Users/oishifamily/.cache/chatcarlo/p8a/lead/pair.npz",
+        "sha256": "3dc9a8da47a580460f011ba55c9cd273b1725c093333271f41df013744e050bd",
+        "source": "/Users/oishifamily/.cache/chatcarlo/p8a/pegs/lead/pgs5job.pegs5dat",
+        "method": "PEGS DECK/HATCH 36+7 fields; research only",
+        "units": "dimensionless; MeV",
+        "shape": {
+          "dl": [
+            6,
+            6
+          ],
+          "delcm": [],
+          "alphi": [
+            2
+          ],
+          "bpar": [
+            2
+          ],
+          "delpos": [
+            2
+          ],
+          "medium": [],
+          "medium_line": [],
+          "dl_line": [],
+          "AE": [],
+          "AP": [],
+          "source_sha256": [],
+          "material": []
+        },
+        "material": "lead",
+        "source_sha256": "f3c56d523b40232135c7e6d944cbc854b0de1d94375c75bec201bc17430c51d5",
+        "medium_line": 0,
+        "dl_line": 5
+      },
+      "shells": {
+        "path": "/Users/oishifamily/.cache/chatcarlo/p8a/lead/shells.npz",
+        "sha256": "392768b69e57159ca499c20f9c7a0d5e7f93428d6301060d3af9dbc875663b73",
+        "source": "/Users/oishifamily/.cache/chatcarlo/p8a/pegs/lead/direct.txt",
+        "method": "EGS5 block_data_atom; research only",
+        "units": "MeV; atoms/g; log(keV) polynomial",
+        "shape": {
+          "Z": [
+            1
+          ],
+          "NJ": [
+            1
+          ],
+          "binding_MeV": [
+            1,
+            5
+          ],
+          "pm": [
+            1,
+            5,
+            4
+          ],
+          "shell_labels": [
+            5
+          ]
+        },
+        "material": "lead",
+        "source_sha256": "1c41e8e6178e1e39f46e24f0985fe8dc7eb09fa5dbcf7b3529a1744c358d6c81"
+      }
+    }
+  }
+}
