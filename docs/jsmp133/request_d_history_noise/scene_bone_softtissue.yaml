@@ -1,0 +1,33 @@
+# 依頼 D（JSMP133 依頼 2）: 履歴数とモンテカルロ統計誤差を示す診断領域の被写体
+# 座標系: cm、z 軸が上向き。焦点は真上から -z 方向へ照射し、z=0 の平面検出器
+# （chatcarlo/detector.py、run_history_noise.py で指定）で画像を作る。
+# 被写体は軟部組織の板（厚さ 8 cm）と、その中を y 方向に通る骨の円柱（直径 2.5 cm）。
+
+source:
+  type: xray_tube
+  kvp: 70
+  filtration_mm_al: 2.5
+  position: [0, 0, 100]
+  direction: [0, 0, -1]
+  field:
+    shape: rect
+    size_cm: [20, 20]
+    sid_cm: 100
+
+geometry:
+  - name: soft_tissue_slab
+    shape: box
+    material: soft_tissue
+    size_cm: [24, 24, 8]
+    center: [0, 0, 6]
+
+  - name: bone_rod
+    shape: cylinder
+    material: bone
+    axis: y
+    radius_cm: 1.25
+    height_cm: 18
+    center: [-4, 0, 6]
+
+physics:
+  fluorescence: true
