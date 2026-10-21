@@ -18,10 +18,12 @@ from chatcarlo.scene import load_scene
 from chatcarlo.transport import run_transport
 
 HERE = Path(__file__).resolve().parent
-SCENE = HERE / "scene_bone_softtissue.yaml"
-# 検出器: z=0、20 cm 角、128x128 画素（画素 0.156 cm）。法線 +z（下向きに進む光子を受ける）。
+# 改訂版（2026-10-21、ユーザーの決定で被写体を肖像に変更）。旧版は scene_bone_softtissue.yaml と
+# 20 cm 角・128x128 画素の検出器だった（コミット 7b275ec）。
+SCENE = HERE / "scene_portrait.yaml"
+# 検出器: z=0、15x18 cm、100x120 画素（画素 0.15 cm）。照射野（肖像の範囲）を覆う大きさ。法線 +z（下向きに進む光子を受ける）。
 DET = dict(center_cm=[0.0, 0.0, 0.0], normal=[0.0, 0.0, 1.0], u_axis=[1.0, 0.0, 0.0],
-           size_cm=(20.0, 20.0), shape=(128, 128))
+           size_cm=(15.0, 18.0), shape=(100, 120))
 N_BATCHES = 10          # 段階全体でのバッチ数の目安（R は補助の指標）
 MAX_BATCH = 200_000    # 既定の batch_size を上限にする（8 ワーカー同時のメモリのため）
 
