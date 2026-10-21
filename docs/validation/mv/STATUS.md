@@ -96,6 +96,7 @@ RESULTS は P1e/P1f の凍結対象（`prototypes/mv_electron/p1e_common.targets
 | `p6` | `~/.cache/chatcarlo/p6` | 447 | 1.9 GB → 728 MB | `p6 analyse` |
 | `p7_results` | `~/.cache/chatcarlo/p7/results` | 619 | 2.04 GB → 733 MB | `run_p7 analyse` |
 | `p7_work_pilot` | `~/.cache/chatcarlo/p7/work/pilot` | 315 | 2.9 GB → 287 MB | 試し計算の固定（pilot lock）の検査。`histories.npz` は大半が 0 で、682 MB → 9 MB ずつ |
+| `p8f` | `~/.cache/chatcarlo/p8f` | 857 | 1.3 GB → 641 MB | `gpu/p8f.py` の全コマンド（`gate1`〜`analyse`）、`p8f_cli` での再実行（束 `export` と結果 `results` もここ）。P8e の材料の束は `p8e/` にあり圧縮していない |
 
 `~/.cache/chatcarlo/p7/spectra` は P7 のコードが読むので圧縮しない。
 
