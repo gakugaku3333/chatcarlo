@@ -3,7 +3,8 @@
 使い方（リポジトリの最上位で）:
   .venv/bin/python docs/jsmp133/request_d_history_noise/analyze_history_noise.py \
       --data ~/.cache/chatcarlo/jsmp133_request_d/main
-出力: このフォルダの results.json、relerr_vs_N.png、history_noise_A4.jpg、history_noise_panels.png
+出力: このフォルダの results.json、relerr_vs_N.png、history_noise_A4.jpg、history_noise_panels.png、
+      history_noise_9frames.mp4
 """
 from __future__ import annotations
 
@@ -183,6 +184,27 @@ def main():
         ax.set_xticks([]); ax.set_yticks([])
     fig.tight_layout()
     fig.savefig(HERE / "history_noise_panels.png")
+    plt.close(fig)
+    # --- 発表用の動画: 本計算の 9 段階を 1 コマ 1 秒ずつ（独立な計算を並べたもの、累積ではない） ---
+    from matplotlib.animation import FFMpegWriter
+    fig = plt.figure(figsize=(6.4, 7.2), dpi=150)
+    ax = fig.add_axes([0.08, 0.17, 0.84, 0.75])
+    cap = fig.text(0.5, 0.06, "", ha="center", va="center", fontsize=12)
+    fig.text(0.5, 0.015, "モンテカルロの履歴数（計算の統計誤差）を変えた独立な計算。撮影の mAs（量子ノイズ）ではない。",
+             ha="center", fontsize=7.5, color="#444")
+    im = ax.imshow(imgs[NS[0]][0].T, origin="lower", extent=ext, cmap="gray_r", vmin=vmin, vmax=vmax,
+                   interpolation="nearest")
+    ax.set_xticks([]); ax.set_yticks([])
+    title = ax.set_title("", fontsize=14)
+    writer = FFMpegWriter(fps=1, codec="libx264", extra_args=["-pix_fmt", "yuv420p"])
+    with writer.saving(fig, HERE / "history_noise_9frames.mp4", dpi=150):
+        for n in NS:
+            r = next(r for r in rows if r["N"] == n)
+            im.set_data(imgs[n][0].T)
+            title.set_text(f"履歴数 N = {n:,}")
+            cap.set_text(f"均一領域の相対誤差 {100 * r['cv_diff']:.2f}%")
+            writer.grab_frame()
+        writer.grab_frame()  # 最後のコマを 2 秒見せる
     plt.close(fig)
     print(json.dumps({k: v for k, v in out.items() if k != "rows"}, indent=1, ensure_ascii=False))
     for r in rows:
