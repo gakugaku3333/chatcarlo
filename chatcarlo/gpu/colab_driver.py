@@ -7,6 +7,7 @@ import hashlib
 import json
 from pathlib import Path
 import subprocess
+import sys
 import tempfile
 import time
 import numpy as np
@@ -28,6 +29,8 @@ def expected_identity(manifest,job,name):
         if name.startswith('paired_') and name.endswith('.npz'):
             b=int(name[7:-4])
             if 0<=b<10 and name==f'paired_{b:02d}.npz':return identity(manifest,job,b,b*1000000,1000000)
+    elif job['mode']=='batches' and name=='source_reference.json':
+        return identity(manifest,job,-2,0,job['n_histories'])
     elif name.startswith('batch_') and name.endswith('.npz'):
         b=int(name[6:-4]);start=b*job['batch_size']
         if 0<=start<job['n_histories'] and name==f'batch_{b:06d}.npz':return identity(manifest,job,b,start,min(job['batch_size'],job['n_histories']-start))
@@ -87,6 +90,23 @@ def assemble(parts,target,files):
         if digest(pending)!=item['sha256']:raise ValueError('assembled SHA256 mismatch')
         pending.replace(target/name)
 
+def source_reference(bundle_path,job_path,out):
+    """Replay only approved source inputs, without Core or worker receipts."""
+    from .bundle import load
+    from .source_host import sample_source_photons
+    _,src,spec,_,manifest=load(bundle_path)
+    job=json.loads(Path(job_path).read_text())
+    if job['mode']!='batches':raise ValueError('source reference requires batches mode')
+    rng=np.random.default_rng(job['source_seed']);batches={}
+    for batch,start in enumerate(range(0,job['n_histories'],job['batch_size'])):
+        n=min(job['batch_size'],job['n_histories']-start)
+        arrays=sample_source_photons(src,n,rng,spec)
+        batches[f'batch_{batch:06d}.npz']={
+            name:hashlib.sha256(np.ascontiguousarray(array).tobytes()).hexdigest()
+            for name,array in zip(('origins','directions','energies'),arrays)}
+    name='source_reference.json'
+    write_result(out,name,batches,expected_identity(manifest,job,name))
+
 def worker(bundle_path,job_path,out):
     from .bundle import load
     from .core import Core
@@ -112,6 +132,11 @@ def worker(bundle_path,job_path,out):
             result,observed=driver.run(o,d,e,seed=job['seed'],start=start,fluorescence=settings['fluorescence'],observe=True)
             elapsed=time.perf_counter()-t0
             write_result(out,name,result,key,observed=observed,elapsed_s=elapsed)
+    if job['mode']=='batches' and job['device']=='cuda':
+        # A fresh process replays from the bundle/job, even if every batch was reused.
+        subprocess.run([sys.executable,'-m','chatcarlo.gpu.colab_driver','source-reference',
+                        '--bundle',str(Path(bundle_path).resolve()),'--job',str(Path(job_path).resolve()),
+                        '--out',str(out.resolve())],cwd=Path(__file__).resolve().parents[2],check=True)
     (out/'done.json.pending').write_text(json.dumps(dict(status='complete')));(out/'done.json.pending').replace(out/'done.json')
 
 def _bootstrap(files,job_sha):
@@ -170,18 +195,21 @@ def launch(bundle_path,job,out,*,gate1,gate2=None,session='chatcarlo-g1',colab='
         tmp=Path(tmp);files=split_bundle(bundle_path,tmp/'parts',part_bytes=PART_BYTES);job_path=tmp/'job.json';job_path.write_text(json.dumps(job,sort_keys=True)+'\n')
         try:
             cli(['new','-s',session,'--gpu','T4'])
-            cli(['exec','-s',session],f"import pathlib\nbase=pathlib.Path({REMOTE!r})\n(base/'parts').mkdir(parents=True,exist_ok=True)\n(base/'results').mkdir(exist_ok=True)\n")
+            cli(['exec','-s',session],f"import pathlib\nbase=pathlib.Path({REMOTE!r})\n(base/'parts').mkdir(parents=True,exist_ok=True)\n(base/'results').mkdir(exist_ok=True)\nfor name in ('done.json','source_reference.json','source_reference.json.receipt.json'):\n (base/'results'/name).unlink(missing_ok=True)\n")
             for part in sorted((tmp/'parts').iterdir()):cli(['upload','-s',session,str(part),f'{REMOTE}/parts/{part.name}'])
             cli(['upload','-s',session,str(job_path),f'{REMOTE}/job.json'])
             if fault_path is not None:cli(['upload','-s',session,str(fault_path),f'{REMOTE}/fault.json'])
             else:cli(['exec','-s',session],f"from pathlib import Path\nPath({REMOTE+'/fault.json'!r}).unlink(missing_ok=True)\n")
             # Restore only validated result+receipt pairs, preserving source replay.
             for receipt in sorted(out.glob('*.receipt.json')):
-                name=receipt.name[:-13];key=expected_identity(manifest,job,name)
+                name=receipt.name[:-13]
+                if name=='source_reference.json':continue  # Always regenerate on the current VM.
+                key=expected_identity(manifest,job,name)
                 if read_result(out,name,key) is None:continue
                 for p in (out/name,receipt):cli(['upload','-s',session,str(p),f'{REMOTE}/results/{p.name}'])
             launched=cli(['exec','-s',session],_bootstrap(files,digest(job_path)))
             if 'G1_LAUNCHED' not in launched:raise RuntimeError('bundle assembly/verification did not launch worker')
+            reference_received=False
             while True:
                 listing=cli(['exec','-s',session],_listing())
                 if 'G1_RUNNING' not in listing and 'G1_DONE' not in listing:raise RuntimeError('invalid Colab status or lost session')
@@ -190,7 +218,7 @@ def launch(bundle_path,job,out,*,gate1,gate2=None,session='chatcarlo-g1',colab='
                     name=line.split(' ',1)[1]
                     if Path(name).name!=name or name.endswith('.pending') or not name.endswith(('.npz','.json')):raise ValueError('invalid remote result name')
                     local_receipt=out/(name+'.receipt.json')
-                    if local_receipt.exists():
+                    if local_receipt.exists() and name!='source_reference.json':
                         key=expected_identity(manifest,job,name)
                         if read_result(out,name,key) is not None:continue
                     with tempfile.TemporaryDirectory(dir=tmp) as stage:
@@ -200,11 +228,15 @@ def launch(bundle_path,job,out,*,gate1,gate2=None,session='chatcarlo-g1',colab='
                         expected=expected_identity(manifest,job,name)
                         read_result(stage,name,expected)
                         (stage/name).replace(out/name);(stage/(name+'.receipt.json')).replace(local_receipt)
+                        if name=='source_reference.json':reference_received=True
                 if 'G1_DONE' in listing:
                     if job['mode']=='gate2':
                         required=[('gate2.json',-1,0,10000000)]+[(f'paired_{b:02d}.npz',b,b*1000000,1000000) for b in range(10)]
                     else:
                         required=[(f'batch_{b:06d}.npz',b,start,min(job['batch_size'],job['n_histories']-start)) for b,start in enumerate(range(0,job['n_histories'],job['batch_size']))]
+                    if job['mode']=='batches' and job['device']=='cuda':
+                        name='source_reference.json'
+                        if not reference_received or read_result(out,name,expected_identity(manifest,job,name)) is None:raise ValueError('completed VM is missing verified result '+name)
                     for name,b,start,count in required:
                         if read_result(out,name,identity(manifest,job,b,start,count)) is None:raise ValueError('completed VM is missing verified result '+name)
                     return
@@ -215,8 +247,9 @@ def launch(bundle_path,job,out,*,gate1,gate2=None,session='chatcarlo-g1',colab='
             except (subprocess.CalledProcessError,RuntimeError):pass
 
 def main(argv=None):
-    ap=argparse.ArgumentParser();ap.add_argument('action',choices=['worker','launch']);ap.add_argument('--bundle',required=True,type=Path);ap.add_argument('--job',required=True,type=Path);ap.add_argument('--out',required=True,type=Path);ap.add_argument('--gate1',type=Path);ap.add_argument('--gate2',type=Path);ap.add_argument('--session',default='chatcarlo-g1');a=ap.parse_args(argv)
+    ap=argparse.ArgumentParser();ap.add_argument('action',choices=['worker','launch','source-reference']);ap.add_argument('--bundle',required=True,type=Path);ap.add_argument('--job',required=True,type=Path);ap.add_argument('--out',required=True,type=Path);ap.add_argument('--gate1',type=Path);ap.add_argument('--gate2',type=Path);ap.add_argument('--session',default='chatcarlo-g1');a=ap.parse_args(argv)
     if a.action=='worker':worker(a.bundle,a.job,a.out)
+    elif a.action=='source-reference':source_reference(a.bundle,a.job,a.out)
     else:launch(a.bundle,json.loads(a.job.read_text()),a.out,gate1=a.gate1,gate2=a.gate2,session=a.session)
 
 if __name__=='__main__':main()

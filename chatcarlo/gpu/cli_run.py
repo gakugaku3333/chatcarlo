@@ -34,6 +34,7 @@ def run(scene, args):
         reused = set()
         for receipt in results.glob('*.receipt.json'):
             name = receipt.name[:-13]
+            if name == 'source_reference.json': continue
             if read_result(results, name, expected_identity(manifest, job, name)) is not None:
                 reused.add(name)
         gates = Path(__file__).resolve().parents[2]/'docs/validation/gpu/g1'

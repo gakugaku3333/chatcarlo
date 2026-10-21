@@ -87,6 +87,14 @@ def verify_batches(bundle_path, job, results, reused=()):
     from .source_host import sample_source_photons
     from .colab_driver import read_result, expected_identity
     a, src, spec, settings, manifest = bundle.load(bundle_path)
+    reference = None
+    if job['device'] == 'cuda':
+        name = 'source_reference.json'
+        reference = read_result(results, name, expected_identity(manifest, job, name))
+        if reference is None: raise ValueError('missing verified source_reference.json')
+        names = {f'batch_{b:06d}.npz' for b, _ in enumerate(range(0, job['n_histories'], job['batch_size']))}
+        if not isinstance(reference, dict) or set(reference) != names:
+            raise ValueError('source_reference.json batch mismatch')
     rng = np.random.default_rng(job['source_seed'])
     batches = []
     timing = dict(new_batches=0, reused_batches=0, new_elapsed_s=0., reused_elapsed_s=0.)
@@ -98,6 +106,19 @@ def verify_batches(bundle_path, job, results, reused=()):
         receipt = json.loads((Path(results)/(name+'.receipt.json')).read_text())
         o, d, e = sample_source_photons(src, n, rng, spec)
         expected = expected_observation(a, o, d, e, job['seed'], start, settings['fluorescence'], job['device'])
+        if reference is not None:
+            hashes = reference[name]
+            if not isinstance(hashes, dict) or set(hashes) != {'origins', 'directions', 'energies'} or any(
+                not isinstance(v, str) or len(v) != 64 or any(c not in '0123456789abcdef' for c in v)
+                for v in hashes.values()
+            ):
+                raise ValueError('source_reference.json invalid hashes: '+name)
+            # Origins/energies must also match the host replay. Only directions
+            # use the independent replay in the same VM's rounding environment.
+            check_observation({k: hashes[k] for k in ('origins', 'energies')},
+                              {k: expected[f'{pos}:{k}'] for pos,k in ((15,'origins'),(17,'energies'))},
+                              'source_reference.json '+name)
+            expected['16:directions'] = hashes['directions']
         check_observation(receipt.get('observed'), expected, name)
         health(r, n, len(settings['material_names']), a['detector'])
         elapsed = receipt.get('elapsed_s')

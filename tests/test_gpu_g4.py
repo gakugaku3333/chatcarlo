@@ -434,3 +434,131 @@ def test_gpu_g4_existing_preview_bytes_unchanged(tmp_path):
         scene=load_scene(str(example))
         if scene.ok and 'detector' not in scene.raw:
             assert render_html(scene).encode()==module.render_html(scene).encode()
+
+
+@pytest.fixture
+def cuda_replay(prepared, monkeypatch):
+    """Exercise CUDA receipts and the separate reference process using a CPU twin."""
+    _, _, path = prepared
+    job = json.loads((path/'job.json').read_text())
+    native_core = core.Core
+
+    class CudaTwin:
+        def __init__(self, arrays, device):
+            assert device == 'cuda'
+            self.driver = native_core(arrays, 'cpu')
+
+        def run(self, *args, **kwargs):
+            result, observed = self.driver.run(*args, **kwargs)
+            values = {k.split(':', 1)[1].removeprefix('geometry.'): v for k, v in observed.items()}
+            return result, {f'{i}:{name}': values[name] for i, name in core.CUDA_INPUTS.items()}
+
+    monkeypatch.setattr(core, 'Core', CudaTwin)
+    colab_driver.worker(path/'bundle', path/'job.json', path/'results')
+    return path, job
+
+
+def test_gpu_g4_source_reference_independent_and_rounding(cuda_replay, monkeypatch):
+    path, job = cuda_replay
+    results = path/'results'
+    manifest = bundle.verify(path/'bundle')
+    reference = colab_driver.read_result(results, 'source_reference.json',
+                                         colab_driver.expected_identity(manifest, job, 'source_reference.json'))
+    for name, hashes in reference.items():
+        observed = json.loads((results/(name+'.receipt.json')).read_text())['observed']
+        assert hashes == {key: observed[f'{pos}:{key}'] for pos, key in
+                          ((15, 'origins'), (16, 'directions'), (17, 'energies'))}
+
+    # The independent function never constructs Core or reads worker outputs.
+    def forbidden(*args, **kwargs):
+        raise AssertionError('reference must not use Core')
+    monkeypatch.setattr(core, 'Core', forbidden)
+    colab_driver.source_reference(path/'bundle', path/'job.json', path/'reference_only')
+    assert (results/'source_reference.json').read_bytes() == (path/'reference_only/source_reference.json').read_bytes()
+
+    from chatcarlo.gpu import source_host
+    original = source_host.sample_source_photons
+    def different_host_rounding(*args, **kwargs):
+        o, d, e = original(*args, **kwargs)
+        return o, np.nextafter(d, np.inf), e
+    monkeypatch.setattr(source_host, 'sample_source_photons', different_host_rounding)
+    batches, timing = approval.verify_batches(path/'bundle', job, results, reference.keys())
+    assert len(batches) == 3 and timing['reused_batches'] == 3
+
+
+@pytest.mark.parametrize('field', ['directions', 'origins', 'energies'])
+def test_gpu_g4_source_reference_rejects_observed_swap(cuda_replay, field):
+    path, job = cuda_replay
+    name = 'batch_000001.npz'
+    receipt = path/'results'/(name+'.receipt.json')
+    value = json.loads(receipt.read_text())
+    key = {'origins': '15:origins', 'directions': '16:directions', 'energies': '17:energies'}[field]
+    value['observed'][key] = '0'*64
+    receipt.write_text(json.dumps(value))
+    with pytest.raises(ValueError, match='observation mismatch: '+name+' '+key):
+        approval.verify_batches(path/'bundle', job, path/'results', [name])
+
+
+@pytest.mark.parametrize('fault', ['missing', 'missing_receipt', 'identity', 'sha256', 'batch', 'hashes'])
+def test_gpu_g4_source_reference_rejects_invalid(cuda_replay, fault):
+    path, job = cuda_replay
+    results = path/'results'
+    ref = results/'source_reference.json'
+    receipt = results/'source_reference.json.receipt.json'
+    message = 'source_reference.json'
+    if fault == 'missing': ref.unlink()
+    elif fault == 'missing_receipt': receipt.unlink()
+    elif fault == 'identity':
+        value = json.loads(receipt.read_text());value['identity']['job']['source_seed'] += 1
+        receipt.write_text(json.dumps(value))
+        message = 'result identity mismatch: source_reference.json'
+    elif fault == 'sha256':
+        ref.write_text(ref.read_text()+' ')
+        message = 'result SHA256 mismatch: source_reference.json'
+    else:
+        value = json.loads(ref.read_text())
+        if fault == 'batch': value.pop('batch_000002.npz')
+        else: value['batch_000002.npz'].pop('directions')
+        colab_driver.write_result(results, ref.name, value,
+                                 colab_driver.expected_identity(bundle.verify(path/'bundle'), job, ref.name))
+    with pytest.raises(ValueError, match=message):
+        approval.verify_batches(path/'bundle', job, results)
+
+
+def test_gpu_g4_source_reference_regenerated_on_reuse(cuda_replay, monkeypatch):
+    path, job = cuda_replay
+    results = path/'results'
+    saved = {p.name: (p.read_bytes(), p.stat().st_mtime_ns) for p in results.glob('*.npz')}
+    (results/'source_reference.json').write_text('stale')
+    colab_driver.worker(path/'bundle', path/'job.json', results)
+    approval.verify_batches(path/'bundle', job, results, saved)
+    for name, (data, mtime) in saved.items():
+        assert (results/name).read_bytes() == data
+        assert (results/name).stat().st_mtime_ns == mtime
+
+
+def test_gpu_g4_source_reference_transfer_and_resume(tmp_path, monkeypatch):
+    # An executable fake exercises upload/download without starting any Colab session.
+    from test_gpu_g1_colab import FAKE
+    script = FAKE.replace("worker(target,base/'job.json',base/'results')",
+                          "worker(target,base/'job.json',base/'results')\n"
+                          "  from chatcarlo.gpu.colab_driver import source_reference\n"
+                          "  source_reference(target,base/'job.json',base/'results')")
+    exe = tmp_path/'colab'
+    exe.write_text(script.replace('#!/usr/bin/env python3', '#!'+sys.executable));exe.chmod(0o755)
+    monkeypatch.setenv('G1_FAKE_ROOT', str(tmp_path/'fake-state'))
+    monkeypatch.setattr(colab_driver, 'REMOTE', str(tmp_path/'remote'))
+    path = tmp_path/'bundle'
+    bundle.create(load_scene(str(ROOT/'docs/validation/gpu/g1/scenes/s1.yaml')), None, path)
+    job = dict(mode='batches', seed=71, source_seed=72, n_histories=41, batch_size=20, device='cpu')
+    gate = tmp_path/'gate.json';gate.write_text('{"status":"pass"}')
+    results = tmp_path/'results'
+    for attempt in range(2):
+        if attempt: (results/'source_reference.json').write_text('stale local reference')
+        colab_driver.launch(path, job, results, gate1=gate, gate2=gate, colab=str(exe), poll_seconds=0)
+        reference = colab_driver.read_result(results, 'source_reference.json',
+                                             colab_driver.expected_identity(bundle.verify(path), job, 'source_reference.json'))
+        assert set(reference) == {f'batch_{b:06d}.npz' for b in range(3)}
+    commands = [json.loads(line) for line in (tmp_path/'fake-state/commands').read_text().splitlines()]
+    assert not any(cmd[0]=='upload' and 'source_reference.json' in cmd[-1] for cmd in commands)
+    assert sum(cmd[0]=='download' and cmd[-2].endswith('/source_reference.json') for cmd in commands) == 2
