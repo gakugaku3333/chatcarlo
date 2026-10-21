@@ -141,7 +141,7 @@ def _build(data, scene, quantity):
     calibration_note = f".npz は校正済み。シーンの設定: {setting}" if calibrated else "相対値・校正なし"
     unit_label = f"{'H*(10)' if quantity == 'h10' else '吸収線量'} [{unit if calibrated else unit + '/history'}]"
     notes = ["外形が同じ別のシーンは見分けられない。",
-             "plot と同じ LUT（inferno）。半透明の重なりで画面の色は変わる。数値はクリックで確認。"]
+             "色は turbo（低い値は青、高い値は赤）。半透明の重なりで画面の色は変わる。数値はクリックで確認。"]
     if not stats:
         notes.append("統計の情報が無いため、どのボクセルの信頼性も確かめていない")
     if quantity == "dose":
@@ -173,7 +173,7 @@ def _build(data, scene, quantity):
                 voxel_size_cm=size, origin_cm=origin.tolist(), shape=list(shape),
                 stats_available=stats, n_batches=batches, counts=counts, decades=decades,
                 **columns, vmin=vmin, vmax=vmax, materials=materials.tolist(),
-                lut=[to_hex(matplotlib.colormaps["inferno"](i / 255)) for i in range(256)], notes=notes)
+                lut=[to_hex(matplotlib.colormaps["turbo"](i / 255)) for i in range(256)], notes=notes)
 
 
 DOSE_HEADER = r'''<div id="doseControls" style="padding:6px 16px;display:flex;gap:12px;flex-wrap:wrap">
