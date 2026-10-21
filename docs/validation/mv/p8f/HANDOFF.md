@@ -69,7 +69,23 @@ wait
 保存済みの参照は添え書きとハッシュを照合し、存在しないバッチだけを計算する。
 合否の基準や履歴数は変えない。
 
-### Drive と Colab（Codex は実行しない）
+### Colab CLI（2026-10-21 に実際に使った手順）
+
+Drive とブラウザの代わりに Colab CLI（`colab`、uv で導入、gmail でサインイン済み）を使った。スクリプトは
+[`prototypes/mv_electron/gpu/p8f_cli/`](../../../../prototypes/mv_electron/gpu/p8f_cli/)。
+
+```bash
+prototypes/mv_electron/gpu/p8f_cli/start_vm.sh   # T4 を作り、束を送り（150 MB 超は 50 MB に分割）、照合して起動
+prototypes/mv_electron/gpu/p8f_cli/watch.sh      # 20 分ごとに確認し（2026-10-21 のユーザー決定。P8f は 4 分で保たれた。20 分は未検証）、結果を ~/.cache/chatcarlo/p8f/cli/results へ回収
+colab stop -s p8f                                # 終わったら必ず止める
+cp -R ~/.cache/chatcarlo/p8f/cli/results/. ~/.cache/chatcarlo/p8f/results/
+.venv/bin/python -m prototypes.mv_electron.gpu.p8f analyse
+```
+
+- 確認を止めると VM が返却されることがある（1 回目は約 40 分で消えた。原因はカーネルが使われていないことと推定、n=1）。`watch.sh` を必ず回す。途中で消えたら `start_vm.sh` をもう一度実行すれば、回収済みの結果を送り直して続きから回る。
+- Colab の既存の `cupy-cuda13x` に `cupy-cuda12x` を重ねない（`assemble.py` は重なっていたら起動しない）。
+
+### Drive と Colab（当初の手順。今回は使っていない）
 
 `export` は `~/.cache/chatcarlo/p8f/export/` を作る。全ファイルを gmail の
 `MyDrive/viveMonte/p8f/` にコピーする。全ファイル名と SHA256 は `p8f_manifest.json` にあり、コマンドでも一覧を表示する。
