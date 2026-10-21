@@ -48,3 +48,15 @@ def test_gpu_g1_record_reconstruction(tmp_path):
     # Global history numbers are independent of the device launch size.
     r0=engine.run(o[:1000],d[:1000],e[:1000],seed=8000,record=True);r1=engine.run(o[1000:],d[1000:],e[1000:],seed=8000,start=1000,record=True)
     for k in ('d','i'):assert np.concatenate((r0[k],r1[k])).tobytes()==r[k].tobytes()
+
+
+def test_gpu_g1_2a_physics0_grid_index_tolerated():
+    from chatcarlo.gpu.validation import physics0_judge
+    me=2;cpu=np.zeros((4,8+5*me));cpu[:,:4]=[3.,1.,1.5,.5];cpu[:,8:8+3*me]=.25;cpu[:,8+3*me:8+4*me]=10.
+    gpu=cpu.copy();gpu[3,8+3*me:8+4*me]=9.;gpu[3,:4]*=1+1e-15
+    r=physics0_judge(cpu,gpu,me,n_random=2)
+    assert r['value_pass'] and r['grid_index_shifted']==1 and r['grid_index_shifted_random']==0
+    bad=gpu.copy();bad[3,0]=cpu[3,0]*(1+1e-9)
+    assert not physics0_judge(cpu,bad,me)['value_pass']
+    cpu[0,8]=0.;nonzero=cpu.copy();nonzero[0,8]=1e-300
+    assert not physics0_judge(cpu,nonzero,me)['value_pass']

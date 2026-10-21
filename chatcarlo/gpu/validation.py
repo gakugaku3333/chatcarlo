@@ -95,9 +95,28 @@ def gpu_probe(cpu,gpu,which,x,kind='physics'):
     gy=cp.zeros((n,width),cp.float64);gs=cp.zeros(626+n,cp.uint64);gn=cp.zeros(16,cp.float64);gx=cp.asarray(x)
     ga=(np.int32(which),g['data'],g['offsets'],np.int32(cpu.me),np.int32(cpu.ng),np.int32(cpu.nm),gx,np.int32(n),np.uint64(seed)) if kind=='physics' else (np.int32(which),gx,np.int32(n),np.uint64(seed))
     kernel=cp.RawKernel(core.cuda_source(),name+'_kernel',backend='nvrtc',options=core.CUDA_OPTIONS);kernel((1,),(1,),(*ga,gy,gs,gn));cp.cuda.Stream.null.synchronize();actual,actual_state,actual_next=map(cp.asnumpy,(gy,gs,gn))
-    integer_cols=[2] if which==1 else [1] if which==2 else [0] if which in (3,4,6) else list(range(8+3*cpu.me,8+4*cpu.me)) if which==0 else []
+    integer_cols=[2] if which==1 else [1] if which==2 else [0] if which in (3,4,6) else []
     integer_ok=True if kind!='physics' else bool(np.array_equal(out[:,integer_cols],actual[:,integer_cols]))
-    return dict(status='pass' if integer_ok and np.array_equal(state[625:],actual_state[625:]) else 'fail',integer_match=integer_ok,calls_cpu=int(state[625]),calls_gpu=int(actual_state[625]),float_match=float(np.mean(out.view(np.uint64)==actual.view(np.uint64))),next_match=float(np.mean(nxt.view(np.uint64)==actual_next.view(np.uint64))))
+    extra={}
+    if kind=='physics' and which==0:
+        extra=physics0_judge(out,actual,cpu.me);integer_ok=integer_ok and extra['value_pass']
+    return dict(status='pass' if integer_ok and np.array_equal(state[625:],actual_state[625:]) else 'fail',integer_match=integer_ok,calls_cpu=int(state[625]),calls_gpu=int(actual_state[625]),float_match=float(np.mean(out.view(np.uint64)==actual.view(np.uint64))),next_match=float(np.mean(nxt.view(np.uint64)==actual_next.view(np.uint64))),**extra)
+
+PHYSICS0_REL_TOL=1e-12
+
+def physics0_judge(cpu_out,gpu_out,me,n_random=100000):
+    # g1_mu's grid index depends on log(E); CPU and GPU log may differ by 1 ulp
+    # exactly on a grid node and pick the adjacent interval (user decision
+    # 2026-10-21, after the first T4 gate 2a). The index is reported, and the
+    # cross-section values (parts and per-element p/c/r) must agree instead.
+    idx=list(range(8+3*me,8+4*me));values=list(range(4))+list(range(8,8+3*me))
+    shifted=np.any(cpu_out[:,idx]!=gpu_out[:,idx],axis=1)
+    c=cpu_out[:,values];g=gpu_out[:,values];zero=c==0.
+    zero_ok=bool(np.array_equal(g[zero],c[zero]))
+    rel=np.abs(g[~zero]-c[~zero])/np.abs(c[~zero]);max_rel=float(rel.max()) if rel.size else 0.
+    finite=bool(np.all(np.isfinite(g)))
+    fr=list(range(8+4*me,8+5*me))
+    return dict(value_pass=bool(zero_ok and finite and max_rel<=PHYSICS0_REL_TOL),grid_index_shifted=int(shifted.sum()),grid_index_shifted_random=int(shifted[:n_random].sum()),max_relative_difference=max_rel,relative_tolerance=PHYSICS0_REL_TOL,fraction_match=float(np.mean(cpu_out[:,fr].view(np.uint64)==gpu_out[:,fr].view(np.uint64))))
 
 def gate2a(cpu,gpu):
     reports={};t=unpack_tables(cpu.a);cp=gpu.cp
