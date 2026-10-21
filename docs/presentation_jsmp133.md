@@ -2,7 +2,7 @@
 
 2026-10-07にユーザーとの対話で確定した内容。実装・検証はこのストーリーに合わせて進める。
 抄録本文（英語）はまだ書いていない。
-2026-10-21 の構成セッションの決定（依頼 3 件の内容、新規性の書き方、Supporting Data の条件）は [jsmp133/abstract_plan.md](jsmp133/abstract_plan.md)。
+2026-10-21 の構成セッションの決定（依頼 3 件の内容、新規性の書き方、Supporting Data の条件）は [jsmp133/abstract_plan.md](jsmp133/abstract_plan.md)。日本語のたたき台は [jsmp133/abstract_ja_draft.md](jsmp133/abstract_ja_draft.md)、別セッションへの実装依頼は [jsmp133/handoff_requests.md](jsmp133/handoff_requests.md)。
 
 ## 学会の条件（2026-10-07に公式ページで確認）
 
