@@ -76,7 +76,7 @@ Drive とブラウザの代わりに Colab CLI（`colab`、uv で導入、gmail 
 
 ```bash
 prototypes/mv_electron/gpu/p8f_cli/start_vm.sh   # T4 を作り、束を送り（150 MB 超は 50 MB に分割）、照合して起動
-prototypes/mv_electron/gpu/p8f_cli/watch.sh      # 20 分ごとに確認し（2026-10-21 のユーザー決定。P8f は 4 分で保たれた。20 分は未検証）、結果を ~/.cache/chatcarlo/p8f/cli/results へ回収
+prototypes/mv_electron/gpu/p8f_cli/watch.sh      # 10 分ごとに確認し（2026-10-21 のユーザー決定。20 分から変更。P8f は 4 分で保たれ、20 分で回した入口の本番は 96 バッチ目のあと VM が消えた）、結果を ~/.cache/chatcarlo/p8f/cli/results へ回収
 colab stop -s p8f                                # 終わったら必ず止める
 cp -R ~/.cache/chatcarlo/p8f/cli/results/. ~/.cache/chatcarlo/p8f/results/
 .venv/bin/python -m prototypes.mv_electron.gpu.p8f analyse

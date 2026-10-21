@@ -13,5 +13,5 @@ while true; do
   done
   echo "$(date +%H:%M) $(ls $WORK/results/gate3 2>/dev/null | grep -c npz) gate3, $(ls $WORK/results/production 2>/dev/null | grep -c npz) production" > $WORK/watch_status.txt
   if echo "$o" | grep -q "STATE DEAD"; then echo "$o" | tail -4; echo "DRIVER ENDED $(date)"; break; fi
-  sleep 1200
+  sleep 600
 done

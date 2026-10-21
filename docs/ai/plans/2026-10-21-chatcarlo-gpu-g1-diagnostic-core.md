@@ -70,7 +70,7 @@ CLI（`__main__.py` の `cmd_run`）は今、検出器を渡さず画像も保�
   `chatcarlo/gpu/__init__.py` は何も import しない。
 - `chatcarlo/gpu/engine.py`: 手元の API。`core` の生の配列から `DetectorTally`・`ScalarMoments`・`TransportResult` を組み立てる（`transport` などは関数の中で遅延 import）。
 - `chatcarlo/gpu/colab_driver.py`: Colab CLI の小さな Python の駆動役（P8f の `p8f_cli/` は参考に読むだけで写さない）。束の目録から分割・送付・VM での組み立てと照合、
-  `nohup` で起動、**20 分ごとの確認**、結果は本体と受領票（SHA256 と識別情報）がそろって照合できてから確定、終了処理で `colab stop`。
+  `nohup` で起動、**10 分ごとの確認**（ユーザー決定 2026-10-21、20 分から変更）、結果は本体と受領票（SHA256 と識別情報）がそろって照合できてから確定、終了処理で `colab stop`。
   `.pending` などの途中のファイルを回収の対象にしない。存在だけで回収済みとしない。
 - `chatcarlo/gpu/run_detector_image.py`: 依頼 D 用の GPU ランナー（`run_history_noise.py` と同じ引数・同じ `.npz`/`.json` の形、`engine` を記録する）。
 
