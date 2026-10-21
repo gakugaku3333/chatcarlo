@@ -1,0 +1,147 @@
+{
+ "rows": [
+  {
+   "N": 10000,
+   "cv_diff": 1.9899358328413743,
+   "cv_plane": 1.9188129785143786,
+   "cv_pred": 1.9518141193594225,
+   "lambda_per_pixel": 0.2741477272727273,
+   "ratio_diff_over_pred": 1.0195314262274437,
+   "median_batch_R": 1.0,
+   "median_batches_hit": 0.0,
+   "n_batches": 10,
+   "detected_A": 4294.0,
+   "roi_mean_psi_per_history": 0.05550978579938845
+  },
+  {
+   "N": 31623,
+   "cv_diff": 1.0151252825062003,
+   "cv_plane": 1.0112555387335433,
+   "cv_pred": 1.0326304001931206,
+   "lambda_per_pixel": 0.9772727272727273,
+   "ratio_diff_over_pred": 0.9830480318188903,
+   "median_batch_R": 0.9998770430608117,
+   "median_batches_hit": 1.0,
+   "n_batches": 10,
+   "detected_A": 13828.0,
+   "roi_mean_psi_per_history": 0.06332630072379461
+  },
+  {
+   "N": 100000,
+   "cv_diff": 0.5901415588411858,
+   "cv_plane": 0.5977141462190618,
+   "cv_pred": 0.5830161565125125,
+   "lambda_per_pixel": 3.0625,
+   "ratio_diff_over_pred": 1.012221620703097,
+   "median_batch_R": 0.5836057315619176,
+   "median_batches_hit": 2.0,
+   "n_batches": 10,
+   "detected_A": 43552.0,
+   "roi_mean_psi_per_history": 0.06310927328044671
+  },
+  {
+   "N": 316228,
+   "cv_diff": 0.32836948215920037,
+   "cv_plane": 0.3315390612948103,
+   "cv_pred": 0.3297111098811887,
+   "lambda_per_pixel": 9.585227272727273,
+   "ratio_diff_over_pred": 0.9959308992576205,
+   "median_batch_R": 0.32452156254243075,
+   "median_batches_hit": 6.0,
+   "n_batches": 10,
+   "detected_A": 137152.0,
+   "roi_mean_psi_per_history": 0.06285540551069858
+  },
+  {
+   "N": 1000000,
+   "cv_diff": 0.1866405690716885,
+   "cv_plane": 0.183692285098109,
+   "cv_pred": 0.18668042025064382,
+   "lambda_per_pixel": 29.876420454545453,
+   "ratio_diff_over_pred": 0.9997865272699632,
+   "median_batch_R": 0.1784920779585646,
+   "median_batches_hit": 10.0,
+   "n_batches": 10,
+   "detected_A": 435186.0,
+   "roi_mean_psi_per_history": 0.06268658384426179
+  },
+  {
+   "N": 3162278,
+   "cv_diff": 0.10580712376936657,
+   "cv_plane": 0.10623966912514156,
+   "cv_pred": 0.10493676802918357,
+   "lambda_per_pixel": 94.57102272727273,
+   "ratio_diff_over_pred": 1.0082940970693985,
+   "median_batch_R": 0.10330317939139848,
+   "median_batches_hit": 16.0,
+   "n_batches": 16,
+   "detected_A": 1375751.0,
+   "roi_mean_psi_per_history": 0.0625698155470184
+  },
+  {
+   "N": 10000000,
+   "cv_diff": 0.057211403145521804,
+   "cv_plane": 0.06063817960907105,
+   "cv_pred": 0.05890312310012165,
+   "lambda_per_pixel": 300.26278409090907,
+   "ratio_diff_over_pred": 0.9712796221055323,
+   "median_batch_R": 0.05854134740888475,
+   "median_batches_hit": 50.0,
+   "n_batches": 50,
+   "detected_A": 4345789.0,
+   "roi_mean_psi_per_history": 0.06274717401687585
+  },
+  {
+   "N": 31622777,
+   "cv_diff": 0.03354867513220898,
+   "cv_plane": 0.03436436578054982,
+   "cv_pred": 0.033178962322682866,
+   "lambda_per_pixel": 946.2159090909091,
+   "ratio_diff_over_pred": 1.011142988919619,
+   "median_batch_R": 0.03327934075865488,
+   "median_batches_hit": 158.0,
+   "n_batches": 159,
+   "detected_A": 13751631.0,
+   "roi_mean_psi_per_history": 0.06263690872682064
+  },
+  {
+   "N": 100000000,
+   "cv_diff": 0.019201054720306695,
+   "cv_plane": 0.019670019421316215,
+   "cv_pred": 0.01865913669663317,
+   "lambda_per_pixel": 2991.9360795454545,
+   "ratio_diff_over_pred": 1.0290430384044138,
+   "median_batch_R": 0.01863750036663423,
+   "median_batches_hit": 499.0,
+   "n_batches": 500,
+   "detected_A": 43496824.0,
+   "roi_mean_psi_per_history": 0.06270089101254529
+  }
+ ],
+ "fit_cv_diff": {
+  "slope": -0.5007796229473241,
+  "slope_se": 0.0035704472266397864,
+  "intercept": 2.277420342720151,
+  "pass_slope": true
+ },
+ "fit_cv_plane": {
+  "slope": -0.49483055657533914,
+  "slope_se": 0.00263743084252881,
+  "intercept": 2.245423384409907
+ },
+ "ratio_in_0.8_1.2": [
+  true,
+  true,
+  true,
+  true,
+  true,
+  true,
+  true,
+  true,
+  true
+ ],
+ "display_window_psi_per_history": [
+  0.05807283280325658,
+  0.1525642851534153
+ ]
+}
