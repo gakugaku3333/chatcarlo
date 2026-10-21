@@ -90,6 +90,14 @@ def scene_to_json(scene: Scene, trajectories: list[dict] | None = None) -> dict:
         objects.append({"name": g["name"], "material": mat, "color": color,
                         "edges": edges, "faces": faces, "label_at": c})
 
+    from .scene import detector_from_scene
+    plane, _ = detector_from_scene(scene)
+    if plane is not None:
+        corners_det = plane.corners_cm()[[0, 2, 3, 1]].tolist()
+        objects.append(dict(name="detector", material="detector", color="#10b981",
+                            edges=[[corners_det[i], corners_det[(i+1)%4]] for i in range(4)],
+                            faces=[corners_det], label_at=plane.center_cm.tolist()))
+
     src = raw["source"]
     corners = field_corners(src)
     pos = src["position"]
@@ -195,9 +203,11 @@ function drawAxes() {
 
 
 def render_html(scene: Scene, title: str = "ChatCarlo geometry preview",
-                 trajectories: list[dict] | None = None) -> str:
+                 trajectories: list[dict] | None = None, approval_text: str = "") -> str:
     data = json.dumps(scene_to_json(scene, trajectories=trajectories), ensure_ascii=False)
-    return (_TEMPLATE.replace("__TITLE__", title).replace("__DATA__", data)
+    import html
+    panel = f'<div style="overflow-wrap:anywhere">{html.escape(approval_text)}</div>\n' if approval_text else ""
+    return (_TEMPLATE.replace("__APPROVAL_PANEL__", panel).replace("__TITLE__", title).replace("__DATA__", data)
             .replace("__SHARED_CANVAS_JS__", _SHARED_CANVAS_JS))
 
 
@@ -251,7 +261,7 @@ _TEMPLATE = r"""<!doctype html>
   <label><input type="checkbox" id="ckLabels" checked> ラベル</label>
   <label id="lblTraj" style="display:none"><input type="checkbox" id="ckTraj" checked> 軌跡</label>
 </header>
-<div id="wrap">
+__APPROVAL_PANEL__<div id="wrap">
   <canvas id="cv"></canvas>
   <div id="legend"></div>
   <div id="info">ドラッグ: 回転　/　Shift+ドラッグ: 平行移動　/　ホイール: ズーム</div>

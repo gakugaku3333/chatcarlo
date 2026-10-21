@@ -1,0 +1,313 @@
+{
+  "gpu_s1": {
+    "n_histories": 1000,
+    "energy_deposited_MeV": {
+      "air": 0.20852334299894004,
+      "water": 36.78631112190072
+    },
+    "fraction_absorbed": 0.52,
+    "fraction_escaped": 0.417,
+    "mean_scatter_events": 3.787,
+    "grid": null,
+    "n_photons_real": null,
+    "n_fluorescence": 0,
+    "n_batches": 3,
+    "energy_deposited_sem_MeV": {
+      "air": 6.902611913530119e-05,
+      "water": 0.0005655662003999485
+    },
+    "energy_deposited_rel_err": {
+      "air": 0.33102346309330016,
+      "water": 0.015374365712446736
+    },
+    "detector": {
+      "plane": {
+        "center_cm": {
+          "shape": [
+            3
+          ],
+          "dtype": "float64",
+          "sha256": "9d908ecfb6b256def8b49a7c504e6c889c4b0e41fe6ce3e01863dd7b61a20aa0"
+        },
+        "normal": {
+          "shape": [
+            3
+          ],
+          "dtype": "float64",
+          "sha256": "04ae04134c8318578c932394683055fea108f3f586ff5b055613752c5f03e6f5"
+        },
+        "u_axis": {
+          "shape": [
+            3
+          ],
+          "dtype": "float64",
+          "sha256": "725c4777db328932b197731b1c986c84913a069a2090deb3667b697624551c8b"
+        },
+        "size_cm": [
+          30.0,
+          30.0
+        ],
+        "shape": [
+          60,
+          60
+        ],
+        "v_axis": {
+          "shape": [
+            3
+          ],
+          "dtype": "float64",
+          "sha256": "17550ce418055ff4cd54b803e704300eac4212c3edcef00f92f1e6e506a5b069"
+        }
+      },
+      "track_uncertainty": true,
+      "roi": null,
+      "category_fluence": {
+        "shape": [
+          4,
+          60,
+          60
+        ],
+        "dtype": "float64",
+        "sha256": "26bda2964b56b3fc7c6766f22733e64c099910c45f0256fa7593621bf28aa383"
+      },
+      "photon_count": {
+        "shape": [
+          60,
+          60
+        ],
+        "dtype": "float64",
+        "sha256": "1aa6038e2e0667d6e76475e3879d8d1956b1ead1143b55dfff5c970b0c27fed6"
+      },
+      "energy_sum_keV": {
+        "shape": [
+          60,
+          60
+        ],
+        "dtype": "float64",
+        "sha256": "1b72687d56d047c845282b607755f054494a5a8f0dcab9562ac618acfefb95a3"
+      },
+      "energy_sum2_keV2": {
+        "shape": [
+          60,
+          60
+        ],
+        "dtype": "float64",
+        "sha256": "fd2f3ae240bc1c59a035120883743245d6c3df340e941bf580ef8d651ce3b480"
+      },
+      "category_sum2": {
+        "shape": [
+          4,
+          60,
+          60
+        ],
+        "dtype": "float64",
+        "sha256": "3c704be3280530cd15bb1a6e0e86e60cf8a70070998ee32e84bb360a4fa182fa"
+      },
+      "total_sum2": {
+        "shape": [
+          60,
+          60
+        ],
+        "dtype": "float64",
+        "sha256": "c343768328adc54ba9e377e2ebca3387b15f577f9c23ec893086f8acfdabd073"
+      },
+      "n_batches_hit": {
+        "shape": [
+          60,
+          60
+        ],
+        "dtype": "int32",
+        "sha256": "f74a475c90a75d13d6b3934ba3b41367873eedc6752171f4616df7ac94b3e2ad"
+      },
+      "roi_P": 0.0,
+      "roi_S": 0.0,
+      "roi_QP": 0.0,
+      "roi_QS": 0.0,
+      "roi_CPS": 0.0,
+      "n_batches": 3,
+      "n_histories": 1000,
+      "_category_prev": {
+        "shape": [
+          4,
+          60,
+          60
+        ],
+        "dtype": "float64",
+        "sha256": "26bda2964b56b3fc7c6766f22733e64c099910c45f0256fa7593621bf28aa383"
+      }
+    }
+  },
+  "gpu_s2": {
+    "n_histories": 1000,
+    "energy_deposited_MeV": {
+      "air": 0.45691543313733973,
+      "soft_tissue": 18.32431062329867,
+      "bone": 12.047329691725679,
+      "copper": 2.4480712014416746,
+      "lead": 0.6963385752218973,
+      "aluminum": 0.44701186200432996
+    },
+    "fraction_absorbed": 0.619,
+    "fraction_escaped": 0.268,
+    "mean_scatter_events": 2.399,
+    "grid": null,
+    "n_photons_real": null,
+    "n_fluorescence": 18,
+    "n_batches": 3,
+    "energy_deposited_sem_MeV": {
+      "soft_tissue": 0.000858665433676098,
+      "bone": 0.0003588565274548817,
+      "lead": 0.00023736976712120054,
+      "copper": 0.00035221200896091087,
+      "aluminum": 6.631584285545317e-05,
+      "air": 0.00013025365437623147
+    },
+    "energy_deposited_rel_err": {
+      "soft_tissue": 0.046859358113278064,
+      "bone": 0.029787225604139544,
+      "lead": 0.3408826906445037,
+      "copper": 0.1438732700068088,
+      "aluminum": 0.14835365343126133,
+      "air": 0.28507168926613996
+    },
+    "detector": {
+      "plane": {
+        "center_cm": {
+          "shape": [
+            3
+          ],
+          "dtype": "float64",
+          "sha256": "9d908ecfb6b256def8b49a7c504e6c889c4b0e41fe6ce3e01863dd7b61a20aa0"
+        },
+        "normal": {
+          "shape": [
+            3
+          ],
+          "dtype": "float64",
+          "sha256": "04ae04134c8318578c932394683055fea108f3f586ff5b055613752c5f03e6f5"
+        },
+        "u_axis": {
+          "shape": [
+            3
+          ],
+          "dtype": "float64",
+          "sha256": "725c4777db328932b197731b1c986c84913a069a2090deb3667b697624551c8b"
+        },
+        "size_cm": [
+          30.0,
+          30.0
+        ],
+        "shape": [
+          60,
+          60
+        ],
+        "v_axis": {
+          "shape": [
+            3
+          ],
+          "dtype": "float64",
+          "sha256": "17550ce418055ff4cd54b803e704300eac4212c3edcef00f92f1e6e506a5b069"
+        }
+      },
+      "track_uncertainty": true,
+      "roi": null,
+      "category_fluence": {
+        "shape": [
+          4,
+          60,
+          60
+        ],
+        "dtype": "float64",
+        "sha256": "10a5b3d5640f77584cbbb8059d19a0344059e7d7583c0a63914c2651f78d6929"
+      },
+      "photon_count": {
+        "shape": [
+          60,
+          60
+        ],
+        "dtype": "float64",
+        "sha256": "ebb8489f9020e0501b4b4144b25c043879a99c46285e46fe77d5fd2e7cea8718"
+      },
+      "energy_sum_keV": {
+        "shape": [
+          60,
+          60
+        ],
+        "dtype": "float64",
+        "sha256": "7fa7b6cb84de7b1b64fa3e48fd56676d85d468f6af3da237f1d17e4b179c5db5"
+      },
+      "energy_sum2_keV2": {
+        "shape": [
+          60,
+          60
+        ],
+        "dtype": "float64",
+        "sha256": "0891b524a8e44de7baac9f9a5a20d5ca1e66a475e0fb29e652b752ace42b3668"
+      },
+      "category_sum2": {
+        "shape": [
+          4,
+          60,
+          60
+        ],
+        "dtype": "float64",
+        "sha256": "298069111fa155d576dae5ca10d25713ab3943a0e38a7cfeaeb87f3083e0f280"
+      },
+      "total_sum2": {
+        "shape": [
+          60,
+          60
+        ],
+        "dtype": "float64",
+        "sha256": "4ed18d936aed28f3c3f2429c75c80ee49b405695a32b873de7c7eb07eeb95ad0"
+      },
+      "n_batches_hit": {
+        "shape": [
+          60,
+          60
+        ],
+        "dtype": "int32",
+        "sha256": "9b8cb78dbd7002e7b8671382ef9e52f1fdef9724493cc5e7013afda601f02d1a"
+      },
+      "roi_P": 0.0,
+      "roi_S": 0.0,
+      "roi_QP": 0.0,
+      "roi_QS": 0.0,
+      "roi_CPS": 0.0,
+      "n_batches": 3,
+      "n_histories": 1000,
+      "_category_prev": {
+        "shape": [
+          4,
+          60,
+          60
+        ],
+        "dtype": "float64",
+        "sha256": "10a5b3d5640f77584cbbb8059d19a0344059e7d7583c0a63914c2651f78d6929"
+      }
+    }
+  },
+  "kernel": {
+    "n_histories": 10000,
+    "energy_deposited_MeV": {
+      "water": 376.31047107073584,
+      "air": 0.847089855326574
+    },
+    "fraction_absorbed": 0.5377,
+    "fraction_escaped": 0.4623,
+    "mean_scatter_events": 3.8982,
+    "grid": null,
+    "n_photons_real": null,
+    "n_fluorescence": 0,
+    "n_batches": 1,
+    "energy_deposited_sem_MeV": {
+      "air": NaN,
+      "water": NaN
+    },
+    "energy_deposited_rel_err": {
+      "air": NaN,
+      "water": NaN
+    },
+    "detector": null
+  }
+}

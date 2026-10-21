@@ -240,3 +240,29 @@ def gate2(path,scene_id,out,job):
     report['status']='pass' if report['gate2c']['status']=='pass' and all(all(v.values()) for v in reconstruction.values()) else 'fail'
     report['timing']['request_d_estimate_s_9x2']=2*sum(round(10**x) for x in np.linspace(4,8,9))*(gpu_s+source_s)/10000000+18*gpu_initialization
     write_result(out,'gate2.json',report,identity(manifest,job,-1,0,10000000));return report
+
+
+def image_regression(a, b, meta_a, meta_b):
+    """G4's pre-registered request-D image criterion; never fit to observed error."""
+    critical = set(core.SOURCES) | {'tables.npz', 'geometry.npz', 'spectrum.npz', 'source.json'}
+    different = []
+    for key in ('seed', 'source_seed', 'batch_size', 'n_histories'):
+        if key not in meta_a or key not in meta_b or meta_a[key] != meta_b[key]: different.append(key)
+    ma = meta_a.get('bundle', {}).get('files', {})
+    mb = meta_b.get('bundle', {}).get('files', {})
+    different += [key for key in sorted(critical) if key not in ma or key not in mb or ma[key] != mb[key]]
+    runtime = [key for key in sorted(set(ma) | set(mb)) if key not in critical and ma.get(key) != mb.get(key)]
+    if different:
+        return dict(status='inapplicable', reason='regression prerequisites do not hold', differences=different, runtime_differences=runtime)
+    n = meta_a['n_histories']; batch = meta_a['batch_size']; B = (n+batch-1)//batch
+    ka = a['photon_count']; kb = b['photon_count']
+    checks = dict(photon_count=bool(np.array_equal(ka, kb)))
+    for key in ('category_fluence', 'energy_sum_keV', 'energy_sum2_keV2'):
+        x, y = a[key], b[key]
+        if x.shape != y.shape or x.shape[-2:] != ka.shape:
+            checks[key] = False
+            continue
+        bound = (ka + kb + 2*B)*2.**-52*(np.abs(x)+np.abs(y))
+        checks[key] = bool(np.isfinite(x).all() and np.isfinite(y).all() and np.all(np.abs(x-y) <= bound))
+    return dict(status='pass' if all(checks.values()) else 'fail', checks=checks,
+                runtime_differences=runtime, B=B)

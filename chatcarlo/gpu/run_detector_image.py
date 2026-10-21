@@ -1,4 +1,4 @@
-"""Request-D compatible detector image runner (CLI integration waits for G4)."""
+"""Request-D compatible detector image runner using the shared G4 output layer."""
 import argparse
 import json
 from pathlib import Path
@@ -9,11 +9,11 @@ SCENE=Path(__file__).resolve().parents[2]/'docs/jsmp133/request_d_history_noise/
 DET=dict(center_cm=[0.,0.,0.],normal=[0.,0.,1.],u_axis=[1.,0.,0.],size_cm=(15.,18.),shape=(100,120))
 
 def save(result,out,n,tag,seed,batch,wall):
-    out=Path(out);out.mkdir(parents=True,exist_ok=True);stem=out/f'N{n:09d}_{tag}';t=result.detector
-    np.savez_compressed(f'{stem}.npz',category_fluence=t.category_fluence,photon_count=t.photon_count,energy_sum_keV=t.energy_sum_keV,energy_sum2_keV2=t.energy_sum2_keV2,total_rel_err=t.total_relative_error(),n_batches_hit=t.n_batches_hit,n_histories=t.n_histories,n_batches=t.n_batches,pixel_area_cm2=t.plane.pixel_area_cm2)
-    meta=dict(n_histories=n,tag=tag,seed=seed,workers=1,batch_size=batch,n_batches=t.n_batches,wall_s=wall,detected=float(t.photon_count.sum()))
+    out=Path(out);out.mkdir(parents=True,exist_ok=True);stem=out/f'N{n:09d}_{tag}'
+    from .outputs import save as save_outputs
+    meta=dict(n_histories=n,tag=tag,seed=seed,workers=1,batch_size=batch,wall_s=wall)
     meta.update(result.gpu_metadata)
-    (Path(f'{stem}.json')).write_text(json.dumps(meta,indent=1)+'\n');return meta
+    return save_outputs(result,stem,meta)
 
 def main(argv=None):
     from ..scene import load_scene
@@ -31,19 +31,15 @@ if __name__=='__main__':main()
 
 def collect_image(bundle_path,job,results,out,tag='A'):
     """On the host, assemble verified Colab batches into request-D files."""
-    from types import SimpleNamespace
-    from ..detector import DetectorPlane,DetectorTally
+    from ..detector import DetectorPlane
     from .bundle import load
-    from .colab_driver import read_result,expected_identity
+    from .approval import verify_batches
+    from .aggregate import aggregate
     a,src,spec,settings,manifest=load(bundle_path)
-    p=a['detector'];plane=DetectorPlane(p[:3],p[3:6],p[6:9],tuple(p[12:14]),tuple(p[14:16].astype(int)))
-    tally=DetectorTally(plane,True)
+    p=a['detector']
+    plane=None if not p.size else DetectorPlane(p[:3],p[3:6],p[6:9],tuple(p[12:14]),tuple(p[14:16].astype(int)))
     if job['mode']!='batches' or job['device']!='cuda':raise ValueError('expected a CUDA image job')
-    for b,start in enumerate(range(0,job['n_histories'],job['batch_size'])):
-        n=min(job['batch_size'],job['n_histories']-start);name=f'batch_{b:06d}.npz';r=read_result(results,name,expected_identity(manifest,job,name))
-        if r is None:raise ValueError('missing verified image batch '+name)
-        from .core import health
-        health(r,n,len(settings['material_names']),p)
-        tally.category_fluence+=r['images'][:4];tally.photon_count+=r['images'][4];tally.energy_sum_keV+=r['images'][5];tally.energy_sum2_keV2+=r['images'][6];tally.end_batch(n)
-    metadata=dict(engine='gpu',gpu_device='cuda',seed=job['seed'],source_seed=job['source_seed'],n_workers=1,bundle=manifest)
-    return save(SimpleNamespace(detector=tally,gpu_metadata=metadata),out,job['n_histories'],tag,job['seed'],job['batch_size'],None)
+    batches,timing=verify_batches(bundle_path,job,results)
+    result=aggregate(batches,settings['material_names'],plane)
+    result.gpu_metadata=dict(engine='gpu',gpu_device='cuda',seed=job['seed'],source_seed=job['source_seed'],n_workers=1,bundle=manifest,timing=timing)
+    return save(result,out,job['n_histories'],tag,job['seed'],job['batch_size'],timing['elapsed_s'])

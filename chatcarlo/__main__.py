@@ -36,6 +36,17 @@ def cmd_preview(args) -> int:
         return 1
     for w in scene.warnings:
         print(f"[警告] {w}")
+    from .gpu.condition import resolve
+    try:
+        options = resolve(args)
+        if options['engine'] == 'gpu' and options['device'] == 'colab':
+            from .gpu.approval import prepare
+            target = prepare(scene, args, args.run_dir)
+            print(f"承認用プレビュー: {target / 'preview.html'}")
+            return 0
+    except (ValueError, OSError) as exc:
+        print(f"[エラー] {exc}", file=sys.stderr)
+        return 1
     out = args.out or args.scene.rsplit(".", 1)[0] + "_preview.html"
     write_html(scene, out, title=args.title or f"ChatCarlo — {args.scene}")
     print(f"プレビューを書き出しました: {out}")
@@ -157,6 +168,16 @@ def cmd_run(args) -> int:
         return 1
     track_uncertainty = not args.no_uncertainty
     n_histories_int = int(args.n_histories)
+    from .scene import detector_from_scene
+    from .gpu.condition import resolve
+    try:
+        resolve(args)
+        if engine == 'gpu' and any(t.split('=')[0].startswith('--kernel-') for t in sys.argv[1:]):
+            raise ValueError('--engine gpu cannot use --kernel-*')
+        detector, detector_roi = detector_from_scene(scene)
+    except ValueError as exc:
+        print(f"[エラー] {exc}", file=sys.stderr)
+        return 1
     if args.dose_grid and n_workers >= 2:
         # 並列時はワーカーごとに線量グリッドを持ち、親へpickleで集約するため、
         # メモリは概ね(ワーカー数+1)倍になる。部屋規模×細解像度では容易に数GBを
@@ -183,18 +204,31 @@ def cmd_run(args) -> int:
                   f"{grid_est.shape}）と--workers {n_workers}の併用で、線量グリッドの"
                   f"メモリ使用量が概算{est_gb:.1f}GBに達します。{hint}")
     try:
-        result = run_transport(scene, n_histories=n_histories_int, seed=args.seed,
-                               batch_size=args.batch_size,
-                               dose_grid=args.dose_grid, grid_resolution_cm=args.resolution,
-                               n_workers=n_workers, track_uncertainty=track_uncertainty,
-                               engine=engine, kernel_chunks=kernel_chunks,
-                               kernel_max_segments_per_history=kernel_max_segments)
+        if engine == 'gpu':
+            from .gpu.cli_run import run as gpu_run
+            result = gpu_run(scene, args)
+        else:
+            result = run_transport(scene, n_histories=n_histories_int, seed=args.seed,
+                                   batch_size=args.batch_size,
+                                   dose_grid=args.dose_grid, grid_resolution_cm=args.resolution,
+                                   n_workers=n_workers, track_uncertainty=track_uncertainty,
+                                   engine=engine, kernel_chunks=kernel_chunks,
+                                   kernel_max_segments_per_history=kernel_max_segments,
+                                   detector=detector, detector_roi=detector_roi)
     except ValueError as exc:
         message = str(exc)
         if engine == "kernel" and args.dose_grid and "区間バッファ" in message:
             message += " --kernel-max-segments-per-history を増やして再実行してください。"
         print(f"[エラー] {message}", file=sys.stderr)
         return 1
+    if engine == 'gpu':
+        from .gpu.condition import canonical
+        meta = result.gpu_metadata
+        print(f"engine: gpu, device: {meta['gpu_device']}, condition SHA256: {meta['condition_sha256']}")
+        print('計算時間・バッチ: ' + canonical(meta['timing']))
+    if getattr(result, "detector", None) is not None:
+        from .gpu.cli_run import save_detector
+        save_detector(scene, args, result)
     if engine == "kernel":
         import numba
         configured = kernel_chunks or min(numba.get_num_threads(), 8)
@@ -390,7 +424,8 @@ def _mv_dispatch(argv):
     if command in ('validate', 'preview', 'approve', 'run', 'trace', 'animate'):
         value_options = {'--out', '-o', '--title', '--preview', '-n', '--n-histories', '--seed',
                          '--resolution', '--dose-out', '--batch-size', '--workers', '--engine',
-                         '--kernel-chunks', '--kernel-max-segments-per-history'}
+                         '--kernel-chunks', '--kernel-max-segments-per-history',
+                         '--gpu-device', '--source-seed', '--detector-out', '--run-dir'}
         tokens = iter(argv[1:])
         for token in tokens:
             if token == '--':
@@ -424,8 +459,18 @@ def _mv_dispatch(argv):
 
 
 def cmd_approve(args) -> int:
-    print('[エラー] 診断領域では不要', file=sys.stderr)
-    return 1
+    from pathlib import Path
+    from .gpu.approval import approve
+    try:
+        path = Path(args.scene)
+        if not path.is_dir() or not (path/'generation.json').is_file():
+            raise ValueError('診断領域では生成記録のある実行一式のフォルダを指定してください')
+        approve(path)
+        print(f'承認を記録しました: {path / "approval.json"}')
+        return 0
+    except (ValueError, OSError, KeyError) as exc:
+        print(f'[エラー] {exc}', file=sys.stderr)
+        return 1
 
 
 def main() -> int:
@@ -448,6 +493,14 @@ def main() -> int:
     pp.add_argument("scene")
     pp.add_argument("-o", "--out")
     pp.add_argument("--title")
+    pp.add_argument('--engine', choices=['numpy', 'kernel', 'gpu'], default='numpy')
+    pp.add_argument('--gpu-device', choices=['cpu', 'colab'], default=None)
+    pp.add_argument('-n', '--n-histories', type=float, default=1e5)
+    pp.add_argument('--seed', type=int)
+    pp.add_argument('--batch-size', type=int, default=200000)
+    pp.add_argument('--source-seed', type=int)
+    pp.add_argument('--no-uncertainty', action='store_true')
+    pp.add_argument('--run-dir')
     pp.set_defaults(func=cmd_preview)
 
     pt = sub.add_parser("trace", help="光子軌跡を3D可視化するHTMLを生成（小history）")
@@ -495,12 +548,16 @@ def main() -> int:
                           "docs/plan_phase3_parallel.md参照）。--dose-grid併用時は"
                           "線量グリッドをワーカーごとに持つためメモリが(workers+1)倍"
                           "になる点に注意（細解像度では数GB級、超過見込み時は警告を出す）")
-    pr.add_argument("--engine", choices=["numpy", "kernel"], default="numpy",
+    pr.add_argument("--engine", choices=["numpy", "kernel", "gpu"], default="numpy",
                     help="輸送エンジン（既定numpy、kernelは単色parallel・box限定のopt-in）")
     pr.add_argument("--kernel-chunks", type=int, default=0,
                     help="kernelのNumbaチャンク数（0=自動、既定はmin(numba threads, 8)）")
     pr.add_argument("--kernel-max-segments-per-history", type=int, default=16,
                     help="kernel dose-grid用の履歴あたり区間バッファ上限（既定16）")
+    pr.add_argument('--gpu-device', choices=['cpu', 'colab'], default=None)
+    pr.add_argument('--source-seed', type=int)
+    pr.add_argument('--detector-out')
+    pr.add_argument('--run-dir')
     pr.set_defaults(func=cmd_run)
 
     ppl = sub.add_parser("plot", help="線量/H*(10)マップの断面図を生成")

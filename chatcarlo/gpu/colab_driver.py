@@ -44,12 +44,15 @@ def read_result(folder,name,expected):
         with np.load(path,allow_pickle=False) as z:return {k:z[k] for k in z.files}
     return json.loads(path.read_text())
 
-def write_result(folder,name,value,key):
+def write_result(folder,name,value,key,*,observed=None,elapsed_s=None):
     folder=Path(folder);folder.mkdir(parents=True,exist_ok=True);path=folder/name;pending=folder/(name+'.pending')
     if name.endswith('.npz'):
         with pending.open('wb') as f:np.savez_compressed(f,**value)
     else:pending.write_text(json.dumps(value,indent=2,allow_nan=False)+'\n')
-    receipt=dict(sha256=digest(pending),identity=key);pending.replace(path)
+    receipt=dict(sha256=digest(pending),identity=key)
+    if observed is not None:receipt['observed']=observed
+    if elapsed_s is not None:receipt['elapsed_s']=elapsed_s
+    pending.replace(path)
     rp=folder/(name+'.receipt.json.pending');rp.write_text(json.dumps(receipt,sort_keys=True)+'\n');rp.replace(folder/(name+'.receipt.json'))
 
 def split_bundle(folder,parts,part_bytes=PART_BYTES):
@@ -93,14 +96,22 @@ def worker(bundle_path,job_path,out):
         from .validation import gate2
         gate2(bundle_path,job['scene_id'],out,job)
     else:
+        import os
+        fault_path=Path(job_path).parent/'fault.json'
+        if fault_path.exists():
+            fault=json.loads(fault_path.read_text()).get('fault')
+            if fault not in ('seed','start'):raise ValueError('invalid fault injection')
+            os.environ['CHATCARLO_G4_FAULT']=fault
         rng=np.random.default_rng(job['source_seed']);driver=Core(a,job['device'])
         for batch,start in enumerate(range(0,job['n_histories'],job['batch_size'])):
             n=min(job['batch_size'],job['n_histories']-start)
             # Always advance source, including when a verified batch is reused.
             o,d,e=sample_source_photons(src,n,rng,spec);key=identity(manifest,job,batch,start,n);name=f'batch_{batch:06d}.npz'
             if read_result(out,name,key) is not None:continue
-            result=driver.run(o,d,e,seed=job['seed'],start=start,fluorescence=settings['fluorescence'])
-            write_result(out,name,result,key)
+            t0=time.perf_counter()
+            result,observed=driver.run(o,d,e,seed=job['seed'],start=start,fluorescence=settings['fluorescence'],observe=True)
+            elapsed=time.perf_counter()-t0
+            write_result(out,name,result,key,observed=observed,elapsed_s=elapsed)
     (out/'done.json.pending').write_text(json.dumps(dict(status='complete')));(out/'done.json.pending').replace(out/'done.json')
 
 def _bootstrap(files,job_sha):
@@ -145,7 +156,7 @@ else:
  except (OSError,ValueError):print('G1_FAILED')
 '''
 
-def launch(bundle_path,job,out,*,gate1,gate2=None,session='chatcarlo-g1',colab='colab',poll_seconds=POLL_SECONDS):
+def launch(bundle_path,job,out,*,gate1,gate2=None,session='chatcarlo-g1',colab='colab',poll_seconds=POLL_SECONDS,fault_path=None):
     from .bundle import verify
     manifest=verify(bundle_path);out=Path(out);out.mkdir(parents=True,exist_ok=True)
     if json.loads(Path(gate1).read_text()).get('status')!='pass':raise ValueError('gate 1 must pass before Colab')
@@ -162,6 +173,8 @@ def launch(bundle_path,job,out,*,gate1,gate2=None,session='chatcarlo-g1',colab='
             cli(['exec','-s',session],f"import pathlib\nbase=pathlib.Path({REMOTE!r})\n(base/'parts').mkdir(parents=True,exist_ok=True)\n(base/'results').mkdir(exist_ok=True)\n")
             for part in sorted((tmp/'parts').iterdir()):cli(['upload','-s',session,str(part),f'{REMOTE}/parts/{part.name}'])
             cli(['upload','-s',session,str(job_path),f'{REMOTE}/job.json'])
+            if fault_path is not None:cli(['upload','-s',session,str(fault_path),f'{REMOTE}/fault.json'])
+            else:cli(['exec','-s',session],f"from pathlib import Path\nPath({REMOTE+'/fault.json'!r}).unlink(missing_ok=True)\n")
             # Restore only validated result+receipt pairs, preserving source replay.
             for receipt in sorted(out.glob('*.receipt.json')):
                 name=receipt.name[:-13];key=expected_identity(manifest,job,name)

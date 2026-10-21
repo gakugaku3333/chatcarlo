@@ -88,6 +88,10 @@ python3 -m venv .venv
 # use --no-uncertainty to disable it.
 .venv/bin/python -m chatcarlo run examples/water_phantom_pdd_ocr.yaml --engine kernel -n 1e6 --seed 42
 
+# GPU G1 CLI (Colab requires preview --engine gpu --gpu-device colab, then approve RUN_DIR)
+.venv/bin/python -m chatcarlo run docs/validation/gpu/g4/scene_portrait_detector.yaml --engine gpu --seed 2040
+.venv/bin/python -m chatcarlo run docs/validation/gpu/g4/scene_portrait_detector.yaml --engine gpu --gpu-device colab --seed 2040
+
 # photon trajectory 3D visualization (small n; overlays onto the preview HTML template)
 .venv/bin/python -m chatcarlo trace examples/chest_room.yaml -n 200 --seed 42 -o trace.html
 

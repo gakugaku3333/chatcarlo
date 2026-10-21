@@ -58,6 +58,9 @@ def validate_scene(raw: dict) -> Scene:
         errors.append(SceneError("(root)", "YAMLのトップレベルはマッピングである必要があります"))
         return scene
 
+    if "detector" in raw:
+        _validate_detector(raw["detector"], errors)
+
     # ---- source ----
     src = raw.get("source")
     if src is None:
@@ -345,3 +348,43 @@ def field_corners(src: dict) -> list[list[float]]:
     for su, sv in ((-1, -1), (1, -1), (1, 1), (-1, 1)):
         corners.append([ctr[k] + su * w / 2 * u[k] + sv * h / 2 * v[k] for k in range(3)])
     return corners
+
+
+def _validate_detector(det, errors):
+    import numpy as np
+    required = {"center_cm", "normal", "u_axis", "size_cm", "shape"}
+    if not isinstance(det, dict):
+        errors.append(SceneError("detector", "マッピングで指定してください"))
+        return
+    for key in set(det) - required - {"roi"}:
+        errors.append(SceneError("detector." + str(key), "未知のキー"))
+    valid = {}
+    for key in required:
+        v = det.get(key)
+        length = 3 if key in ("center_cm", "normal", "u_axis") else 2
+        ok = isinstance(v, (list, tuple)) and len(v) == length
+        if ok:
+            ok = all(type(x) is int and x > 0 for x in v) if key == "shape" else all(type(x) in (int, float) and math.isfinite(x) for x in v)
+        if ok and key == "size_cm": ok = all(x > 0 for x in v)
+        if ok and key in ("normal", "u_axis"): ok = bool(np.isclose(np.linalg.norm(v), 1.0))
+        valid[key] = ok
+        if not ok: errors.append(SceneError("detector." + key, "有限で適切な要素数・値を指定してください（画素数は正の整数、方向は単位ベクトル）"))
+    if valid["normal"] and valid["u_axis"] and not np.isclose(np.dot(det["normal"], det["u_axis"]), 0):
+        errors.append(SceneError("detector.u_axis", "normal と直交する必要があります"))
+    if "roi" in det:
+        roi = det["roi"]
+        ok = isinstance(roi, (list, tuple)) and len(roi) == 2 and valid["shape"]
+        if ok:
+            ok = all(isinstance(pair, (list, tuple)) and len(pair) == 2 and all(type(x) is int for x in pair) and 0 <= pair[0] < pair[1] <= det["shape"][i] for i, pair in enumerate(roi))
+        if not ok: errors.append(SceneError("detector.roi", "画素範囲内の整数の半開区間を指定してください"))
+
+
+def detector_from_scene(scene):
+    from .detector import DetectorPlane
+    if "detector" not in scene.raw: return None, None
+    errors = []
+    _validate_detector(scene.raw["detector"], errors)
+    if errors: raise ValueError("; ".join(map(str, errors)))
+    det = scene.raw["detector"]
+    plane = DetectorPlane(**{k: det[k] for k in ("center_cm", "normal", "u_axis", "size_cm", "shape")})
+    return plane, tuple(tuple(p) for p in det["roi"]) if "roi" in det else None

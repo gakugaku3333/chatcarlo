@@ -1,0 +1,4663 @@
+# 依頼 D（JSMP133 依頼 2）: レントゲン博士の肖像（Hanfstaengl 撮影、パブリックドメイン）を
+# アルミの凹凸板にしたもの。build_portrait_scene.py で自動生成（手で編集しない）。
+# 42x56 画素（0.3 cm）、6 段階、土台 1.0 mm + 段階あたり 1.5 mm、箱 463 個（土台を含む）
+source:
+  type: xray_tube
+  kvp: 70
+  filtration_mm_al: 2.5
+  position:
+  - 0
+  - 0
+  - 100
+  direction:
+  - 0
+  - 0
+  - -1
+  field:
+    shape: rect
+    size_cm:
+    - 12.9
+    - 17.2
+    sid_cm: 100
+geometry:
+- name: frame_base
+  shape: box
+  material: aluminum
+  size_cm:
+  - 22.0
+  - 22.0
+  - 0.1
+  center:
+  - 0.0
+  - 0.0
+  - 1.05
+- shape: box
+  material: aluminum
+  size_cm:
+  - 12.6
+  - 1.2
+  - 0.75
+  center:
+  - 0.0
+  - 7.8
+  - 1.475
+- shape: box
+  material: aluminum
+  size_cm:
+  - 5.1
+  - 0.3
+  - 0.75
+  center:
+  - -3.75
+  - 7.05
+  - 1.475
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.3
+  - 0.3
+  - 0.6
+  center:
+  - -1.05
+  - 7.05
+  - 1.4
+- shape: box
+  material: aluminum
+  size_cm:
+  - 1.5
+  - 0.3
+  - 0.45
+  center:
+  - -0.15
+  - 7.05
+  - 1.325
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.3
+  - 0.3
+  - 0.6
+  center:
+  - 0.75
+  - 7.05
+  - 1.4
+- shape: box
+  material: aluminum
+  size_cm:
+  - 5.4
+  - 0.3
+  - 0.75
+  center:
+  - 3.6
+  - 7.05
+  - 1.475
+- shape: box
+  material: aluminum
+  size_cm:
+  - 4.8
+  - 0.3
+  - 0.75
+  center:
+  - -3.9
+  - 6.75
+  - 1.475
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.3
+  - 0.3
+  - 0.6
+  center:
+  - -1.35
+  - 6.75
+  - 1.4
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.3
+  - 0.3
+  - 0.45
+  center:
+  - -1.05
+  - 6.75
+  - 1.325
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.3
+  - 0.3
+  - 0.3
+  center:
+  - -0.75
+  - 6.75
+  - 1.25
+- shape: box
+  material: aluminum
+  size_cm:
+  - 1.8
+  - 0.3
+  - 0.45
+  center:
+  - 0.3
+  - 6.75
+  - 1.325
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.3
+  - 0.3
+  - 0.6
+  center:
+  - 1.35
+  - 6.75
+  - 1.4
+- shape: box
+  material: aluminum
+  size_cm:
+  - 4.8
+  - 0.3
+  - 0.75
+  center:
+  - 3.9
+  - 6.75
+  - 1.475
+- shape: box
+  material: aluminum
+  size_cm:
+  - 4.5
+  - 0.3
+  - 0.75
+  center:
+  - -4.05
+  - 6.45
+  - 1.475
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.3
+  - 0.3
+  - 0.6
+  center:
+  - -1.65
+  - 6.45
+  - 1.4
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.3
+  - 0.3
+  - 0.45
+  center:
+  - -1.35
+  - 6.45
+  - 1.325
+- shape: box
+  material: aluminum
+  size_cm:
+  - 1.2
+  - 0.3
+  - 0.3
+  center:
+  - -0.6
+  - 6.45
+  - 1.25
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.3
+  - 0.3
+  - 0.15
+  center:
+  - 0.15
+  - 6.45
+  - 1.175
+- shape: box
+  material: aluminum
+  size_cm:
+  - 1.2
+  - 0.3
+  - 0.3
+  center:
+  - 0.9
+  - 6.45
+  - 1.25
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.3
+  - 0.3
+  - 0.45
+  center:
+  - 1.65
+  - 6.45
+  - 1.325
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.3
+  - 0.3
+  - 0.6
+  center:
+  - 1.95
+  - 6.45
+  - 1.4
+- shape: box
+  material: aluminum
+  size_cm:
+  - 4.2
+  - 0.3
+  - 0.75
+  center:
+  - 4.2
+  - 6.45
+  - 1.475
+- shape: box
+  material: aluminum
+  size_cm:
+  - 4.2
+  - 0.3
+  - 0.75
+  center:
+  - -4.2
+  - 6.15
+  - 1.475
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.3
+  - 0.3
+  - 0.6
+  center:
+  - -1.95
+  - 6.15
+  - 1.4
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.3
+  - 0.3
+  - 0.45
+  center:
+  - -1.65
+  - 6.15
+  - 1.325
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.3
+  - 0.3
+  - 0.3
+  center:
+  - -1.35
+  - 6.15
+  - 1.25
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.3
+  - 0.3
+  - 0.15
+  center:
+  - -1.05
+  - 6.15
+  - 1.175
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.9
+  - 0.3
+  - 0.3
+  center:
+  - -0.45
+  - 6.15
+  - 1.25
+- shape: box
+  material: aluminum
+  size_cm:
+  - 1.5
+  - 0.3
+  - 0.15
+  center:
+  - 0.75
+  - 6.15
+  - 1.175
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.3
+  - 0.3
+  - 0.3
+  center:
+  - 1.65
+  - 6.15
+  - 1.25
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.3
+  - 0.3
+  - 0.45
+  center:
+  - 1.95
+  - 6.15
+  - 1.325
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.3
+  - 0.3
+  - 0.6
+  center:
+  - 2.25
+  - 6.15
+  - 1.4
+- shape: box
+  material: aluminum
+  size_cm:
+  - 3.9
+  - 0.6
+  - 0.75
+  center:
+  - 4.35
+  - 6.0
+  - 1.475
+- shape: box
+  material: aluminum
+  size_cm:
+  - 3.9
+  - 0.3
+  - 0.75
+  center:
+  - -4.35
+  - 5.85
+  - 1.475
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.3
+  - 0.3
+  - 0.6
+  center:
+  - -2.25
+  - 5.85
+  - 1.4
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.3
+  - 0.3
+  - 0.45
+  center:
+  - -1.95
+  - 5.85
+  - 1.325
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.3
+  - 0.3
+  - 0.3
+  center:
+  - -1.65
+  - 5.85
+  - 1.25
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.3
+  - 0.3
+  - 0.45
+  center:
+  - -1.35
+  - 5.85
+  - 1.325
+- shape: box
+  material: aluminum
+  size_cm:
+  - 1.2
+  - 0.3
+  - 0.6
+  center:
+  - -0.6
+  - 5.85
+  - 1.4
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.3
+  - 0.3
+  - 0.45
+  center:
+  - 0.15
+  - 5.85
+  - 1.325
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.3
+  - 0.3
+  - 0.3
+  center:
+  - 0.45
+  - 5.85
+  - 1.25
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.9
+  - 0.3
+  - 0.15
+  center:
+  - 1.05
+  - 5.85
+  - 1.175
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.6
+  - 0.3
+  - 0.3
+  center:
+  - 1.8
+  - 5.85
+  - 1.25
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.3
+  - 0.3
+  - 0.45
+  center:
+  - 2.25
+  - 5.85
+  - 1.325
+- shape: box
+  material: aluminum
+  size_cm:
+  - 4.2
+  - 3.0
+  - 0.75
+  center:
+  - -4.2
+  - 4.2
+  - 1.475
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.6
+  - 0.3
+  - 0.45
+  center:
+  - -1.8
+  - 5.55
+  - 1.325
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.3
+  - 0.3
+  - 0.6
+  center:
+  - -1.35
+  - 5.55
+  - 1.4
+- shape: box
+  material: aluminum
+  size_cm:
+  - 1.5
+  - 0.3
+  - 0.75
+  center:
+  - -0.45
+  - 5.55
+  - 1.475
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.6
+  - 0.3
+  - 0.6
+  center:
+  - 0.6
+  - 5.55
+  - 1.4
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.3
+  - 0.3
+  - 0.45
+  center:
+  - 1.05
+  - 5.55
+  - 1.325
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.6
+  - 0.3
+  - 0.15
+  center:
+  - 1.5
+  - 5.55
+  - 1.175
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.6
+  - 0.3
+  - 0.3
+  center:
+  - 2.1
+  - 5.55
+  - 1.25
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.3
+  - 1.8
+  - 0.6
+  center:
+  - 2.55
+  - 4.8
+  - 1.4
+- shape: box
+  material: aluminum
+  size_cm:
+  - 3.6
+  - 2.7
+  - 0.75
+  center:
+  - 4.5
+  - 4.35
+  - 1.475
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.6
+  - 0.3
+  - 0.6
+  center:
+  - -1.8
+  - 5.25
+  - 1.4
+- shape: box
+  material: aluminum
+  size_cm:
+  - 2.4
+  - 0.3
+  - 0.75
+  center:
+  - -0.3
+  - 5.25
+  - 1.475
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.3
+  - 0.3
+  - 0.6
+  center:
+  - 1.05
+  - 5.25
+  - 1.4
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.3
+  - 0.3
+  - 0.3
+  center:
+  - 1.35
+  - 5.25
+  - 1.25
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.6
+  - 0.3
+  - 0.15
+  center:
+  - 1.8
+  - 5.25
+  - 1.175
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.3
+  - 0.3
+  - 0.3
+  center:
+  - 2.25
+  - 5.25
+  - 1.25
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.3
+  - 0.6
+  - 0.6
+  center:
+  - -1.95
+  - 4.8
+  - 1.4
+- shape: box
+  material: aluminum
+  size_cm:
+  - 3.0
+  - 0.6
+  - 0.75
+  center:
+  - -0.3
+  - 4.8
+  - 1.475
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.3
+  - 1.8
+  - 0.45
+  center:
+  - 1.35
+  - 4.2
+  - 1.325
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.9
+  - 0.3
+  - 0.15
+  center:
+  - 1.95
+  - 4.95
+  - 1.175
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.6
+  - 0.3
+  - 0.15
+  center:
+  - 1.8
+  - 4.65
+  - 1.175
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.3
+  - 0.6
+  - 0.3
+  center:
+  - 2.25
+  - 4.5
+  - 1.25
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.9
+  - 0.3
+  - 0.6
+  center:
+  - -1.65
+  - 4.35
+  - 1.4
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.3
+  - 0.3
+  - 0.75
+  center:
+  - -1.05
+  - 4.35
+  - 1.475
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.6
+  - 0.3
+  - 0.6
+  center:
+  - -0.6
+  - 4.35
+  - 1.4
+- shape: box
+  material: aluminum
+  size_cm:
+  - 1.2
+  - 0.3
+  - 0.75
+  center:
+  - 0.3
+  - 4.35
+  - 1.475
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.3
+  - 0.3
+  - 0.6
+  center:
+  - 1.05
+  - 4.35
+  - 1.4
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.3
+  - 0.3
+  - 0.3
+  center:
+  - 1.65
+  - 4.35
+  - 1.25
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.3
+  - 0.3
+  - 0.15
+  center:
+  - 1.95
+  - 4.35
+  - 1.175
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.3
+  - 0.6
+  - 0.45
+  center:
+  - -1.95
+  - 3.9
+  - 1.325
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.3
+  - 0.6
+  - 0.15
+  center:
+  - -1.65
+  - 3.9
+  - 1.175
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.3
+  - 0.6
+  - 0.3
+  center:
+  - -1.35
+  - 3.9
+  - 1.25
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.3
+  - 0.6
+  - 0.6
+  center:
+  - -1.05
+  - 3.9
+  - 1.4
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.3
+  - 0.6
+  - 0.45
+  center:
+  - -0.75
+  - 3.9
+  - 1.325
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.6
+  - 0.6
+  - 0.3
+  center:
+  - -0.3
+  - 3.9
+  - 1.25
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.3
+  - 0.3
+  - 0.6
+  center:
+  - 0.15
+  - 4.05
+  - 1.4
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.9
+  - 0.3
+  - 0.75
+  center:
+  - 0.75
+  - 4.05
+  - 1.475
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.9
+  - 0.6
+  - 0.3
+  center:
+  - 1.95
+  - 3.9
+  - 1.25
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.3
+  - 0.3
+  - 0.45
+  center:
+  - 0.15
+  - 3.75
+  - 1.325
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.3
+  - 0.3
+  - 0.6
+  center:
+  - 0.45
+  - 3.75
+  - 1.4
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.6
+  - 0.3
+  - 0.75
+  center:
+  - 0.9
+  - 3.75
+  - 1.475
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.3
+  - 0.3
+  - 0.45
+  center:
+  - 2.55
+  - 3.75
+  - 1.325
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.3
+  - 0.3
+  - 0.6
+  center:
+  - -1.95
+  - 3.45
+  - 1.4
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.3
+  - 0.3
+  - 0.45
+  center:
+  - -1.65
+  - 3.45
+  - 1.325
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.3
+  - 0.3
+  - 0.6
+  center:
+  - -1.35
+  - 3.45
+  - 1.4
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.6
+  - 0.3
+  - 0.75
+  center:
+  - -0.9
+  - 3.45
+  - 1.475
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.3
+  - 0.3
+  - 0.6
+  center:
+  - -0.45
+  - 3.45
+  - 1.4
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.3
+  - 0.3
+  - 0.45
+  center:
+  - -0.15
+  - 3.45
+  - 1.325
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.3
+  - 0.3
+  - 0.6
+  center:
+  - 0.15
+  - 3.45
+  - 1.4
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.9
+  - 0.3
+  - 0.75
+  center:
+  - 0.75
+  - 3.45
+  - 1.475
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.3
+  - 0.3
+  - 0.3
+  center:
+  - 1.65
+  - 3.45
+  - 1.25
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.9
+  - 0.3
+  - 0.45
+  center:
+  - 2.25
+  - 3.45
+  - 1.325
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.9
+  - 0.6
+  - 0.6
+  center:
+  - -1.65
+  - 3.0
+  - 1.4
+- shape: box
+  material: aluminum
+  size_cm:
+  - 2.4
+  - 0.3
+  - 0.75
+  center:
+  - 0.0
+  - 3.15
+  - 1.475
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.3
+  - 0.3
+  - 0.6
+  center:
+  - 1.35
+  - 3.15
+  - 1.4
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.3
+  - 0.3
+  - 0.45
+  center:
+  - 1.65
+  - 3.15
+  - 1.325
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.9
+  - 0.3
+  - 0.6
+  center:
+  - 2.25
+  - 3.15
+  - 1.4
+- shape: box
+  material: aluminum
+  size_cm:
+  - 2.1
+  - 0.3
+  - 0.75
+  center:
+  - -0.15
+  - 2.85
+  - 1.475
+- shape: box
+  material: aluminum
+  size_cm:
+  - 1.5
+  - 0.6
+  - 0.6
+  center:
+  - 1.65
+  - 2.7
+  - 1.4
+- shape: box
+  material: aluminum
+  size_cm:
+  - 3.9
+  - 0.6
+  - 0.75
+  center:
+  - 4.35
+  - 2.7
+  - 1.475
+- shape: box
+  material: aluminum
+  size_cm:
+  - 3.9
+  - 0.6
+  - 0.75
+  center:
+  - -4.35
+  - 2.4
+  - 1.475
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.6
+  - 0.3
+  - 0.6
+  center:
+  - -2.1
+  - 2.55
+  - 1.4
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.3
+  - 0.3
+  - 0.45
+  center:
+  - -1.65
+  - 2.55
+  - 1.325
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.3
+  - 0.3
+  - 0.3
+  center:
+  - -1.35
+  - 2.55
+  - 1.25
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.3
+  - 0.3
+  - 0.45
+  center:
+  - -1.05
+  - 2.55
+  - 1.325
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.3
+  - 0.3
+  - 0.6
+  center:
+  - -0.75
+  - 2.55
+  - 1.4
+- shape: box
+  material: aluminum
+  size_cm:
+  - 1.5
+  - 0.3
+  - 0.75
+  center:
+  - 0.15
+  - 2.55
+  - 1.475
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.3
+  - 0.3
+  - 0.6
+  center:
+  - -2.25
+  - 2.25
+  - 1.4
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.6
+  - 0.3
+  - 0.3
+  center:
+  - -1.8
+  - 2.25
+  - 1.25
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.3
+  - 0.3
+  - 0.15
+  center:
+  - -1.35
+  - 2.25
+  - 1.175
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.3
+  - 0.3
+  - 0.3
+  center:
+  - -1.05
+  - 2.25
+  - 1.25
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.6
+  - 0.3
+  - 0.6
+  center:
+  - -0.6
+  - 2.25
+  - 1.4
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.9
+  - 0.3
+  - 0.75
+  center:
+  - 0.15
+  - 2.25
+  - 1.475
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.3
+  - 0.3
+  - 0.6
+  center:
+  - 0.75
+  - 2.25
+  - 1.4
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.6
+  - 0.3
+  - 0.45
+  center:
+  - 1.2
+  - 2.25
+  - 1.325
+- shape: box
+  material: aluminum
+  size_cm:
+  - 4.8
+  - 1.5
+  - 0.75
+  center:
+  - 3.9
+  - 1.65
+  - 1.475
+- shape: box
+  material: aluminum
+  size_cm:
+  - 3.6
+  - 1.8
+  - 0.75
+  center:
+  - -4.5
+  - 1.2
+  - 1.475
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.3
+  - 1.2
+  - 0.6
+  center:
+  - -2.55
+  - 1.5
+  - 1.4
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.3
+  - 0.3
+  - 0.3
+  center:
+  - -2.25
+  - 1.95
+  - 1.25
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.3
+  - 0.3
+  - 0.15
+  center:
+  - -1.95
+  - 1.95
+  - 1.175
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.6
+  - 0.3
+  - 0.15
+  center:
+  - -1.2
+  - 1.95
+  - 1.175
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.3
+  - 0.3
+  - 0.3
+  center:
+  - -0.75
+  - 1.95
+  - 1.25
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.6
+  - 0.3
+  - 0.45
+  center:
+  - -0.3
+  - 1.95
+  - 1.325
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.6
+  - 0.3
+  - 0.6
+  center:
+  - 0.3
+  - 1.95
+  - 1.4
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.3
+  - 0.3
+  - 0.45
+  center:
+  - 0.75
+  - 1.95
+  - 1.325
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.3
+  - 0.3
+  - 0.3
+  center:
+  - 1.05
+  - 1.95
+  - 1.25
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.3
+  - 0.6
+  - 0.45
+  center:
+  - 1.35
+  - 1.8
+  - 1.325
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.3
+  - 0.6
+  - 0.15
+  center:
+  - -2.25
+  - 1.5
+  - 1.175
+- shape: box
+  material: aluminum
+  size_cm:
+  - 1.2
+  - 0.6
+  - 0.15
+  center:
+  - -0.9
+  - 1.5
+  - 1.175
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.9
+  - 0.3
+  - 0.3
+  center:
+  - 0.15
+  - 1.65
+  - 1.25
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.6
+  - 0.3
+  - 0.15
+  center:
+  - 0.9
+  - 1.65
+  - 1.175
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.9
+  - 0.3
+  - 0.15
+  center:
+  - 0.75
+  - 1.35
+  - 1.175
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.3
+  - 0.6
+  - 0.6
+  center:
+  - 1.35
+  - 1.2
+  - 1.4
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.9
+  - 0.3
+  - 0.15
+  center:
+  - -1.05
+  - 1.05
+  - 1.175
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.3
+  - 0.3
+  - 0.15
+  center:
+  - 0.75
+  - 1.05
+  - 1.175
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.3
+  - 0.3
+  - 0.45
+  center:
+  - 1.05
+  - 1.05
+  - 1.325
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.3
+  - 0.6
+  - 0.45
+  center:
+  - -2.55
+  - 0.6
+  - 1.325
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.3
+  - 0.3
+  - 0.15
+  center:
+  - -1.05
+  - 0.75
+  - 1.175
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.3
+  - 0.3
+  - 0.3
+  center:
+  - 0.75
+  - 0.75
+  - 1.25
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.3
+  - 0.3
+  - 0.6
+  center:
+  - 1.05
+  - 0.75
+  - 1.4
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.3
+  - 0.3
+  - 0.75
+  center:
+  - 1.35
+  - 0.75
+  - 1.475
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.3
+  - 0.3
+  - 0.6
+  center:
+  - 1.65
+  - 0.75
+  - 1.4
+- shape: box
+  material: aluminum
+  size_cm:
+  - 4.5
+  - 0.3
+  - 0.75
+  center:
+  - 4.05
+  - 0.75
+  - 1.475
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.3
+  - 0.3
+  - 0.15
+  center:
+  - -2.25
+  - 0.45
+  - 1.175
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.3
+  - 0.3
+  - 0.15
+  center:
+  - 0.45
+  - 0.45
+  - 1.175
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.3
+  - 0.3
+  - 0.45
+  center:
+  - 0.75
+  - 0.45
+  - 1.325
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.6
+  - 0.6
+  - 0.75
+  center:
+  - 1.2
+  - 0.3
+  - 1.475
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.6
+  - 0.3
+  - 0.45
+  center:
+  - 1.8
+  - 0.45
+  - 1.325
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.3
+  - 0.3
+  - 0.6
+  center:
+  - 2.25
+  - 0.45
+  - 1.4
+- shape: box
+  material: aluminum
+  size_cm:
+  - 3.9
+  - 0.3
+  - 0.75
+  center:
+  - 4.35
+  - 0.45
+  - 1.475
+- shape: box
+  material: aluminum
+  size_cm:
+  - 3.0
+  - 0.3
+  - 0.75
+  center:
+  - -4.8
+  - 0.15
+  - 1.475
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.3
+  - 0.3
+  - 0.6
+  center:
+  - -3.15
+  - 0.15
+  - 1.4
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.3
+  - 0.3
+  - 0.3
+  center:
+  - -2.85
+  - 0.15
+  - 1.25
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.3
+  - 0.3
+  - 0.15
+  center:
+  - -2.55
+  - 0.15
+  - 1.175
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.3
+  - 0.3
+  - 0.15
+  center:
+  - 0.15
+  - 0.15
+  - 1.175
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.3
+  - 0.3
+  - 0.3
+  center:
+  - 0.45
+  - 0.15
+  - 1.25
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.3
+  - 0.3
+  - 0.6
+  center:
+  - 0.75
+  - 0.15
+  - 1.4
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.3
+  - 0.6
+  - 0.45
+  center:
+  - 1.65
+  - 0.0
+  - 1.325
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.3
+  - 0.3
+  - 0.3
+  center:
+  - 1.95
+  - 0.15
+  - 1.25
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.6
+  - 0.3
+  - 0.45
+  center:
+  - 2.4
+  - 0.15
+  - 1.325
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.3
+  - 0.3
+  - 0.6
+  center:
+  - 2.85
+  - 0.15
+  - 1.4
+- shape: box
+  material: aluminum
+  size_cm:
+  - 3.3
+  - 0.3
+  - 0.75
+  center:
+  - 4.65
+  - 0.15
+  - 1.475
+- shape: box
+  material: aluminum
+  size_cm:
+  - 2.4
+  - 0.3
+  - 0.75
+  center:
+  - -5.1
+  - -0.15
+  - 1.475
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.3
+  - 0.3
+  - 0.6
+  center:
+  - -3.75
+  - -0.15
+  - 1.4
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.3
+  - 0.3
+  - 0.45
+  center:
+  - -3.45
+  - -0.15
+  - 1.325
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.6
+  - 0.3
+  - 0.15
+  center:
+  - -3.0
+  - -0.15
+  - 1.175
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.3
+  - 0.9
+  - 0.15
+  center:
+  - -0.15
+  - -0.45
+  - 1.175
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.3
+  - 0.3
+  - 0.3
+  center:
+  - 0.15
+  - -0.15
+  - 1.25
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.3
+  - 0.3
+  - 0.6
+  center:
+  - 0.45
+  - -0.15
+  - 1.4
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.9
+  - 0.3
+  - 0.75
+  center:
+  - 1.05
+  - -0.15
+  - 1.475
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.9
+  - 0.3
+  - 0.3
+  center:
+  - 2.25
+  - -0.15
+  - 1.25
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.3
+  - 0.3
+  - 0.45
+  center:
+  - 2.85
+  - -0.15
+  - 1.325
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.3
+  - 0.3
+  - 0.6
+  center:
+  - 3.15
+  - -0.15
+  - 1.4
+- shape: box
+  material: aluminum
+  size_cm:
+  - 3.0
+  - 0.3
+  - 0.75
+  center:
+  - 4.8
+  - -0.15
+  - 1.475
+- shape: box
+  material: aluminum
+  size_cm:
+  - 1.8
+  - 0.3
+  - 0.75
+  center:
+  - -5.4
+  - -0.45
+  - 1.475
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.3
+  - 0.3
+  - 0.6
+  center:
+  - -4.35
+  - -0.45
+  - 1.4
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.3
+  - 0.3
+  - 0.45
+  center:
+  - -4.05
+  - -0.45
+  - 1.325
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.6
+  - 0.3
+  - 0.15
+  center:
+  - -3.6
+  - -0.45
+  - 1.175
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.3
+  - 0.3
+  - 0.45
+  center:
+  - 0.15
+  - -0.45
+  - 1.325
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.9
+  - 0.3
+  - 0.75
+  center:
+  - 0.75
+  - -0.45
+  - 1.475
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.3
+  - 0.3
+  - 0.6
+  center:
+  - 1.35
+  - -0.45
+  - 1.4
+- shape: box
+  material: aluminum
+  size_cm:
+  - 1.8
+  - 0.3
+  - 0.3
+  center:
+  - 2.4
+  - -0.45
+  - 1.25
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.3
+  - 0.3
+  - 0.45
+  center:
+  - 3.45
+  - -0.45
+  - 1.325
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.3
+  - 0.3
+  - 0.6
+  center:
+  - 3.75
+  - -0.45
+  - 1.4
+- shape: box
+  material: aluminum
+  size_cm:
+  - 2.4
+  - 0.3
+  - 0.75
+  center:
+  - 5.1
+  - -0.45
+  - 1.475
+- shape: box
+  material: aluminum
+  size_cm:
+  - 1.2
+  - 0.3
+  - 0.75
+  center:
+  - -5.7
+  - -0.75
+  - 1.475
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.3
+  - 0.3
+  - 0.6
+  center:
+  - -4.95
+  - -0.75
+  - 1.4
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.3
+  - 0.3
+  - 0.45
+  center:
+  - -4.65
+  - -0.75
+  - 1.325
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.3
+  - 0.3
+  - 0.3
+  center:
+  - -4.35
+  - -0.75
+  - 1.25
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.6
+  - 0.3
+  - 0.15
+  center:
+  - -3.9
+  - -0.75
+  - 1.175
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.3
+  - 0.3
+  - 0.3
+  center:
+  - 0.15
+  - -0.75
+  - 1.25
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.3
+  - 0.3
+  - 0.6
+  center:
+  - 0.45
+  - -0.75
+  - 1.4
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.6
+  - 0.3
+  - 0.75
+  center:
+  - 0.9
+  - -0.75
+  - 1.475
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.3
+  - 0.3
+  - 0.45
+  center:
+  - 1.35
+  - -0.75
+  - 1.325
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.3
+  - 0.6
+  - 0.15
+  center:
+  - 1.65
+  - -0.9
+  - 1.175
+- shape: box
+  material: aluminum
+  size_cm:
+  - 1.8
+  - 0.3
+  - 0.3
+  center:
+  - 2.7
+  - -0.75
+  - 1.25
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.6
+  - 0.3
+  - 0.45
+  center:
+  - 3.9
+  - -0.75
+  - 1.325
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.3
+  - 0.3
+  - 0.6
+  center:
+  - 4.35
+  - -0.75
+  - 1.4
+- shape: box
+  material: aluminum
+  size_cm:
+  - 1.8
+  - 0.3
+  - 0.75
+  center:
+  - 5.4
+  - -0.75
+  - 1.475
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.9
+  - 0.3
+  - 0.75
+  center:
+  - -5.85
+  - -1.05
+  - 1.475
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.3
+  - 0.3
+  - 0.6
+  center:
+  - -5.25
+  - -1.05
+  - 1.4
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.3
+  - 0.3
+  - 0.45
+  center:
+  - -4.95
+  - -1.05
+  - 1.325
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.3
+  - 0.3
+  - 0.3
+  center:
+  - -4.65
+  - -1.05
+  - 1.25
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.9
+  - 0.3
+  - 0.15
+  center:
+  - -4.05
+  - -1.05
+  - 1.175
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.6
+  - 0.3
+  - 0.15
+  center:
+  - -0.6
+  - -1.05
+  - 1.175
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.9
+  - 0.3
+  - 0.3
+  center:
+  - 0.15
+  - -1.05
+  - 1.25
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.6
+  - 0.3
+  - 0.6
+  center:
+  - 0.9
+  - -1.05
+  - 1.4
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.3
+  - 0.3
+  - 0.3
+  center:
+  - 1.35
+  - -1.05
+  - 1.25
+- shape: box
+  material: aluminum
+  size_cm:
+  - 2.1
+  - 0.3
+  - 0.3
+  center:
+  - 2.85
+  - -1.05
+  - 1.25
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.6
+  - 0.3
+  - 0.45
+  center:
+  - 4.2
+  - -1.05
+  - 1.325
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.6
+  - 0.3
+  - 0.6
+  center:
+  - 4.8
+  - -1.05
+  - 1.4
+- shape: box
+  material: aluminum
+  size_cm:
+  - 1.2
+  - 0.3
+  - 0.75
+  center:
+  - 5.7
+  - -1.05
+  - 1.475
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.6
+  - 1.2
+  - 0.75
+  center:
+  - -6.0
+  - -1.8
+  - 1.475
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.3
+  - 0.3
+  - 0.6
+  center:
+  - -5.55
+  - -1.35
+  - 1.4
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.3
+  - 0.3
+  - 0.45
+  center:
+  - -5.25
+  - -1.35
+  - 1.325
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.3
+  - 0.3
+  - 0.3
+  center:
+  - -4.95
+  - -1.35
+  - 1.25
+- shape: box
+  material: aluminum
+  size_cm:
+  - 1.2
+  - 0.3
+  - 0.15
+  center:
+  - -4.2
+  - -1.35
+  - 1.175
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.9
+  - 0.3
+  - 0.15
+  center:
+  - -0.75
+  - -1.35
+  - 1.175
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.3
+  - 0.3
+  - 0.45
+  center:
+  - -0.15
+  - -1.35
+  - 1.325
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.3
+  - 0.3
+  - 0.6
+  center:
+  - 0.15
+  - -1.35
+  - 1.4
+- shape: box
+  material: aluminum
+  size_cm:
+  - 1.2
+  - 0.3
+  - 0.3
+  center:
+  - 0.9
+  - -1.35
+  - 1.25
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.6
+  - 0.3
+  - 0.15
+  center:
+  - 1.8
+  - -1.35
+  - 1.175
+- shape: box
+  material: aluminum
+  size_cm:
+  - 1.5
+  - 0.3
+  - 0.3
+  center:
+  - 2.85
+  - -1.35
+  - 1.25
+- shape: box
+  material: aluminum
+  size_cm:
+  - 1.2
+  - 0.3
+  - 0.45
+  center:
+  - 4.2
+  - -1.35
+  - 1.325
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.6
+  - 0.3
+  - 0.6
+  center:
+  - 5.1
+  - -1.35
+  - 1.4
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.9
+  - 0.6
+  - 0.75
+  center:
+  - 5.85
+  - -1.5
+  - 1.475
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.3
+  - 1.2
+  - 0.45
+  center:
+  - -5.55
+  - -2.1
+  - 1.325
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.6
+  - 0.6
+  - 0.3
+  center:
+  - -5.1
+  - -1.8
+  - 1.25
+- shape: box
+  material: aluminum
+  size_cm:
+  - 1.5
+  - 0.3
+  - 0.15
+  center:
+  - -4.05
+  - -1.65
+  - 1.175
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.3
+  - 0.3
+  - 0.3
+  center:
+  - -0.45
+  - -1.65
+  - 1.25
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.3
+  - 0.3
+  - 0.6
+  center:
+  - -0.15
+  - -1.65
+  - 1.4
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.3
+  - 0.3
+  - 0.75
+  center:
+  - 0.15
+  - -1.65
+  - 1.475
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.3
+  - 0.3
+  - 0.45
+  center:
+  - 0.45
+  - -1.65
+  - 1.325
+- shape: box
+  material: aluminum
+  size_cm:
+  - 1.5
+  - 0.3
+  - 0.15
+  center:
+  - 1.35
+  - -1.65
+  - 1.175
+- shape: box
+  material: aluminum
+  size_cm:
+  - 2.4
+  - 0.3
+  - 0.3
+  center:
+  - 3.3
+  - -1.65
+  - 1.25
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.6
+  - 0.6
+  - 0.45
+  center:
+  - 4.8
+  - -1.8
+  - 1.325
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.3
+  - 0.3
+  - 0.6
+  center:
+  - 5.25
+  - -1.65
+  - 1.4
+- shape: box
+  material: aluminum
+  size_cm:
+  - 1.2
+  - 0.3
+  - 0.15
+  center:
+  - -4.2
+  - -1.95
+  - 1.175
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.3
+  - 0.3
+  - 0.15
+  center:
+  - -0.75
+  - -1.95
+  - 1.175
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.3
+  - 0.3
+  - 0.45
+  center:
+  - -0.45
+  - -1.95
+  - 1.325
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.9
+  - 0.3
+  - 0.75
+  center:
+  - 0.15
+  - -1.95
+  - 1.475
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.3
+  - 0.3
+  - 0.45
+  center:
+  - 0.75
+  - -1.95
+  - 1.325
+- shape: box
+  material: aluminum
+  size_cm:
+  - 1.2
+  - 0.3
+  - 0.15
+  center:
+  - 1.5
+  - -1.95
+  - 1.175
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.3
+  - 0.3
+  - 0.3
+  center:
+  - 2.25
+  - -1.95
+  - 1.25
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.6
+  - 0.3
+  - 0.15
+  center:
+  - 2.7
+  - -1.95
+  - 1.175
+- shape: box
+  material: aluminum
+  size_cm:
+  - 1.5
+  - 0.3
+  - 0.3
+  center:
+  - 3.75
+  - -1.95
+  - 1.25
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.6
+  - 0.3
+  - 0.6
+  center:
+  - 5.4
+  - -1.95
+  - 1.4
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.6
+  - 1.5
+  - 0.75
+  center:
+  - 6.0
+  - -2.55
+  - 1.475
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.3
+  - 0.3
+  - 0.3
+  center:
+  - -5.25
+  - -2.25
+  - 1.25
+- shape: box
+  material: aluminum
+  size_cm:
+  - 1.5
+  - 0.3
+  - 0.15
+  center:
+  - -4.35
+  - -2.25
+  - 1.175
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.3
+  - 0.6
+  - 0.45
+  center:
+  - -0.75
+  - -2.4
+  - 1.325
+- shape: box
+  material: aluminum
+  size_cm:
+  - 1.2
+  - 0.3
+  - 0.75
+  center:
+  - 0.0
+  - -2.25
+  - 1.475
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.3
+  - 0.6
+  - 0.3
+  center:
+  - 0.75
+  - -2.4
+  - 1.25
+- shape: box
+  material: aluminum
+  size_cm:
+  - 1.8
+  - 0.3
+  - 0.15
+  center:
+  - 1.8
+  - -2.25
+  - 1.175
+- shape: box
+  material: aluminum
+  size_cm:
+  - 2.1
+  - 0.3
+  - 0.3
+  center:
+  - 3.75
+  - -2.25
+  - 1.25
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.6
+  - 0.6
+  - 0.45
+  center:
+  - 5.1
+  - -2.4
+  - 1.325
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.3
+  - 0.6
+  - 0.6
+  center:
+  - 5.55
+  - -2.4
+  - 1.4
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.3
+  - 0.6
+  - 0.75
+  center:
+  - -6.15
+  - -2.7
+  - 1.475
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.3
+  - 0.3
+  - 0.6
+  center:
+  - -5.85
+  - -2.55
+  - 1.4
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.6
+  - 0.3
+  - 0.3
+  center:
+  - -5.1
+  - -2.55
+  - 1.25
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.3
+  - 0.3
+  - 0.15
+  center:
+  - -4.65
+  - -2.55
+  - 1.175
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.9
+  - 0.3
+  - 0.15
+  center:
+  - -3.75
+  - -2.55
+  - 1.175
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.9
+  - 0.3
+  - 0.75
+  center:
+  - -0.15
+  - -2.55
+  - 1.475
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.3
+  - 0.3
+  - 0.6
+  center:
+  - 0.45
+  - -2.55
+  - 1.4
+- shape: box
+  material: aluminum
+  size_cm:
+  - 1.5
+  - 0.3
+  - 0.15
+  center:
+  - 1.65
+  - -2.55
+  - 1.175
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.3
+  - 0.3
+  - 0.3
+  center:
+  - 2.55
+  - -2.55
+  - 1.25
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.3
+  - 0.3
+  - 0.15
+  center:
+  - 2.85
+  - -2.55
+  - 1.175
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.9
+  - 0.6
+  - 0.3
+  center:
+  - 3.45
+  - -2.7
+  - 1.25
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.3
+  - 0.3
+  - 0.15
+  center:
+  - 4.05
+  - -2.55
+  - 1.175
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.6
+  - 0.3
+  - 0.3
+  center:
+  - 4.5
+  - -2.55
+  - 1.25
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.3
+  - 0.3
+  - 0.45
+  center:
+  - -5.85
+  - -2.85
+  - 1.325
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.9
+  - 0.3
+  - 0.3
+  center:
+  - -5.25
+  - -2.85
+  - 1.25
+- shape: box
+  material: aluminum
+  size_cm:
+  - 1.2
+  - 0.3
+  - 0.15
+  center:
+  - -3.6
+  - -2.85
+  - 1.175
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.3
+  - 0.3
+  - 0.3
+  center:
+  - -0.75
+  - -2.85
+  - 1.25
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.3
+  - 0.3
+  - 0.6
+  center:
+  - -0.45
+  - -2.85
+  - 1.4
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.6
+  - 0.3
+  - 0.75
+  center:
+  - 0.0
+  - -2.85
+  - 1.475
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.3
+  - 0.3
+  - 0.45
+  center:
+  - 0.45
+  - -2.85
+  - 1.325
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.6
+  - 0.6
+  - 0.15
+  center:
+  - 0.9
+  - -3.0
+  - 1.175
+- shape: box
+  material: aluminum
+  size_cm:
+  - 1.5
+  - 0.3
+  - 0.15
+  center:
+  - 2.25
+  - -2.85
+  - 1.175
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.6
+  - 0.9
+  - 0.15
+  center:
+  - 4.2
+  - -3.15
+  - 1.175
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.3
+  - 0.6
+  - 0.3
+  center:
+  - 4.65
+  - -3.0
+  - 1.25
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.3
+  - 0.3
+  - 0.45
+  center:
+  - 4.95
+  - -2.85
+  - 1.325
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.6
+  - 0.3
+  - 0.6
+  center:
+  - 5.4
+  - -2.85
+  - 1.4
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.3
+  - 0.3
+  - 0.6
+  center:
+  - -6.15
+  - -3.15
+  - 1.4
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.3
+  - 0.3
+  - 0.3
+  center:
+  - -5.85
+  - -3.15
+  - 1.25
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.9
+  - 0.3
+  - 0.15
+  center:
+  - -5.25
+  - -3.15
+  - 1.175
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.9
+  - 0.3
+  - 0.15
+  center:
+  - -3.45
+  - -3.15
+  - 1.175
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.3
+  - 0.3
+  - 0.15
+  center:
+  - -0.75
+  - -3.15
+  - 1.175
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.3
+  - 0.3
+  - 0.45
+  center:
+  - -0.45
+  - -3.15
+  - 1.325
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.3
+  - 0.3
+  - 0.75
+  center:
+  - -0.15
+  - -3.15
+  - 1.475
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.3
+  - 0.3
+  - 0.6
+  center:
+  - 0.15
+  - -3.15
+  - 1.4
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.3
+  - 0.3
+  - 0.3
+  center:
+  - 0.45
+  - -3.15
+  - 1.25
+- shape: box
+  material: aluminum
+  size_cm:
+  - 1.8
+  - 0.3
+  - 0.15
+  center:
+  - 2.4
+  - -3.15
+  - 1.175
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.6
+  - 0.3
+  - 0.3
+  center:
+  - 3.6
+  - -3.15
+  - 1.25
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.6
+  - 0.3
+  - 0.45
+  center:
+  - 5.1
+  - -3.15
+  - 1.325
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.3
+  - 0.3
+  - 0.6
+  center:
+  - 5.55
+  - -3.15
+  - 1.4
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.3
+  - 0.3
+  - 0.45
+  center:
+  - -6.15
+  - -3.45
+  - 1.325
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.9
+  - 0.3
+  - 0.15
+  center:
+  - -5.55
+  - -3.45
+  - 1.175
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.6
+  - 0.6
+  - 0.15
+  center:
+  - -3.6
+  - -3.6
+  - 1.175
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.3
+  - 0.3
+  - 0.3
+  center:
+  - -0.45
+  - -3.45
+  - 1.25
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.3
+  - 0.3
+  - 0.6
+  center:
+  - -0.15
+  - -3.45
+  - 1.4
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.3
+  - 0.3
+  - 0.45
+  center:
+  - 0.15
+  - -3.45
+  - 1.325
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.9
+  - 0.3
+  - 0.15
+  center:
+  - 0.75
+  - -3.45
+  - 1.175
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.9
+  - 0.3
+  - 0.15
+  center:
+  - 1.95
+  - -3.45
+  - 1.175
+- shape: box
+  material: aluminum
+  size_cm:
+  - 1.5
+  - 0.3
+  - 0.3
+  center:
+  - 3.15
+  - -3.45
+  - 1.25
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.6
+  - 0.3
+  - 0.3
+  center:
+  - 4.8
+  - -3.45
+  - 1.25
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.3
+  - 0.3
+  - 0.45
+  center:
+  - 5.25
+  - -3.45
+  - 1.325
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.6
+  - 0.3
+  - 0.6
+  center:
+  - 5.7
+  - -3.45
+  - 1.4
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.3
+  - 0.9
+  - 0.75
+  center:
+  - 6.15
+  - -3.75
+  - 1.475
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.3
+  - 0.9
+  - 0.6
+  center:
+  - -6.15
+  - -4.05
+  - 1.4
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.3
+  - 0.3
+  - 0.3
+  center:
+  - -5.85
+  - -3.75
+  - 1.25
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.9
+  - 0.3
+  - 0.15
+  center:
+  - -5.25
+  - -3.75
+  - 1.175
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.3
+  - 0.3
+  - 0.15
+  center:
+  - -0.45
+  - -3.75
+  - 1.175
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.3
+  - 0.3
+  - 0.3
+  center:
+  - -0.15
+  - -3.75
+  - 1.25
+- shape: box
+  material: aluminum
+  size_cm:
+  - 1.2
+  - 0.6
+  - 0.15
+  center:
+  - 0.6
+  - -3.9
+  - 1.175
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.6
+  - 0.3
+  - 0.15
+  center:
+  - 1.8
+  - -3.75
+  - 1.175
+- shape: box
+  material: aluminum
+  size_cm:
+  - 2.1
+  - 0.3
+  - 0.3
+  center:
+  - 3.15
+  - -3.75
+  - 1.25
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.3
+  - 0.6
+  - 0.15
+  center:
+  - 4.35
+  - -3.9
+  - 1.175
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.3
+  - 0.6
+  - 0.3
+  center:
+  - 4.65
+  - -3.9
+  - 1.25
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.3
+  - 0.6
+  - 0.45
+  center:
+  - 4.95
+  - -3.9
+  - 1.325
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.9
+  - 0.6
+  - 0.6
+  center:
+  - 5.55
+  - -3.9
+  - 1.4
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.3
+  - 0.3
+  - 0.45
+  center:
+  - -5.85
+  - -4.05
+  - 1.325
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.6
+  - 0.3
+  - 0.3
+  center:
+  - -5.4
+  - -4.05
+  - 1.25
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.3
+  - 0.6
+  - 0.15
+  center:
+  - -4.95
+  - -4.2
+  - 1.175
+- shape: box
+  material: aluminum
+  size_cm:
+  - 1.2
+  - 0.3
+  - 0.15
+  center:
+  - -3.3
+  - -4.05
+  - 1.175
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.3
+  - 0.6
+  - 0.15
+  center:
+  - -1.95
+  - -4.2
+  - 1.175
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.3
+  - 1.8
+  - 0.15
+  center:
+  - 1.65
+  - -4.8
+  - 1.175
+- shape: box
+  material: aluminum
+  size_cm:
+  - 2.4
+  - 0.3
+  - 0.3
+  center:
+  - 3.0
+  - -4.05
+  - 1.25
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.6
+  - 0.3
+  - 0.45
+  center:
+  - -5.7
+  - -4.35
+  - 1.325
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.3
+  - 0.3
+  - 0.3
+  center:
+  - -5.25
+  - -4.35
+  - 1.25
+- shape: box
+  material: aluminum
+  size_cm:
+  - 1.8
+  - 0.3
+  - 0.15
+  center:
+  - -3.3
+  - -4.35
+  - 1.175
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.3
+  - 0.3
+  - 0.15
+  center:
+  - 0.15
+  - -4.35
+  - 1.175
+- shape: box
+  material: aluminum
+  size_cm:
+  - 1.2
+  - 0.3
+  - 0.3
+  center:
+  - 2.4
+  - -4.35
+  - 1.25
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.6
+  - 0.3
+  - 0.45
+  center:
+  - 3.3
+  - -4.35
+  - 1.325
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.9
+  - 0.6
+  - 0.3
+  center:
+  - 4.05
+  - -4.5
+  - 1.25
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.6
+  - 0.3
+  - 0.45
+  center:
+  - 4.8
+  - -4.35
+  - 1.325
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.6
+  - 0.3
+  - 0.6
+  center:
+  - 5.4
+  - -4.35
+  - 1.4
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.6
+  - 0.6
+  - 0.75
+  center:
+  - 6.0
+  - -4.5
+  - 1.475
+- shape: box
+  material: aluminum
+  size_cm:
+  - 1.2
+  - 0.3
+  - 0.45
+  center:
+  - -5.7
+  - -4.65
+  - 1.325
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.3
+  - 0.9
+  - 0.3
+  center:
+  - -4.95
+  - -4.95
+  - 1.25
+- shape: box
+  material: aluminum
+  size_cm:
+  - 2.4
+  - 0.6
+  - 0.15
+  center:
+  - -3.0
+  - -4.8
+  - 1.175
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.9
+  - 0.6
+  - 0.3
+  center:
+  - 2.25
+  - -4.8
+  - 1.25
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.9
+  - 0.3
+  - 0.45
+  center:
+  - 3.15
+  - -4.65
+  - 1.325
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.3
+  - 0.6
+  - 0.45
+  center:
+  - 4.65
+  - -4.8
+  - 1.325
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.9
+  - 0.3
+  - 0.6
+  center:
+  - 5.25
+  - -4.65
+  - 1.4
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.6
+  - 0.6
+  - 0.6
+  center:
+  - -6.0
+  - -5.1
+  - 1.4
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.6
+  - 0.6
+  - 0.45
+  center:
+  - -5.4
+  - -5.1
+  - 1.325
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.3
+  - 0.3
+  - 0.15
+  center:
+  - -4.65
+  - -4.95
+  - 1.175
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.3
+  - 0.3
+  - 0.15
+  center:
+  - -0.15
+  - -4.95
+  - 1.175
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.3
+  - 0.3
+  - 0.15
+  center:
+  - 0.75
+  - -4.95
+  - 1.175
+- shape: box
+  material: aluminum
+  size_cm:
+  - 1.2
+  - 0.3
+  - 0.45
+  center:
+  - 3.3
+  - -4.95
+  - 1.325
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.6
+  - 0.3
+  - 0.3
+  center:
+  - 4.2
+  - -4.95
+  - 1.25
+- shape: box
+  material: aluminum
+  size_cm:
+  - 1.2
+  - 0.6
+  - 0.6
+  center:
+  - 5.4
+  - -5.1
+  - 1.4
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.3
+  - 0.6
+  - 0.75
+  center:
+  - 6.15
+  - -5.1
+  - 1.475
+- shape: box
+  material: aluminum
+  size_cm:
+  - 1.5
+  - 0.6
+  - 0.15
+  center:
+  - -4.05
+  - -5.4
+  - 1.175
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.9
+  - 0.6
+  - 0.3
+  center:
+  - -2.85
+  - -5.4
+  - 1.25
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.9
+  - 0.3
+  - 0.15
+  center:
+  - -1.95
+  - -5.25
+  - 1.175
+- shape: box
+  material: aluminum
+  size_cm:
+  - 1.8
+  - 0.3
+  - 0.15
+  center:
+  - 0.3
+  - -5.25
+  - 1.175
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.6
+  - 0.6
+  - 0.3
+  center:
+  - 2.1
+  - -5.4
+  - 1.25
+- shape: box
+  material: aluminum
+  size_cm:
+  - 2.4
+  - 0.3
+  - 0.45
+  center:
+  - 3.6
+  - -5.25
+  - 1.325
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.9
+  - 0.3
+  - 0.6
+  center:
+  - -5.85
+  - -5.55
+  - 1.4
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.6
+  - 0.3
+  - 0.45
+  center:
+  - -5.1
+  - -5.55
+  - 1.325
+- shape: box
+  material: aluminum
+  size_cm:
+  - 1.5
+  - 0.3
+  - 0.15
+  center:
+  - -1.65
+  - -5.55
+  - 1.175
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.6
+  - 0.3
+  - 0.15
+  center:
+  - -0.3
+  - -5.55
+  - 1.175
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.9
+  - 0.3
+  - 0.3
+  center:
+  - 0.45
+  - -5.55
+  - 1.25
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.3
+  - 0.3
+  - 0.15
+  center:
+  - 1.05
+  - -5.55
+  - 1.175
+- shape: box
+  material: aluminum
+  size_cm:
+  - 2.1
+  - 0.3
+  - 0.45
+  center:
+  - 3.45
+  - -5.55
+  - 1.325
+- shape: box
+  material: aluminum
+  size_cm:
+  - 1.2
+  - 0.6
+  - 0.6
+  center:
+  - 5.1
+  - -5.7
+  - 1.4
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.6
+  - 0.6
+  - 0.75
+  center:
+  - 6.0
+  - -5.7
+  - 1.475
+- shape: box
+  material: aluminum
+  size_cm:
+  - 1.2
+  - 1.8
+  - 0.6
+  center:
+  - -5.7
+  - -6.6
+  - 1.4
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.3
+  - 1.2
+  - 0.45
+  center:
+  - -4.95
+  - -6.3
+  - 1.325
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.6
+  - 0.3
+  - 0.3
+  center:
+  - -4.5
+  - -5.85
+  - 1.25
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.9
+  - 0.3
+  - 0.15
+  center:
+  - -3.75
+  - -5.85
+  - 1.175
+- shape: box
+  material: aluminum
+  size_cm:
+  - 1.5
+  - 0.6
+  - 0.3
+  center:
+  - -2.55
+  - -6.0
+  - 1.25
+- shape: box
+  material: aluminum
+  size_cm:
+  - 3.0
+  - 0.3
+  - 0.15
+  center:
+  - -0.3
+  - -5.85
+  - 1.175
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.3
+  - 2.4
+  - 0.3
+  center:
+  - 1.65
+  - -6.9
+  - 1.25
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.3
+  - 0.3
+  - 0.45
+  center:
+  - 1.95
+  - -5.85
+  - 1.325
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.6
+  - 0.3
+  - 0.3
+  center:
+  - 2.4
+  - -5.85
+  - 1.25
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.3
+  - 0.3
+  - 0.45
+  center:
+  - 2.85
+  - -5.85
+  - 1.325
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.3
+  - 0.6
+  - 0.6
+  center:
+  - 3.15
+  - -6.0
+  - 1.4
+- shape: box
+  material: aluminum
+  size_cm:
+  - 1.2
+  - 0.3
+  - 0.45
+  center:
+  - 3.9
+  - -5.85
+  - 1.325
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.9
+  - 0.3
+  - 0.3
+  center:
+  - -4.35
+  - -6.15
+  - 1.25
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.6
+  - 0.3
+  - 0.15
+  center:
+  - -3.6
+  - -6.15
+  - 1.175
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.3
+  - 0.3
+  - 0.15
+  center:
+  - -1.65
+  - -6.15
+  - 1.175
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.6
+  - 0.3
+  - 0.15
+  center:
+  - -0.9
+  - -6.15
+  - 1.175
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.6
+  - 0.3
+  - 0.3
+  center:
+  - -0.3
+  - -6.15
+  - 1.25
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.6
+  - 0.3
+  - 0.15
+  center:
+  - 0.3
+  - -6.15
+  - 1.175
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.3
+  - 0.3
+  - 0.3
+  center:
+  - 0.75
+  - -6.15
+  - 1.25
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.3
+  - 0.3
+  - 0.15
+  center:
+  - 1.05
+  - -6.15
+  - 1.175
+- shape: box
+  material: aluminum
+  size_cm:
+  - 1.2
+  - 0.3
+  - 0.45
+  center:
+  - 2.4
+  - -6.15
+  - 1.325
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.6
+  - 0.3
+  - 0.45
+  center:
+  - 3.6
+  - -6.15
+  - 1.325
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.3
+  - 0.3
+  - 0.6
+  center:
+  - 4.05
+  - -6.15
+  - 1.4
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.3
+  - 0.3
+  - 0.45
+  center:
+  - 4.35
+  - -6.15
+  - 1.325
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.6
+  - 0.3
+  - 0.6
+  center:
+  - 4.8
+  - -6.15
+  - 1.4
+- shape: box
+  material: aluminum
+  size_cm:
+  - 1.2
+  - 0.3
+  - 0.75
+  center:
+  - 5.7
+  - -6.15
+  - 1.475
+- shape: box
+  material: aluminum
+  size_cm:
+  - 1.8
+  - 0.3
+  - 0.3
+  center:
+  - -3.9
+  - -6.45
+  - 1.25
+- shape: box
+  material: aluminum
+  size_cm:
+  - 1.2
+  - 0.3
+  - 0.45
+  center:
+  - -2.4
+  - -6.45
+  - 1.325
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.3
+  - 0.3
+  - 0.3
+  center:
+  - -1.65
+  - -6.45
+  - 1.25
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.9
+  - 0.3
+  - 0.15
+  center:
+  - -1.05
+  - -6.45
+  - 1.175
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.3
+  - 0.6
+  - 0.3
+  center:
+  - -0.45
+  - -6.6
+  - 1.25
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.3
+  - 0.3
+  - 0.45
+  center:
+  - -0.15
+  - -6.45
+  - 1.325
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.9
+  - 0.3
+  - 0.3
+  center:
+  - 0.45
+  - -6.45
+  - 1.25
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.6
+  - 0.3
+  - 0.15
+  center:
+  - 1.2
+  - -6.45
+  - 1.175
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.9
+  - 0.3
+  - 0.45
+  center:
+  - 2.25
+  - -6.45
+  - 1.325
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.6
+  - 0.3
+  - 0.6
+  center:
+  - 3.0
+  - -6.45
+  - 1.4
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.3
+  - 0.3
+  - 0.45
+  center:
+  - 3.45
+  - -6.45
+  - 1.325
+- shape: box
+  material: aluminum
+  size_cm:
+  - 1.2
+  - 0.3
+  - 0.6
+  center:
+  - 4.2
+  - -6.45
+  - 1.4
+- shape: box
+  material: aluminum
+  size_cm:
+  - 1.5
+  - 1.5
+  - 0.75
+  center:
+  - 5.55
+  - -7.05
+  - 1.475
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.6
+  - 0.3
+  - 0.3
+  center:
+  - -4.5
+  - -6.75
+  - 1.25
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.6
+  - 0.3
+  - 0.45
+  center:
+  - -3.9
+  - -6.75
+  - 1.325
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.6
+  - 0.6
+  - 0.3
+  center:
+  - -3.3
+  - -6.9
+  - 1.25
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.3
+  - 0.3
+  - 0.6
+  center:
+  - -2.85
+  - -6.75
+  - 1.4
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.9
+  - 0.3
+  - 0.45
+  center:
+  - -2.25
+  - -6.75
+  - 1.325
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.9
+  - 0.3
+  - 0.3
+  center:
+  - -1.35
+  - -6.75
+  - 1.25
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.3
+  - 0.3
+  - 0.15
+  center:
+  - -0.75
+  - -6.75
+  - 1.175
+- shape: box
+  material: aluminum
+  size_cm:
+  - 1.2
+  - 0.3
+  - 0.45
+  center:
+  - 0.3
+  - -6.75
+  - 1.325
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.3
+  - 0.6
+  - 0.3
+  center:
+  - 1.05
+  - -6.9
+  - 1.25
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.3
+  - 0.6
+  - 0.15
+  center:
+  - 1.35
+  - -6.9
+  - 1.175
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.6
+  - 0.3
+  - 0.6
+  center:
+  - 2.1
+  - -6.75
+  - 1.4
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.3
+  - 0.3
+  - 0.45
+  center:
+  - 2.55
+  - -6.75
+  - 1.325
+- shape: box
+  material: aluminum
+  size_cm:
+  - 2.1
+  - 0.3
+  - 0.6
+  center:
+  - 3.75
+  - -6.75
+  - 1.4
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.3
+  - 0.3
+  - 0.3
+  center:
+  - -4.95
+  - -7.05
+  - 1.25
+- shape: box
+  material: aluminum
+  size_cm:
+  - 1.2
+  - 0.3
+  - 0.45
+  center:
+  - -4.2
+  - -7.05
+  - 1.325
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.3
+  - 0.9
+  - 0.45
+  center:
+  - -2.85
+  - -7.35
+  - 1.325
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.9
+  - 0.9
+  - 0.6
+  center:
+  - -2.25
+  - -7.35
+  - 1.4
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.3
+  - 0.3
+  - 0.45
+  center:
+  - -1.65
+  - -7.05
+  - 1.325
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.9
+  - 0.3
+  - 0.3
+  center:
+  - -1.05
+  - -7.05
+  - 1.25
+- shape: box
+  material: aluminum
+  size_cm:
+  - 1.5
+  - 0.3
+  - 0.45
+  center:
+  - 0.15
+  - -7.05
+  - 1.325
+- shape: box
+  material: aluminum
+  size_cm:
+  - 3.0
+  - 0.6
+  - 0.6
+  center:
+  - 3.3
+  - -7.2
+  - 1.4
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.6
+  - 0.3
+  - 0.45
+  center:
+  - -4.8
+  - -7.35
+  - 1.325
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.3
+  - 0.3
+  - 0.6
+  center:
+  - -4.35
+  - -7.35
+  - 1.4
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.9
+  - 0.6
+  - 0.45
+  center:
+  - -3.75
+  - -7.5
+  - 1.325
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.3
+  - 0.6
+  - 0.3
+  center:
+  - -3.15
+  - -7.5
+  - 1.25
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.9
+  - 0.3
+  - 0.45
+  center:
+  - -1.35
+  - -7.35
+  - 1.325
+- shape: box
+  material: aluminum
+  size_cm:
+  - 1.8
+  - 0.3
+  - 0.3
+  center:
+  - 0.0
+  - -7.35
+  - 1.25
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.6
+  - 0.3
+  - 0.15
+  center:
+  - 1.2
+  - -7.35
+  - 1.175
+- shape: box
+  material: aluminum
+  size_cm:
+  - 2.1
+  - 0.3
+  - 0.6
+  center:
+  - -5.25
+  - -7.65
+  - 1.4
+- shape: box
+  material: aluminum
+  size_cm:
+  - 2.7
+  - 0.3
+  - 0.45
+  center:
+  - -0.45
+  - -7.65
+  - 1.325
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.3
+  - 0.6
+  - 0.3
+  center:
+  - 1.05
+  - -7.8
+  - 1.25
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.3
+  - 0.6
+  - 0.15
+  center:
+  - 1.35
+  - -7.8
+  - 1.175
+- shape: box
+  material: aluminum
+  size_cm:
+  - 1.5
+  - 0.9
+  - 0.6
+  center:
+  - 2.55
+  - -7.95
+  - 1.4
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.9
+  - 0.3
+  - 0.75
+  center:
+  - 3.75
+  - -7.65
+  - 1.475
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.6
+  - 0.3
+  - 0.6
+  center:
+  - 4.5
+  - -7.65
+  - 1.4
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.9
+  - 0.3
+  - 0.75
+  center:
+  - -5.85
+  - -7.95
+  - 1.475
+- shape: box
+  material: aluminum
+  size_cm:
+  - 2.1
+  - 0.3
+  - 0.6
+  center:
+  - -4.35
+  - -7.95
+  - 1.4
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.6
+  - 0.6
+  - 0.45
+  center:
+  - -3.0
+  - -8.1
+  - 1.325
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.3
+  - 0.6
+  - 0.6
+  center:
+  - -2.55
+  - -8.1
+  - 1.4
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.3
+  - 0.6
+  - 0.75
+  center:
+  - -2.25
+  - -8.1
+  - 1.475
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.3
+  - 0.6
+  - 0.6
+  center:
+  - -1.95
+  - -8.1
+  - 1.4
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.9
+  - 0.6
+  - 0.45
+  center:
+  - -1.35
+  - -8.1
+  - 1.325
+- shape: box
+  material: aluminum
+  size_cm:
+  - 1.2
+  - 0.3
+  - 0.6
+  center:
+  - -0.3
+  - -7.95
+  - 1.4
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.6
+  - 0.3
+  - 0.45
+  center:
+  - 0.6
+  - -7.95
+  - 1.325
+- shape: box
+  material: aluminum
+  size_cm:
+  - 3.0
+  - 0.6
+  - 0.75
+  center:
+  - 4.8
+  - -8.1
+  - 1.475
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.3
+  - 0.3
+  - 0.75
+  center:
+  - -6.15
+  - -8.25
+  - 1.475
+- shape: box
+  material: aluminum
+  size_cm:
+  - 2.7
+  - 0.3
+  - 0.6
+  center:
+  - -4.65
+  - -8.25
+  - 1.4
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.6
+  - 0.3
+  - 0.6
+  center:
+  - -0.6
+  - -8.25
+  - 1.4
+- shape: box
+  material: aluminum
+  size_cm:
+  - 1.5
+  - 0.3
+  - 0.45
+  center:
+  - 0.45
+  - -8.25
+  - 1.325
+- shape: box
+  material: aluminum
+  size_cm:
+  - 0.6
+  - 0.3
+  - 0.3
+  center:
+  - 1.5
+  - -8.25
+  - 1.25
+physics:
+  fluorescence: true
+
+# Request D DET, declared for the G4 CLI.
+detector:
+  center_cm: [0, 0, 0]
+  normal: [0, 0, 1]
+  u_axis: [1, 0, 0]
+  size_cm: [15, 18]
+  shape: [100, 120]
