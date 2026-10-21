@@ -16,6 +16,26 @@
 - 改訂で変えたのは、被写体・照射野・検出器の大きさ・ROI の位置。履歴数の段階、乱数の種、主の指標（2 本の差）、
   補助の指標、判定の幅、濃淡目盛りの決め方は初版のまま。
 
+## 改訂 2: 計算エンジンを GPU に変更（2026-10-21、本計算の解析の前）
+
+- **ユーザーの決定。** 抄録の「対話で決めた条件を Colab の GPU で計算する」に合わせ、本計算を ChatCarlo の GPU エンジン
+  （`chatcarlo/gpu/`、G1。計画 `docs/ai/plans/2026-10-21-chatcarlo-gpu-g1-diagnostic-core.md`）の CUDA 経路で、Colab の T4 で回す。
+  G1 は、手元の CPU の双子と本番の NumPy 輸送の比較（関門 1、このシーン S3 を含む 51 量で |z|≤3）と、T4 での GPU と CPU の双子の
+  比較（関門 2、S3 の 19 量すべてが丸めの上限の内側）に合格した（`docs/validation/gpu/g1/RESULTS.md`）。物理（xraylib の断面積、
+  束縛コンプトン、Rayleigh、K 殻蛍光）とシーン・検出器・線源は上の「計算の道具」の NumPy 輸送と同じ定義で、乱数の作り方だけが違う。
+  上の「計算の道具」の「GPU は使わない」はこの改訂で置き換える。
+- **NumPy 版の結果の扱い。** 改訂版の条件で NumPy 輸送（ワーカー 1 または 8）により 18 本のうち 17 本（10^8 の B を除く）を
+  計算していたが、**解析していない**（見たのは所要時間と検出面に達した履歴数だけ）。GPU 版の結果と取り替えて使うのではなく、
+  記録として `~/.cache/chatcarlo/jsmp133_request_d/main/` に残す。解析は GPU 版の 18 本だけで行う。
+- **変わる点**（他は上のとおり）:
+  - 輸送の乱数: Philox（種 = 上の A/B の種、履歴番号 = 通し番号）。線源（位置・向き・エネルギー）は VM 上でホストの NumPy の
+    線源抽選（`chatcarlo/gpu/source_host.py`）が作る。線源の種は、計算の前に決めた規則
+    `int(np.random.SeedSequence(seed).generate_state(1, np.uint64)[0])`（API の既定と同じ）で、種ごとに 1 つに決まる。
+  - ワーカー: 1（GPU 1 枚）。バッチの大きさは上のとおり min(200000, ceil(N/10))。
+  - 結果は各バッチの SHA-256 の受領票で照合してからホストで足し合わせる（`collect_image`）。出力の形式（10 キーの .npz）は同じ。
+    実行時間は VM 上の各本の開始・終了時刻を別に記録する。
+- 計算の入口: [run_history_noise_gpu.py](run_history_noise_gpu.py)。解析は上と同じ [analyze_history_noise.py](analyze_history_noise.py)。
+
 ## 何を示すか（と、示さないもの）
 
 - 示すのは、**モンテカルロの履歴数 N を増やすと、計算結果（検出器画像）の統計誤差が減る**こと。
