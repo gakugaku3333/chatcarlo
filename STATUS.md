@@ -1,6 +1,6 @@
 ---
 phase: 開発中
-next: G4（chatcarlo run --engine gpu、Colab で承認→実行→照合）は合格（事後承認待ち）。抄録の日本語版（10/25）は数値記入済みで、残りは字数調整・英訳。GPU は次に G2（ボクセルのタリー）か G3（cylinder 等）。依頼 3（preview --dose の 3D 線量表示）は実装・検証済み（docs/validation/dose3d/RESULTS.md）。依頼 C 後半はユーザーの再開の指示待ち
+next: 依頼 3（preview --dose の 3D 線量表示、色は turbo・範囲は分布の 1〜99%）は完了。G4 は事後承認待ち。抄録の日本語版は字数調整・英訳が残り。GPU は次に G2 か G3。依頼 C 後半はユーザーの再開の指示待ち
 blocker: ELSEPAで作った表の配布の方法（表を置くか、生成スクリプトだけか）とリポジトリのLICENSEはユーザーの判断待ち。急がない
 updated: 2026-10-22
 ---
