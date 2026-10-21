@@ -163,16 +163,21 @@ def _build(data, scene, quantity):
         else:
             notes.append(f"表示できるボクセルが無い。分類の内訳: {counts}。.npz とシーンの組み合わせを確かめる")
     main_values = columns["main"]["v"]
-    vmax = max(main_values) if main_values else None
-    vmin = max(min(main_values), vmax * 1e-6) if main_values else None
-    if vmin == vmax and vmax is not None:
+    # Initial colour range from the distribution of all reliable voxels (before thinning): a few
+    # primary-beam voxels would otherwise push everything else into the bottom of the scale.
+    # Voxels above H are drawn in the top colour; the slider still reaches the true maximum.
+    full = values[masks["main"]]
+    data_max = float(full.max()) if full.size else None
+    vmax = float(np.percentile(full, 99)) if full.size else None
+    vmin = max(float(np.percentile(full, 1)), vmax * 1e-6) if full.size else None
+    if vmax is not None and vmin >= vmax:
         vmin = vmax / 10
     import matplotlib
     from matplotlib.colors import to_hex
     return dict(quantity=quantity, unit_label=unit_label, calibration_note=calibration_note,
                 voxel_size_cm=size, origin_cm=origin.tolist(), shape=list(shape),
                 stats_available=stats, n_batches=batches, counts=counts, decades=decades,
-                **columns, vmin=vmin, vmax=vmax, materials=materials.tolist(),
+                **columns, vmin=vmin, vmax=vmax, data_max=data_max, materials=materials.tolist(),
                 lut=[to_hex(matplotlib.colormaps["turbo"](i / 255)) for i in range(256)], notes=notes)
 
 
@@ -206,6 +211,7 @@ function doseText(parent, text) {
 }
 doseText(dLegend, dose.unit_label + '（' + dose.calibration_note + '）');
 doseText(dLegend, dose.stats_available ? '統計条件（R≤0.10 かつ寄与バッチ≥25%）を満たす' : '統計未確認');
+if (dose.data_max !== null) doseText(dLegend, '色の範囲の初期値: 統計条件を満たすボクセルの下位 1%〜上位 1% の境。H より上は最も赤い色。最大値 '+dose.data_max.toExponential(3));
 const doseBar = document.createElement('div');
 doseBar.style.cssText = 'display:flex;gap:8px;margin:6px 0';
 const gradient = document.createElement('div');
