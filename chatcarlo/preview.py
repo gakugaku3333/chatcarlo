@@ -70,7 +70,7 @@ def _sphere_mesh(c, r, n=24):
     return edges, []
 
 
-def scene_to_json(scene: Scene, trajectories: list[dict] | None = None) -> dict:
+def scene_to_json(scene: Scene, trajectories: list[dict] | None = None, dose_overlay=None) -> dict:
     raw = scene.raw
     objects = []
     mats_seen = {}
@@ -151,8 +151,11 @@ def scene_to_json(scene: Scene, trajectories: list[dict] | None = None) -> dict:
     center = [(lo[k] + hi[k]) / 2 for k in range(3)]
     radius = max(math.dist(lo, hi) / 2, 1.0)
 
-    return {"objects": objects, "beam": beam, "center": center, "radius": radius,
+    data = {"objects": objects, "beam": beam, "center": center, "radius": radius,
             "warnings": [str(w) for w in scene.warnings], "trajectories": trajectories or []}
+    if dose_overlay is not None:
+        data["dose"] = dose_overlay
+    return data
 
 
 # 俯瞰カメラの投影・描画ヘルパ（projectOrbit/poly/seg/drawAxes）。preview.pyと
@@ -203,17 +206,25 @@ function drawAxes() {
 
 
 def render_html(scene: Scene, title: str = "ChatCarlo geometry preview",
-                 trajectories: list[dict] | None = None, approval_text: str = "") -> str:
-    data = json.dumps(scene_to_json(scene, trajectories=trajectories), ensure_ascii=False)
+                 trajectories: list[dict] | None = None, approval_text: str = "", dose_overlay=None) -> str:
+    data = json.dumps(scene_to_json(scene, trajectories=trajectories, dose_overlay=dose_overlay), ensure_ascii=False)
     import html
     panel = f'<div style="overflow-wrap:anywhere">{html.escape(approval_text)}</div>\n' if approval_text else ""
-    return (_TEMPLATE.replace("__APPROVAL_PANEL__", panel).replace("__TITLE__", title).replace("__DATA__", data)
+    header = legend = js = draw = ""
+    if dose_overlay is not None:
+        from .dose3d import DOSE_HEADER, DOSE_LEGEND, DOSE_JS
+        header, legend, js, draw = DOSE_HEADER, DOSE_LEGEND, DOSE_JS, "drawDose();"
+        # Compact column data; escape script delimiters in scene/material strings.
+        data = json.dumps(scene_to_json(scene, trajectories, dose_overlay), ensure_ascii=False,
+                          separators=(",", ":"), allow_nan=False).replace("<", "\\u003c")
+    return (_TEMPLATE.replace("__DOSE_HEADER__", header).replace("__DOSE_LEGEND__", legend)
+            .replace("__DOSE_JS__", js).replace("__DOSE_DRAW__", draw).replace("__APPROVAL_PANEL__", panel).replace("__TITLE__", title).replace("__DATA__", data)
             .replace("__SHARED_CANVAS_JS__", _SHARED_CANVAS_JS))
 
 
 def write_html(scene: Scene, out_path: str, title: str = "ChatCarlo geometry preview",
-                trajectories: list[dict] | None = None) -> str:
-    html = render_html(scene, title, trajectories=trajectories)
+                trajectories: list[dict] | None = None, dose_overlay=None) -> str:
+    html = render_html(scene, title, trajectories=trajectories, dose_overlay=dose_overlay)
     with open(out_path, "w", encoding="utf-8") as f:
         f.write(html)
     return out_path
@@ -260,10 +271,10 @@ _TEMPLATE = r"""<!doctype html>
   <label><input type="checkbox" id="ckBeam" checked> ビーム</label>
   <label><input type="checkbox" id="ckLabels" checked> ラベル</label>
   <label id="lblTraj" style="display:none"><input type="checkbox" id="ckTraj" checked> 軌跡</label>
-</header>
+</header>__DOSE_HEADER__
 __APPROVAL_PANEL__<div id="wrap">
   <canvas id="cv"></canvas>
-  <div id="legend"></div>
+  <div id="legend"></div>__DOSE_LEGEND__
   <div id="info">ドラッグ: 回転　/　Shift+ドラッグ: 平行移動　/　ホイール: ズーム</div>
   <div id="warn" style="display:none"></div>
 </div>
@@ -322,7 +333,7 @@ function draw() {
     all.sort((a, b) => b[0] - a[0]);
     for (const [, f, col] of all) poly(f, col, 0.13);
   }
-  for (const o of DATA.objects)
+  __DOSE_DRAW__for (const o of DATA.objects)
     for (const e of o.edges) seg(e[0], e[1], o.color, 1.1);
 
   if (showBeam) {
@@ -408,7 +419,7 @@ function draw() {
     wd.innerHTML = '<b>検証警告</b><br>' + DATA.warnings.join('<br>');
   }
 }
-resize();
+__DOSE_JS__resize();
 </script>
 </body>
 </html>

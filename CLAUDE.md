@@ -64,6 +64,8 @@ python3 -m venv .venv
 
 # 3D geometry preview -> self-contained HTML (no external deps)
 .venv/bin/python -m chatcarlo preview examples/chest_room.yaml -o preview.html
+# overlay an existing dose grid (default H*(10); statistics and near-source air are filtered)
+.venv/bin/python -m chatcarlo preview examples/chest_room.yaml --dose dose.npz -o dose3d.html
 
 # cross-section curves
 .venv/bin/python -m chatcarlo xs water bone lead -o xs.png

@@ -40,6 +40,8 @@ def cmd_preview(args) -> int:
     try:
         options = resolve(args)
         if options['engine'] == 'gpu' and options['device'] == 'colab':
+            if args.dose:
+                raise ValueError('--dose と GPU Colab 承認用プレビューは併用できません')
             from .gpu.approval import prepare
             target = prepare(scene, args, args.run_dir)
             print(f"承認用プレビュー: {target / 'preview.html'}")
@@ -47,8 +49,26 @@ def cmd_preview(args) -> int:
     except (ValueError, OSError) as exc:
         print(f"[エラー] {exc}", file=sys.stderr)
         return 1
-    out = args.out or args.scene.rsplit(".", 1)[0] + "_preview.html"
-    write_html(scene, out, title=args.title or f"ChatCarlo — {args.scene}")
+    overlay = None
+    if args.dose:
+        from .dose3d import build_dose_overlay, DoseOverlayError
+        try:
+            overlay = build_dose_overlay(args.dose, scene, args.quantity)
+        except DoseOverlayError as exc:
+            print(f"[エラー] {exc}", file=sys.stderr)
+            return 1
+        print(f"[情報] 分類ごとの数: {overlay['counts']}")
+        print(f"[情報] 色の範囲: L={overlay['vmin']}, H={overlay['vmax']}")
+        print(f"[情報] 間引き: {'あり' if any(overlay['counts']['thinned'].values()) else 'なし'}")
+        for note in overlay['notes']:
+            if (not overlay['stats_available'] and '統計の情報' in note or
+                    args.quantity == 'dose' and '空気のボクセル' in note or
+                    '統計条件を満たすボクセルが無い' in note or
+                    '正の値はすべて' in note or '表示できるボクセルが無い' in note):
+                print(f"[警告] {note}")
+    out = args.out or (args.dose.rsplit(".", 1)[0] + "_3d.html" if args.dose else
+                       args.scene.rsplit(".", 1)[0] + "_preview.html")
+    write_html(scene, out, title=args.title or f"ChatCarlo — {args.scene}", dose_overlay=overlay)
     print(f"プレビューを書き出しました: {out}")
     return 0
 
@@ -425,7 +445,7 @@ def _mv_dispatch(argv):
         value_options = {'--out', '-o', '--title', '--preview', '-n', '--n-histories', '--seed',
                          '--resolution', '--dose-out', '--batch-size', '--workers', '--engine',
                          '--kernel-chunks', '--kernel-max-segments-per-history',
-                         '--gpu-device', '--source-seed', '--detector-out', '--run-dir'}
+                         '--gpu-device', '--source-seed', '--detector-out', '--run-dir', '--dose', '--quantity'}
         tokens = iter(argv[1:])
         for token in tokens:
             if token == '--':
@@ -493,6 +513,8 @@ def main() -> int:
     pp.add_argument("scene")
     pp.add_argument("-o", "--out")
     pp.add_argument("--title")
+    pp.add_argument("--dose", help="重ねて表示する線量.npz")
+    pp.add_argument("--quantity", choices=["h10", "dose"], default="h10")
     pp.add_argument('--engine', choices=['numpy', 'kernel', 'gpu'], default='numpy')
     pp.add_argument('--gpu-device', choices=['cpu', 'colab'], default=None)
     pp.add_argument('-n', '--n-histories', type=float, default=1e5)
