@@ -1,6 +1,6 @@
 # 計画: 3D 表示（preview の HTML）に線量グリッドを色で重ねる
 
-- 状態: codex-reviewed
+- 状態: codex-reviewed（2026-10-22 に前提を再確認、承認待ち）
 - 作成者: claude
 - 実装担当: codex
 - 日付: 2026-10-21
@@ -52,6 +52,19 @@ JSMP133 の抄録の依頼 3 では、「IVR の空間線量分布をカラー�
 - .npz は 1 ファイル 95.6 MB（120×120×79）で、JSON に全部は埋め込めない。
 - 独立検証に使う .npz は `data/dose3d/angio5_2e6.npz`（コミットしない）で、`run examples/angio_room.yaml -n 2e6 --seed 2 --batch-size 50000 --workers 4 --dose-grid --resolution 5` の出力。sha256 は `52421ff937a6f9f9ae15a677756dff425506117e2e58827f80a0c0ad67fe8ec0`。
   - 別の PC などで作り直した場合は、seed・workers・機械が違うとビット一致しない。その場合は、作り直したファイルの sha256 を検証の時に記録し直す（この値と比べない）。
+
+**再確認（2026-10-22、HEAD=9934789。承認前に、計画以降の変更で前提が崩れていないかを確かめた）**
+- 依頼 A+B の `__main__.py` の変更は 636b2cf でコミット済み。下の「`__main__.py` に触る直前の停止条件」は、未コミットの差分が無ければ当たらない。
+- G4（e7e7ca6）で次が変わった。
+  - `render_html` に `approval_text=""` が足され、テンプレートに `__APPROVAL_PANEL__` の差し込み口がある。`scene_to_json` は、scene に `detector:` があるとき検出器の面を objects に足す。
+  - `cmd_preview` は、`--engine gpu --gpu-device colab` のとき `gpu.approval.prepare` に回り、承認用の実行一式を作って戻る。
+  - `_mv_dispatch` の `value_options` には `--gpu-device`・`--source-seed`・`--detector-out`・`--run-dir` が足されている。
+- 0 節の 6 個の回帰基準の sha256 は、HEAD=9934789 で再計算して**すべて一致**した（`detector:` を持つ例は無く、`approval_text` は既定で空）。
+- `data/dose3d/angio5_2e6.npz` の sha256 も一致した（52421ff9…）。
+- これを受けた追加の決まり:
+  - `dose_overlay` は `approval_text` と並ぶ省略可能な引数として足す。既存の引数の順番と既定値は変えない。
+  - `--dose` と `--engine gpu --gpu-device colab` を同時に指定したら、`[エラー]` を出して 1 を返す。承認用の HTML には線量を重ねない（承認の対象を変えないため）。
+  - テストに T12 を足す: 上の組み合わせで終了コード 1、実行一式のフォルダが作られないこと。
 
 **回帰の基準（変更前の `render_html(load_scene(p), title="golden")` の UTF-8 の sha256。HEAD=85630be、preview.py は未変更）**
 
@@ -213,6 +226,7 @@ JSMP133 の抄録の依頼 3 では、「IVR の空間線量分布をカラー�
 - [ ] **T11 MV への振り分け**: tmp_path に `domain: therapy_mv` の YAML を置く。`sys.modules` に `prototypes.mv_electron.entry.cli` の stub を入れて、`main` が受け取った argv を記録させる。
   - `chatcarlo.__main__._mv_dispatch(["preview", "--dose", "x.npz", "--quantity", "h10", <mv.yaml>])` で、stub が呼ばれ、argv がそのまま渡る。
   - 試作の側の実装は変えない。
+- [ ] **T12 GPU 承認との併用を拒む**（2026-10-22 追加）: `preview --engine gpu --gpu-device colab --run-dir <tmp> --dose x.npz <scene>` が終了コード 1 を返し、stderr に `[エラー]` が出て、`<tmp>` の下に実行一式が作られない。
 - [ ] 既存のテストがすべて通る（`tests/` 全体。とくに `test_plotting.py`、`test_mv_dispatch.py`、preview/trace/animate のテスト）。
 
 **Claude の独立検証**（Codex の受入条件ではない。実装の後に Claude が行う。行うまでは、操作・性能・容量は未検証と報告する）:
