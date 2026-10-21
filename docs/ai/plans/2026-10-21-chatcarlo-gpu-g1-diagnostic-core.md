@@ -1,6 +1,6 @@
 # 計画 G1: chatcarlo/gpu の診断の核（box・多色・発散照射野・平面検出器、CPU の双子と GPU）
 
-- 状態: codex-reviewed（承認待ち）
+- 状態: approved（ユーザー承認 2026-10-21。全体の進め方も承認: 依頼 A+B のコミットの後に実装を始める）
 - 作成者: claude
 - 実装担当: codex（Colab の実行と `~/.cache` を使う検査は Claude）
 - 日付: 2026-10-21
