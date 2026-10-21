@@ -1,0 +1,77 @@
+{
+  "environment": {
+    "cupy": "14.0.1",
+    "cuda_runtime": 13000,
+    "cuda_driver": 13000,
+    "gpu": "Tesla T4",
+    "compute_capability": [
+      7,
+      5
+    ]
+  },
+  "launches": {
+    "p8f_kernel": {
+      "options": [
+        "-DP5_GPU",
+        "-DP5_RNG_PHILOX",
+        "--fmad=false",
+        "-DP8F_STACK_CAP=18",
+        "-DP8F_FAULT=0"
+      ],
+      "attributes": {
+        "max_threads_per_block": 256,
+        "shared_size_bytes": 0,
+        "const_size_bytes": 0,
+        "local_size_bytes": 33808,
+        "num_regs": 212,
+        "ptx_version": 75,
+        "binary_version": 75,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_size_bytes": 49152,
+        "preferred_shared_memory_carveout": -1
+      }
+    },
+    "p8f_fixed_kernel": {
+      "options": [
+        "-DP5_GPU",
+        "-DP5_RNG_PHILOX",
+        "--fmad=false",
+        "-DP8F_STACK_CAP=18",
+        "-DP8F_FAULT=0"
+      ],
+      "attributes": {
+        "max_threads_per_block": 256,
+        "shared_size_bytes": 0,
+        "const_size_bytes": 0,
+        "local_size_bytes": 33840,
+        "num_regs": 254,
+        "ptx_version": 75,
+        "binary_version": 75,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_size_bytes": 49152,
+        "preferred_shared_memory_carveout": -1
+      }
+    },
+    "p8f_probe_kernel": {
+      "options": [
+        "-DP5_GPU",
+        "-DP5_RNG_PHILOX",
+        "--fmad=false",
+        "-DP8F_STACK_CAP=18",
+        "-DP8F_FAULT=0"
+      ],
+      "attributes": {
+        "max_threads_per_block": 256,
+        "shared_size_bytes": 0,
+        "const_size_bytes": 0,
+        "local_size_bytes": 1728,
+        "num_regs": 202,
+        "ptx_version": 75,
+        "binary_version": 75,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_size_bytes": 49152,
+        "preferred_shared_memory_carveout": -1
+      }
+    }
+  }
+}

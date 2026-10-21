@@ -1,0 +1,18 @@
+{
+  "status": "report",
+  "alternating": [
+    {
+      "water_us": 29.450091552734374,
+      "material_us": 340.655419921875
+    },
+    {
+      "water_us": 23.134877014160157,
+      "material_us": 329.9885986328125
+    },
+    {
+      "water_us": 23.083314514160158,
+      "material_us": 335.371826171875
+    }
+  ],
+  "projected_production_seconds": 6733.4111328125
+}

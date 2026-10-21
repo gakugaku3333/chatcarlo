@@ -67,6 +67,8 @@ overwritten by later diagnostics.
 - Production kerma scoring was off (`score_kerma=False`) in all runs before P4: no earlier saved run contains kerma.
 - GPU: the current passed configuration is **P5k variant F** (slab). Field kernels: `gpu/p6_*` (P6), `gpu/p7_*` (P7; field
   half-width/SSD as arguments, common ±20 cm layout). P7 entry: `run_p7.py` (`local`/`gate1`/`pilot`/`egs`/`export`/`analyse`).
+- Multi-material depth-only GPU kernel: `gpu/p8f_*` (P8f passed 2026-10-21; entry `gpu/p8f.py` `local`/`stack`/`gate1`/`reference`/`export`/`analyse`). One history-completing function, no state machine (276 µs/history on T4). Field branches not implemented.
+- Colab CLI (`colab`, installed with uv, signed in with the gmail account) can replace the browser/Drive steps: `colab new --gpu T4`, `colab upload` (files over ~150 MB fail: split to 50 MB parts and reassemble on the VM), run the job with `nohup` on the VM, and **poll it with `colab exec` every few minutes** — a VM whose kernel sits idle was reclaimed after ~40 min (P8f). Do not `pip install cupy-cuda12x` on images that ship `cupy-cuda13x`. Always `colab stop` at the end.
 - Run the prototype tests separately: `pytest prototypes/mv_electron/tests -q` (collecting it together with `tests/`
   fails: both contain `test_transport.py`).
 - ELSEPA tables and archive live outside the repo (`~/.cache/chatcarlo/elsepa/`); regenerate with
@@ -83,9 +85,10 @@ overwritten by later diagnostics.
 - `brems[1]` is accumulated mid-history, so per-history merging changes its summation order (≈1e-13 MeV): compare it
   within a computed bound, everything else bitwise.
 - Any speed-up that changes the passed configuration (P5k F) needs its own plan and goes back through chain 2.
-- Logs of table constants are computed once per device with the same `log` the transport uses (CPU: an initializer in
-  the same translation unit; GPU: an init kernel from the same NVRTC source, options and stream). Never compute them on
-  the host and transfer them to the GPU (P5i).
+- Values the canonical kernel receives as input (bundle tables) are sent unchanged as hash-verified data, including
+  P8e's NumPy-generated `log_stop_T`. Values the canonical kernel computes during transport are computed on each
+  device with the same functions as transport, never precomputed on the host and transferred to the GPU. P5i's
+  per-device table-log initialization is an adopted optimization for its kernel; P8f adds no such optimization.
 - Colab g++ needs `p5d_gxx_compat.h` (the frozen kernel calls bare `isfinite`).
 - Compare speeds only within one Colab session (the same P5i measured 34.41 and 33.12 µs/history in two sessions);
   cross-session ratios are rough.
