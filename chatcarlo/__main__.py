@@ -381,9 +381,64 @@ def cmd_xs(args) -> int:
     return 0
 
 
+def _mv_dispatch(argv):
+    """Peek only at scene domain; unreadable YAML retains the diagnostic error path."""
+    if not argv:
+        return None
+    command = argv[0]
+    path = None
+    if command in ('validate', 'preview', 'approve', 'run', 'trace', 'animate'):
+        value_options = {'--out', '-o', '--title', '--preview', '-n', '--n-histories', '--seed',
+                         '--resolution', '--dose-out', '--batch-size', '--workers', '--engine',
+                         '--kernel-chunks', '--kernel-max-segments-per-history'}
+        tokens = iter(argv[1:])
+        for token in tokens:
+            if token == '--':
+                path = next(tokens, None)
+                break
+            if token in value_options:
+                next(tokens, None)
+            elif not token.startswith('-'):
+                path = token
+                break
+    elif command == 'plot':
+        for i, arg in enumerate(argv[1:], 1):
+            if arg == '--scene' and i+1 < len(argv):
+                path = argv[i+1]
+                break
+            if arg.startswith('--scene='):
+                path = arg.split('=', 1)[1]
+                break
+    if path is None:
+        return None
+    try:
+        from pathlib import Path
+        import yaml
+        raw = yaml.safe_load(Path(path).read_text())
+    except (OSError, ValueError, yaml.YAMLError):
+        return None
+    if isinstance(raw, dict) and raw.get('domain') == 'therapy_mv':
+        from prototypes.mv_electron.entry.cli import main as mv_main
+        return mv_main(argv)
+    return None
+
+
+def cmd_approve(args) -> int:
+    print('[エラー] 診断領域では不要', file=sys.stderr)
+    return 1
+
+
 def main() -> int:
+    dispatched = _mv_dispatch(sys.argv[1:])
+    if dispatched is not None:
+        return dispatched
     p = argparse.ArgumentParser(prog="chatcarlo")
     sub = p.add_subparsers(dest="cmd", required=True)
+
+    approval = sub.add_parser("approve", help="治療領域の3D表示の承認を記録")
+    approval.add_argument("scene")
+    approval.add_argument("--preview")
+    approval.set_defaults(func=cmd_approve)
 
     pv = sub.add_parser("validate", help="scene.yaml を検証")
     pv.add_argument("scene")

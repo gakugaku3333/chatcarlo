@@ -39,8 +39,9 @@ failure), and EGS5's Rayleigh fit warning is an unquantified reference uncertain
 [docs/egs5_crosscheck/revalidation_2026_10_07/RESULTS.md](docs/egs5_crosscheck/revalidation_2026_10_07/RESULTS.md); the
 old BSF/PDD JSON, figures and reports are historical records, not regenerated data.
 
-**Therapy-energy (10 MV) extension**: a prototype in `prototypes/mv_electron/`, entirely outside `chatcarlo/`; nothing in
-the production package or the 150 keV limits has changed. Its standing rules are in
+**Therapy-energy (10 MV) extension**: a prototype in `prototypes/mv_electron/`, outside `chatcarlo/` except one dispatch in
+`chatcarlo/__main__.py` (scenes with `domain: therapy_mv` go to `prototypes/mv_electron/entry/`, 2026-10-21); the 150 keV limits and
+the diagnostic path are unchanged. Its standing rules are in
 [.claude/rules/mv.md](.claude/rules/mv.md) — **read it first when starting MV work from anywhere** (cache folders,
 Colab/Drive results, plans), since it only auto-loads when a matching repo file is touched. Current stage, passed
 configurations and what comes next: [docs/validation/mv/STATUS.md](docs/validation/mv/STATUS.md) (not repeated here).

@@ -9,8 +9,10 @@ paths:
 
 # Therapy-energy (MV) extension — standing rules
 
-Coupled photon/electron/positron transport for nominal 10 MV, **entirely outside `chatcarlo/`** (prototype only;
-nothing in the production package or its 150 keV limits changes). Stage-by-stage status and links:
+Coupled photon/electron/positron transport for nominal 10 MV, **outside `chatcarlo/`** (prototype only;
+nothing in the production package or its 150 keV limits changes) except the dispatch in `chatcarlo/__main__.py`: a scene
+with `domain: therapy_mv` goes to `prototypes/mv_electron/entry/` (validate/preview/approve/run; one allow-listed condition,
+P7 kernel with the `'p6'` layout, Colab CLI; user approval of the 3D preview is required before `run`). Results: `docs/validation/mv/entry/RESULTS.md`. Stage-by-stage status and links:
 [docs/validation/mv/STATUS.md](../../docs/validation/mv/STATUS.md) (add one row per finished stage there, write the
 stage's RESULTS; do not add stage history to CLAUDE.md). Standing decisions and known approximations:
 [KNOWN_APPROXIMATIONS.md](../../docs/validation/mv/KNOWN_APPROXIMATIONS.md). Roadmap (draft):
