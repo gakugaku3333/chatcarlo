@@ -231,6 +231,8 @@ detector:
 
 ## 10. 追補 1（2026-10-21 夜、Colab の通しで判明。ユーザーは就寝中で、事後承認の指示による）
 
+**2026-10-22 にユーザーが事後承認した。**
+
 **事実**: 承認後の通し（`~/.cache/chatcarlo/gpu_runs/95c1fb8872dc/`、10⁶ 履歴、10 バッチ回収済み）が `observation mismatch: batch_000000.npz 16:directions` で止まった。
 Claude が調べた結果: 同じ `source_host.py`・同じ `source.json`・同じ種で 10⁵ 個を抽選すると、Mac（arm64、NumPy 2.4.6）と VM（x86_64、NumPy 2.1.3）で
 方向の配列が 300,000 要素中 96,701 要素で違う（最大 13,077 ulp）。原点と光子のエネルギーは一致した（観測でも一致）。
