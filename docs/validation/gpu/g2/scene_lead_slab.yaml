@@ -1,0 +1,29 @@
+source:
+  type: xray_tube
+  kvp: 80
+  filtration_mmAl: 2.5
+  position: [0, 0, 100]
+  direction: [0, 0, -1]
+  field:
+    shape: rect
+    size_cm: [20, 20]
+    sid_cm: 100
+background: air
+geometry:
+  - name: phantom
+    shape: box
+    material: water
+    center: [0, 0, 10]
+    size_cm: [30, 30, 20]
+  - name: bone_insert
+    shape: box
+    material: bone
+    center: [5, 0, 12]
+    size_cm: [4, 4, 4]
+  - name: lead_sheet
+    shape: box
+    material: lead
+    center: [0, 0, -0.025]
+    size_cm: [40, 40, 0.05]
+physics:
+  fluorescence: true
