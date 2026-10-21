@@ -1,6 +1,6 @@
 # 計画 G4: `chatcarlo run --engine gpu`（CLI の入口・検出器の宣言・画像の保存・承認と照合・Colab の自動実行）
 
-- 状態: approved（ユーザー承認 2026-10-21。3D 表示の承認は、ユーザーの指示で Claude が代わりに `approve` を実行する（事後承認）。骨子 + 詳細。U1〜U4 はユーザー決定 2026-10-21: U3 は (a)、U1・U2・U4 は推奨どおり）
+- 状態: implemented（2026-10-22、Colab の通し・回帰・故障検査に合格: docs/validation/gpu/g4/RESULTS.md。ユーザー承認 2026-10-21。3D 表示の承認は、ユーザーの指示で Claude が代わりに `approve` を実行する（事後承認）。骨子 + 詳細。U1〜U4 はユーザー決定 2026-10-21: U3 は (a)、U1・U2・U4 は推奨どおり）
 - 作成者: claude
 - 実装担当: codex（Colab の実行は Claude）
 - 日付: 2026-10-21
