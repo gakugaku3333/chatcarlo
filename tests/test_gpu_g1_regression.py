@@ -8,8 +8,16 @@ import pytest
 from chatcarlo.scene import load_scene
 from chatcarlo.detector import DetectorPlane
 from chatcarlo.transport import run_transport
+from chatcarlo.gpu import core
 
 HERE=Path(__file__).resolve().parents[1]/'docs/validation/gpu/g1'
+
+def test_gpu_g1_cuda_source_defines_infinity_before_use():
+    lines = core.cuda_source().splitlines()
+    definition = next(i for i, line in enumerate(lines) if line.startswith('#define INFINITY'))
+    first_use = next(i for i, line in enumerate(lines)
+                     if 'INFINITY' in line and not line.lstrip().startswith(('#', '//')))
+    assert definition < first_use
 
 @pytest.mark.parametrize('number',[1,2])
 def test_gpu_g1_0h_numpy_unchanged(number):

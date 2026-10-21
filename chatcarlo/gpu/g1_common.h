@@ -6,6 +6,10 @@
 // commit 9545ff6413f258be2f04c1d319d99aaef7521150,
 // include/Random123/philox.h; independently expressed round arithmetic.
 #ifdef P5_GPU
+// NVRTC does not provide the host <cmath> INFINITY macro.
+#if defined(P5_GPU) && !defined(INFINITY)
+#define INFINITY (__longlong_as_double(0x7ff0000000000000ULL))
+#endif
 #define P5_FN __device__ inline
 typedef unsigned int uint32_t;
 typedef unsigned long long uint64_t;
