@@ -52,6 +52,16 @@ implemented: [docs/gpu_speedup/route2_scoping/RESULTS.md](../../docs/gpu_speedup
 under `examples/` is blocked for several reasons at once (cylinder/sphere, polychromatic `kvp`, divergent `rect`,
 `mas`/`ctdi_vol_mGy`/`heel_effect`/`rotation`), and a heightfield primitive would be needed for the scatter line.
 
+**GPU engine G1 (2026-10-21, implemented)**: `chatcarlo/gpu/` — one C++ history function (ported from `kernel.py`'s
+diagnostic physics) built as a CPU twin (clang, ctypes) and a CUDA kernel (CuPy NVRTC), Philox per history, host-side
+source sampling. API only: `run_transport(..., engine="gpu", gpu_device="cpu"|"cuda", source_seed=...)` (seed required;
+box-only, `kvp`/`spectrum`, `rect`/`cone`/`parallel`, plane detector; no voxel tally, `mas`, heel, rotation,
+cylinder/sphere — `gpu_engine_compatible` refuses with a reason). Colab runs go through `chatcarlo.gpu.colab_driver`
+(hash-verified bundles and receipts). Gates: CPU twin vs `transport.py` statistically (51 quantities |z|≤3), T4 GPU vs
+CPU twin within rounding: [docs/validation/gpu/g1/RESULTS.md](../../docs/validation/gpu/g1/RESULTS.md). NVRTC has no
+host `<cmath>` macros (`INFINITY`): CPU-only gates cannot catch GPU compile errors. CLI and G2–G5: parent plan
+`docs/ai/plans/2026-10-21-chatcarlo-gpu-engine.md`.
+
 ## Physics
 
 Photoelectric / Compton / Rayleigh. **Bound Compton**: free-electron Klein-Nishina via Kahn rejection, then an extra

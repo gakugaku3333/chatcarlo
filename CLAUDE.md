@@ -124,6 +124,7 @@ Analytic surface tracking on box/cylinder/sphere primitives (not voxelized; late
 `background`). Tallying is a separate uniform `VoxelGrid` with an exact analytic segment–voxel overlap. Physics:
 photoelectric (with K-shell fluorescence, `physics.fluorescence`), bound Compton, Rayleigh; kerma approximation.
 `kernel.py` is an experimental Numba kernel cross-checked statistically against the production `transport.py`.
+`chatcarlo/gpu/` (G1, 2026-10-21) is a CPU-twin/CUDA engine reached only through `run_transport(engine="gpu")` (no CLI yet); see the rules file.
 Details: [.claude/rules/chatcarlo.md](.claude/rules/chatcarlo.md) (auto-loads when you touch `chatcarlo/`, `tests/`, `examples/`;
 **read it first when planning or reviewing package changes from a plan file** in `docs/ai/plans/`).
 

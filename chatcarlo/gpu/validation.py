@@ -191,7 +191,9 @@ def gate2(path,scene_id,out,job):
     init=time.perf_counter();gpu=core.Core(a,'cuda');gpu_initialization=time.perf_counter()-init
     initialization=cpu_initialization+gpu_initialization
     probes=gate2a(cpu,gpu)
-    if probes['status']!='pass':raise RuntimeError('gate 2a failed; stop before paired runs')
+    if probes['status']!='pass':
+        (out/'gate2a_failed.json').write_text(json.dumps(probes,allow_nan=False))
+        raise RuntimeError('gate 2a failed; stop before paired runs')
     o,d,e=sample_source_photons(src,2048,np.random.default_rng(8001),spec)
     cr=cpu.run(o,d,e,seed=8000,record=True,fluorescence=settings['fluorescence']);gr=gpu.run(o,d,e,seed=8000,record=True,fluorescence=settings['fluorescence'])
     bad=np.flatnonzero(np.any(cr['i'][:,:7]!=gr['i'][:,:7],axis=1));differences=[]

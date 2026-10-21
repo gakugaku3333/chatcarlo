@@ -38,6 +38,18 @@ def test_gpu_g1_paired_decision():
     b[:,2]+=1e-3;assert validation.paired_judge(a,b,bounds)['status']=='fail'
 
 
+def test_gpu_g1_gate2a_failure_writes_diagnostics(tmp_path,monkeypatch):
+    probes=dict(status='fail',probes=dict(physics0=dict(status='pass'),geometry1=dict(status='fail',integer_match=False,float_match=0.5)))
+    monkeypatch.setattr(bundle,'load',lambda path:({},None,None,{},{}))
+    monkeypatch.setattr(core,'Core',lambda arrays,device:object())
+    monkeypatch.setattr(validation,'gate2a',lambda cpu,gpu:probes)
+    out=tmp_path/'results'
+    with pytest.raises(RuntimeError,match='^gate 2a failed; stop before paired runs$'):
+        validation.gate2(tmp_path/'bundle','s2',out,'test-job')
+    assert json.loads((out/'gate2a_failed.json').read_text())==probes
+    assert sorted(p.name for p in out.iterdir())==['gate2a_failed.json']
+
+
 def test_gpu_g1_record_reconstruction(tmp_path):
     scene=load_scene(str(DOC/'scenes/s2.yaml'));plane=DetectorPlane([0,0,0],[0,0,1],[1,0,0],(30,30),(60,60));bundle.create(scene,plane,tmp_path)
     a,src,spec,settings,_=bundle.load(tmp_path)
