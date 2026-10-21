@@ -112,8 +112,8 @@ separately: `pytest prototypes/mv_electron/tests -q` (one pytest call over both 
 (single source); `.agents/skills/<name>` are symlinks so Codex and Antigravity pick them up. They do not assume
 Claude-only features. [AGENTS.md](AGENTS.md) is the shared entry point for every AI agent. `vive-crosscheck` and the
 `egs5-operator` agent are research-only and Claude Code-specific; the published system must not depend on EGS5.
-- No scene.yaml yet, or a vague request → invoke `vive-interview` first (purpose → exposure parameters → geometry →
-  run settings, confirming at each stage); do NOT start writing a scene directly. It hands off to `vive-check`.
+- No scene.yaml yet, or a vague request → invoke `vive-interview` first (purpose → method and what the system can't do,
+  shown up front → output format → exposure parameters → geometry → run settings, confirming at each stage); do NOT start writing a scene directly. It hands off to `vive-check`.
 - "Walk through the scene with me" → `vive-check` (geometry preview → trajectory preview → full run → results, with
   human approval at each gate) rather than chaining the raw CLI calls yourself.
 

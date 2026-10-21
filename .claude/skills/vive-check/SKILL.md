@@ -47,6 +47,8 @@ vive-interviewから引き継いだ場合は `runs/<シーン名>/requirements.m
    差し戻し所見があればscene.yamlを修正して再監査してから次へ。
 4. HTMLをブラウザで表示し（下記「HTMLの開き方」）、使用者に確認する:
    「ジオメトリーは意図通りですか？」（はい / 修正が必要）
+   これが、vive-interviewで確定した条件（計算の入力）を使用者が3D表示で
+   確認・承認する関門である。承認されるまで関門3の本計算を始めない。
    修正指示があればscene.yamlを編集し、関門1を最初からやり直す。
 
 ## 関門2: ビーム・軌跡確認
@@ -76,6 +78,9 @@ vive-interviewから引き継いだ場合は `runs/<シーン名>/requirements.m
    監査報告書とともに使用者に提示する。
 
 ## 関門4: 結果確認
+
+`requirements.md` に出力形式（評価量・単位・形）が書かれていれば、その形式で
+結果を作って提示する。書かれていない形式を求められたら、下の手順で追加する。
 
 1. `.venv/bin/python -m chatcarlo plot runs/<シーン名>/dose.npz --scene <scene> \
        -o runs/<シーン名>/maps.png`
