@@ -62,6 +62,8 @@ CPU twin within rounding: [docs/validation/gpu/g1/RESULTS.md](../../docs/validat
 host `<cmath>` macros (`INFINITY`): CPU-only gates cannot catch GPU compile errors. G2–G5: parent plan
 `docs/ai/plans/2026-10-21-chatcarlo-gpu-engine.md`.
 
+**3D dose overlay (2026-10-22)**: `preview --dose X.npz [--quantity h10|dose]` (`chatcarlo/dose3d.py`) embeds a thinned subset of an existing `.npz` into the preview HTML; voxels failing the R/batch rule are grey, near-source air is hidden, and it refuses `--engine gpu --gpu-device colab`. Verification: docs/validation/dose3d/RESULTS.md.
+
 ## Physics
 
 Photoelectric / Compton / Rayleigh. **Bound Compton**: free-electron Klein-Nishina via Kahn rejection, then an extra
