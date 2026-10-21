@@ -1,0 +1,21 @@
+{
+  "commit": "636b2cffd3c8839e7d0f50b73f5496289d6db18a",
+  "n_histories": 200000,
+  "seed": 42,
+  "n_workers": 1,
+  "batch_size": 100000,
+  "track_uncertainty": true,
+  "python": "3.11.13 (main, Jun  3 2025, 18:38:25) [Clang 17.0.0 (clang-1700.0.13.3)]",
+  "numpy": "2.4.6",
+  "platform": "macOS-26.6.2-arm64-arm-64bit",
+  "scenes": {
+    "S1": {
+      "scene_sha256": "8845281fc8643ad2625f7b1ed4ab2091560cd558b70886416a8b701fd943564e",
+      "baseline_sha256": "2405a35bf90a9764e2ed71ec34c956600e6a94c09a90f7a4755a957e3136373d"
+    },
+    "S2": {
+      "scene_sha256": "1890bc6b0a9ed2d969ed17c9eabfdd211b19e83f59dc396a4655907b6be7c066",
+      "baseline_sha256": "734e1f83de75793ec4f9806df8ec4684911592ea3dc35aa7d8031bc8843b9078"
+    }
+  }
+}

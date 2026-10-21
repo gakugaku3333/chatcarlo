@@ -1,0 +1,74 @@
+source:
+  type: xray_tube
+  kvp: 120
+  filtration_mm_al: 2.5
+  position:
+  - 0
+  - 0
+  - 100
+  direction:
+  - 0
+  - 0
+  - -1
+  field:
+    shape: cone
+    diameter_cm: 20
+    sid_cm: 100
+geometry:
+- name: box0
+  shape: box
+  material: soft_tissue
+  size_cm:
+  - 30
+  - 30
+  - 10
+  center:
+  - 0
+  - 0
+  - 10
+- name: box1
+  shape: box
+  material: bone
+  size_cm:
+  - 6
+  - 20
+  - 4
+  center:
+  - -3
+  - 0
+  - 10
+- name: box2
+  shape: box
+  material: copper
+  size_cm:
+  - 5
+  - 5
+  - 0.1
+  center:
+  - 4
+  - 0
+  - 10
+- name: box3
+  shape: box
+  material: lead
+  size_cm:
+  - 6
+  - 6
+  - 0.02
+  center:
+  - 4
+  - -6
+  - 2
+- name: box4
+  shape: box
+  material: aluminum
+  size_cm:
+  - 8
+  - 8
+  - 1
+  center:
+  - 0
+  - 6
+  - 0.5
+physics:
+  fluorescence: true

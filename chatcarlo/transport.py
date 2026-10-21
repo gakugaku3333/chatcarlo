@@ -476,7 +476,8 @@ def run_transport(scene, n_histories: int = 100_000, seed: int | None = None,
                    grid_resolution_cm: float = 5.0, n_workers: int = 1,
                    track_uncertainty: bool = True, engine: str = "numpy",
                    kernel_chunks: int = 0, kernel_max_segments_per_history: int = 16,
-                   detector: DetectorPlane | None = None, detector_roi: tuple | None = None) -> TransportResult:
+                   detector: DetectorPlane | None = None, detector_roi: tuple | None = None, *,
+                   gpu_device: str = "cpu", source_seed: int | None = None) -> TransportResult:
     """n_workers=1（既定）は直列実行で、並列化前と完全にビット一致するコードパスを通る。
 
     n_workers>=2 は `np.random.SeedSequence.spawn` でワーカー別乱数ストリームを
@@ -498,6 +499,10 @@ def run_transport(scene, n_histories: int = 100_000, seed: int | None = None,
     ワーカー番号順に合成する（`ScalarMoments.merge_from`／グリッド配列は
     既存のkerma_keV等と同じ加算パターン）。
     """
+    if engine == "gpu":
+        from .gpu.engine import run as run_gpu
+        return run_gpu(scene, n_histories, seed, batch_size, dose_grid, n_workers,
+                       track_uncertainty, detector, detector_roi, gpu_device, source_seed)
     if engine not in ("numpy", "kernel"):
         raise ValueError(f"unknown engine: {engine}")
     if detector is None and detector_roi is not None:

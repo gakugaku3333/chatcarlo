@@ -1,0 +1,32 @@
+source:
+  type: xray_tube
+  spectrum:
+  - energy_keV: 60.0
+    weight: 1.0
+  position:
+  - 0
+  - 0
+  - 100
+  direction:
+  - 0
+  - 0
+  - -1
+  field:
+    shape: parallel
+    size_cm:
+    - 10
+    - 10
+geometry:
+- name: box0
+  shape: box
+  material: water
+  size_cm:
+  - 30
+  - 30
+  - 20
+  center:
+  - 0
+  - 0
+  - 15
+physics:
+  fluorescence: true

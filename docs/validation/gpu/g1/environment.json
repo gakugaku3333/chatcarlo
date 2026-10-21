@@ -1,0 +1,28 @@
+{
+  "python": "3.11.13 (main, Jun  3 2025, 18:38:25) [Clang 17.0.0 (clang-1700.0.13.3)]",
+  "numpy": "2.4.6",
+  "numba": "0.66.0",
+  "llvmlite": "0.48.0",
+  "LLVM": [
+    22,
+    1,
+    0
+  ],
+  "clang": "Apple clang version 21.0.0 (clang-2100.0.123.102)\nTarget: arm64-apple-darwin25.6.0\nThread model: posix\nInstalledDir: /Library/Developer/CommandLineTools/usr/bin\n",
+  "cpu": "arm",
+  "machine": "arm64",
+  "platform": "macOS-26.6.2-arm64-arm-64bit",
+  "cpu_flags": [
+    "-O2",
+    "-ffp-contract=off",
+    "-std=c++11",
+    "-shared",
+    "-fPIC"
+  ],
+  "cuda_options": [
+    "-DP5_GPU",
+    "-DP5_RNG_PHILOX",
+    "--fmad=false"
+  ],
+  "cpu_model_note": "arm64\u3002CPU \u306e\u88fd\u54c1\u540d\u3092\u5f97\u308b sysctl \u306f sandbox \u306b\u3088\u308a\u62d2\u5426\u3055\u308c\u305f\u3002"
+}
