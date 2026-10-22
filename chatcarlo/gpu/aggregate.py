@@ -2,7 +2,7 @@
 import numpy as np
 
 
-def aggregate(batches, names, detector=None, roi=None, track_uncertainty=True):
+def aggregate(batches, names, detector=None, roi=None, track_uncertainty=True, grid=None):
     from ..transport import TransportResult
     from ..detector import DetectorTally
     from ..tally import ScalarMoments
@@ -13,6 +13,12 @@ def aggregate(batches, names, detector=None, roi=None, track_uncertainty=True):
     scatter = fluor = 0.
     histories = 0
     for n, r in batches:
+        if grid is not None:
+            from .g2_core import health
+            health(r, grid)
+            grid.kerma_keV += r['kerma'].reshape(grid.shape)
+            grid.h10_track_pSv_cm3 += r['h10'].reshape(grid.shape)
+            grid.end_batch(n)
         histories += n
         batch = {name: float(v) for name, v in zip(names, r['deposits'])}
         for name, value in batch.items(): deposits[name] += value
@@ -31,4 +37,4 @@ def aggregate(batches, names, detector=None, roi=None, track_uncertainty=True):
         float(endings[0]/histories), float(endings[1]/histories), float(scatter/histories),
         n_fluorescence=int(fluor), n_batches=moments.n_batches if moments is not None else 0,
         energy_deposited_sem_MeV={k: v/1000 for k, v in moments.standard_errors().items()} if moments is not None else {},
-        energy_deposited_rel_err=moments.relative_errors() if moments is not None else {}, detector=tally)
+        energy_deposited_rel_err=moments.relative_errors() if moments is not None else {}, detector=tally, grid=grid)

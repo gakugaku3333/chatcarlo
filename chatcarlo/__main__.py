@@ -293,6 +293,9 @@ def cmd_run(args) -> int:
     if args.dose_grid:
         import numpy as np
         geometry = Geometry(scene.raw["geometry"])
+        if engine == 'gpu':
+            from .gpu.condition import grid_spec, check_grid
+            check_grid(result.grid, grid_spec(scene, detector, args.resolution))
         dose = dose_map_Gy(result.grid, geometry)
         h10 = result.grid.h10_map_pSv()
         n_histories = result.n_histories
@@ -390,6 +393,15 @@ def cmd_run(args) -> int:
                 save_kwargs["n_batches"] = np.array(grid_n_batches)
                 save_kwargs["n_batches_hit"] = n_hit
             np.savez(args.dose_out, **save_kwargs)
+            if engine == 'gpu':
+                from types import SimpleNamespace
+                saved_path = str(args.dose_out)
+                if not saved_path.endswith('.npz'):
+                    saved_path += '.npz'
+                with np.load(saved_path) as stored:
+                    check_grid(SimpleNamespace(origin_cm=stored['origin_cm'],
+                        shape=stored['shape'], voxel_size_cm=float(stored['voxel_size_cm'])),
+                        grid_spec(scene, detector, args.resolution))
             print(f"線量グリッドを書き出しました: {args.dose_out}")
     return 0
 
@@ -522,6 +534,8 @@ def main() -> int:
     pp.add_argument('--batch-size', type=int, default=200000)
     pp.add_argument('--source-seed', type=int)
     pp.add_argument('--no-uncertainty', action='store_true')
+    pp.add_argument('--dose-grid', action='store_true')
+    pp.add_argument('--resolution', type=float, default=5.0)
     pp.add_argument('--run-dir')
     pp.set_defaults(func=cmd_preview)
 

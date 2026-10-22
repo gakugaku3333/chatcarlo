@@ -19,8 +19,8 @@ def prepare(scene, options, run_dir=None):
     plane, roi = detector_from_scene(scene)
     opts = condition.resolve(options)
     with tempfile.TemporaryDirectory(prefix='chatcarlo-g4-preview-') as temp:
-        manifest = bundle.create(scene, plane, Path(temp)/'bundle')
-        job = condition.job_for(opts)
+        manifest = bundle.create(scene, plane, Path(temp)/'bundle', g2_tally=opts.get('dose_grid', False))
+        job = condition.scene_job(scene, plane, opts)
         cond = condition.colab_condition(manifest, job, scene, opts['track_uncertainty'])
         target = Path(run_dir) if run_dir else condition.default_run_dir(cond)
         if (target/'approval.json').exists(): raise ValueError('approved run directory cannot be overwritten')
@@ -38,6 +38,9 @@ def prepare(scene, options, run_dir=None):
         _write(target/'job.json', job)
         _write(target/'preview_snapshot.json', dict(scene=scene.raw, rendered=scene_to_json(scene), condition=cond))
         text = f"condition SHA256: {condition.sha256(cond)}; histories: {job['n_histories']}; seed: {job['seed']}; source_seed: {job['source_seed']}; detector: {cond['detector']}"
+        if 'grid' in job:
+            g = job['grid']
+            text += f"; grid: resolution={g['voxel_size_cm']} cm; origin_cm={g['origin_cm']}; shape={g['shape']}; voxels={int(np.prod(g['shape']))}"
         (target/'preview.html').write_text(render_html(scene, approval_text=text))
         files = {name:bundle.sha(target/name) for name in ('bundle/manifest.json', 'job.json', 'preview_snapshot.json', 'preview.html')}
         _write(target/'generation.json', dict(condition=cond, condition_sha256=condition.sha256(cond), files=files))
@@ -105,7 +108,14 @@ def verify_batches(bundle_path, job, results, reused=()):
         if r is None: raise ValueError('missing verified batch '+name)
         receipt = json.loads((Path(results)/(name+'.receipt.json')).read_text())
         o, d, e = sample_source_photons(src, n, rng, spec)
-        expected = expected_observation(a, o, d, e, job['seed'], start, settings['fluorescence'], job['device'])
+        if 'grid' in job:
+            from .g2_core import expected_observation as g2_expected, grid_from, health as g2_health
+            from .g2_tables import config
+            descriptor = grid_from(job['grid'])
+            expected = g2_expected(a, config(a, descriptor, [], -1), o, d, e, job['seed'], start, settings['fluorescence'], job['device'])
+            g2_health(r, descriptor)
+        else:
+            expected = expected_observation(a, o, d, e, job['seed'], start, settings['fluorescence'], job['device'])
         if reference is not None:
             hashes = reference[name]
             if not isinstance(hashes, dict) or set(hashes) != {'origins', 'directions', 'energies'} or any(

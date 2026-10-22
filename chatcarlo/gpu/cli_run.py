@@ -9,8 +9,8 @@ def expected_run(scene, options):
     from ..scene import detector_from_scene
     plane, _ = detector_from_scene(scene)
     with tempfile.TemporaryDirectory(prefix='chatcarlo-g4-condition-') as temp:
-        manifest = bundle.create(scene, plane, temp)
-        return condition.colab_condition(manifest, condition.job_for(options), scene, options['track_uncertainty'])
+        manifest = bundle.create(scene, plane, temp, g2_tally=options.get("dose_grid", False))
+        return condition.colab_condition(manifest, condition.scene_job(scene, plane, options), scene, options['track_uncertainty'])
 
 
 def run(scene, args):
@@ -20,8 +20,8 @@ def run(scene, args):
     plane, roi = detector_from_scene(scene)
     if options['device'] == 'cpu':
         from .engine import run as local_run
-        result = local_run(scene, options['n_histories'], options['seed'], options['batch_size'], False, 1,
-                           options['track_uncertainty'], plane, roi, 'cpu', options['source_seed'])
+        result = local_run(scene, options['n_histories'], options['seed'], options['batch_size'], options.get('dose_grid', False), 1,
+                           options['track_uncertainty'], plane, roi, 'cpu', options['source_seed'], options.get('grid_resolution_cm', 5.))
         cond = condition.local_condition(scene, options)
     else:
         from .colab_driver import launch, read_result, expected_identity
@@ -40,7 +40,8 @@ def run(scene, args):
         gates = Path(__file__).resolve().parents[2]/'docs/validation/gpu/g1'
         launch(path/'bundle', job, results, gate1=gates/'gate1.json', gate2=gates/'gate2.json')
         batches, timing = approval.verify_batches(path/'bundle', job, results, reused)
-        result = aggregate(batches, settings['material_names'], plane, roi, options['track_uncertainty'])
+        grid = condition.grid_for(job['grid'], options['track_uncertainty']) if 'grid' in job else None
+        result = aggregate(batches, settings['material_names'], plane, roi, options['track_uncertainty'], grid=grid)
         result.gpu_metadata = dict(engine='gpu', gpu_device='cuda', seed=options['seed'], source_seed=options['source_seed'], batch_size=options['batch_size'], bundle=manifest, timing=timing)
     result.gpu_metadata.update(condition=cond, condition_sha256=condition.sha256(cond), verification='native inputs verified')
     return result

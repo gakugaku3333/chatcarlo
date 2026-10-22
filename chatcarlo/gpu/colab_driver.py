@@ -121,9 +121,14 @@ def worker(bundle_path,job_path,out):
         fault_path=Path(job_path).parent/'fault.json'
         if fault_path.exists():
             fault=json.loads(fault_path.read_text()).get('fault')
-            if fault not in ('seed','start'):raise ValueError('invalid fault injection')
+            if fault not in ('seed','start','g2_cfg','g2_cfg_inplace','g2_table','g2_swap'):raise ValueError('invalid fault injection')
             os.environ['CHATCARLO_G4_FAULT']=fault
-        rng=np.random.default_rng(job['source_seed']);driver=Core(a,job['device'])
+        rng=np.random.default_rng(job['source_seed'])
+        if 'grid' in job:
+            from .g2_core import Core, grid_from
+            driver=Core(a,job['device'],grid=grid_from(job['grid']))
+        else:
+            driver=Core(a,job['device'])
         for batch,start in enumerate(range(0,job['n_histories'],job['batch_size'])):
             n=min(job['batch_size'],job['n_histories']-start)
             # Always advance source, including when a verified batch is reused.
@@ -142,8 +147,18 @@ def worker(bundle_path,job_path,out):
 
 def _bootstrap(files,job_sha):
     # Standalone verification before importing any uploaded source code.
-    return f'''import pathlib,hashlib,json,subprocess,sys
+    return f'''import pathlib,hashlib,json,subprocess,sys,fcntl
 base=pathlib.Path({REMOTE!r});parts=base/'parts';target=base/'chatcarlo'/'gpu';target.mkdir(parents=True,exist_ok=True)
+launch_lock=(base/'launch.lock').open('a')
+fcntl.flock(launch_lock,fcntl.LOCK_EX)
+try:
+ pid=int((base/'worker.pid').read_text())
+ state=(pathlib.Path('/proc')/str(pid)/'stat').read_text().rsplit(')',1)[1].split()[0]
+ if state != 'Z':
+  assert (base/'worker.job.sha256').read_text()=={job_sha!r}, 'worker job mismatch'
+  print('G1_LAUNCHED')
+  sys.exit(0)
+except (OSError,ValueError,IndexError):pass
 (base/'chatcarlo'/'__init__.py').write_text('')
 files=json.loads({json.dumps(files)!r})
 for name,item in files.items():
@@ -166,6 +181,7 @@ verify(target)
 with (base/'worker.log').open('ab') as log:
  process=subprocess.Popen(['nohup',sys.executable,'-m','chatcarlo.gpu.colab_driver','worker','--bundle',str(target),'--job',str(base/'job.json'),'--out',str(base/'results')],cwd=base,stdout=log,stderr=log,start_new_session=True)
 (base/'worker.pid').write_text(str(process.pid))
+(base/'worker.job.sha256').write_text({job_sha!r})
 print('G1_LAUNCHED')
 '''
 
@@ -178,8 +194,12 @@ for receipt in sorted(root.glob('*.receipt.json')):
  if (root/name).is_file():print('G1_RESULT '+name)
 if (root/'done.json').exists():print('G1_DONE')
 else:
- try:os.kill(int((root.parent/'worker.pid').read_text()),0);print('G1_RUNNING')
- except (OSError,ValueError):print('G1_FAILED')
+ try:
+  pid=int((root.parent/'worker.pid').read_text())
+  state=pathlib.Path('/proc')/str(pid)/'stat'
+  status=state.read_text().rsplit(')',1)[1].split()[0]
+  print('G1_FAILED' if status=='Z' else 'G1_RUNNING')
+ except (OSError,ValueError,IndexError):print('G1_FAILED')
 '''
 
 def launch(bundle_path,job,out,*,gate1,gate2=None,session='chatcarlo-g1',colab='colab',poll_seconds=POLL_SECONDS,fault_path=None):
@@ -188,14 +208,23 @@ def launch(bundle_path,job,out,*,gate1,gate2=None,session='chatcarlo-g1',colab='
     if json.loads(Path(gate1).read_text()).get('status')!='pass':raise ValueError('gate 1 must pass before Colab')
     if job['mode']!='gate2' and (gate2 is None or json.loads(Path(gate2).read_text()).get('status')!='pass'):raise ValueError('gate 2 must pass before detector production')
     if not session or any(c not in 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-_' for c in session):raise ValueError('invalid session')
-    def cli(args,input=None):
-        result=subprocess.run([colab,*args],input=input,text=True,capture_output=True,check=True)
-        if 'not found' in result.stdout.lower() or 'not found' in result.stderr.lower():raise RuntimeError('Colab session lost')
-        return result.stdout
+    def cli(args,input=None,*,retry=True):
+        for attempt in range(3 if retry else 1):
+            try:
+                result=subprocess.run([colab,*args],input=input,text=True,capture_output=True,check=True,timeout=300)
+                if 'not found' in result.stdout.lower() or 'not found' in result.stderr.lower():raise RuntimeError('Colab session lost')
+                return result.stdout
+            except (subprocess.TimeoutExpired, subprocess.CalledProcessError):
+                if not retry or attempt == 2: raise
     with tempfile.TemporaryDirectory(prefix='chatcarlo-g1-transfer-') as tmp:
         tmp=Path(tmp);files=split_bundle(bundle_path,tmp/'parts',part_bytes=PART_BYTES);job_path=tmp/'job.json';job_path.write_text(json.dumps(job,sort_keys=True)+'\n')
         try:
-            cli(['new','-s',session,'--gpu','T4'])
+            try:
+                cli(['new','-s',session,'--gpu','T4'], retry=False)
+            except subprocess.TimeoutExpired:
+                # Creation may have succeeded remotely; probe the session, never
+                # create a second session on an ambiguous timeout.
+                cli(['exec','-s',session], "print('G1_SESSION')")
             cli(['exec','-s',session],f"import pathlib\nbase=pathlib.Path({REMOTE!r})\n(base/'parts').mkdir(parents=True,exist_ok=True)\n(base/'results').mkdir(exist_ok=True)\nfor name in ('done.json','source_reference.json','source_reference.json.receipt.json'):\n (base/'results'/name).unlink(missing_ok=True)\n")
             for part in sorted((tmp/'parts').iterdir()):cli(['upload','-s',session,str(part),f'{REMOTE}/parts/{part.name}'])
             cli(['upload','-s',session,str(job_path),f'{REMOTE}/job.json'])
@@ -208,12 +237,34 @@ def launch(bundle_path,job,out,*,gate1,gate2=None,session='chatcarlo-g1',colab='
                 key=expected_identity(manifest,job,name)
                 if read_result(out,name,key) is None:continue
                 for p in (out/name,receipt):cli(['upload','-s',session,str(p),f'{REMOTE}/results/{p.name}'])
-            launched=cli(['exec','-s',session],_bootstrap(files,digest(job_path)))
+            job_sha=digest(job_path)
+            probe = f"""import pathlib
+base=pathlib.Path({REMOTE!r})
+try:
+ pid=int((base/'worker.pid').read_text())
+ state=(pathlib.Path('/proc')/str(pid)/'stat').read_text().rsplit(')',1)[1].split()[0]
+ if state != 'Z':
+  assert (base/'worker.job.sha256').read_text()=={job_sha!r}, 'worker job mismatch'
+  print('G1_LAUNCHED')
+ else: print('G1_ABSENT')
+except (OSError,ValueError,IndexError): print('G1_ABSENT')
+"""
+            try:
+                launched=cli(['exec','-s',session],_bootstrap(files,job_sha),retry=False)
+            except subprocess.TimeoutExpired:
+                launched=cli(['exec','-s',session],probe)
+                if 'G1_ABSENT' in launched:
+                    launched=cli(['exec','-s',session],_bootstrap(files,job_sha),retry=False)
             if 'G1_LAUNCHED' not in launched:raise RuntimeError('bundle assembly/verification did not launch worker')
             reference_received=False
+            polls=0
             while True:
                 listing=cli(['exec','-s',session],_listing())
-                if 'G1_RUNNING' not in listing and 'G1_DONE' not in listing:raise RuntimeError('invalid Colab status or lost session')
+                polls += 1
+                (out/'heartbeat.json').write_text(json.dumps(dict(timestamp=time.time(), polls=polls,
+                    collected_batches=len(list(out.glob('batch_*.npz.receipt.json')))))+'\n')
+                if not any(status in listing for status in ('G1_RUNNING','G1_DONE','G1_FAILED')):
+                    raise RuntimeError('invalid Colab status or lost session')
                 for line in listing.splitlines():
                     if not line.startswith('G1_RESULT '):continue
                     name=line.split(' ',1)[1]
@@ -230,6 +281,10 @@ def launch(bundle_path,job,out,*,gate1,gate2=None,session='chatcarlo-g1',colab='
                         read_result(stage,name,expected)
                         (stage/name).replace(out/name);(stage/(name+'.receipt.json')).replace(local_receipt)
                         if name=='source_reference.json':reference_received=True
+                (out/'heartbeat.json').write_text(json.dumps(dict(timestamp=time.time(), polls=polls,
+                    collected_batches=len(list(out.glob('batch_*.npz.receipt.json')))))+'\n')
+                if 'G1_FAILED' in listing:
+                    raise RuntimeError('G1_FAILED: worker exited without done.json')
                 if 'G1_DONE' in listing:
                     if job['mode']=='gate2':
                         required=[('gate2.json',-1,0,10000000)]+[(f'paired_{b:02d}.npz',b,b*1000000,1000000) for b in range(10)]
@@ -245,7 +300,7 @@ def launch(bundle_path,job,out,*,gate1,gate2=None,session='chatcarlo-g1',colab='
         finally:
             # A vanished session must not discard already verified local results.
             try:cli(['stop','-s',session])
-            except (subprocess.CalledProcessError,RuntimeError):pass
+            except (subprocess.CalledProcessError,subprocess.TimeoutExpired,RuntimeError):pass
 
 def g2_gate(bundle_path, job_path, out):
     """Execute only the explicitly hashed, bundled G2 runner."""

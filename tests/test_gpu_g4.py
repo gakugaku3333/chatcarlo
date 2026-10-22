@@ -203,7 +203,7 @@ def test_gpu_g4_preview_bounds():
     for corner in p.corners_cm(): assert np.linalg.norm(corner-data['center'])<=data['radius']
 
 
-@pytest.mark.parametrize('argv', [[], ['--gpu-device','cpu','--engine','numpy'], ['--engine','gpu','--workers','2','--seed','1'], ['--engine','gpu','--dose-grid','--seed','1'], ['--engine','gpu','--kernel-chunks','0','--seed','1']])
+@pytest.mark.parametrize('argv', [[], ['--gpu-device','cpu','--engine','numpy'], ['--engine','gpu','--workers','2','--seed','1'], ['--engine','gpu','--kernel-chunks','0','--seed','1']])
 def test_gpu_g4_cli_invalid(argv,monkeypatch,tmp_path):
     if not argv:argv=['--engine','gpu']
     assert invoke(monkeypatch,'run',SCENE,*argv,'-n',10,'--detector-out',tmp_path/'image.npz')==1

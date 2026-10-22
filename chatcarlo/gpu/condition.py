@@ -23,7 +23,6 @@ def resolve(options):
     if engine == 'gpu':
         if seed is None: raise ValueError('G1 requires an explicit transport seed')
         if get('workers', 1) != 1: raise ValueError('G1 requires n_workers=1')
-        if get('dose_grid', False): raise ValueError('G1 does not support voxel dose_grid tally')
         if get('kernel_chunks', 0) != 0 or get('kernel_max_segments_per_history', 16) != 16:
             raise ValueError('--engine gpu cannot use --kernel-*')
     elif get('gpu_device') is not None:
@@ -60,3 +59,36 @@ def local_condition(scene, options):
 
 def default_run_dir(condition):
     return Path.home()/'.cache/chatcarlo/gpu_runs'/sha256(condition)[:12]
+
+
+def grid_spec(scene, plane, resolution):
+    from ..geometry import Geometry
+    from ..tally import VoxelGrid
+    if not np.isfinite(resolution) or resolution <= 0:
+        raise ValueError('grid_resolution_cm must be positive')
+    geometry = Geometry(scene.raw['geometry'], detector_plane=plane)
+    grid = VoxelGrid.from_bbox(geometry.tally_bbox_min, geometry.tally_bbox_max, resolution)
+    return dict(origin_cm=grid.origin_cm.tolist(), shape=list(grid.shape),
+                voxel_size_cm=float(resolution), layout_version='g2-grid-v1')
+
+
+def grid_for(spec, track_uncertainty):
+    from ..tally import VoxelGrid
+    from .g2_core import grid_from
+    descriptor = grid_from(spec)
+    grid = VoxelGrid(descriptor.origin_cm, descriptor.shape, descriptor.voxel_size_cm, track_uncertainty)
+    check_grid(grid, spec)
+    return grid
+
+
+def check_grid(grid, spec):
+    if (list(grid.origin_cm) != spec['origin_cm'] or list(grid.shape) != spec['shape']
+            or grid.voxel_size_cm != spec['voxel_size_cm']):
+        raise ValueError('grid value mismatch')
+
+
+def scene_job(scene, plane, options):
+    job = job_for(options)
+    if options.get('dose_grid'):
+        job['grid'] = grid_spec(scene, plane, options['grid_resolution_cm'])
+    return job

@@ -1,0 +1,107 @@
+{
+  "dose_per_history_Gy": {
+    "dtype": "float64",
+    "sha256": "ef4767333de9c43c661738829d22af6e57afe14b9d0a87faa9f358baf85c90c8",
+    "shape": [
+      70,
+      70,
+      61
+    ]
+  },
+  "h10_per_history_pSv": {
+    "dtype": "float64",
+    "sha256": "533bbd6490ccfe3e921d794cdba9b860e4a87e29b0e14fa20e98893531eba501",
+    "shape": [
+      70,
+      70,
+      61
+    ]
+  },
+  "h10_track_pSv_cm3": {
+    "dtype": "float64",
+    "sha256": "7f249c57954803d91ca0bc0c456e701e533156e3050db65d154ec27005c7a250",
+    "shape": [
+      70,
+      70,
+      61
+    ]
+  },
+  "kerma_keV": {
+    "dtype": "float64",
+    "sha256": "43a64c0160b4b92ee5c66c3070a4497d006f4843447a66c8e30be62ebebc53c6",
+    "shape": [
+      70,
+      70,
+      61
+    ]
+  },
+  "n_batches": {
+    "dtype": "int64",
+    "sha256": "f0a0278e4372459cca6159cd5e71cfee638302a7b9ca9b05c34181ac0a65ac5d",
+    "shape": []
+  },
+  "n_batches_hit": {
+    "dtype": "int32",
+    "sha256": "2389b3da634e7b19d36fecb52478f471849dd3b5c5c08eab3eb058abd5d4047f",
+    "shape": [
+      70,
+      70,
+      61
+    ]
+  },
+  "origin_cm": {
+    "dtype": "float64",
+    "sha256": "c7e5c36c28e4e8dc1183f2a7af356e431bafffb31e25565282d2962b6eae5942",
+    "shape": [
+      3
+    ]
+  },
+  "rel_err_dose": {
+    "dtype": "float64",
+    "sha256": "07b8e59c14a0bc69228ed217e6a40534a755799f448f6a945d5c790c17cb5ac0",
+    "shape": [
+      70,
+      70,
+      61
+    ]
+  },
+  "rel_err_h10": {
+    "dtype": "float64",
+    "sha256": "48754e5cdb3f62275bc7cd9270d01076f9ab397424443b489f662cba1648977d",
+    "shape": [
+      70,
+      70,
+      61
+    ]
+  },
+  "sem_dose_per_history_Gy": {
+    "dtype": "float64",
+    "sha256": "eb00a8cd85ffdf36e101a1d2bdbc045de6b5c2d938f9854e56e9844b6218082b",
+    "shape": [
+      70,
+      70,
+      61
+    ]
+  },
+  "sem_h10_per_history_pSv": {
+    "dtype": "float64",
+    "sha256": "7b2b4e8935fa5c2873f74540f9862dfb6a311a8d22dfb64903a5afc02b903b86",
+    "shape": [
+      70,
+      70,
+      61
+    ]
+  },
+  "shape": {
+    "dtype": "int64",
+    "sha256": "7176b0c64656e92b8460258b5f94d99a36f3d65f7d6d3d94104236c52641d686",
+    "shape": [
+      3
+    ]
+  },
+  "voxel_size_cm": {
+    "dtype": "float64",
+    "sha256": "3f710ac088db33363087de2b9a657541fe5447821debaa9fe5cbd538eb1a5f29",
+    "shape": []
+  }
+}

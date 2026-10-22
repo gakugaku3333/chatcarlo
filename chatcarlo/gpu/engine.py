@@ -33,13 +33,8 @@ def run(scene,n_histories,seed,batch_size,dose_grid,n_workers,track_uncertainty,
     import time
     grid = None
     if dose_grid:
-        from ..geometry import Geometry
-        from ..tally import VoxelGrid
-        if not np.isfinite(grid_resolution_cm) or grid_resolution_cm <= 0:
-            raise ValueError('grid_resolution_cm must be positive')
-        geometry = Geometry(scene.raw['geometry'], detector_plane=detector)
-        grid = VoxelGrid.from_bbox(geometry.tally_bbox_min, geometry.tally_bbox_max,
-                                   grid_resolution_cm, track_uncertainty)
+        from .condition import grid_spec, grid_for
+        grid = grid_for(grid_spec(scene, detector, grid_resolution_cm), track_uncertainty)
     rng=np.random.default_rng(source_seed)
     replay_rng=np.random.default_rng(source_seed)
     elapsed=0.
@@ -59,13 +54,15 @@ def run(scene,n_histories,seed,batch_size,dose_grid,n_workers,track_uncertainty,
                 r,observed=driver.run(o,d,e,seed=seed,start=start,fluorescence=settings['fluorescence'],observe=True)
                 elapsed+=time.perf_counter()-t0
                 eo,ed,ee=replay_source(src,n,replay_rng,spec)
-                check_observation(observed,core.expected_observation(a,eo,ed,ee,seed,start,settings['fluorescence'],gpu_device),f'batch_{start//batch_size:06d}')
-                if grid is not None:
-                    grid.kerma_keV += r['kerma'].reshape(grid.shape)
-                    grid.h10_track_pSv_cm3 += r['h10'].reshape(grid.shape)
-                    grid.end_batch(n)
+                if dose_grid:
+                    from .g2_core import expected_observation
+                    from .g2_tables import config
+                    expected = expected_observation(a, config(a, grid), eo, ed, ee, seed, start, settings['fluorescence'], gpu_device)
+                else:
+                    expected = core.expected_observation(a, eo, ed, ee, seed, start, settings['fluorescence'], gpu_device)
+                check_observation(observed, expected, f'batch_{start//batch_size:06d}')
                 yield n,r
-        result=aggregate(batches(),settings['material_names'],detector,detector_roi,track_uncertainty)
+        result=aggregate(batches(),settings['material_names'],detector,detector_roi,track_uncertainty,grid=grid)
     result.grid=grid
     result.gpu_metadata=dict(engine='gpu',gpu_device=gpu_device,seed=int(seed),source_seed=int(source_seed),n_workers=1,batch_size=batch_size,bundle=manifest)
     result.gpu_metadata['timing']=dict(elapsed_s=elapsed,new_elapsed_s=elapsed,reused_elapsed_s=0.,new_batches=(n_histories+batch_size-1)//batch_size,reused_batches=0)
