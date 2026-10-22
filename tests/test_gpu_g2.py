@@ -340,3 +340,204 @@ def test_imported_comparison_reproduces_historical_numbers(tmp_path):
     import csv
     with (old/'comparison.csv').open() as a, (tmp_path/'comparison.csv').open() as b:
         assert list(csv.DictReader(a)) == list(csv.DictReader(b))
+
+
+@pytest.fixture
+def gate_runner():
+    spec = importlib.util.spec_from_file_location('g2_gate_runner', DOC/'run_gates.py')
+    runner = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(runner)
+    return runner
+
+
+def grid_pairs():
+    c = np.tile([1., 1., 0.], (10, 1))
+    return c, c.copy(), np.full(c.shape, 100000.), np.full(c.shape, 100000.)
+
+
+def test_gate2_grid_redistribution(gate_runner):
+    c, g, kc, kg = grid_pairs()
+    g[:, 0] += 1e-8
+    g[:, 1] -= 1e-8
+    report = gate_runner.grid_paired_judge(c, g, kc, kg)
+    assert report['status'] == 'pass'
+    assert all(b['conservation_pass'] for b in report['batches'])
+
+
+@pytest.mark.parametrize('relative, expected', [(0.9e-6, 'pass'), (1.1e-6, 'fail')])
+def test_gate2_grid_relative_width(gate_runner, relative, expected):
+    c, g, kc, kg = grid_pairs()
+    # Balance the perturbation so this tests the voxel width independently.
+    g[:, 0] += relative
+    g[:, 1] -= relative
+    report = gate_runner.grid_paired_judge(c, g, kc, kg)
+    assert report['status'] == expected
+    assert all(b['conservation_pass'] for b in report['batches'])
+
+
+@pytest.mark.parametrize('value, expected, rescued', [(0., 'pass', 0),
+                                                     (1e-9, 'pass', 1),
+                                                     (2e-9, 'fail', 0)])
+@pytest.mark.parametrize('swap', [False, True])
+def test_gate2_grid_one_sided_zero(gate_runner, value, expected, rescued, swap):
+    c, g, kc, kg = grid_pairs()
+    g[:, 0] -= value
+    g[:, 2] = value
+    if swap:
+        c, g = g, c
+    report = gate_runner.grid_paired_judge(c, g, kc, kg)
+    assert report['status'] == expected
+    for b in report['batches']:
+        assert b['one_sided_zero_count'] == int(value != 0)
+        assert b['one_sided_zero_rescued_count'] == rescued
+        assert b['both_zero_count'] == int(value == 0)
+        assert b['hit_mismatch_indices'] == ([2] if value else [])
+        assert b['hit_mismatch_failed_indices'] == ([2] if expected == 'fail' else [])
+
+
+@pytest.mark.parametrize('slot', range(4))
+@pytest.mark.parametrize('invalid', ['nan', 'inf', '-inf', 'shape', 'batches'])
+def test_gate2_grid_rejects_invalid(gate_runner, slot, invalid):
+    args = list(grid_pairs())
+    if invalid == 'shape':
+        args[slot] = args[slot][:, :2]
+    elif invalid == 'batches':
+        args[slot] = args[slot][:9]
+    else:
+        args[slot][0, 0] = float(invalid)
+    with pytest.raises(ValueError):
+        gate_runner.grid_paired_judge(*args)
+
+
+@pytest.mark.parametrize('cancel_batches', [False, True])
+def test_gate2_grid_never_pools_batches(gate_runner, cancel_batches):
+    c, g, kc, kg = grid_pairs()
+    g[0, :2] += [2e-6, -2e-6]
+    if cancel_batches:
+        g[1, :2] -= [2e-6, -2e-6]
+        np.testing.assert_array_equal(g.sum(axis=0), c.sum(axis=0))
+    report = gate_runner.grid_paired_judge(c, g, kc, kg)
+    assert report['status'] == 'fail'
+    assert [i for i, b in enumerate(report['batches']) if b['status'] == 'fail'] == (
+        [0, 1] if cancel_batches else [0])
+
+
+def test_gate2_grid_conservation(gate_runner):
+    c, g, kc, kg = grid_pairs()
+    g[0, 0] += 1e-8  # Within voxel tolerance, outside total rounding allowance.
+    report = gate_runner.grid_paired_judge(c, g, kc, kg)
+    assert report['status'] == 'fail'
+    b = report['batches'][0]
+    assert b['failed_indices'] == []
+    assert not b['conservation_pass']
+    assert b['total_rounding_bound'] == pytest.approx(
+        (kc[0].sum()+kg[0].sum()+20)*2**-52*(abs(c[0])+abs(g[0])).sum())
+
+
+def test_gate2_grid_integer_diagnostics(gate_runner):
+    c, g, kc, kg = grid_pairs()
+    kg[0, 0] += 1
+    report = gate_runner.grid_paired_judge(c, g, kc, kg)
+    assert report['status'] == 'pass'
+    assert report['batches'][0]['addition_mismatch_indices'] == [0]
+    assert report['batches'][0]['addition_mismatch_failed_indices'] == []
+    g[0, :2] += [2e-6, -2e-6]
+    report = gate_runner.grid_paired_judge(c, g, kc, kg)
+    assert report['batches'][0]['addition_mismatch_failed_indices'] == [0]
+
+
+@pytest.mark.parametrize('scene, nboxes, fault, expected', [
+    ('lead', 0, None, True), ('pdd', 47, None, True),
+    ('pdd', 47, 'kerma', False), ('pdd', 47, 'h10', False),
+    ('pdd', 47, 'conservation', False),
+    ('pdd', 47, 'box_sum', False), ('pdd', 47, 'box_sum2', False),
+    ('pdd', 0, None, False), ('pdd', 46, None, False),
+    ('lead', 1, None, False), ('pdd', 47, 'histories', False),
+    ('pdd', 47, 'integers', True),
+])
+def test_gate2_integration(gate_runner, tmp_path, monkeypatch, scene, nboxes, fault, expected):
+    from chatcarlo.gpu import g2_core, source_host, validation
+    np.savez(tmp_path/'g2_tables.npz', grid_origin=np.zeros(3), grid_shape=[3, 1, 1],
+             grid_resolution=2., boxes=np.zeros((nboxes, 6)), water=0)
+    names = ['water', 'lead'] if scene == 'lead' else ['water']
+    manifest = {'files': {'historical': 'unchanged'}}
+    monkeypatch.setattr(bundle, 'load', lambda path: ({}, {}, {},
+                        dict(material_names=names, fluorescence=True), manifest))
+    calls, draws, box_judgements = [], [], []
+
+    def sample(src, n, rng, spec):
+        assert n == 100000
+        draws.append(rng.random())
+        return np.zeros((1, 3)), np.ones((1, 3)), np.ones(1)
+
+    class FakeCore:
+        def __init__(self, arrays, device, **kwargs):
+            self.device = device
+            assert kwargs['count_additions']
+            assert len(kwargs['boxes']) == nboxes
+
+        def run(self, o, d, e, *, seed, start, fluorescence, record):
+            calls.append((self.device, seed, start))
+            assert fluorescence and record
+            r = dict(kerma=np.array([1., 1., 0.]), h10=np.array([2., 2., 0.]),
+                     grid_additions=np.full(3, 100000.), box_sum=np.ones(nboxes),
+                     box_sum2=np.ones(nboxes), box_additions=np.full(nboxes, 100000.),
+                     endings=np.array([100000, 0, 0]), i=np.zeros((1, 2), int),
+                     d=np.zeros((1, 2)))
+            if self.device == 'cuda':
+                # Old paired_judge rejects this constant balanced difference;
+                # the approved voxel criterion must accept it.
+                for q in ('kerma', 'h10'):
+                    r[q][:2] += [1e-8, -1e-8]
+                if fault in ('kerma', 'h10') and start == 0:
+                    r[fault][:2] += [1e-4, -1e-4]
+                elif fault == 'conservation':
+                    r['kerma'][0] += 1e-8
+                elif fault in ('box_sum', 'box_sum2'):
+                    r[fault][0] += .001
+                elif fault == 'histories':
+                    r['endings'][0] -= 1
+                elif fault == 'integers':
+                    r['grid_additions'][0] += 1
+                    r['box_additions'][0] += 1
+                    r['kerma'][2] = 1e-10
+                    r['h10'][2] = 1e-10
+                    r['i'][0, 0] = 1
+            return r
+
+    paired = validation.paired_judge
+    def box_judge(c, g, bounds):
+        assert np.shape(c) == (10, nboxes)
+        box_judgements.append(True)
+        return paired(c, g, bounds)
+
+    monkeypatch.setattr(source_host, 'sample_source_photons', sample)
+    monkeypatch.setattr(g2_core, 'Core', FakeCore)
+    monkeypatch.setattr(validation, 'paired_judge', box_judge)
+    assert gate_runner.gate2(tmp_path, tmp_path) == expected
+    report = json.loads((tmp_path/'gate2.json').read_text())
+    assert report['status'] == ('pass' if expected else 'fail')
+    assert report['criterion_version'] == 'v2-addendum2'
+    assert (report['seed'], report['source_seed']) == (3300, 3301)
+    assert (report['n_histories'], report['batch_size'], report['n_batches']) == (1000000, 100000, 10)
+    assert report['n_boxes'] == nboxes
+    assert report['bundle'] == manifest
+    assert len(box_judgements) == 2
+    assert calls == [(device, 3300, b*100000) for b in range(10) for device in ('cpu', 'cuda')]
+    np.testing.assert_array_equal(draws, np.random.default_rng(3301).random(10))
+    assert set(report['quantities']) == {'kerma', 'h10', 'box_sum', 'box_sum2'}
+    if fault in ('kerma', 'h10', 'box_sum', 'box_sum2'):
+        assert report['quantities'][fault]['status'] == 'fail'
+        assert all(r['status'] == 'pass' for q, r in report['quantities'].items() if q != fault)
+    if fault == 'integers':
+        assert report['integer_differences'][0]['diverged_histories'] == [0]
+        assert report['integer_differences'][0]['box_additions'] == [0]
+        b = report['quantities']['kerma']['batches'][0]
+        assert b['one_sided_zero_rescued_count'] == 1
+        assert b['addition_mismatch_indices'] == [0]
+        assert b['hit_mismatch_indices'] == [2]
+    # Existing artifacts' data keys stay usable for reference-only rejudging.
+    with np.load(tmp_path/'paired_00.npz') as z:
+        for device in ('cpu', 'gpu'):
+            for q in ('kerma', 'h10', 'grid_additions', 'box_sum', 'box_sum2', 'box_additions'):
+                assert device+'_'+q in z

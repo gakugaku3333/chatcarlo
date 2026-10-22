@@ -170,6 +170,53 @@ def prepare_gate2(out):
               runner_sha256=manifest['files']['run_gates.py'], gate=2))
 
 
+def grid_paired_judge(cpu, gpu, cpu_additions, gpu_additions):
+    """Addendum 2: conservation and voxel tolerances, separately per batch.
+
+    This is an engineering agreement criterion, not a dose accuracy claim.
+    Flat voxel indices below refer to the native grid's flattened order.
+    """
+    c, g, kc, kg = [np.asarray(x, dtype=float) for x in
+                    (cpu, gpu, cpu_additions, gpu_additions)]
+    if (c.ndim != 2 or c.shape[0] != 10 or c.shape[1] == 0 or
+            any(x.shape != c.shape for x in (g, kc, kg)) or
+            not all(np.isfinite(x).all() for x in (c, g, kc, kg))):
+        raise ValueError('10 finite paired grid batches of matching shape required')
+    if any(np.any(x < 0) or np.any(x != np.floor(x)) for x in (kc, kg)):
+        raise ValueError('nonnegative integer addition counts required')
+    batches = []
+    for a, b, ka, kb in zip(c, g, kc, kg):
+        scale = np.maximum(np.abs(a), np.abs(b))
+        absolute = 1e-9 * float(scale.max())
+        delta = np.abs(b-a)
+        relative_bound = 1e-6 * scale
+        passed = delta <= relative_bound + absolute
+        total_difference = float(abs(b.sum()-a.sum()))
+        total_bound = float((ka.sum()+kb.sum()+20)*2.**-52 *
+                            (np.abs(a)+np.abs(b)).sum())
+        conservation = total_difference <= total_bound
+        one_zero = (a == 0) != (b == 0)
+        additions = ka != kb
+        hits = (a != 0) != (b != 0)
+        batches.append(dict(
+            status='pass' if conservation and passed.all() else 'fail',
+            conservation_pass=bool(conservation), total_difference=total_difference,
+            total_rounding_bound=total_bound, absolute_tolerance=absolute,
+            failed_indices=np.flatnonzero(~passed).tolist(),
+            one_sided_zero_count=int(one_zero.sum()),
+            one_sided_zero_rescued_count=int((one_zero & (delta > relative_bound) & passed).sum()),
+            both_zero_count=int(((a == 0) & (b == 0)).sum()),
+            addition_mismatch_count=int(additions.sum()),
+            hit_mismatch_count=int(hits.sum()),
+            addition_mismatch_indices=np.flatnonzero(additions).tolist(),
+            hit_mismatch_indices=np.flatnonzero(hits).tolist(),
+            addition_mismatch_failed_indices=np.flatnonzero(additions & ~passed).tolist(),
+            hit_mismatch_failed_indices=np.flatnonzero(hits & ~passed).tolist()))
+    return dict(status='pass' if all(b['status'] == 'pass' for b in batches) else 'fail',
+                batches=batches,
+                interpretation='この幅で一致。線量の精度の主張ではない。')
+
+
 def gate2(bundle_path, out):
     """VM-only paired comparison; no physics packages needed on the VM."""
     from chatcarlo.gpu import bundle, validation
@@ -181,6 +228,12 @@ def gate2(bundle_path, out):
         origin, shape, resolution = z['grid_origin'], z['grid_shape'], float(z['grid_resolution'])
         box_array = z['boxes']
         water = int(z['water'])
+    # The prepared lead scene has no boxes; the water PDD geometry requires 47.
+    expected_boxes = 0 if 'lead' in settings['material_names'] else 47
+    box_count_ok = box_array.shape == (expected_boxes, 6)
+    if box_array.ndim != 2 or box_array.shape[1] != 6:
+        raise ValueError('boxes must have shape (n, 6)')
+    seed, source_seed, batch_size, n_batches = 3300, 3301, 100000, 10
     class Grid:
         origin_cm = origin
         voxel_size_cm = resolution
@@ -189,24 +242,29 @@ def gate2(bundle_path, out):
     boxes = [(str(j), b[:3], b[3:]) for j, b in enumerate(box_array)]
     cpu = Core(arrays, 'cpu', grid=grid, boxes=boxes, water=water, count_additions=True)
     gpu = Core(arrays, 'cuda', grid=grid, boxes=boxes, water=water, count_additions=True)
-    rng = np.random.default_rng(3201)
+    rng = np.random.default_rng(source_seed)
     values = {q: [[], [], []] for q in ('kerma', 'h10', 'box_sum', 'box_sum2')}
     integers = []
+    additions = [[], []]
+    history_counts = []
     timing = dict(cpu_s=0., gpu_s=0.)
-    for b in range(10):
-        o, d, e = sample_source_photons(src, 100000, rng, spec)
+    for b in range(n_batches):
+        o, d, e = sample_source_photons(src, batch_size, rng, spec)
         pair = []
         for label, driver in (('cpu', cpu), ('gpu', gpu)):
             started = time.perf_counter()
-            pair.append(driver.run(o, d, e, seed=3200, start=b*100000,
+            pair.append(driver.run(o, d, e, seed=seed, start=b*batch_size,
                                    fluorescence=settings['fluorescence'], record=True))
             timing[label+'_s'] += time.perf_counter()-started
         c, g = pair
-        assert c['endings'].sum() == g['endings'].sum() == 100000
+        history_counts.append(bool(c['endings'].sum() == g['endings'].sum() == batch_size))
+        additions[0].append(c['grid_additions'])
+        additions[1].append(g['grid_additions'])
         ints = {}
         for q in ('grid_additions', 'box_additions'):
             ints[q] = np.flatnonzero(c[q] != g[q]).tolist()
-        ints['voxel_hit'] = np.flatnonzero((c['kerma'] > 0) != (g['kerma'] > 0)).tolist()
+        ints['voxel_hit'] = np.flatnonzero((c['kerma'] != 0) != (g['kerma'] != 0)).tolist()
+        ints['h10_voxel_hit'] = np.flatnonzero((c['h10'] != 0) != (g['h10'] != 0)).tolist()
         ints['diverged_histories'] = np.flatnonzero(np.any(c['i'] != g['i'], axis=1) |
                                                   np.any(c['d'] != g['d'], axis=1)).tolist()
         integers.append(ints)
@@ -216,8 +274,17 @@ def gate2(bundle_path, out):
             bounds.append((c[count]+g[count]+2*10+16)*2.**-52*(np.abs(c[q])+np.abs(g[q])))
         np.savez(Path(out)/f'paired_{b:02d}.npz', **{label+'_'+q: r[q] for label, r in zip(('cpu', 'gpu'), pair)
                                                   for q in ('kerma', 'h10', 'grid_additions', 'box_sum', 'box_sum2', 'box_additions')})
-    reports = {q: validation.paired_judge(*v) for q, v in values.items()}
-    report = dict(status='pass' if all(v['status'] == 'pass' for v in reports.values()) else 'fail',
+    reports = {q: (grid_paired_judge(v[0], v[1], *additions) if q in ('kerma', 'h10')
+                   else validation.paired_judge(*v)) for q, v in values.items()}
+    checks = dict(history_counts=all(history_counts), box_count=box_count_ok,
+                  **{q: r['status'] == 'pass' for q, r in reports.items()})
+    report = dict(status='pass' if all(checks.values()) else 'fail',
+                  criterion_version='v2-addendum2', seed=seed, source_seed=source_seed,
+                  n_histories=batch_size*n_batches, batch_size=batch_size, n_batches=n_batches,
+                  n_boxes=len(boxes), expected_boxes=expected_boxes, checks=checks,
+                  history_counts_match=history_counts,
+                  integer_differences_counts={q: [len(b[q]) for b in integers]
+                                              for q in integers[0]},
                   quantities=reports, integer_differences=integers, bundle=manifest, timing=timing)
     write(Path(out)/'gate2.json', report)
     return report['status'] == 'pass'
