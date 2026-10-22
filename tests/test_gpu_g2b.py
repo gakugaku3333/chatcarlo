@@ -491,3 +491,14 @@ def test_gate_b_verified_batch_statistics(tmp_path,n,batch_size,uncertainty):
     np.savez(output,**actual)
     with np.load(output) as z:
         for key in expected: same(z[key],expected[key])
+
+
+def test_t6_cuda_absent_outputs():
+    """The VM passes absent outputs (no addition counts, no boxes) as np.uint64(0) (gate C run 1, 2026-10-23)."""
+    class Buffer:
+        def __init__(self, ptr): self.data = SimpleNamespace(ptr=ptr)
+    outputs = [Buffer(100), Buffer(101), np.uint64(0), Buffer(0), Buffer(0), np.uint64(0)]
+    args = g2_core.final_arguments(list(range(25)), [123, 456] + outputs)
+    g2_core.check_outputs(args, outputs, 'cuda')
+    with pytest.raises(ValueError, match='output mapping mismatch'):
+        g2_core.check_outputs(g2_core.final_arguments(list(range(25)), [123, 456] + outputs, 'g2_swap'), outputs, 'cuda')

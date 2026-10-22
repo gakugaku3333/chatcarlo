@@ -284,7 +284,12 @@ except (OSError,ValueError,IndexError): print('G1_ABSENT')
                 (out/'heartbeat.json').write_text(json.dumps(dict(timestamp=time.time(), polls=polls,
                     collected_batches=len(list(out.glob('batch_*.npz.receipt.json')))))+'\n')
                 if 'G1_FAILED' in listing:
-                    raise RuntimeError('G1_FAILED: worker exited without done.json')
+                    # Keep the VM's traceback: the session is stopped below and its files are lost.
+                    try:
+                        tail=cli(['exec','-s',session],f"import pathlib\nprint(pathlib.Path({REMOTE!r},'worker.log').read_text(errors='replace')[-20000:])")
+                        (out/'worker_tail.log').write_text(tail)
+                    except (subprocess.CalledProcessError,subprocess.TimeoutExpired,RuntimeError,OSError):pass
+                    raise RuntimeError('G1_FAILED: worker exited without done.json (see worker_tail.log)')
                 if 'G1_DONE' in listing:
                     if job['mode']=='gate2':
                         required=[('gate2.json',-1,0,10000000)]+[(f'paired_{b:02d}.npz',b,b*1000000,1000000) for b in range(10)]

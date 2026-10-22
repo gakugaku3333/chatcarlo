@@ -105,6 +105,8 @@ def check_outputs(args, outputs, device):
     offset = 21 if device == 'cpu' else 27
     def pointer(value):
         if value is None: return 0
+        # Absent CUDA outputs are passed as np.uint64(0); NumPy scalars also have .data (a memoryview).
+        if isinstance(value, (int, np.integer)): return int(value)
         if device == 'cpu':
             return value.ctypes.data if isinstance(value, np.ndarray) else int(value)
         return int(value.data.ptr) if hasattr(value, 'data') else int(value)
