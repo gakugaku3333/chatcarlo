@@ -1,0 +1,7 @@
+{
+ "fault": "g2_cfg",
+ "stopped": true,
+ "message": "observation mismatch: batch_000000.npz 26:cfg",
+ "npz_written": false,
+ "status": "pass"
+}

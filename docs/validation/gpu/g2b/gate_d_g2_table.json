@@ -1,0 +1,7 @@
+{
+ "fault": "g2_table",
+ "stopped": true,
+ "message": "observation mismatch: batch_000000.npz 25:g2_table",
+ "npz_written": false,
+ "status": "pass"
+}
