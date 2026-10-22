@@ -1,6 +1,6 @@
 # 計画: GPU エンジン G2 — 飛跡長のカーマ・H*(10) のタリー（ボクセル格子と任意の箱）
 
-- 状態: approved（2026-10-22 ユーザー承認）
+- 状態: implemented（G2a、2026-10-22。関門 0・1・2（追補 2 の判定で再実行）合格、関門 3 は報告済み。結果 docs/validation/gpu/g2/RESULTS.md。G2b は未着手）
 - 作成者: claude
 - 実装担当: codex（Colab の実行と `~/.cache` を使う検査は Claude）
 - 日付: 2026-10-22
