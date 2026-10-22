@@ -1,0 +1,174 @@
+{
+  "status": "pass",
+  "criterion_version": "v2-addendum2",
+  "seed": 3300,
+  "source_seed": 3301,
+  "n_histories": 1000000,
+  "batch_size": 100000,
+  "n_batches": 10,
+  "n_boxes": 47,
+  "expected_boxes": 47,
+  "checks": {
+    "history_counts": true,
+    "box_count": true,
+    "kerma": true,
+    "h10": true,
+    "box_sum": true,
+    "box_sum2": true
+  },
+  "integer_differences_counts": {
+    "grid_additions": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "box_additions": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "voxel_hit": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "h10_voxel_hit": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "diverged_histories": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ]
+  },
+  "timing": {
+    "cpu_s": 12.280041447999992,
+    "gpu_s": 2.148493607000006
+  },
+  "kerma": {
+    "status": "pass",
+    "failed_per_batch": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "one_sided_zero": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "conservation": [
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true
+    ]
+  },
+  "h10": {
+    "status": "pass",
+    "failed_per_batch": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "one_sided_zero": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "conservation": [
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true
+    ]
+  },
+  "box_sum": {
+    "status": "pass",
+    "rounding_pass": 47,
+    "n": 47
+  },
+  "box_sum2": {
+    "status": "pass",
+    "rounding_pass": 47,
+    "n": 47
+  },
+  "note": "Full record: data/gpu_g2/colab/out_pdd_v2/gate2.json (not committed)."
+}
