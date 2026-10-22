@@ -55,7 +55,7 @@ under `examples/` is blocked for several reasons at once (cylinder/sphere, polyc
 **GPU engine G1 (2026-10-21, implemented)**: `chatcarlo/gpu/` — one C++ history function (ported from `kernel.py`'s
 diagnostic physics) built as a CPU twin (clang, ctypes) and a CUDA kernel (CuPy NVRTC), Philox per history, host-side
 source sampling. G4 CLI: `run --engine gpu --gpu-device cpu|colab` (Colab requires `preview` → `approve RUN_DIR` → `run`; detector images: NPZ/JSON/PNG; receipts carry the observed native-call arguments, and CUDA source directions are checked against an independent replay on the same VM because float rounding differs between Mac and VM — G4 results: docs/validation/gpu/g4/RESULTS.md). API: `run_transport(..., engine="gpu", gpu_device="cpu"|"cuda", source_seed=...)` (seed required;
-box-only, `kvp`/`spectrum`, `rect`/`cone`/`parallel`, plane detector; no voxel tally, `mas`, heel, rotation,
+box-only, `kvp`/`spectrum`, `rect`/`cone`/`parallel`, plane detector, voxel dose grid via the Python API only (G2a); no `mas`, heel, rotation,
 cylinder/sphere — `gpu_engine_compatible` refuses with a reason). Colab runs go through `chatcarlo.gpu.colab_driver`
 (hash-verified bundles and receipts). Gates: CPU twin vs `transport.py` statistically (51 quantities |z|≤3), T4 GPU vs
 CPU twin within rounding: [docs/validation/gpu/g1/RESULTS.md](../../docs/validation/gpu/g1/RESULTS.md). NVRTC has no

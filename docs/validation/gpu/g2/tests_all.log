@@ -1,29 +1,13 @@
-........................................................................ [ 11%]
-........................................................................ [ 23%]
-.......................................F................................ [ 34%]
-........................................................................ [ 46%]
-........................................................................ [ 58%]
-........................................................................ [ 69%]
-........................................................................ [ 81%]
-........................................................................ [ 93%]
-..........................................                               [100%]
-=================================== FAILURES ===================================
-______________________ test_gpu_g1_compatible[dose_grid] _______________________
-
-feature = 'dose_grid'
-
-    @pytest.mark.parametrize('feature',['cylinder','sphere','heel_effect','mas','ctdi_vol_mGy','rotation','dose_grid','workers'])
-    def test_gpu_g1_compatible(feature):
-        scene=load_scene(str(DOC/'scenes/s1.yaml'));kw={}
-        if feature in ('cylinder','sphere'):scene.raw['geometry'][0]['shape']=feature
-        elif feature=='dose_grid':kw['dose_grid']=True
-        elif feature=='workers':kw['n_workers']=2
-        else:scene.raw['source'][feature]=True
-        ok,reason=gpu_engine_compatible(scene,**kw)
->       assert not ok and reason
-E       assert (not True)
-
-tests/test_gpu_g1_history.py:42: AssertionError
+........................................................................ [ 10%]
+........................................................................ [ 21%]
+........................................................................ [ 32%]
+........................................................................ [ 43%]
+........................................................................ [ 54%]
+........................................................................ [ 65%]
+........................................................................ [ 76%]
+........................................................................ [ 86%]
+........................................................................ [ 97%]
+...............                                                          [100%]
 =============================== warnings summary ===============================
 tests/test_heel_effect.py::test_anode_cutoff_warns_and_still_samples
   /Users/oishifamily/Projects/viveMonte/.venv/lib/python3.11/site-packages/spekpy/SpekTools.py:216: UserWarning: Zero emission for the user's geometrical inputs
@@ -34,6 +18,4 @@ tests/test_spectrum.py::test_fallback_spectrum_used_when_spekpy_unavailable
     e, w = spectrum._default_spectrum(kvp=100.0, filtration_mm_al=2.5, anode_angle_deg=12.0)
 
 -- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
-=========================== short test summary info ============================
-FAILED tests/test_gpu_g1_history.py::test_gpu_g1_compatible[dose_grid] - asse...
-1 failed, 617 passed, 2 warnings in 175.62s (0:02:55)
+663 passed, 2 warnings in 171.65s (0:02:51)
