@@ -1,6 +1,6 @@
 # 計画: GPU エンジン G2b — CLI の `run --engine gpu --dose-grid` を Colab の承認と照合に通す
 
-- 状態: codex-reviewed（2026-10-23 再開。2 巡目の指摘をすべて反映。ユーザーの承認待ち）
+- 状態: approved（2026-10-23 ユーザー承認）
 - 作成者: claude
 - 実装担当: codex（Colab の実行と `~/.cache` を使う検査は Claude）
 - 日付: 2026-10-22
