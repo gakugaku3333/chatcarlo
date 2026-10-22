@@ -1,10 +1,10 @@
 # 計画: GPU エンジン G2b — CLI の `run --engine gpu --dose-grid` を Colab の承認と照合に通す
 
-- 状態: draft・保留（2026-10-22 ユーザー判断で後回し。詳細まで書いたが Codex 2 巡目のレビューは未実施。再開するときは 2 巡目のレビューから）
+- 状態: codex-reviewed（2026-10-23 再開。2 巡目の指摘をすべて反映。ユーザーの承認待ち）
 - 作成者: claude
 - 実装担当: codex（Colab の実行と `~/.cache` を使う検査は Claude）
 - 日付: 2026-10-22
-- Codexレビュー: 1巡（骨子: 致命 0・実質 7・軽微 2・参考 2。原文 `data/logs/codex_g2b_review1.md`。すべて反映。格子の仕様を `job` 1 か所に置く Codex の代替案を採用）
+- Codexレビュー: 2巡（骨子: 致命 0・実質 7・軽微 2・参考 2、原文 `data/logs/codex_g2b_review1.md`。格子の仕様を `job` 1 か所に置く Codex の代替案を採用。詳細: 致命 0・実質 8・軽微 2・参考 1、原文 `data/logs/codex_g2b_review2.md`。すべて反映。致命が無く前巡と同種の精密化なので 3 巡目は回さない）
 - 親計画: [2026-10-21-chatcarlo-gpu-engine.md](2026-10-21-chatcarlo-gpu-engine.md)。前段: [G2a](2026-10-22-chatcarlo-gpu-g2-voxel-tally.md)（implemented）、[G4](2026-10-21-chatcarlo-gpu-g4-cli.md)（implemented）
 - 規模: 重（線量の数値と、承認した条件と実際の計算の一致。誤ると静かに違う格子の線量が出る）
 
@@ -50,7 +50,7 @@ G4 の CLI（`preview --engine gpu --gpu-device colab` → `approve RUN_DIR` →
 | H4 | 出力の対応 | 出力の内容は呼び出しの前にハッシュしないが、**ABI の各出力の位置と、回収して名前を付けるバッファの対応**を確かめる（例: カーマと H*(10) の出力ポインタの交換を故障注入で検出）。ホストでも必須のキー、dtype、長さ、有限・非負を確かめる | 結果の SHA256 は転送中の改変しか保証しない |
 | H5 | VM の worker | `job` に `grid` があるときだけ `g2_core.Core` を使う。無ければ今と同じ（G4 の結果を 1 ビットも変えない） | G4 の回帰を守る |
 | H6 | バッチの結果と集計 | バッチごとの格子（カーマ・H*(10)）を結果の `.npz` に入れ、ホストで `VoxelGrid` に足して `end_batch(n)` を呼ぶ（本番と同じ統計）。手元（CPU の双子）の CLI の経路も同じ集計の関数を通す | 本番と同じ R・寄与バッチ数を作るため。手元と Colab の集計の経路を分けない |
-| H7 | Colab の起動 | 通常の `preview → approve → run` の経路で、G4 の `launch` を使う。`launch` の各 `colab` の呼び出しに制限時間を足す（変更してよい範囲に入れる）。独立の見張りと、終了時の `colab stop` も確かめる。G2a の検証専用の `colab_g2.py` は使わない | 目的は通常の経路の検証。運用の決まりを満たす |
+| H7 | Colab の起動 | 通常の `preview → approve → run` の経路で、G4 の `launch` を使う。`launch` の各 `colab` の呼び出しに制限時間を足し、worker の異常終了（ゾンビ）を完了と区別して検出し、生存記録を書く（変更してよい範囲に入れる）。独立の見張りと、終了時の `colab stop` も確かめる。G2a の検証専用の `colab_g2.py` は使わない | 目的は通常の経路の検証。運用の決まりを満たす |
 | H8 | 段の分け方 | G2b は「CLI と承認・照合・集計・保存の配線」だけ。速さの工夫、cylinder 等（G3）、格子の転送の工夫はしない | 計画を 25 KB 以下に |
 
 ## 2. 事前登録する判定（骨子）
@@ -58,19 +58,19 @@ G4 の CLI（`preview --engine gpu --gpu-device colab` → `approve RUN_DIR` →
 - **関門 A（手元、CPU の双子）**: `run --engine gpu --gpu-device cpu --dose-grid --resolution 2 --dose-out X.npz` の `.npz` を、同じ種の `run_transport(engine='gpu', dose_grid=True)` の結果から既存の保存の規約で作った期待の配列と、キー・dtype・形・各配列のバイト列で比べて一致。線量に関わる表示（最大値、R、寄与バッチ数、警告）も一致（時間などの表示は除く）。
 - **関門 B（手元、照合と集計の故障検査）**:
   - 承認の後に次を変えると、計算の前か結果の照合で止まる: `job.grid` の各値、形の取り違え（総数が同じ）、`g2_tables.npz`、最終の引数の `cfg`・`g2_table`（差し替えと内容の書き換え）、`job` から `grid` を消す、出力ポインタの交換。
-  - 集計: 照合済みの同じバッチから独立に、順序つきの和、ΣS_b²/n_b、寄与バッチ数、履歴数・バッチ数を作り直し、保存した R・SEM・Gy/history・pSv/history と一致。端数のバッチ、バッチ 1 個、寄与 0、統計無効も扱う。
+  - 集計: 照合済みの同じバッチから独立に、順序つきの和、二乗の和、寄与バッチ数、履歴数・バッチ数を作り直し、保存した R・SEM・Gy/history・pSv/history とバイト一致。二乗の和は `end_batch` と同じく累積の値とその差分から作る（バッチの値から直接 ΣS_b² を作ると丸めで最後の桁が変わる。例: 0.1・0.2・0.3 で 0.14 と 0.14000000000000004）。バッチの値からの直接の計算とは相対 1e-12 で比べる。端数のバッチ、バッチ 1 個、寄与 0、統計無効も扱う。
 - **関門 C（Colab T4、通し）**: G2a の S2（`scene_lead_slab.yaml`、2 cm）を `preview → approve → run` で、**回収済みなしから** 20 バッチ × 2×10⁵ 回す（`new_batches=20`・`reused_batches=0` を求める）。
   - (i) 受領票の観測（G1 と G2 の引数）がすべて照合を通る。
   - (ii) 保存した `.npz` のカーマ・H*(10) が照合済みのバッチの格子の和とバイト一致し、R・SEM・寄与バッチ数が関門 B と同じ独立の作り直しと一致する。
   - (iii) G2a の関門 1 の参照（`data/gpu_g2/ref_lead_batches.npz`、sha256 9e6d3ab5…、本番 NumPy、固定済み）と、G2a の関門 1 と同じ判定で一致する（独立な標本の統計の比較。判定の前に参照のハッシュ、シーン、格子、履歴数、種を確かめる）。
   - 種は詳細の段で決めて、実行の前に書く。
-- **関門 C2（再開）**: 関門 C とは別に、途中で止めて再開したとき、再利用したバッチも G2 の観測を照合する。
+- **関門 C2（再開）**: 関門 C とは別に、途中で止めて再開する。再利用したバッチも G2 の観測を照合し、再利用の分の線源の乱数を進めてから新しいバッチを作る経路を通す。
 - **関門 D（Colab、故障）**: 関門 B のうち VM で起きるもの（最終の引数の `cfg`・`g2_table` の差し替え）を Colab で 1 回ずつ注入し、止まることを確かめる。一般的な GPU のメモリの破損への保証は求めない。
 
 ## 3. 対象範囲（骨子）
 
-- 変更してよい: `chatcarlo/gpu/condition.py`・`cli_run.py`・`approval.py`・`colab_driver.py`（`worker` の分岐、`launch` の制限時間）・`g2_core.py`（最終の引数の観測）・`engine.py`（G2 の観測の照合）・`aggregate.py`・`bundle.py`（必要なら）、`chatcarlo/__main__.py`（`preview` の `--dose-grid`・`--resolution`、`run` の GPU の分岐で格子を表示・保存へ渡す部分）、新規 `tests/test_gpu_g2b.py`、新規 `docs/validation/gpu/g2b/`。
-- 変更禁止: `transport.py` の `numpy` 経路、`tally.py`、`materials.py`、`dose_coefficients.py`、`kernel.py`、G1・G2a の核（C++）、G4 の検出器の画像の経路の出力（G4 の既存のテストと結果が変わらない）、`data/`、`prototypes/`。
+- 変更してよい: `chatcarlo/gpu/condition.py`・`cli_run.py`・`approval.py`・`colab_driver.py`（`worker` の分岐、`launch` の制限時間・再試行の分け方・生存記録、`_listing` のゾンビの判定）・`g2_core.py`（最終の引数の観測）・`engine.py`（G2 の観測の照合）・`aggregate.py`・`bundle.py`（必要なら）、`chatcarlo/__main__.py`（`preview` の `--dose-grid`・`--resolution`、`run` の GPU の分岐で格子を表示・保存へ渡す部分）、新規 `tests/test_gpu_g2b.py`、新規 `docs/validation/gpu/g2b/`。既存テストの変更は 1 か所だけ: `tests/test_gpu_g4.py` の `test_gpu_g4_cli_invalid` のうち `--engine gpu --dose-grid` を拒否する場合を、今回受け付けるようになるので削除する（G2b のテストで受け付けを確かめる）。
+- 変更禁止: `transport.py` の `numpy` 経路、`tally.py`、`materials.py`、`dose_coefficients.py`、`kernel.py`、G1・G2a の核（C++）、G4 の検出器の画像の経路の出力（格子なしの振る舞いと数値の出力が変わらない。上の 1 か所を除き既存のテストを変えずに通す）、`data/`、`prototypes/`。
 - スコープ外: cylinder・sphere・`mas`（G3）、`--workers`、格子の転送の工夫、`preview` の 3D 表示に格子の枠を描くこと。
 
 ## 4. 停止条件
@@ -85,13 +85,13 @@ G4 の CLI（`preview --engine gpu --gpu-device colab` → `approve RUN_DIR` →
 - `origin_cm`: `Geometry(scene.raw['geometry'], detector_plane=plane).tally_bbox_min`（3 個の float）。
 - `shape`: `VoxelGrid.from_bbox(...)` の形（3 個の int）。`voxel_size_cm`: `--resolution` の値（float）。
 - 平らに並べる順は C 順（`(ix*ny + iy)*nz + iz`）。G2a の `g2_tally.h` と `VoxelGrid` の配列と同じ。
-- `grid` は `--dose-grid` のときだけ `job` に入る。入らない `job` は今とバイト一致（G4 の条件と結果の識別が変わらない）。
+- `grid` は `--dose-grid` のときだけ `job` に入る。入らない `job` は今とバイト一致。条件には格子の項目を足さない。ただし束のハッシュは `g2_core.py`・`colab_driver.py` 等の変更で変わる（コードの識別として今の方式を保つ）ので、条件の SHA256 と HTML のハッシュの表示は変わってよい。
 - 値の作り方は 1 つの関数（`condition.grid_spec(scene, plane, resolution)`）にまとめ、preview・run・手元の経路がすべてそれを呼ぶ。
 
 **値で結ぶ照合（H2）**: 次をすべて `job.grid` と値で比べ、違えば止める。
 - `prepare`: 承認の HTML の文字（解像度、原点、形、ボクセル数）を `job.grid` から作る。`preview_snapshot.json` にも `job.grid` を入れる。
 - `cli_run.run`（Colab）: `expected_run` で作り直した `job.grid` が承認済みの `job.grid` と一致（今の `require` の条件の一致に含まれる）。
-- ホストの期待の `cfg`: `g2_tables.config(arrays, grid_from(job.grid), [], -1)` で作る。
+- ホストの期待の `cfg`: `g2_tables.config(arrays, grid_from(job.grid), [], -1)` で作る。`grid_from` は原点・形・解像度の 3 つだけを持つ軽い記述を返す（VM の束には `tally.py` が無く、出力は `g2_core` が確保するため。`VoxelGrid` はホストの集計でだけ作る）。
 - VM の実際の `cfg`: worker が `job.grid` から同じ関数で作る。観測で照合する。
 - 集計の `VoxelGrid`: `job.grid` から作り、`origin_cm`・`shape`・`voxel_size_cm` が `job.grid` と一致することを確かめる。
 - 保存: `--dose-out` の `.npz` の `origin_cm`・`voxel_size_cm`・`shape` を `job.grid` と比べる。
@@ -99,21 +99,25 @@ G4 の CLI（`preview --engine gpu --gpu-device colab` → `approve RUN_DIR` →
 **観測（H3・H4、`g2_core.py`）**
 - `invoke` の中で、型の変換と故障注入の後の最終の引数の並び（G1 の分＋`g2_table`・`cfg`・出力 6 個）を 1 度作り、それで観測と呼び出しをする。
 - 観測の鍵: CPU は `19:g2_table`・`20:cfg`、CUDA は `25:g2_table`・`26:cfg`。値は内容の SHA256（アドレスでキャッシュしない）。
-- 出力の対応: 出力 6 個の位置と名前（`kerma`・`h10`・`grid_additions`・`box_sum`・`box_sum2`・`box_additions`）の表を 1 か所に置き、呼び出しと回収の両方がそれを使う。
+- 出力の対応: 出力を確保した時点の「名前→バッファ」を持っておき、故障注入の後の最終の引数で、CPU の位置 21・22、CUDA の位置 27・28 の**実際のアドレス**がそれぞれカーマ・H*(10) のバッファと一致することを確かめる（同じプロセスの中での比較）。CUDA では、その装置のバッファから対応するホストのバッファへ回収することも確かめる。故障注入は対応の表を変えず、最終の引数だけを入れ替える。
 - `core.expected_observation` は変えず、G2 の分を足す関数 `g2_core.expected_observation(a, cfg, ...)` を作る。`engine.py` と `approval.verify_batches` は、`job.grid` があるときこちらを使う。
 - ホストの検査（`health` の G2 版）: 必須のキー、dtype（float64）、長さ（`prod(shape)`）、有限・非負。
 
 **故障注入（関門 B・D）**: G4 と同じく、VM 側は `fault.json`、手元は `CHATCARLO_G4_FAULT` で選ぶ。足す値:
 - `g2_cfg`: 最終の引数の `cfg` の解像度を 2 倍にした配列に差し替える。
-- `g2_cfg_inplace`: 同じアドレスのまま `cfg` の形の 1 要素を書き換える。
+- `g2_cfg_inplace`: 同じアドレスのまま `cfg` の形の最後の軸を 1 減らす（範囲外に書かない変更に固定する）。正常に 1 度観測した後の同じバッファを書き換える場合も入れる（アドレスのキャッシュによる見逃しを直接確かめる）。
 - `g2_table`: `g2_table` の 1 要素を 1 ulp ずらす。
 - `g2_swap`: カーマと H*(10) の出力ポインタを入れ替える。
-- 期待: `g2_cfg`・`g2_cfg_inplace`・`g2_table` は `observation mismatch: batch_000000 …:cfg`（または `g2_table`）で止まる。`g2_swap` は出力の対応の検査（H*(10) ÷ カーマが係数の比と合わない、を手元で人工データで確かめるのではなく、ポインタと名前の表の照合）で止まる。
+- 期待: `g2_cfg`・`g2_cfg_inplace`・`g2_table` は `observation mismatch: batch_000000 …:cfg`（または `g2_table`）で止まる。`g2_swap` は上の実際のアドレスの照合（`output mapping mismatch`）で止まる。
 - 手元の承認の故障（関門 B）: 承認の後に `job.json` の `grid` を書き換える、`grid` を消す、形を総数の同じ別の形にする（例: (70,70,61)→(61,70,70)）、`g2_tables.npz` を書き換える → G4 と同じく `generation`・`condition` の照合で止まる。
+
+**結果の検査（H4）**: 正しい identity と SHA256 を付け直した結果でも、`kerma`・`h10` の欠落、float32、長さ・次元の違い、NaN・Inf、負の値があれば、集計と保存の前に止める。
 
 **集計（H6）**: `aggregate(batches, names, detector, roi, track_uncertainty, grid=None)`。`grid` があれば、各バッチで `grid.kerma_keV += r['kerma'].reshape(shape)`、`grid.h10_track_pSv_cm3 += …`、`grid.end_batch(n)`。`engine.run`（G2a）の格子の集計もこの関数に寄せる（同じ結果になることをテストで確かめる）。`result.grid` に入れ、`__main__.cmd_run` の後半（表示と `--dose-out`）は今のまま使う。
 
-**`launch` の制限時間（H7）**: `colab_driver.launch` の `cli()` の `subprocess.run` に `timeout=300` と 3 回までの再試行を足す（G2a の `colab_g2.py` と同じ）。確認の間隔（600 秒）と完了の印（`done.json`）は今のまま。
+**`launch` の制限時間（H7）**: `colab_driver.launch` の `cli()` の `subprocess.run` に `timeout=300` を足す。再試行は呼び出しの種類で分ける: 状態の取得・転送・回収は 3 回まで再試行してよい。セッションの作成と worker の起動は、制限時間で切れても遠隔では実行済みのことがあるので、そのまま再試行しない。`worker.pid` と実行の識別（`job` の SHA256）を確かめ、起動していなければ再起動、起動済みならそのまま確認に進む（同じ結果へ worker を 2 つ書かせない）。確認の間隔（600 秒）と完了の印（`done.json`）は今のまま。
+- **worker の異常終了**: `_listing` は `done.json` が無いとき `/proc/<pid>/stat` の状態も読み、`Z`（ゾンビ）か存在しなければ `G1_FAILED` とする（G2a の `colab_g2.py` 55 行の実績。`os.kill(pid, 0)` だけではゾンビを稼働中と見る）。`G1_FAILED` なら回収できた分を回収し、`colab stop` して例外で終わる。
+- **生存記録と見張り**: `launch` は確認のたびに `out/heartbeat.json`（時刻・確認の回数・回収済みのバッチ数）を書き直す。Claude は別の見張りを走らせ、`heartbeat.json` が 25 分（確認の間隔 10 分 × 2 ＋ 呼び出しの制限時間 5 分）更新されなければユーザーに知らせ、`colab stop` を Claude が実行する。
 
 **CLI**: `preview` に `--dose-grid`・`--resolution` を足す（`run` と同じ意味）。`run --engine gpu --dose-grid` を `resolve` が受け付ける。`--workers` は今どおり 1 だけ。
 
@@ -122,20 +126,22 @@ G4 の CLI（`preview --engine gpu --gpu-device colab` → `approve RUN_DIR` →
 - **関門 A**（手元）: S2・2 cm・2×10⁵ 履歴・バッチ 5×10⁴（4 バッチ）・seed 2401・source_seed は既定の導出。CLI の `.npz` と、`run_transport(engine='gpu', dose_grid=True, grid_resolution_cm=2, …)` から既存の保存の規約で作った配列を、キー・dtype・形・バイト列で比べる。
 - **関門 B**（手元）: 5 節の故障すべてと、統計の独立の作り直し（端数のバッチ: 2.5×10⁵ をバッチ 10⁵、バッチ 1 個、寄与 0 のボクセル、`--no-uncertainty`）。
 - **関門 C**（Colab T4）: S2・2 cm・4×10⁶ 履歴・バッチ 2×10⁵（20 バッチ）・**seed 2410・source_seed 2411**。新しい実行一式（回収済みなし）。判定は 2 節 (i)〜(iii)。(iii) の参照は `data/gpu_g2/ref_lead_batches.npz`（sha256 `9e6d3ab523f2101205b374a4188cc17135eb9b5b811029da959dc8ca8a44c84e`）。判定の関数は G2a の `run_gates.judge` をそのまま使う。
-- **関門 C2**（Colab）: 関門 C の直後に同じ `run` をもう一度実行し、`new_batches=0`・`reused_batches=20` で、保存する `.npz` が関門 C とバイト一致し、再利用したバッチの観測も照合を通る。
+- **関門 C2**（Colab）: 関門 C と同じ条件の新しい実行一式で、最初の 8 バッチを回収した時点で `colab stop` し、同じ `run` で再開する。`reused_batches=8`・`new_batches=12`、再利用したバッチの観測の照合、20 バッチすべてと保存する `.npz` が関門 C とバイト一致。その後、完了した一式でもう一度 `run` して `reused_batches=20`・`new_batches=0` で同じ `.npz` になることも確かめる。
 - **関門 D**（Colab）: S2・2 cm・10⁵ 履歴・バッチ 10⁵（1 バッチ）・seed 2420・source_seed 2421。`fault.json` に `g2_cfg`、`g2_table` を入れて 1 回ずつ。どちらも計算の後の照合で止まり、`.npz` を書かない。
 
 ## 7. テスト（`tests/test_gpu_g2b.py`、手元、GPU なし）
 
 - T1 `grid_spec` が本番の `VoxelGrid.from_bbox` と同じ原点・形を返す（S2・水ファントム・2 cm と 5 cm）。
-- T2 `--dose-grid` の無い `job`・条件・HTML が今とバイト一致（G4 の既存のテストも通る）。
+- T2 `--dose-grid` の無い `job` が今とバイト一致、条件に格子の項目が無い、HTML がハッシュなどのコードの識別を除いて今と一致（G4 の既存のテストも、上の 1 か所を除き通る）。
 - T3 関門 A。
 - T4 関門 B の故障 7 種（5 節）がそれぞれ止まり、止まる場所の文言が期待どおり。
 - T5 統計の独立の作り直し（端数、1 バッチ、寄与 0、統計無効）。
 - T6 観測の位置（CPU 19・20、CUDA 25・26）と出力の名前の表。CUDA の引数の並びは、CuPy なしで組み立てる関数をテストする。
 - T7 `aggregate` の格子の集計と G2a の `engine.run` の結果が一致。
-- T8 `launch` の `cli()` が制限時間で例外を出し、再試行する（`subprocess.run` を差し替えて）。
+- T8 `launch` の `cli()` が制限時間で例外を出す。状態の取得は再試行し、worker の起動は「遠隔では起動済み、手元では `TimeoutExpired`」のとき再起動しない（`subprocess.run` を差し替えて）。`_listing` がゾンビ・pid なしを `G1_FAILED` とし、`launch` が回収して `colab stop` する。`heartbeat.json` が確認のたびに更新される。
 - T9 `preview --dose-grid --resolution 2` の承認の HTML に格子の文字が出る。
+- T10 結果の検査（5 節）: 欠落・float32・長さ・次元・NaN・Inf・負の値をそれぞれ注入し、identity と SHA256 を付け直しても集計の前に止まる（転送のハッシュの不一致で止まるのではないこと）。
+- T11 格子と検出器を一緒に: CPU の小さな標本で、物体の外へはみ出す検出器を置き、`--dose-grid` と検出器の出力を同時に保存する。API の結果と一致し、`job.grid` が検出器を含む範囲になる。
 - 既存のテストすべて。
 
 ## 8. テストコマンド
