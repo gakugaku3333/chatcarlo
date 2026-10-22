@@ -13,7 +13,7 @@ HERE=Path(__file__).resolve().parent
 FIELDS='n_elem zs fracs log_e step n_grid photo compt rayl incoh_q incoh_s rayl_x rayl_a k_edge k_omega k_line_e k_line_p n_lines k_frac density_g_cm3'.split()
 CPU_FLAGS=('-O2','-ffp-contract=off','-std=c++11','-shared','-fPIC')
 CUDA_OPTIONS=('-DP5_GPU','-DP5_RNG_PHILOX','--fmad=false')
-SOURCES=('g1_common.h','g1_physics.h','g1_geometry.h','g1_history.h','g1_cpu.cpp','g1_gpu.cu')
+SOURCES=('g2_tally.h','g1_common.h','g1_physics.h','g1_geometry.h','g1_history.h','g1_cpu.cpp','g1_gpu.cu')
 
 class Geometry(ctypes.Structure):
     _fields_=[('centers',ctypes.c_void_p),('halves',ctypes.c_void_p),('materials',ctypes.c_void_p),('nb',ctypes.c_int),('bg',ctypes.c_int),('world',ctypes.c_void_p),('det',ctypes.c_void_p)]

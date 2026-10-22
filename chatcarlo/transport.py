@@ -502,7 +502,7 @@ def run_transport(scene, n_histories: int = 100_000, seed: int | None = None,
     if engine == "gpu":
         from .gpu.engine import run as run_gpu
         return run_gpu(scene, n_histories, seed, batch_size, dose_grid, n_workers,
-                       track_uncertainty, detector, detector_roi, gpu_device, source_seed)
+                       track_uncertainty, detector, detector_roi, gpu_device, source_seed, grid_resolution_cm)
     if engine not in ("numpy", "kernel"):
         raise ValueError(f"unknown engine: {engine}")
     if detector is None and detector_roi is not None:

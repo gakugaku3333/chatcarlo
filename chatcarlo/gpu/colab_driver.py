@@ -246,9 +246,27 @@ def launch(bundle_path,job,out,*,gate1,gate2=None,session='chatcarlo-g1',colab='
             try:cli(['stop','-s',session])
             except (subprocess.CalledProcessError,RuntimeError):pass
 
+def g2_gate(bundle_path, job_path, out):
+    """Execute only the explicitly hashed, bundled G2 runner."""
+    from .bundle import verify
+    manifest = verify(bundle_path)
+    job = json.loads(Path(job_path).read_text())
+    name = job['runner']
+    if name not in ('run_gates.py', 'run_egs5_60kev.py'):
+        raise ValueError('invalid G2 runner')
+    if manifest['files'][name] != job['runner_sha256']:
+        raise ValueError('G2 runner SHA256 mismatch')
+    if name == 'run_gates.py' and job.get('gate') != 2:
+        raise ValueError('bundled G2 gate must be 2')
+    args = ['--gate', '2'] if name == 'run_gates.py' else []
+    subprocess.run([sys.executable, str(Path(bundle_path)/name),
+                    '--bundle', str(bundle_path), '--out', str(out), *args], check=True)
+
+
 def main(argv=None):
-    ap=argparse.ArgumentParser();ap.add_argument('action',choices=['worker','launch','source-reference']);ap.add_argument('--bundle',required=True,type=Path);ap.add_argument('--job',required=True,type=Path);ap.add_argument('--out',required=True,type=Path);ap.add_argument('--gate1',type=Path);ap.add_argument('--gate2',type=Path);ap.add_argument('--session',default='chatcarlo-g1');a=ap.parse_args(argv)
-    if a.action=='worker':worker(a.bundle,a.job,a.out)
+    ap=argparse.ArgumentParser();ap.add_argument('action',choices=['worker','launch','source-reference','g2-gate']);ap.add_argument('--bundle',required=True,type=Path);ap.add_argument('--job',required=True,type=Path);ap.add_argument('--out',required=True,type=Path);ap.add_argument('--gate1',type=Path);ap.add_argument('--gate2',type=Path);ap.add_argument('--session',default='chatcarlo-g1');a=ap.parse_args(argv)
+    if a.action=='g2-gate':g2_gate(a.bundle,a.job,a.out)
+    elif a.action=='worker':worker(a.bundle,a.job,a.out)
     elif a.action=='source-reference':source_reference(a.bundle,a.job,a.out)
     else:launch(a.bundle,json.loads(a.job.read_text()),a.out,gate1=a.gate1,gate2=a.gate2,session=a.session)
 

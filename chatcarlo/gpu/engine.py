@@ -8,7 +8,6 @@ def gpu_engine_compatible(scene,n_workers=1,dose_grid=False):
     raw=scene.raw;src=raw.get('source',{})
     if raw.get('domain','diagnostic')=='therapy_mv':return False,'G1 supports diagnostic photons only'
     if n_workers!=1:return False,'G1 requires n_workers=1'
-    if dose_grid:return False,'G1 does not support voxel dose_grid tally'
     for g in raw.get('geometry',[]):
         if g.get('shape')!='box':return False,'G1 supports box only: '+str(g.get('shape'))
     for key in ('mas','ctdi_vol_mGy','rotation'):
@@ -18,7 +17,7 @@ def gpu_engine_compatible(scene,n_workers=1,dose_grid=False):
     if not ('kvp' in src or src.get('spectrum')):return False,'G1 requires kvp or spectrum'
     return True,''
 
-def run(scene,n_histories,seed,batch_size,dose_grid,n_workers,track_uncertainty,detector,detector_roi,gpu_device,source_seed):
+def run(scene,n_histories,seed,batch_size,dose_grid,n_workers,track_uncertainty,detector,detector_roi,gpu_device,source_seed,grid_resolution_cm=5.0):
     from ..source import sample_source_photons
     from .bundle import create,load
     ok,reason=gpu_engine_compatible(scene,n_workers,dose_grid)
@@ -32,11 +31,26 @@ def run(scene,n_histories,seed,batch_size,dose_grid,n_workers,track_uncertainty,
     from .approval import check_observation
     from .source_host import sample_source_photons as replay_source
     import time
+    grid = None
+    if dose_grid:
+        from ..geometry import Geometry
+        from ..tally import VoxelGrid
+        if not np.isfinite(grid_resolution_cm) or grid_resolution_cm <= 0:
+            raise ValueError('grid_resolution_cm must be positive')
+        geometry = Geometry(scene.raw['geometry'], detector_plane=detector)
+        grid = VoxelGrid.from_bbox(geometry.tally_bbox_min, geometry.tally_bbox_max,
+                                   grid_resolution_cm, track_uncertainty)
     rng=np.random.default_rng(source_seed)
     replay_rng=np.random.default_rng(source_seed)
     elapsed=0.
     with tempfile.TemporaryDirectory(prefix='chatcarlo-g1-') as temp:
-        create(scene,detector,temp);a,src,spec,settings,manifest=load(temp);driver=core.Core(a,gpu_device,build_dir=Path(temp)/'build')
+        create(scene,detector,temp,g2_tally=dose_grid)
+        a,src,spec,settings,manifest=load(temp)
+        if dose_grid:
+            from .g2_core import Core
+            driver=Core(a,gpu_device,grid=grid,build_dir=Path(temp)/'build')
+        else:
+            driver=core.Core(a,gpu_device,build_dir=Path(temp)/'build')
         def batches():
             nonlocal elapsed
             for start in range(0,n_histories,batch_size):
@@ -46,8 +60,13 @@ def run(scene,n_histories,seed,batch_size,dose_grid,n_workers,track_uncertainty,
                 elapsed+=time.perf_counter()-t0
                 eo,ed,ee=replay_source(src,n,replay_rng,spec)
                 check_observation(observed,core.expected_observation(a,eo,ed,ee,seed,start,settings['fluorescence'],gpu_device),f'batch_{start//batch_size:06d}')
+                if grid is not None:
+                    grid.kerma_keV += r['kerma'].reshape(grid.shape)
+                    grid.h10_track_pSv_cm3 += r['h10'].reshape(grid.shape)
+                    grid.end_batch(n)
                 yield n,r
         result=aggregate(batches(),settings['material_names'],detector,detector_roi,track_uncertainty)
+    result.grid=grid
     result.gpu_metadata=dict(engine='gpu',gpu_device=gpu_device,seed=int(seed),source_seed=int(source_seed),n_workers=1,batch_size=batch_size,bundle=manifest)
     result.gpu_metadata['timing']=dict(elapsed_s=elapsed,new_elapsed_s=elapsed,reused_elapsed_s=0.,new_batches=(n_histories+batch_size-1)//batch_size,reused_batches=0)
     return result

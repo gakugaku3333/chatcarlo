@@ -184,3 +184,7 @@ PYTHONPATH=. .venv/bin/python docs/validation/gpu/g2/run_gates.py --gate 1
 ## 10. 親計画の枠組みについての Codex の意見（記録だけ）
 
 親計画の「統計的に一致」には、検出したい最小の差の定義がない。将来、線量の精度を保証する段に進むときは、許容する相対差を別に決める価値がある。今回の停止条件にはしない。
+
+## 11. 追補（2026-10-22、実装の後）
+
+- 既存の `tests/test_gpu_g1_history.py` の `test_gpu_g1_compatible[dose_grid]` は「G1 は `dose_grid` を拒む」ことを確かめていた。G2a で受け付けるようにした結果として落ちた（計画が既存テストの更新を書き漏らした）。Claude がこの 1 項目だけを「受け付ける」ことを確かめるテスト（`test_gpu_g2_accepts_dose_grid`）に置き換えた。ほかの既存テストは変えていない。

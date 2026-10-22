@@ -31,16 +31,20 @@ def test_gpu_g1_0b_history(case,tmp_path):
     bitwise(r['d'][:,1],ref.energy_deposited,'deposit')
     bitwise(r['i'][:,2],ref.n_fluorescence,'fluorescence count')
 
-@pytest.mark.parametrize('feature',['cylinder','sphere','heel_effect','mas','ctdi_vol_mGy','rotation','dose_grid','workers'])
+@pytest.mark.parametrize('feature',['cylinder','sphere','heel_effect','mas','ctdi_vol_mGy','rotation','workers'])
 def test_gpu_g1_compatible(feature):
     scene=load_scene(str(DOC/'scenes/s1.yaml'));kw={}
     if feature in ('cylinder','sphere'):scene.raw['geometry'][0]['shape']=feature
-    elif feature=='dose_grid':kw['dose_grid']=True
     elif feature=='workers':kw['n_workers']=2
     else:scene.raw['source'][feature]=True
     ok,reason=gpu_engine_compatible(scene,**kw)
     assert not ok and reason
     if feature not in ('cylinder','sphere','workers'):assert feature in reason
+
+def test_gpu_g2_accepts_dose_grid():
+    # G2a (2026-10-22): the voxel tally is supported, so dose_grid is no longer refused.
+    ok,reason=gpu_engine_compatible(load_scene(str(DOC/'scenes/s1.yaml')),dose_grid=True)
+    assert ok and reason==''
 
 @pytest.mark.parametrize('uncertainty',[True,False])
 def test_gpu_g1_adapter(tmp_path,uncertainty):

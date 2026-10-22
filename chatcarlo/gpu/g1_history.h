@@ -2,6 +2,7 @@
 #define G1_HISTORY_H
 #include "g1_physics.h"
 #include "g1_geometry.h"
+#include "g2_tally.h"
 #ifndef P5_GPU
 using std::isfinite;
 #endif
@@ -13,7 +14,8 @@ using std::isfinite;
 P5_FN void g1_history(const G1Tables *t,const G1Geometry *g,RngState *rng,
                       const double *origin,const double *direction,double energy,
                       bool fluor,double *out,long long *ints,
-                      double *trace=0,int trace_capacity=0) {
+                      double *trace=0,int trace_capacity=0,const G2Tally *tally=0) {
+    double box_local[64]={};
     for(int j=0;j<2+t->nm;++j)out[j]=0.;
     for(int j=0;j<9;++j)ints[j]=0;
     ints[4]=ints[5]=ints[6]=-1;ints[8]=1;
@@ -28,6 +30,7 @@ P5_FN void g1_history(const G1Tables *t,const G1Geometry *g,RngState *rng,
         double mu=part[0],mu_safe=mu>0.?mu:1e-30,tb=mu*boundary[0];
         bool interact=tau<tb;double ds=interact?tau/mu_safe:boundary[0];
         double o[3]={x,y,z},dir[3]={dx,dy,dz},hit[4];g1_detector(o,dir,ds,g->det,hit);
+        if(tally)g2_segment(tally,m,o,dir,hit[3]?hit[0]:ds,e,box_local);
         if(hit[3]){ints[3]=2;ints[4]=(long long)hit[1];ints[5]=(long long)hit[2];
             ints[6]=ints[2]>0?3:ints[1]==0?0:ints[1]==1?1:2;ints[8]=0;break;}
         x+=dx*ds;y+=dy*ds;z+=dz*ds;
@@ -51,6 +54,7 @@ P5_FN void g1_history(const G1Tables *t,const G1Geometry *g,RngState *rng,
         }
         if(step==999999)ints[8]=1;
     }
+    if(tally)g2_end_history(tally,box_local);
     out[0]=e;ints[7]=(long long)rng->calls;
 }
 P5_FN void g1_add_record(const G1Tables *t,const G1Geometry *g,const double *d,const long long *i,double *agg) {

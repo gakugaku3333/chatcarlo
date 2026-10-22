@@ -1,0 +1,369 @@
+{
+  "status": "pass",
+  "references": {
+    "water": {
+      "path": "/Users/oishifamily/Projects/viveMonte/data/gpu_g2/ref_water_batches.npz",
+      "sha256": "2680dc2804840ce389da8cef55b238d2bc0548d958811f8ee68b15db987588d8",
+      "seeds": [
+        220100,
+        220101,
+        220102,
+        220103,
+        220104,
+        220105,
+        220106,
+        220107,
+        220108,
+        220109,
+        220110,
+        220111,
+        220112,
+        220113,
+        220114,
+        220115,
+        220116,
+        220117,
+        220118,
+        220119
+      ],
+      "wall_seconds": 25.019766750046983,
+      "scene_sha256": "a06f0d483c3b57b5c74d4f9f993954cd05a8e1f99de207375d1866ca1312835f"
+    },
+    "lead": {
+      "path": "/Users/oishifamily/Projects/viveMonte/data/gpu_g2/ref_lead_batches.npz",
+      "sha256": "9e6d3ab523f2101205b374a4188cc17135eb9b5b811029da959dc8ca8a44c84e",
+      "seeds": [
+        220200,
+        220201,
+        220202,
+        220203,
+        220204,
+        220205,
+        220206,
+        220207,
+        220208,
+        220209,
+        220210,
+        220211,
+        220212,
+        220213,
+        220214,
+        220215,
+        220216,
+        220217,
+        220218,
+        220219
+      ],
+      "wall_seconds": 29.57591512496583,
+      "scene_sha256": "f2f282e7748e1abdc8d803ae83a9d7c11e214bc544abfae26ca0fb201856d363"
+    }
+  },
+  "scenes": {
+    "water": {
+      "quantities": {
+        "kerma": {
+          "n_eligible": 129727,
+          "max_abs_z": 4.979157397886402,
+          "t_limit": 8.424673608336441,
+          "fraction_abs_z_gt3": 0.005796788640760983,
+          "relative_difference_quantiles": [
+            -0.17620809528110007,
+            -0.00035849675089381173,
+            0.21520571453776005
+          ],
+          "mean_z2": 1.0823856621480354,
+          "regions": {
+            "water": {
+              "n_eligible": 2250,
+              "minimum": 1000,
+              "z": 0.7309259419179456,
+              "reference_only": 0,
+              "twin_only": 0
+            },
+            "air": {
+              "n_eligible": 127477,
+              "minimum": 1000,
+              "z": -0.26908611189284315,
+              "reference_only": 18185,
+              "twin_only": 18268
+            },
+            "all": {
+              "n_eligible": 129727,
+              "minimum": 0,
+              "z": 0.7298302900014453,
+              "reference_only": 18185,
+              "twin_only": 18268
+            }
+          },
+          "checks": {
+            "nonempty": true,
+            "missing": true,
+            "outliers": true,
+            "spread": true,
+            "water_total": true,
+            "water_minimum": true,
+            "water_dropouts": true,
+            "air_total": true,
+            "air_minimum": true,
+            "air_dropouts": true,
+            "all_total": true,
+            "all_minimum": true,
+            "all_dropouts": true
+          },
+          "status": "pass"
+        },
+        "h10": {
+          "n_eligible": 134445,
+          "max_abs_z": 5.0047216123283915,
+          "t_limit": 8.44452016113569,
+          "fraction_abs_z_gt3": 0.00560824128825914,
+          "relative_difference_quantiles": [
+            -0.17513610274280766,
+            -0.00021444252522400122,
+            0.21384311222294453
+          ],
+          "mean_z2": 1.0800897843046102,
+          "regions": {
+            "water": {
+              "n_eligible": 2250,
+              "minimum": 1000,
+              "z": 0.9361146488886476,
+              "reference_only": 0,
+              "twin_only": 0
+            },
+            "air": {
+              "n_eligible": 132195,
+              "minimum": 1000,
+              "z": -0.30864827135726625,
+              "reference_only": 18303,
+              "twin_only": 18585
+            },
+            "all": {
+              "n_eligible": 134445,
+              "minimum": 0,
+              "z": -0.010379262102899642,
+              "reference_only": 18303,
+              "twin_only": 18585
+            }
+          },
+          "checks": {
+            "nonempty": true,
+            "missing": true,
+            "outliers": true,
+            "spread": true,
+            "water_total": true,
+            "water_minimum": true,
+            "water_dropouts": true,
+            "air_total": true,
+            "air_minimum": true,
+            "air_dropouts": true,
+            "all_total": true,
+            "all_minimum": true,
+            "all_dropouts": true
+          },
+          "status": "pass"
+        }
+      },
+      "seeds": [
+        221100,
+        221101,
+        221102,
+        221103,
+        221104,
+        221105,
+        221106,
+        221107,
+        221108,
+        221109,
+        221110,
+        221111,
+        221112,
+        221113,
+        221114,
+        221115,
+        221116,
+        221117,
+        221118,
+        221119
+      ],
+      "source_seed": "G1 SeedSequence derivation",
+      "wall_seconds": 21.99985449993983,
+      "twin_sha256": "9115edd61200cb14971942b2c01d253d9653201142322c2e5f5e5a051b37315c",
+      "scene_sha256": "a06f0d483c3b57b5c74d4f9f993954cd05a8e1f99de207375d1866ca1312835f"
+    },
+    "lead": {
+      "quantities": {
+        "kerma": {
+          "n_eligible": 69280,
+          "max_abs_z": 4.833859744569065,
+          "t_limit": 8.080683585070277,
+          "fraction_abs_z_gt3": 0.005499422632794457,
+          "relative_difference_quantiles": [
+            -0.18258445324637815,
+            -0.0007206658638020021,
+            0.22425048027536154
+          ],
+          "mean_z2": 1.0954975111580962,
+          "regions": {
+            "water": {
+              "n_eligible": 2258,
+              "minimum": 1000,
+              "z": -0.8626508994528919,
+              "reference_only": 11,
+              "twin_only": 11
+            },
+            "air": {
+              "n_eligible": 66093,
+              "minimum": 1000,
+              "z": -0.6303401119242501,
+              "reference_only": 13479,
+              "twin_only": 13793
+            },
+            "bone": {
+              "n_eligible": 12,
+              "minimum": 8,
+              "z": 1.2125859279367746,
+              "reference_only": 0,
+              "twin_only": 0
+            },
+            "lead_layer": {
+              "n_eligible": 917,
+              "minimum": 500,
+              "z": -0.2889973531784803,
+              "reference_only": 523,
+              "twin_only": 499
+            },
+            "all": {
+              "n_eligible": 69280,
+              "minimum": 0,
+              "z": -0.5455799470244024,
+              "reference_only": 14013,
+              "twin_only": 14303
+            }
+          },
+          "checks": {
+            "nonempty": true,
+            "missing": true,
+            "outliers": true,
+            "spread": true,
+            "water_total": true,
+            "water_minimum": true,
+            "water_dropouts": true,
+            "air_total": true,
+            "air_minimum": true,
+            "air_dropouts": true,
+            "bone_total": true,
+            "bone_minimum": true,
+            "bone_dropouts": true,
+            "lead_layer_total": true,
+            "lead_layer_minimum": true,
+            "lead_layer_dropouts": true,
+            "all_total": true,
+            "all_minimum": true,
+            "all_dropouts": true
+          },
+          "status": "pass"
+        },
+        "h10": {
+          "n_eligible": 81039,
+          "max_abs_z": 5.120017449811427,
+          "t_limit": 8.165868701498187,
+          "fraction_abs_z_gt3": 0.005269067979614754,
+          "relative_difference_quantiles": [
+            -0.17874665007554968,
+            -0.00046725206701436756,
+            0.22161004426992598
+          ],
+          "mean_z2": 1.0905847704386071,
+          "regions": {
+            "water": {
+              "n_eligible": 2289,
+              "minimum": 1000,
+              "z": -0.8641121776642743,
+              "reference_only": 2,
+              "twin_only": 1
+            },
+            "air": {
+              "n_eligible": 77405,
+              "minimum": 1000,
+              "z": -0.20578547880964543,
+              "reference_only": 13850,
+              "twin_only": 13828
+            },
+            "bone": {
+              "n_eligible": 12,
+              "minimum": 8,
+              "z": 0.7019250597102233,
+              "reference_only": 0,
+              "twin_only": 0
+            },
+            "lead_layer": {
+              "n_eligible": 1333,
+              "minimum": 500,
+              "z": -0.4527535745061382,
+              "reference_only": 608,
+              "twin_only": 589
+            },
+            "all": {
+              "n_eligible": 81039,
+              "minimum": 0,
+              "z": -0.4698599627907856,
+              "reference_only": 14460,
+              "twin_only": 14418
+            }
+          },
+          "checks": {
+            "nonempty": true,
+            "missing": true,
+            "outliers": true,
+            "spread": true,
+            "water_total": true,
+            "water_minimum": true,
+            "water_dropouts": true,
+            "air_total": true,
+            "air_minimum": true,
+            "air_dropouts": true,
+            "bone_total": true,
+            "bone_minimum": true,
+            "bone_dropouts": true,
+            "lead_layer_total": true,
+            "lead_layer_minimum": true,
+            "lead_layer_dropouts": true,
+            "all_total": true,
+            "all_minimum": true,
+            "all_dropouts": true
+          },
+          "status": "pass"
+        }
+      },
+      "seeds": [
+        221200,
+        221201,
+        221202,
+        221203,
+        221204,
+        221205,
+        221206,
+        221207,
+        221208,
+        221209,
+        221210,
+        221211,
+        221212,
+        221213,
+        221214,
+        221215,
+        221216,
+        221217,
+        221218,
+        221219
+      ],
+      "source_seed": "G1 SeedSequence derivation",
+      "wall_seconds": 27.410957125015557,
+      "twin_sha256": "17124449c8205757a9bc42991b51e6ae49f655d9ccf84e920f4a1eb380269590",
+      "scene_sha256": "f2f282e7748e1abdc8d803ae83a9d7c11e214bc544abfae26ca0fb201856d363"
+    }
+  },
+  "interpretation": "この標本の精度で不一致を検出したかを判定する。数 % 以内の一致の保証ではない。",
+  "note": "Full record with dropout voxel indices: data/gpu_g2/gate1_full.json (not committed, 25 MB)."
+}

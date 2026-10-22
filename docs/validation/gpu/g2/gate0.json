@@ -1,0 +1,53 @@
+{
+  "status": "pass",
+  "checks": {
+    "0a": {
+      "status": "pass",
+      "command": [
+        "/Users/oishifamily/Projects/viveMonte/.venv/bin/python",
+        "-m",
+        "pytest",
+        "tests/test_gpu_g2.py",
+        "-q",
+        "-k",
+        "gate0a"
+      ],
+      "exit_code": 0,
+      "stdout": "..                                                                       [100%]\n2 passed, 18 deselected in 1.69s\n",
+      "stderr": "",
+      "wall_seconds": 1.867851958842948
+    },
+    "0b": {
+      "status": "pass",
+      "command": [
+        "/Users/oishifamily/Projects/viveMonte/.venv/bin/python",
+        "-m",
+        "pytest",
+        "tests/test_gpu_g2.py",
+        "-q",
+        "-k",
+        "gate0b"
+      ],
+      "exit_code": 0,
+      "stdout": ".                                                                        [100%]\n1 passed, 19 deselected in 1.77s\n",
+      "stderr": "",
+      "wall_seconds": 1.943175041116774
+    },
+    "0c": {
+      "status": "pass",
+      "command": [
+        "/Users/oishifamily/Projects/viveMonte/.venv/bin/python",
+        "-m",
+        "pytest",
+        "tests/test_gpu_g2.py",
+        "-q",
+        "-k",
+        "gate0c"
+      ],
+      "exit_code": 0,
+      "stdout": "...                                                                      [100%]\n3 passed, 17 deselected in 1.39s\n",
+      "stderr": "",
+      "wall_seconds": 1.5690958329942077
+    }
+  }
+}

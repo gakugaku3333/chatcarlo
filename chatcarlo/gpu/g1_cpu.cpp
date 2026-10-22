@@ -64,3 +64,44 @@ extern "C" void g1_reduce_probe(int nm,const double *det,const double *d,const l
     G1Tables t={0,0,0,0,nm};G1Geometry g={0,0,0,0,0,0,det};
     for(int h=0;h<n;++h)g1_add_record(&t,&g,d+h*(nm+2),i+h*9,out);
 }
+
+extern "C" void g2_histories(const double *data,const long long *offsets,int me,int ng,int nm,const G1Geometry *g,
+    uint64_t seed,uint64_t start,int n,const double *o,const double *dir,const double *energy,int fluor,
+    int record,double *d,long long *ints,double *agg,double *trace,int trace_capacity,const double *table,const double *cfg,double *kerma,double *h10,double *count,double *sum,double *sum2,double *box_count) {
+    G2Tally tally={table,cfg,nm,kerma,h10,count,sum,sum2,box_count};
+    G1Tables t={data,offsets,me,ng,nm};RngState rng;rng_init(&rng,seed,0);
+    for(int h=0;h<n;++h){
+#ifdef P5_RNG_PHILOX
+        rng_init(&rng,seed,start+uint64_t(h));
+#endif
+        double local[34];long long li[9];uint64_t before=rng.calls;
+        g1_history(&t,g,&rng,o+3*h,dir+3*h,energy[h],fluor,local,li,trace,trace_capacity,&tally);
+        li[7]-=before;g1_add_record(&t,g,local,li,agg);
+        if(record){for(int j=0;j<2+nm;++j)d[h*(2+nm)+j]=local[j];for(int j=0;j<9;++j)ints[h*9+j]=li[j];}
+    }
+}
+
+extern "C" void g2_probe(int which,int nm,const double *table,const double *cfg,const double *x,int n,double *out,double *h10,double *count) {
+    G2Tally t={table,cfg,nm,out,h10,count,0,0,0};
+    for(int j=0;j<n;++j){const double *a=x+10*j;
+        if(which==0){out[2*j]=g2_muen(&t,int(a[1]),a[0]);out[2*j+1]=g2_h10(&t,a[0]);}
+        if(which==1)g2_grid_segment(&t,a,a+3,a[6],a[7],a[8]);
+        if(which==2)out[j]=g2_overlap(a,a+3,cfg,cfg+3);
+    }
+}
+extern "C" void g2_moment_probe(int nb,const double *x,int n,double *sum,double *sum2,double *count) {
+    double cfg[13]={};cfg[12]=nb;G2Tally t={0,cfg,2,0,0,0,sum,sum2,count};
+    for(int h=0;h<n;++h)g2_end_history(&t,x+h*nb);
+}
+extern "C" double g2_first_distance(const double *data,const long long *offsets,int me,int ng,int nm,uint64_t seed,int m,double e) {
+    G1Tables t={data,offsets,me,ng,nm};RngState rng;rng_init(&rng,seed,0);
+    double tau=-log(rng_uniform(&rng)),p[32],c[32],r[32],frac[32],part[4];int idx[32];
+    g1_mu(e,m,&t,p,c,r,idx,frac,part);return tau/part[0];
+}
+extern "C" void g2_box_history_probe(int nm,const double *table,const double *cfg,const double *x,const long long *ids,int n,int nh,double *sum,double *sum2,double *count) {
+    G2Tally t={table,cfg,nm,0,0,0,sum,sum2,count};
+    for(int h=0;h<nh;++h){double local[64]={};
+        for(int j=0;j<n;++j)if(ids[j]==h){const double *a=x+10*j;
+            g2_segment(&t,int(a[8]),a,a+3,a[6],a[7],local);}
+        g2_end_history(&t,local);}
+}
