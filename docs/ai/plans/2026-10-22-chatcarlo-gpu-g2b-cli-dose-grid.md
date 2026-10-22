@@ -1,6 +1,6 @@
 # 計画: GPU エンジン G2b — CLI の `run --engine gpu --dose-grid` を Colab の承認と照合に通す
 
-- 状態: draft（骨子、Codex 1 巡を反映。実装手順はまだ書かない）
+- 状態: draft（詳細。Codex 2 巡目のレビュー前）
 - 作成者: claude
 - 実装担当: codex（Colab の実行と `~/.cache` を使う検査は Claude）
 - 日付: 2026-10-22
@@ -79,10 +79,81 @@ G4 の CLI（`preview --engine gpu --gpu-device colab` → `approve RUN_DIR` →
 - 判定の基準は結果を見てから変えない。変える必要が出たら、不合格を記録し、追補を書いてユーザーの承認を取ってから、新しい種で回す（G2a の追補 2 と同じ扱い）。
 - G4 の既存のテスト・回帰（検出器の画像）が変わったら止まる。
 
-## 5. まだ書いていないこと（詳細の段で書く）
+## 5. 実装の形（詳細）
 
-関門 C・C2・D の種と履歴数、故障注入の方法、`job.grid` の `layout_version` の定義、承認の HTML の文言、テストの一覧。
+**`job.grid` の定義（`layout_version: "g2-grid-v1"`）**
+- `origin_cm`: `Geometry(scene.raw['geometry'], detector_plane=plane).tally_bbox_min`（3 個の float）。
+- `shape`: `VoxelGrid.from_bbox(...)` の形（3 個の int）。`voxel_size_cm`: `--resolution` の値（float）。
+- 平らに並べる順は C 順（`(ix*ny + iy)*nz + iz`）。G2a の `g2_tally.h` と `VoxelGrid` の配列と同じ。
+- `grid` は `--dose-grid` のときだけ `job` に入る。入らない `job` は今とバイト一致（G4 の条件と結果の識別が変わらない）。
+- 値の作り方は 1 つの関数（`condition.grid_spec(scene, plane, resolution)`）にまとめ、preview・run・手元の経路がすべてそれを呼ぶ。
 
-## 6. 枠組みについての Codex の意見（記録だけ）
+**値で結ぶ照合（H2）**: 次をすべて `job.grid` と値で比べ、違えば止める。
+- `prepare`: 承認の HTML の文字（解像度、原点、形、ボクセル数）を `job.grid` から作る。`preview_snapshot.json` にも `job.grid` を入れる。
+- `cli_run.run`（Colab）: `expected_run` で作り直した `job.grid` が承認済みの `job.grid` と一致（今の `require` の条件の一致に含まれる）。
+- ホストの期待の `cfg`: `g2_tables.config(arrays, grid_from(job.grid), [], -1)` で作る。
+- VM の実際の `cfg`: worker が `job.grid` から同じ関数で作る。観測で照合する。
+- 集計の `VoxelGrid`: `job.grid` から作り、`origin_cm`・`shape`・`voxel_size_cm` が `job.grid` と一致することを確かめる。
+- 保存: `--dose-out` の `.npz` の `origin_cm`・`voxel_size_cm`・`shape` を `job.grid` と比べる。
+
+**観測（H3・H4、`g2_core.py`）**
+- `invoke` の中で、型の変換と故障注入の後の最終の引数の並び（G1 の分＋`g2_table`・`cfg`・出力 6 個）を 1 度作り、それで観測と呼び出しをする。
+- 観測の鍵: CPU は `19:g2_table`・`20:cfg`、CUDA は `25:g2_table`・`26:cfg`。値は内容の SHA256（アドレスでキャッシュしない）。
+- 出力の対応: 出力 6 個の位置と名前（`kerma`・`h10`・`grid_additions`・`box_sum`・`box_sum2`・`box_additions`）の表を 1 か所に置き、呼び出しと回収の両方がそれを使う。
+- `core.expected_observation` は変えず、G2 の分を足す関数 `g2_core.expected_observation(a, cfg, ...)` を作る。`engine.py` と `approval.verify_batches` は、`job.grid` があるときこちらを使う。
+- ホストの検査（`health` の G2 版）: 必須のキー、dtype（float64）、長さ（`prod(shape)`）、有限・非負。
+
+**故障注入（関門 B・D）**: G4 と同じく、VM 側は `fault.json`、手元は `CHATCARLO_G4_FAULT` で選ぶ。足す値:
+- `g2_cfg`: 最終の引数の `cfg` の解像度を 2 倍にした配列に差し替える。
+- `g2_cfg_inplace`: 同じアドレスのまま `cfg` の形の 1 要素を書き換える。
+- `g2_table`: `g2_table` の 1 要素を 1 ulp ずらす。
+- `g2_swap`: カーマと H*(10) の出力ポインタを入れ替える。
+- 期待: `g2_cfg`・`g2_cfg_inplace`・`g2_table` は `observation mismatch: batch_000000 …:cfg`（または `g2_table`）で止まる。`g2_swap` は出力の対応の検査（H*(10) ÷ カーマが係数の比と合わない、を手元で人工データで確かめるのではなく、ポインタと名前の表の照合）で止まる。
+- 手元の承認の故障（関門 B）: 承認の後に `job.json` の `grid` を書き換える、`grid` を消す、形を総数の同じ別の形にする（例: (70,70,61)→(61,70,70)）、`g2_tables.npz` を書き換える → G4 と同じく `generation`・`condition` の照合で止まる。
+
+**集計（H6）**: `aggregate(batches, names, detector, roi, track_uncertainty, grid=None)`。`grid` があれば、各バッチで `grid.kerma_keV += r['kerma'].reshape(shape)`、`grid.h10_track_pSv_cm3 += …`、`grid.end_batch(n)`。`engine.run`（G2a）の格子の集計もこの関数に寄せる（同じ結果になることをテストで確かめる）。`result.grid` に入れ、`__main__.cmd_run` の後半（表示と `--dose-out`）は今のまま使う。
+
+**`launch` の制限時間（H7）**: `colab_driver.launch` の `cli()` の `subprocess.run` に `timeout=300` と 3 回までの再試行を足す（G2a の `colab_g2.py` と同じ）。確認の間隔（600 秒）と完了の印（`done.json`）は今のまま。
+
+**CLI**: `preview` に `--dose-grid`・`--resolution` を足す（`run` と同じ意味）。`run --engine gpu --dose-grid` を `resolve` が受け付ける。`--workers` は今どおり 1 だけ。
+
+## 6. 関門の詳細（事前登録）
+
+- **関門 A**（手元）: S2・2 cm・2×10⁵ 履歴・バッチ 5×10⁴（4 バッチ）・seed 2401・source_seed は既定の導出。CLI の `.npz` と、`run_transport(engine='gpu', dose_grid=True, grid_resolution_cm=2, …)` から既存の保存の規約で作った配列を、キー・dtype・形・バイト列で比べる。
+- **関門 B**（手元）: 5 節の故障すべてと、統計の独立の作り直し（端数のバッチ: 2.5×10⁵ をバッチ 10⁵、バッチ 1 個、寄与 0 のボクセル、`--no-uncertainty`）。
+- **関門 C**（Colab T4）: S2・2 cm・4×10⁶ 履歴・バッチ 2×10⁵（20 バッチ）・**seed 2410・source_seed 2411**。新しい実行一式（回収済みなし）。判定は 2 節 (i)〜(iii)。(iii) の参照は `data/gpu_g2/ref_lead_batches.npz`（sha256 `9e6d3ab523f2101205b374a4188cc17135eb9b5b811029da959dc8ca8a44c84e`）。判定の関数は G2a の `run_gates.judge` をそのまま使う。
+- **関門 C2**（Colab）: 関門 C の直後に同じ `run` をもう一度実行し、`new_batches=0`・`reused_batches=20` で、保存する `.npz` が関門 C とバイト一致し、再利用したバッチの観測も照合を通る。
+- **関門 D**（Colab）: S2・2 cm・10⁵ 履歴・バッチ 10⁵（1 バッチ）・seed 2420・source_seed 2421。`fault.json` に `g2_cfg`、`g2_table` を入れて 1 回ずつ。どちらも計算の後の照合で止まり、`.npz` を書かない。
+
+## 7. テスト（`tests/test_gpu_g2b.py`、手元、GPU なし）
+
+- T1 `grid_spec` が本番の `VoxelGrid.from_bbox` と同じ原点・形を返す（S2・水ファントム・2 cm と 5 cm）。
+- T2 `--dose-grid` の無い `job`・条件・HTML が今とバイト一致（G4 の既存のテストも通る）。
+- T3 関門 A。
+- T4 関門 B の故障 7 種（5 節）がそれぞれ止まり、止まる場所の文言が期待どおり。
+- T5 統計の独立の作り直し（端数、1 バッチ、寄与 0、統計無効）。
+- T6 観測の位置（CPU 19・20、CUDA 25・26）と出力の名前の表。CUDA の引数の並びは、CuPy なしで組み立てる関数をテストする。
+- T7 `aggregate` の格子の集計と G2a の `engine.run` の結果が一致。
+- T8 `launch` の `cli()` が制限時間で例外を出し、再試行する（`subprocess.run` を差し替えて）。
+- T9 `preview --dose-grid --resolution 2` の承認の HTML に格子の文字が出る。
+- 既存のテストすべて。
+
+## 8. テストコマンド
+
+```bash
+.venv/bin/python -m pytest tests/test_gpu_g2b.py -q
+.venv/bin/python -m pytest tests/ -q
+.venv/bin/python -m chatcarlo run docs/validation/gpu/g2/scene_lead_slab.yaml --engine gpu --gpu-device cpu --seed 2401 -n 2e5 --batch-size 50000 --dose-grid --resolution 2 --dose-out /tmp/g2b_a.npz
+```
+
+関門 C・C2・D（Colab）は Claude が実行する。Codex は手元の受入（関門 A・B、テスト）までで止まる。
+
+## 9. 受入条件（Codex の実装）
+
+- 7 節のテストと既存のテストがすべて通る。
+- 3 節の変更禁止のファイルに差分が無い（`git diff --stat`）。
+- `docs/validation/gpu/g2b/RESULTS.md` に関門 A・B の結果を書く（Colab の関門は書かない）。
+
+## 10. 枠組みについての Codex の意見（記録だけ）
 
 「この標本の精度で不一致を検出しなかった」は、今回の研究用の配線の検証には適している。線量の精度を保証する段に進むときは、検出したい最小の差と同等性の幅を別に決める価値がある。
