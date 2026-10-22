@@ -52,7 +52,12 @@ base=pathlib.Path({cd.REMOTE!r})
 import time
 for p in sorted((base/'results').glob('*')):
  if p.is_file():st=p.stat();print('G2_FILE %d %d %s'%(st.st_size,int(time.time()-st.st_mtime),p.name))
-try:os.kill(int((base/'worker.pid').read_text()),0);print('G2_RUNNING')
+# The worker is a child of the Jupyter kernel, which never reaps it: a finished
+# worker stays as a zombie (state Z), so os.kill(pid, 0) alone reports it alive.
+try:
+ pid=int((base/'worker.pid').read_text())
+ state=pathlib.Path('/proc/%d/stat'%pid).read_text().split()[2]
+ print('G2_STOPPED' if state=='Z' else 'G2_RUNNING')
 except (OSError,ValueError):print('G2_STOPPED')
 '''
 
