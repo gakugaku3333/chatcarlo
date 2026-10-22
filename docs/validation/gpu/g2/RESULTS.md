@@ -62,3 +62,13 @@ source reference, launch and comparison functions are unchanged; only the new
 `g2-gate` action and its dispatch were added. `git diff --check` passed.
 
 `data/` remains untracked and was not staged. Gates 2 and 3 were not run.
+
+## 関門 2（Colab T4、鉛のシーン S2、10 バッチ × 10⁵ 履歴、同じ線源と種）— 不合格（2026-10-22）
+
+- 判定（`paired_judge`、計画どおり）: **カーマ 298,900 ボクセル中 61 個、H*(10) 64 個が不合格**（丸めの判定値にも、対応バッチの差の 3 SEM にも入らない）。60 keV の箱の和・2 乗和は合格。要約: [gate2_lead.json](gate2_lead.json)。
+- 整数: 経路の分かれた履歴 0、ボクセルの加算回数の不一致 0、寄与の有無の不一致 0（10 バッチすべて）。
+- 落ちた 61 個の差は相対 1.0e-15〜1.2e-14（中央値 3.6e-15）。7〜10 バッチで同じ向きの差が出ている。
+- 推定（未検証）: 判定値の C=16 がボクセルに 1 回だけ足され、寄与の回数に比例する数学関数（`log`・`exp`）の CPU/GPU の差を覆っていない（計画の詳細の初版では C は「1 つの寄与あたり」と書いていた。2 巡目の書き直しでこの区別が落ちた。Codex 2 巡目の参考 11 の指摘）。物理や経路の食い違いではないと見ている。
+- 計画の停止条件どおり、PDD の幾何（関門 2 の残り）と関門 3 には進まず、ユーザーの判断を待つ。判定の基準は変えていない。
+- 時間（VM）: CPU の双子 6.36 s、GPU 1.18 s（10⁶ 履歴、線量を数える）。
+- 経緯: 1 回目は Colab CLI が組み立ての前に止まり、2 回目は `g2-gate` が `chatcarlo` を import できずに VM の上で落ちた（Claude が `colab_driver.g2_gate` に `PYTHONPATH` を渡す 1 行を足した）。起動スクリプト `colab_g2.py` は Claude が書き、`colab` の呼び出しの制限時間、10 分ごとの確認、毎回の回収、生存記録を足した（教訓: docs/lessons_learned.md 2026-10-22）。

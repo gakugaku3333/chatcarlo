@@ -5,6 +5,7 @@ No imports of diagnostic packages; all paths and commands are explicit.
 import argparse
 import hashlib
 import json
+import os
 from pathlib import Path
 import subprocess
 import sys
@@ -259,8 +260,10 @@ def g2_gate(bundle_path, job_path, out):
     if name == 'run_gates.py' and job.get('gate') != 2:
         raise ValueError('bundled G2 gate must be 2')
     args = ['--gate', '2'] if name == 'run_gates.py' else []
+    # The runner is a separate process: put the bundle's package root on its path.
+    env = dict(os.environ, PYTHONPATH=str(Path(bundle_path).resolve().parents[1]))
     subprocess.run([sys.executable, str(Path(bundle_path)/name),
-                    '--bundle', str(bundle_path), '--out', str(out), *args], check=True)
+                    '--bundle', str(bundle_path), '--out', str(out), *args], check=True, env=env)
 
 
 def main(argv=None):

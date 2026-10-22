@@ -64,6 +64,8 @@ host `<cmath>` macros (`INFINITY`): CPU-only gates cannot catch GPU compile erro
 
 **3D dose overlay (2026-10-22)**: `preview --dose X.npz [--quantity h10|dose]` (`chatcarlo/dose3d.py`) embeds a thinned subset of an existing `.npz` into the preview HTML; colours use the turbo map (low blue, high red; changed from inferno on user request 2026-10-22; initial range = 1st–99th percentile of reliable voxels, above H drawn in the top colour), voxels failing the R/batch rule are grey, near-source air is hidden, and it refuses `--engine gpu --gpu-device colab`. Verification: docs/validation/dose3d/RESULTS.md.
 
+**Colab CLI runs (all GPU stages, not only MV)**: the operating rules in [mv.md](mv.md) "Which code to use" apply here too — poll the VM with `colab exec` **every 10 minutes** (user decision 2026-10-21), collect finished results at every poll, always `colab stop`. A new launcher must reuse `chatcarlo.gpu.colab_driver` (bundle split, `_bootstrap`, `verify`) and bound every `colab` call with a timeout; run an independent watchdog on the launcher's heartbeat/log so a stuck launcher is noticed (G2, 2026-10-22: a hung `colab exec` froze polling unnoticed for 2 h 20 min while the VM had already failed).
+
 ## Physics
 
 Photoelectric / Compton / Rayleigh. **Bound Compton**: free-electron Klein-Nishina via Kahn rejection, then an extra

@@ -1,0 +1,80 @@
+{
+  "status": "fail",
+  "timing": {
+    "cpu_s": 6.357422158999896,
+    "gpu_s": 1.1786304870000208
+  },
+  "quantities": {
+    "kerma": {
+      "status": "fail",
+      "elements": 298900,
+      "rounding_pass": 202336,
+      "sem_pass_only": 96503,
+      "failed": 61
+    },
+    "h10": {
+      "status": "fail",
+      "elements": 298900,
+      "rounding_pass": 204261,
+      "sem_pass_only": 94575,
+      "failed": 64
+    },
+    "box_sum": {
+      "status": "pass"
+    },
+    "box_sum2": {
+      "status": "pass"
+    }
+  },
+  "integer_differences_counts": {
+    "grid_additions": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "box_additions": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "voxel_hit": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "diverged_histories": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ]
+  },
+  "note": "Full record (per-voxel arrays): data/gpu_g2/colab/out_lead/gate2.json (not committed)."
+}
