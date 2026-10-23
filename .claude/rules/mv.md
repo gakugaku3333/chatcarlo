@@ -11,8 +11,8 @@ paths:
 
 Coupled photon/electron/positron transport for nominal 10 MV, **outside `chatcarlo/`** (prototype only;
 nothing in the production package or its 150 keV limits changes) except the dispatch in `chatcarlo/__main__.py`: a scene
-with `domain: therapy_mv` goes to `prototypes/mv_electron/entry/` (validate/preview/approve/run; one allow-listed condition,
-P7 kernel with the `'p6'` layout, Colab CLI; user approval of the 3D preview is required before `run`). Results: `docs/validation/mv/entry/RESULTS.md`. Stage-by-stage status and links:
+with `domain: therapy_mv` goes to `prototypes/mv_electron/entry/` (validate/preview/approve/run; two allow-listed spectra (Mohan 10 MV, 4 MV; always 10×10 cm², SSD 100 cm, water 30 cm; the 4 MV entry output has no EGS5 comparison),
+P7 kernel with the `'p6'` layout, Colab CLI with bounded calls (`colab_cli.TIMEOUTS`, poll retried 3 times); user approval of the 3D preview is required before `run`). Results: `docs/validation/mv/entry/RESULTS.md`. Stage-by-stage status and links:
 [docs/validation/mv/STATUS.md](../../docs/validation/mv/STATUS.md) (add one row per finished stage there, write the
 stage's RESULTS; do not add stage history to CLAUDE.md). Standing decisions and known approximations:
 [KNOWN_APPROXIMATIONS.md](../../docs/validation/mv/KNOWN_APPROXIMATIONS.md). Roadmap (draft):

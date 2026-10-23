@@ -86,3 +86,24 @@
 - `pytest tests/ -q`: 420 passed。
 - `pytest prototypes/mv_electron/tests -q`: 1,442 passed、2 skipped。入口関連（`-k entry`）71 passed。
 - 間隔の変更後、`test_entry_colab.py` 5 passed。
+
+## 追補（2026-10-24）: 4 MV を入口で通した（JSMP133 の依頼 1）
+
+入口に Mohan 4 MV（10×10 cm²、SSD 100 cm、水 30 cm）を追加した。許可リストは `mohan10` と `mohan4` の 2 つ。条件・資材の識別子は
+`mohan10` では変わらない（記録済みの 10 MV の実行の `approval.json` の 2 つのハッシュを `test_entry_10mv_identities_unchanged_from_recorded_run` が再現）。
+4 MV では EGS5 との比較を入口に含めない（使用者の指定）。結果は `compare.profiles` の PDD・OCR の表（Gy/光子、統計誤差つき）。
+
+- 実行: `runs/mv_water_4mv_20261024/`（`requirements.md`、`scene.yaml`、`entry/run_record.json`。gitignore）。
+  入射光子 2.6×10⁷ 個、100 × 26 万個、種 20261024。条件 SHA256 `ec0643532a62…`、資材 `509dfecb06c7…`。使用者が 3D 表示で承認。
+- 承認条件と実計算条件は一致。VM の関門 2a・2c・2d 合格、故障（field_half）の検出あり。VM の本番 613 s、全体 1,581 s（10 分おきの確認と回収を含む）。止まらずに通った。
+- 比較（入口の外、結果は入口の表から）: 保存済みの P7 条件 C の EGS5（2.6×10⁷ 個）と、抄録と同じ定義（各点の（本システム − EGS5）÷ EGS5、PDD は EGS5 の最大線量深さ 1.125 cm、OCR は各深さの中心で規格化、中心の 20% 以上の 70 点）で比べた。
+  PDD 120 点: 差 平均 1.58%・最大 6.44%、統計誤差 平均 2.01%（2σ 超 5 点）。OCR 70 点: 平均 1.97%・最大 5.56%、統計誤差 平均 1.90%（2σ 超 13 点）。
+  深さ 10 cm の OCR は全点が +3.4% 側にそろい、P7 の GPU（別の種）でも +3.2%。共通の EGS5 の中心 1 点のゆらぎとみられる（仮説、未検証）。
+  入口の GPU と P7 の GPU の PDD の比は平均 +0.39%、最大 |z| 2.84。
+- 診断領域の 60 keV（`chatcarlo run --engine gpu --gpu-device colab --dose-grid`、入口ではない）も同じ定義で EGS5 の再検証結果と比較した: PDD 15 点 平均 0.21%・最大 1.03%、OCR 13 点 平均 0.35%・最大 1.19%。
+
+### この作業で見つけた不具合と対処
+- 入口の `colab` 呼び出しに制限時間がなかった（2026-10-23 に `exec` が約 50 分止まった）。`TIMEOUTS`（new 900・exec 300・upload/download 900・stop 180 s）と、確認 3 回までの再試行を入れた。
+- 乱数の変換 `Generator.uniform` の最後の桁の丸めが、Mac の NumPy 2.4 と Colab の NumPy で違い、平行ビーム・矩形・円錐の線源でソース位置の照合（診断領域の GPU の Colab 経路）が止まった。
+  `chatcarlo/source.py` と `chatcarlo/gpu/source_host.py` を `下限 + (上限 − 下限) × 乱数` の明示の式に揃えた。本体の全エンジンの乱数が最後の桁で変わる（統計的には同じ）。全テスト合格。
+- 承認用 3D 表示にテンプレートの目印が残って描画が壊れていた（`entry/preview.py`）。修正と回帰テストを追加済み。
