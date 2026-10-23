@@ -1,8 +1,8 @@
 ---
 phase: 開発中
-next: 抄録の語数を 500 words 以内にする（日本語 1,598 字は目安で約 615〜725 words、約 300〜500 字の削減が要る）。公開ページへの反映は他の AI の作業待ち（docs/jsmp133/page_update_request.md）
+next: 抄録の語数を 500 words 以内にする（日本語 1,608 字は目安で約 615〜725 words、約 300〜500 字の削減が要る）。公開ページへの反映は他の AI の作業待ち（docs/jsmp133/page_update_request.md）
 blocker: ELSEPAで作った表の配布の方法（表を置くか、生成スクリプトだけか）とリポジトリのLICENSEはユーザーの判断待ち。急がない
-updated: 2026-10-23
+updated: 2026-10-24
 ---
 
 治療領域拡張の段階の状況は [docs/validation/mv/STATUS.md](docs/validation/mv/STATUS.md)、常設ルールは
