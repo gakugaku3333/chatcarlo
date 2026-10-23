@@ -27,8 +27,8 @@ code=sys.stdin.read()
 if "state='running'" in code:
     count_file=root/'polls';count=int(count_file.read_text()) if count_file.exists() else 0;count_file.write_text(str(count+1))
     if mode=='lost' and count>0:sys.exit(1)
-    files=['batch_000.npz','observation_000.json','batch_000.json']
-    for name in files:(root/'results'/name).write_text('synthetic completed batch')
+    files=['session_fake.json','batch_000.npz','observation_000.json','batch_000.json']
+    for name in files:(root/'results'/name).write_text(json.dumps(dict(session_id='fake')) if name.endswith('.json') else 'synthetic completed batch')
     print('MV_ENTRY_JSON '+json.dumps(dict(state='running' if mode=='lost' else 'complete',files=files)));sys.exit(0)
 if 'importlib.metadata' in code:
     class Distribution:
@@ -102,3 +102,27 @@ def test_entry_colab_part_corruption(fake):
     result = client.execute(cli.bootstrap(assembly, 'fake-session'))
     assert result['status'] == 'failed' and 'part SHA256' in result['reason']
     assert not (remote/'driver.pid').exists()
+
+
+def test_entry_colab_poll_lists_session_records_first(tmp_path, monkeypatch):
+    root = tmp_path/'remote'; (root/'results').mkdir(parents=True); (root/'driver.pid').write_text(str(os.getpid()))
+    for name in ('batch_000.npz', 'observation_000.json', 'batch_000.json', 'session_a.json', 'fault_observation.json'):
+        (root/'results'/name).write_text('{}')
+    monkeypatch.setattr(cli, 'REMOTE', str(root))
+    import contextlib, io
+    out = io.StringIO()
+    with contextlib.redirect_stdout(out):
+        exec(cli.poll_code(), {})
+    files = json.loads(out.getvalue().split('MV_ENTRY_JSON ')[1])['files']
+    assert files[:2] == ['session_a.json', 'fault_observation.json']
+    assert files[2:] == ['batch_000.npz', 'observation_000.json', 'batch_000.json']
+
+
+def test_entry_colab_resume_refuses_batches_without_session_record(fake):
+    client, directory, remote, results = fake
+    cli.run(directory, results, client=client, sleep=lambda _: None)
+    (results/'session_fake.json').unlink()
+    before = len(calls(remote))
+    with pytest.raises(core.Stop, match=r'session_fake.json: \[0\]'):
+        cli.run(directory, results, client=client, sleep=lambda _: None)
+    assert len(calls(remote)) == before  # stopped before creating a VM or uploading anything

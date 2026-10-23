@@ -132,12 +132,13 @@ def poll_code():
 import json,os,pathlib
 root=pathlib.Path({REMOTE!r});results=root/'results'
 files=[]
+# Session (gate) records first: they exist before any batch, and a VM lost mid-download must not take them with it.
+for pattern in ('session_*.json','fault_observation.json'):
+    files.extend(p.name for p in results.glob(pattern))
 # Publish a batch only when its metadata (written last) exists.
 for p in sorted(results.glob('batch_*.json')):
     stem=p.stem;index=stem.split('_')[1]
     files.extend([stem+'.npz','observation_'+index+'.json',p.name])
-for pattern in ('session_*.json','fault_observation.json'):
-    files.extend(p.name for p in results.glob(pattern))
 state='running'
 pid=int((root/'driver.pid').read_text())
 try:os.kill(pid,0)
@@ -151,12 +152,25 @@ print('MV_ENTRY_JSON '+json.dumps(dict(state=state,files=files)))
 '''
 
 
+def require_sessions(results, completed):
+    """Reused batches need their VM's gate record locally, or the final check fails only after the whole run."""
+    missing = {}
+    for b in sorted(completed):
+        name = 'session_'+bundle.read_json(bundle.batch_paths(results, b)[1])['session_id']+'.json'
+        if not bundle.safe_path(results, name).exists():
+            missing.setdefault(name, []).append(b)
+    if missing:
+        raise core.Stop('session record missing for reused batches: '+'; '.join(f'{k}: {v}' for k, v in missing.items())
+                        + ' (move these batches aside and rerun; they will be recalculated with gate records)')
+
+
 def run(directory, results, client=None, sleep=time.sleep):
     client = client or Client()
     directory, results = Path(directory), Path(results)
     data, manifest = bundle.load(directory)
     cond, mat = bundle.read_json(directory/'condition.json'), bundle.read_json(directory/'materials.json')
     completed = bundle.existing(results, cond, mat)
+    require_sessions(results, completed)
     session = str(uuid.uuid4())
     timings = {}; before = time.perf_counter(); created = False
     try:
