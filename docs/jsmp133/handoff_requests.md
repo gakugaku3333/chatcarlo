@@ -105,9 +105,9 @@
 
 ---
 
-## 依頼 E（保留）: 3 件目
+## 依頼 E: 3 件目（2026-10-22 更新）
 
-内容は未定（研究の進捗を見て決める）。候補は [abstract_plan.md](abstract_plan.md) の「依頼 3 の候補」。決まった時点で、この文書に追記する。
+内容は「IVR 室の空間線量分布をカラーマップで 3D 表示する」に決まり、表示の機能（`preview --dose`）は実装・検証済み（`docs/validation/dose3d/RESULTS.md`）。対話の入口から通した実績もある（2026-10-22、範囲と注意は [abstract_ja_draft.md](abstract_ja_draft.md) の「この版の確認事項」）。状態の正典は [abstract_plan.md](abstract_plan.md) の「依頼 3 件」の表。
 
 ---
 
