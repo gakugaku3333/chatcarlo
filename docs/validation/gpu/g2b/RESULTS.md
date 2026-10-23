@@ -136,3 +136,19 @@ S2・2 cm・10⁵ 履歴・1 バッチ・seed 2420・source_seed 2421。`fault.j
 | `g2_table`（`g2_table` の 1 要素を 1 ulp） | `observation mismatch: batch_000000.npz 25:g2_table` で停止、`.npz` なし |
 
 記録: [gate_d_g2_cfg.json](gate_d_g2_cfg.json)、[gate_d_g2_table.json](gate_d_g2_table.json)。終了後 `colab ls` でセッションが残っていないことを確認。
+
+### 関門 C2′（計画 11 節 追補 1）: 不合格（条件 4 の R・SEM）。他の条件はすべて合格
+
+新しい種（seed 2430・source_seed 2431）。P は回収済みなしから `new_batches=20`。Q は P の最初の 8 バッチを置いて `reused_batches=8`・`new_batches=12`。記録: [gate_c2r.json](gate_c2r.json)、[gate_c2r_P.json](gate_c2r_P.json)、[gate_c2r_Q.json](gate_c2r_Q.json)。
+
+| 条件 | 結果 |
+|---|---|
+| 1. 再利用 8・新規 12、観測の照合 | 合格 |
+| 2. 再利用 8 バッチが P とファイルごとバイト一致 | 合格 |
+| 3. 新規 12 バッチ: 整数の記録・キー・dtype・形がバイト一致、`deposits`・`kerma`・`h10` が相対 1e-12 | 合格（最大 5.2e-15・1.7e-15・1.8e-15） |
+| 4. 保存した `.npz`: 整数・原点・解像度はバイト一致、浮動小数点は相対 1e-12 | **不合格**: 線量・H*(10)・カーマは最大 7.2e-16 で合格、`rel_err_dose`・`sem_dose…` が 3.8e-12、`rel_err_h10`・`sem_h10…` が 6.4e-12 |
+| 5. P・Q それぞれの (ii)・(iii) | 合格 |
+| 追加: 完了した Q を再実行 | `reused_batches=20`・`new_batches=0`、保存した `.npz` がバイト一致 |
+
+- 原因の説明: R・SEM は二乗の和から平均の二乗を引く分散の計算で桁落ちするので、和の最後の桁の揺れ（約 1e-15）が数千倍に拡大する。Claude の追補の誤り: 1 回目の C2 の比較で R が既に相対 5.2e-12 違っていた（この節の上の記録の元データ）のに、それを見ずに R にも 1e-12 を当てた。
+- 判定基準は結果を見て変えていない。R・SEM の扱いはユーザーの判断を待つ。

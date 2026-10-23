@@ -1,0 +1,162 @@
+{
+ "run": "data/gpu_g2b/c2r_q",
+ "n_batches": 20,
+ "ii": {
+  "kerma_bytes": true,
+  "h10_bytes": true,
+  "n_batches_hit": true,
+  "n_batches": true,
+  "origin": true,
+  "shape": true,
+  "voxel": true,
+  "rel_err_dose": true,
+  "rel_err_h10": true
+ },
+ "iii": {
+  "kerma": {
+   "n_eligible": 69147,
+   "missing_indices": [],
+   "max_abs_z": 5.463221309084003,
+   "t_limit": 8.079642666104988,
+   "fraction_abs_z_gt3": 0.0061174020564883505,
+   "relative_difference_quantiles": [
+    -0.1875614799266234,
+    -0.002341524838039008,
+    0.22831984035656636
+   ],
+   "mean_z2": 1.1301207868136716,
+   "regions": {
+    "water": {
+     "n_eligible": 2265,
+     "minimum": 1000,
+     "z": -0.5510237833079987,
+     "reference_only": 4,
+     "twin_only": 9
+    },
+    "air": {
+     "n_eligible": 65923,
+     "minimum": 1000,
+     "z": -1.3897031671343494,
+     "reference_only": 13649,
+     "twin_only": 13811
+    },
+    "bone": {
+     "n_eligible": 12,
+     "minimum": 8,
+     "z": 0.1365910520683028,
+     "reference_only": 0,
+     "twin_only": 0
+    },
+    "lead_layer": {
+     "n_eligible": 947,
+     "minimum": 500,
+     "z": -0.6144060951732949,
+     "reference_only": 493,
+     "twin_only": 498
+    },
+    "all": {
+     "n_eligible": 69147,
+     "minimum": 0,
+     "z": -0.6923294163592942,
+     "reference_only": 14146,
+     "twin_only": 14318
+    }
+   },
+   "checks": {
+    "nonempty": true,
+    "missing": true,
+    "outliers": true,
+    "spread": true,
+    "water_total": true,
+    "water_minimum": true,
+    "water_dropouts": "True",
+    "air_total": true,
+    "air_minimum": true,
+    "air_dropouts": "True",
+    "bone_total": true,
+    "bone_minimum": true,
+    "bone_dropouts": "True",
+    "lead_layer_total": true,
+    "lead_layer_minimum": true,
+    "lead_layer_dropouts": "True",
+    "all_total": true,
+    "all_minimum": true,
+    "all_dropouts": "True"
+   },
+   "status": "pass"
+  },
+  "h10": {
+   "n_eligible": 80997,
+   "missing_indices": [],
+   "max_abs_z": 5.154390110896396,
+   "t_limit": 8.165586167206044,
+   "fraction_abs_z_gt3": 0.005864414731409805,
+   "relative_difference_quantiles": [
+    -0.1833044120136726,
+    -0.0020562594331056078,
+    0.22188879407279805
+   ],
+   "mean_z2": 1.1157703609877663,
+   "regions": {
+    "water": {
+     "n_eligible": 2291,
+     "minimum": 1000,
+     "z": -0.4684484165139084,
+     "reference_only": 0,
+     "twin_only": 1
+    },
+    "air": {
+     "n_eligible": 77331,
+     "minimum": 1000,
+     "z": -2.1140778401612677,
+     "reference_only": 13924,
+     "twin_only": 14064
+    },
+    "bone": {
+     "n_eligible": 12,
+     "minimum": 8,
+     "z": 0.5121320187513639,
+     "reference_only": 0,
+     "twin_only": 0
+    },
+    "lead_layer": {
+     "n_eligible": 1363,
+     "minimum": 500,
+     "z": -0.5373635903537106,
+     "reference_only": 578,
+     "twin_only": 573
+    },
+    "all": {
+     "n_eligible": 80997,
+     "minimum": 0,
+     "z": -2.2087338408182506,
+     "reference_only": 14502,
+     "twin_only": 14638
+    }
+   },
+   "checks": {
+    "nonempty": true,
+    "missing": true,
+    "outliers": true,
+    "spread": true,
+    "water_total": true,
+    "water_minimum": true,
+    "water_dropouts": "True",
+    "air_total": true,
+    "air_minimum": true,
+    "air_dropouts": "True",
+    "bone_total": true,
+    "bone_minimum": true,
+    "bone_dropouts": "True",
+    "lead_layer_total": true,
+    "lead_layer_minimum": true,
+    "lead_layer_dropouts": "True",
+    "all_total": true,
+    "all_minimum": true,
+    "all_dropouts": "True"
+   },
+   "status": "pass"
+  }
+ },
+ "status": "pass"
+}

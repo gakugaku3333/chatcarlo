@@ -1,0 +1,32 @@
+{
+ "checks": {
+  "job_identical": true,
+  "reused_8_new_12": true,
+  "reused_bytes": true,
+  "new_exact": true,
+  "new_close": true,
+  "npz_keys": true,
+  "npz_exact": true,
+  "npz_close": false,
+  "judge_P": true,
+  "judge_Q": true
+ },
+ "detail": {
+  "new_max_rel": {
+   "deposits": 5.2107176557713025e-15,
+   "kerma": 1.6965610373069727e-15,
+   "h10": 1.7601755090916813e-15
+  },
+  "npz_max_rel": {
+   "dose_per_history_Gy": 7.193530761328809e-16,
+   "h10_per_history_pSv": 6.237073519109369e-16,
+   "kerma_keV": 6.349410888794387e-16,
+   "h10_track_pSv_cm3": 5.778628824649918e-16,
+   "rel_err_dose": 3.773725999725924e-12,
+   "rel_err_h10": 6.360104428806417e-12,
+   "sem_dose_per_history_Gy": 3.773932066798886e-12,
+   "sem_h10_per_history_pSv": 6.360304830809621e-12
+  }
+ },
+ "status": "fail"
+}
