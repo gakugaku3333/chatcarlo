@@ -1,0 +1,6 @@
+top10 z: [('OCR d5 x1.625cm', -4.01), ('OCR d20 x3.125cm', 3.89), ('PDD 25.375cm', 3.27), ('OCR d20 x2.875cm', 2.79), ('PDD 25.875cm', 2.79), ('OCR d5 x1.875cm', -2.68), ('OCR d5 x4.625cm', -2.63), ('OCR d10 x6.625cm', 2.63), ('PDD 25.625cm', 2.62), ('OCR d10 x7.375cm', -2.38)]
+PDD chi2/dof 1.08 mean z 0.11 |z|>3: 1
+OCR5 chi2/dof 1.71 mean z -0.55 |z|>3: 1
+OCR10 chi2/dof 1.09 mean z -0.10 |z|>3: 0
+OCR20 chi2/dof 1.49 mean z 0.45 |z|>3: 1
+PDD mean ratio (54M/46M -1) 0.178%

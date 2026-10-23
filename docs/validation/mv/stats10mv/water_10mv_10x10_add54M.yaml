@@ -1,0 +1,5 @@
+domain: therapy_mv
+source: {spectrum: mohan10, field_cm: [10, 10], ssd_cm: 100}
+phantom: {material: water, thickness_cm: 30}
+scoring: pdd_ocr
+run: {histories: 54000000, seed: 20292201, engine: colab_t4}
