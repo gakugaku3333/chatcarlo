@@ -1,0 +1,33 @@
+{
+ "checks": {
+  "job_identical": true,
+  "reused_8_new_12": true,
+  "reused_bytes": true,
+  "new_exact": true,
+  "new_close": true,
+  "npz_keys": true,
+  "npz_exact": true,
+  "npz_close": true,
+  "judge_P": true,
+  "judge_Q": true
+ },
+ "detail": {
+  "new_max_rel": {
+   "deposits": 3.3194430603998456e-15,
+   "kerma": 1.643732432721862e-15,
+   "h10": 1.7314473987119596e-15
+  },
+  "npz_max_rel": {
+   "dose_per_history_Gy": 8.366664930459305e-16,
+   "h10_per_history_pSv": 5.92220578941171e-16,
+   "kerma_keV": 5.909056481572983e-16,
+   "h10_track_pSv_cm3": 5.530038236840428e-16,
+   "rel_err_dose": 3.1717095576281136e-12,
+   "rel_err_h10": 5.3733607151140515e-12,
+   "sem_dose_per_history_Gy": 3.171334002490997e-12,
+   "sem_h10_per_history_pSv": 5.37330307420922e-12
+  }
+ },
+ "rsem_rtol": 1e-09,
+ "status": "pass"
+}
