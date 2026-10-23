@@ -85,7 +85,7 @@ def test_entry_colab_stops(fake, monkeypatch, mode, reason):
     assert calls(remote)[-1] == ['stop', '-s', 'mventry']
     if mode == 'lost':
         assert (results/'batch_000.npz').exists()
-        assert sleeps == [600]
+        assert sleeps == [600, 30, 30]  # 失敗した確認は 3 回まで、30 秒おいて再試行する
     if mode == 'upload_fail':
         assert sum(c[0] == 'upload' for c in calls(remote)) == 2
     if mode == 'cupy12':

@@ -9,7 +9,7 @@ class SceneError(ValueError):
 
 def validate(raw):
     def fail(path, detail):
-        raise SceneError(f'{path}: {detail}。この入口で計算できる条件: mohan10、水30 cm、10×10 cm²、SSD 100 cm、pdd_ocr')
+        raise SceneError(f'{path}: {detail}。この入口で計算できる条件: mohan10 または mohan4、水30 cm、10×10 cm²、SSD 100 cm、pdd_ocr')
 
     def keys(value, expected, path):
         if not isinstance(value, dict):
@@ -25,7 +25,7 @@ def validate(raw):
     keys(raw['source'], ('spectrum', 'field_cm', 'ssd_cm'), 'source')
     keys(raw['phantom'], ('material', 'thickness_cm'), 'phantom')
     keys(raw['run'], ('histories', 'seed', 'engine'), 'run')
-    expected = {'domain': 'therapy_mv', 'scoring': 'pdd_ocr', 'source.spectrum': 'mohan10',
+    expected = {'domain': 'therapy_mv', 'scoring': 'pdd_ocr', 'source.spectrum': ('mohan10', 'mohan4'),
                 'source.field_cm': [10, 10], 'source.ssd_cm': 100,
                 'phantom.material': 'water', 'phantom.thickness_cm': 30}
     for path, wanted in expected.items():
@@ -34,8 +34,9 @@ def validate(raw):
             value = value[key]
         numeric = isinstance(wanted, (int, list))
         vals = value if isinstance(value, list) else [value]
-        if value != wanted or (numeric and any(type(v) not in (int, float) for v in vals)):
-            fail(path, f'{wanted} のみ')
+        choices = wanted if isinstance(wanted, tuple) else None
+        if (value not in choices if choices else value != wanted) or (numeric and any(type(v) not in (int, float) for v in vals)):
+            fail(path, ' | '.join(choices)+' のみ' if choices else f'{wanted} のみ')
     run = raw['run']
     if run['engine'] not in ('colab_t4', 'cpu_local'):
         fail('run.engine', 'colab_t4 | cpu_local のみ')

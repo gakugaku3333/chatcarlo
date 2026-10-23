@@ -90,3 +90,20 @@ def analyse(directory, results, comparison_root=None):
     result = statistics(stacked(rows, cond), egs, manifest['Dref'])
     bundle.verify_files(root, manifest['comparison_inputs'])
     return result
+
+
+def profiles(directory, results):
+    """4 MV: PDD and OCR from the GPU run alone (no EGS5 comparison, user choice). Same verification as analyse()."""
+    from .. import analysis_p3b3 as stats
+    data, manifest = bundle.load(directory)
+    cond, mat = bundle.read_json(Path(directory)/'condition.json'), bundle.read_json(Path(directory)/'materials.json')
+    rows = bundle.collect(results, cond, mat)
+    verify_sessions(results, cond, mat)
+    gpu = stats.dose(stacked(rows, cond))
+    pdd, pdd_sem = stats.mean_sem(gpu['axis_coarse'])
+    ocr, ocr_sem = stats.mean_sem(stats.fold(gpu['profile']))
+    return dict(status='EGS5 との比較なし（使用者の指定）', unit='Gy/incident photon', histories=cond['histories'],
+                pdd=dict(depth_cm=((np.arange(len(pdd))+.5)*.25).tolist(), dose=pdd.tolist(), SEM=pdd_sem.tolist()),
+                ocr=dict(depth_cm=list(stats.DEPTHS), radius_cm=((np.arange(ocr.shape[1])+.5)*.25).tolist(),
+                         dose=ocr.tolist(), SEM=ocr_sem.tolist()),
+                scope='PDD は軸上 2×2 cm の 0.25 cm ごとの区間、OCR は深さ 5・10・20 cm の左右・前後を平均した 0.25 cm ごとの区間。')

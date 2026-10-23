@@ -26,8 +26,9 @@ def digest(value):
 
 
 def condition(scene, data):
-    spec = h.SPECTRA['mohan10']
-    return dict(field_half_cm=5., ssd_cm=100., spectrum='mohan10', spectrum_file_sha256=spec['sha256'],
+    name = scene['source']['spectrum']
+    spec = h.SPECTRA[name]
+    return dict(field_half_cm=5., ssd_cm=100., spectrum=name, spectrum_file_sha256=spec['sha256'],
                 edges_sha256=core.array_sha(data['edges']), cum_sha256=core.array_sha(data['cum']),
                 geometry_sha256=core.sha(bytes(h.geometry('p6')[0])), thickness_cm=30, scoring='pdd_ocr',
                 histories=scene['run']['histories'], seed=scene['run']['seed'], batches=100,
@@ -45,10 +46,10 @@ def materials(data):
                 source_sha256=core.sha(h.source().encode()), options=list(OPTIONS))
 
 
-def load_data():
+def load_data(name='mohan10'):
     from ..gpu.p5a import load_inputs
     data = load_inputs(full=True)
-    edges, _, cum = h.spectrum('mohan10')
+    edges, _, cum = h.spectrum(name)
     data.update(edges=np.ascontiguousarray(edges), cum=np.ascontiguousarray(cum))
     core.check_inputs(data)
     return data
@@ -56,7 +57,8 @@ def load_data():
 
 def identities(scene, data=None):
     if data is None:
-        data = load_data()
+        name = scene['source']['spectrum']
+        data = load_data() if name == 'mohan10' else load_data(name)
     return condition(scene, data), materials(data), data
 
 

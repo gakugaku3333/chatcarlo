@@ -10,6 +10,10 @@ from . import bundle
 SESSION = 'mventry'
 REMOTE = '/content/mventry'
 POLL_SECONDS = 10*60  # user decision 2026-10-21 (was 20 min; the entry VM was lost after 96/100 batches)
+# Every colab call is bounded (rules: mv.md). A hung `exec` once blocked the entry for 51 minutes (2026-10-23).
+# Seconds per sub-command; exec is the 10-minute poll, upload/download move the bundle and batches.
+TIMEOUTS = dict(new=900, exec=300, upload=900, download=900, stop=180)
+POLL_RETRIES = 3
 SPLIT_THRESHOLD = 150000000
 PART_BYTES = 50*1024*1024
 
@@ -19,7 +23,12 @@ class Client:
         self.executable = executable
 
     def call(self, *args, code=None):
-        result = subprocess.run([self.executable, *args], input=code, capture_output=True, text=True)
+        try:
+            result = subprocess.run([self.executable, *args], input=code, capture_output=True, text=True,
+                                    timeout=TIMEOUTS.get(args[0], 300))
+        except subprocess.TimeoutExpired:
+            # subprocess.run kills the colab child on timeout; the VM and its results are not touched here.
+            raise core.Stop('Colab '+args[0]+': timed out after '+str(TIMEOUTS.get(args[0], 300))+' s')
         if result.returncode:
             # Do not echo CLI stdout/stderr: authentication errors can include account information.
             raise core.Stop('Colab '+args[0]+': failed (session missing or command rejected)')
@@ -171,7 +180,15 @@ def run(directory, results, client=None, sleep=time.sleep):
         before = time.perf_counter()
         timings['collection'] = 0.
         while True:
-            state = client.execute(poll_code())
+            for attempt in range(POLL_RETRIES):
+                try:
+                    state = client.execute(poll_code())
+                    break
+                except core.Stop:
+                    # A single hung or failed poll must not end the session: the VM still holds the results.
+                    if attempt == POLL_RETRIES-1:
+                        raise
+                    sleep(30)
             download_begin = time.perf_counter()
             files = state.get('files', [])
             for name in files:

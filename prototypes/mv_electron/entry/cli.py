@@ -29,7 +29,7 @@ def main(argv=None):
     try:
         s = scene.load(args.scene)
         if args.command == 'validate':
-            print(f'OK: {args.scene} は有効な治療領域シーンです（10 MV、水30 cm、10×10 cm²、SSD 100 cm）')
+            print(f'OK: {args.scene} は有効な治療領域シーンです（{preview.LABELS[s["source"]["spectrum"]][2]}、水30 cm、10×10 cm²、SSD 100 cm）')
             return 0
         cond, mat, data = condition.identities(s)
         if args.command == 'approve':
@@ -57,9 +57,9 @@ def main(argv=None):
         timings['verification'] = time.perf_counter()-before
         result = dict(status='CPU local provenance verified')
         if cond['engine'] == 'colab_t4':
-            from .compare import analyse
+            from .compare import analyse, profiles
             before = time.perf_counter()
-            result = analyse(out/'bundle', out/'results')
+            result = (profiles if cond['spectrum'] == 'mohan4' else analyse)(out/'bundle', out/'results')
             timings['analysis'] = time.perf_counter()-before
         timings.update(report.get('timings', {}))
         colab_timing = out/'colab_timings.json'

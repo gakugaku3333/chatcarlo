@@ -78,3 +78,19 @@ def test_entry_ranges_overlap_rejected(tmp_path, monkeypatch):
     monkeypatch.setattr(bundle, 'read_json', lambda path: {'observed': {'start': 0, 'n': 20}})
     with pytest.raises(core.Stop, match='overlap/gap'):
         bundle.collect(tmp_path, {'histories': 2000}, {})
+
+
+def test_entry_profiles_without_egs5(tmp_path, monkeypatch):
+    """4 MV: PDD and OCR tables from the GPU batches alone; units follow stats.dose (MeV -> Gy per history)."""
+    root = tmp_path
+    (root/'condition.json').write_text('{"histories": 2000}'); (root/'materials.json').write_text('{}')
+    monkeypatch.setattr(bundle, 'load', lambda d: ({}, {}))
+    monkeypatch.setattr(bundle, 'read_json', lambda p: {'histories': 2000})
+    monkeypatch.setattr(bundle, 'collect', lambda r, c, m: [None]*100)
+    monkeypatch.setattr(compare, 'verify_sessions', lambda *a: None)
+    monkeypatch.setattr(compare, 'stacked', lambda rows, cond: energy(2.))
+    result = compare.profiles(root, root)
+    assert result['status'].startswith('EGS5 との比較なし')
+    assert len(result['pdd']['dose']) == 120 and len(result['ocr']['dose']) == 3 and len(result['ocr']['dose'][0]) == 36
+    assert result['pdd']['dose'][0] == pytest.approx(2.*stats.MEV_TO_GY/(20*1.), rel=1e-12)
+    assert result['ocr']['depth_cm'] == [5, 10, 20]

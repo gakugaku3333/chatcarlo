@@ -87,10 +87,18 @@ def build(directory, cond, mat, data, approval_directory, comparison_root=None):
         verify_observation(cpu.last_observation, cond, mat, n=2048, start=0)
         core.save_npz(directory/'reference.npz', reference)
         core.save_npz(directory/'scorer.npz', scorer_fixture(cpu))
-        comparison_root = Path(comparison_root) if comparison_root else h.ROOT/'docs/validation/mv/p3b'
-        manifest['comparison_inputs'] = {name: core.file_sha(comparison_root/name) for name in COMPARISON}
-        lock = read_json(comparison_root/'pilot_lock_p3b3.json')
-        manifest['Dref'] = lock['Dref']
+        if cond['spectrum'] == 'mohan4':
+            # 4 MV: no EGS5 comparison in the entry (user choice). Dref only scales the report-only gate numbers;
+            # it comes from the sealed P7 condition C pilot lock, which the entry only reads.
+            lock_path = h.ROOT/'docs/validation/mv/p7/pilot_lock_C.json'
+            manifest['comparison_inputs'] = {}
+            manifest['Dref'] = read_json(lock_path)['Dref']
+            manifest['Dref_source'] = dict(path='docs/validation/mv/p7/pilot_lock_C.json', sha256=core.file_sha(lock_path))
+        else:
+            comparison_root = Path(comparison_root) if comparison_root else h.ROOT/'docs/validation/mv/p3b'
+            manifest['comparison_inputs'] = {name: core.file_sha(comparison_root/name) for name in COMPARISON}
+            lock = read_json(comparison_root/'pilot_lock_p3b3.json')
+            manifest['Dref'] = lock['Dref']
     names = ['condition.json', 'materials.json', 'inputs.npz', 'source.zip', 'approval.json', 'preview_snapshot.json', 'preview.html']
     if cond['engine'] == 'colab_t4':
         names += ['reference.npz', 'scorer.npz']

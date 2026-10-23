@@ -12,7 +12,10 @@ def display_z(depth):
     return 30-depth
 
 
-def geometry_json():
+LABELS = {'mohan10': ('Mohan 10 MV', 10000, '10 MV'), 'mohan4': ('Mohan 4 MV', 4000, '4 MV')}
+
+
+def geometry_json(spectrum='mohan10'):
     from chatcarlo.preview import scene_to_json
     objects = [dict(name='横に無限の板を ±30 cm で切って表示', shape='box', material='water', center=[0, 0, 15], size_cm=[60, 60, 30]),
                dict(name='中心軸 2×2 cm', shape='box', material='scoring', color='#fbbf24', center=[0, 0, 15], size_cm=[2, 2, 30])]
@@ -23,15 +26,15 @@ def geometry_json():
             objects.append(dict(name=f'深さ {depth} cm / {"xy"[axis]} ±9 cm', shape='box', material='scoring', color='#f97316',
                                 center=[0, 0, display_z(depth)], size_cm=size))
     raw = dict(geometry=objects, source=dict(position=[0, 0, 130], direction=[0, 0, -1],
-                                           spectrum=[dict(energy_keV=10000, weight=1)],
+                                           spectrum=[dict(energy_keV=LABELS[spectrum][1], weight=1)],
                                            field=dict(shape='rect', size_cm=[10, 10], sid_cm=100)))
     data = scene_to_json(SimpleNamespace(raw=raw, warnings=[]))
-    data['beam']['energy_label'] = 'Mohan 10 MV'
+    data['beam']['energy_label'] = LABELS[spectrum][0]
     return data
 
 
 def snapshot(cond, mat):
-    return dict(condition=cond, materials=mat, condition_hash=digest(cond), materials_hash=digest(mat), geometry=geometry_json())
+    return dict(condition=cond, materials=mat, condition_hash=digest(cond), materials_hash=digest(mat), geometry=geometry_json(cond['spectrum']))
 
 
 def write(scene, directory, data=None):
@@ -43,9 +46,11 @@ def write(scene, directory, data=None):
     core.write_json(directory/'condition.json', cond)
     core.write_json(directory/'materials.json', mat)
     core.write_json(directory/'preview_snapshot.json', snap)
-    text = (_TEMPLATE.replace('__TITLE__', 'ChatCarlo — 10 MV 承認用プレビュー')
+    text = (_TEMPLATE.replace('__TITLE__', 'ChatCarlo — '+LABELS[cond['spectrum']][2]+' 承認用プレビュー')
             .replace('__DATA__', json.dumps(snap['geometry'], ensure_ascii=False))
             .replace('__SHARED_CANVAS_JS__', _SHARED_CANVAS_JS))
+    for marker in ('__DOSE_HEADER__', '__DOSE_LEGEND__', '__DOSE_JS__', '__DOSE_DRAW__', '__APPROVAL_PANEL__'):
+        text = text.replace(marker, '')  # 線量の重ね表示・承認欄は診断領域用。目印を残すと描画の script が構文エラーになる
     description = (f'条件ハッシュ: {snap["condition_hash"]}\n資材ハッシュ: {snap["materials_hash"]}\n'
                    f'照射野 10×10 cm² @ SSD 100 cm、水 30 cm（横に無限の板を ±30 cm で切って表示）\n'
                    f'採点: 中心軸 2×2 cm、深さ 5/10/20 cm の帯 ±9 cm\n'

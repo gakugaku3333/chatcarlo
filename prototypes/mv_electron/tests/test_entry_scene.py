@@ -15,7 +15,7 @@ def raw():
 
 
 @pytest.mark.parametrize('path,value', [
-    ('source.field_cm', [10, 12]), ('source.ssd_cm', 90), ('source.spectrum', 'mohan4'),
+    ('source.field_cm', [10, 12]), ('source.ssd_cm', 90), ('source.spectrum', 'mohan6'),
     ('phantom.thickness_cm', 20), ('run.histories', 201), ('run.histories', 0),
     ('run.histories', -100), ('run.histories', 240000100), ('run.histories', 200.0),
     ('run.histories', True), ('run.seed', -1), ('run.seed', 2**64), ('run.seed', True),
@@ -85,6 +85,8 @@ def test_entry_approval_failures(raw, tmp_path, monkeypatch):
     preview.write(raw, tmp_path, data)
     original = (tmp_path/'preview.html').read_text()
     assert condition.digest(c) in original
+    import re
+    assert not re.findall(r'__[A-Z_]+__', original)  # テンプレートの目印が残ると script が壊れる（2026-10-23）
     raw['run']['seed'] += 1
     with pytest.raises(core.Stop, match='preview_snapshot'):
         preview.approve(raw, tmp_path, data)
@@ -99,3 +101,74 @@ def test_entry_approval_failures(raw, tmp_path, monkeypatch):
     preview.require_approval(tmp_path, c, m)
     with pytest.raises(core.Stop):
         preview.require_approval(tmp_path, dict(c, seed=0), m)
+
+
+def test_entry_mohan4_scene_and_identity(raw):
+    """4 MV is allowed with the same field/SSD/phantom; its identities differ from 10 MV (spectrum arrays, 16 bins)."""
+    four = copy.deepcopy(raw)
+    four['source']['spectrum'] = 'mohan4'
+    scene.validate(four)
+    c10, m10, _ = condition.identities(raw)
+    c4, m4, d4 = condition.identities(four)
+    assert c4['spectrum'] == 'mohan4' and c4['spectrum_file_sha256'] != c10['spectrum_file_sha256']
+    assert m4['dimensions']['nspec'] == 16 and m10['dimensions']['nspec'] == 20
+    assert condition.digest(c4) != condition.digest(c10) and condition.digest(m4) != condition.digest(m10)
+    assert set(c4) == set(c10)  # no new keys: the 10 MV condition hash must not change
+    snap4 = preview.snapshot(c4, m4)
+    assert snap4['geometry']['beam']['energy_label'] == 'Mohan 4 MV'
+    assert preview.snapshot(c10, m10)['geometry']['beam']['energy_label'] == 'Mohan 10 MV'
+
+
+RECORDED = Path(__file__).resolve().parents[3]/'runs/mv_water_10mv_20261023'
+
+
+@pytest.mark.skipif(not (RECORDED/'entry/approval.json').exists(), reason='recorded 10 MV run (gitignored) not present')
+def test_entry_10mv_identities_unchanged_from_recorded_run():
+    """The 2026-10-23 approved 10 MV run: its condition/materials hashes must still be reproduced exactly."""
+    approval = json.loads((RECORDED/'entry/approval.json').read_text())
+    cond, mat, _ = condition.identities(scene.load(RECORDED/'scene.yaml'))
+    assert condition.digest(cond) == approval['condition_hash']
+    assert condition.digest(mat) == approval['materials_hash']
+
+
+def test_entry_mohan4_scene_and_identity(raw):
+    """4 MV is allowed with the same field/SSD/phantom; its identities differ from 10 MV (spectrum arrays, 16 bins)."""
+    four = copy.deepcopy(raw)
+    four['source']['spectrum'] = 'mohan4'
+    scene.validate(four)
+    c10, m10, _ = condition.identities(raw)
+    c4, m4, d4 = condition.identities(four)
+    assert c4['spectrum'] == 'mohan4' and c4['spectrum_file_sha256'] != c10['spectrum_file_sha256']
+    assert m4['dimensions']['nspec'] == 16 and m10['dimensions']['nspec'] == 20
+    assert condition.digest(c4) != condition.digest(c10) and condition.digest(m4) != condition.digest(m10)
+    assert set(c4) == set(c10)  # no new keys: the 10 MV condition hash must not change
+    assert preview.snapshot(c4, m4)['geometry']['beam']['energy_label'] == 'Mohan 4 MV'
+    assert preview.snapshot(c10, m10)['geometry']['beam']['energy_label'] == 'Mohan 10 MV'
+
+
+RECORDED = Path(__file__).resolve().parents[3]/'runs/mv_water_10mv_20261023'
+
+
+@pytest.mark.skipif(not (RECORDED/'entry/approval.json').exists(), reason='recorded 10 MV run (gitignored) not present')
+def test_entry_10mv_identities_unchanged_from_recorded_run():
+    """The 2026-10-23 approved 10 MV run: its condition/materials hashes must still be reproduced exactly."""
+    approval = json.loads((RECORDED/'entry/approval.json').read_text())
+    cond, mat, _ = condition.identities(scene.load(RECORDED/'scene.yaml'))
+    assert condition.digest(cond) == approval['condition_hash']
+    assert condition.digest(mat) == approval['materials_hash']
+
+
+# Recorded 2026-10-23 approval of the 10 MV run (runs/mv_water_10mv_20261023, since moved away). Written out so the
+# check does not depend on that gitignored folder.
+RECORDED_10MV = dict(
+    condition='bdc4554e91426b59bf782a8f3ae8decd01b77173cec50e58ebbe6fe7a8f370fa',
+    materials='4721c0afca7437d2f6f2195f066d7c810d3b52bd8466ea67457e7032b34add38')
+
+
+def test_entry_10mv_identities_fixed_values():
+    scene_10mv = {'domain': 'therapy_mv', 'source': {'spectrum': 'mohan10', 'field_cm': [10, 10], 'ssd_cm': 100},
+                  'phantom': {'material': 'water', 'thickness_cm': 30}, 'scoring': 'pdd_ocr',
+                  'run': {'histories': 23000000, 'seed': 20261023, 'engine': 'colab_t4'}}
+    cond, mat, _ = condition.identities(scene.validate(scene_10mv))
+    assert condition.digest(cond) == RECORDED_10MV['condition']
+    assert condition.digest(mat) == RECORDED_10MV['materials']

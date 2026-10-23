@@ -64,6 +64,11 @@ def _heel_span_cm(fld: dict, h_u: float, h_v: float) -> float:
     return abs(h_u) * w / 2.0 + abs(h_v) * h / 2.0
 
 
+def _uniform(rng, low, high, n):
+    """low + (high-low)*U, written out: Generator.uniform rounds differently across NumPy versions (2.4 vs Colab)."""
+    return low + (high - low) * rng.random(n)
+
+
 def sample_source_photons(src: dict, n: int, rng: np.random.Generator):
     """点線源から照射野への発散ビームで光子(位置,方向,エネルギー)を生成。
 
@@ -109,14 +114,14 @@ def sample_source_photons(src: dict, n: int, rng: np.random.Generator):
         if n_angles:
             angles = 2.0 * np.pi * rng.integers(0, int(n_angles), size=n) / int(n_angles)
         else:
-            angles = rng.uniform(0.0, 2.0 * np.pi, size=n)
+            angles = _uniform(rng, 0.0, 2.0 * np.pi, n)
         pos_a = iso[None, :] + _rotate_batch(pos - iso, axis, angles)
         d_a = _rotate_batch(d, axis, angles)
         u_a = _rotate_batch(u, axis, angles)
         v_a = _rotate_batch(v, axis, angles)
         scan = float(rot.get("scan_length_cm") or 0.0)
         if scan > 0.0:
-            shift = rng.uniform(-scan / 2.0, scan / 2.0, size=n)
+            shift = _uniform(rng, -scan / 2.0, scan / 2.0, n)
             pos_a = pos_a + axis[None, :] * shift[:, None]
         origins = pos_a
     else:
@@ -153,8 +158,8 @@ def sample_source_photons(src: dict, n: int, rng: np.random.Generator):
 
         def _draw_cone(m):
             # 円錐キャップ内の立体角一様抽選: cosθ ~ U[cos(半頂角), 1]、方位角一様
-            c = rng.uniform(cos_half, 1.0, m)
-            ph = rng.uniform(0.0, 2.0 * np.pi, m)
+            c = _uniform(rng, cos_half, 1.0, m)
+            ph = _uniform(rng, 0.0, 2.0 * np.pi, m)
             tan_t = np.sqrt(1.0 - c ** 2) / c
             s = sid * tan_t * (np.cos(ph) * h_u + np.sin(ph) * h_v) if heel else None
             return s, c, ph
@@ -171,16 +176,16 @@ def sample_source_photons(src: dict, n: int, rng: np.random.Generator):
         # 非発散ビーム: 全光子が同一方向d_aへ進み、位置だけがsize_cmの面上に
         # 一様分布する（scene.pyでmas/heel_effectとの併用は検証時に禁止済み）。
         w, h = fld["size_cm"]
-        su = rng.uniform(-w / 2, w / 2, n)
-        sv = rng.uniform(-h / 2, h / 2, n)
+        su = _uniform(rng, -w / 2, w / 2, n)
+        sv = _uniform(rng, -h / 2, h / 2, n)
         origins = origins + su[:, None] * u_a + sv[:, None] * v_a
         dirs = np.broadcast_to(d_a, (n, 3)).copy()
     else:
         w, h = fld["size_cm"]
 
         def _draw_rect(m):
-            a = rng.uniform(-w / 2, w / 2, m)
-            b = rng.uniform(-h / 2, h / 2, m)
+            a = _uniform(rng, -w / 2, w / 2, m)
+            b = _uniform(rng, -h / 2, h / 2, m)
             s = a * h_u + b * h_v if heel else None
             return s, a, b
 
