@@ -85,3 +85,7 @@ X 線撮影で線量を増やすとばらつき（ノイズ）が減ることの
 - viveMonteリポジトリでは本報告への追記のみ行い、commit・pushは実施していない。
 
 - その後、第6版で図1の画像だけを差し替え、version 12を公開。version 11公開時の確認結果は上記のとおり。最新の公開結果は `docs/jsmp133/page_update_report_v6.md` を参照。
+
+## 後続の抄録表現の更新
+
+AIエージェント・Agent Skillsの2文を差し替えたSites version 16の記録は [page_update_report_agent_skills.md](page_update_report_agent_skills.md)。同名の依頼文「第5版」が別の更新に使われたため、以前の依頼2の公開記録と分けて保存した。
