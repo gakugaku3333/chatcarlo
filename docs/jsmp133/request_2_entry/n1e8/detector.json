@@ -1,0 +1,129 @@
+{
+  "engine": "gpu",
+  "gpu_device": "cuda",
+  "seed": 20261028,
+  "source_seed": 12761210879021922582,
+  "batch_size": 200000,
+  "bundle": {
+    "files": {
+      "__init__.py": "2442d90bbd92232c7a0eba31c99790f87aaf2d2e7e0cf7df73170ba0ebd4f27a",
+      "bundle.py": "cf7d7f7c28a286c171a69b5ed5059f7fe7c33fb1ecdb47f80fd94cc77bbb7188",
+      "colab_driver.py": "13ac7fe2092af53b6569ca1e89997543606f85cd7368414a3ca2c948ce29b814",
+      "core.py": "1a1ad4d9305554acf015f431b4211596946a5f032d0b590e4f2d403b983dff5b",
+      "g1_common.h": "c5d366fc15504267df129e45ef028b39ca4dbe0d0601245466f488f5a9881ec0",
+      "g1_cpu.cpp": "c5e4dc37e258645ef56a6f4ee0b8497e81bd7da224b7fc3dfc61ef7abb119d0f",
+      "g1_geometry.h": "52fdd6531a71ad32d20d0f049b5521173687e489b2e7949d0bdbdf850e0fee74",
+      "g1_gpu.cu": "7ba0031afa15088b20e4591fa1993194fd114c9ccdd43441a03e0e09ba688837",
+      "g1_history.h": "910e162da82623cecdcfa8577951513f538d6dd52963721f3e817c9baf4aa68c",
+      "g1_physics.h": "8e0e929bc987d2514d0a3cbe4a198ab5520696a3a1ed6e8465e31da119609980",
+      "g2_core.py": "d93d1eabb1ea99a472b171617c3c5fc9b6495dd196132359785fdd94e2c66cac",
+      "g2_tables.py": "f281937fbab6284bd8165ef5f09ccc6673c254fc801b116d6bab7a5273a89f49",
+      "g2_tally.h": "afc921606193bf8b6b5a94408eb1a1b4c268ca4d44b07ce07f3242dd9c3cddf4",
+      "geometry.npz": "9b84fcecbaae7c9c1f71b59eb73a09ef75e76b362fa81c34ceedab8e2f076a48",
+      "run_egs5_60kev.py": "4a19b09e28ecea122bf9ac62c9712e36032cf5692d6a6705f1a8d1a667db0374",
+      "run_gates.py": "c5a3933c8e2ecb2c7ae5a39aa447fd2df1bda743fc6e6f7aafe45d085c69a9fb",
+      "settings.json": "f1bab6dfc3f92bc9bbe64c41d64239f4faf4b1d21eed8e41cf39e9cbb70db0c8",
+      "source.json": "ab71d0a8fbc23957c000a83dea916514fc267beb404f14b9a166c0d914bce43b",
+      "source_host.py": "761dfcd2f9343efd8014734ae81c0c363e97bff1a5475f3842711c70e5ad5530",
+      "spectrum.npz": "5a426db426796a03823d5392c58c9d940fccbb766d512958b1fadab3077dba4b",
+      "tables.npz": "844a4ed2f5a7990b808ffe00c2bf01e284c8ec8eb7dcfd2e1886a721f93c0194",
+      "validation.py": "62a3d70ae812d3d7c0a93cc2b6bfea5dec50cc2d0e70831aa30688d9b3e43923"
+    },
+    "format": "chatcarlo-g1-v1"
+  },
+  "timing": {
+    "new_batches": 500,
+    "reused_batches": 0,
+    "new_elapsed_s": 242.78085741199982,
+    "reused_elapsed_s": 0.0,
+    "elapsed_s": 242.78085741199982
+  },
+  "condition": {
+    "format": "chatcarlo-g4-v1",
+    "bundle_sha256": "e9ea5de18a4403ea13946944fd6165f60eabfb3040fa76259f3e21c8169a4b4a",
+    "job": {
+      "mode": "batches",
+      "device": "cuda",
+      "n_histories": 100000000,
+      "batch_size": 200000,
+      "seed": 20261028,
+      "source_seed": 12761210879021922582
+    },
+    "detector": {
+      "center_cm": [
+        0,
+        0,
+        0
+      ],
+      "normal": [
+        0,
+        0,
+        1
+      ],
+      "u_axis": [
+        1,
+        0,
+        0
+      ],
+      "size_cm": [
+        15,
+        18
+      ],
+      "shape": [
+        100,
+        120
+      ]
+    },
+    "roi": null,
+    "track_uncertainty": true
+  },
+  "condition_sha256": "cd3eab263ab70e2f3360518f25200a118788cb515237e197d235b09c95c1672d",
+  "verification": "native inputs verified",
+  "device": "colab",
+  "n_histories": 100000000,
+  "n_batches": 500,
+  "track_uncertainty": true,
+  "detected": 43484052.0,
+  "detector": {
+    "center_cm": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "normal": [
+      0.0,
+      0.0,
+      1.0
+    ],
+    "u_axis": [
+      1.0,
+      0.0,
+      0.0
+    ],
+    "v_axis": [
+      0.0,
+      1.0,
+      0.0
+    ],
+    "size_cm": [
+      15.0,
+      18.0
+    ],
+    "shape": [
+      100,
+      120
+    ],
+    "roi": null
+  },
+  "axes": {
+    "array": "[u,v]",
+    "png": "u horizontal, v vertical, (0,0) lower left",
+    "position_unit": "cm",
+    "count_unit": "photons",
+    "fluence_unit": "cm^-2"
+  },
+  "energy_deposited_MeV": {
+    "air": 54736.46140014141,
+    "aluminum": 1711885.8894541445
+  }
+}

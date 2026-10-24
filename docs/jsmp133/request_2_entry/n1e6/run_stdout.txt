@@ -1,0 +1,11 @@
+engine: gpu, device: cuda, condition SHA256: 313f1b4d359b5ba08b26a16c1420246138b9f1e48302295d6757aa2236836611
+計算時間・バッチ: {"elapsed_s":2.6010691969999584,"new_batches":5,"new_elapsed_s":2.6010691969999584,"reused_batches":0,"reused_elapsed_s":0.0}
+検出器画像: runs/xray_portrait_noise_20261024/n1e6/detector.npz (.json, .png)
+histories: 1,000,000
+吸収（光電）割合: 0.5036
+脱出割合: 0.0611
+平均相互作用回数/光子: 0.7691
+蛍光X線放出イベント数: 0
+材料別吸収エネルギー [MeV/history合計]:
+  aluminum: 17108.3  (± 2.81e-05 MeV, 相対 0.16%)
+  air: 544.826  (± 4.07e-06 MeV, 相対 0.75%)

@@ -21,7 +21,7 @@
 | # | 内容 | 状態 |
 |---|---|---|
 | 1 | 治療領域（10 MV）の水ファントムの PDD/OCR を、対話の入口（scene.yaml → run）から実行し、EGS5 と照合 | 決定（A 案）。入口の接続は別セッションで実装 |
-| 2 | 履歴数を増やすと X 線画像のざらつきが減る動画 | 決定。抄録には動画を載せられない（Supporting Data は JPEG のみ） |
+| 2 | 履歴数を増やすと X 線画像のざらつきが減る動画 | 決定。抄録には動画を載せられない（Supporting Data は JPEG のみ）。**対話の入口（vive-interview → vive-check → Colab）から通した実績あり（2026-10-24、`docs/jsmp133/request_2_entry/RESULTS.md`）**: 位置づけ・成果物・数値は同ファイルが正典。抄録の依頼 2 は入口版を引く（ユーザー決定、2026-10-24。本文 Methods は 9 段階 → 5 段階、出典は abstract_ja_draft.md ③）。公開ページは第 5 版の依頼 `page_update_request_v5.md` で反映 |
 | 3 | IVR 室の空間線量分布をカラーマップで 3D 表示する（今のシステムにない表示を対話で調整する例。計画は `docs/ai/plans/2026-10-21-dose3d-preview-overlay.md`） | **表示の機能は実装・検証済み（2026-10-22、`docs/validation/dose3d/RESULTS.md`）**。対話の入口（vive-interview → vive-check）から通した実績もある（2026-10-22、`runs/angio_room_3d/`。範囲と注意は抄録の字数調整版 v1 の「この版の確認事項」が正典） |
 
 依頼 2 の注意（[../educational_simulation_ideas_2026_10_08.md](../educational_simulation_ideas_2026_10_08.md) の 5 節）:

@@ -1,0 +1,1 @@
+{"batch_size":200000,"device":"cuda","mode":"batches","n_histories":1000000,"seed":20261026,"source_seed":12671299258706851920}
