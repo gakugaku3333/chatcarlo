@@ -1,0 +1,1045 @@
+{
+  "G0": {
+    "status": "pass",
+    "histories": 2000,
+    "fields": [
+      "histories",
+      "coarse",
+      "fine",
+      "totals",
+      "maxima",
+      "brems",
+      "p8_max",
+      "sources",
+      "dep",
+      "diagnostic",
+      "violations",
+      "counts",
+      "steps",
+      "boundary_counts",
+      "boundary_hist",
+      "boundary_omitted_hist",
+      "fluorescence_counts",
+      "branches",
+      "calls",
+      "diagnostic_count",
+      "maxdepth",
+      "nspec_index",
+      "additions"
+    ],
+    "reference_us": 266.2896460387856,
+    "p9b_us": 275.710416957736
+  },
+  "G3": {
+    "status": "pass",
+    "cases": 161,
+    "rejections": 7,
+    "photon_recomputes": 2,
+    "rows": [
+      {
+        "name": "side-entry-electron",
+        "region": 1,
+        "distance": 0.05,
+        "calls": 4
+      },
+      {
+        "name": "side-exit-electron",
+        "region": 0,
+        "distance": 0.05000000000000001,
+        "calls": 4
+      },
+      {
+        "name": "cap-entry-electron",
+        "region": 1,
+        "distance": 0.25,
+        "calls": 4
+      },
+      {
+        "name": "cap-exit-electron",
+        "region": 0,
+        "distance": 0.25,
+        "calls": 4
+      },
+      {
+        "name": "tangent-electron",
+        "region": -1,
+        "distance": 5.1,
+        "calls": 0
+      },
+      {
+        "name": "side-entry-photon",
+        "region": 1,
+        "distance": 0.05,
+        "calls": 0
+      },
+      {
+        "name": "side-exit-photon",
+        "region": 0,
+        "distance": 0.05000000000000001,
+        "calls": 0
+      },
+      {
+        "name": "cap-entry-photon",
+        "region": 1,
+        "distance": 0.25,
+        "calls": 0
+      },
+      {
+        "name": "cap-exit-photon",
+        "region": 0,
+        "distance": 0.25,
+        "calls": 0
+      },
+      {
+        "name": "tangent-photon",
+        "region": -1,
+        "distance": 5.1,
+        "calls": 0
+      },
+      {
+        "name": "side-entry-return",
+        "region": 0,
+        "distance": 0.05,
+        "calls": 4
+      },
+      {
+        "name": "side-exit-return",
+        "region": 1,
+        "distance": 0.05000000000000001,
+        "calls": 4
+      },
+      {
+        "name": "cap-entry-return",
+        "region": 0,
+        "distance": 0.25,
+        "calls": 4
+      },
+      {
+        "name": "cap-exit-return",
+        "region": 1,
+        "distance": 0.25,
+        "calls": 4
+      },
+      {
+        "name": "rim-entry-(1, 1, 0)",
+        "region": 1,
+        "distance": 0.07071067811865477,
+        "calls": 4
+      },
+      {
+        "name": "rim-entry-(1, -1, 0)",
+        "region": 0,
+        "distance": 0.07071067811865477,
+        "calls": 4
+      },
+      {
+        "name": "rim-entry-(-1, 1, 0)",
+        "region": 0,
+        "distance": 0.07071067811865477,
+        "calls": 4
+      },
+      {
+        "name": "rim-exit-(-1, -1, 0)",
+        "region": 1,
+        "distance": 0.07071067811865474,
+        "calls": 4
+      },
+      {
+        "name": "rim-exit-(1, -1, 0)",
+        "region": 0,
+        "distance": 0.07071067811865474,
+        "calls": 4
+      },
+      {
+        "name": "rim-exit-(-1, 1, 0)",
+        "region": 0,
+        "distance": 0.07071067811865474,
+        "calls": 4
+      },
+      {
+        "name": "terminal-entry",
+        "region": 1,
+        "distance": 0.05,
+        "calls": 0
+      },
+      {
+        "name": "restart-entry--0.05",
+        "region": 1,
+        "distance": 0.0,
+        "calls": 4
+      },
+      {
+        "name": "restart-entry-return--0.05",
+        "region": 0,
+        "distance": 0.0,
+        "calls": 4
+      },
+      {
+        "name": "restart-entry-np.float64(-0.05000000000000001)",
+        "region": 1,
+        "distance": 4.336808689942018e-18,
+        "calls": 4
+      },
+      {
+        "name": "restart-entry-return-np.float64(-0.05000000000000001)",
+        "region": 0,
+        "distance": 4.336808689942018e-18,
+        "calls": 4
+      },
+      {
+        "name": "restart-entry-np.float64(-0.049999999999999996)",
+        "region": 1,
+        "distance": 0.0,
+        "calls": 4
+      },
+      {
+        "name": "restart-entry-return-np.float64(-0.049999999999999996)",
+        "region": 0,
+        "distance": 0.0,
+        "calls": 4
+      },
+      {
+        "name": "restart-entry--0.0500000005",
+        "region": 1,
+        "distance": 4.999999955020986e-10,
+        "calls": 4
+      },
+      {
+        "name": "restart-entry-return--0.0500000005",
+        "region": 0,
+        "distance": 4.999999955020986e-10,
+        "calls": 4
+      },
+      {
+        "name": "restart-exit-0.05",
+        "region": 0,
+        "distance": 0.0,
+        "calls": 4
+      },
+      {
+        "name": "restart-exit-return-0.05",
+        "region": 1,
+        "distance": 0.0,
+        "calls": 4
+      },
+      {
+        "name": "restart-exit-np.float64(0.049999999999999996)",
+        "region": 0,
+        "distance": 8.673617379884035e-18,
+        "calls": 4
+      },
+      {
+        "name": "restart-exit-return-np.float64(0.049999999999999996)",
+        "region": 1,
+        "distance": 8.673617379884035e-18,
+        "calls": 4
+      },
+      {
+        "name": "restart-exit-np.float64(0.05000000000000001)",
+        "region": 0,
+        "distance": 0.0,
+        "calls": 4
+      },
+      {
+        "name": "restart-exit-return-np.float64(0.05000000000000001)",
+        "region": 1,
+        "distance": 0.0,
+        "calls": 4
+      },
+      {
+        "name": "restart-exit-0.0499999995",
+        "region": 0,
+        "distance": 5.000000005020986e-10,
+        "calls": 4
+      },
+      {
+        "name": "restart-exit-return-0.0499999995",
+        "region": 1,
+        "distance": 5.000000005020986e-10,
+        "calls": 4
+      },
+      {
+        "name": "cap-restart-entry--0.25",
+        "region": 1,
+        "distance": 0.0,
+        "calls": 4
+      },
+      {
+        "name": "cap-restart-entry-return--0.25",
+        "region": 0,
+        "distance": 0.0,
+        "calls": 4
+      },
+      {
+        "name": "cap-restart-entry-np.float64(-0.25000000000000006)",
+        "region": 1,
+        "distance": 5.551115123125783e-17,
+        "calls": 4
+      },
+      {
+        "name": "cap-restart-entry-return-np.float64(-0.25000000000000006)",
+        "region": 0,
+        "distance": 5.551115123125783e-17,
+        "calls": 4
+      },
+      {
+        "name": "cap-restart-entry-np.float64(-0.24999999999999997)",
+        "region": 1,
+        "distance": 0.0,
+        "calls": 4
+      },
+      {
+        "name": "cap-restart-entry-return-np.float64(-0.24999999999999997)",
+        "region": 0,
+        "distance": 0.0,
+        "calls": 4
+      },
+      {
+        "name": "cap-restart-entry--0.2500000005",
+        "region": 1,
+        "distance": 4.999999858590343e-10,
+        "calls": 4
+      },
+      {
+        "name": "cap-restart-entry-return--0.2500000005",
+        "region": 0,
+        "distance": 4.999999858590343e-10,
+        "calls": 4
+      },
+      {
+        "name": "cap-restart-exit--0.25",
+        "region": 0,
+        "distance": 0.0,
+        "calls": 4
+      },
+      {
+        "name": "cap-restart-exit-return--0.25",
+        "region": 1,
+        "distance": 0.0,
+        "calls": 4
+      },
+      {
+        "name": "cap-restart-exit-np.float64(-0.25000000000000006)",
+        "region": 0,
+        "distance": 0.0,
+        "calls": 4
+      },
+      {
+        "name": "cap-restart-exit-return-np.float64(-0.25000000000000006)",
+        "region": 1,
+        "distance": 0.0,
+        "calls": 4
+      },
+      {
+        "name": "cap-restart-exit-np.float64(-0.24999999999999997)",
+        "region": 0,
+        "distance": 2.7755575615628914e-17,
+        "calls": 4
+      },
+      {
+        "name": "cap-restart-exit-return-np.float64(-0.24999999999999997)",
+        "region": 1,
+        "distance": 2.7755575615628914e-17,
+        "calls": 4
+      },
+      {
+        "name": "cap-restart-exit--0.2499999995",
+        "region": 0,
+        "distance": 5.000000136146099e-10,
+        "calls": 4
+      },
+      {
+        "name": "cap-restart-exit-return--0.2499999995",
+        "region": 1,
+        "distance": 5.000000136146099e-10,
+        "calls": 4
+      },
+      {
+        "name": "cap-restart-entry-0.25",
+        "region": 1,
+        "distance": 0.0,
+        "calls": 4
+      },
+      {
+        "name": "cap-restart-entry-return-0.25",
+        "region": 0,
+        "distance": 0.0,
+        "calls": 4
+      },
+      {
+        "name": "cap-restart-entry-np.float64(0.24999999999999997)",
+        "region": 1,
+        "distance": 0.0,
+        "calls": 4
+      },
+      {
+        "name": "cap-restart-entry-return-np.float64(0.24999999999999997)",
+        "region": 0,
+        "distance": 0.0,
+        "calls": 4
+      },
+      {
+        "name": "cap-restart-entry-np.float64(0.25000000000000006)",
+        "region": 1,
+        "distance": 5.551115123125783e-17,
+        "calls": 4
+      },
+      {
+        "name": "cap-restart-entry-return-np.float64(0.25000000000000006)",
+        "region": 0,
+        "distance": 5.551115123125783e-17,
+        "calls": 4
+      },
+      {
+        "name": "cap-restart-entry-0.2500000005",
+        "region": 1,
+        "distance": 4.999999858590343e-10,
+        "calls": 4
+      },
+      {
+        "name": "cap-restart-entry-return-0.2500000005",
+        "region": 0,
+        "distance": 4.999999858590343e-10,
+        "calls": 4
+      },
+      {
+        "name": "cap-restart-exit-0.25",
+        "region": 0,
+        "distance": 0.0,
+        "calls": 4
+      },
+      {
+        "name": "cap-restart-exit-return-0.25",
+        "region": 1,
+        "distance": 0.0,
+        "calls": 4
+      },
+      {
+        "name": "cap-restart-exit-np.float64(0.24999999999999997)",
+        "region": 0,
+        "distance": 2.7755575615628914e-17,
+        "calls": 4
+      },
+      {
+        "name": "cap-restart-exit-return-np.float64(0.24999999999999997)",
+        "region": 1,
+        "distance": 2.7755575615628914e-17,
+        "calls": 4
+      },
+      {
+        "name": "cap-restart-exit-np.float64(0.25000000000000006)",
+        "region": 0,
+        "distance": 0.0,
+        "calls": 4
+      },
+      {
+        "name": "cap-restart-exit-return-np.float64(0.25000000000000006)",
+        "region": 1,
+        "distance": 0.0,
+        "calls": 4
+      },
+      {
+        "name": "cap-restart-exit-0.2499999995",
+        "region": 0,
+        "distance": 5.000000136146099e-10,
+        "calls": 4
+      },
+      {
+        "name": "cap-restart-exit-return-0.2499999995",
+        "region": 1,
+        "distance": 5.000000136146099e-10,
+        "calls": 4
+      },
+      {
+        "name": "layer-0--1",
+        "region": 1,
+        "distance": 1.0,
+        "calls": 4
+      },
+      {
+        "name": "layer-0-0",
+        "region": 1,
+        "distance": 1.0,
+        "calls": 0
+      },
+      {
+        "name": "layer-return-0",
+        "region": 0,
+        "distance": 1.0,
+        "calls": 4
+      },
+      {
+        "name": "layer-backward-0--1",
+        "region": 0,
+        "distance": 1.0,
+        "calls": 4
+      },
+      {
+        "name": "layer-backward-0-0",
+        "region": 0,
+        "distance": 1.0,
+        "calls": 0
+      },
+      {
+        "name": "layer-backward-return-0",
+        "region": 1,
+        "distance": 1.0,
+        "calls": 4
+      },
+      {
+        "name": "layer-restart-0-5.0--1",
+        "region": 1,
+        "distance": 0.0,
+        "calls": 4
+      },
+      {
+        "name": "layer-restart-0-5.0-0",
+        "region": 1,
+        "distance": 0.0,
+        "calls": 0
+      },
+      {
+        "name": "layer-restart-return-0-5.0",
+        "region": 0,
+        "distance": 0.0,
+        "calls": 4
+      },
+      {
+        "name": "layer-restart-0-np.float64(4.999999999999999)--1",
+        "region": 1,
+        "distance": 8.881784197001252e-16,
+        "calls": 4
+      },
+      {
+        "name": "layer-restart-0-np.float64(4.999999999999999)-0",
+        "region": 1,
+        "distance": 8.881784197001252e-16,
+        "calls": 0
+      },
+      {
+        "name": "layer-restart-return-0-np.float64(4.999999999999999)",
+        "region": 0,
+        "distance": 8.881784197001252e-16,
+        "calls": 4
+      },
+      {
+        "name": "layer-restart-0-np.float64(5.000000000000001)--1",
+        "region": 1,
+        "distance": 0.0,
+        "calls": 4
+      },
+      {
+        "name": "layer-restart-0-np.float64(5.000000000000001)-0",
+        "region": 1,
+        "distance": 0.0,
+        "calls": 0
+      },
+      {
+        "name": "layer-restart-return-0-np.float64(5.000000000000001)",
+        "region": 0,
+        "distance": 0.0,
+        "calls": 4
+      },
+      {
+        "name": "layer-restart-0-4.9999999995--1",
+        "region": 1,
+        "distance": 5.000000413701855e-10,
+        "calls": 4
+      },
+      {
+        "name": "layer-restart-0-4.9999999995-0",
+        "region": 1,
+        "distance": 5.000000413701855e-10,
+        "calls": 0
+      },
+      {
+        "name": "layer-restart-return-0-4.9999999995",
+        "region": 0,
+        "distance": 5.000000413701855e-10,
+        "calls": 4
+      },
+      {
+        "name": "box-three-face-0--1",
+        "region": -1,
+        "distance": 1.732050807568877,
+        "calls": 0
+      },
+      {
+        "name": "box-three-face-0-0",
+        "region": -1,
+        "distance": 1.732050807568877,
+        "calls": 0
+      },
+      {
+        "name": "box-exit-0-1--1--1",
+        "region": -1,
+        "distance": 2.0,
+        "calls": 0
+      },
+      {
+        "name": "box-exit-0-1--1-0",
+        "region": -1,
+        "distance": 2.0,
+        "calls": 0
+      },
+      {
+        "name": "box-exit-0-1-1--1",
+        "region": -1,
+        "distance": 2.0,
+        "calls": 0
+      },
+      {
+        "name": "box-exit-0-1-1-0",
+        "region": -1,
+        "distance": 2.0,
+        "calls": 0
+      },
+      {
+        "name": "box-exit-0-2--1--1",
+        "region": -1,
+        "distance": 2.0,
+        "calls": 0
+      },
+      {
+        "name": "box-exit-0-2--1-0",
+        "region": -1,
+        "distance": 2.0,
+        "calls": 0
+      },
+      {
+        "name": "box-exit-0-2-1--1",
+        "region": -1,
+        "distance": 2.0,
+        "calls": 0
+      },
+      {
+        "name": "box-exit-0-2-1-0",
+        "region": -1,
+        "distance": 2.0,
+        "calls": 0
+      },
+      {
+        "name": "box-corner-0",
+        "region": -1,
+        "distance": 1.4142135623730951,
+        "calls": 0
+      },
+      {
+        "name": "box-corner-return-layer-0",
+        "region": -1,
+        "distance": 1.4142135623730951,
+        "calls": 0
+      },
+      {
+        "name": "layer-1--1",
+        "region": 1,
+        "distance": 1.0,
+        "calls": 4
+      },
+      {
+        "name": "layer-1-0",
+        "region": 1,
+        "distance": 1.0,
+        "calls": 0
+      },
+      {
+        "name": "layer-return-1",
+        "region": 0,
+        "distance": 1.0,
+        "calls": 4
+      },
+      {
+        "name": "layer-backward-1--1",
+        "region": 0,
+        "distance": 1.0,
+        "calls": 4
+      },
+      {
+        "name": "layer-backward-1-0",
+        "region": 0,
+        "distance": 1.0,
+        "calls": 0
+      },
+      {
+        "name": "layer-backward-return-1",
+        "region": 1,
+        "distance": 1.0,
+        "calls": 4
+      },
+      {
+        "name": "layer-restart-1-5.0--1",
+        "region": 1,
+        "distance": 0.0,
+        "calls": 4
+      },
+      {
+        "name": "layer-restart-1-5.0-0",
+        "region": 1,
+        "distance": 0.0,
+        "calls": 0
+      },
+      {
+        "name": "layer-restart-return-1-5.0",
+        "region": 0,
+        "distance": 0.0,
+        "calls": 4
+      },
+      {
+        "name": "layer-restart-1-np.float64(4.999999999999999)--1",
+        "region": 1,
+        "distance": 8.881784197001252e-16,
+        "calls": 4
+      },
+      {
+        "name": "layer-restart-1-np.float64(4.999999999999999)-0",
+        "region": 1,
+        "distance": 8.881784197001252e-16,
+        "calls": 0
+      },
+      {
+        "name": "layer-restart-return-1-np.float64(4.999999999999999)",
+        "region": 0,
+        "distance": 8.881784197001252e-16,
+        "calls": 4
+      },
+      {
+        "name": "layer-restart-1-np.float64(5.000000000000001)--1",
+        "region": 1,
+        "distance": 0.0,
+        "calls": 4
+      },
+      {
+        "name": "layer-restart-1-np.float64(5.000000000000001)-0",
+        "region": 1,
+        "distance": 0.0,
+        "calls": 0
+      },
+      {
+        "name": "layer-restart-return-1-np.float64(5.000000000000001)",
+        "region": 0,
+        "distance": 0.0,
+        "calls": 4
+      },
+      {
+        "name": "layer-restart-1-4.9999999995--1",
+        "region": 1,
+        "distance": 5.000000413701855e-10,
+        "calls": 4
+      },
+      {
+        "name": "layer-restart-1-4.9999999995-0",
+        "region": 1,
+        "distance": 5.000000413701855e-10,
+        "calls": 0
+      },
+      {
+        "name": "layer-restart-return-1-4.9999999995",
+        "region": 0,
+        "distance": 5.000000413701855e-10,
+        "calls": 4
+      },
+      {
+        "name": "box-three-face-1--1",
+        "region": -1,
+        "distance": 1.732050807568877,
+        "calls": 0
+      },
+      {
+        "name": "box-three-face-1-0",
+        "region": -1,
+        "distance": 1.732050807568877,
+        "calls": 0
+      },
+      {
+        "name": "box-exit-1-0--1--1",
+        "region": -1,
+        "distance": 2.0,
+        "calls": 0
+      },
+      {
+        "name": "box-exit-1-0--1-0",
+        "region": -1,
+        "distance": 2.0,
+        "calls": 0
+      },
+      {
+        "name": "box-exit-1-0-1--1",
+        "region": -1,
+        "distance": 2.0,
+        "calls": 0
+      },
+      {
+        "name": "box-exit-1-0-1-0",
+        "region": -1,
+        "distance": 2.0,
+        "calls": 0
+      },
+      {
+        "name": "box-exit-1-2--1--1",
+        "region": -1,
+        "distance": 2.0,
+        "calls": 0
+      },
+      {
+        "name": "box-exit-1-2--1-0",
+        "region": -1,
+        "distance": 2.0,
+        "calls": 0
+      },
+      {
+        "name": "box-exit-1-2-1--1",
+        "region": -1,
+        "distance": 2.0,
+        "calls": 0
+      },
+      {
+        "name": "box-exit-1-2-1-0",
+        "region": -1,
+        "distance": 2.0,
+        "calls": 0
+      },
+      {
+        "name": "box-corner-1",
+        "region": -1,
+        "distance": 1.4142135623730951,
+        "calls": 0
+      },
+      {
+        "name": "box-corner-return-layer-1",
+        "region": -1,
+        "distance": 1.4142135623730951,
+        "calls": 0
+      },
+      {
+        "name": "layer-2--1",
+        "region": 1,
+        "distance": 1.0,
+        "calls": 4
+      },
+      {
+        "name": "layer-2-0",
+        "region": 1,
+        "distance": 1.0,
+        "calls": 0
+      },
+      {
+        "name": "layer-return-2",
+        "region": 0,
+        "distance": 1.0,
+        "calls": 4
+      },
+      {
+        "name": "layer-backward-2--1",
+        "region": 0,
+        "distance": 1.0,
+        "calls": 4
+      },
+      {
+        "name": "layer-backward-2-0",
+        "region": 0,
+        "distance": 1.0,
+        "calls": 0
+      },
+      {
+        "name": "layer-backward-return-2",
+        "region": 1,
+        "distance": 1.0,
+        "calls": 4
+      },
+      {
+        "name": "layer-restart-2-5.0--1",
+        "region": 1,
+        "distance": 0.0,
+        "calls": 4
+      },
+      {
+        "name": "layer-restart-2-5.0-0",
+        "region": 1,
+        "distance": 0.0,
+        "calls": 0
+      },
+      {
+        "name": "layer-restart-return-2-5.0",
+        "region": 0,
+        "distance": 0.0,
+        "calls": 4
+      },
+      {
+        "name": "layer-restart-2-np.float64(4.999999999999999)--1",
+        "region": 1,
+        "distance": 8.881784197001252e-16,
+        "calls": 4
+      },
+      {
+        "name": "layer-restart-2-np.float64(4.999999999999999)-0",
+        "region": 1,
+        "distance": 8.881784197001252e-16,
+        "calls": 0
+      },
+      {
+        "name": "layer-restart-return-2-np.float64(4.999999999999999)",
+        "region": 0,
+        "distance": 8.881784197001252e-16,
+        "calls": 4
+      },
+      {
+        "name": "layer-restart-2-np.float64(5.000000000000001)--1",
+        "region": 1,
+        "distance": 0.0,
+        "calls": 4
+      },
+      {
+        "name": "layer-restart-2-np.float64(5.000000000000001)-0",
+        "region": 1,
+        "distance": 0.0,
+        "calls": 0
+      },
+      {
+        "name": "layer-restart-return-2-np.float64(5.000000000000001)",
+        "region": 0,
+        "distance": 0.0,
+        "calls": 4
+      },
+      {
+        "name": "layer-restart-2-4.9999999995--1",
+        "region": 1,
+        "distance": 5.000000413701855e-10,
+        "calls": 4
+      },
+      {
+        "name": "layer-restart-2-4.9999999995-0",
+        "region": 1,
+        "distance": 5.000000413701855e-10,
+        "calls": 0
+      },
+      {
+        "name": "layer-restart-return-2-4.9999999995",
+        "region": 0,
+        "distance": 5.000000413701855e-10,
+        "calls": 4
+      },
+      {
+        "name": "box-three-face-2--1",
+        "region": -1,
+        "distance": 1.732050807568877,
+        "calls": 0
+      },
+      {
+        "name": "box-three-face-2-0",
+        "region": -1,
+        "distance": 1.732050807568877,
+        "calls": 0
+      },
+      {
+        "name": "box-exit-2-0--1--1",
+        "region": -1,
+        "distance": 2.0,
+        "calls": 0
+      },
+      {
+        "name": "box-exit-2-0--1-0",
+        "region": -1,
+        "distance": 2.0,
+        "calls": 0
+      },
+      {
+        "name": "box-exit-2-0-1--1",
+        "region": -1,
+        "distance": 2.0,
+        "calls": 0
+      },
+      {
+        "name": "box-exit-2-0-1-0",
+        "region": -1,
+        "distance": 2.0,
+        "calls": 0
+      },
+      {
+        "name": "box-exit-2-1--1--1",
+        "region": -1,
+        "distance": 2.0,
+        "calls": 0
+      },
+      {
+        "name": "box-exit-2-1--1-0",
+        "region": -1,
+        "distance": 2.0,
+        "calls": 0
+      },
+      {
+        "name": "box-exit-2-1-1--1",
+        "region": -1,
+        "distance": 2.0,
+        "calls": 0
+      },
+      {
+        "name": "box-exit-2-1-1-0",
+        "region": -1,
+        "distance": 2.0,
+        "calls": 0
+      },
+      {
+        "name": "box-corner-2",
+        "region": -1,
+        "distance": 1.4142135623730951,
+        "calls": 0
+      },
+      {
+        "name": "box-corner-return-layer-2",
+        "region": -1,
+        "distance": 1.4142135623730951,
+        "calls": 0
+      },
+      {
+        "name": "nearest-not-registration",
+        "region": 3,
+        "distance": 0.44999999999999996,
+        "calls": 4
+      },
+      {
+        "name": "ignore-other-layer",
+        "region": 1,
+        "distance": 4.0,
+        "calls": 0
+      }
+    ]
+  },
+  "gpu": "pending",
+  "sources": {
+    "p5_kernel.h": "39d82e04f5c969c92c1ee35d026241119364134fecf1db801ff5d0a4a44bd549",
+    "p5_rng.h": "6c3257588ee4be2d0881a05f5d0869b65b942f68fd596a9f0ea981bcaaa9760f",
+    "p5a0_common.h": "8c209cfe016241bbbb5d586830dfe5a1ddff648f8f75d3b431dd2ae6d61e70c2",
+    "p5d_gxx_compat.h": "a57fe7517299ec452e825f7a3dea7db789ccc921115085e783239682e6b6dc50",
+    "p5i_kernel.h": "18dc844f2eae05dccda7fabac912ce3701dcc5aee08262ac12b8a0f94a209c0a",
+    "p5i_logs.h": "ca6e1f6ac016a30bf7579d88df62d3da2319f2cb45bff2eeacb7ef1843025e7b",
+    "p5j_kernel.h": "7644fecf498030eca653e9cabd5317269e6c572bd1e08d9e09c1d02d22aabd38",
+    "p5j_logs.h": "8e04b1c4be2b82d29e2e5d6dddd3b684f14b99c32454bf8e617c23adff4d7c12",
+    "p5j_terms.h": "2e7800cbd39a2dcffe3bfc53f7992859e10485551789bca994928573ff424e82",
+    "p6_field.h": "e053ee7baa83b2de8e5882a330c239f7146e10c6f3558dd737bd3fb4ca45b4c0",
+    "p7_field.h": "c60a99b4504f57eeb20062fd4e2c2681fe950c7253c45e1ce1189331baebcb85",
+    "p8f_core.py": "5c5c4bfed42867e96b01bdc5440fd399e26e177c3992faf622daf812552c4a3e",
+    "p8f_cpu.cpp": "bc83aba1ce188cd329eaaddcaa42857e2946931dc6f619c98218e262eafc57b8",
+    "p8f_gpu.cu": "910c62f55dfc1f475410be630efe9be4358ef354d23bf968506ab34171dae369",
+    "p8f_kernel.h": "7c072e9a1ef1cf9554b1db8505ee0fe61baaff455f0c862aeabbe37213b8d6a9",
+    "p8f_materials.h": "fbbc85125cb90e25d0c2a66432777bc666aa1d7137e886e96529d9eb73576264",
+    "p8g2.py": "200ee124631002ed590818117e23af87163c3dc9097ae027907d6c2b6c971f30",
+    "p8g2_core.py": "0b1551f756d4966f306e9aa2565ace3a5be913af42d3938572ed37e7f4d1d405",
+    "p8g2_cpu.cpp": "440b0e1b4d391cc2256fef88d2280f172e4cc3f97e9877a654a6757eff74cfa6",
+    "p8g2_gpu.cu": "caf896e53e996ed235eef5878c15c273730f20e9a8e713608cbd88e5530560df",
+    "p8g2_kernel.h": "f33ec3f009e99c3fb232dd8744ea442065a627550b899c09102f92b7a57659b8",
+    "p8g_core.py": "6cf521a0d084320516c707502cda7d08b9de556b3da5b627ccb7e8d3813fce5c",
+    "p8g_cpu.cpp": "5dd267b22967c5fc09caa01fdc43f1ddffa12ee670d439329cfb4202da48fa5f",
+    "p8g_functions.h": "cbf29867c8c21a92d373214869f81c2ed8c4fb95709048e73a2a32fd9fd3fbae",
+    "p8g_gpu.cu": "ebca0d43d6be1e33db513cc1e6b6cc3ae2726c703320d24f350a080b395a2160",
+    "p8g_kernel.h": "4ff34083ac9609cad339dc8b01f5c4a17fdc4cdec9c54f13d67f0d90031a3f67",
+    "p8g_logs.h": "d66924a19f6a76904d3e4c6dbbad12ba99aec4610ebd08aefdd55932915e1f65",
+    "p8g_materials.h": "78c5fbf2eff59e62878c66beb8ea1b858ac6ab0c5204e90902689cae01df8159",
+    "p8g_reference.h": "7e93d88a8e1a496ebc3e2f6d7a0ac76371fe164155b0bf597b232d67dd129f60",
+    "p9b_cases.py": "ca87867b58a6b12fede7fa4e2c71426ef9a2e011a50d92afa73e8b9e53554eeb",
+    "p9b_core.py": "a1152b49b9bfe890203ad1c931e06e5b36d3c56f0abe00f31cf85b84cb4efffa",
+    "p9b_cpu.cpp": "7d99c42c841d5f4a0d9ff167fee0fd51a895e2dcd97aa8fe559b62afd5e9bd4f",
+    "p9b_geometry.h": "03e7ad133c5ee7b48b40da662bcf2e6551d336bdf6c30a1150907ae1015b3c94",
+    "p9b_gpu.cu": "32beeb58c75c1ba9a656e7b6b4eb3efec51064dbdbd107f2679057808fe457b5",
+    "p9b_kernel.h": "e1710dd02e55c63c29451d7d5da09ef7a06644a0fe8319949544a8db9fec5633"
+  }
+}

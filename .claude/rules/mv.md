@@ -54,6 +54,8 @@ overwritten by later diagnostics.
 
 ## Which code to use
 
+- 3D layer boxes and noncontact y-aligned cylindrical seeds (P9b): `gpu/p9b_*`, entry `gpu/p9b.py` (`local`/`export`/`analyse`); G0 (byte-identical to P8g-2), G3–G5, G1-y and G2 passed; G1-x failed on the 0.1 cm seed-material plate block (+1.2 ± 0.3%; P9a-GPU direct comparison shows no orientation error) — stage verdict fail on record. Colab execution is a single `gpu/p9b_colab.py` invocation (G3→G4→G5→G1→G2; final log marker `P9B_DONE`); Colab CLI driver: `gpu/p9b_cli.py` (start/watch); `analyse` reads `<work>/results`. Results and hand-off: `docs/validation/mv/p9b/`.
+
 - Slab depth dose: `photon_transport_p3t.py` (P3r loop minus redundant work, byte-identical outputs).
   `photon_transport_p3r.py` is hash-frozen by `run_p3r.py` — do not edit it.
 - **Slab kernels up to P3t do not carry lateral position for photons or most secondaries** — harmless for depth-only
