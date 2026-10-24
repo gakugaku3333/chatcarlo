@@ -1,6 +1,6 @@
 ---
 phase: 開発中
-next: 抄録の語数を 500 words 以内にする（依頼 3 の GPU 版で本文約 30 字増）。公開ページへの反映は他の AI の作業待ち（docs/jsmp133/page_update_request.md）
+next: 抄録 v3（docs/jsmp133/abstract_ja_draft.md の ②、1,144 字）を英訳し 500 words 以内か実測する。公開ページへの反映は他の AI の作業待ち（docs/jsmp133/page_update_request.md）
 blocker: ELSEPAで作った表の配布の方法（表を置くか、生成スクリプトだけか）とリポジトリのLICENSEはユーザーの判断待ち。急がない
 updated: 2026-10-24
 ---

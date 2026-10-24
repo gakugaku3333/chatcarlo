@@ -1,0 +1,12 @@
+PDD all: mean 0.53 max 1.46 n 60 sem 0.76
+dmax 2.75 cm | PDD z>dmax: mean 0.54 max 1.46 n 54  sem 0.77 | buildup z<dmax: mean 0.52 max 0.82 n 5 (z of max 0.25) | max overall at z=27.25
+  depth 5: x50 EGS5 5.254 GPU 5.254 shift +0.01 mm | inner(<=0.8 x50) mean 0.27 max 0.68 n 7 | penumbra(>=20%,outside inner) mean 0.31 max 0.78 n 4
+  depth 10: x50 EGS5 5.508 GPU 5.509 shift +0.02 mm | inner(<=0.8 x50) mean 0.66 max 1.23 n 8 | penumbra(>=20%,outside inner) mean 0.46 max 0.96 n 4
+  depth 20: x50 EGS5 6.015 GPU 6.014 shift -0.01 mm | inner(<=0.8 x50) mean 0.35 max 0.88 n 9 | penumbra(>=20%,outside inner) mean 0.39 max 1.36 n 4
+OCR inner all depths: mean 0.43 max 1.23 n 24 sem mean 0.69
+PDD all: mean 0.77 max 1.94 n 60 sem 0.82
+dmax 1.25 cm | PDD z>dmax: mean 0.79 max 1.94 n 57  sem 0.83 | buildup z<dmax: mean 0.75 max 1.17 n 2 (z of max 0.25) | max overall at z=28.75
+  depth a: x50 EGS5 5.259 GPU 5.265 shift +0.05 mm | inner(<=0.8 x50) mean 0.93 max 1.56 n 7 | penumbra(>=20%,outside inner) mean 0.66 max 0.92 n 4
+  depth b: x50 EGS5 5.514 GPU 5.512 shift -0.02 mm | inner(<=0.8 x50) mean 0.49 max 0.90 n 8 | penumbra(>=20%,outside inner) mean 0.46 max 0.84 n 3
+  depth c: x50 EGS5 6.027 GPU 6.023 shift -0.04 mm | inner(<=0.8 x50) mean 0.42 max 0.84 n 9 | penumbra(>=20%,outside inner) mean 0.64 max 1.24 n 4
+OCR inner all depths: mean 0.59 max 1.56 n 24 sem mean 0.73
