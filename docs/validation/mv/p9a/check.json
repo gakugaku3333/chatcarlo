@@ -1,0 +1,171 @@
+{
+  "bundles": {
+    "checks": {
+      "envelope_excess": 0,
+      "max_relative_integral_error": 2.9501976090625943e-06,
+      "status": "pass",
+      "units": "cm2/g; MeV cm2/g; density multiplied only in transport"
+    },
+    "definition_sha256": "07c4d16fde5766a84660f4721ee138d44bd1741f5e4e7e8346749b476fa07c7a",
+    "densities": [
+      1.0,
+      0.26,
+      1.85,
+      11.35,
+      2.47
+    ],
+    "names": [
+      "water",
+      "lung",
+      "bone",
+      "lead",
+      "seed_agti"
+    ],
+    "old_identity": {
+      "checks": {
+        "bone": {
+          "envelope_excess": 0,
+          "max_relative_integral_error": 2.893999156230411e-06,
+          "status": "pass",
+          "units": "cm2/g; MeV cm2/g; density multiplied only in transport"
+        },
+        "lead": {
+          "envelope_excess": 0,
+          "max_relative_integral_error": 2.983413070265236e-06,
+          "status": "pass",
+          "units": "cm2/g; MeV cm2/g; density multiplied only in transport"
+        },
+        "lung": {
+          "envelope_excess": 0,
+          "max_relative_integral_error": 2.8727507005090996e-06,
+          "status": "pass",
+          "units": "cm2/g; MeV cm2/g; density multiplied only in transport"
+        },
+        "water": {
+          "envelope_excess": 0,
+          "max_relative_integral_error": 2.872919546047443e-06,
+          "status": "pass",
+          "units": "cm2/g; MeV cm2/g; density multiplied only in transport"
+        }
+      },
+      "densities": [
+        1.0,
+        0.26,
+        1.85,
+        11.35
+      ],
+      "files": {
+        "bone_bundle.npz": "f79e3655c1aa7cda50e758ddf44d121aa8826bef2b8b04efc41f426216179d00",
+        "bone_fluorescence.npz": "0627283737f033895ed06cbcf75bc82b975280bc521c8e8f99f0c3a2c00c3a77",
+        "lead_bundle.npz": "f692ee7f0f81214a25bcb722af783c7bad66fe56c5b83bd7206642e10a711d1b",
+        "lead_fluorescence.npz": "4e52e0c15c2034897e9fb44db79dc2cf40d323351f7da0403f0bead986a08413",
+        "lung_bundle.npz": "a490cd825c3494d4ae748adeefb51d772d8cb8ae0e7daec735c36529ed6ecafe",
+        "lung_fluorescence.npz": "806913be371ca5ebecb29c55fcf47701d06e4ff6f47020d2a8ff2f6626b92504",
+        "water_bundle.npz": "0256d69c48b9530f3d3f204b1930869fcd9e8509493eb6dc038c737b00c86cbf",
+        "water_fluorescence.npz": "19c1601c4df938ee2b8debdd76a001e7a7e468484c2f0caaa8ac463d63235f7a"
+      },
+      "manifest_sha256": "0220a9d3b35198a64a9faeaf9e4ebfdf49b98c1c214cbf0d064cbbde09d5241a",
+      "source_hashes": {
+        "backend_sampling.py": "1c1442ddbd8f7bbc22e6c6e3e34567be60d2ddec1d181385ea4def807e85063c",
+        "batch_kernels_p3u.py": "d80f27194f7495eb6369bf149514359cd67ff6ac6a04e8ec4a71b3411966a0a2",
+        "batch_runner_p3u.py": "d2d4b9510eb654a45d6092a5e4687c85dc1818ae22f84625a2922ebaa52eff82",
+        "bremsstrahlung_p3r.py": "694af96f544772a904173639a232d029dd9b2b24d3af525b966ebda4058769b7",
+        "docs/validation/mv/p1/data/metadata.json": "31b9e498cbf24601e67a0a6f79ec070806ab0fe236f509458e4873d681a5f20d",
+        "flight_annihilation_p2c.py": "8596585268e5d9fea2110f6ebe256f9a3769f6ea548ebd16d61c0863bd57c836",
+        "generate_fluorescence_p8e.py": "dad344f95e87304804c62e4737b2bfaeb93da1b79466387ddfaf8d237c324fcd",
+        "materials_p8a.py": "9a74192e8c92677218271c2f963892ba731bcabbf5cf50e58760380279c4b0d3",
+        "pegs_p8a.py": "3f91b55356af874b331e9e7f46082c05482743a7f97cc521513a5d267104fbfa",
+        "photon_data_p2.py": "b76ca6c4ead288dded6f135b2f3968d1f0e1175eb952fcf661c1f8657ca99560",
+        "photon_sampling_p2.py": "1451fe3ab29c40121edf6d20631317c2f1120c8dc9d5cc8388dc0a606cda2ac5",
+        "photon_transport_p8e.py": "e20fb75b2bc2a829fee563aa3d2668daa27c2531320a99b85718824e1087262b",
+        "physics.py": "9c0d21197acc5cb54a9fbb0f5fd3534c0638ed1cf54f0fecd2e9475d3a72b718",
+        "run_p8e.py": "e6a7e2816b2013fd6bd5b12e862cbb59fed92723dc79413d8645a6d1cf90eca3",
+        "sampling.py": "1bc217fb327ce4e9b71b71e35b7fc486acffc40d09022e91c457f9d1e8b4da77",
+        "scoring_p3b.py": "589a0fcdccb5d9f1f7f8a7f4c234239db248dd5ddbe450bba2bd71f0ea957453",
+        "transport.py": "e2345a5782fe4e491fd1f051790f8c0a9a4abdd07743c6729d38e5f7c92efc19"
+      },
+      "units": "mass"
+    },
+    "old_manifest_sha256": "1186c4e304033dae26e62e7a4fe7195e024272fd2487b782c1eb917be2b1f8e8",
+    "seed_sha256": "41c68c501ff71c19e0bb270939620a0a71526fa36865d46da4f526ebc904bddf"
+  },
+  "components": {
+    "coefficient_points": 1638,
+    "relaxation": [
+      {
+        "Z": 47,
+        "expected": 0.8313,
+        "max_residual_MeV": 0.0,
+        "observed": 0.8338
+      },
+      {
+        "Z": 22,
+        "expected": 0.0,
+        "max_residual_MeV": 0.0,
+        "observed": 0.0
+      }
+    ],
+    "shells": [
+      {
+        "energy": 0.01,
+        "local": 0.0
+      },
+      {
+        "energy": 0.03,
+        "local": 0.0
+      },
+      {
+        "energy": 0.1,
+        "local": 0.0
+      },
+      {
+        "energy": 1.0,
+        "local": 0.0
+      },
+      {
+        "energy": 10.0,
+        "local": 0.0
+      }
+    ],
+    "status": "pass"
+  },
+  "gpu_slab": "pending T4 export gate",
+  "kernel": {
+    "sources": {
+      "p5_kernel.h": "39d82e04f5c969c92c1ee35d026241119364134fecf1db801ff5d0a4a44bd549",
+      "p5_rng.h": "6c3257588ee4be2d0881a05f5d0869b65b942f68fd596a9f0ea981bcaaa9760f",
+      "p5a0_common.h": "8c209cfe016241bbbb5d586830dfe5a1ddff648f8f75d3b431dd2ae6d61e70c2",
+      "p5d_gxx_compat.h": "a57fe7517299ec452e825f7a3dea7db789ccc921115085e783239682e6b6dc50",
+      "p8f_core.py": "5c5c4bfed42867e96b01bdc5440fd399e26e177c3992faf622daf812552c4a3e",
+      "p8f_cpu.cpp": "bc83aba1ce188cd329eaaddcaa42857e2946931dc6f619c98218e262eafc57b8",
+      "p8f_gpu.cu": "910c62f55dfc1f475410be630efe9be4358ef354d23bf968506ab34171dae369",
+      "p8f_kernel.h": "7c072e9a1ef1cf9554b1db8505ee0fe61baaff455f0c862aeabbe37213b8d6a9",
+      "p8f_materials.h": "fbbc85125cb90e25d0c2a66432777bc666aa1d7137e886e96529d9eb73576264",
+      "p8g2.py": "200ee124631002ed590818117e23af87163c3dc9097ae027907d6c2b6c971f30",
+      "p8g2_core.py": "0b1551f756d4966f306e9aa2565ace3a5be913af42d3938572ed37e7f4d1d405",
+      "p8g2_cpu.cpp": "440b0e1b4d391cc2256fef88d2280f172e4cc3f97e9877a654a6757eff74cfa6",
+      "p8g2_gpu.cu": "caf896e53e996ed235eef5878c15c273730f20e9a8e713608cbd88e5530560df",
+      "p8g2_kernel.h": "f33ec3f009e99c3fb232dd8744ea442065a627550b899c09102f92b7a57659b8",
+      "p8g_core.py": "6cf521a0d084320516c707502cda7d08b9de556b3da5b627ccb7e8d3813fce5c",
+      "p8g_cpu.cpp": "5dd267b22967c5fc09caa01fdc43f1ddffa12ee670d439329cfb4202da48fa5f",
+      "p8g_functions.h": "cbf29867c8c21a92d373214869f81c2ed8c4fb95709048e73a2a32fd9fd3fbae",
+      "p8g_gpu.cu": "ebca0d43d6be1e33db513cc1e6b6cc3ae2726c703320d24f350a080b395a2160",
+      "p8g_kernel.h": "4ff34083ac9609cad339dc8b01f5c4a17fdc4cdec9c54f13d67f0d90031a3f67",
+      "p8g_logs.h": "d66924a19f6a76904d3e4c6dbbad12ba99aec4610ebd08aefdd55932915e1f65",
+      "p8g_materials.h": "78c5fbf2eff59e62878c66beb8ea1b858ac6ab0c5204e90902689cae01df8159",
+      "p8g_reference.h": "7e93d88a8e1a496ebc3e2f6d7a0ac76371fe164155b0bf597b232d67dd129f60"
+    },
+    "status": "pass"
+  },
+  "regression": [
+    [
+      20000,
+      0
+    ],
+    [
+      2000,
+      7000
+    ]
+  ],
+  "status": "pass"
+}

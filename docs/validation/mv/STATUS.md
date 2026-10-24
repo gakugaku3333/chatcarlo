@@ -59,6 +59,7 @@
 | P8g-1（積層の核の表の定数 log の事前計算） | 2026-10-24 | **合格**（関門 0〜2。検査した履歴で P8f と履歴ごとにバイト一致し、P8f の判定を引き継ぐ） | [RESULTS](p8g1/RESULTS.md)・[plan](../../ai/plans/2026-10-24-mv-p8g1-precomputed-logs.md) | T4 で ×1.25〜1.31（40×256・20 万履歴で 198 µs/履歴）。ncu の測定は [p8f_prof](p8f_prof/)、上位計画 [P8g](../../ai/plans/2026-10-24-mv-p8g-fast-stack-kernel.md) |
 | P8g-2（積層の核の状態機械と補充） | 2026-10-24 | **合格**（関門 0〜2。検査した履歴で P8g-1・P8f と履歴ごとにバイト一致し、P8f の判定を引き継ぐ） | [RESULTS](p8g2/RESULTS.md)・[plan](../../ai/plans/2026-10-24-mv-p8g2-state-machine.md) | T4・20 万履歴で 42.5 µs/履歴（40×256）。P8g-1 の ×4.68、P8f 本番の起動の ×6.53。1×10⁸ で約 1.2 時間 |
 | 積層の統計の追加（P8g-3） | 2026-10-24 | **完了**（両コード 1.0×10⁸ 個。EGS5 は P8e 本番に 2,000 万 × 2 本、GPU は P8f 本番に P8g-2 の核で 8,000 万を追加。合算前の χ² はすべて p ≥ 0.16） | [RESULTS](statsstack/RESULTS.md)・[plan](../../ai/plans/2026-10-24-mv-p8g3-stack-production.md) | 220 点で差の平均 0.168%・最大 1.26%（誤差平均 0.175%）、2σ 超 21（見込み約 10）。骨 +0.29%・鉛直前の水で系統差（P8f で報告済みと同じ場所） |
+| P9a（シード材 銀 59.6%・チタン 40.4%、2.47 g/cm³） | 2026-10-24 | **合格**（水–0.1 cm 板–水–1.0 cm 板–水、19 ブロックすべて \|差\| ≤ 1%・SEM ≤ 0.33%。EGS5 1.13×10⁷、GPU 1.36×10⁷、核のソースは P8g-2 のまま） | [RESULTS](p9a/RESULTS.md)・[plan](../../ai/plans/2026-10-24-mv-p9a-seed-material-stack.md) | 厚い板の直後 11.1–12.1 cm が −0.68%（3.7σ、基準内）。阻止能は PEGS5 の一般式（ユーザー決定）。次は P9b（3 次元の形状と 7 門） |
 
 **現在（2026-10-19）**: P7 まで完了。GPU の合格構成は P5k の変種 F。GPU の高速化は一時停止中で、次の段階はユーザーと相談して決める。
 
@@ -104,6 +105,13 @@ RESULTS は P1e/P1f の凍結対象（`prototypes/mv_electron/p1e_common.targets
 | `p7_results` | `~/.cache/chatcarlo/p7/results` | 619 | 2.04 GB → 733 MB | `run_p7 analyse` |
 | `p7_work_pilot` | `~/.cache/chatcarlo/p7/work/pilot` | 315 | 2.9 GB → 287 MB | 試し計算の固定（pilot lock）の検査。`histories.npz` は大半が 0 で、682 MB → 9 MB ずつ |
 | `p8f` | `~/.cache/chatcarlo/p8f` | 857 | 1.3 GB → 641 MB | `gpu/p8f.py` の全コマンド（`gate1`〜`analyse`）、`p8f_cli` での再実行（束 `export` と結果 `results` もここ）。P8e の材料の束は `p8e/` にあり圧縮していない |
+| `p3b` | `~/.cache/chatcarlo/p3b` | 1,539 | 278 → 54 MB | `run_p3b1`〜`run_p3b3`・`run_p4a`・`gpu/p6.py` で P3b の結果を読む作業（2026-10-24、容量確保） |
+| `p5` | `~/.cache/chatcarlo/p5` | 929 | 1.0 GB → 713 MB | `gpu/p5b`〜`p5g` などの P5 の全コマンドと再解析（2026-10-24） |
+| `p7_egs5` | `~/.cache/chatcarlo/p7/egs5` | 198 | 936 → 193 MB | `run_p7` の EGS5 側の再実行・再解析（2026-10-24） |
+| `stats10mv` | `~/.cache/chatcarlo/stats10mv` | 115 | 444 → 97 MB | `docs/validation/mv/stats10mv/` の再集計（2026-10-24） |
+| `mv_entry_9734038057e4` | `~/.cache/chatcarlo/mv_entry/9734038057e4` | 331 | 1.1 GB → 417 MB | 入口（10 MV、10-21）の同じ条件での再実行・照合と、stats10mv の再集計（2026-10-24） |
+| `mv_entry_b521f4485fa5` | `~/.cache/chatcarlo/mv_entry/b521f4485fa5` | 331 | 1.1 GB → 415 MB | 同上（10-23 の 54,000,000 個）（2026-10-24） |
+| `mv_entry_b521f4485fa5_vm1_aside` | `~/.cache/chatcarlo/mv_entry/b521f4485fa5_vm1_aside` | 48 | 51 → 24 MB | 1 台目の VM の退避分を見直すとき（2026-10-24） |
 
 `~/.cache/chatcarlo/p7/spectra` は P7 のコードが読むので圧縮しない。
 
