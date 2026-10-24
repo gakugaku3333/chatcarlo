@@ -1,0 +1,317 @@
+--- p8f_materials.h (names normalized)
++++ p8g_materials.h
+@@ -1,48 +1,19 @@
+ #ifndef P8G_MATERIALS_H
+ #define P8G_MATERIALS_H
+-#include "p5_kernel.h"
+-#ifndef P8G_FAULT
+-#define P8G_FAULT 0
+-#endif
+-// Numeric bundle fields retain P8e Material order. Offsets index doubles;
+-// descriptors are (offset, size, first dimension, second dimension).
+-struct P8gMaterial {
+-    P5Tables p;
+-    const double *ne,*excitation,*c,*z,*nj,*stop_T,*stop_delta,*stop_collision,*stop_rad;
+-    const double *gs_T,*gs_K,*gs_u,*gs_y,*rates,*photo_E,*photo,*pair_E,*pair_n,*pair_e,*thresholds;
+-    const double *dl,*bpar,*delcm,*delpos,*bindings,*pm,*shell_nj,*yields,*lines,*brems_E,*brems_V,*log_stop_T;
+-    const double *line_counts;
+-    int nstop,ncollision,nphoto,npair,nz,nline;
+-};
+-P5_FN P8gMaterial p8g_material(const double *data,const long long *q,const double *constants) {
+-    P8gMaterial m={};
+-    const double **fields[]={&m.ne,&m.excitation,&m.c,&m.z,&m.nj,&m.stop_T,&m.stop_delta,&m.stop_collision,&m.stop_rad,
+-        &m.gs_T,&m.gs_K,&m.gs_u,&m.gs_y,&m.rates,&m.photo_E,&m.photo,&m.pair_E,&m.pair_n,&m.pair_e,&m.thresholds,
+-        &m.dl,&m.bpar,&m.delcm,&m.delpos,&m.bindings,&m.pm,&m.shell_nj,&m.yields,&m.lines,&m.line_counts,
+-        &m.brems_E,&m.brems_V,&m.log_stop_T};
+-    for(int i=0;i<33;++i)*fields[i]=data+q[4*i];
+-    m.nstop=q[4*5+1];m.ncollision=q[4*7+1];m.nphoto=q[4*14+1];m.npair=q[4*16+1];m.nz=q[4*3+1];
+-    m.nline=q[4*28+3]; // lines shape (element, shell, line, 3); supplied as line stride below
+-    P5Tables &p=m.p;p.constants=constants;p.loget=m.log_stop_T;p.ed=m.stop_delta;p.ne=m.nstop;
+-    p.ts=m.gs_T;p.ks=m.gs_K;p.us=m.gs_u;p.ys=m.gs_y;p.rates=m.rates;
+-    p.nt=q[4*9+1];p.nk=q[4*10+1];p.nu=q[4*11+1];p.nrates=q[4*13+2];p.ratecols=q[4*13+3];
+-    p.pes=m.pair_E;p.np=m.npair;p.thresholds=m.thresholds;p.dl=m.dl;p.bpar=*m.bpar;p.delcm=*m.delcm;p.delpos=*m.delpos;
+-    p.Z=m.z;p.NJ=m.nj;p.nz=m.nz;p.brems_e=m.brems_E;p.brems_v=m.brems_V;p.nbrems=q[4*30+1];
+-    return m;
+-}
++#include "p8g_functions.h"
+ P5_FN int p8g_upper(double x,const double *a,int n) {
+     int lo=0,hi=n;while(lo<hi){int j=(lo+hi)/2;if(x<a[j])hi=j;else lo=j+1;}return lo;
+ }
+ // Numba's np.interp chooses the final duplicate. Search the rounded log grid.
+-P5_FN double p8g_log_interp(double E,const double *x,const double *y,int n) {
+-    double l=log(E);if(l<log(x[0]))return exp(log(y[0]));if(l>log(x[n-1]))return exp(log(y[n-1]));
+-    int lo=0,hi=n;while(lo<hi){int j=(lo+hi)/2;if(l<log(x[j]))hi=j;else lo=j+1;}
+-    int j=lo-1;if(l==log(x[j]) || j==n-1)return exp(log(y[j]));
+-    double slope=(log(y[j+1])-log(y[j]))/(log(x[j+1])-log(x[j]));
+-    return exp(slope*(l-log(x[j]))+log(y[j]));
++P5_FN double p8g_log_interp(double E,const double *x,const double *y,int n,const P8gMaterial &m8,int sx,int sy) {
++    double l=log(E);if(l<p8g_read(m8,sx,0))return exp(p8g_read(m8,sy,0));if(l>p8g_read(m8,sx,n-1))return exp(p8g_read(m8,sy,n-1));
++    int lo=0,hi=n;while(lo<hi){int j=(lo+hi)/2;if(l<p8g_read(m8,sx,j))hi=j;else lo=j+1;}
++    int j=lo-1;if(l==p8g_read(m8,sx,j) || j==n-1)return exp(p8g_read(m8,sy,j));
++    double slope=(p8g_read(m8,sy,j+1)-p8g_read(m8,sy,j))/(p8g_read(m8,sx,j+1)-p8g_read(m8,sx,j));
++    return exp(slope*(l-p8g_read(m8,sx,j))+p8g_read(m8,sy,j));
+ }
+ P5_FN double p8g_collision(double T,const P8gMaterial &m) {
+-    if(m.ncollision)return p8g_log_interp(T,m.stop_T,m.stop_collision,m.nstop);
++    if(m.ncollision)return p8g_log_interp(T,m.stop_T,m.stop_collision,m.nstop,m,8,9);
+     double M=m.p.constants[0],tau=T/M,g=1+tau,b2=1-1/(g*g),d=tau/2;
+     double F=-1-b2+log((tau-d)*d)+tau/(tau-d)+(d*d/2+(2*tau+1)*log1p(-d/tau))/(g*g);
+     double im=*m.excitation/M;
+@@ -62,7 +33,7 @@
+ P5_FN void p8g_coefficients(double E,const P8gMaterial &m,double *c) {
+     double x=E/m.p.constants[0],L=log1p(2*x),RE=m.p.constants[3],one=1+2*x;
+     c[0]=2*3.141592653589793*(RE*RE)*(*m.ne)*((1+x)/(x*x)*(2*(1+x)/(1+2*x)-L/x)+L/(2*x)-(1+3*x)/(one*one));
+-    double pe=p8g_log_interp(E,m.photo_E,m.photo,m.nphoto);int i=p8g_upper(E,m.photo_E,m.nphoto)-1;
++    double pe=p8g_log_interp(E,m.photo_E,m.photo,m.nphoto,m,10,11);int i=p8g_upper(E,m.photo_E,m.nphoto)-1;
+     if(i>=0 && i<m.nphoto-1) {
+         bool near=(i>0 && m.photo_E[i]==m.photo_E[i-1]) || (i+2<m.nphoto && m.photo_E[i+1]==m.photo_E[i+2]);
+         if(near) {
+@@ -71,20 +42,24 @@
+             if(i>0 && m.photo_E[i]==m.photo_E[i-1])--left;
+             if(i+2<m.nphoto && m.photo_E[i+1]==m.photo_E[i+2])++right;
+ #endif
+-            double u=log(E/m.photo_E[i])/log(m.photo_E[i+1]/m.photo_E[i]);
+-            pe=exp(log(m.photo[left])+u*log(m.photo[right]/m.photo[left]));
++            double u=log(E/m.photo_E[i])/p8g_read(m,12,i);
++            pe=exp(p8g_read(m,14,left)+u*p8g_read(m,13,left));
+         }
+     }
+-    c[1]=pe;c[2]=p5_pair_interp(E,m.pair_E,m.pair_n,m.npair,1,m.thresholds[0]);
+-    c[3]=p5_pair_interp(E,m.pair_E,m.pair_e,m.npair,1,m.thresholds[1]);
++    c[1]=pe;c[2]=p8g_pair_interp(E,m.pair_E,m.pair_n,m.npair,1,m.thresholds[0],m,6);
++    c[3]=p8g_pair_interp(E,m.pair_E,m.pair_e,m.npair,1,m.thresholds[1],m,7);
+ }
+ P5_FN void p8g_quantities(double T,const P8gMaterial &m,double *q) {
+-    int idx;double raw[12];quantities(T,m.brems_E,m.brems_V,m.p.nbrems,m.log_stop_T,m.stop_rad,m.nstop,.01,0,q,q+1,q+2,q+3,&idx,raw);
++    int idx;double raw[12];p8g_quantities_raw(T,m.brems_E,m.brems_V,m.p.nbrems,m.log_stop_T,m.stop_rad,m.nstop,.01,0,q,q+1,q+2,q+3,&idx,raw,m);
+     if(T>.01 && m.ncollision)q[2]=interp(log(T),m.log_stop_T,m.stop_rad,m.nstop)-q[1];
+ }
+ P5_FN double p8g_sample_k(double T,const P8gMaterial &m,RngState *s,int *excess) {
+     double q[4];p8g_quantities(T,m,q);double lo=log(.01),width=log(T/.01);*excess=0;
+-    for(;;){double u=rng_uniform(s),k=p5_min(T,p5_max(.01,exp(lo+width*u)));double f=p5_shape(T,k,&m.p);
++    for(;;){double u=rng_uniform(s),k=p5_min(T,p5_max(.01,exp(lo+width*u)));double f=p8g_shape(T,k,m);
++        
++#if P8G_CHECK
++        if(!isfinite(f)){*excess=1;return k;}
++#endif
+         if(f>q[3]){*excess=1;return k;}double accept=rng_uniform(s);if(accept*q[3]<=f)return k;}
+ }
+ P5_FN void p8g_shell_distribution(double E,const P8gMaterial &m,double *xs) {
+--- p8f_kernel.h (names normalized)
++++ p8g_kernel.h
+@@ -25,14 +25,14 @@
+     for(int j=first;j<=last;++j)if(owner[j]==region){double overlap=p5_max(0.,p5_min(hi,edges[j+1])-p5_max(lo,edges[j]));score[j]+=loss*overlap/(hi-lo);if(adds)++adds[j];}
+ }
+ P5_FN void p8g_sink(const P8gGeometry *g,P8gLocal *l,double z0,double z1,int region,double loss){
+-#if P8G_FAULT == 5
++#if P8F_FAULT == 5
+     if(loss>0 && !l->skipped){l->skipped=1;return;}
+ #endif
+     p8g_score(l->bins,g->nb,z0,z1,region,loss,g->bins,g->owner,l->additions);
+ }
+ P5_FN void p8g_material_boundary(double *a,int old,int nr,const P8gMaterial &m,double total,double G1,double knew,RngState *s,double *info,double override_mu=2.){
+     double strength=p5_max(0.,(a[14]-a[13])-a[12]),mu=1.;bool terminal=a[18]==1,omitted=false;
+-    if(!terminal){if(strength>=m.gs_K[0]){mu=override_mu>1?p5_gs_mu_cached(p5_max(.01,a[7]),strength,&m.p,total,G1,s):override_mu;double angle=rng_uniform(s),v[3];p5_rotate(a[3],a[4],a[5],mu,2*3.141592653589793*angle,v);for(int j=0;j<3;++j)a[j+3]=v[j];}else if(strength>0)omitted=true;}
++    if(!terminal){if(strength>=m.gs_K[0]){mu=override_mu>1?p8g_gs_mu_cached(p5_max(.01,a[7]),strength,m,total,G1,s):override_mu;double angle=rng_uniform(s),v[3];p5_rotate(a[3],a[4],a[5],mu,2*3.141592653589793*angle,v);for(int j=0;j<3;++j)a[j+3]=v[j];}else if(strength>0)omitted=true;}
+     bool forward=(nr>old && a[5]>0)||(nr<old && a[5]<0);a[16]=forward?nr:old;
+     if(!terminal){double u=rng_uniform(s);a[12]=u*knew;a[13]=(1-u)*knew;a[14]=knew;}
+     info[0]=strength;info[1]=mu;info[2]=omitted?1.:0.;info[3]=terminal?1.:0.;info[4]=-1.;
+@@ -41,7 +41,7 @@
+     if(bb<=step+1e-13)return 0;if(eb<=step+1e-13)return 1;if(mb<=step+1e-13)return 2;if(hb<=step+1e-13)return 3;if(rb<=step+1e-13)return 4;if(ab<=step+1e-13)return 5;return 6;
+ }
+ P5_FN int p8g_mid(int id){
+-#if P8G_FAULT == 1
++#if P8F_FAULT == 1
+     return (id+1)%4;
+ #else
+     return id;
+@@ -66,7 +66,7 @@
+             ++steps;p5_record(diagnostic,&state,s->calls);
+             if(steps>maxsteps) {failed=true;++counts[5];break;}
+             double E=a[6];
+-            m=p8g_material(data,meta+p8g_mid(g->ids[int(a[16])])*132,constants);t=&m.p;
++            m=p8g_material(data,meta+p8g_mid(g->ids[int(a[16])])*136,constants);t=&m.p;
+             if(E<.01) {
+                 if(a[17]>=2)++o->fluorescence_counts[3];if(a[17]==3)++o->fluorescence_counts[7];
+                 p8g_sink(g,local,a[2],a[2],int(a[16]),E);
+@@ -85,7 +85,7 @@
+                 if(bb>flight)break;
+                 if(nr<0 || nr>=g->nl){escaped_photon=true;break;}
+                 ++o->branches[0];tau=p5_max(0.,tau-length*mu);int region=int(a[16]);a[2]=a[5]>0?g->faces[region+1]:g->faces[region];a[16]=nr;
+-                m=p8g_material(data,meta+p8g_mid(g->ids[nr])*132,constants);t=&m.p;p8g_coefficients(E,m,c);mu=0.;
++                m=p8g_material(data,meta+p8g_mid(g->ids[nr])*136,constants);t=&m.p;p8g_coefficients(E,m,c);mu=0.;
+                 for(int z=0;z<4;++z){c[z]*=g->rho[nr];mu+=c[z];}
+                 p8g_boundary(a[2],a[5],int(a[16]),g->faces,&bb,&nr);flight=tau/mu;length=p5_min(flight,bb);
+             }
+@@ -105,7 +105,7 @@
+                     if(element>=0){binding=m.bindings[element*5+shell];used=p8g_relax(element,shell,m,s,g->fluorescence,emitted,&local_energy,trace,&events);}
+                     T=E-binding;
+                     if(top+used+2>=P8G_STACK_CAP){failed=true;++counts[6];break;}
+-#if P8G_FAULT == 3
++#if P8F_FAULT == 3
+                     for(int j=0;j<used;++j)local_energy+=emitted[4*j];used=0;
+ #endif
+                     dep+=local_energy;p8g_sink(g,local,a[2],a[2],int(a[16]),local_energy);
+@@ -137,12 +137,12 @@
+                 p8g_sink(g,local,a[2],a[2],int(a[16]),a[6]);p5_track_local(hs,g->nc,a[2],a[6],.2,touch);p5_track_local(fine,g->nf,a[2],a[6],.05,touch+2);
+                 dep+=a[6];a[6]=0.;break;
+             }
+-            m=p8g_material(data,meta+p8g_mid(g->ids[region])*132,constants);t=&m.p;
++            m=p8g_material(data,meta+p8g_mid(g->ids[region])*136,constants);t=&m.p;
+             double ev=p5_max(.01,a[7]);
+             if(ev!=cached_ev) {
+                 double q[4];p8g_quantities(ev,m,q);brate=q[0];bsoft=q[2];double hardrate,hardstop;
+                 p8g_hard(ev,m,&hardrate,&hardstop);S=p8g_collision(ev,m)-hardstop+bsoft;rate=hardrate;
+-                p5_table_rates(ev,t,&total,&G1);
++                p8g_table_rates(ev,m,&total,&G1);
+                 if(a[19]==1)arate=p8g_annihilation_rate(ev,m);cached_ev=ev;
+             }
+             double Sq=S*g->rho[region],rateq=rate*g->rho[region],G1q=G1*g->rho[region],brateq=brate*g->rho[region],bsoftq=bsoft*g->rho[region],arateq=arate*g->rho[region];
+@@ -168,7 +168,7 @@
+                     double info[5];p8g_material_boundary(a,region,nr,m,total,G1,p5_rule(ev),s,info);
+                     ++o->boundary_counts[0];o->boundary_counts[1]+=int(info[2]);o->boundary_counts[2]+=int(info[0]==0.);o->boundary_counts[3]+=int(info[3]);o->boundary_counts[4]+=int(int(a[16])==region);
+                     int cell=p8g_upper(info[0],g->strength,17);++o->boundary_hist[cell];if(info[2])++o->boundary_omitted_hist[cell];
+-#if P8G_FAULT != 2
++#if P8F_FAULT != 2
+                     cached_ev=-1.;
+ #endif
+                 }else a[16]=nr;continue;}
+@@ -183,7 +183,7 @@
+                 a[9]=a[11]-a[10];a[8]=prev+a[10];continue;
+             }
+             if(event==2) {
+-                double mu=p5_gs_mu_cached(ev,a[14],t,total,G1,s);
++                double mu=p8g_gs_mu_cached(ev,a[14],m,total,G1,s);
+                 double angle=rng_uniform(s),v[3];p5_rotate(a[3],a[4],a[5],mu,2*3.141592653589793*angle,v);
+                 for(int z=0;z<3;++z)a[3+z]=v[z];
+                 double u=rng_uniform(s),knew=p5_rule(ev);a[12]=a[13]+u*knew;a[13]=(1-u)*knew;a[14]=knew;
+@@ -238,7 +238,7 @@
+     }
+     double unresolved=0.;if(failed) {unresolved=state.a[6];for(int z=0;z<=top;++z)unresolved+=stack[z].a[6];}
+     double p8_error=fabs(p8g_sum(bins,g->nb)-dep);o->p8_max[0]=p5_max(o->p8_max[0],p8_error);
+-#if P8G_FAULT != 6
++#if P8F_FAULT != 6
+     for(int z=0;z<g->nb;++z)o->p8_batches[batch*g->nb+z]+=bins[z];
+ #endif
+     double residual=source_energy-dep-escaped-unresolved-rest;
+@@ -270,7 +270,7 @@
+     for(int j=0;j<g->nb;++j)r->i[79+j]=l->additions[j];
+ }
+ P5_FN void p8g_clear(const P8gGeometry *g,P8gLocal *l){
+-#if P8G_FAULT != 7
++#if P8F_FAULT != 7
+     for(int j=0;j<g->nb;++j)l->bins[j]=0.;
+ #endif
+     for(int j=0;j<g->nb;++j)l->additions[j]=0;
+--- p5a0_common.h:quantities (name normalized)
++++ p8g_functions.h:p8g_quantities_raw
+@@ -1,6 +1,6 @@
+ P5_FN void p8g_quantities_raw(double t,const double *e,const double *v,int n,
+     const double *le,const double *er,int m,double cut,int disabled,
+-    double *rate,double *discrete,double *soft,double *env,int *idx,double *raw) {
++    double *rate,double *discrete,double *soft,double *env,int *idx,double *raw,const P8gMaterial &m8) {
+     *idx=-1;for(int j=0;j<12;++j)raw[j]=0.;
+     double rad=interp(log(t>cut?t:cut),le,er,m);
+     *rate=0.;*discrete=0.;*soft=rad;*env=0.;
+@@ -8,13 +8,13 @@
+     int i=lower_bound(t,e,n)-1;if(i<0)i=0;if(i>n-2)i=n-2;*idx=i;
+     raw[0]=e[i];raw[1]=e[i+1];
+     for(int j=0;j<5;++j){raw[2+j]=v[5*i+j];raw[7+j]=v[5*(i+1)+j];}
+-    double u=(log(t)-log(e[i]))/(log(e[i+1])-log(e[i]));
++    double u=(log(t)-p8g_read(m8,0,i))/(p8g_read(m8,0,i+1)-p8g_read(m8,0,i));
+     if(i==0) {
+         *rate=u*v[5];*discrete=u*v[6];*soft=rad-*discrete;
+         *env=u*v[8]+(1-u)*v[3];return;
+     }
+-    *rate=exp((1-u)*log(v[5*i])+u*log(v[5*(i+1)]));
+-    *soft=exp((1-u)*log(v[5*i+2])+u*log(v[5*(i+1)+2]));
+-    *discrete=exp((1-u)*log(v[5*i+1])+u*log(v[5*(i+1)+1]));
++    *rate=exp((1-u)*p8g_read(m8,1,3*i+0)+u*p8g_read(m8,1,3*(i+1)+0));
++    *soft=exp((1-u)*p8g_read(m8,1,3*i+2)+u*p8g_read(m8,1,3*(i+1)+2));
++    *discrete=exp((1-u)*p8g_read(m8,1,3*i+1)+u*p8g_read(m8,1,3*(i+1)+1));
+     *env=(1-u)*v[5*i+3]+u*v[5*(i+1)+3];
+ }
+--- p5_kernel.h:p5_pair_interp (name normalized)
++++ p8g_functions.h:p8g_pair_interp
+@@ -1,19 +1,19 @@
+-P5_FN double p8g_pair_interp(double E,const double *es,const double *vs,int n,int stride,double th) {
++P5_FN double p8g_pair_interp(double E,const double *es,const double *vs,int n,int stride,double th,const P8gMaterial &m8,int site) {
+     if(E<=th)return 0.;
+     int start=0;while(start<n && es[start]<=th)++start;
+     double x=log(E),y;
+-    if(x<log(es[start]))y=p5_pair_value(start,es,vs,stride,th);
+-    else if(x>log(es[n-1]))y=p5_pair_value(n-1,es,vs,stride,th);
++    if(x<p8g_read(m8,5,start))y=p8g_read(m8,site,start);
++    else if(x>p8g_read(m8,5,n-1))y=p8g_read(m8,site,n-1);
+     else {
+         int lo=start,hi=n;
+-        while(lo<hi) {int m=lo+(hi-lo)/2;if(log(es[m])<x)lo=m+1;else hi=m;}
++        while(lo<hi) {int m=lo+(hi-lo)/2;if(p8g_read(m8,5,m)<x)lo=m+1;else hi=m;}
+         int j=lo;
+-        if(j<n && x==log(es[j]))y=p5_pair_value(j,es,vs,stride,th);
++        if(j<n && x==p8g_read(m8,5,j))y=p8g_read(m8,site,j);
+         else {
+-            --j;double y0=p5_pair_value(j,es,vs,stride,th);
+-            double y1=p5_pair_value(j+1,es,vs,stride,th);
+-            double slope=(y1-y0)/(log(es[j+1])-log(es[j]));
+-            y=slope*(x-log(es[j]))+y0;
++            --j;double y0=p8g_read(m8,site,j);
++            double y1=p8g_read(m8,site,j+1);
++            double slope=(y1-y0)/(p8g_read(m8,5,j+1)-p8g_read(m8,5,j));
++            y=slope*(x-p8g_read(m8,5,j))+y0;
+         }
+     }
+     double q=1-th/E;return exp(y)*((q*q)*q);
+--- p5_kernel.h:p5_table_rates (name normalized)
++++ p8g_functions.h:p8g_table_rates
+@@ -1,11 +1,12 @@
+-P5_FN void p8g_table_rates(double T,const P5Tables *t,double *total,double *G1) {
++P5_FN void p8g_table_rates(double T,const P8gMaterial &m8,double *total,double *G1) {
++ const P5Tables *t=&m8.p;
+     int shift=t->ratecols==3?1:0,n=shift?t->nrates:t->nt,lo=0,hi=n;
+     while(lo<hi) {int m=lo+(hi-lo)/2;double e=shift?t->rates[m*t->ratecols]:t->ts[m];
+         if(e<T)lo=m+1;else hi=m;}
+     int i=lo-1;if(i<0)i=0;if(i>n-2)i=n-2;
+     double e0=shift?t->rates[i*t->ratecols]:t->ts[i];
+     double e1=shift?t->rates[(i+1)*t->ratecols]:t->ts[i+1];
+-    double a=log(T/e0)/log(e1/e0);
+-    *total=exp((1-a)*log(t->rates[i*t->ratecols+shift])+a*log(t->rates[(i+1)*t->ratecols+shift]));
+-    *G1=exp((1-a)*log(t->rates[i*t->ratecols+shift+1])+a*log(t->rates[(i+1)*t->ratecols+shift+1]));
++    double a=log(T/e0)/p8g_read(m8,2,i);
++    *total=exp((1-a)*p8g_read(m8,3,2*i+0)+a*p8g_read(m8,3,2*(i+1)+0));
++    *G1=exp((1-a)*p8g_read(m8,3,2*i+1)+a*p8g_read(m8,3,2*(i+1)+1));
+ }
+--- p5_kernel.h:p5_gs_mu_cached (name normalized)
++++ p8g_functions.h:p8g_gs_mu_cached
+@@ -1,9 +1,10 @@
+-P5_FN double p8g_gs_mu_cached(double T,double K,const P5Tables *t,double total,double G1,RngState *s) {
++P5_FN double p8g_gs_mu_cached(double T,double K,const P8gMaterial &m8,double total,double G1,RngState *s) {
++ const P5Tables *t=&m8.p;
+     double p0=exp(-K/G1*total),zero=rng_uniform(s);
+     if(zero<p0)return 1.;
+     double u=rng_uniform(s);int i=lower_bound(T,t->ts,t->nt)-1;
+     if(i<0)i=0;if(i>t->nt-2)i=t->nt-2;
+-    double a=log(T/t->ts[i])/log(t->ts[i+1]/t->ts[i]);int j,h;double b,c;
++    double a=log(T/t->ts[i])/p8g_read(m8,4,i);int j,h;double b,c;
+     p5_bracket(t->ks,t->nk,K,&j,&b);p5_bracket(t->us,t->nu,u,&h,&c);
+     int q00=(i*t->nk+j)*t->nu+h,q01=q00+t->nu;
+     int q10=q00+t->nk*t->nu,q11=q10+t->nu;
+--- p5_kernel.h:p5_shape (name normalized)
++++ p8g_functions.h:p8g_shape
+@@ -1,12 +1,13 @@
+-P5_FN double p8g_shape(double T,double k,const P5Tables *t) {
++P5_FN double p8g_shape(double T,double k,const P8gMaterial &m8) {
++ const P5Tables *t=&m8.p;
+     if(k<0. || k>T)return 0.;
+     double M=t->constants[0],RE=t->constants[3],alpha=t->constants[5];
+     double E=T+M,rem=E-k,y=rem/E,result=0.;
+     for(int j=0;j<t->nz;++j) {
+         double z=t->Z[j],az=alpha*z,az2=az*az;
+         double fc=az2*(1/(1+az2)+.20206+az2*(-.0369+az2*(.0083-.002*az2)));
+-        double xi=z==1?6.144/(5.31-fc):log(1194.*pow(z,-2./3.))/(log(184.15*pow(z,-1./3.))-fc);
+-        double xl=4./3.*log(z),d=136.*pow(z,-1./3.)*M/E*k/rem;
++        double xi=z==1?6.144/(5.31-fc):p8g_read(m8,15,j)/(p8g_read(m8,16,j)-fc);
++        double xl=4./3.*p8g_read(m8,17,j),d=136.*pow(z,-1./3.)*M/E*k/rem;
+         if(d>=exp((21.12-xl)/4.184)-.952)continue;
+         double s1,s2;
+         if(d<=1) {s1=20.867+d*(-3.242+.625*d)-xl;s2=20.209+d*(-1.930-.086*d)-xl;}

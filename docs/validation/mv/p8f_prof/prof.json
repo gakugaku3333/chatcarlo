@@ -1,0 +1,163 @@
+{
+ "bad": [],
+ "fingerprint_same": true,
+ "environment": {
+  "cupy": "14.0.1",
+  "cuda_runtime": 13000,
+  "cuda_driver": 13000,
+  "gpu": "Tesla T4",
+  "compute_capability": [
+   7,
+   5
+  ]
+ },
+ "material_launches": {
+  "p8f_kernel": {
+   "options": [
+    "-DP5_GPU",
+    "-DP5_RNG_PHILOX",
+    "--fmad=false",
+    "-DP8F_STACK_CAP=18",
+    "-DP8F_FAULT=0"
+   ],
+   "attributes": {
+    "max_threads_per_block": 256,
+    "shared_size_bytes": 0,
+    "const_size_bytes": 0,
+    "local_size_bytes": 33808,
+    "num_regs": 212,
+    "ptx_version": 75,
+    "binary_version": 75,
+    "cache_mode_ca": 0,
+    "max_dynamic_shared_size_bytes": 49152,
+    "preferred_shared_memory_carveout": -1
+   }
+  },
+  "p8f_fixed_kernel": {
+   "options": [
+    "-DP5_GPU",
+    "-DP5_RNG_PHILOX",
+    "--fmad=false",
+    "-DP8F_STACK_CAP=18",
+    "-DP8F_FAULT=0"
+   ],
+   "attributes": {
+    "max_threads_per_block": 256,
+    "shared_size_bytes": 0,
+    "const_size_bytes": 0,
+    "local_size_bytes": 33840,
+    "num_regs": 254,
+    "ptx_version": 75,
+    "binary_version": 75,
+    "cache_mode_ca": 0,
+    "max_dynamic_shared_size_bytes": 49152,
+    "preferred_shared_memory_carveout": -1
+   }
+  },
+  "p8f_probe_kernel": {
+   "options": [
+    "-DP5_GPU",
+    "-DP5_RNG_PHILOX",
+    "--fmad=false",
+    "-DP8F_STACK_CAP=18",
+    "-DP8F_FAULT=0"
+   ],
+   "attributes": {
+    "max_threads_per_block": 256,
+    "shared_size_bytes": 0,
+    "const_size_bytes": 0,
+    "local_size_bytes": 1728,
+    "num_regs": 202,
+    "ptx_version": 75,
+    "binary_version": 75,
+    "cache_mode_ca": 0,
+    "max_dynamic_shared_size_bytes": 49152,
+    "preferred_shared_memory_carveout": -1
+   }
+  }
+ },
+ "water_attributes": {
+  "max_threads_per_block": 256,
+  "shared_size_bytes": 8464,
+  "const_size_bytes": 0,
+  "local_size_bytes": 30672,
+  "num_regs": 255,
+  "ptx_version": 75,
+  "binary_version": 75,
+  "cache_mode_ca": 0,
+  "max_dynamic_shared_size_bytes": 40688,
+  "preferred_shared_memory_carveout": -1
+ },
+ "timing": [
+  {
+   "water_us": 29.791622924804688,
+   "material_us": 331.743017578125
+  },
+  {
+   "water_us": 22.853204345703126,
+   "material_us": 334.643603515625
+  },
+  {
+   "water_us": 22.6794677734375,
+   "material_us": 332.51953125
+  }
+ ],
+ "ncu": "/usr/local/cuda/bin/ncu",
+ "ncu_material": {
+  "cmd": [
+   "/usr/local/cuda/bin/ncu",
+   "--set",
+   "full",
+   "--replay-mode",
+   "kernel",
+   "--cache-control",
+   "all",
+   "--kernel-name",
+   "p8f_kernel",
+   "--launch-skip",
+   "1",
+   "--launch-count",
+   "1",
+   "--export",
+   "/content/p8f/prof/material_profile",
+   "-f",
+   "/usr/bin/python3",
+   "/content/p8f_source/prof_target.py",
+   "/content/p8f",
+   "material"
+  ],
+  "rc": 0,
+  "seconds": 1001.6484382152557,
+  "out": "==PROF== Connected to process 2547 (/usr/bin/python3.13)\n==PROF== Profiling \"p8f_kernel\": 0%\n==WARNING== Launching the workload is taking more time than expected. If this continues to hang, terminate the profile and re-try by profiling the range of all related launches using '--replay-mode range'. See https://docs.nvidia.com/nsight-compute/ProfilingGuide/index.html#replay for more details.\n....50%....100% - 33 passes\ntarget done material\n==PROF== Disconnected from process 2547\n==PROF== Report: /content/p8f/prof/material_profile.ncu-rep\n",
+  "err": ""
+ },
+ "ncu_water": {
+  "cmd": [
+   "/usr/local/cuda/bin/ncu",
+   "--set",
+   "full",
+   "--replay-mode",
+   "kernel",
+   "--cache-control",
+   "all",
+   "--kernel-name",
+   "p5k_kernel",
+   "--launch-skip",
+   "1",
+   "--launch-count",
+   "1",
+   "--export",
+   "/content/p8f/prof/water_profile",
+   "-f",
+   "/usr/bin/python3",
+   "/content/p8f_source/prof_target.py",
+   "/content/p8f",
+   "water"
+  ],
+  "rc": 0,
+  "seconds": 91.90432405471802,
+  "out": "==PROF== Connected to process 6756 (/usr/bin/python3.13)\n==PROF== Profiling \"p5k_kernel\": 0%\n==WARNING== Launching the workload is taking more time than expected. If this continues to hang, terminate the profile and re-try by profiling the range of all related launches using '--replay-mode range'. See https://docs.nvidia.com/nsight-compute/ProfilingGuide/index.html#replay for more details.\n....50%....100% - 33 passes\ntarget done water\n==PROF== Disconnected from process 6756\n==PROF== Report: /content/p8f/prof/water_profile.ncu-rep\n",
+  "err": ""
+ },
+ "complete": true
+}

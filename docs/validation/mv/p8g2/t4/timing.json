@@ -1,0 +1,618 @@
+{
+  "status": "report",
+  "label": "P8g-1 \u304b\u3089 B \u5168\u4f53\u3078\u306e\u5909\u66f4",
+  "identity": {
+    "sources": {
+      "p5_kernel.h": "39d82e04f5c969c92c1ee35d026241119364134fecf1db801ff5d0a4a44bd549",
+      "p5_rng.h": "6c3257588ee4be2d0881a05f5d0869b65b942f68fd596a9f0ea981bcaaa9760f",
+      "p5a0_common.h": "8c209cfe016241bbbb5d586830dfe5a1ddff648f8f75d3b431dd2ae6d61e70c2",
+      "p5d_gxx_compat.h": "a57fe7517299ec452e825f7a3dea7db789ccc921115085e783239682e6b6dc50",
+      "p8f_core.py": "5c5c4bfed42867e96b01bdc5440fd399e26e177c3992faf622daf812552c4a3e",
+      "p8f_cpu.cpp": "bc83aba1ce188cd329eaaddcaa42857e2946931dc6f619c98218e262eafc57b8",
+      "p8f_gpu.cu": "910c62f55dfc1f475410be630efe9be4358ef354d23bf968506ab34171dae369",
+      "p8f_kernel.h": "7c072e9a1ef1cf9554b1db8505ee0fe61baaff455f0c862aeabbe37213b8d6a9",
+      "p8f_materials.h": "fbbc85125cb90e25d0c2a66432777bc666aa1d7137e886e96529d9eb73576264",
+      "p8g2.py": "200ee124631002ed590818117e23af87163c3dc9097ae027907d6c2b6c971f30",
+      "p8g2_core.py": "0b1551f756d4966f306e9aa2565ace3a5be913af42d3938572ed37e7f4d1d405",
+      "p8g2_cpu.cpp": "440b0e1b4d391cc2256fef88d2280f172e4cc3f97e9877a654a6757eff74cfa6",
+      "p8g2_gpu.cu": "caf896e53e996ed235eef5878c15c273730f20e9a8e713608cbd88e5530560df",
+      "p8g2_kernel.h": "f33ec3f009e99c3fb232dd8744ea442065a627550b899c09102f92b7a57659b8",
+      "p8g_core.py": "6cf521a0d084320516c707502cda7d08b9de556b3da5b627ccb7e8d3813fce5c",
+      "p8g_cpu.cpp": "5dd267b22967c5fc09caa01fdc43f1ddffa12ee670d439329cfb4202da48fa5f",
+      "p8g_functions.h": "cbf29867c8c21a92d373214869f81c2ed8c4fb95709048e73a2a32fd9fd3fbae",
+      "p8g_gpu.cu": "ebca0d43d6be1e33db513cc1e6b6cc3ae2726c703320d24f350a080b395a2160",
+      "p8g_kernel.h": "4ff34083ac9609cad339dc8b01f5c4a17fdc4cdec9c54f13d67f0d90031a3f67",
+      "p8g_logs.h": "d66924a19f6a76904d3e4c6dbbad12ba99aec4610ebd08aefdd55932915e1f65",
+      "p8g_materials.h": "78c5fbf2eff59e62878c66beb8ea1b858ac6ab0c5204e90902689cae01df8159",
+      "p8g_reference.h": "7e93d88a8e1a496ebc3e2f6d7a0ac76371fe164155b0bf597b232d67dd129f60"
+    },
+    "bundle_sha256": "1186c4e304033dae26e62e7a4fe7195e024272fd2487b782c1eb917be2b1f8e8",
+    "inputs": {
+      "lung_fluorescence.npz": "806913be371ca5ebecb29c55fcf47701d06e4ff6f47020d2a8ff2f6626b92504",
+      "lung_bundle.npz": "a490cd825c3494d4ae748adeefb51d772d8cb8ae0e7daec735c36529ed6ecafe",
+      "lead_bundle.npz": "f692ee7f0f81214a25bcb722af783c7bad66fe56c5b83bd7206642e10a711d1b",
+      "bone_bundle.npz": "f79e3655c1aa7cda50e758ddf44d121aa8826bef2b8b04efc41f426216179d00",
+      "water_bundle.npz": "0256d69c48b9530f3d3f204b1930869fcd9e8509493eb6dc038c737b00c86cbf",
+      "bone_fluorescence.npz": "0627283737f033895ed06cbcf75bc82b975280bc521c8e8f99f0c3a2c00c3a77",
+      "lead_fluorescence.npz": "4e52e0c15c2034897e9fb44db79dc2cf40d323351f7da0403f0bead986a08413",
+      "water_fluorescence.npz": "19c1601c4df938ee2b8debdd76a001e7a7e468484c2f0caaa8ac463d63235f7a"
+    },
+    "spectrum_sha256": "06fe2ba471dbfd64ca4305b5f1560479439ea4b565f993ecb21dcda86a6d8065",
+    "capacity": 18,
+    "launches": [
+      [
+        40,
+        128
+      ],
+      [
+        40,
+        256
+      ],
+      [
+        80,
+        128
+      ]
+    ],
+    "cuda_options": [
+      "-DP5_GPU",
+      "-DP5_RNG_PHILOX",
+      "--fmad=false"
+    ],
+    "cpu_flags": [
+      "-O2",
+      "-ffp-contract=off",
+      "-std=c++11",
+      "-shared",
+      "-fPIC"
+    ]
+  },
+  "environment": {
+    "cupy": "14.0.1",
+    "cuda_runtime": 13000,
+    "cuda_driver": 13000,
+    "gpu": "Tesla T4",
+    "compute_capability": [
+      7,
+      5
+    ]
+  },
+  "launches": [
+    {
+      "name": "p8f",
+      "blocks": 40,
+      "threads": 128,
+      "capacity": 18,
+      "options": [
+        "-DP5_GPU",
+        "-DP5_RNG_PHILOX",
+        "--fmad=false",
+        "-DP8F_STACK_CAP=18",
+        "-DP8G_STACK_CAP=18",
+        "-DP8G_FAULT=0",
+        "-DP8G_CHECK=0"
+      ],
+      "attributes": {
+        "max_threads_per_block": 256,
+        "shared_size_bytes": 0,
+        "const_size_bytes": 0,
+        "local_size_bytes": 33808,
+        "num_regs": 212,
+        "ptx_version": 75,
+        "binary_version": 75,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_size_bytes": 49152,
+        "preferred_shared_memory_carveout": -1
+      },
+      "initialization_ms": 0.0,
+      "warmup_wall_seconds": 6.7837561470000765,
+      "resident_blocks_per_SM": 2
+    },
+    {
+      "name": "p8g1",
+      "blocks": 40,
+      "threads": 256,
+      "capacity": 18,
+      "options": [
+        "-DP5_GPU",
+        "-DP5_RNG_PHILOX",
+        "--fmad=false",
+        "-DP8F_STACK_CAP=18",
+        "-DP8G_STACK_CAP=18",
+        "-DP8G_FAULT=0",
+        "-DP8G_CHECK=0"
+      ],
+      "attributes": {
+        "max_threads_per_block": 256,
+        "shared_size_bytes": 0,
+        "const_size_bytes": 0,
+        "local_size_bytes": 34112,
+        "num_regs": 234,
+        "ptx_version": 75,
+        "binary_version": 75,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_size_bytes": 49152,
+        "preferred_shared_memory_carveout": -1
+      },
+      "initialization_ms": 270.4994812011719,
+      "warmup_wall_seconds": 4.7448023269998885,
+      "resident_blocks_per_SM": 1
+    },
+    {
+      "name": "p8g2",
+      "blocks": 40,
+      "threads": 128,
+      "capacity": 18,
+      "options": [
+        "-DP5_GPU",
+        "-DP5_RNG_PHILOX",
+        "--fmad=false",
+        "-DP8G_STACK_CAP=18",
+        "-DP8G2_FAULT=0",
+        "-DP8G2_CHECK=0"
+      ],
+      "attributes": {
+        "max_threads_per_block": 256,
+        "shared_size_bytes": 0,
+        "const_size_bytes": 0,
+        "local_size_bytes": 39360,
+        "num_regs": 234,
+        "ptx_version": 75,
+        "binary_version": 75,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_size_bytes": 49152,
+        "preferred_shared_memory_carveout": -1
+      },
+      "initialization_ms": 306.85400390625,
+      "warmup_wall_seconds": 1.6727475329998924,
+      "resident_blocks_per_SM": 2
+    },
+    {
+      "name": "p8g2",
+      "blocks": 40,
+      "threads": 256,
+      "capacity": 18,
+      "options": [
+        "-DP5_GPU",
+        "-DP5_RNG_PHILOX",
+        "--fmad=false",
+        "-DP8G_STACK_CAP=18",
+        "-DP8G2_FAULT=0",
+        "-DP8G2_CHECK=0"
+      ],
+      "attributes": {
+        "max_threads_per_block": 256,
+        "shared_size_bytes": 0,
+        "const_size_bytes": 0,
+        "local_size_bytes": 39360,
+        "num_regs": 234,
+        "ptx_version": 75,
+        "binary_version": 75,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_size_bytes": 49152,
+        "preferred_shared_memory_carveout": -1
+      },
+      "initialization_ms": 136.64236450195312,
+      "warmup_wall_seconds": 1.8366162990000703,
+      "resident_blocks_per_SM": 1
+    },
+    {
+      "name": "p8g2",
+      "blocks": 80,
+      "threads": 128,
+      "capacity": 18,
+      "options": [
+        "-DP5_GPU",
+        "-DP5_RNG_PHILOX",
+        "--fmad=false",
+        "-DP8G_STACK_CAP=18",
+        "-DP8G2_FAULT=0",
+        "-DP8G2_CHECK=0"
+      ],
+      "attributes": {
+        "max_threads_per_block": 256,
+        "shared_size_bytes": 0,
+        "const_size_bytes": 0,
+        "local_size_bytes": 39360,
+        "num_regs": 234,
+        "ptx_version": 75,
+        "binary_version": 75,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_size_bytes": 49152,
+        "preferred_shared_memory_carveout": -1
+      },
+      "initialization_ms": 136.64236450195312,
+      "warmup_wall_seconds": 1.9363586859999486,
+      "resident_blocks_per_SM": 2
+    }
+  ],
+  "alternating": [
+    {
+      "name": "p8f",
+      "blocks": 40,
+      "threads": 128,
+      "n": 20000,
+      "repeat": 0,
+      "us_per_history": 331.97783203125
+    },
+    {
+      "name": "p8g1",
+      "blocks": 40,
+      "threads": 256,
+      "n": 20000,
+      "repeat": 0,
+      "us_per_history": 236.716650390625
+    },
+    {
+      "name": "p8g2",
+      "blocks": 40,
+      "threads": 128,
+      "n": 20000,
+      "repeat": 0,
+      "us_per_history": 84.48411865234375
+    },
+    {
+      "name": "p8g2",
+      "blocks": 40,
+      "threads": 256,
+      "n": 20000,
+      "repeat": 0,
+      "us_per_history": 94.29149780273437
+    },
+    {
+      "name": "p8g2",
+      "blocks": 80,
+      "threads": 128,
+      "n": 20000,
+      "repeat": 0,
+      "us_per_history": 94.68844604492188
+    },
+    {
+      "name": "p8f",
+      "blocks": 40,
+      "threads": 128,
+      "n": 20000,
+      "repeat": 1,
+      "us_per_history": 338.58857421875
+    },
+    {
+      "name": "p8g1",
+      "blocks": 40,
+      "threads": 256,
+      "n": 20000,
+      "repeat": 1,
+      "us_per_history": 240.0444091796875
+    },
+    {
+      "name": "p8g2",
+      "blocks": 40,
+      "threads": 128,
+      "n": 20000,
+      "repeat": 1,
+      "us_per_history": 84.97827758789063
+    },
+    {
+      "name": "p8g2",
+      "blocks": 40,
+      "threads": 256,
+      "n": 20000,
+      "repeat": 1,
+      "us_per_history": 94.70880126953125
+    },
+    {
+      "name": "p8g2",
+      "blocks": 80,
+      "threads": 128,
+      "n": 20000,
+      "repeat": 1,
+      "us_per_history": 96.0806396484375
+    },
+    {
+      "name": "p8f",
+      "blocks": 40,
+      "threads": 128,
+      "n": 20000,
+      "repeat": 2,
+      "us_per_history": 332.347998046875
+    },
+    {
+      "name": "p8g1",
+      "blocks": 40,
+      "threads": 256,
+      "n": 20000,
+      "repeat": 2,
+      "us_per_history": 237.0817138671875
+    },
+    {
+      "name": "p8g2",
+      "blocks": 40,
+      "threads": 128,
+      "n": 20000,
+      "repeat": 2,
+      "us_per_history": 88.02037963867187
+    },
+    {
+      "name": "p8g2",
+      "blocks": 40,
+      "threads": 256,
+      "n": 20000,
+      "repeat": 2,
+      "us_per_history": 96.2506103515625
+    },
+    {
+      "name": "p8g2",
+      "blocks": 80,
+      "threads": 128,
+      "n": 20000,
+      "repeat": 2,
+      "us_per_history": 100.763134765625
+    },
+    {
+      "name": "p8f",
+      "blocks": 40,
+      "threads": 128,
+      "n": 200000,
+      "repeat": 0,
+      "us_per_history": 277.674609375
+    },
+    {
+      "name": "p8g1",
+      "blocks": 40,
+      "threads": 256,
+      "n": 200000,
+      "repeat": 0,
+      "us_per_history": 198.48669921875
+    },
+    {
+      "name": "p8g2",
+      "blocks": 40,
+      "threads": 128,
+      "n": 200000,
+      "repeat": 0,
+      "us_per_history": 51.974658203125
+    },
+    {
+      "name": "p8g2",
+      "blocks": 40,
+      "threads": 256,
+      "n": 200000,
+      "repeat": 0,
+      "us_per_history": 42.503876953125
+    },
+    {
+      "name": "p8g2",
+      "blocks": 80,
+      "threads": 128,
+      "n": 200000,
+      "repeat": 0,
+      "us_per_history": 43.0702294921875
+    },
+    {
+      "name": "p8f",
+      "blocks": 40,
+      "threads": 128,
+      "n": 200000,
+      "repeat": 1,
+      "us_per_history": 278.24615234375
+    },
+    {
+      "name": "p8g1",
+      "blocks": 40,
+      "threads": 256,
+      "n": 200000,
+      "repeat": 1,
+      "us_per_history": 198.87525390625
+    },
+    {
+      "name": "p8g2",
+      "blocks": 40,
+      "threads": 128,
+      "n": 200000,
+      "repeat": 1,
+      "us_per_history": 51.9286474609375
+    },
+    {
+      "name": "p8g2",
+      "blocks": 40,
+      "threads": 256,
+      "n": 200000,
+      "repeat": 1,
+      "us_per_history": 42.4104345703125
+    },
+    {
+      "name": "p8g2",
+      "blocks": 80,
+      "threads": 128,
+      "n": 200000,
+      "repeat": 1,
+      "us_per_history": 42.740390625
+    },
+    {
+      "name": "p8f",
+      "blocks": 40,
+      "threads": 128,
+      "n": 200000,
+      "repeat": 2,
+      "us_per_history": 277.53671875
+    },
+    {
+      "name": "p8g1",
+      "blocks": 40,
+      "threads": 256,
+      "n": 200000,
+      "repeat": 2,
+      "us_per_history": 199.41333984375
+    },
+    {
+      "name": "p8g2",
+      "blocks": 40,
+      "threads": 128,
+      "n": 200000,
+      "repeat": 2,
+      "us_per_history": 51.9229638671875
+    },
+    {
+      "name": "p8g2",
+      "blocks": 40,
+      "threads": 256,
+      "n": 200000,
+      "repeat": 2,
+      "us_per_history": 43.1268896484375
+    },
+    {
+      "name": "p8g2",
+      "blocks": 80,
+      "threads": 128,
+      "n": 200000,
+      "repeat": 2,
+      "us_per_history": 42.7976904296875
+    }
+  ],
+  "medians": [
+    {
+      "n": 20000,
+      "blocks": 40,
+      "threads": 128,
+      "median_us": 84.97827758789063,
+      "speedup_from_P8g1_to_B": 2.78990961686627
+    },
+    {
+      "n": 20000,
+      "blocks": 40,
+      "threads": 256,
+      "median_us": 94.70880126953125,
+      "speedup_from_P8g1_to_B": 2.503270136346441
+    },
+    {
+      "n": 20000,
+      "blocks": 80,
+      "threads": 128,
+      "median_us": 96.0806396484375,
+      "speedup_from_P8g1_to_B": 2.4675284712370567
+    },
+    {
+      "n": 200000,
+      "blocks": 40,
+      "threads": 128,
+      "median_us": 51.9286474609375,
+      "speedup_from_P8g1_to_B": 3.82977919954204
+    },
+    {
+      "n": 200000,
+      "blocks": 40,
+      "threads": 256,
+      "median_us": 42.503876953125,
+      "speedup_from_P8g1_to_B": 4.6789909100663385
+    },
+    {
+      "n": 200000,
+      "blocks": 80,
+      "threads": 128,
+      "median_us": 42.7976904296875,
+      "speedup_from_P8g1_to_B": 4.646868835900922
+    }
+  ],
+  "all_medians": [
+    {
+      "name": "p8f",
+      "blocks": 40,
+      "threads": 128,
+      "n": 20000,
+      "median_us": 332.347998046875
+    },
+    {
+      "name": "p8g1",
+      "blocks": 40,
+      "threads": 256,
+      "n": 20000,
+      "median_us": 237.0817138671875
+    },
+    {
+      "name": "p8g2",
+      "blocks": 40,
+      "threads": 128,
+      "n": 20000,
+      "median_us": 84.97827758789063
+    },
+    {
+      "name": "p8g2",
+      "blocks": 40,
+      "threads": 256,
+      "n": 20000,
+      "median_us": 94.70880126953125
+    },
+    {
+      "name": "p8g2",
+      "blocks": 80,
+      "threads": 128,
+      "n": 20000,
+      "median_us": 96.0806396484375
+    },
+    {
+      "name": "p8f",
+      "blocks": 40,
+      "threads": 128,
+      "n": 200000,
+      "median_us": 277.674609375
+    },
+    {
+      "name": "p8g1",
+      "blocks": 40,
+      "threads": 256,
+      "n": 200000,
+      "median_us": 198.87525390625
+    },
+    {
+      "name": "p8g2",
+      "blocks": 40,
+      "threads": 128,
+      "n": 200000,
+      "median_us": 51.9286474609375
+    },
+    {
+      "name": "p8g2",
+      "blocks": 40,
+      "threads": 256,
+      "n": 200000,
+      "median_us": 42.503876953125
+    },
+    {
+      "name": "p8g2",
+      "blocks": 80,
+      "threads": 128,
+      "n": 200000,
+      "median_us": 42.7976904296875
+    }
+  ],
+  "resource_notes": [
+    {
+      "configuration": [
+        40,
+        128
+      ],
+      "local_memory_increased": true,
+      "baseline_bytes": 34112,
+      "actual_bytes": 39360,
+      "inspect": "ncu local loads/stores and related stalls; no register cap"
+    },
+    {
+      "configuration": [
+        40,
+        256
+      ],
+      "local_memory_increased": true,
+      "baseline_bytes": 34112,
+      "actual_bytes": 39360,
+      "inspect": "ncu local loads/stores and related stalls; no register cap"
+    },
+    {
+      "configuration": [
+        80,
+        128
+      ],
+      "local_memory_increased": true,
+      "baseline_bytes": 34112,
+      "actual_bytes": 39360,
+      "inspect": "ncu local loads/stores and related stalls; no register cap"
+    }
+  ]
+}

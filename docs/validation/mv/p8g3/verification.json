@@ -1,0 +1,68 @@
+{
+  "status": "pass",
+  "protected_files": 253,
+  "changed": [],
+  "source_syntax_files": 9,
+  "tests": {
+    "pytest_p8g3": "25 passed, 1474 deselected",
+    "local": "exit 0; 8 calls continuous vs interrupted, numerical arrays byte-identical"
+  },
+  "regressions": [
+    {
+      "command": [
+        "/Users/oishifamily/Projects/viveMonte/.venv/bin/python",
+        "-m",
+        "prototypes.mv_electron.gpu.p8g2",
+        "local"
+      ],
+      "exit_code": 0,
+      "seconds": 72.56183779193088,
+      "execution": "temporary source copy",
+      "original_hashes_unchanged": true
+    },
+    {
+      "command": [
+        "/Users/oishifamily/Projects/viveMonte/.venv/bin/python",
+        "-m",
+        "prototypes.mv_electron.gpu.p8g",
+        "local"
+      ],
+      "exit_code": 0,
+      "seconds": 18.401368624996394,
+      "execution": "temporary source copy",
+      "original_hashes_unchanged": true
+    },
+    {
+      "command": [
+        "/Users/oishifamily/Projects/viveMonte/.venv/bin/python",
+        "-m",
+        "prototypes.mv_electron.gpu.p8f",
+        "local"
+      ],
+      "exit_code": 0,
+      "seconds": 54.304303916869685,
+      "execution": "temporary source copy",
+      "original_hashes_unchanged": true
+    }
+  ],
+  "faults_recorded": 30,
+  "not_executed": [
+    "export",
+    "T4 gates",
+    "Colab/CLI service operations",
+    "production",
+    "verify on collected production",
+    "pooling"
+  ],
+  "files": {
+    "prototypes/mv_electron/gpu/p8g3.py": "3acef6c2d679bd4ad4e701f37753f8c88cf741349f041babec0cfc9625704872",
+    "prototypes/mv_electron/gpu/p8g3_colab.py": "304af18277414934020c06bde38679f0b263147de9e5f2f7e9b9cb11056b274b",
+    "prototypes/mv_electron/gpu/p8g3_core.py": "7856cf865ebf56b346988d75bd3418879d40177c84a92bb9d2e225d5f2c37ee6",
+    "prototypes/mv_electron/gpu/p8g3_cli/collect.py": "ca09fb3eeed585143e09b0a63868bb2972c244af5f0f24e70af188c7488efb22",
+    "prototypes/mv_electron/gpu/p8g3_cli/__init__.py": "3eef0ef999c00d0bf370b954602b87a362b017550df3b4a84834d18356a738ec",
+    "prototypes/mv_electron/gpu/p8g3_cli/start.py": "6bc7f1b88a6cb5e7be63b2bbcd57f35f098fa33c76dd4b52f76a309afba09b6d",
+    "prototypes/mv_electron/gpu/p8g3_cli/assemble.py": "3d40e927d3f80a4b87e082eb15dbe3f824a4c734d7024955455342e51a99ddf7",
+    "prototypes/mv_electron/gpu/p8g3_cli/watch.py": "ed99b2d009f8972692e8dc491daf686cc9aec7e7350e8f9221b46026126b1ee2",
+    "prototypes/mv_electron/gpu/p8g3_cli/status.py": "cfd6e2e333274a576fcc5a531392385196446d820e7adc407d8d9b18d5fd34cd"
+  }
+}

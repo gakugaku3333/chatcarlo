@@ -1,0 +1,79 @@
+total warp inst 8.021e+10, stall samples 4656473 (samples = time proxy)
+
+== by file (time%, inst%, lanes)
+ 34.3%  27.2%  1.61  multi
+ 24.5%  26.8%  1.68  p5_kernel.h
+ 22.3%  11.9%  1.56  p8f_materials.h
+ 14.0%  20.0%  1.59  p5a0_common.h
+  4.6%  12.2%  1.75  p8f_kernel.h
+  0.2%   1.8%  1.93  p8f_gpu.cu
+  0.0%   0.1%  1.58  p5_rng.h
+
+== by function (time%, inst%, lanes)
+ 17.9%   6.6%  1.48  p8f_log_interp
+ 10.7%  12.4%  1.60  p5_gs_mu_cached
+  9.9%  12.1%  1.61  lower_bound
+  7.9%   4.3%  1.46  quantities
+  6.2%   7.4%  1.74  p8f_history
+  6.1%   6.3%  1.77  p5_score_segment
+  5.8%   3.1%  1.47  p5_table_rates
+  5.8%   5.4%  1.60  p5_rotate
+  4.9%   6.9%  1.59  p5_bracket
+  3.6%   1.4%  1.45  interp
+  3.2%   9.2%  1.76  p8f_score
+  2.6%   1.7%  1.78  p5_track_segment
+  2.1%   0.2%  5.42  p5_pair_interp
+  2.0%   3.8%  1.73  p5_max
+  2.0%   0.8%  1.37  p8f_hard
+  1.3%   0.4%  1.34  p5_primitive1
+  1.1%   0.6%  1.47  p8f_collision
+  1.1%   0.4%  1.36  p5_primitive0
+  1.0%   0.8%  1.59  uniform
+  0.8%   5.6%  1.59  philox
+  0.7%   0.4%  1.46  p8f_quantities
+  0.6%   1.2%  1.76  p5_min
+  0.4%   1.2%  1.77  p5_clip_bin
+  0.4%   0.3%  1.72  p8f_event
+  0.3%   0.0%  1.36  p8f_annihilation_rate
+
+== top 40 lines (time%, inst%, lanes, function, line)
+ 11.4%   3.5%  1.48 p8f_log_interp            692 int lo=0,hi=n;while(lo<hi){int j=(lo+hi)/2;if(l<log(x[j]))hi=j;else lo=j+1;}
+  9.9%  12.1%  1.61 lower_bound                52 while(lo<hi) {int m=lo+(hi-lo)/2;if(a[m]<x)lo=m+1;else hi=m;}
+  4.2%   4.2%  1.61 p5_gs_mu_cached           293 double a=log(T/t->ts[i])/log(t->ts[i+1]/t->ts[i]);int j,h;double b,c;
+  3.7%   5.8%  1.59 p5_bracket                285 *i=lower_bound(x,grid,n)-1;if(*i<0)*i=0;if(*i>n-2)*i=n-2;
+  3.7%   5.6%  1.59 p5_gs_mu_cached           294 p5_bracket(t->ks,t->nk,K,&j,&b);p5_bracket(t->us,t->nu,u,&h,&c);
+  3.4%   1.3%  1.49 p8f_log_interp            694 double slope=(log(y[j+1])-log(y[j]))/(log(x[j+1])-log(x[j]));
+  3.4%   3.2%  1.78 p5_score_segment          310 int b0=p5_clip_bin(int(lo/dz),n),b1=p5_clip_bin(int(hi/dz),n);
+  2.7%   1.6%  1.73 p8f_history               920 double eb=a[8]/Sq,mb=G1q>0?a[12]/G1q:INFINITY,hb=rateq>0?a[15]/rateq:INFINITY;
+  2.4%   1.9%  1.60 p5_rotate                 321 if(r>1e-12) {ax=ux*uz/r;ay=uy*uz/r;az=-r;bx=-uy/r;by=ux/r;}
+  2.4%   1.3%  1.78 p5_track_segment          484 int b0=p5_clip_bin(int(p5_min(z0,z1)/dz),nb),b1=p5_clip_bin(int(p5_max(z0,z1)/dz
+  2.2%   1.0%  1.45 interp                     58 int j=lower_bound(x,a,n);
+  2.1%   1.2%  1.46 quantities                 74 double u=(log(t)-log(e[i]))/(log(e[i+1])-log(e[i]));
+  2.0%   3.8%  1.73 p5_max                    182 P5_FN double p5_max(double a,double b) {return b>a?b:a;}
+  2.0%   0.7%  1.46 quantities                 71 int i=lower_bound(t,e,n)-1;if(i<0)i=0;if(i>n-2)i=n-2;*idx=i;
+  1.8%   1.7%  1.60 p5_rotate                 323 double cp=cos(phi),sp=sin(phi);
+  1.8%   0.8%  1.47 p5_table_rates            282 *G1=exp((1-a)*log(t->rates[i*t->ratecols+shift+1])+a*log(t->rates[(i+1)*t->ratec
+  1.8%   2.9%  1.76 p8f_score                 796 for(int j=first;j<=last;++j)if(owner[j]==region){double overlap=p5_max(0.,p5_min
+  1.8%   0.9%  1.49 p8f_log_interp            691 double l=log(E);if(l<log(x[0]))return exp(log(y[0]));if(l>log(x[n-1]))return exp
+  1.7%   0.1%  5.44 p5_pair_interp            249 int start=0;while(start<n && es[start]<=th)++start;
+  1.7%   0.8%  1.47 p5_table_rates            280 double a=log(T/e0)/log(e1/e0);
+  1.6%   1.2%  1.61 p5_gs_mu_cached           289 double p0=exp(-K/G1*total),zero=rng_uniform(s);
+  1.5%   0.8%  1.47 p5_table_rates            281 *total=exp((1-a)*log(t->rates[i*t->ratecols+shift])+a*log(t->rates[(i+1)*t->rate
+  1.5%   1.2%  1.77 p5_score_segment          313 score[b]+=loss*length/width;
+  1.4%   0.7%  1.46 quantities                 81 *discrete=exp((1-u)*log(v[5*i+1])+u*log(v[5*(i+1)+1]));
+  1.3%   0.7%  1.46 quantities                 80 *soft=exp((1-u)*log(v[5*i+2])+u*log(v[5*(i+1)+2]));
+  1.3%   0.4%  1.34 p5_primitive1             201 return a*x*x/2+log(x)+1/(1-x)+(1+b)*log1p(-x);
+  1.2%   1.0%  1.61 p5_bracket                286 *a=(x-grid[*i])/(grid[*i+1]-grid[*i]);
+  1.2%   0.3%  1.47 p8f_log_interp            693 int j=lo-1;if(l==log(x[j]) || j==n-1)return exp(log(y[j]));
+  1.2%   5.9%  1.76 p8f_score                 795 int first=p5_max(0,p8f_upper(lo,edges,n+1)-1),last=p5_min(n-1,lower_bound(hi,edg
+  1.1%   0.4%  1.36 p8f_hard                  709 *rate=c*(p5_primitive0(.5,a,b)-p5_primitive0(x,a,b));*stop=c*T*(p5_primitive1(.5
+  1.1%   0.6%  1.47 p8f_collision             698 if(m.ncollision)return p8f_log_interp(T,m.stop_T,m.stop_collision,m.nstop);
+  1.1%   0.4%  1.36 p5_primitive0             198 return a*x-1/x+1/(1-x)-b*log(x/(1-x));
+  1.0%   0.3%  1.47 quantities                 68 double rad=interp(log(t>cut?t:cut),le,er,m);
+  1.0%   0.8%  1.59 uniform                    45 return ((w[0]>>5)*67108864.0+(w[1]>>6))/9007199254740992.0;
+  0.9%   0.3%  1.36 p8f_hard                  706 double g=1+T/m.p.constants[0],gg=g*g,b2=1-1/gg,a=(g-1)*(g-1)/gg,b=(2*g-1)/gg,c=*
+  0.8%   1.1%  1.60 p5_rotate                 319 double sn=sqrt(p5_max(0.,1-mu*mu)),r=sqrt(p5_max(0.,1-uz*uz));
+  0.8%   0.2%  1.43 interp                     61 double slope=(v[j+1]-v[j])/(a[j+1]-a[j]);
+  0.7%   0.4%  1.46 p8f_quantities            736 if(T>.01 && m.ncollision)q[2]=interp(log(T),m.log_stop_T,m.stop_rad,m.nstop)-q[1
+  0.7%   0.9%  1.77 p5_score_segment          311 for(int b=b0;b<=b1;++b) {
+  0.6%   0.5%  1.61 p8f_history               957 double mu=p5_gs_mu_cached(ev,a[14],t,total,G1,s);

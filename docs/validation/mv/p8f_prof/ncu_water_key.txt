@@ -1,0 +1,18 @@
+    Section: GPU Speed Of Light Throughput
+    Memory Throughput                 %          19.76
+    DRAM Throughput                   %          19.76
+    Duration                          s           1.02
+    L1/TEX Cache Throughput           %           9.27
+    L2 Cache Throughput               %          11.13
+    Compute (SM) Throughput           %          72.33
+    Memory Throughput                          Gbyte/s        63.29
+    Avg. Active Threads Per Warp                                 7.53
+    Executed Instructions                           inst 4,284,037,859
+    Registers Per Thread             register/thread             255
+    Section: Occupancy
+    Block Limit SM                        block           16
+    Block Limit Registers                 block            1
+    Block Limit Shared Mem                block            3
+    Block Limit Warps                     block            4
+    Theoretical Occupancy                     %           25
+    Achieved Occupancy                        %        22.86

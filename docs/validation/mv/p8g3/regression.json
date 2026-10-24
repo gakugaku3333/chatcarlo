@@ -1,0 +1,41 @@
+{
+  "runs": [
+    {
+      "command": [
+        "/Users/oishifamily/Projects/viveMonte/.venv/bin/python",
+        "-m",
+        "prototypes.mv_electron.gpu.p8g2",
+        "local"
+      ],
+      "exit_code": 0,
+      "seconds": 72.56183779193088,
+      "execution": "temporary source copy",
+      "original_hashes_unchanged": true
+    },
+    {
+      "command": [
+        "/Users/oishifamily/Projects/viveMonte/.venv/bin/python",
+        "-m",
+        "prototypes.mv_electron.gpu.p8g",
+        "local"
+      ],
+      "exit_code": 0,
+      "seconds": 18.401368624996394,
+      "execution": "temporary source copy",
+      "original_hashes_unchanged": true
+    },
+    {
+      "command": [
+        "/Users/oishifamily/Projects/viveMonte/.venv/bin/python",
+        "-m",
+        "prototypes.mv_electron.gpu.p8f",
+        "local"
+      ],
+      "exit_code": 0,
+      "seconds": 54.304303916869685,
+      "execution": "temporary source copy",
+      "original_hashes_unchanged": true
+    }
+  ],
+  "protected_files": 253
+}

@@ -1,0 +1,50 @@
+{
+  "status": "pass",
+  "checks": {
+    "cpu_health": true,
+    "gpu_health": true,
+    "source": true,
+    "calls": {
+      "status": "pass",
+      "fraction": 1.0,
+      "differing": 0
+    }
+  },
+  "report_only": {
+    "histories": {
+      "fraction": 0.3689,
+      "first": 1,
+      "max_abs": 1.3537664045326636e-11
+    },
+    "coarse": {
+      "fraction": 0.37715,
+      "first": 1,
+      "max_abs": 1.3537664045326636e-11
+    },
+    "fine": {
+      "fraction": 0.36335,
+      "first": 1,
+      "max_abs": 1.3537664045326636e-11
+    },
+    "boundary_counts": {
+      "fraction": 1.0,
+      "first": null,
+      "max_abs": 0.0
+    },
+    "boundary_hist": {
+      "fraction": 1.0,
+      "first": null,
+      "max_abs": 0.0
+    },
+    "boundary_omitted_hist": {
+      "fraction": 1.0,
+      "first": null,
+      "max_abs": 0.0
+    },
+    "fluorescence_counts": {
+      "fraction": 1.0,
+      "first": null,
+      "max_abs": 0.0
+    }
+  }
+}

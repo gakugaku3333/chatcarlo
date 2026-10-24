@@ -1,0 +1,157 @@
+{
+ "bad": [],
+ "fingerprint_same": true,
+ "launch": [
+  {
+   "rep": 0,
+   "blocks": 40,
+   "threads": 128,
+   "us": 327.25947265625,
+   "ints_total_equal": true,
+   "max_rel_total_diff": 4.664425386321534e-15
+  },
+  {
+   "rep": 0,
+   "blocks": 80,
+   "threads": 128,
+   "us": 312.37958984375,
+   "ints_total_equal": true,
+   "max_rel_total_diff": 4.353463693900098e-14
+  },
+  {
+   "rep": 0,
+   "blocks": 160,
+   "threads": 128,
+   "us": 319.4123291015625,
+   "ints_total_equal": true,
+   "max_rel_total_diff": 3.265097770425074e-14
+  },
+  {
+   "rep": 0,
+   "blocks": 40,
+   "threads": 256,
+   "us": 306.178662109375,
+   "ints_total_equal": true,
+   "max_rel_total_diff": 4.975387078742969e-14
+  },
+  {
+   "rep": 0,
+   "blocks": 80,
+   "threads": 64,
+   "us": 329.46943359375,
+   "ints_total_equal": true,
+   "max_rel_total_diff": 4.353463693900098e-14
+  },
+  {
+   "rep": 0,
+   "blocks": 320,
+   "threads": 64,
+   "us": 326.827197265625,
+   "ints_total_equal": true,
+   "max_rel_total_diff": 1.0883659234750245e-14
+  },
+  {
+   "rep": 1,
+   "blocks": 40,
+   "threads": 128,
+   "us": 339.0370849609375,
+   "ints_total_equal": true,
+   "max_rel_total_diff": 7.77404231053589e-15
+  },
+  {
+   "rep": 1,
+   "blocks": 80,
+   "threads": 128,
+   "us": 313.11328125,
+   "ints_total_equal": true,
+   "max_rel_total_diff": 4.042502001478663e-14
+  },
+  {
+   "rep": 1,
+   "blocks": 160,
+   "threads": 128,
+   "us": 319.364599609375,
+   "ints_total_equal": true,
+   "max_rel_total_diff": 3.265097770425074e-14
+  },
+  {
+   "rep": 1,
+   "blocks": 40,
+   "threads": 256,
+   "us": 312.085888671875,
+   "ints_total_equal": true,
+   "max_rel_total_diff": 4.508944540110816e-14
+  },
+  {
+   "rep": 1,
+   "blocks": 80,
+   "threads": 64,
+   "us": 329.7534912109375,
+   "ints_total_equal": true,
+   "max_rel_total_diff": 5.286348771164405e-14
+  },
+  {
+   "rep": 1,
+   "blocks": 320,
+   "threads": 64,
+   "us": 325.5276611328125,
+   "ints_total_equal": true,
+   "max_rel_total_diff": 1.8657701545286135e-14
+  },
+  {
+   "rep": 2,
+   "blocks": 40,
+   "threads": 128,
+   "us": 329.5370361328125,
+   "ints_total_equal": true,
+   "max_rel_total_diff": 1.0883659234750245e-14
+  },
+  {
+   "rep": 2,
+   "blocks": 80,
+   "threads": 128,
+   "us": 314.5897705078125,
+   "ints_total_equal": true,
+   "max_rel_total_diff": 1.554808462107178e-14
+  },
+  {
+   "rep": 2,
+   "blocks": 160,
+   "threads": 128,
+   "us": 328.7604248046875,
+   "ints_total_equal": true,
+   "max_rel_total_diff": 4.353463693900098e-14
+  },
+  {
+   "rep": 2,
+   "blocks": 40,
+   "threads": 256,
+   "us": 309.5099365234375,
+   "ints_total_equal": true,
+   "max_rel_total_diff": 2.79865523179292e-14
+  },
+  {
+   "rep": 2,
+   "blocks": 80,
+   "threads": 64,
+   "us": 331.7439453125,
+   "ints_total_equal": true,
+   "max_rel_total_diff": 3.731540309057227e-14
+  },
+  {
+   "rep": 2,
+   "blocks": 320,
+   "threads": 64,
+   "us": 328.8406005859375,
+   "ints_total_equal": true,
+   "max_rel_total_diff": 3.265097770425074e-14
+  }
+ ],
+ "ncu": {
+  "rc": 0,
+  "seconds": 424.8578243255615,
+  "out": "==PROF== Connected to process 2730 (/usr/bin/python3.13)\n==PROF== Profiling \"p8f_kernel\": 0%..\n==WARNING== Launching the workload is taking more time than expected. If this continues to hang, terminate the profile and re-try by profiling the range of all related launches using '--replay-mode range'. See https://docs.nvidia.com/nsight-compute/ProfilingGuide/index.html#replay for more details.\n..50%....100% - 5 passes\nline target done\n==PROF== Disconnected from process 2730\n==PROF== Report: /content/p8f/line/line_profile.ncu-rep\n",
+  "err": ""
+ },
+ "complete": true
+}
