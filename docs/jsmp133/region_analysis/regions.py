@@ -1,7 +1,9 @@
-"""Venselaar-style region split of the abstract comparisons (0.5 cm bins). usage: regions.py 10|4"""
+"""Venselaar-style region split of the abstract comparisons (0.5 cm bins). usage: regions.py 10|4 [dump]
+(dump: also write the pooled 0.5 cm arrays to region_analysis/pooled_<10|4>mv.npz for the figures)"""
 import sys, numpy as np
-which = sys.argv[1]
+which = sys.argv[1]; DUMP = 'dump' in sys.argv
 def region(gm, gs, em, es, nb, no, depths):
+    if DUMP: np.savez(f'docs/jsmp133/region_analysis/pooled_{which}mv.npz', gm=gm, gs=gs, em=em, es=es, nb=nb, no=no)
     gp, ep = gm[:nb], em[:nb]; im = int(ep.argmax())
     d = (gp/gp[im])/(ep/ep[im])-1; s = np.sqrt((gs[:nb]/gp)**2+(es[:nb]/ep)**2+(gs[im]/gp[im])**2+(es[im]/ep[im])**2)
     z = (np.arange(nb)+.5)*30/nb; dm = z[im]
