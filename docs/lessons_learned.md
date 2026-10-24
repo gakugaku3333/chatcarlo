@@ -1840,3 +1840,9 @@ P8e の試作の本計算（約 3 時間の見込み）を夜に流したとこ�
 - **結論**: 依頼 2 の `run_all.sh` は各段階の後に `echo "$(date '+%F %T') end $N exit $?"` と書いており、`$?` は直前の `$(date …)` の終了コードを読んでいた。記録の「exit 0」は python の終了コードではなかった（監査 B が `zsh -c 'false; echo "$(date +%T) exit $?"'` で確認）。n=1。
 - **Why**: コマンド置換が同じ行の先にあると、`$?` はそれで上書きされる。
 - **How to apply**: 終了コードは `rc=$?` で直後に取ってから使う。完走の判定は記録の exit ではなく、出力ファイルと照合の結果で行う。
+
+## 2026-10-24: 公開ページ（Sites）の更新は、非対話の `codex exec` では最後の公開まで届かない
+
+- **結論**: 第 5 版を `codex exec` に頼んだら 3 回止まった。(1) オプションを zsh の変数に入れて分割されずモデル名が壊れた（既知の教訓の再発）。(2) 「git commit しない」が Sites のソース側の commit・push まで禁じてしまった。(3) `workspace-write` ではネットワークが切れ、許可して再開しても公開（`sites_deploy_site_version`）は人の承認が要るため `approval: never` で拒否された。保存（version 11）までは非対話で進み、公開は使用者が対話型の `codex resume <session>` で承認して完了した。
+- **Why**: Sites の公開は MCP のツールで、実行前の承認が必須。非対話の実行では承認できない。
+- **How to apply**: ページの更新は最初から対話型の Codex（`codex resume` か `codex`）で頼み、使用者が公開を承認する。非対話で準備させる場合は `-c sandbox_workspace_write.network_access=true` を付け、「viveMonte では commit しない／Sites のソース側は commit・push してよい」と分けて書く。

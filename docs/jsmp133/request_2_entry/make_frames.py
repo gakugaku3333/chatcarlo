@@ -70,12 +70,9 @@ def main():
         ax.imshow(img.T, origin='lower', cmap='gray_r', vmin=vmin, vmax=vmax, aspect='equal')
         ax.set_title(f'N = {n:.0e}\n空気カーマ {row["air_kerma_uGy"]:.2g} µGy\nノイズ {100 * row["cv_plane"]:.3g}%', fontsize=10)
         ax.set_xticks([]); ax.set_yticks([])
-        for su, sv in ROIS:
-            ax.add_patch(plt.Rectangle((su.start - .5, sv.start - .5), su.stop - su.start, sv.stop - sv.start,
-                                       fill=False, ec='tab:orange', lw=.8))
     fig.suptitle('入射光子数（線量に相当）を増やすと X 線画像のざらつきが減る（70 kV、理想的な光子計数型の検出器、共通の濃淡）', fontsize=11)
-    fig.text(.5, .01, '画素値は入射光子 1 個あたりの検出光子数（多いほど黒、X 線写真と同じ向き）。橙の枠は均一領域（アルミ 8.5 mm）。'
-             'ノイズ = 平面を引いた残差の標準偏差 ÷ 平均（10⁴ は画素の大半が 0）。\n'
+    fig.text(.5, .01, '画素値は入射光子 1 個あたりの検出光子数（多いほど黒、X 線写真と同じ向き）。'
+             'ノイズ = 背景の均一領域（アルミ 8.5 mm）で、平面を引いた残差の標準偏差 ÷ 平均（10⁴ は画素の大半が 0）。\n'
              '空気カーマは検出面・被写体なしの換算（SpekPy）で、10⁸ でも約 0.004 mAs（一般撮影の約 1/1000）。'
              '理想的な光子計数型の検出器で、検出器の効率・電気的ノイズは含まない。', ha='center', fontsize=8)
     fig.tight_layout(rect=(0, .07, 1, .93))
