@@ -113,7 +113,9 @@ RESULTS は P1e/P1f の凍結対象（`prototypes/mv_electron/p1e_common.targets
 | `mv_entry_b521f4485fa5` | `~/.cache/chatcarlo/mv_entry/b521f4485fa5` | 331 | 1.1 GB → 415 MB | 同上（10-23 の 54,000,000 個）（2026-10-24） |
 | `mv_entry_b521f4485fa5_vm1_aside` | `~/.cache/chatcarlo/mv_entry/b521f4485fa5_vm1_aside` | 48 | 51 → 24 MB | 1 台目の VM の退避分を見直すとき（2026-10-24） |
 
-`~/.cache/chatcarlo/p7/spectra` は P7 のコードが読むので圧縮しない。
+`~/.cache/chatcarlo/p7/spectra` は P7 のコードが読むので圧縮しない。`~/.cache/chatcarlo/p8a` と `p8e/materials` は
+P9a の `p9a_data.protected_paths()` が全ファイルのハッシュで凍結を確かめているので、P9 系が続くあいだは圧縮しない
+（2026-10-24 の容量確保で、最終更新が古くても外した）。圧縮する前には、最終更新日だけで選ばず、コードと manifest からの参照を `grep` で確かめる。
 
 ## 段階ごとの要約（原文、2026-10-19 に CLAUDE.md から移した）
 
