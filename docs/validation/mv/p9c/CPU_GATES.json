@@ -1,0 +1,50 @@
+{
+  "V0": {
+    "status": "pass",
+    "cases": 55
+  },
+  "V1a": {
+    "status": "pass",
+    "segments": 6,
+    "points": 3
+  },
+  "V2a": {
+    "status": "pass",
+    "angles": [
+      0,
+      45,
+      90,
+      135,
+      225,
+      270,
+      315
+    ]
+  },
+  "V3": {
+    "status": "pass",
+    "known_rays": 140,
+    "projection_bound_cm": 2.250569747585165,
+    "statistical_acceptance": "pending CUDA T0"
+  },
+  "V6": {
+    "status": "pass",
+    "seeds": 58,
+    "needles": 19,
+    "lines": 5,
+    "crossings": 18,
+    "radius_protruding": 6
+  },
+  "V5": {
+    "status": "pass",
+    "artificial_cases": 6,
+    "resume": "exact",
+    "replay": "rejected",
+    "cpu_pair": "exact, seven fields, same geometry and material"
+  },
+  "V6b": {
+    "status": "pass",
+    "cases": 8,
+    "fine_and_coarse": true
+  },
+  "status": "pass"
+}

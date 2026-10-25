@@ -1,6 +1,6 @@
 ---
 phase: 開発中
-next: 抄録 v3（docs/jsmp133/abstract_ja_draft.md の ②、1,165 字）を英訳し 500 words 以内か実測する。公開添削資料はSites version 19まで反映・履歴整理済み（docs/jsmp133/abstract_plan.md）。治療領域は P9b（前立腺シード 58 本の 3 次元形状と横方向の輸送）の計画を書く（P9a 合格、docs/validation/mv/p9a/RESULTS.md）
+next: 抄録 v3（docs/jsmp133/abstract_ja_draft.md の ②、1,165 字）を英訳し 500 words 以内か実測する。公開添削資料はSites version 19まで反映・履歴整理済み（docs/jsmp133/abstract_plan.md）。治療領域は P9c 完了（前立腺の形の照射野・7 門・シード 58 本、600 バッチ、シードの表面のすぐ外 +3.34%、docs/validation/mv/p9c/RESULTS.md）。抄録の依頼 3 の差し替えに使う（別セッション）
 blocker: ELSEPAで作った表の配布の方法（表を置くか、生成スクリプトだけか）とリポジトリのLICENSEはユーザーの判断待ち。急がない
 updated: 2026-10-25
 ---
