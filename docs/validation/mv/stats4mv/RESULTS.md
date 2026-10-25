@@ -49,3 +49,14 @@ PYTHONPATH=$PWD .venv/bin/python docs/validation/mv/stats4mv/run_add.py add_C_20
 PYTHONPATH=$PWD .venv/bin/python docs/validation/mv/stats4mv/pool.py        # 合算（出力は final.txt）
 PYTHONPATH=$PWD .venv/bin/python docs/validation/mv/stats4mv/pool.py orig   # 元の 2.6e7 個だけ: 抄録の前の数値を再現
 ```
+
+## 段階を閉じたときのデータの扱い（2026-10-26）
+
+| 出力 | 分類 | 理由 |
+|---|---|---|
+| GPU のバッチの結果（キャッシュ） | 表＋Drive | GPU で作り直すと時間がかかり、記録のハッシュとも一致しない。集計に使う外側のバッチの表は `batch_tables.npz` に残した |
+| EGS5 の作業フォルダの `gsdist.dat`・`pgs5job.GSlst` | 消す | EGS5・PEGS5 が実行のたびに作る。封印記録に載っていない |
+| `out/` の結果、作業フォルダの小さなファイル | 手元 | 小さい。`run_add.py` などが読む |
+
+表だけからの再計算: `PYTHONPATH=$PWD .venv/bin/python docs/validation/mv/stats4mv/pool_tables.py [orig|detail]`（元の `pool.py` の出力とバイト一致）。
+退避の一覧と戻し方: [../cold_storage/README.md](../cold_storage/README.md)。

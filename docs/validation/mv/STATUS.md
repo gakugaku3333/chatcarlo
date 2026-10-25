@@ -120,6 +120,20 @@ RESULTS は P1e/P1f の凍結対象（`prototypes/mv_electron/p1e_common.targets
 P9a の `p9a_data.protected_paths()` が全ファイルのハッシュで凍結を確かめているので、P9 系が続くあいだは圧縮しない
 （2026-10-24 の容量確保で、最終更新が古くても外した）。圧縮する前には、最終更新日だけで選ばず、コードと manifest からの参照を `grep` で確かめる。
 
+2026-10-26（使用者の指示、容量確保）: `~/.cache/chatcarlo`（`archive/` を除く）の 10 MB 以上で中身が同じファイル 50 個（19 組、5.07 GB。
+`gsdist.dat`、P8g の `cli` の束、`p8g*_ref_gate2.npz`、`p9c2/export` と `p8e/materials` の材料など）を、組の 1 つの APFS クローン（`cp -cp`、
+更新日時とモードは元のまま）に置き換えた。中身と SHA256 は変わらない。置き換えた元のファイルは `~/.Trash/chatcarlo_dedup_20261026/` にある。
+対応表と使ったスクリプトは `~/.cache/chatcarlo/archive/dedup_clones_20261026/` にある。クローンは `du` では元の大きさのまま見えるので、
+空いた量は `df` で測る。P9a の保護の検査は前後とも同じ 2 件（`entry/cli.py` と `entry/scene.py`）だけが不一致で、
+キャッシュのデータは全件一致した。この 2 件の不一致は P9c の入口のコミット（1368eec）で 2 つのコードを変えたためで、置き換えの前からあった。
+
+2026-10-26（使用者決定、段階を閉じたときのデータの見直しの初回）: 積層と 4 MV の統計の追加について、全 10 計算の外側のバッチの表を
+`statsstack/`・`stats4mv/` の `batch_tables.npz` に残した。`pool_tables.py` で、元の出力（5 つのモード）がバイト一致で再現できる。
+GPU の結果など 1,340 ファイル（2.29 GB）は Drive の `viveMonte/cache_cold/` に写し、Colab で SHA256 を全件照合してからゴミ箱へ移した。
+EGS5 の表と送信用の分割ファイル 75 個（5.23 GB）は Drive に送らずゴミ箱へ移した。一覧と戻し方は [cold_storage/README.md](cold_storage/README.md)。
+これ以降、段階を閉じるたびに同じ見直しをする（`.claude/rules/mv.md` の「Stage-close data review」）。
+次は `archive/` の中の段階（stats10mv、P2〜P7）。計画を別に立てる。
+
 ## 段階ごとの要約（原文、2026-10-19 に CLAUDE.md から移した）
 
 以下は CLAUDE.md の「Therapy-energy extension」節の 2026-10-19 時点の原文で、手を加えていない（リンクだけ、

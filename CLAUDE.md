@@ -21,6 +21,8 @@ It is read in full at the start of every session, so keep it under 200 lines: on
   [mv.md](.claude/rules/mv.md)（治療領域の試作）、[chatcarlo.md](.claude/rules/chatcarlo.md)（本体の設計）。
 - **段階の記録**: 各段階の RESULTS / DISCUSSION が正典。治療領域は終わるたびに
   [docs/validation/mv/STATUS.md](docs/validation/mv/STATUS.md) に 1 行足す。教訓は [docs/lessons_learned.md](docs/lessons_learned.md)。
+- **計算データ（2026-10-26）**: 段階が終わるたびに、出力を「手元／バッチの表はリポジトリ・生データは Drive／消す」に分けて RESULTS に表で残す。
+  計画の時点で決める（[PLAN_TEMPLATE](docs/ai/PLAN_TEMPLATE.md) の欄）。決まりは [mv.md](.claude/rules/mv.md) の「Stage-close data review」。
 - **自動メモリー**: ユーザーの好みと進め方だけ。PC ごとで共有されないので、両方の PC で要る事実はリポジトリに書く。
 
 ## What this is

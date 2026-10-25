@@ -1,0 +1,6 @@
+chi2 EGS5 egs_production-egs_add_820201: 174.1/220 p 0.99
+chi2 EGS5 egs_production-egs_add_820202: 218.2/220 p 0.521
+chi2 EGS5 egs_add_820201-egs_add_820202: 192.0/220 p 0.914
+chi2 GPU p8f_production-p8g3_production: 240.6/220 p 0.162
+220 bins: {"n": 220, "ref_bin": 27, "mean_abs": 0.1683677710329518, "max_abs": 1.261478737098054, "sem_mean": 0.17520085171911073, "sem_max": 0.2418368822815811, "over_2sigma": 21, "ref_depth_cm": 2.75}
+merged 2 bins: {"n": 110, "ref_bin": 14, "mean_abs": 0.18237299120338032, "max_abs": 1.1803522419520762, "sem_mean": 0.15187850969540484, "sem_max": 0.18868943571202532, "over_2sigma": 16, "ref_depth_cm": 2.9000000000000004}

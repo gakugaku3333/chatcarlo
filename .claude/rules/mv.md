@@ -123,6 +123,27 @@ overwritten by later diagnostics.
   commands need extraction first (P2 input loads, `p6 analyse`, `run_p7 analyse`, pilot-lock checks) is listed in
   STATUS.md. Do not change `np.savez` in the shared saving helpers instead: P5-era frozen code uses them. A Drive-copied
   export bundle may be moved to the Trash after its manifest hashes are checked against the Drive copy.
+- **Stage-close data review (2026-10-26, user decision)**: when a stage closes (RESULTS written), sort every cache output of
+  the stage into one of three classes. Write the table in the stage's RESULTS, and add one line to STATUS.md.
+  Worked example and checks: `docs/ai/plans/2026-10-26-cache-batch-tables-to-drive.md`.
+  1. **Keep local**:
+     - hashed by `protected_paths()` or a manifest
+     - read by a stage that is still open
+     - small (under about 50 MB)
+  2. **Tables in the repo, raw to Drive**: results whose regeneration costs GPU or long CPU time, or that would not reproduce
+     the recorded hashes (GPU output is not bit-reproducible).
+     - Keep in the repo:
+       - the outer-batch tables the stage's analysis actually uses (100 rows × bins, float64), plus mean and SEM, N, seed
+         and the source SHA256
+       - a script that reproduces the RESULTS output byte for byte from them
+     - Copy the raw data to the gmail Drive `viveMonte/cache_cold/`, check every SHA256 from Colab, then move the original
+       to the Trash.
+  3. **Delete without Drive** (move to the Trash): regenerable and named in no seal (`complete.json`, `identity.json`)
+     or manifest, e.g.:
+     - EGS5 `gsdist.dat` / `pgs5job.GSlst`
+     - Colab export bundles and their split transfer parts
+  - Measure the space gained with `df` after the Trash is emptied, not with `du`: APFS clones share blocks.
+  - Emptying the Trash is the user's step.
 
 ## Codex and Colab hand-off
 
