@@ -125,7 +125,8 @@ overwritten by later diagnostics.
   export bundle may be moved to the Trash after its manifest hashes are checked against the Drive copy.
 - **Stage-close data review (2026-10-26, user decision)**: when a stage closes (RESULTS written), sort every cache output of
   the stage into one of three classes. Write the table in the stage's RESULTS, and add one line to STATUS.md.
-  Worked example and checks: `docs/ai/plans/2026-10-26-cache-batch-tables-to-drive.md`.
+  Worked example and checks: `docs/ai/plans/2026-10-26-cache-batch-tables-to-drive.md`; how to check the Drive copy from Colab
+  (`colab drivemount` needs the user's consent each session): `docs/validation/mv/cold_storage/README.md`.
   1. **Keep local**:
      - hashed by `protected_paths()` or a manifest
      - read by a stage that is still open

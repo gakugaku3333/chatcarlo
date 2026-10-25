@@ -1,6 +1,6 @@
 ---
 phase: 開発中
-next: 抄録（docs/jsmp133/abstract_ja_draft.md の ②、1,139 字）を英訳し 500 words 以内か実測する。依頼 3（シード）の入口の通しは 2026-10-26 に少数光子で完了（docs/validation/mv/entry_seed/RESULTS.md、承認は Claude が代行）。公開ページは第 9 版（「表面から約 2 mm」）を反映待ち。ディスク空き 2.7 GB なので、次の本計算の前にキャッシュを整理する
+next: 抄録（docs/jsmp133/abstract_ja_draft.md の ②、1,139 字）を英訳し 500 words 以内か実測する。公開ページは第 9 版（「表面から約 2 mm」）を反映待ち。キャッシュは 2026-10-26 に第 1 段階を整理済み（ゴミ箱を空にすると約 3.6 GB 空く、docs/validation/mv/cold_storage/README.md）。次の整理は archive/ の中の段階（stats10mv、P2〜P7）で、計画を別に立てる
 blocker: ELSEPAで作った表の配布の方法（表を置くか、生成スクリプトだけか）とリポジトリのLICENSEはユーザーの判断待ち。急がない
 updated: 2026-10-26
 ---
