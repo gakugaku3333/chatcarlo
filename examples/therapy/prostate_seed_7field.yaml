@@ -1,0 +1,7 @@
+domain: therapy_mv
+scoring: seed_ratio
+source: {spectrum: mohan10, sad_cm: 100, gantry_deg: [0, 45, 90, 135, 225, 270, 315], field: prostate_projection}
+body: {material: water, ellipse_cm: [36, 24], length_cm: 30}
+target: {prostate_cm: [4.5, 3.0, 3.5], rectum_diameter_cm: 3}
+seeds: {preset: p9a_58, material: ag_ti_mixture}
+run: {histories_per_field: 200000, seed: 941000, engine: colab_t4}

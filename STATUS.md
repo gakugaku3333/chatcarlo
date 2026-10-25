@@ -1,8 +1,8 @@
 ---
 phase: 開発中
-next: 抄録（docs/jsmp133/abstract_ja_draft.md の ②、1,139 字。依頼は IVR 室・X 線画像・前立腺の I-125 シード、公開ページは第 8 版まで反映済み）を英訳し 500 words 以内か実測する。登録（11/1）までに依頼 3（シード）を対話の入口から通し直す。公開ページは第 9 版（「表面から約 2 mm」）を反映待ち
+next: 抄録（docs/jsmp133/abstract_ja_draft.md の ②、1,139 字）を英訳し 500 words 以内か実測する。依頼 3（シード）の入口の通しは 2026-10-26 に少数光子で完了（docs/validation/mv/entry_seed/RESULTS.md、承認は Claude が代行）。公開ページは第 9 版（「表面から約 2 mm」）を反映待ち。ディスク空き 2.7 GB なので、次の本計算の前にキャッシュを整理する
 blocker: ELSEPAで作った表の配布の方法（表を置くか、生成スクリプトだけか）とリポジトリのLICENSEはユーザーの判断待ち。急がない
-updated: 2026-10-25
+updated: 2026-10-26
 ---
 
 治療領域拡張の段階の状況は [docs/validation/mv/STATUS.md](docs/validation/mv/STATUS.md)、常設ルールは

@@ -1,0 +1,541 @@
+{
+  "condition_hash": "ac2cd8a3e6f668dd30db336369476010f57556c42dffe81999b6540d917f191d",
+  "approval_time": "2026-10-25T14:23:01.338827+00:00",
+  "histories_per_field": 200000,
+  "histories_per_side": 1400000,
+  "seed": 941000,
+  "timings": {
+    "bundle_verification": 0.3341184579767287,
+    "colab": 5101.689497832907,
+    "verification": 1.4397355001419783,
+    "analysis": 1.7732658749446273
+  },
+  "gates": {
+    "local": {
+      "V0": {
+        "status": "pass",
+        "cases": 55
+      },
+      "V1a": {
+        "status": "pass",
+        "segments": 6,
+        "points": 3
+      },
+      "V2a": {
+        "status": "pass",
+        "angles": [
+          0,
+          45,
+          90,
+          135,
+          225,
+          270,
+          315
+        ]
+      },
+      "V3": {
+        "status": "pass",
+        "known_rays": 140,
+        "projection_bound_cm": 2.250569747585165,
+        "statistical_acceptance": "pending CUDA T0"
+      },
+      "V6": {
+        "status": "pass",
+        "seeds": 58,
+        "needles": 19,
+        "lines": 5,
+        "crossings": 18,
+        "radius_protruding": 6
+      },
+      "G3_grazing": {
+        "status": "pass",
+        "cases": 3
+      },
+      "V5": {
+        "status": "pass",
+        "artificial_cases": 6,
+        "resume": "exact",
+        "replay": "rejected",
+        "cpu_pair": "exact, seven fields, same geometry and material"
+      },
+      "V6b": {
+        "status": "pass",
+        "cases": 8,
+        "fine_and_coarse": true
+      },
+      "status": "pass"
+    },
+    "gpu": {
+      "V0": {
+        "status": "pass",
+        "cases": 55
+      },
+      "V1a": {
+        "status": "pass",
+        "segments": 6,
+        "points": 3
+      },
+      "V1b": {
+        "status": "pass",
+        "histories": 100003,
+        "loss": 0.1
+      },
+      "V3": {
+        "status": "pass",
+        "angles": {
+          "0": {
+            "projected_area_cm2": 12.372787231030859,
+            "expected": 0.19332480048485717,
+            "observed": 0.19314,
+            "sigma": 0.0012488007126933718
+          },
+          "45": {
+            "projected_area_cm2": 10.516626017197833,
+            "expected": 0.16432228151871614,
+            "observed": 0.16535,
+            "sigma": 0.0011718381684993878
+          },
+          "90": {
+            "projected_area_cm2": 8.250817818948473,
+            "expected": 0.1289190284210699,
+            "observed": 0.12907,
+            "sigma": 0.0010597118123906954
+          },
+          "135": {
+            "projected_area_cm2": 10.516626017193905,
+            "expected": 0.16432228151865477,
+            "observed": 0.16116,
+            "sigma": 0.001171838168499212
+          },
+          "225": {
+            "projected_area_cm2": 10.51662601719659,
+            "expected": 0.1643222815186967,
+            "observed": 0.16644,
+            "sigma": 0.001171838168499332
+          },
+          "270": {
+            "projected_area_cm2": 8.250817818948493,
+            "expected": 0.1289190284210702,
+            "observed": 0.12827,
+            "sigma": 0.0010597118123906967
+          },
+          "315": {
+            "projected_area_cm2": 10.516626017194417,
+            "expected": 0.16432228151866277,
+            "observed": 0.16287,
+            "sigma": 0.0011718381684992347
+          }
+        }
+      },
+      "V4_rectangle": {
+        "status": "pass",
+        "checks": {
+          "cpu_health": true,
+          "gpu_health": true,
+          "source": true,
+          "calls": {
+            "status": "pass",
+            "fraction": 1.0,
+            "differing": 0
+          }
+        },
+        "report_only": {
+          "histories": {
+            "fraction": 1.0,
+            "first": null,
+            "max_abs": 0.0
+          },
+          "coarse": {
+            "fraction": 1.0,
+            "first": null,
+            "max_abs": 0.0
+          },
+          "fine": {
+            "fraction": 1.0,
+            "first": null,
+            "max_abs": 0.0
+          },
+          "boundary_counts": {
+            "fraction": 1.0,
+            "first": null,
+            "max_abs": 0.0
+          },
+          "boundary_hist": {
+            "fraction": 1.0,
+            "first": null,
+            "max_abs": 0.0
+          },
+          "boundary_omitted_hist": {
+            "fraction": 1.0,
+            "first": null,
+            "max_abs": 0.0
+          },
+          "fluorescence_counts": {
+            "fraction": 1.0,
+            "first": null,
+            "max_abs": 0.0
+          }
+        }
+      },
+      "V5_GPU": {
+        "status": "pass",
+        "histories": 100,
+        "comparison": "actual-addition roundoff bound"
+      },
+      "G3_grazing": {
+        "status": "pass",
+        "cases": 3
+      },
+      "V4_prostate": {
+        "status": "pass",
+        "checks": {
+          "cpu_health": true,
+          "gpu_health": true,
+          "source": true,
+          "calls": {
+            "status": "pass",
+            "fraction": 1.0,
+            "differing": 0
+          }
+        },
+        "report_only": {
+          "histories": {
+            "fraction": 1.0,
+            "first": null,
+            "max_abs": 0.0
+          },
+          "coarse": {
+            "fraction": 1.0,
+            "first": null,
+            "max_abs": 0.0
+          },
+          "fine": {
+            "fraction": 1.0,
+            "first": null,
+            "max_abs": 0.0
+          },
+          "boundary_counts": {
+            "fraction": 1.0,
+            "first": null,
+            "max_abs": 0.0
+          },
+          "boundary_hist": {
+            "fraction": 1.0,
+            "first": null,
+            "max_abs": 0.0
+          },
+          "boundary_omitted_hist": {
+            "fraction": 1.0,
+            "first": null,
+            "max_abs": 0.0
+          },
+          "fluorescence_counts": {
+            "fraction": 1.0,
+            "first": null,
+            "max_abs": 0.0
+          }
+        }
+      },
+      "V1c": {
+        "status": "pass",
+        "histories": 200000,
+        "sites": [
+          430,
+          224413,
+          121916142,
+          1931708,
+          0,
+          33970
+        ],
+        "forced": [
+          {
+            "site": 5,
+            "reached": 1
+          }
+        ],
+        "max_abs": 2.7284841053187847e-12,
+        "addition_bound_K": 126871301
+      },
+      "V2b": {
+        "status": "insufficient-statistics",
+        "difference_over_Dref": [
+          0.017368530236153566,
+          -0.011589257422412267,
+          0.010201185414359805
+        ],
+        "sem_over_Dref": [
+          0.010782065960248024,
+          0.01035099881987879,
+          0.00907043447758032
+        ],
+        "Dref": 8.056184099549663e-06,
+        "fallback": "V2a",
+        "histories_per_angle": 2000000
+      }
+    },
+    "V3_CUDA_acceptance": {
+      "status": "pass",
+      "angles": {
+        "0": {
+          "accepted": 200000,
+          "rejected": 836881,
+          "expected": 0.19332480048485717,
+          "observed": 0.19288616533623434,
+          "sigma": 0.00038781864056530187
+        },
+        "45": {
+          "accepted": 200000,
+          "rejected": 1017506,
+          "expected": 0.16432228151871614,
+          "observed": 0.1642702376826069,
+          "sigma": 0.0003358397395566449
+        },
+        "90": {
+          "accepted": 200000,
+          "rejected": 1351409,
+          "expected": 0.1289190284210699,
+          "observed": 0.128915070107238,
+          "sigma": 0.0002690448120855908
+        },
+        "135": {
+          "accepted": 200000,
+          "rejected": 1019450,
+          "expected": 0.16432228151865477,
+          "observed": 0.16400836442658576,
+          "sigma": 0.000335571941427396
+        },
+        "225": {
+          "accepted": 200000,
+          "rejected": 1018834,
+          "expected": 0.1643222815186967,
+          "observed": 0.16409125442841274,
+          "sigma": 0.0003356567299237971
+        },
+        "270": {
+          "accepted": 200000,
+          "rejected": 1352719,
+          "expected": 0.1289190284210702,
+          "observed": 0.12880630687200967,
+          "sigma": 0.0002689312940975315
+        },
+        "315": {
+          "accepted": 200000,
+          "rejected": 1018722,
+          "expected": 0.16432228151866277,
+          "observed": 0.1641063343403992,
+          "sigma": 0.00033567215292018825
+        }
+      }
+    }
+  },
+  "results": {
+    "prostate": {
+      "ratio": 1.0050494259740095,
+      "sem": 0.000622003070327094,
+      "cells": 1557684,
+      "reason": null,
+      "sem_reason": null,
+      "sem_method": "paired batch region means"
+    },
+    "rectum": {
+      "ratio": 0.9997626866237478,
+      "sem": 0.0008305877778197322,
+      "cells": 1582560,
+      "reason": null,
+      "sem_reason": null,
+      "sem_method": "paired batch region means"
+    },
+    "radial": [
+      {
+        "interval_cm": [
+          0.05,
+          0.07500000000000001
+        ],
+        "interval": "[lo, hi)",
+        "center_mm": 0.625,
+        "ratio": 1.0406594793393156,
+        "sem": null,
+        "cells": 12296,
+        "reason": null,
+        "sem_reason": "undefined cell SEM"
+      },
+      {
+        "interval_cm": [
+          0.07500000000000001,
+          0.10000000000000002
+        ],
+        "interval": "[lo, hi)",
+        "center_mm": 0.8750000000000002,
+        "ratio": 1.0201273879659305,
+        "sem": null,
+        "cells": 20812,
+        "reason": null,
+        "sem_reason": "undefined cell SEM"
+      },
+      {
+        "interval_cm": [
+          0.10000000000000002,
+          0.12500000000000003
+        ],
+        "interval": "[lo, hi)",
+        "center_mm": 1.1250000000000002,
+        "ratio": 1.0173957522600254,
+        "sem": null,
+        "cells": 29068,
+        "reason": null,
+        "sem_reason": "undefined cell SEM"
+      },
+      {
+        "interval_cm": [
+          0.12500000000000003,
+          0.15000000000000002
+        ],
+        "interval": "[lo, hi)",
+        "center_mm": 1.375,
+        "ratio": 1.0165920661886496,
+        "sem": null,
+        "cells": 33136,
+        "reason": null,
+        "sem_reason": "undefined cell SEM"
+      },
+      {
+        "interval_cm": [
+          0.15000000000000002,
+          0.17500000000000004
+        ],
+        "interval": "[lo, hi)",
+        "center_mm": 1.6250000000000004,
+        "ratio": 1.0150473420305535,
+        "sem": null,
+        "cells": 45412,
+        "reason": null,
+        "sem_reason": "undefined cell SEM"
+      },
+      {
+        "interval_cm": [
+          0.17500000000000004,
+          0.20000000000000007
+        ],
+        "interval": "[lo, hi)",
+        "center_mm": 1.8750000000000004,
+        "ratio": 1.0072614033218679,
+        "sem": null,
+        "cells": 53436,
+        "reason": null,
+        "sem_reason": "undefined cell SEM"
+      },
+      {
+        "interval_cm": [
+          0.20000000000000007,
+          0.22500000000000006
+        ],
+        "interval": "[lo, hi)",
+        "center_mm": 2.125000000000001,
+        "ratio": 1.0098260525480833,
+        "sem": null,
+        "cells": 48980,
+        "reason": null,
+        "sem_reason": "undefined cell SEM"
+      },
+      {
+        "interval_cm": [
+          0.22500000000000006,
+          0.25000000000000006
+        ],
+        "interval": "[lo, hi)",
+        "center_mm": 2.3750000000000004,
+        "ratio": 1.0040058061642596,
+        "sem": null,
+        "cells": 60736,
+        "reason": null,
+        "sem_reason": "undefined cell SEM"
+      },
+      {
+        "interval_cm": [
+          0.25000000000000006,
+          0.2750000000000001
+        ],
+        "interval": "[lo, hi)",
+        "center_mm": 2.625000000000001,
+        "ratio": 1.0028737768477838,
+        "sem": null,
+        "cells": 68108,
+        "reason": null,
+        "sem_reason": "undefined cell SEM"
+      },
+      {
+        "interval_cm": [
+          0.2750000000000001,
+          0.3000000000000001
+        ],
+        "interval": "[lo, hi)",
+        "center_mm": 2.875000000000001,
+        "ratio": 0.9995105397264913,
+        "sem": null,
+        "cells": 63432,
+        "reason": null,
+        "sem_reason": "undefined cell SEM"
+      },
+      {
+        "interval_cm": [
+          0.3000000000000001,
+          0.32500000000000007
+        ],
+        "interval": "[lo, hi)",
+        "center_mm": 3.125000000000001,
+        "ratio": 1.0015996426359717,
+        "sem": null,
+        "cells": 89920,
+        "reason": null,
+        "sem_reason": "undefined cell SEM"
+      },
+      {
+        "interval_cm": [
+          0.32500000000000007,
+          0.3500000000000001
+        ],
+        "interval": "[lo, hi)",
+        "center_mm": 3.375000000000001,
+        "ratio": 1.0027831956960265,
+        "sem": null,
+        "cells": 73124,
+        "reason": null,
+        "sem_reason": "undefined cell SEM"
+      }
+    ],
+    "far": {
+      "interval_cm": [
+        0.3,
+        null
+      ],
+      "interval": "[lo, infinity)",
+      "ratio": 1.0012957841846428,
+      "sem": null,
+      "cells": 505032,
+      "reason": null,
+      "sem_reason": "undefined cell SEM"
+    },
+    "notes": [
+      "Distance SEM treats cells as independent and may be underestimated.",
+      "At low photon counts a 3% increase cannot be resolved.",
+      "No near-seed EGS5 cross-check; P9b remains failed."
+    ],
+    "checkpoint": "/Users/oishifamily/.cache/chatcarlo/mv_entry/seed_ac2cd8a3e6f6/results/prostate.npz"
+  },
+  "carried_not_independently_observed": [
+    "domain",
+    "scoring",
+    "source",
+    "body",
+    "target",
+    "seeds",
+    "run"
+  ],
+  "provenance": "Metadata comparison only; actual GPU arguments were not independently observed.",
+  "notes": [
+    "Distance SEM treats cells as independent and may be underestimated.",
+    "At low photon counts a 3% increase cannot be resolved.",
+    "No near-seed EGS5 cross-check; P9b remains failed.",
+    "入口の外: 強度変調・MLC・半影・人体形状・シード内部構造・EGS5 との照合"
+  ]
+}

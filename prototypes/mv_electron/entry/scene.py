@@ -8,6 +8,10 @@ class SceneError(ValueError):
 
 
 def validate(raw):
+    if isinstance(raw, dict) and raw.get("scoring") == "seed_ratio":
+        from .seed_scene import validate as validate_seed
+        return validate_seed(raw)
+
     def fail(path, detail):
         raise SceneError(f'{path}: {detail}。この入口で計算できる条件: mohan10 または mohan4、水30 cm、10×10 cm²、SSD 100 cm、pdd_ocr')
 

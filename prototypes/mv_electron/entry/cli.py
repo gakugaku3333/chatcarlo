@@ -28,6 +28,9 @@ def main(argv=None):
     args = p.parse_args(raw)
     try:
         s = scene.load(args.scene)
+        if s["scoring"] == "seed_ratio":
+            from .seed_run import main as seed_main
+            return seed_main(args, s)
         if args.command == 'validate':
             print(f'OK: {args.scene} は有効な治療領域シーンです（{preview.LABELS[s["source"]["spectrum"]][2]}、水30 cm、10×10 cm²、SSD 100 cm）')
             return 0
