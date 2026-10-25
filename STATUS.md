@@ -1,6 +1,6 @@
 ---
 phase: 開発中
-next: 抄録 v3（docs/jsmp133/abstract_ja_draft.md の ②、1,165 字）を英訳し 500 words 以内か実測する。公開添削資料はSites version 19まで反映・履歴整理済み（docs/jsmp133/abstract_plan.md）。治療領域は P9c 完了（前立腺の形の照射野・7 門・シード 58 本、600 バッチ、シードの表面のすぐ外 +3.34%、docs/validation/mv/p9c/RESULTS.md）。抄録の依頼 3 の差し替えに使う（別セッション）
+next: 抄録（docs/jsmp133/abstract_ja_draft.md の ②、1,136 字。依頼は IVR 室・X 線画像・前立腺の I-125 シード、公開ページは第 8 版で反映済み）を英訳し 500 words 以内か実測する。登録（11/1）までに依頼 3（シード）を対話の入口から通し直す。「2〜3 mm」の基準（表面か軸か）の言い換えは使用者の判断待ち
 blocker: ELSEPAで作った表の配布の方法（表を置くか、生成スクリプトだけか）とリポジトリのLICENSEはユーザーの判断待ち。急がない
 updated: 2026-10-25
 ---
