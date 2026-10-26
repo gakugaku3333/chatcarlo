@@ -1,6 +1,6 @@
 ---
 phase: 開発中
-next: 抄録（docs/jsmp133/abstract_ja_draft.md の ②、1,139 字）を英訳し 500 words 以内か実測する。公開ページは第 9 版（「表面から約 2 mm」）を反映待ち。キャッシュは 2026-10-26 に第 1 段階を整理済み（ゴミ箱を空にすると約 3.6 GB 空く、docs/validation/mv/cold_storage/README.md）。次の整理は archive/ の中の段階（stats10mv、P2〜P7）で、計画を別に立てる
+next: 抄録 v4（docs/jsmp133/abstract_ja_draft.md の ②、1,085 字）を英訳し 320〜500 words に収まるか実測する。公開ページは第 10 版（Sites version 27）まで反映済みで、用語解説に IVR・H*(10) などが残る点と Codex の文は判断待ち（docs/jsmp133/page_update_report_v10.md）。キャッシュの次の整理は archive/ の中の段階（stats10mv、P2〜P7）で、計画を別に立てる
 blocker: ELSEPAで作った表の配布の方法（表を置くか、生成スクリプトだけか）とリポジトリのLICENSEはユーザーの判断待ち。急がない
 updated: 2026-10-26
 ---
