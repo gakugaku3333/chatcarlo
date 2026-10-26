@@ -59,14 +59,17 @@ Colabセッションの終了を確認済み。`prefetch.py`は標準ドライ�
 | `runs/diag_water_60kev_gpu/dose.npz` | 元50M、変更なし | 手元に保持 |
 | `dose.npz` | 追加50M | 手元に保持 |
 | `dose_100M.npz` | 統合100M、200バッチ | 手元に保持 |
-| `run/results/` | 追加100バッチとreceipt、線源再現、約3 GB | 手元に保持 |
+| `run/results/` | receipt・線源再現・削除記録のみ | 100個の生NPZは検証後に削除、約440 KBを保持 |
+| `additional_water_batches.npz` | 水全18,000ボクセル×追加100バッチ、float64 | 約27.23 MB、リポジトリに保持 |
+| `additional_batch_receipts.json` / `raw_compaction.json` | 元100ファイルの由来・ハッシュと整理記録 | リポジトリに保持 |
 | `merge_provenance.json` | 統合の由来とSHA256 | 手元に保持 |
 | `summary.json` / `comparison_50M_100M.png` | 集計表・比較図 | 手元に保持 |
 | `audit_A.md` / `audit_BC.md` | 独立監査報告 | 手元に保持 |
 
 生データの表中の相対パスは、元50Mを除いて`runs/diag_water_60kev_gpu/add50M_20261026/`を基準とする。
-この約3 GBの生データと各132 MBの線量NPZは手元に保持し、削除・Driveへの移動は実施していない。
-Gitに保存するのはこの結果文書、小さな記録、CSV、比較図、再集計スクリプトだけである。
+使用者の依頼により、約3 GBの生バッチNPZは下記の表へ抽出・独立照合した後に削除した（Driveコピーなし）。
+元50M・追加50M・統合100Mの各132 MBの全格子線量NPZは手元に保持し、SHA256の不変を確認した。
+Gitに保存するのはこの結果文書、記録、CSV、比較図、再集計スクリプト、および約27 MBの水中バッチ表である。
 
 ## 後日の利用
 
@@ -81,3 +84,32 @@ Gitに保存するのはこの結果文書、小さな記録、CSV、比較図�
 
 今回の監査は条件付き合格。旧個別バッチの再検証不能、非衝突透過の直接観測なし、escaped energy未保存の制約を維持する。
 今回新たなユーザーの常設の好み・方針変更はなかった。`furikaeri`はログ探索の途中で中断され、完了・対処・学びの記録はしていない。
+
+## 2026-10-26: 必要情報への抽出と生データの削除
+
+使用者の「約3 GBの生データは必要な情報の形に残して削除」という依頼で実施。
+対象は追加runの`batch_000000.npz`〜`batch_000099.npz`の100個だけ。
+合計2,978,634,350 bytesを削除し、バッチ表27,229,252 bytesとreceipt・由来を残した。
+表単体では99.08585%縮小。ゴミ箱移動ではなく、検証後に列挙したファイルをunlinkした。
+他の成果物、元50M/追加50M/統合100MのNPZ、既存の図・OCR解析入力は変更していない。
+
+### 保持内容と使い方
+
+- `additional_water_batches.npz`: C順の`water_flat_indices`、grid shape/origin/voxel幅と、水全18,000ボクセルの100バッチ別kerma（keV）・H*(10) track（pSv cm³）をfloat64で保持。光子数・開始履歴、材料別付与keV（列air,water）、終端数、散乱和、蛍光数、全格子合計も保持。
+- `additional_batch_receipts.json`: 元100個のreceipt全文。`raw_compaction.json`に各原本・receipt・抽出表・保持NPZのSHA256、削除範囲と完了状態を記録。
+- 追加50Mの水内の任意領域平均や規格化では、バッチ別値からSEM・共分散を再計算できる。水の線量は`kerma / histories[:,None] * 1.602176634e-13 / voxel_size_cm**3`（Gy/history、密度1 g/cm³）。H*(10)は`h10 / histories[:,None] / voxel_size_cm**3`（pSv/history）。
+- 全空気のバッチ合計は全格子合計から水合計を引いて得られる（丸め差あり）。空気内の個別ボクセルのバッチ値・共分散は残していない。全格子の平均・SEM・R・hitは三つの保持NPZから引き続き読める。
+- 旧50Mのバッチが元からないため、統合100M全体の厳密な共分散・規格化SEMは復元できない。既存OCR解析のSEM上限という限定は維持する。
+
+### 検証・監査
+
+`compact_batches.py build`で原本のreceipt identity/SHA256、全格子raw合計・hitと追加NPZの完全一致、水の平均・SEM、抽出表の保存後の配列完全一致を確認した。
+独立監査でも全100原本の水配列・スカラー量・全格子合計・receiptを直接照合し完全一致（[監査報告](raw_compaction_audit.md)、条件付き合格）。
+削除直前に100原本のSHA256を再照合し、削除後にも下記verifyで表・receipt・保持NPZのSHA256と水合計を再検証して通過した。
+
+```sh
+PYTHONPATH=. .venv/bin/python docs/validation/gpu/water60_100M/compact_batches.py verify
+```
+
+`build`は生データがあるときだけの抽出工程で、削除後は再実行できない。`verify`は保存表だけで実行できる。
+承認済みの当日runへGPUのrun/resumeを再投入すると原本を再計算して監査済みNPZを上書きし得るため、追加計算が必要な場合は別runフォルダを使う。
