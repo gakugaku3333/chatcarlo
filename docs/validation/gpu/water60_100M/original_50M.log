@@ -1,0 +1,16 @@
+engine: gpu, device: cuda, condition SHA256: 622b8f8794ea3ee37e8d719b035689029e97989df63c7a020f83d198fcddf32f
+計算時間・バッチ: {"elapsed_s":43.12690674000004,"new_batches":100,"new_elapsed_s":43.12690674000004,"reused_batches":0,"reused_elapsed_s":0.0}
+histories: 50,000,000
+吸収（光電）割合: 0.5368
+脱出割合: 0.4632
+平均相互作用回数/光子: 3.8825
+蛍光X線放出イベント数: 0
+材料別吸収エネルギー [MeV/history合計]:
+  water: 1.88322e+06  (± 3.21e-06 MeV, 相対 0.01%)
+  air: 4198.6  (± 2.44e-07 MeV, 相対 0.29%)
+線量グリッド: shape=(130, 130, 120), resolution=1.0cm
+  最大吸収線量 [Gy/history]: 4.77425e-15  (相対誤差 R=0.001, 寄与バッチ 100/100)
+  総カーマ: 1.88532e+06 MeV (37.7064 keV/history)
+  最大H*(10) [pSv/history]: 0.00778128  (相対誤差 R=0.001, 寄与バッチ 100/100)
+  グリッド統計: 線量R<0.10 95.5% / H*(10)R<0.10 96.5% / 寄与バッチ0（未到達） 0.0%
+線量グリッドを書き出しました: runs/diag_water_60kev_gpu/dose.npz

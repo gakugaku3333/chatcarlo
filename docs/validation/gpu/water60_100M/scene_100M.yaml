@@ -1,0 +1,36 @@
+# Combined target: 100 million incident photons.
+# Actual calculation: two independent 50M runs; see merge_provenance.json.
+# Effective geometry/grid are recorded in the two approved run/job.json files.
+source:
+  type: xray_tube
+  spectrum:
+  - energy_keV: 60.0
+    weight: 1.0
+  position:
+  - 0
+  - 0
+  - -0.0001
+  direction:
+  - 0
+  - 0
+  - 1
+  field:
+    shape: parallel
+    size_cm:
+    - 10
+    - 10
+geometry:
+- name: water
+  shape: box
+  material: water
+  center:
+  - 0
+  - 0
+  - 10
+  size_cm:
+  - 30
+  - 30
+  - 20
+physics:
+  fluorescence: true
+n_histories: 100000000

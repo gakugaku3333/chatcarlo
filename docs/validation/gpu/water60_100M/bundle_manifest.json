@@ -1,0 +1,28 @@
+{
+  "files": {
+    "__init__.py": "2442d90bbd92232c7a0eba31c99790f87aaf2d2e7e0cf7df73170ba0ebd4f27a",
+    "bundle.py": "cf7d7f7c28a286c171a69b5ed5059f7fe7c33fb1ecdb47f80fd94cc77bbb7188",
+    "colab_driver.py": "13ac7fe2092af53b6569ca1e89997543606f85cd7368414a3ca2c948ce29b814",
+    "core.py": "1a1ad4d9305554acf015f431b4211596946a5f032d0b590e4f2d403b983dff5b",
+    "g1_common.h": "c5d366fc15504267df129e45ef028b39ca4dbe0d0601245466f488f5a9881ec0",
+    "g1_cpu.cpp": "c5e4dc37e258645ef56a6f4ee0b8497e81bd7da224b7fc3dfc61ef7abb119d0f",
+    "g1_geometry.h": "52fdd6531a71ad32d20d0f049b5521173687e489b2e7949d0bdbdf850e0fee74",
+    "g1_gpu.cu": "7ba0031afa15088b20e4591fa1993194fd114c9ccdd43441a03e0e09ba688837",
+    "g1_history.h": "910e162da82623cecdcfa8577951513f538d6dd52963721f3e817c9baf4aa68c",
+    "g1_physics.h": "8e0e929bc987d2514d0a3cbe4a198ab5520696a3a1ed6e8465e31da119609980",
+    "g2_core.py": "d93d1eabb1ea99a472b171617c3c5fc9b6495dd196132359785fdd94e2c66cac",
+    "g2_tables.npz": "a90e3ff50d68ca24341b736218f3ff5ef882a5628b247bc57e869e001c95629e",
+    "g2_tables.py": "f281937fbab6284bd8165ef5f09ccc6673c254fc801b116d6bab7a5273a89f49",
+    "g2_tally.h": "afc921606193bf8b6b5a94408eb1a1b4c268ca4d44b07ce07f3242dd9c3cddf4",
+    "geometry.npz": "9492422ded45c58479a015daa906e30bbfeac2d3eeb1417d7a69a37893a05851",
+    "run_egs5_60kev.py": "4a19b09e28ecea122bf9ac62c9712e36032cf5692d6a6705f1a8d1a667db0374",
+    "run_gates.py": "c5a3933c8e2ecb2c7ae5a39aa447fd2df1bda743fc6e6f7aafe45d085c69a9fb",
+    "settings.json": "9016951da3f7dc948a3275c778ac7bd5c9b0ff3ed363f47ee23c7dab4229c7ec",
+    "source.json": "937139d908183592c51d791e0c4532adb7821017bd9aa09d784b70654d4840b1",
+    "source_host.py": "761dfcd2f9343efd8014734ae81c0c363e97bff1a5475f3842711c70e5ad5530",
+    "spectrum.npz": "2380915c889232a346742ac60f8ca348d9cb0296d5b0e299f5359506f503ade7",
+    "tables.npz": "3c4c6457d122a14fa5748ccfc2779deac85da22f8c177d4f5f88bc5323604b7e",
+    "validation.py": "62a3d70ae812d3d7c0a93cc2b6bfea5dec50cc2d0e70831aa30688d9b3e43923"
+  },
+  "format": "chatcarlo-g1-v1"
+}

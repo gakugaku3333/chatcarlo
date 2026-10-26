@@ -1,0 +1,65 @@
+{
+  "n_histories": 100000000,
+  "n_batches": 200,
+  "batch_size": 500000,
+  "inputs": [
+    {
+      "path": "/Users/oishifamily/Projects/viveMonte/runs/diag_water_60kev_gpu/dose.npz",
+      "sha256": "5f6346535bc1bcab1a57a1d9b9ebac26f64315d372b4c8957e432918600feee8",
+      "job": {
+        "batch_size": 500000,
+        "device": "cuda",
+        "grid": {
+          "layout_version": "g2-grid-v1",
+          "origin_cm": [
+            -65.0,
+            -65.0,
+            -50.0
+          ],
+          "shape": [
+            130,
+            130,
+            120
+          ],
+          "voxel_size_cm": 1.0
+        },
+        "mode": "batches",
+        "n_histories": 50000000,
+        "seed": 20261023,
+        "source_seed": 15371273260064971323
+      }
+    },
+    {
+      "path": "/Users/oishifamily/Projects/viveMonte/runs/diag_water_60kev_gpu/add50M_20261026/dose.npz",
+      "sha256": "0f00aa078934d40b77eb2d3f2d6cd2d94add101b3d0b50b2f8ebc73892cc3d32",
+      "job": {
+        "batch_size": 500000,
+        "device": "cuda",
+        "grid": {
+          "layout_version": "g2-grid-v1",
+          "origin_cm": [
+            -65.0,
+            -65.0,
+            -50.0
+          ],
+          "shape": [
+            130,
+            130,
+            120
+          ],
+          "voxel_size_cm": 1.0
+        },
+        "mode": "batches",
+        "n_histories": 50000000,
+        "seed": 20261026,
+        "source_seed": 12671299258706851920
+      }
+    }
+  ],
+  "output": {
+    "path": "/Users/oishifamily/Projects/viveMonte/runs/diag_water_60kev_gpu/add50M_20261026/dose_100M.npz",
+    "sha256": "1f0f931436056c4b1a8cec18f59ec7662667d2f8243b31a3474388a319c1b370"
+  },
+  "uncertainty": "Pooled sample variance of 200 equally sized batches, including between-group mean difference.",
+  "old_raw_batches_available": false
+}

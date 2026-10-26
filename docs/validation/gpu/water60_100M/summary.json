@@ -1,0 +1,21 @@
+{
+  "n_histories": 100000000,
+  "n_batches": 200,
+  "central_surface_voxel_cm": [
+    0.5,
+    0.5,
+    0.5
+  ],
+  "central_surface_dose_Gy_per_history": 4.76343170228989e-15,
+  "central_surface_dose_R": 0.000800753428015953,
+  "central_surface_contributing_batches": 200,
+  "field_median_R_before": 0.0023234882512627466,
+  "field_median_R_after": 0.0016305668016163908,
+  "field_median_R_ratio": 0.7072091040994821,
+  "field_min_contributing_batches": 200,
+  "water_max_dose_Gy_per_history": 4.769781294017247e-15,
+  "total_track_kerma_keV_per_history": 37.70821825720443,
+  "units": "Per incident photon (history); no mAs/CTDI calibration.",
+  "sampling": "1 cm cubed voxel means; surface layer z=0 to 1 cm; x=y=0.5 cm near-axis column.",
+  "comparison": "The 100M estimate contains the original 50M; the plotted estimates are correlated. Error bars are \u00b11 SEM."
+}
