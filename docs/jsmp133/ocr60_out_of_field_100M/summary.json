@@ -1,0 +1,94 @@
+{
+  "summary": {
+    "0–1 cm": {
+      "n": 3,
+      "mean_absolute_local_difference_pct": 0.23102871642627734,
+      "max_absolute_local_difference_pct": 0.4345252849695669,
+      "mean_signed_local_difference_pct": 0.23102871642627734
+    },
+    "9–10 cm": {
+      "n": 3,
+      "mean_absolute_local_difference_pct": 0.7762915334344589,
+      "max_absolute_local_difference_pct": 1.3105019195141843,
+      "mean_signed_local_difference_pct": -0.09737641290833061
+    },
+    "all": {
+      "n": 6,
+      "mean_absolute_local_difference_pct": 0.5036601249303682,
+      "max_absolute_local_difference_pct": 1.3105019195141843,
+      "mean_signed_local_difference_pct": 0.06682615175897337
+    }
+  },
+  "inputs": {
+    "runs/diag_water_60kev_gpu/add50M_20261026/dose_100M.npz": "1f0f931436056c4b1a8cec18f59ec7662667d2f8243b31a3474388a319c1b370",
+    "docs/egs5_crosscheck/revalidation_2026_10_07/comparison.csv": "98173ad8e6f928272b71ba1a88509797b382609ca8171896737b62749a3ee9ab"
+  },
+  "merge_provenance": {
+    "n_histories": 100000000,
+    "n_batches": 200,
+    "batch_size": 500000,
+    "inputs": [
+      {
+        "path": "/Users/oishifamily/Projects/viveMonte/runs/diag_water_60kev_gpu/dose.npz",
+        "sha256": "5f6346535bc1bcab1a57a1d9b9ebac26f64315d372b4c8957e432918600feee8",
+        "job": {
+          "batch_size": 500000,
+          "device": "cuda",
+          "grid": {
+            "layout_version": "g2-grid-v1",
+            "origin_cm": [
+              -65.0,
+              -65.0,
+              -50.0
+            ],
+            "shape": [
+              130,
+              130,
+              120
+            ],
+            "voxel_size_cm": 1.0
+          },
+          "mode": "batches",
+          "n_histories": 50000000,
+          "seed": 20261023,
+          "source_seed": 15371273260064971323
+        }
+      },
+      {
+        "path": "/Users/oishifamily/Projects/viveMonte/runs/diag_water_60kev_gpu/add50M_20261026/dose.npz",
+        "sha256": "0f00aa078934d40b77eb2d3f2d6cd2d94add101b3d0b50b2f8ebc73892cc3d32",
+        "job": {
+          "batch_size": 500000,
+          "device": "cuda",
+          "grid": {
+            "layout_version": "g2-grid-v1",
+            "origin_cm": [
+              -65.0,
+              -65.0,
+              -50.0
+            ],
+            "shape": [
+              130,
+              130,
+              120
+            ],
+            "voxel_size_cm": 1.0
+          },
+          "mode": "batches",
+          "n_histories": 50000000,
+          "seed": 20261026,
+          "source_seed": 12671299258706851920
+        }
+      }
+    ],
+    "output": {
+      "path": "/Users/oishifamily/Projects/viveMonte/runs/diag_water_60kev_gpu/add50M_20261026/dose_100M.npz",
+      "sha256": "1f0f931436056c4b1a8cec18f59ec7662667d2f8243b31a3474388a319c1b370"
+    },
+    "uncertainty": "Pooled sample variance of 200 equally sized batches, including between-group mean difference.",
+    "old_raw_batches_available": false
+  },
+  "normalization": "Each code normalized to its own |x|=0–1 cm bin; x/y convention exactly as public figure; left-right averaged.",
+  "range": "Geometric field edge |x|=5 cm; out-of-field bins |x|=5–6,6–7,7–8 cm. No EGS5 data beyond 8 cm in the saved comparison.",
+  "uncertainty": "SEM bounds only, with unknown covariance. No hypothesis test/pass-fail is assigned."
+}

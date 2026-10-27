@@ -1,0 +1,11 @@
+{
+  "n": 14,
+  "mean_absolute_difference_pct": 0.39013503566246366,
+  "max_absolute_difference_pct": 1.3105019195141843,
+  "normalization": "Each code central |x|=0–1cm; left/right averaged.",
+  "range": "All available bins |x|=1–8cm, geometric field edge |x|=5cm, outside extension 3cm.",
+  "depths_cm": [
+    "0–1",
+    "9–10"
+  ]
+}

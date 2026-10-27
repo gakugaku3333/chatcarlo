@@ -1,0 +1,51 @@
+{
+  "summary": {
+    "0–1 cm": {
+      "n": 3,
+      "mean_absolute_local_difference_pct": 0.15212818715363655,
+      "max_absolute_local_difference_pct": 0.30483611990685944,
+      "mean_signed_local_difference_pct": 0.11853448960588153
+    },
+    "9–10 cm": {
+      "n": 3,
+      "mean_absolute_local_difference_pct": 0.8000859850543144,
+      "max_absolute_local_difference_pct": 1.1880792247476624,
+      "mean_signed_local_difference_pct": 0.008033168555872846
+    },
+    "all": {
+      "n": 6,
+      "mean_absolute_local_difference_pct": 0.4761070861039755,
+      "max_absolute_local_difference_pct": 1.1880792247476624,
+      "mean_signed_local_difference_pct": 0.0632838290808772
+    }
+  },
+  "inputs": {
+    "runs/diag_water_60kev_gpu/dose.npz": "5f6346535bc1bcab1a57a1d9b9ebac26f64315d372b4c8957e432918600feee8",
+    "docs/egs5_crosscheck/revalidation_2026_10_07/comparison.csv": "98173ad8e6f928272b71ba1a88509797b382609ca8171896737b62749a3ee9ab"
+  },
+  "job": {
+    "batch_size": 500000,
+    "device": "cuda",
+    "grid": {
+      "layout_version": "g2-grid-v1",
+      "origin_cm": [
+        -65.0,
+        -65.0,
+        -50.0
+      ],
+      "shape": [
+        130,
+        130,
+        120
+      ],
+      "voxel_size_cm": 1.0
+    },
+    "mode": "batches",
+    "n_histories": 50000000,
+    "seed": 20261023,
+    "source_seed": 15371273260064971323
+  },
+  "normalization": "Each code normalized to its own |x|=0–1 cm bin; x/y convention exactly as public figure; left-right averaged.",
+  "range": "Geometric field edge |x|=5 cm; out-of-field bins |x|=5–6,6–7,7–8 cm. No EGS5 data beyond 8 cm in the saved comparison.",
+  "uncertainty": "SEM bounds only, with unknown covariance. No hypothesis test/pass-fail is assigned."
+}
