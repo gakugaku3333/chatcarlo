@@ -73,3 +73,6 @@ docs/validation/mv/p8a/checks_progress.json
 
 # JSMP133 Supporting Data: 学会配布のテンプレートとガイドライン（再配布しない）
 docs/jsmp133/supporting_data/
+
+# Git管理領域を肥大化させる計算出力はローカルで保全する
+/data/
