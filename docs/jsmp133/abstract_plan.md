@@ -182,3 +182,12 @@ v4 に B2（入射光子数を「いずれも両コードで 1.0×10⁸」にま
 - 公開ページに日本語 v5 と英語第 4 稿（477 words）を載せた（依頼 [page_update_request_v11.md](page_update_request_v11.md)、報告 [page_update_report_v11.md](page_update_report_v11.md)、Sites version 32→33）。Claude が公開ページで、新しい文があり旧い言い回し（「1 mm 以内」「ほぼ元に戻」「汎用」）が 0 件であることを確認。上の「公開ページ（版 31）はまだ v4 のまま」は古い。
 - 旧英語案 `abstract_en_draft.md`（v3 の訳、未コミット）は使用者の指示でゴミ箱（~/.Trash）へ移した。英語の正典は [abstract_en_v5.md](abstract_en_v5.md)。
 - Codex のレビュー 4 本は [english_phrasing/reviews/](english_phrasing/reviews/) に写した（元の `data/logs/` は git 管理外）。
+
+
+## 2026-10-28: 公開版33の締めと次回の入口
+
+- **完了**：第11版の公開更新と、追加指示による用語解説の修正を完了。[第11版報告](page_update_report_v11.md)が変更・字数・語数・公開IDの正典。先行する記録は `08fa42c` でGitHubへ保存済みであることを確認した。
+- **使用者の表現方針**：Agent Skillsは「特定の AI に依存しない手順書形式」に揃える。本文だけでなく用語解説も同じ説明にする追加指示を受けたため、今後も用語解説を照合対象に含める。範囲を限定した依頼で範囲外の不一致を見つけたときは、先に場所を報告し、追加指示後に修正する。
+- **保全と使い方**：`runs/jsmp133_site_v33/review.html` に最終HTML、`site-source-v33.bundle` にSitesの完全なGit履歴を保全し検証した。確認画像は `runs/jsmp133-glossary-v33.png` と `runs/jsmp133_site_v32/english.png`。次の編集では必ずSitesの最新ソースを取得し、控えを丸ごと再適用しない。`runs/` はGit対象外なので、別のMacではSitesから取得する。
+- **次の一手（登録時）**：日本語v5と英語第4稿を登録画面に入れ、実際の語数計数・上付き文字・生成AIの開示規定を確認する。今回の編集には登録送信は含まれない。旧英語案の更新という以前のTODOは完了扱いとし、現行の `abstract_en_v5.md` を使う。
+- **一時ファイル整理**：使い捨ての編集・報告スクリプト、変更前HTML、抽出図、配信アーカイブの6ファイルとSitesの作業チェックアウト1ディレクトリを、最終版の保全後に削除。個別一覧は `runs/jsmp133_site_v33/cleanup_20261028.json`。既存の未追跡HTML2点はこの編集の一時ファイルではないため保持した。
