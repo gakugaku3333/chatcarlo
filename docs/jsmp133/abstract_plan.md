@@ -159,3 +159,26 @@ GPU 計算が動いた以上、チャット形式で GPU 計算を行うこと�
 - **復旧・次回編集**：`runs/jsmp133_site_v31/site-source-v31.bundle` にSitesソース全履歴、同フォルダに最終HTMLを保全。公開ソースの取得先は既存projectのまま。次回もSitesから最新ソースを取得し、控えを丸ごと上書き適用しない。`runs/`の控えはGit対象外なので、このMac以外からはSitesのソースを取得する。
 
 - **締めの保全・整理結果**：最終Sitesソースのbundleは完全履歴として検証済み。使い捨ての配信用アーカイブ・HTML控え・編集スクリプト28ファイル、作業チェックアウトと描画キャッシュの2ディレクトリを削除した。個別の削除一覧は `runs/jsmp133_site_v31/cleanup_20261028.json`。最終HTML・スクリーンショット・解析結果・入力データは保持。
+
+
+## 2026-10-28: 登録用 v5 を正式採用（使用者決定）
+
+v4 に B2（入射光子数を「いずれも両コードで 1.0×10⁸」にまとめる）、B3（最大値の位置「照射野端のすぐ外側」「鉛の直前」）、B4（「汎用コード EGS5」）を反映した v5（1,095 字）を正式採用。正式本文は [abstract_ja_draft.md](abstract_ja_draft.md) の ②⁺。英訳はこの v5 から行う。英語の言い回しの調査資料は [english_phrasing/](english_phrasing/)（Claude と Codex の共有）。公開ページ（版 31）はまだ v4 のまま。A1（シードの入口の通し）・A2（コード 2 系統の書き方）は未対応。
+
+- 2026-10-28 追記: 英語では OCR を **off-axis ratio (OAR)** と書く（使用者決定）。日本語 v5 の「OCR」はそのまま。題名に "radiation transport" を足すかは未決。
+- 2026-10-28 追記: 英語題名に "radiation transport" を足す（使用者決定）。たたき台は "Development of a Conversational AI Agent System for Monte Carlo Radiation Transport Simulation"（13 words）。
+- 2026-10-28 追記（使用者決定）: **A1・A2 は日本語 v5 も英語もそのまま変えない。** A1: 開発の時点から対話で計算しており、入口を変えて同じ GPU 計算をやり直す意味は薄いので、文は「対話で実施した」のまま（入口からの再計算は時間があるときの任意）。A2: 発表までに診断・治療を分けない 1 本のコードにする予定なので、「1 本のコード」の書き方のまま。英語は直訳調を避け、意味を保ったまま英語として自然な流れに書き直す（第 3 稿）。
+- 2026-10-28 追記（使用者決定）: EGS5 の形容を「汎用コード」→「実績のあるモンテカルロコード」（英語 well-established Monte Carlo code）に変更。日本語 v5 は 1104 字、英語第 3 稿は 483 words。
+- 2026-10-28 追記（使用者決定）: Results 評価 2 の冒頭に「いずれの依頼でも、意図した計算が実行された。」（英 "both requests were executed as intended."）を追加。日本語 1126 字、英語 489 words。
+- 2026-10-28 追記（使用者決定）: Agent Skills の形容を「汎用の」→「特定の AI に依存しない」（英語 vendor-neutral）。日本語 1134 字、英語 493 words。英語は Codex の最終確認（[english_phrasing/reviews/codex_en_review2.md](english_phrasing/reviews/codex_en_review2.md)、要修正なし）の推奨 2 点を反映済みで、最終候補。
+- 2026-10-28 追記（使用者決定）: 英語は、日本語の流れから離れて意図から組み直した第 4 稿（469 words）を採用。"agreed with EGS5 to within 0.4% on average and 1.3% at most"、"simulated X-ray images"。
+- 2026-10-28 追記（使用者決定）: シードの文を「表面から約 0.2 mm で最大 3.3%、約 2 mm で約 0.3%」に変更（「1 mm 以内」「ほぼ元に戻る」は位置と残り方が不正確だったため）。日本語 1134 字、英語 471 words。値は 58 本すべてのシードのまわりをまとめた平均。
+- 2026-10-28 追記（使用者決定）: シードの文に「58 本のシードの平均」を明示（Codex の推奨）。日本語 1142 字、英語 474 words。
+- 2026-10-28 追記（使用者決定）: シードの本数 58 本を Methods の評価 2 に書き、Results は「全シードの平均」。日本語 1143 字、英語 474 words。
+- 2026-10-28 追記（使用者決定、最終チェック）: 英語 Results を "In Evaluation 1," で始める。日本語は「照射野 10×10 cm」と「絶対値の平均と最大」を明示。10 MV のビルドアップの明示は日本語では見送り。日本語 1166 字、英語 477 words。
+
+## 2026-10-28: 公開版 33 へ反映・振り返りの対処
+
+- 公開ページに日本語 v5 と英語第 4 稿（477 words）を載せた（依頼 [page_update_request_v11.md](page_update_request_v11.md)、報告 [page_update_report_v11.md](page_update_report_v11.md)、Sites version 32→33）。Claude が公開ページで、新しい文があり旧い言い回し（「1 mm 以内」「ほぼ元に戻」「汎用」）が 0 件であることを確認。上の「公開ページ（版 31）はまだ v4 のまま」は古い。
+- 旧英語案 `abstract_en_draft.md`（v3 の訳、未コミット）は使用者の指示でゴミ箱（~/.Trash）へ移した。英語の正典は [abstract_en_v5.md](abstract_en_v5.md)。
+- Codex のレビュー 4 本は [english_phrasing/reviews/](english_phrasing/reviews/) に写した（元の `data/logs/` は git 管理外）。

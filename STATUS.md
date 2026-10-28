@@ -1,6 +1,6 @@
 ---
 phase: 開発中
-next: 正式採用した抄録v4（1,081字）に英語草稿を合わせ、320〜500 wordsを実測する。公開添削資料はSites version31まで反映済み（詳細はdocs/jsmp133/abstract_plan.mdの締め記録）
+next: 抄録の登録（締切11/1）：日本語v5（1,166字）と英語第4稿（477 words）を登録画面に入れ、語数の数え方・上付き文字・生成AIの開示規定を確かめる。公開ページはSites version33で両方反映済み（詳細はdocs/jsmp133/abstract_plan.md）
 blocker: ELSEPAで作った表の配布の方法（表を置くか、生成スクリプトだけか）とリポジトリのLICENSEはユーザーの判断待ち。急がない
 updated: 2026-10-28
 ---
