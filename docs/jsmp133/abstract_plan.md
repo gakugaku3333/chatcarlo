@@ -203,3 +203,12 @@ v4 に B2（入射光子数を「いずれも両コードで 1.0×10⁸」にま
 - 2026-10-29 追記: 登録の書式（センテンスケース）に合わせ、英語題名を "A system for Monte Carlo radiation transport simulation through conversation with an AI agent" と表記する。依頼文 v13 も同じ表記に直した。
 - 2026-10-29 追記: 公開ページの英語題名は第 13 版で "A System for …"（タイトルケース、Sites version 36、報告 [page_update_report_v13.md](page_update_report_v13.md)）。依頼文の「13 words」は誤りで、報告が 14 words と指摘。正典と登録用はセンテンスケース "A system for Monte Carlo radiation transport simulation through conversation with an AI agent"。公開ページの大文字・小文字は使用者が判断する。登録用の文は [registration_text.md](registration_text.md)。
 - 2026-10-29 追記（登録項目の案、Claude の提案。使用者が登録時に決める）: 発表分野カテゴリーは第 1 希望 h（機械学習・数理モデル、AI）、第 2 希望 a（放射線治療・光子、電子）か l（その他）。理由: 新しさは AI エージェントで計算を進める仕組みで、評価は診断（60 keV）と治療（10 MV）にまたがる。英語キーワード案: Monte Carlo simulation / AI agent / Conversational interface / EGS5 / GPU computing（"chat" 単独は意味が広すぎるので使わない）。UMIN の入力: × は &times;、上付きは <SUP></SUP>、改行は <BR>、本文は半角 320〜500 words（登録用の文は 471〜481 words で範囲内）。
+
+
+## 2026-10-29: 公開版37の締め・現在の入口
+
+- **完了と正典**：英語のOCR表記を第12版（公開版34）で反映し、題名の変更と再変更を第13版（35・36）、センテンスケースを第14版（37）で反映した。現在は [第14版報告](page_update_report_v14.md) が最新公開状態。上の「大文字・小文字は使用者が判断」「次の公開更新で直す」は、この反映で完了扱い。英語題名・本文は `abstract_en_v5.md` と文字単位で一致することを再確認した。
+- **使用者の表記方針**：日本での発表に合わせ英語もOCR（off-center ratio）。題名は登録書式に合わせセンテンスケースとし、語句を変えない。理由と個々の指示は第12〜14版の依頼・報告を参照。次回も現在の原稿と最新Sitesソースを照合し、履歴の旧題名を戻さない。
+- **次の一手（登録時）**：`registration_text.md` を登録画面で確認する。HTMLタグや記号で計数が変わり得るので、公開本文の空白区切り477 wordsと登録画面の計数を区別する。今回の作業には登録送信は含まれない。カテゴリー・キーワードは上の案を使用者が選ぶ。
+- **保全・復旧**：`runs/jsmp133_site_v37/site-source-v37.bundle` に完全履歴を保全し検証済み。同フォルダのHTMLと確認画像を保持。次回の編集はSitesの最新ソースを取得して行う。`runs/` はGit対象外なので、別ホストではSitesを取得元にする。
+- **整理**：使い捨ての配信アーカイブ4点と検証JSON1点、作業チェックアウト1ディレクトリを保全後に削除。個別一覧は `runs/jsmp133_site_v37/cleanup_20261029.json`。GPU G5関係の別作業と既存の未追跡HTML2点には手を加えていない。
