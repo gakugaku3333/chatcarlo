@@ -1,0 +1,136 @@
+{
+  "format": "g5-a1-speed-v1",
+  "a0_configs_sha256": "7392eda4a2b96e880d1071e5370f029328afb8a35f46434d2e545d0eb05340ab",
+  "configurations": [
+    {
+      "id": "g2b",
+      "kind": "diagnostic",
+      "bundle": "g2b",
+      "production_n": 500000,
+      "sizes": [
+        500000,
+        100000
+      ],
+      "seed": 20261026,
+      "source_seed": 12671299258706851920,
+      "start": 0,
+      "scene": "docs/validation/gpu/water60_100M/scene_100M.yaml",
+      "grid": {
+        "layout_version": "g2-grid-v1",
+        "origin_cm": [
+          -65.0,
+          -65.0,
+          -50.0
+        ],
+        "shape": [
+          130,
+          130,
+          120
+        ],
+        "voxel_size_cm": 1.0
+      },
+      "detector": null,
+      "flags": {
+        "observe": true,
+        "record": false,
+        "trace_capacity": 0,
+        "fluorescence": true
+      },
+      "launch": {
+        "blocks": "ceil(n/128)",
+        "threads": 128,
+        "capacity": null
+      },
+      "scene_file_sha256": "e708cb5906cf9b8b53a0d6c1e1ef8943a3189042bd0a67596c6ab2292181ea86",
+      "scene_model_sha256": "1fea20b9dbc8a562e5e331f2732bd30f926d4c86d7f28b9e0f2d92dd98eae8e5"
+    },
+    {
+      "id": "g4",
+      "kind": "diagnostic",
+      "bundle": "g4",
+      "production_n": 100000,
+      "sizes": [
+        100000
+      ],
+      "seed": 2040,
+      "source_seed": 3712336832425968660,
+      "start": 0,
+      "scene": "docs/validation/gpu/g4/scene_portrait_detector.yaml",
+      "grid": null,
+      "detector": {
+        "center_cm": [
+          0,
+          0,
+          0
+        ],
+        "normal": [
+          0,
+          0,
+          1
+        ],
+        "u_axis": [
+          1,
+          0,
+          0
+        ],
+        "size_cm": [
+          15,
+          18
+        ],
+        "shape": [
+          100,
+          120
+        ]
+      },
+      "flags": {
+        "observe": true,
+        "record": false,
+        "trace_capacity": 0,
+        "fluorescence": true
+      },
+      "launch": {
+        "blocks": "ceil(n/128)",
+        "threads": 128,
+        "capacity": null
+      },
+      "scene_file_sha256": "1dba953e6c52df5cafa8fef42326f0d9a5c4ec708047f47f8e643a792f267d7b",
+      "scene_model_sha256": "127c53035f2bbccfa43187952599a7a1898d80239c33b688e68acc5fb139c4cf"
+    }
+  ],
+  "warmup_order": [
+    "old-g2b:500000",
+    "new-g2b:500000",
+    "old-g2b:100000",
+    "new-g2b:100000",
+    "old-g4:100000",
+    "new-g4:100000"
+  ],
+  "round_orders": [
+    [
+      "old-g2b:500000",
+      "new-g2b:500000",
+      "old-g2b:100000",
+      "new-g2b:100000",
+      "old-g4:100000",
+      "new-g4:100000"
+    ],
+    [
+      "new-g2b:100000",
+      "old-g2b:100000",
+      "new-g4:100000",
+      "old-g4:100000",
+      "new-g2b:500000",
+      "old-g2b:500000"
+    ],
+    [
+      "old-g4:100000",
+      "new-g4:100000",
+      "old-g2b:500000",
+      "new-g2b:500000",
+      "old-g2b:100000",
+      "new-g2b:100000"
+    ]
+  ],
+  "tolerance_ratio": 1.0571,
+  "order_definition": "rotate tasks by 0/2/4; swap within each pair in round 2 only"
+}

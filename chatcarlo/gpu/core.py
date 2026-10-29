@@ -8,12 +8,13 @@ import subprocess
 import tempfile
 
 import numpy as np
+from . import physics_sets
 
 HERE=Path(__file__).resolve().parent
 FIELDS='n_elem zs fracs log_e step n_grid photo compt rayl incoh_q incoh_s rayl_x rayl_a k_edge k_omega k_line_e k_line_p n_lines k_frac density_g_cm3'.split()
 CPU_FLAGS=('-O2','-ffp-contract=off','-std=c++11','-shared','-fPIC')
 CUDA_OPTIONS=('-DP5_GPU','-DP5_RNG_PHILOX','--fmad=false')
-SOURCES=('g2_tally.h','g1_common.h','g1_physics.h','g1_geometry.h','g1_history.h','g1_cpu.cpp','g1_gpu.cu')
+SOURCES=('g5_base.h','physics_set.h','g2_tally.h','g1_common.h','g1_physics.h','g1_geometry.h','g1_history.h','g1_cpu.cpp','g1_gpu.cu')
 
 class Geometry(ctypes.Structure):
     _fields_=[('centers',ctypes.c_void_p),('halves',ctypes.c_void_p),('materials',ctypes.c_void_p),('nb',ctypes.c_int),('bg',ctypes.c_int),('world',ctypes.c_void_p),('det',ctypes.c_void_p)]
@@ -42,9 +43,13 @@ def cuda_source():
     return (HERE/'g1_gpu.cu').read_text().replace('//@@COMMON@@',expand('g1_history.h'))+'\n'+probes
 
 class Core:
-    def __init__(self,arrays,device='cpu',*,build_dir=None,rng='philox',fault=0):
+    def __init__(self,arrays,device='cpu',*,build_dir=None,rng='philox',fault=0,physics_set=physics_sets.DIAGNOSTIC,physics_declaration=None):
         if device not in ('cpu','cuda'):raise ValueError('device must be cpu or cuda')
         if rng not in ('mt','philox') or (device=='cuda' and rng!='philox'):raise ValueError('MT is CPU verification only')
+        self.physics_set=physics_sets.declaration(physics_set)
+        if physics_declaration is not None:physics_sets.check(physics_declaration,self.physics_set)
+        self.set_options=(f'-DG5_SET_ID={self.physics_set["id"]}',f'-DG5_SET_TAG={self.physics_set["tag"]}ULL')
+        self.cuda_options=CUDA_OPTIONS+self.set_options+((f'-DP5_FAULT={fault}',) if fault else ())
         self.a={k:np.ascontiguousarray(v) for k,v in arrays.items()};self.device=device;self.rng=rng
         self.me=int(self.a['me'].item());self.ng=int(self.a['ng'].item());self.nm=int(self.a['nm'].item())
         if not 1<=self.me<=32 or not 1<=self.nm<=32:raise ValueError('G1 table capacity exceeded')
@@ -54,21 +59,24 @@ class Core:
             self._temp=None
             if build_dir is None:self._temp=tempfile.TemporaryDirectory(prefix='chatcarlo-g1-');build_dir=self._temp.name
             build_dir=Path(build_dir);build_dir.mkdir(parents=True,exist_ok=True)
-            digest=hashlib.sha256(''.join((HERE/s).read_text() for s in SOURCES).encode()+f'{rng}:{fault}'.encode()).hexdigest()[:20]
+            digest=hashlib.sha256(''.join((HERE/s).read_text() for s in SOURCES).encode()+f'{rng}:{fault}:{self.set_options}'.encode()).hexdigest()[:20]
             target=build_dir/f'g1-{digest}.so'
             if not target.exists():
                 compiler=shutil.which('clang++') or shutil.which('g++')
                 if compiler is None:raise RuntimeError('clang++ or g++ is required for CPU twin')
-                subprocess.run([compiler,*CPU_FLAGS,'-DP5_RNG_'+rng.upper(),f'-DP5_FAULT={fault}',str(HERE/'g1_cpu.cpp'),'-o',str(target)],check=True,capture_output=True)
+                subprocess.run([compiler,*CPU_FLAGS,*self.set_options,'-DP5_RNG_'+rng.upper(),f'-DP5_FAULT={fault}',str(HERE/'g1_cpu.cpp'),'-o',str(target)],check=True,capture_output=True)
             self.lib=ctypes.CDLL(str(target));self.fn=self.lib.g1_histories
             self.fn.restype=None
             self.fn.argtypes=[ctypes.c_void_p,ctypes.c_void_p,ctypes.c_int,ctypes.c_int,ctypes.c_int,ctypes.POINTER(Geometry),ctypes.c_uint64,ctypes.c_uint64,ctypes.c_int,ctypes.c_void_p,ctypes.c_void_p,ctypes.c_void_p,ctypes.c_int,ctypes.c_int,ctypes.c_void_p,ctypes.c_void_p,ctypes.c_void_p,ctypes.c_void_p,ctypes.c_int]
         else:
             import cupy as cp
             self.cp=cp;self.gpu={k:cp.asarray(v) for k,v in self.a.items()}
-            self.fn=cp.RawKernel(cuda_source(),'g1_histories_kernel',backend='nvrtc',options=CUDA_OPTIONS)
+            self.module=cp.RawModule(code=cuda_source(),backend='nvrtc',options=self.cuda_options)
+            self.fn=self.module.get_function('g1_histories_kernel')
             self.fn.compile()
             cp.cuda.Stream.null.synchronize()
+        self.check_physics_set()
+        self.max_log_energy=self._energy_limit()
         # Immutable static inputs are hashed once, at construction. Cache keys
         # retain the ABI position and actual address, so a pointer swap misses.
         layout = CPU_INPUTS if device == 'cpu' else CUDA_INPUTS
@@ -86,6 +94,26 @@ class Core:
             for name in GEOMETRY_INPUTS:
                 pointer = None if name == 'detector' and not self.npix else self.a[name].ctypes.data
                 self._hash_cache[('geometry', name, pointer)] = array_sha(self.a[name])
+
+    def check_physics_set(self):
+        out=np.zeros(2,np.uint64)
+        if self.device=='cpu':
+            fn=self.lib.g5_physics_set
+            fn.argtypes=[ctypes.c_void_p];fn.restype=None
+            fn(out.ctypes.data)
+        else:
+            gpu=self.cp.zeros(2,self.cp.uint64)
+            self.module.get_function('g5_physics_set_kernel')((1,),(1,),(gpu,))
+            out=self.cp.asnumpy(gpu)
+        if tuple(map(int,out))!=(self.physics_set['id'],self.physics_set['tag']):
+            raise ValueError('compiled physics_set ID/tag mismatch')
+
+    def _energy_limit(self):
+        a=self.a
+        logs=a['data'][a['offsets'][3]:a['offsets'][4]].reshape(self.nm,self.me,self.ng)
+        counts=a['data'][a['offsets'][5]:a['offsets'][6]].reshape(self.nm,self.me)
+        elements=a['data'][a['offsets'][0]:a['offsets'][1]]
+        return max(float(logs[m,j,int(counts[m,j])-1]) for m in range(self.nm) for j in range(int(elements[m])))
 
     def _observe(self, args, arrays):
         layout = CPU_INPUTS if self.device == 'cpu' else CUDA_INPUTS
@@ -126,6 +154,7 @@ class Core:
         n=len(e)
         if o.shape!=(n,3) or d.shape!=(n,3) or e.shape!=(n,) or n<1:raise ValueError('source array shape')
         if not all(np.isfinite(v).all() for v in (o,d,e)) or np.any(e<=0):raise ValueError('invalid source values')
+        if np.any(np.log(e)>self.max_log_energy+1e-12):raise ValueError('source energy exceeds table upper bound')
         if trace_capacity and n!=1:raise ValueError('diagnostic replay requires exactly one history')
         a=self.a;agg=np.zeros(self.nm+6+11*self.npix);rd=np.zeros((n if record else 1,self.nm+2));ri=np.zeros((n if record else 1,9),np.int64);trace=np.full((trace_capacity,8),np.nan)
         fault = os.environ.get('CHATCARLO_G4_FAULT')

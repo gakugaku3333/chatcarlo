@@ -1,0 +1,531 @@
+{
+  "status": "pass",
+  "attempts": [
+    {
+      "water": {
+        "kerma": {
+          "n_eligible": 129727,
+          "missing_indices": [],
+          "max_abs_z": 4.979157397886513,
+          "t_limit": 8.424673608336441,
+          "fraction_abs_z_gt3": 0.005796788640760983,
+          "relative_difference_quantiles": [
+            -0.17620809528109926,
+            -0.00035849675089381173,
+            0.21520571453776033
+          ],
+          "mean_z2": 1.0823856621480328,
+          "regions": {
+            "water": {
+              "n_eligible": 2250,
+              "minimum": 1000,
+              "z": 0.7309259419181571,
+              "reference_only": 0,
+              "twin_only": 0,
+              "reference_only_indices": [],
+              "twin_only_indices": []
+            },
+            "air": {
+              "n_eligible": 127477,
+              "minimum": 1000,
+              "z": -0.2690861118928433,
+              "reference_only": 18185,
+              "twin_only": 18268,
+              "reference_only_indices": {
+                "omitted_list_length": 18185,
+                "sha256": "7da031fe09da585f78f408dd594664278d01d00d99843c8f9308a138a53cd121"
+              },
+              "twin_only_indices": {
+                "omitted_list_length": 18268,
+                "sha256": "9364efbdc72e3b03aa6e16993073934f08fbf217fcfaf9502d3d127436a304ed"
+              }
+            },
+            "all": {
+              "n_eligible": 129727,
+              "minimum": 0,
+              "z": 0.7298302900014463,
+              "reference_only": 18185,
+              "twin_only": 18268,
+              "reference_only_indices": {
+                "omitted_list_length": 18185,
+                "sha256": "7da031fe09da585f78f408dd594664278d01d00d99843c8f9308a138a53cd121"
+              },
+              "twin_only_indices": {
+                "omitted_list_length": 18268,
+                "sha256": "9364efbdc72e3b03aa6e16993073934f08fbf217fcfaf9502d3d127436a304ed"
+              }
+            }
+          },
+          "checks": {
+            "nonempty": true,
+            "missing": true,
+            "outliers": true,
+            "spread": true,
+            "water_total": true,
+            "water_minimum": true,
+            "water_dropouts": true,
+            "air_total": true,
+            "air_minimum": true,
+            "air_dropouts": true,
+            "all_total": true,
+            "all_minimum": true,
+            "all_dropouts": true
+          },
+          "status": "pass"
+        },
+        "h10": {
+          "n_eligible": 134445,
+          "missing_indices": [],
+          "max_abs_z": 5.004721612328393,
+          "t_limit": 8.44452016113569,
+          "fraction_abs_z_gt3": 0.00560824128825914,
+          "relative_difference_quantiles": [
+            -0.17513610274280791,
+            -0.00021444252522378687,
+            0.2138431122229443
+          ],
+          "mean_z2": 1.080089784304608,
+          "regions": {
+            "water": {
+              "n_eligible": 2250,
+              "minimum": 1000,
+              "z": 0.9361146488890647,
+              "reference_only": 0,
+              "twin_only": 0,
+              "reference_only_indices": [],
+              "twin_only_indices": []
+            },
+            "air": {
+              "n_eligible": 132195,
+              "minimum": 1000,
+              "z": -0.30864827135740247,
+              "reference_only": 18303,
+              "twin_only": 18585,
+              "reference_only_indices": {
+                "omitted_list_length": 18303,
+                "sha256": "a06bc6918d9b72051846b1b88c118aad47fc0fb21fd9af2f2bada9dd58d8aadf"
+              },
+              "twin_only_indices": {
+                "omitted_list_length": 18585,
+                "sha256": "d2ddd00d7b2ce94aa8016d58c21decf363c825c28e13a34f2ae321619735ff69"
+              }
+            },
+            "all": {
+              "n_eligible": 134445,
+              "minimum": 0,
+              "z": -0.010379262102899415,
+              "reference_only": 18303,
+              "twin_only": 18585,
+              "reference_only_indices": {
+                "omitted_list_length": 18303,
+                "sha256": "a06bc6918d9b72051846b1b88c118aad47fc0fb21fd9af2f2bada9dd58d8aadf"
+              },
+              "twin_only_indices": {
+                "omitted_list_length": 18585,
+                "sha256": "d2ddd00d7b2ce94aa8016d58c21decf363c825c28e13a34f2ae321619735ff69"
+              }
+            }
+          },
+          "checks": {
+            "nonempty": true,
+            "missing": true,
+            "outliers": true,
+            "spread": true,
+            "water_total": true,
+            "water_minimum": true,
+            "water_dropouts": true,
+            "air_total": true,
+            "air_minimum": true,
+            "air_dropouts": true,
+            "all_total": true,
+            "all_minimum": true,
+            "all_dropouts": true
+          },
+          "status": "pass"
+        }
+      },
+      "lead": {
+        "kerma": {
+          "n_eligible": 69280,
+          "missing_indices": [],
+          "max_abs_z": 4.833859744569059,
+          "t_limit": 8.080683585070277,
+          "fraction_abs_z_gt3": 0.005499422632794457,
+          "relative_difference_quantiles": [
+            -0.18258445324637992,
+            -0.0007206658638009835,
+            0.2242504802753517
+          ],
+          "mean_z2": 1.0954975111580962,
+          "regions": {
+            "water": {
+              "n_eligible": 2258,
+              "minimum": 1000,
+              "z": -0.8626508994531569,
+              "reference_only": 11,
+              "twin_only": 11,
+              "reference_only_indices": [
+                [
+                  27,
+                  27,
+                  32
+                ],
+                [
+                  27,
+                  27,
+                  33
+                ],
+                [
+                  27,
+                  41,
+                  26
+                ],
+                [
+                  27,
+                  42,
+                  28
+                ],
+                [
+                  27,
+                  42,
+                  31
+                ],
+                [
+                  27,
+                  42,
+                  32
+                ],
+                [
+                  42,
+                  27,
+                  31
+                ],
+                [
+                  42,
+                  41,
+                  26
+                ],
+                [
+                  42,
+                  41,
+                  27
+                ],
+                [
+                  42,
+                  42,
+                  28
+                ],
+                [
+                  42,
+                  42,
+                  29
+                ]
+              ],
+              "twin_only_indices": [
+                [
+                  27,
+                  27,
+                  27
+                ],
+                [
+                  27,
+                  27,
+                  28
+                ],
+                [
+                  27,
+                  27,
+                  30
+                ],
+                [
+                  27,
+                  27,
+                  31
+                ],
+                [
+                  27,
+                  42,
+                  26
+                ],
+                [
+                  27,
+                  42,
+                  29
+                ],
+                [
+                  42,
+                  27,
+                  27
+                ],
+                [
+                  42,
+                  27,
+                  29
+                ],
+                [
+                  42,
+                  27,
+                  30
+                ],
+                [
+                  42,
+                  27,
+                  32
+                ],
+                [
+                  42,
+                  42,
+                  30
+                ]
+              ]
+            },
+            "air": {
+              "n_eligible": 66093,
+              "minimum": 1000,
+              "z": -0.6303401119244945,
+              "reference_only": 13479,
+              "twin_only": 13793,
+              "reference_only_indices": {
+                "omitted_list_length": 13479,
+                "sha256": "6e6af20675b0b992312404cae3bf3ffc1c3e655114e9f5f3031026ed1e744e2a"
+              },
+              "twin_only_indices": {
+                "omitted_list_length": 13793,
+                "sha256": "16bf6d237c5aa295024c67dd63675b8cfd7ccbc71f3bd83213594fc6b49ac4b2"
+              }
+            },
+            "bone": {
+              "n_eligible": 12,
+              "minimum": 8,
+              "z": 1.2125859279367726,
+              "reference_only": 0,
+              "twin_only": 0,
+              "reference_only_indices": [],
+              "twin_only_indices": []
+            },
+            "lead_layer": {
+              "n_eligible": 917,
+              "minimum": 500,
+              "z": -0.28899735317847974,
+              "reference_only": 523,
+              "twin_only": 499,
+              "reference_only_indices": {
+                "omitted_list_length": 523,
+                "sha256": "a7c321ccee93180b10af08aaf06c34c2e3f4c3e1ecb54439a71a292674e6e07d"
+              },
+              "twin_only_indices": {
+                "omitted_list_length": 499,
+                "sha256": "d4ecf7d9933e022f60ee531c312fd08e99555757142fb606b19d47482823e302"
+              }
+            },
+            "all": {
+              "n_eligible": 69280,
+              "minimum": 0,
+              "z": -0.5455799470248401,
+              "reference_only": 14013,
+              "twin_only": 14303,
+              "reference_only_indices": {
+                "omitted_list_length": 14013,
+                "sha256": "1f212daa2dad620b4537cd180879f93ce104cf221dd765e853df1fd9f954b692"
+              },
+              "twin_only_indices": {
+                "omitted_list_length": 14303,
+                "sha256": "d4a98e1b782121e87f5e75d3748b5563429b212b06dd6e03845ab13823398cf7"
+              }
+            }
+          },
+          "checks": {
+            "nonempty": true,
+            "missing": true,
+            "outliers": true,
+            "spread": true,
+            "water_total": true,
+            "water_minimum": true,
+            "water_dropouts": true,
+            "air_total": true,
+            "air_minimum": true,
+            "air_dropouts": true,
+            "bone_total": true,
+            "bone_minimum": true,
+            "bone_dropouts": true,
+            "lead_layer_total": true,
+            "lead_layer_minimum": true,
+            "lead_layer_dropouts": true,
+            "all_total": true,
+            "all_minimum": true,
+            "all_dropouts": true
+          },
+          "status": "pass"
+        },
+        "h10": {
+          "n_eligible": 81039,
+          "missing_indices": [],
+          "max_abs_z": 5.120017449811411,
+          "t_limit": 8.165868701498187,
+          "fraction_abs_z_gt3": 0.005269067979614754,
+          "relative_difference_quantiles": [
+            -0.17874665007554955,
+            -0.00046725206701305974,
+            0.22161004426992784
+          ],
+          "mean_z2": 1.0905847704386051,
+          "regions": {
+            "water": {
+              "n_eligible": 2289,
+              "minimum": 1000,
+              "z": -0.8641121776642817,
+              "reference_only": 2,
+              "twin_only": 1,
+              "reference_only_indices": [
+                [
+                  42,
+                  41,
+                  26
+                ],
+                [
+                  42,
+                  42,
+                  26
+                ]
+              ],
+              "twin_only_indices": [
+                [
+                  27,
+                  42,
+                  26
+                ]
+              ]
+            },
+            "air": {
+              "n_eligible": 77405,
+              "minimum": 1000,
+              "z": -0.2057854788096515,
+              "reference_only": 13850,
+              "twin_only": 13828,
+              "reference_only_indices": {
+                "omitted_list_length": 13850,
+                "sha256": "f46ca14def926628e3604345ca8ca1cacef0ace417c96686d85b9e5b0366bc2f"
+              },
+              "twin_only_indices": {
+                "omitted_list_length": 13828,
+                "sha256": "63f56e56d0946188f891122781af61140fb14c2c1d648285e07e86a4b15bf10b"
+              }
+            },
+            "bone": {
+              "n_eligible": 12,
+              "minimum": 8,
+              "z": 0.701925059710173,
+              "reference_only": 0,
+              "twin_only": 0,
+              "reference_only_indices": [],
+              "twin_only_indices": []
+            },
+            "lead_layer": {
+              "n_eligible": 1333,
+              "minimum": 500,
+              "z": -0.4527535745062094,
+              "reference_only": 608,
+              "twin_only": 589,
+              "reference_only_indices": {
+                "omitted_list_length": 608,
+                "sha256": "d44fb1b22830dc1d2f2b4a68ad5189ca6a44a30bb5c4bccf6bac4b7a2b041840"
+              },
+              "twin_only_indices": {
+                "omitted_list_length": 589,
+                "sha256": "3a6c71ebb0dea609a601b2270abefcdb6e3b0249b533555515a1377ff78a6fc5"
+              }
+            },
+            "all": {
+              "n_eligible": 81039,
+              "minimum": 0,
+              "z": -0.46985996279079356,
+              "reference_only": 14460,
+              "twin_only": 14418,
+              "reference_only_indices": {
+                "omitted_list_length": 14460,
+                "sha256": "4388a483af2b51c81a53a01ef966ac8a81469abd5a6bf8a5d6f324186ba53535"
+              },
+              "twin_only_indices": {
+                "omitted_list_length": 14418,
+                "sha256": "91769abade767f267e04036cf83ae18bacd5912a74ff34bb051525c0ec14c56d"
+              }
+            }
+          },
+          "checks": {
+            "nonempty": true,
+            "missing": true,
+            "outliers": true,
+            "spread": true,
+            "water_total": true,
+            "water_minimum": true,
+            "water_dropouts": true,
+            "air_total": true,
+            "air_minimum": true,
+            "air_dropouts": true,
+            "bone_total": true,
+            "bone_minimum": true,
+            "bone_dropouts": true,
+            "lead_layer_total": true,
+            "lead_layer_minimum": true,
+            "lead_layer_dropouts": true,
+            "all_total": true,
+            "all_minimum": true,
+            "all_dropouts": true
+          },
+          "status": "pass"
+        }
+      }
+    }
+  ],
+  "code": {
+    "chatcarlo/transport.py": "232f5ca911c6afc89cbbe667b171964be8e96deaa25260aec1bb3f1dd69d6a8d",
+    "chatcarlo/kernel.py": "e7efacc5ad9d0638d1a7d12f033302c5ab94d2aa04faf9a9eaaaa05ee89c8206",
+    "chatcarlo/physics.py": "8de2082950a4d03e3831dc79d490f45ebd088c0d3c6522ff4b7022ff8d74e58b",
+    "chatcarlo/geometry.py": "81a19ef7ffa1d39227916df92b5732af27a982822c47e9c60ef31bf5611510bc",
+    "chatcarlo/source.py": "d82efb7425a030374e62cb561cfa5a2d9034e0aeae908c6eb0ce7a171abf276c",
+    "chatcarlo/spectrum.py": "bc1d5321e0bd5475f3d195b6030dbc1cc3550da97222489200818d9b5ee9cb0f",
+    "chatcarlo/materials.py": "cafaec2134a6b20eca29927a11d857959441890a55ff5470c42620b81ab883c2",
+    "chatcarlo/detector.py": "4d790b22c9d80423f4c42d7111d438605d442ec5af413571169c68fcbd362366",
+    "chatcarlo/tally.py": "7f9f2a5c5b64d4e8ba0c7aaabf06e586779082d53f051a8328e9242acbca8de2",
+    "chatcarlo/gpu/__init__.py": "2442d90bbd92232c7a0eba31c99790f87aaf2d2e7e0cf7df73170ba0ebd4f27a",
+    "chatcarlo/gpu/aggregate.py": "efa721bd6f67943e847492af5bd57159b317736723d6a75c6f5d7d691d6fa7ea",
+    "chatcarlo/gpu/approval.py": "d8817abf26468b5532a73a925f84f09120855fcd608f5d0a2f9534f6b6bd823a",
+    "chatcarlo/gpu/bundle.py": "38d2710002532f0586dda0fb75191252657f9d74b13e8484343132a91f54440b",
+    "chatcarlo/gpu/catalog.py": "2aea0822032dbf3e2c36e041ce196196ae23cd717caefbf9ad4a5d0f27629d5f",
+    "chatcarlo/gpu/cli_run.py": "37b38a6d4b10c729e3d13ee60a2ac388a95ec0c1fb7b9ac1f4eee5c55da87dfe",
+    "chatcarlo/gpu/colab_driver.py": "2994b6b5768129aa5c61af6649d108f14397c80645cc6733eba0d5af3eeb4d14",
+    "chatcarlo/gpu/condition.py": "0beac12ec37e5f85b984c4568a18aa450ad10400f72082043348044612ae341e",
+    "chatcarlo/gpu/core.py": "0873532ccfa9419e32e58d44d5baf28d2897307b6519c73b0add6073d39b2a98",
+    "chatcarlo/gpu/engine.py": "87714c6150b3186b710100a9f2fba362a3f3379963375254c32d578ddcc76d9b",
+    "chatcarlo/gpu/g1_common.h": "80d4a9af8305f21d11e572f96d2af2c45b9fb155b150d2f49b8cfc8a916e1314",
+    "chatcarlo/gpu/g1_cpu.cpp": "51bf4b032a638b172f11f929aba1f234c75dfcdeb5e07055f8d1d6aad3bb9698",
+    "chatcarlo/gpu/g1_geometry.h": "52fdd6531a71ad32d20d0f049b5521173687e489b2e7949d0bdbdf850e0fee74",
+    "chatcarlo/gpu/g1_gpu.cu": "54948896688e3857f4f5c1b26047f0ab4219f146ad081369af6c754211d7cc25",
+    "chatcarlo/gpu/g1_history.h": "910e162da82623cecdcfa8577951513f538d6dd52963721f3e817c9baf4aa68c",
+    "chatcarlo/gpu/g1_physics.h": "8e0e929bc987d2514d0a3cbe4a198ab5520696a3a1ed6e8465e31da119609980",
+    "chatcarlo/gpu/g2_core.py": "70ed3488b49210e361779926e90683ab4172be9fedf7a9deb3f42ddde648f344",
+    "chatcarlo/gpu/g2_tables.py": "f281937fbab6284bd8165ef5f09ccc6673c254fc801b116d6bab7a5273a89f49",
+    "chatcarlo/gpu/g2_tally.h": "afc921606193bf8b6b5a94408eb1a1b4c268ca4d44b07ce07f3242dd9c3cddf4",
+    "chatcarlo/gpu/g5_base.h": "1403e2d0783c390a86494521be215bd8a7c6a403a5d436f04d0a18df5930cb96",
+    "chatcarlo/gpu/outputs.py": "538ab30a414598411d050f1fbcc0d61db2a1814adbe828bdd380a12fedd2c022",
+    "chatcarlo/gpu/physics_set.h": "ecec3373d2ea0cd3d6f6b0d573e7c57f27f46042d7526cc448c4cfaed2d0ac4e",
+    "chatcarlo/gpu/physics_sets.py": "991e9cff7ffab7317f83a9b4a2b920af69dc36714ad984602931b492100f5cce",
+    "chatcarlo/gpu/run_detector_image.py": "2073cfec05a0addee6547cbacba3141ec4962307bd9c2e87235065e794f1ea45",
+    "chatcarlo/gpu/source_host.py": "761dfcd2f9343efd8014734ae81c0c363e97bff1a5475f3842711c70e5ad5530",
+    "chatcarlo/gpu/validation.py": "62a3d70ae812d3d7c0a93cc2b6bfea5dec50cc2d0e70831aa30688d9b3e43923",
+    "docs/validation/gpu/g5/a1_catalog_p8.py": "e3a485e624d28ca0bfdcf43a14660afa279500ecf609f9510f03ceedc360aa8f",
+    "docs/validation/gpu/g5/a1_common.py": "9a5cd9a3e8113fc76597df1949bbe24f7a84340f33c7ee78c19b6e75652af36f",
+    "docs/validation/gpu/g5/a1_faults.py": "69df74dea96e8587efc68e2a33417a6f1e9126ca70889968b2f43055c3dba79e",
+    "docs/validation/gpu/g5/a1_g2gate3.py": "d037aa391d8c889e88bc773606aa09ac6801f292279051e524b3780e5531423a",
+    "docs/validation/gpu/g5/a1_g2vox.py": "e9c0f3e4a261f3cdae9ab2eb4abe2560e10b53a7227098d108af264b1784eb86",
+    "docs/validation/gpu/g5/a1_gate1.py": "1cbe43740404d2840f1a2ab71fc0c33b38d857fcfef918ea2df8e5513a66a8d0",
+    "docs/validation/gpu/g5/a1_health.py": "97b97a289dade960ad26e1801835a5bc533857fd7f428c22f8a9c0f85853e362",
+    "docs/validation/gpu/g5/a1_launch.py": "9aeb235271e7964f27096520637107628cfc0fbaad0763a312eec1aeb7e413ee",
+    "docs/validation/gpu/g5/a1_remote.py": "625f4268c388ef161a7adad7950fc2f007e4bede8b860509c32f2962de7d6a58",
+    "docs/validation/gpu/g5/a1_speed.py": "6699d559820491a34d2bf3c9981ed0be1f16411c9cc619b9c9a659ed0ae1066c"
+  },
+  "full_record": {
+    "path": "~/.cache/chatcarlo/g5/a1/g2vox/g2vox_cpu_full.json",
+    "sha256": "d9212e9d88caa1a408893bd74d639882eedaeb17ce1c8291ea653bdfa55a5384"
+  }
+}

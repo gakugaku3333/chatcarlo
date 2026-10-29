@@ -111,6 +111,7 @@ def source_reference(bundle_path,job_path,out):
 def worker(bundle_path,job_path,out):
     from .bundle import load
     from .core import Core
+    from . import physics_sets
     from .source_host import sample_source_photons
     a,src,spec,settings,manifest=load(bundle_path);job=json.loads(Path(job_path).read_text());out=Path(out);out.mkdir(parents=True,exist_ok=True)
     if job['mode']=='gate2':
@@ -129,6 +130,7 @@ def worker(bundle_path,job_path,out):
             driver=Core(a,job['device'],grid=grid_from(job['grid']))
         else:
             driver=Core(a,job['device'])
+        physics_sets.check(settings['physics_set'],getattr(driver,'physics_set',physics_sets.declaration()))
         for batch,start in enumerate(range(0,job['n_histories'],job['batch_size'])):
             n=min(job['batch_size'],job['n_histories']-start)
             # Always advance source, including when a verified batch is reused.

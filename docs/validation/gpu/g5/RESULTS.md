@@ -108,3 +108,17 @@ G1の関門1の生JSONは一時作業フォルダを使う方式で、リポジ�
 | 作り直した G2 の参照（`g2_ref/`） | 手元（A1 で使う） | `~/.cache/chatcarlo/g5/a0/` |
 | 復元した P7 の pilot（2.9 GB）、P8f の束（0.65 GB）、作り直した P7・P8g-2 の束（0.7・0.8 GB） | 消す候補（アーカイブから作り直せる）。A1・A2 で使うまで残し、使い終わりにゴミ箱へ | `~/.cache/chatcarlo/` |
 | run1（失敗した 1 回目の起動の記録） | 消す | `~/.cache/chatcarlo/g5/a0/run1/` |
+
+## A1 の結論（2026-10-30、Claude）
+
+**A1 完了**（手元の A1a・T4 の A1b とも全条件合格）。表は [A1.md](A1.md)、判定の JSON は `a1_run/`。共通の土台（`g5_base.h`）・組の識別子（`physics_sets.py`、コンパイル済みの核から (ID, tag) を読んで照合）・束の目録（`catalog.json`、形式 `chatcarlo-g5-v1`）を足し、診断の核を載せ替えた。速さは新/旧 1.002（g2b）・0.982（g4）。
+
+### データの扱い（A1 の段の終わり）
+
+| 出力 | 分類 | 置き場所 |
+|---|---|---|
+| 判定・速さ・故障・識別子・目録の要約 JSON、ncu の CSV、EGS5 60 keV の GPU の JSON と比較 | リポジトリ（G2 ボクセルの判定 JSON は 51 個以上の長い配列を件数と SHA256 に縮めた。全体は手元 `g2vox/g2vox_{cpu,t4}_full.json`） | `a1_run/` |
+| G1 関門 1 の NumPy 参照・新しい核の生 JSON（120 ファイル） | 手元（A2・A3 で再利用）＋ Drive（SHA256 全件一致を確認） | `~/.cache/chatcarlo/g5/a1/gate1/`、Drive `viveMonte/cache_cold/g5_a1/gate1/` |
+| G2 ボクセルの twin バッチ、T4 の回収結果（`t4_gates/run/results`）、速さの測定と ncu の `.ncu-rep` | 手元 | `~/.cache/chatcarlo/g5/a1/` |
+| 旧い核の固定（`old_src/`）と旧い束（`old_bundles/`） | 手元（A3 まで比較に使う。`19c281e` から作り直せる） | 同上 |
+| 失敗した速さの 4 回分、P8 の目録の往復の出力、旧い版の展開（`old_full/`）、転送の断片と tar | 消す（ゴミ箱へ移した。作り直せる） | — |

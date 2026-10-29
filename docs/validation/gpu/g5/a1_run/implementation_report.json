@@ -1,0 +1,93 @@
+{
+  "status": "stopped after completed-implementation existing-test errors; not accepted for A1b",
+  "commands": [
+    {
+      "command": ".venv/bin/python -m pytest tests/ -q",
+      "passed": 774,
+      "failed": 0,
+      "errors": 11,
+      "warnings": 2,
+      "seconds": 226.69
+    },
+    {
+      "command": ".venv/bin/python -m pytest prototypes/mv_electron/tests -q",
+      "status": "not run: stop condition"
+    },
+    {
+      "command": ".venv/bin/python -m pytest tests/test_gpu_g5_a1_*.py -q",
+      "passed": 40,
+      "failed": 0,
+      "seconds": 23.74,
+      "note": "standalone run before final small driver changes; all 40 also passed in completed full-suite run"
+    },
+    {
+      "command": "git diff --stat -- chatcarlo prototypes/mv_electron tests",
+      "status": "executed"
+    },
+    {
+      "command": "git checkout -- docs/validation/mv/p8g1/faults_gate0.json docs/validation/mv/p8g3/fault_observations.json",
+      "status": "not needed: MV tests not run and both tracked files unchanged"
+    }
+  ],
+  "error": {
+    "tests": "tests/test_gpu_g4.py source-reference tests (11 fixture setup errors)",
+    "location": "chatcarlo/gpu/colab_driver.py:131",
+    "exception": "TypeError: cuda_replay.<locals>.CudaTwin.__init__() got an unexpected keyword argument 'physics_declaration'",
+    "evidence": "observed traceback; no repair made"
+  },
+  "acceptance": {
+    "3": "unit tests passed; production runs not performed",
+    "4": "unit tests passed; production runs not performed",
+    "5": "unit tests passed; production runs not performed",
+    "6": "unit tests passed; production runs not performed",
+    "8": "unit tests passed; production runs not performed",
+    "11": "unit tests passed; production runs not performed",
+    "13": "unit tests passed; production runs not performed",
+    "15": "unit tests passed; production runs not performed",
+    "1": "pass: own changes within allowed scope; pre-existing user changes preserved",
+    "2": "not met: 734 existing passed, 11 existing setup errors; MV not run",
+    "14": "partial: health and other fault tests pass; 11 G4 source-reference fixture setup errors",
+    "7": "not run; assigned to Claude",
+    "9": "not run; assigned to Claude",
+    "10": "not run; assigned to Claude",
+    "12": "not run; assigned to Claude"
+  },
+  "changed_files": [
+    "chatcarlo/gpu/bundle.py",
+    "chatcarlo/gpu/catalog.py",
+    "chatcarlo/gpu/colab_driver.py",
+    "chatcarlo/gpu/core.py",
+    "chatcarlo/gpu/engine.py",
+    "chatcarlo/gpu/g1_common.h",
+    "chatcarlo/gpu/g1_cpu.cpp",
+    "chatcarlo/gpu/g1_gpu.cu",
+    "chatcarlo/gpu/g2_core.py",
+    "chatcarlo/gpu/g5_base.h",
+    "chatcarlo/gpu/physics_set.h",
+    "chatcarlo/gpu/physics_sets.py",
+    "docs/validation/gpu/g5/a1_catalog_p8.py",
+    "docs/validation/gpu/g5/a1_common.py",
+    "docs/validation/gpu/g5/a1_faults.py",
+    "docs/validation/gpu/g5/a1_g2gate3.py",
+    "docs/validation/gpu/g5/a1_g2vox.py",
+    "docs/validation/gpu/g5/a1_gate1.py",
+    "docs/validation/gpu/g5/a1_health.py",
+    "docs/validation/gpu/g5/a1_launch.py",
+    "docs/validation/gpu/g5/a1_remote.py",
+    "docs/validation/gpu/g5/a1_speed.py",
+    "docs/validation/gpu/g5/a1_speed_configs.json",
+    "tests/fixtures/g5_a1_old_cuda_source.txt",
+    "tests/test_gpu_g5_a1_catalog.py",
+    "tests/test_gpu_g5_a1_core.py",
+    "tests/test_gpu_g5_a1_drivers.py"
+  ],
+  "hashes": {
+    "tests/fixtures/g5_a1_old_cuda_source.txt": "da3645b296c090ce719989326e4954dbb09792ed0a778cb619bd82996c30736a",
+    "docs/validation/gpu/g5/a1_speed_configs.json": "6ae89ac66cc31ff8a513110a596066aa7b7e3593becd0c8983cc166402f6a263"
+  },
+  "limitations": [
+    "No Colab/T4, EGS5 or large-cache runs performed",
+    "Small-input and fake-VM tests used temporary directories; no writes to ~/.cache",
+    "No existing tests changed; no git add/commit; no changes to docs/jsmp133 or existing validation records"
+  ]
+}

@@ -2,7 +2,7 @@
 import tempfile
 from pathlib import Path
 import numpy as np
-from . import core
+from . import core, physics_sets
 
 def gpu_engine_compatible(scene,n_workers=1,dose_grid=False):
     raw=scene.raw;src=raw.get('source',{})
@@ -46,6 +46,7 @@ def run(scene,n_histories,seed,batch_size,dose_grid,n_workers,track_uncertainty,
             driver=Core(a,gpu_device,grid=grid,build_dir=Path(temp)/'build')
         else:
             driver=core.Core(a,gpu_device,build_dir=Path(temp)/'build')
+        physics_sets.check(settings['physics_set'],getattr(driver,'physics_set',physics_sets.declaration()))
         def batches():
             nonlocal elapsed
             for start in range(0,n_histories,batch_size):

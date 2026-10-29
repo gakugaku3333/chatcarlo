@@ -1,0 +1,703 @@
+#ifndef G1_HISTORY_H
+#define G1_HISTORY_H
+#ifndef G1_PHYSICS_H
+#define G1_PHYSICS_H
+// Copied from prototypes/mv_electron/gpu/p5a0_common.h:1-41 and p5_rng.h:1-48.
+// Philox provenance and arithmetic are preserved below.
+#ifndef G1_COMMON_H
+#define G1_COMMON_H
+// Philox4x32-10 definition: DEShawResearch/random123,
+// commit 9545ff6413f258be2f04c1d319d99aaef7521150,
+// include/Random123/philox.h; independently expressed round arithmetic.
+#ifdef P5_GPU
+// NVRTC does not provide the host <cmath> INFINITY macro.
+#if defined(P5_GPU) && !defined(INFINITY)
+#define INFINITY (__longlong_as_double(0x7ff0000000000000ULL))
+#endif
+#define P5_FN __device__ inline
+typedef unsigned int uint32_t;
+typedef unsigned long long uint64_t;
+#else
+#include <cmath>
+#include <cstdint>
+#define P5_FN static inline
+#endif
+static_assert(sizeof(uint32_t)==4, "32-bit word required");
+static_assert(sizeof(uint64_t)==8, "64-bit word required");
+#ifndef P5_CAP
+#define P5_CAP 16
+#endif
+#ifndef P5_FAULT
+#define P5_FAULT 0
+#endif
+P5_FN void philox(uint64_t seed, uint64_t history, uint64_t count, uint32_t *out) {
+    uint32_t x0=uint32_t(history), x1=uint32_t(history>>32);
+    uint32_t x2=uint32_t(count), x3=uint32_t(count>>32);
+    uint32_t k0=uint32_t(seed), k1=uint32_t(seed>>32);
+    for(int r=0;r<10;++r) {
+        uint64_t p=uint64_t(0xD2511F53U)*x0, q=uint64_t(0xCD9E8D57U)*x2;
+        uint32_t y0=uint32_t(q>>32)^x1^k0, y2=uint32_t(p>>32)^x3^k1;
+        x0=y0; x1=uint32_t(q); x2=y2; x3=uint32_t(p);
+        k0+=0x9E3779B9U; k1+=0xBB67AE85U;
+    }
+    out[0]=x0;out[1]=x1;out[2]=x2;out[3]=x3;
+}
+P5_FN double uniform(const uint32_t *w) {
+    return ((w[0]>>5)*67108864.0+(w[1]>>6))/9007199254740992.0;
+}
+P5_FN double draw(uint64_t seed,uint64_t h,uint64_t *c) {
+    uint32_t w[4];philox(seed,h,*c,w);++*c;return uniform(w);
+}
+#ifndef P5_RNG_H
+#define P5_RNG_H
+
+
+// MT is verification-only and is excluded from GPU compilation.
+#if defined(P5_RNG_MT)
+#ifdef P5_GPU
+#error MT19937 is CPU-only
+#endif
+struct RngState {uint32_t mt[624];int index;uint64_t calls;};
+P5_FN void rng_init(RngState *s,uint64_t seed,uint64_t history) {
+    (void)history;s->mt[0]=uint32_t(seed);s->index=624;s->calls=0;
+    for(int i=1;i<624;++i)
+        s->mt[i]=1812433253U*(s->mt[i-1]^(s->mt[i-1]>>30))+uint32_t(i);
+}
+P5_FN uint32_t rng_word(RngState *s) {
+    if(s->index==624) {
+        for(int j=0;j<624;++j) {
+            uint32_t y=(s->mt[j]&0x80000000U)|(s->mt[(j+1)%624]&0x7fffffffU);
+            s->mt[j]=s->mt[(j+397)%624]^(y>>1)^((y&1U)?0x9908b0dfU:0U);
+        }
+        s->index=0;
+    }
+    uint32_t y=s->mt[s->index++];y^=y>>11;y^=(y<<7)&0x9d2c5680U;
+    y^=(y<<15)&0xefc60000U;y^=y>>18;return y;
+}
+P5_FN double rng_uniform(RngState *s) {
+    uint32_t w[2];w[0]=rng_word(s);w[1]=rng_word(s);++s->calls;
+    return uniform(w);
+}
+#elif defined(P5_RNG_PHILOX)
+struct RngState {uint64_t seed,history,calls;};
+P5_FN void rng_init(RngState *s,uint64_t seed,uint64_t history) {
+    s->seed=seed;s->history=history;s->calls=0;
+}
+P5_FN double rng_uniform(RngState *s) {
+    return draw(s->seed,s->history,&s->calls);
+}
+#else
+#error Select P5_RNG_MT or P5_RNG_PHILOX
+#endif
+#endif
+
+#endif
+// Scalar ports of chatcarlo/kernel.py:285-536. Preserve evaluation order.
+P5_FN double g1_lerp(const double *x_grid,const double *y_grid,int n,double x) {
+    if(x<=x_grid[0])return y_grid[0];
+    if(x>=x_grid[n-1])return y_grid[n-1];
+    int lo=0,hi=n-1;
+    while(hi-lo>1) {int mid=(lo+hi)/2;if(x_grid[mid]<=x)lo=mid;else hi=mid;}
+    double x0=x_grid[lo],x1=x_grid[hi],y0=y_grid[lo],y1=y_grid[hi];
+    return y0+(x-x0)/(x1-x0)*(y1-y0);
+}
+P5_FN void g1_index(const double *log_e_row,double step,int n,double log_eq,int *index,double *fraction) {
+    int hi=n-1,idx;
+    if(step>0.) {
+        idx=int((log_eq-log_e_row[0])/step)+1;
+        if(idx<1)idx=1;if(idx>hi)idx=hi;
+        if(log_eq<=log_e_row[idx-1]){--idx;if(idx<1)idx=1;}
+        if(log_e_row[idx]<log_eq){++idx;if(idx>hi)idx=hi;}
+    } else {
+        int lo_i=0,hi_i=n;
+        while(lo_i<hi_i){int mid=(lo_i+hi_i)/2;if(log_e_row[mid]<log_eq)lo_i=mid+1;else hi_i=mid;}
+        idx=lo_i;if(idx<1)idx=1;if(idx>hi)idx=hi;
+    }
+    double x0=log_e_row[idx-1],x1=log_e_row[idx];
+    *index=idx;*fraction=(log_eq-x0)/(x1-x0);
+}
+P5_FN int g1_select(int n,const double *fracs,const double *cs,double total,RngState *rng) {
+    double target=rng_uniform(rng)*total,cum=0.;
+    for(int i=0;i<n;++i){cum+=fracs[i]*cs[i];if(target<=cum)return i;}
+    return n-1;
+}
+P5_FN void g1_scatter(double dx,double dy,double dz,double cos_theta,RngState *rng,double *out) {
+    double s=1.-cos_theta*cos_theta;
+    double sin_theta=sqrt(s>0.?s:0.);
+    double phi=rng_uniform(rng)*2.0*3.141592653589793;
+    double upx,upy,upz;
+    if(fabs(dz)<.999){upx=0.;upy=0.;upz=1.;}else{upx=1.;upy=0.;upz=0.;}
+    double ux=upy*dz-upz*dy,uy=upz*dx-upx*dz,uz=upx*dy-upy*dx;
+    double un=sqrt(ux*ux+uy*uy+uz*uz);
+    ux/=un;uy/=un;uz/=un;
+    double vx=dy*uz-dz*uy,vy=dz*ux-dx*uz,vz=dx*uy-dy*ux;
+    double cphi=cos(phi),sphi=sin(phi);
+    double nx=sin_theta*cphi*ux+sin_theta*sphi*vx+cos_theta*dx;
+    double ny=sin_theta*cphi*uy+sin_theta*sphi*vy+cos_theta*dy;
+    double nz=sin_theta*cphi*uz+sin_theta*sphi*vz+cos_theta*dz;
+    double nn=sqrt(nx*nx+ny*ny+nz*nz);
+    out[0]=nx/nn;out[1]=ny/nn;out[2]=nz/nn;
+}
+P5_FN void g1_isotropic(RngState *rng,double *out) {
+    double cos_theta=rng_uniform(rng)*2.0-1.0;
+    double s=1.0-cos_theta*cos_theta;
+    double sin_theta=sqrt(s>0.?s:0.);
+    double phi=rng_uniform(rng)*2.0*3.141592653589793;
+    out[0]=sin_theta*cos(phi);out[1]=sin_theta*sin(phi);out[2]=cos_theta;
+}
+
+// Field order follows SceneMaterialTables (bake_scene_materials).
+enum {NE,ZS,FRACS,LOGE,STEP,NG,PHOTO,COMPT,RAYL,IQ,IS,RX,RA,KE,KO,KLE,KLP,NL,KF,DENS};
+struct G1Tables {const double *data;const long long *offsets;int me,ng,nm;};
+P5_FN const double *g1_row(const G1Tables *t,int field,int m=0,int e=0,int width=1) {
+    return t->data+t->offsets[field]+(m*t->me+e)*width;
+}
+P5_FN void g1_mu(double energy,int m,const G1Tables *t,double *p,double *c,double *r,int *idx,double *frac,double *out) {
+    int n=int(g1_row(t,NE)[m]);double log_eq=log(energy);
+    double tp=0.,tc=0.,tr=0.;
+    for(int i=0;i<n;++i){
+        g1_index(g1_row(t,LOGE,m,i,t->ng),g1_row(t,STEP,m,i)[0],int(g1_row(t,NG,m,i)[0]),log_eq,idx+i,frac+i);
+        int j=idx[i];double f=frac[i];
+        const double *pp=g1_row(t,PHOTO,m,i,t->ng),*cc=g1_row(t,COMPT,m,i,t->ng),*rr=g1_row(t,RAYL,m,i,t->ng);
+        p[i]=exp(pp[j-1]+f*(pp[j]-pp[j-1]));
+        c[i]=exp(cc[j-1]+f*(cc[j]-cc[j-1]));
+        r[i]=exp(rr[j-1]+f*(rr[j]-rr[j-1]));
+        double fr=g1_row(t,FRACS,m,i)[0];tp+=fr*p[i];tc+=fr*c[i];tr+=fr*r[i];
+    }
+    out[0]=(tp+tc+tr)*g1_row(t,DENS)[m];out[1]=tp;out[2]=tc;out[3]=tr;
+}
+P5_FN double g1_fluorescence(int m,int ei,double energy,int idx,double frac,const G1Tables *t,RngState *rng) {
+    double edge=g1_row(t,KE,m,ei)[0];if(energy<=edge)return 0.;
+    double omega=g1_row(t,KO,m,ei)[0];if(omega<=0.)return 0.;
+    const double *kf=g1_row(t,KF,m,ei,t->ng);
+    double k_frac=kf[idx-1]+frac*(kf[idx]-kf[idx-1]);
+    if(rng_uniform(rng)>=k_frac)return 0.;
+    if(rng_uniform(rng)>=omega)return 0.;
+    int n=int(g1_row(t,NL,m,ei)[0]);double r=rng_uniform(rng),cum=0.;int chosen=n-1;
+    for(int j=0;j<n;++j){cum+=g1_row(t,KLP,m,ei,8)[j];if(r<=cum){chosen=j;break;}}
+    double line=g1_row(t,KLE,m,ei,8)[chosen];
+#if P5_FAULT != 3
+    if(line<5.)return 0.;
+#endif
+    return line;
+}
+P5_FN void g1_compton(int m,double energy,const G1Tables *t,const double *c,double total,RngState *rng,double *out) {
+    int ei=g1_select(int(g1_row(t,NE)[m]),g1_row(t,FRACS,m),c,total,rng);
+    double z=g1_row(t,ZS,m,ei)[0],alpha=energy/511.;
+    double eps_min=1./(1.+2.*alpha),envelope=1./eps_min+eps_min;
+    while(true){
+        double xi1=rng_uniform(rng),xi2=rng_uniform(rng);
+        double ep=eps_min+xi1*(1.-eps_min);
+        double co=1.-(1./ep-1.)/alpha;
+        double sin2=1.-co*co,g=1./ep+ep-sin2;
+        if(xi2*envelope>g)continue;
+        double cc=co;if(cc>1.)cc=1.;if(cc< -1.)cc=-1.;
+        double theta=acos(cc),q=energy*sin(theta/2.)/12.3984193;
+        double s_over_z=g1_lerp(g1_row(t,IQ,m,ei,2000),g1_row(t,IS,m,ei,2000),2000,q)/z;
+        double xi3=rng_uniform(rng);
+        if(P5_FAULT==2 || xi3<=s_over_z){out[0]=ep;out[1]=co;out[2]=ei;return;}
+    }
+}
+P5_FN void g1_rayleigh(int m,double energy,const G1Tables *t,const double *r,double total,RngState *rng,double *out) {
+    int ei=g1_select(int(g1_row(t,NE)[m]),g1_row(t,FRACS,m),r,total,rng);
+    double ratio=energy/12.3984193,x_max=ratio*ratio;
+    while(true){
+        double cut=g1_lerp(g1_row(t,RX,m,ei,2000),g1_row(t,RA,m,ei,2000),2000,x_max);
+        double xi1=rng_uniform(rng);
+        double x=g1_lerp(g1_row(t,RA,m,ei,2000),g1_row(t,RX,m,ei,2000),2000,xi1*cut);
+        if(x>x_max)x=x_max;
+        double co=1.-2.*x/x_max;if(co>1.)co=1.;if(co< -1.)co=-1.;
+        double xi2=rng_uniform(rng);
+        if(P5_FAULT==1 || xi2<=(1.+co*co)/2.){out[0]=co;out[1]=ei;return;}
+    }
+}
+#endif
+#ifndef G1_GEOMETRY_H
+#define G1_GEOMETRY_H
+// Copied from prototypes/mv_electron/gpu/p5a0_common.h:1-41 and p5_rng.h:1-48.
+// Philox provenance and arithmetic are preserved below.
+#ifndef G1_COMMON_H
+#define G1_COMMON_H
+// Philox4x32-10 definition: DEShawResearch/random123,
+// commit 9545ff6413f258be2f04c1d319d99aaef7521150,
+// include/Random123/philox.h; independently expressed round arithmetic.
+#ifdef P5_GPU
+// NVRTC does not provide the host <cmath> INFINITY macro.
+#if defined(P5_GPU) && !defined(INFINITY)
+#define INFINITY (__longlong_as_double(0x7ff0000000000000ULL))
+#endif
+#define P5_FN __device__ inline
+typedef unsigned int uint32_t;
+typedef unsigned long long uint64_t;
+#else
+#include <cmath>
+#include <cstdint>
+#define P5_FN static inline
+#endif
+static_assert(sizeof(uint32_t)==4, "32-bit word required");
+static_assert(sizeof(uint64_t)==8, "64-bit word required");
+#ifndef P5_CAP
+#define P5_CAP 16
+#endif
+#ifndef P5_FAULT
+#define P5_FAULT 0
+#endif
+P5_FN void philox(uint64_t seed, uint64_t history, uint64_t count, uint32_t *out) {
+    uint32_t x0=uint32_t(history), x1=uint32_t(history>>32);
+    uint32_t x2=uint32_t(count), x3=uint32_t(count>>32);
+    uint32_t k0=uint32_t(seed), k1=uint32_t(seed>>32);
+    for(int r=0;r<10;++r) {
+        uint64_t p=uint64_t(0xD2511F53U)*x0, q=uint64_t(0xCD9E8D57U)*x2;
+        uint32_t y0=uint32_t(q>>32)^x1^k0, y2=uint32_t(p>>32)^x3^k1;
+        x0=y0; x1=uint32_t(q); x2=y2; x3=uint32_t(p);
+        k0+=0x9E3779B9U; k1+=0xBB67AE85U;
+    }
+    out[0]=x0;out[1]=x1;out[2]=x2;out[3]=x3;
+}
+P5_FN double uniform(const uint32_t *w) {
+    return ((w[0]>>5)*67108864.0+(w[1]>>6))/9007199254740992.0;
+}
+P5_FN double draw(uint64_t seed,uint64_t h,uint64_t *c) {
+    uint32_t w[4];philox(seed,h,*c,w);++*c;return uniform(w);
+}
+#ifndef P5_RNG_H
+#define P5_RNG_H
+
+
+// MT is verification-only and is excluded from GPU compilation.
+#if defined(P5_RNG_MT)
+#ifdef P5_GPU
+#error MT19937 is CPU-only
+#endif
+struct RngState {uint32_t mt[624];int index;uint64_t calls;};
+P5_FN void rng_init(RngState *s,uint64_t seed,uint64_t history) {
+    (void)history;s->mt[0]=uint32_t(seed);s->index=624;s->calls=0;
+    for(int i=1;i<624;++i)
+        s->mt[i]=1812433253U*(s->mt[i-1]^(s->mt[i-1]>>30))+uint32_t(i);
+}
+P5_FN uint32_t rng_word(RngState *s) {
+    if(s->index==624) {
+        for(int j=0;j<624;++j) {
+            uint32_t y=(s->mt[j]&0x80000000U)|(s->mt[(j+1)%624]&0x7fffffffU);
+            s->mt[j]=s->mt[(j+397)%624]^(y>>1)^((y&1U)?0x9908b0dfU:0U);
+        }
+        s->index=0;
+    }
+    uint32_t y=s->mt[s->index++];y^=y>>11;y^=(y<<7)&0x9d2c5680U;
+    y^=(y<<15)&0xefc60000U;y^=y>>18;return y;
+}
+P5_FN double rng_uniform(RngState *s) {
+    uint32_t w[2];w[0]=rng_word(s);w[1]=rng_word(s);++s->calls;
+    return uniform(w);
+}
+#elif defined(P5_RNG_PHILOX)
+struct RngState {uint64_t seed,history,calls;};
+P5_FN void rng_init(RngState *s,uint64_t seed,uint64_t history) {
+    s->seed=seed;s->history=history;s->calls=0;
+}
+P5_FN double rng_uniform(RngState *s) {
+    return draw(s->seed,s->history,&s->calls);
+}
+#else
+#error Select P5_RNG_MT or P5_RNG_PHILOX
+#endif
+#endif
+
+#endif
+// Ports: kernel.py:539-620, detector.py:47-66.
+struct G1Geometry {const double *centers,*halves;const long long *materials;int nb,bg;const double *world;const double *det;};
+P5_FN void g1_box(double ox,double oy,double oz,double dx,double dy,double dz,double hx,double hy,double hz,double *out) {
+    double o[3]={ox,oy,oz},d[3]={dx,dy,dz},h[3]={hx,hy,hz};
+    double enter=-INFINITY,exit=INFINITY;bool miss=false;
+    for(int j=0;j<3;++j){
+        if(fabs(d[j])<1e-12){if(o[j]< -h[j] || o[j]>h[j])miss=true;}
+        else {double a=(-h[j]-o[j])/d[j],b=(h[j]-o[j])/d[j];
+            double mn=a<b?a:b,mx=a>b?a:b;enter=enter>mn?enter:mn;exit=exit<mx?exit:mx;}
+    }
+    out[0]=enter;out[1]=exit;out[2]=!miss && enter<=exit;
+}
+P5_FN int g1_material(double x,double y,double z,const G1Geometry *g) {
+    int mat=g->bg;
+    for(int b=0;b<g->nb;++b){const double *c=g->centers+3*b,*h=g->halves+3*b;
+        if(fabs(x-c[0])<=h[0] && fabs(y-c[1])<=h[1] && fabs(z-c[2])<=h[2]) {
+            mat=int(g->materials[b]);if(P5_FAULT==4)break;
+        }
+    }
+    return mat;
+}
+P5_FN void g1_boundary(double x,double y,double z,double dx,double dy,double dz,const G1Geometry *g,double *out) {
+    double obj=INFINITY,v[3];
+    for(int b=0;b<g->nb;++b){const double *c=g->centers+3*b,*h=g->halves+3*b;
+        g1_box(x-c[0],y-c[1],z-c[2],dx,dy,dz,h[0],h[1],h[2],v);
+        if(v[2]){if(v[0]>1e-6 && v[0]<obj)obj=v[0];if(v[1]>1e-6 && v[1]<obj)obj=v[1];}
+    }
+    const double *w=g->world;g1_box(x-w[0],y-w[1],z-w[2],dx,dy,dz,w[3],w[4],w[5],v);
+    double exit=v[2]?v[1]:INFINITY;out[0]=obj<exit?obj:exit;out[1]=exit<=obj;
+}
+P5_FN void g1_detector(const double *o,const double *d,double ds,const double *p,double *out) {
+    // Packed plane: center, normal, u, v, size[2], shape[2].
+    out[0]=INFINITY;out[1]=-1.;out[2]=-1.;out[3]=0.;
+    if(!p)return;
+    double denom=(d[0]*p[3]+d[1]*p[4])+d[2]*p[5];
+    if(denom==0.)return;
+    double t=(((p[0]-o[0])*p[3]+(p[1]-o[1])*p[4])+(p[2]-o[2])*p[5])/denom;
+    double rel[3];for(int j=0;j<3;++j)rel[j]=(o[j]+d[j]*t)-p[j];
+    double uu=(rel[0]*p[6]+rel[1]*p[7])+rel[2]*p[8];
+    double vv=(rel[0]*p[9]+rel[1]*p[10])+rel[2]*p[11];
+    double du=p[12]/p[14],dv=p[13]/p[15];
+    long long iu=(long long)floor((uu+p[12]/2.)/du),iv=(long long)floor((vv+p[13]/2.)/dv);
+    if(denom<0. && t>=0. && t<=ds && iu>=0 && iu<p[14] && iv>=0 && iv<p[15]){
+        out[0]=t;out[1]=double(iu);out[2]=double(iv);out[3]=1.;
+    }
+}
+#endif
+#ifndef G2_TALLY_H
+#define G2_TALLY_H
+// Copied from prototypes/mv_electron/gpu/p5a0_common.h:1-41 and p5_rng.h:1-48.
+// Philox provenance and arithmetic are preserved below.
+#ifndef G1_COMMON_H
+#define G1_COMMON_H
+// Philox4x32-10 definition: DEShawResearch/random123,
+// commit 9545ff6413f258be2f04c1d319d99aaef7521150,
+// include/Random123/philox.h; independently expressed round arithmetic.
+#ifdef P5_GPU
+// NVRTC does not provide the host <cmath> INFINITY macro.
+#if defined(P5_GPU) && !defined(INFINITY)
+#define INFINITY (__longlong_as_double(0x7ff0000000000000ULL))
+#endif
+#define P5_FN __device__ inline
+typedef unsigned int uint32_t;
+typedef unsigned long long uint64_t;
+#else
+#include <cmath>
+#include <cstdint>
+#define P5_FN static inline
+#endif
+static_assert(sizeof(uint32_t)==4, "32-bit word required");
+static_assert(sizeof(uint64_t)==8, "64-bit word required");
+#ifndef P5_CAP
+#define P5_CAP 16
+#endif
+#ifndef P5_FAULT
+#define P5_FAULT 0
+#endif
+P5_FN void philox(uint64_t seed, uint64_t history, uint64_t count, uint32_t *out) {
+    uint32_t x0=uint32_t(history), x1=uint32_t(history>>32);
+    uint32_t x2=uint32_t(count), x3=uint32_t(count>>32);
+    uint32_t k0=uint32_t(seed), k1=uint32_t(seed>>32);
+    for(int r=0;r<10;++r) {
+        uint64_t p=uint64_t(0xD2511F53U)*x0, q=uint64_t(0xCD9E8D57U)*x2;
+        uint32_t y0=uint32_t(q>>32)^x1^k0, y2=uint32_t(p>>32)^x3^k1;
+        x0=y0; x1=uint32_t(q); x2=y2; x3=uint32_t(p);
+        k0+=0x9E3779B9U; k1+=0xBB67AE85U;
+    }
+    out[0]=x0;out[1]=x1;out[2]=x2;out[3]=x3;
+}
+P5_FN double uniform(const uint32_t *w) {
+    return ((w[0]>>5)*67108864.0+(w[1]>>6))/9007199254740992.0;
+}
+P5_FN double draw(uint64_t seed,uint64_t h,uint64_t *c) {
+    uint32_t w[4];philox(seed,h,*c,w);++*c;return uniform(w);
+}
+#ifndef P5_RNG_H
+#define P5_RNG_H
+
+
+// MT is verification-only and is excluded from GPU compilation.
+#if defined(P5_RNG_MT)
+#ifdef P5_GPU
+#error MT19937 is CPU-only
+#endif
+struct RngState {uint32_t mt[624];int index;uint64_t calls;};
+P5_FN void rng_init(RngState *s,uint64_t seed,uint64_t history) {
+    (void)history;s->mt[0]=uint32_t(seed);s->index=624;s->calls=0;
+    for(int i=1;i<624;++i)
+        s->mt[i]=1812433253U*(s->mt[i-1]^(s->mt[i-1]>>30))+uint32_t(i);
+}
+P5_FN uint32_t rng_word(RngState *s) {
+    if(s->index==624) {
+        for(int j=0;j<624;++j) {
+            uint32_t y=(s->mt[j]&0x80000000U)|(s->mt[(j+1)%624]&0x7fffffffU);
+            s->mt[j]=s->mt[(j+397)%624]^(y>>1)^((y&1U)?0x9908b0dfU:0U);
+        }
+        s->index=0;
+    }
+    uint32_t y=s->mt[s->index++];y^=y>>11;y^=(y<<7)&0x9d2c5680U;
+    y^=(y<<15)&0xefc60000U;y^=y>>18;return y;
+}
+P5_FN double rng_uniform(RngState *s) {
+    uint32_t w[2];w[0]=rng_word(s);w[1]=rng_word(s);++s->calls;
+    return uniform(w);
+}
+#elif defined(P5_RNG_PHILOX)
+struct RngState {uint64_t seed,history,calls;};
+P5_FN void rng_init(RngState *s,uint64_t seed,uint64_t history) {
+    s->seed=seed;s->history=history;s->calls=0;
+}
+P5_FN double rng_uniform(RngState *s) {
+    return draw(s->seed,s->history,&s->calls);
+}
+#else
+#error Select P5_RNG_MT or P5_RNG_PHILOX
+#endif
+#endif
+
+#endif
+struct G2Tally {
+    const double *table,*cfg; int nm;
+    double *kerma,*h10,*count,*sum,*sum2,*box_count;
+};
+P5_FN void g2_add(double *p,double v) {
+    if(!p)return;
+#ifdef P5_GPU
+    atomicAdd(p,v);
+#else
+    *p+=v;
+#endif
+}
+P5_FN int g2_interval(const double *x,int n,double e) {
+    int lo=0,hi=n-1;
+    while(hi-lo>1){int mid=(lo+hi)/2;if(e<x[mid])hi=mid;else lo=mid;}
+    return lo;
+}
+P5_FN double g2_muen(const G2Tally *t,int m,double e) {
+    int s=int(t->cfg[0]),n=int(t->cfg[2+m]);const double *x=t->table+m*s;
+    double le=log(e);int i=g2_interval(x,n,le);double u=le-x[i];
+    const double *c=t->table+t->nm*s+m*4*s;
+    return exp(((c[i]*u+c[s+i])*u+c[2*s+i])*u+c[3*s+i]);
+}
+P5_FN double g2_h10(const G2Tally *t,double e) {
+    int s=int(t->cfg[0]),n=int(t->cfg[1]);const double *x=t->table+5*t->nm*s+t->nm,*y=x+n;
+    double le=log(e);if(le<x[0])le=x[0];if(le>x[n-1])le=x[n-1];
+    int i=g2_interval(x,n,le);double f=(le-x[i])/(x[i+1]-x[i]);
+    return exp(y[i]+f*(y[i+1]-y[i]));
+}
+// The historical overlap uses endpoint displacement, including its 1e-12 cutoff.
+P5_FN double g2_overlap(const double *a,const double *b,const double *lo,const double *hi) {
+    double enter=0.,exit=1.,norm=0.;
+    for(int k=0;k<3;++k){double d=b[k]-a[k];norm+=d*d;
+        if(fabs(d)<1e-12){if(a[k]<lo[k] || a[k]>hi[k])return 0.;}
+        else {double u=(lo[k]-a[k])/d,v=(hi[k]-a[k])/d;
+            enter=fmax(enter,fmin(u,v));exit=fmin(exit,fmax(u,v));}}
+    return fmax(exit-enter,0.)*sqrt(norm);
+}
+P5_FN void g2_grid_segment(const G2Tally *t,const double *o,const double *d,double len,double kw,double hw) {
+    const double *cfg=t->cfg+2+t->nm;if(!int(cfg[0]))return;
+    const double *lo=cfg+1;double h=cfg[7],enter=0.,exit=len;int shape[3];
+    for(int k=0;k<3;++k){shape[k]=int(cfg[4+k]);double hi=lo[k]+shape[k]*h;
+        if(fabs(d[k])<1e-12){if(o[k]<lo[k] || o[k]>hi)return;}
+        else {double u=(lo[k]-o[k])/d[k],v=(hi-o[k])/d[k];
+            enter=fmax(enter,fmin(u,v));exit=fmin(exit,fmax(u,v));}}
+    if(exit<=enter)return;
+    // Enumerate the same internal planes as tally.py, then merge the three
+    // sorted streams. Midpoints decide cells (upper external face is excluded).
+    int plane[3],last[3],step[3];double next[3];
+    for(int k=0;k<3;++k){
+        double a=(o[k]+enter*d[k]-lo[k])/h,b=(o[k]+exit*d[k]-lo[k])/h;
+        int low=int(ceil(fmin(a,b)+1e-7)),high=int(floor(fmax(a,b)-1e-7));
+        step[k]=d[k]>0?1:-1;plane[k]=d[k]>0?low:high;last[k]=d[k]>0?high:low;
+        next[k]=(fabs(d[k])<1e-12 || high<low)?exit:(lo[k]+plane[k]*h-o[k])/d[k];
+    }
+    double left=enter;
+    while(left<exit){double right=exit;for(int k=0;k<3;++k)right=fmin(right,next[k]);
+        if(right>left){double mid=(left+right)/2.;int ix[3];bool valid=true;
+            for(int k=0;k<3;++k){ix[k]=int(floor((o[k]+d[k]*mid-lo[k])/h));if(ix[k]<0 || ix[k]>=shape[k])valid=false;}
+            if(valid){int j=(ix[0]*shape[1]+ix[1])*shape[2]+ix[2];double dl=right-left;
+                g2_add(t->kerma+j,kw*dl);g2_add(t->h10+j,hw*dl);if(t->count)g2_add(t->count+j,1.);}}
+        if(right>=exit)break;
+        for(int k=0;k<3;++k)if(next[k]<=right){plane[k]+=step[k];
+            bool done=step[k]>0?plane[k]>last[k]:plane[k]<last[k];
+            next[k]=done?exit:(lo[k]+plane[k]*h-o[k])/d[k];}
+        left=right;
+    }
+}
+P5_FN void g2_box_segment(const G2Tally *t,int m,const double *o,const double *d,double len,double kw,double *local) {
+    const double *cfg=t->cfg+2+t->nm;int nb=int(cfg[8]);if(m!=int(cfg[9]))return;
+    double end[3];for(int k=0;k<3;++k)end[k]=o[k]+d[k]*len;
+    for(int j=0;j<nb;++j)local[j]+=g2_overlap(o,end,cfg+10+6*j,cfg+13+6*j)*kw;
+}
+P5_FN void g2_segment(const G2Tally *t,int m,const double *o,const double *d,double len,double e,double *local) {
+    double kw=e*g2_muen(t,m,e)*t->table[5*t->nm*int(t->cfg[0])+m];
+    g2_grid_segment(t,o,d,len,kw,g2_h10(t,e));g2_box_segment(t,m,o,d,len,kw,local);
+}
+P5_FN void g2_end_history(const G2Tally *t,const double *local) {
+    int nb=int(t->cfg[2+t->nm+8]);for(int j=0;j<nb;++j){
+        g2_add(t->sum+j,local[j]);g2_add(t->sum2+j,local[j]*local[j]);
+        if(t->box_count && local[j]!=0.)g2_add(t->box_count+j,1.);}
+}
+#endif
+#ifndef P5_GPU
+using std::isfinite;
+#endif
+// One history, ported in order from kernel.py:_transport_one and
+// transport.py:transport_photons (terminal detection precedes boundary/event).
+// Integer record: interactions, Compton+Rayleigh, fluorescence, ending
+// (0 absorbed/1 escaped/2 detected), iu, iv, category, RNG calls, error.
+// Double record: final energy, deposited total, per-material deposits.
+P5_FN void g1_history(const G1Tables *t,const G1Geometry *g,RngState *rng,
+                      const double *origin,const double *direction,double energy,
+                      bool fluor,double *out,long long *ints,
+                      double *trace=0,int trace_capacity=0,const G2Tally *tally=0) {
+    double box_local[64]={};
+    for(int j=0;j<2+t->nm;++j)out[j]=0.;
+    for(int j=0;j<9;++j)ints[j]=0;
+    ints[4]=ints[5]=ints[6]=-1;ints[8]=1;
+    double x=origin[0],y=origin[1],z=origin[2],dx=direction[0],dy=direction[1],dz=direction[2];
+    double e=energy,tau=-log(rng_uniform(rng));
+    double p[32],c[32],r[32],f[32];int idx[32];
+    for(int step=0;step<1000000;++step) {
+        int m=g1_material(x,y,z,g);
+        if(trace && step<trace_capacity){double *a=trace+step*8;a[0]=step;a[1]=x;a[2]=y;a[3]=z;a[4]=m;a[5]=rng->calls;a[6]=e;a[7]=tau;}
+        double part[4];g1_mu(e,m,t,p,c,r,idx,f,part);
+        double boundary[2];g1_boundary(x,y,z,dx,dy,dz,g,boundary);
+        double mu=part[0],mu_safe=mu>0.?mu:1e-30,tb=mu*boundary[0];
+        bool interact=tau<tb;double ds=interact?tau/mu_safe:boundary[0];
+        double o[3]={x,y,z},dir[3]={dx,dy,dz},hit[4];g1_detector(o,dir,ds,g->det,hit);
+        if(tally)g2_segment(tally,m,o,dir,hit[3]?hit[0]:ds,e,box_local);
+        if(hit[3]){ints[3]=2;ints[4]=(long long)hit[1];ints[5]=(long long)hit[2];
+            ints[6]=ints[2]>0?3:ints[1]==0?0:ints[1]==1?1:2;ints[8]=0;break;}
+        x+=dx*ds;y+=dy*ds;z+=dz*ds;
+        if(!interact){tau-=tb;x+=dx*1e-6;y+=dy*1e-6;z+=dz*1e-6;
+            if(boundary[1]){ints[3]=1;ints[8]=0;break;}continue;}
+        ++ints[0];double rt=rng_uniform(rng),total=part[1]+part[2]+part[3];
+        double pp=part[1]/total,pc=part[2]/total,deposit=0.,newdir[3];
+        if(rt<pp){
+            int ei=g1_select(int(g1_row(t,NE)[m]),g1_row(t,FRACS,m),p,part[1],rng);
+            double line=fluor?g1_fluorescence(m,ei,e,idx[ei],f[ei],t,rng):0.;
+            if(line>0.){deposit=e-line;out[1]+=deposit;out[2+m]+=deposit;++ints[2];
+                g1_isotropic(rng,newdir);dx=newdir[0];dy=newdir[1];dz=newdir[2];e=line;tau=-log(rng_uniform(rng));}
+            else {out[1]+=e;out[2+m]+=e;ints[3]=0;ints[8]=0;break;}
+        } else if(rt<pp+pc){
+            ++ints[1];double sample[3];g1_compton(m,e,t,c,part[2],rng,sample);
+            double enew=e*sample[0];deposit=e-enew;out[1]+=deposit;out[2+m]+=deposit;
+            g1_scatter(dx,dy,dz,sample[1],rng,newdir);dx=newdir[0];dy=newdir[1];dz=newdir[2];e=enew;tau=-log(rng_uniform(rng));
+        } else {
+            ++ints[1];double sample[2];g1_rayleigh(m,e,t,r,part[3],rng,sample);
+            g1_scatter(dx,dy,dz,sample[0],rng,newdir);dx=newdir[0];dy=newdir[1];dz=newdir[2];tau=-log(rng_uniform(rng));
+        }
+        if(step==999999)ints[8]=1;
+    }
+    if(tally)g2_end_history(tally,box_local);
+    out[0]=e;ints[7]=(long long)rng->calls;
+}
+P5_FN void g1_add_record(const G1Tables *t,const G1Geometry *g,const double *d,const long long *i,double *agg) {
+    // nm deposits, 3 endings, scatter sum, fluorescence sum, then 7 images.
+    for(int m=0;m<t->nm;++m) {
+#ifdef P5_GPU
+        atomicAdd(agg+m,d[2+m]);
+#else
+        agg[m]+=d[2+m];
+#endif
+    }
+    int nm=t->nm;
+    int np=g->det?int(g->det[14])*int(g->det[15]):0;
+    bool invalid=i[8]!=0 || i[3]<0 || i[3]>2;
+    for(int j=0;j<2+nm;++j)if(!isfinite(d[j]) || d[j]<0.)invalid=true;
+    if(i[3]==2 && (!g->det || i[4]<0 || i[4]>=g->det[14] || i[5]<0 || i[5]>=g->det[15]))invalid=true;
+    if(invalid){
+#ifdef P5_GPU
+        atomicAdd(agg+nm+5+11*np,1.);
+#else
+        agg[nm+5+11*np]+=1.;
+#endif
+        return;
+    }
+#ifdef P5_GPU
+    atomicAdd(agg+nm+i[3],1.);atomicAdd(agg+nm+3,double(i[0]));atomicAdd(agg+nm+4,double(i[2]));
+#else
+    agg[nm+i[3]]+=1.;agg[nm+3]+=i[0];agg[nm+4]+=i[2];
+#endif
+    if(i[3]!=2)return;
+    int nu=int(g->det[14]),nv=int(g->det[15]),npix=nu*nv;
+    int pix=int(i[4])*nv+int(i[5]);double area=g->det[12]*g->det[13]/(nu*nv);
+    int a=nm+5;double e=d[0];
+#ifdef P5_GPU
+    atomicAdd(agg+a+7*npix+int(i[6])*npix+pix,1.);
+    atomicAdd(agg+a+int(i[6])*npix+pix,e/area);atomicAdd(agg+a+4*npix+pix,1.);
+    atomicAdd(agg+a+5*npix+pix,e);atomicAdd(agg+a+6*npix+pix,e*e);
+#else
+    agg[a+7*npix+int(i[6])*npix+pix]+=1.;
+    agg[a+int(i[6])*npix+pix]+=e/area;agg[a+4*npix+pix]+=1.;
+    agg[a+5*npix+pix]+=e;agg[a+6*npix+pix]+=e*e;
+#endif
+}
+#endif
+extern "C" __global__ void g1_histories_kernel(const double *data,const long long *offsets,int me,int ng,int nm,
+    const double *centers,const double *halves,const long long *materials,int nb,int bg,const double *world,const double *det,
+    unsigned long long seed,unsigned long long start,int n,const double *o,const double *dir,const double *energy,int fluor,
+    int record,double *d,long long *ints,double *agg,double *trace,int trace_capacity) {
+    int h=blockIdx.x*blockDim.x+threadIdx.x;if(h>=n)return;
+    G1Tables t={data,offsets,me,ng,nm};G1Geometry g={centers,halves,materials,nb,bg,world,det};
+    RngState rng;rng_init(&rng,seed,start+uint64_t(h));double local[34];long long li[9];
+    g1_history(&t,&g,&rng,o+3*h,dir+3*h,energy[h],fluor,local,li,trace,trace_capacity);
+    g1_add_record(&t,&g,local,li,agg);
+    if(record){for(int j=0;j<2+nm;++j)d[h*(2+nm)+j]=local[j];for(int j=0;j<9;++j)ints[h*9+j]=li[j];}
+}
+extern "C" __global__ void g1_geometry_probe_flat(int which,const double *centers,const double *halves,const long long *materials,int nb,int bg,const double *world,const double *det,const double *x,int n,double *out) {
+    int i=blockIdx.x*blockDim.x+threadIdx.x;if(i>=n)return;G1Geometry g={centers,halves,materials,nb,bg,world,det};
+    const double *a=x+10*i;double *y=out+4*i;
+    if(which==0)g1_box(a[0],a[1],a[2],a[3],a[4],a[5],a[6],a[7],a[8],y);
+    if(which==1)y[0]=g1_material(a[0],a[1],a[2],&g);
+    if(which==2)g1_boundary(a[0],a[1],a[2],a[3],a[4],a[5],&g,y);
+    if(which==3)g1_detector(a,a+3,a[6],det,y);
+}
+
+
+extern "C" __global__ void g2_histories_kernel(const double *data,const long long *offsets,int me,int ng,int nm,
+    const double *centers,const double *halves,const long long *materials,int nb,int bg,const double *world,const double *det,
+    unsigned long long seed,unsigned long long start,int n,const double *o,const double *dir,const double *energy,int fluor,
+    int record,double *d,long long *ints,double *agg,double *trace,int trace_capacity,const double *table,const double *cfg,double *kerma,double *h10,double *count,double *sum,double *sum2,double *box_count) {
+    G2Tally tally={table,cfg,nm,kerma,h10,count,sum,sum2,box_count};
+    int h=blockIdx.x*blockDim.x+threadIdx.x;if(h>=n)return;
+    G1Tables t={data,offsets,me,ng,nm};G1Geometry g={centers,halves,materials,nb,bg,world,det};
+    RngState rng;rng_init(&rng,seed,start+uint64_t(h));double local[34];long long li[9];
+    g1_history(&t,&g,&rng,o+3*h,dir+3*h,energy[h],fluor,local,li,trace,trace_capacity,&tally);
+    g1_add_record(&t,&g,local,li,agg);
+    if(record){for(int j=0;j<2+nm;++j)d[h*(2+nm)+j]=local[j];for(int j=0;j<9;++j)ints[h*9+j]=li[j];}
+}
+
+extern "C" __global__ void g1_direction_probe_kernel(int which,const double *x,int n,uint64_t seed,double *out,uint64_t *state,double *next) {
+    if(blockIdx.x || threadIdx.x)return;RngState rng;rng_init(&rng,seed,0);
+    for(int i=0;i<n;++i) {
+        uint64_t before=rng.calls;
+        if(which==0)g1_scatter(x[4*i],x[4*i+1],x[4*i+2],x[4*i+3],&rng,out+3*i);
+        else g1_isotropic(&rng,out+3*i);
+        state[626+i]=rng.calls-before;
+    }
+#ifdef P5_RNG_MT
+    for(int j=0;j<624;++j)state[j]=rng.mt[j];state[624]=rng.index;
+#endif
+    state[625]=rng.calls;
+    for(int j=0;j<16;++j)next[j]=rng_uniform(&rng);
+}
+
+extern "C" __global__ void g1_physics_probe_kernel(int which,const double *data,const long long *offsets,int me,int ng,int nm,const double *x,int n,uint64_t seed,double *out,uint64_t *state,double *next) {
+    if(blockIdx.x || threadIdx.x)return;G1Tables t={data,offsets,me,ng,nm};RngState rng;rng_init(&rng,seed,0);
+    for(int j=0;j<n;++j){
+        uint64_t before=rng.calls;const double *a=x+8*j;double *y=out+(8+5*me)*j;
+        int m=int(a[1]),ne=int(g1_row(&t,NE)[m]);
+        double p[32]={},c[32]={},r[32]={},frac[32]={},parts[4]={};int idx[32]={};
+        if(which<=3)g1_mu(a[0],m,&t,p,c,r,idx,frac,parts);
+        if(which==0){for(int k=0;k<4;++k)y[k]=parts[k];
+            for(int k=0;k<ne;++k){y[8+k]=p[k];y[8+me+k]=c[k];y[8+2*me+k]=r[k];y[8+3*me+k]=idx[k];y[8+4*me+k]=frac[k];}}
+        if(which==1)g1_compton(m,a[0],&t,c,parts[2],&rng,y);
+        if(which==2)g1_rayleigh(m,a[0],&t,r,parts[3],&rng,y);
+        if(which==3){int e=int(a[2]);double line=g1_fluorescence(m,e,a[0],idx[e],frac[e],&t,&rng);y[0]=line>0.;y[1]=line;}
+        if(which==4)y[0]=g1_select(ne,g1_row(&t,FRACS,m),g1_row(&t,FRACS,m),a[0],&rng);
+        if(which==5)y[0]=g1_lerp(g1_row(&t,LOGE,m,int(a[2]),ng),g1_row(&t,PHOTO,m,int(a[2]),ng),int(g1_row(&t,NG,m,int(a[2]))[0]),a[0]);
+        if(which==6){int id;double f;g1_index(g1_row(&t,LOGE,m,int(a[2]),ng),g1_row(&t,STEP,m,int(a[2]))[0],int(g1_row(&t,NG,m,int(a[2]))[0]),a[0],&id,&f);y[0]=id;y[1]=f;}
+        state[626+j]=rng.calls-before;
+    }
+#ifdef P5_RNG_MT
+    for(int j=0;j<624;++j)state[j]=rng.mt[j];state[624]=rng.index;
+#endif
+    state[625]=rng.calls;for(int j=0;j<16;++j)next[j]=rng_uniform(&rng);
+}
+extern "C" __global__ void g1_geometry_probe_kernel(int which,const G1Geometry *g,const double *x,int n,double *out) {
+    if(blockIdx.x || threadIdx.x)return;for(int i=0;i<n;++i){const double *a=x+10*i;double *y=out+4*i;
+        if(which==0)g1_box(a[0],a[1],a[2],a[3],a[4],a[5],a[6],a[7],a[8],y);
+        if(which==1)y[0]=g1_material(a[0],a[1],a[2],g);
+        if(which==2)g1_boundary(a[0],a[1],a[2],a[3],a[4],a[5],g,y);
+        if(which==3)g1_detector(a,a+3,a[6],g->det,y);
+    }
+}

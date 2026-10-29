@@ -5,22 +5,38 @@ from pathlib import Path
 import shutil
 
 import numpy as np
-from . import core
+from . import core, catalog, physics_sets
 
 HERE=Path(__file__).resolve().parent
-RUNTIME=(*core.SOURCES,'__init__.py','core.py','source_host.py','bundle.py','colab_driver.py','validation.py','g2_core.py','g2_tables.py','run_gates.py','run_egs5_60kev.py')
+RUNTIME=(*core.SOURCES,'__init__.py','catalog.py','physics_sets.py','core.py','source_host.py','bundle.py','colab_driver.py','validation.py','g2_core.py','g2_tables.py','run_gates.py','run_egs5_60kev.py')
 
 def sha(path):return hashlib.sha256(Path(path).read_bytes()).hexdigest()
 
 def verify(path):
     path=Path(path);manifest=json.loads((path/'manifest.json').read_text())
-    if manifest.get('format')!='chatcarlo-g1-v1':raise ValueError('unknown bundle format')
+    if manifest.get('format')!='chatcarlo-g5-v1':raise ValueError('unknown bundle format')
     for name,digest in manifest['files'].items():
         if Path(name).name!=name or not isinstance(digest,str):raise ValueError('invalid bundle member')
         if sha(path/name)!=digest:raise ValueError('bundle SHA256 mismatch: '+name)
-    required={'tables.npz','geometry.npz','spectrum.npz','source.json','settings.json',*RUNTIME}
+    required={'catalog.json','tables.npz','geometry.npz','spectrum.npz','source.json','settings.json',*RUNTIME}
     if 'g2_tables.npz' in manifest['files']:required.add('g2_tables.npz')
     if set(manifest['files'])!=required:raise ValueError('incomplete/unexpected bundle members')
+    settings=json.loads((path/'settings.json').read_text())
+    physics_sets.check(settings['physics_set'],physics_sets.declaration())
+    a={}
+    for filename in ('tables.npz','g2_tables.npz'):
+        if filename not in manifest['files']:continue
+        with np.load(path/filename,allow_pickle=False) as z:
+            allowed={'g2_table','g2_sizes'}|catalog.G2_METADATA if filename=='g2_tables.npz' else set(z.files)
+            if set(z.files)-allowed:raise ValueError('unexpected G2 metadata')
+            a.update({k:z[k] for k in z.files if k not in catalog.G2_METADATA})
+    cat=json.loads((path/'catalog.json').read_text())
+    generators=settings['catalog_generators']
+    for gen in generators.values():
+        local={'chatcarlo/kernel.py':None,'chatcarlo/gpu/g2_tables.py':'g2_tables.py'}.get(gen['path'])
+        if local is not None and gen['sha256']!=sha(path/local):raise ValueError('catalog generator SHA256 mismatch')
+    expected=catalog.diagnostic(a,generators,settings['material_names'])
+    catalog.verify(cat,dict(tables=a['data'],g2_tables=a.get('g2_table',np.array([])),g2_sizes=a.get('g2_sizes',np.array([],dtype=np.int64))),expected)
     return manifest
 
 def create(scene,plane,path,*,bbox_margin_cm=50.0,g2_tally=False):
@@ -42,17 +58,23 @@ def create(scene,plane,path,*,bbox_margin_cm=50.0,g2_tally=False):
     else:e,w=_default_spectrum(src['kvp'],src.get('filtration_mm_al',2.5),src.get('anode_angle_deg',12.0))
     np.savez(path/'spectrum.npz',energy=e,weight=w)
     (path/'source.json').write_text(json.dumps(src,sort_keys=True)+'\n')
-    settings=dict(material_names=names,fluorescence=raw.get('physics',{}).get('fluorescence',True),scene_sha256=hashlib.sha256(json.dumps(raw,sort_keys=True).encode()).hexdigest(),provenance=dict(cross_sections='xraylib (kernel.bake_scene_materials)',spectrum='explicit' if src.get('spectrum') else 'spectrum._default_spectrum'))
+    settings=dict(physics_set=physics_sets.declaration(),material_names=names,fluorescence=raw.get('physics',{}).get('fluorescence',True),scene_sha256=hashlib.sha256(json.dumps(raw,sort_keys=True).encode()).hexdigest(),provenance=dict(cross_sections='xraylib (kernel.bake_scene_materials)',spectrum='explicit' if src.get('spectrum') else 'spectrum._default_spectrum'))
+    settings['catalog_generators']={'diagnostic':catalog.generator('chatcarlo/kernel.py',HERE.parents[1])}
+    if g2_tally:settings['catalog_generators']['g2']=catalog.generator('chatcarlo/gpu/g2_tables.py',HERE.parents[1])
     (path/'settings.json').write_text(json.dumps(settings,sort_keys=True)+'\n')
     if g2_tally:
         from .g2_tables import pack
         np.savez(path/'g2_tables.npz',**pack(names))
+    if g2_tally:
+        with np.load(path/'g2_tables.npz') as z:arrays.update({k:z[k] for k in z.files})
+    cat=catalog.diagnostic(arrays,settings['catalog_generators'],names)
+    (path/'catalog.json').write_text(json.dumps(cat,indent=2,sort_keys=True)+'\n')
     for name in RUNTIME:
         source = HERE/name
         if name in ('run_gates.py','run_egs5_60kev.py'):
             source = HERE.parents[1]/'docs/validation/gpu/g2'/name
         shutil.copyfile(source,path/name)
-    manifest=dict(format='chatcarlo-g1-v1',files={name:sha(path/name) for name in sorted({'tables.npz','geometry.npz','spectrum.npz','source.json','settings.json',*RUNTIME})})
+    manifest=dict(format='chatcarlo-g5-v1',files={name:sha(path/name) for name in sorted({'catalog.json','tables.npz','geometry.npz','spectrum.npz','source.json','settings.json',*RUNTIME})})
     if g2_tally:manifest['files']['g2_tables.npz']=sha(path/'g2_tables.npz')
     (path/'manifest.json').write_text(json.dumps(manifest,indent=2,sort_keys=True)+'\n');return manifest
 

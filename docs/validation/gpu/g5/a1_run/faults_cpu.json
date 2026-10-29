@@ -1,0 +1,38 @@
+{
+  "status": "pass",
+  "ks": [
+    {
+      "fault": 1,
+      "material": 1,
+      "normal_p": 0.2530940787847529,
+      "fault_p": 2.3026678190928174e-205,
+      "passed": true
+    },
+    {
+      "fault": 1,
+      "material": 2,
+      "normal_p": 0.3013786491529248,
+      "fault_p": 4.750156328786247e-177,
+      "passed": true
+    },
+    {
+      "fault": 2,
+      "material": 1,
+      "normal_p": 0.11770185425613378,
+      "fault_p": 5.151719526342897e-31,
+      "passed": true
+    },
+    {
+      "fault": 2,
+      "material": 2,
+      "normal_p": 0.8782096759340738,
+      "fault_p": 7.740463030614722e-248,
+      "passed": true
+    }
+  ],
+  "fault3": true,
+  "fault4": true,
+  "rng": "philox",
+  "n": 50000,
+  "production_conditions": true
+}

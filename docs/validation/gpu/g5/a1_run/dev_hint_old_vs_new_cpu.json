@@ -1,0 +1,35 @@
+{
+  "n": 2048,
+  "seed": 77,
+  "rng": "philox",
+  "old_commit": "19c281e",
+  "result": {
+    "s1": {
+      "byte_equal": true,
+      "keys": [
+        "category_count",
+        "d",
+        "deposits",
+        "endings",
+        "i",
+        "images",
+        "n_fluorescence",
+        "scatter_sum"
+      ]
+    },
+    "s2": {
+      "byte_equal": true,
+      "keys": [
+        "category_count",
+        "d",
+        "deposits",
+        "endings",
+        "i",
+        "images",
+        "n_fluorescence",
+        "scatter_sum"
+      ]
+    }
+  },
+  "note": "report only, not a pass criterion"
+}

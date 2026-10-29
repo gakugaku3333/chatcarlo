@@ -1,0 +1,71 @@
+{
+  "manifest": {
+    "bundle": {
+      "files": {
+        "__init__.py": "2442d90bbd92232c7a0eba31c99790f87aaf2d2e7e0cf7df73170ba0ebd4f27a",
+        "bundle.py": "38d2710002532f0586dda0fb75191252657f9d74b13e8484343132a91f54440b",
+        "catalog.json": "9ab24a7e22a318ab7b6c2163c352486aa9aa5bdaeaa9d853febed57ac271fc2f",
+        "catalog.py": "2aea0822032dbf3e2c36e041ce196196ae23cd717caefbf9ad4a5d0f27629d5f",
+        "colab_driver.py": "2994b6b5768129aa5c61af6649d108f14397c80645cc6733eba0d5af3eeb4d14",
+        "core.py": "0873532ccfa9419e32e58d44d5baf28d2897307b6519c73b0add6073d39b2a98",
+        "g1_common.h": "80d4a9af8305f21d11e572f96d2af2c45b9fb155b150d2f49b8cfc8a916e1314",
+        "g1_cpu.cpp": "51bf4b032a638b172f11f929aba1f234c75dfcdeb5e07055f8d1d6aad3bb9698",
+        "g1_geometry.h": "52fdd6531a71ad32d20d0f049b5521173687e489b2e7949d0bdbdf850e0fee74",
+        "g1_gpu.cu": "54948896688e3857f4f5c1b26047f0ab4219f146ad081369af6c754211d7cc25",
+        "g1_history.h": "910e162da82623cecdcfa8577951513f538d6dd52963721f3e817c9baf4aa68c",
+        "g1_physics.h": "8e0e929bc987d2514d0a3cbe4a198ab5520696a3a1ed6e8465e31da119609980",
+        "g2_core.py": "70ed3488b49210e361779926e90683ab4172be9fedf7a9deb3f42ddde648f344",
+        "g2_tables.npz": "f0df10f03639d634647aaea7b77bcc91a6e9921201b2026f2f67e00d60d83238",
+        "g2_tables.py": "f281937fbab6284bd8165ef5f09ccc6673c254fc801b116d6bab7a5273a89f49",
+        "g2_tally.h": "afc921606193bf8b6b5a94408eb1a1b4c268ca4d44b07ce07f3242dd9c3cddf4",
+        "g5_base.h": "1403e2d0783c390a86494521be215bd8a7c6a403a5d436f04d0a18df5930cb96",
+        "geometry.npz": "f46d83f860de698c0ec7049b59d2385092d6e947510143ae55a396e1dc6cc646",
+        "physics_set.h": "ecec3373d2ea0cd3d6f6b0d573e7c57f27f46042d7526cc448c4cfaed2d0ac4e",
+        "physics_sets.py": "991e9cff7ffab7317f83a9b4a2b920af69dc36714ad984602931b492100f5cce",
+        "run_egs5_60kev.py": "4a19b09e28ecea122bf9ac62c9712e36032cf5692d6a6705f1a8d1a667db0374",
+        "run_gates.py": "c5a3933c8e2ecb2c7ae5a39aa447fd2df1bda743fc6e6f7aafe45d085c69a9fb",
+        "settings.json": "25b213479da4c2036670e6e7d36783bef71806349c2c571f744c4d4be4a74a1f",
+        "source.json": "937139d908183592c51d791e0c4532adb7821017bd9aa09d784b70654d4840b1",
+        "source_host.py": "761dfcd2f9343efd8014734ae81c0c363e97bff1a5475f3842711c70e5ad5530",
+        "spectrum.npz": "2380915c889232a346742ac60f8ca348d9cb0296d5b0e299f5359506f503ade7",
+        "tables.npz": "3c4c6457d122a14fa5748ccfc2779deac85da22f8c177d4f5f88bc5323604b7e",
+        "validation.py": "62a3d70ae812d3d7c0a93cc2b6bfea5dec50cc2d0e70831aa30688d9b3e43923"
+      },
+      "format": "chatcarlo-g5-v1"
+    },
+    "seed": 3103,
+    "source_seed": 3103
+  },
+  "results": {
+    "diagnostics": {
+      "n_histories": 500000,
+      "seed": 3103,
+      "source_seed": 3103,
+      "batch_size": 25000,
+      "n_primary_transmitted": 8243,
+      "n_absorbed": 267744,
+      "n_escaped": 232256,
+      "wall_seconds": 0.18371813900000689
+    },
+    "bins": {
+      "surface": {
+        "lo_cm": [
+          -5.0,
+          -5.0,
+          0.0
+        ],
+        "hi_cm": [
+          5.0,
+          5.0,
+          0.2
+        ],
+        "mass_g": 20.0,
+        "sum_keV": 270947.69184554915,
+        "sum2_keV2": 281408.53521986987,
+        "mean_Gy_per_history": 4.341060609111713e-15,
+        "sem_Gy_per_history": 5.877684960425798e-18,
+        "rel_err": 0.0013539744061828512
+      }
+    }
+  }
+}

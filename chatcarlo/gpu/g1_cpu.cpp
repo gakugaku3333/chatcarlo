@@ -105,3 +105,5 @@ extern "C" void g2_box_history_probe(int nm,const double *table,const double *cf
             g2_segment(&t,int(a[8]),a,a+3,a[6],a[7],local);}
         g2_end_history(&t,local);}
 }
+
+extern "C" void g5_physics_set(uint64_t *out) {out[0]=G5_SET_ID;out[1]=G5_SET_TAG;}

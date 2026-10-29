@@ -23,8 +23,7 @@ class Core(core.Core):
             self.native.restype = None
             self.native.argtypes = self.base_types + [ctypes.c_void_p]*8
         else:
-            self.native = self.cp.RawKernel(core.cuda_source(), 'g2_histories_kernel',
-                                           backend='nvrtc', options=core.CUDA_OPTIONS)
+            self.native = self.module.get_function('g2_histories_kernel')
             self.native.compile()
         def invoke(*args):
             extra = [self.a['g2_table'], self.cfg, *self.outputs]

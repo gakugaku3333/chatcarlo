@@ -32,3 +32,5 @@ extern "C" __global__ void g2_histories_kernel(const double *data,const long lon
     g1_add_record(&t,&g,local,li,agg);
     if(record){for(int j=0;j<2+nm;++j)d[h*(2+nm)+j]=local[j];for(int j=0;j<9;++j)ints[h*9+j]=li[j];}
 }
+
+extern "C" __global__ void g5_physics_set_kernel(uint64_t *out) {if(blockIdx.x || threadIdx.x)return;out[0]=G5_SET_ID;out[1]=G5_SET_TAG;}

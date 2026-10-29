@@ -1,0 +1,77 @@
+{
+  "status": "pass",
+  "materials": {
+    "water": {
+      "fields": 33,
+      "sha256": "9f6d5c444fe149e30eabd4815a391ed25b212ffd71b4aaa353b3b5c2bc089954",
+      "explicit_shapes": {
+        "ne": [],
+        "gs_y": [
+          49,
+          9,
+          20483
+        ],
+        "lines": [
+          2,
+          4,
+          2,
+          4
+        ]
+      }
+    },
+    "lung": {
+      "fields": 33,
+      "sha256": "69d015c9f2b9c89d83624920149958a50cf394d3101e2055241d71b7657f6af7",
+      "explicit_shapes": {
+        "ne": [],
+        "gs_y": [
+          49,
+          9,
+          20483
+        ],
+        "lines": [
+          13,
+          4,
+          7,
+          4
+        ]
+      }
+    },
+    "bone": {
+      "fields": 33,
+      "sha256": "9986d45f807d39b67c34ae420832aa97dc71fcad48a6ca7bb8ee3e57fef7088e",
+      "explicit_shapes": {
+        "ne": [],
+        "gs_y": [
+          49,
+          9,
+          20483
+        ],
+        "lines": [
+          9,
+          4,
+          7,
+          4
+        ]
+      }
+    },
+    "lead": {
+      "fields": 33,
+      "sha256": "db7ec8146f4ef6fe831754e6089e66b1e8e39dc98e64f1fde4ee5cacef5dbc1b",
+      "explicit_shapes": {
+        "ne": [],
+        "gs_y": [
+          49,
+          9,
+          20483
+        ],
+        "lines": [
+          1,
+          4,
+          17,
+          4
+        ]
+      }
+    }
+  }
+}
