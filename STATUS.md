@@ -1,6 +1,6 @@
 ---
 phase: 開発中
-next: 抄録の登録（締切11/1）：採用済み日本語v5・英語第4稿を登録画面で確認する（語数・上付き文字・生成AIの開示規定）。公開版33の記録・復旧先はdocs/jsmp133/abstract_plan.md
+next: 抄録の登録（締切11/1）：docs/jsmp133/registration_text.md の英語題名・英語本文・日本語本文をUMINに貼り、プレビューで×と上付きを確認する。カテゴリー案・キーワード案は docs/jsmp133/abstract_plan.md
 blocker: ELSEPAで作った表の配布の方法（表を置くか、生成スクリプトだけか）とリポジトリのLICENSEはユーザーの判断待ち。急がない
 updated: 2026-10-29
 ---

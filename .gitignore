@@ -72,7 +72,12 @@ docs/validation/mv/p5/*.json
 docs/validation/mv/p8a/checks_progress.json
 
 # JSMP133 Supporting Data: 学会配布のテンプレートとガイドライン（再配布しない）
-docs/jsmp133/supporting_data/
+docs/jsmp133/supporting_data/*
+# 自作の作成スクリプト・確定版 JPEG・再利用素材は残す
+!docs/jsmp133/supporting_data/build_figures.py
+!docs/jsmp133/supporting_data/build_pptx.py
+!docs/jsmp133/supporting_data/SupportingData_v2.jpg
+!docs/jsmp133/supporting_data/assets/
 
 # Git管理領域を肥大化させる計算出力はローカルで保全する
 /data/

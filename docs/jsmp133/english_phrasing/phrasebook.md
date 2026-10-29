@@ -18,6 +18,8 @@
 
 **決定 1（使用者、2026-10-28）**: 英語題名に "radiation transport" を足す。たたき台は 2 行目の案（13 words）。細かい語順は英文作成のときに詰める。
 
+**決定 1 の更新（使用者、2026-10-29）**: 題名は **A system for Monte Carlo radiation transport simulation through conversation with an AI agent**（14 words、登録の書式に合わせたセンテンスケース）。一度 "Monte Carlo Radiation Transport Simulation through Conversation with an AI Agent"（11 words）にしたが、成果である system が題名から消えるため "A System for" を足した。"Development of" で始める形と名詞が 4 つ続く形をやめた。
+
 ## Purpose
 
 | 日本語 | 英語の候補 | 根拠 |

@@ -6,7 +6,7 @@
 
 ## Title
 
-Development of a Conversational AI Agent System for Monte Carlo Radiation Transport Simulation
+A system for Monte Carlo radiation transport simulation through conversation with an AI agent
 
 ## Abstract
 
@@ -27,7 +27,7 @@ Under the tested conditions, the code agreed with EGS5 to within 0.4% on average
 
 ## 語数
 
-本文 **477 words**（見出しを除き空白区切り。「×」も 1 語）。題名 13 words。
+本文 **477 words**（見出しを除き空白区切り。「×」も 1 語）。題名 14 words（"A system for …"。2026-10-29 に 13 と書いたのは数え間違い）。
 
 ## 第 3 稿で直したこと（直訳調 → 英語の流れ）
 
@@ -71,6 +71,8 @@ Codex の確認（[english_phrasing/reviews/codex_en_review3.md](english_phrasin
 最終チェック（2026-10-28、使用者決定）: Results の書き出しを "In Evaluation 1," にそろえた。
 
 用語（使用者決定 2026-10-29）: 日本の学会で発表するため、OAR（off-axis ratio）を日本で一般的な **off-center ratio (OCR)** に戻した。2026-10-28 の「OAR を使う」決定を置き換える。
+
+題名（使用者決定 2026-10-29）: "Development of a Conversational AI Agent System for Monte Carlo Radiation Transport Simulation" を "Monte Carlo Radiation Transport Simulation through Conversation with an AI Agent"（11 words）に変更。"Development of" で始める直訳調と、名詞が 4 つ続く形をやめ、Purpose と同じ "through conversation with an AI agent" で対話による計算を前に出した。→ 同日、"system"（作ったもの）が消えるため "A System for Monte Carlo Radiation Transport Simulation through Conversation with an AI Agent"（14 words）に変更（使用者決定）。登録の書式に合わせてセンテンスケース "A system for Monte Carlo radiation transport simulation through conversation with an AI agent" にした（Monte Carlo は固有名詞、AI は略語なので大文字）。
 
 ## 第 3 稿（第 4 稿の前の版。記録）
 

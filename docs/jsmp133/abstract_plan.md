@@ -65,6 +65,11 @@ GPU 計算が動いた以上、チャット形式で GPU 計算を行うこと�
 - 目的: 採否審査（賞に応募する場合は一次審査）で「新規性・独創性」「その根拠」「波及性」を図で簡潔に示す。
 - テンプレートの図枠は 2 つ、イノベーション欄の文章枠が 1 つ。
 - 内容は抄録を作ってから決める（ユーザー指示）。案: 左に障壁 2 つと解決の流れ図、右に根拠の図（治療領域の PDD/OCR の EGS5 照合）。
+- **確定（2026-10-29、使用者決定）: v2、賞エントリー「する」**。提出ファイルは `supporting_data/SupportingData_v2.jpg`（`SupportingData.jpg` は同一。3250×2250 px、300 dpi、約 1.2 MB、1 枚）。UMIN 登録画面の「Supporting Data の有無」で「あり」を選んでアップロードする。
+  - 構成: 3 列（① 方法：障壁 2 つ→AI エージェントの支援→3D でジオメトリ確認・承認→Colab GPU→任意の形式で出力、② EGS5 との比較：60 keV 水 PDD・OCR と 10 MV 積層 PDD（数値は抄録 v5 と一致を assert）、③ 対話で実施した依頼：X 線画像 10⁴〜10⁸ とシード 58 本の線量比マップ・距離別の増加）＋ イノベーション欄。
+  - 版の経過（Why）: v1 = 障壁①を「解消」と書いた版（`v1/`）。v2 = 障壁①を「AI エージェントが支援」に直した版（使用者の意図: 入力形式の理解を AI が支えるニュアンス）。v3 = 「特定の AI に依存しないため研究・教育に普及」「AI モデルの進歩に伴い性能が向上する余地を持つ設計」の 2 文を足した版（`v3/`）。使用者が v2 を選んだので v3 は不採用（理由は聞いていない。How to apply: 追記の 2 文は将来の発表資料で使える候補）。
+  - 再現: `MPLCONFIGDIR=/private/tmp/jsmp-mpl .venv/bin/python docs/jsmp133/supporting_data/build_figures.py`（図 3 枚）→ `python3 -I docs/jsmp133/supporting_data/build_pptx.py する`（python-pptx が要る。venv には無く、システムの python3 を使った）→ Keynote で PDF 書き出し → `pdftoppm -r 300 -jpeg`。テンプレート PPTX とガイドライン PDF は再配布しないため git 管理外（`supporting_data/` に置く）。再利用した素材は `supporting_data/assets/`。
+  - 注意（How to apply）: Keynote の AppleScript は `set d to open POSIX file ...` だと例外で落ちる。`activate` → `open` → `delay 5` → `set d to front document` → `export d ... as PDF` の形で動いた。pptx で図形を複製すると id が重複してファイルが開けなくなる（`add_textbox` で作る）。シード近傍の線量は EGS5 と未照合で、線量比マップは光子数が少なくノイズが大きい（距離別プロファイルで数値を示した）。3D 画像は 2026-10-25 の承認用プレビュー（前立腺シード 7 門）を headless Chrome で撮ってカメラを拡大したもの。
 
 ## 依頼 3 の候補（保留）
 
@@ -193,3 +198,8 @@ v4 に B2（入射光子数を「いずれも両コードで 1.0×10⁸」にま
 - **一時ファイル整理**：使い捨ての編集・報告スクリプト、変更前HTML、抽出図、配信アーカイブの6ファイルとSitesの作業チェックアウト1ディレクトリを、最終版の保全後に削除。個別一覧は `runs/jsmp133_site_v33/cleanup_20261028.json`。既存の未追跡HTML2点はこの編集の一時ファイルではないため保持した。
 - 2026-10-29 追記（使用者決定）: 日本で発表するため、英語でも OCR（off-center ratio）と書く（2026-10-28 の OAR を取り消し）。英語 477 words。公開ページの英語抄録（Sites 33）は OAR のままなので、次の公開更新で直す。
 - 2026-10-29 追記: 公開ページの英語抄録を OCR に直した（依頼 [page_update_request_v12.md](page_update_request_v12.md)、報告 [page_update_report_v12.md](page_update_report_v12.md)、Sites version 34）。Claude が公開ページで OAR・off-axis が 0 件、off-center ratio (OCR) があることを確認。
+- 2026-10-29 追記（使用者決定）: 英語題名を "Monte Carlo Radiation Transport Simulation through Conversation with an AI Agent"（11 words）に変更。日本語題名は変えない。公開ページ（Sites 34）の英語題名は旧いままなので、次の公開更新で直す。
+- 2026-10-29 追記（使用者決定）: 英語題名を "A System for Monte Carlo Radiation Transport Simulation through Conversation with an AI Agent"（14 words。最初 13 と書いたのは数え間違い）に再変更（system を残すため）。依頼文 v13 も同じ題名に直した。
+- 2026-10-29 追記: 登録の書式（センテンスケース）に合わせ、英語題名を "A system for Monte Carlo radiation transport simulation through conversation with an AI agent" と表記する。依頼文 v13 も同じ表記に直した。
+- 2026-10-29 追記: 公開ページの英語題名は第 13 版で "A System for …"（タイトルケース、Sites version 36、報告 [page_update_report_v13.md](page_update_report_v13.md)）。依頼文の「13 words」は誤りで、報告が 14 words と指摘。正典と登録用はセンテンスケース "A system for Monte Carlo radiation transport simulation through conversation with an AI agent"。公開ページの大文字・小文字は使用者が判断する。登録用の文は [registration_text.md](registration_text.md)。
+- 2026-10-29 追記（登録項目の案、Claude の提案。使用者が登録時に決める）: 発表分野カテゴリーは第 1 希望 h（機械学習・数理モデル、AI）、第 2 希望 a（放射線治療・光子、電子）か l（その他）。理由: 新しさは AI エージェントで計算を進める仕組みで、評価は診断（60 keV）と治療（10 MV）にまたがる。英語キーワード案: Monte Carlo simulation / AI agent / Conversational interface / EGS5 / GPU computing（"chat" 単独は意味が広すぎるので使わない）。UMIN の入力: × は &times;、上付きは <SUP></SUP>、改行は <BR>、本文は半角 320〜500 words（登録用の文は 471〜481 words で範囲内）。
