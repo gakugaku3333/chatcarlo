@@ -1,0 +1,357 @@
+{
+  "format": "g5-a0-v1",
+  "source_policy": "Every call replays start=0; diagnostic source RNG resets to source_seed outside timing.",
+  "configurations": [
+    {
+      "id": "g2b",
+      "kind": "diagnostic",
+      "bundle": "g2b",
+      "production_n": 500000,
+      "sizes": [
+        500000,
+        100000
+      ],
+      "seed": 20261026,
+      "source_seed": 12671299258706851920,
+      "start": 0,
+      "scene": "docs/validation/gpu/water60_100M/scene_100M.yaml",
+      "grid": {
+        "layout_version": "g2-grid-v1",
+        "origin_cm": [
+          -65.0,
+          -65.0,
+          -50.0
+        ],
+        "shape": [
+          130,
+          130,
+          120
+        ],
+        "voxel_size_cm": 1.0
+      },
+      "detector": null,
+      "flags": {
+        "observe": true,
+        "record": false,
+        "trace_capacity": 0,
+        "fluorescence": true
+      },
+      "launch": {
+        "blocks": "ceil(n/128)",
+        "threads": 128,
+        "capacity": null
+      },
+      "scene_file_sha256": "e708cb5906cf9b8b53a0d6c1e1ef8943a3189042bd0a67596c6ab2292181ea86",
+      "scene_model_sha256": "1fea20b9dbc8a562e5e331f2732bd30f926d4c86d7f28b9e0f2d92dd98eae8e5"
+    },
+    {
+      "id": "g4",
+      "kind": "diagnostic",
+      "bundle": "g4",
+      "production_n": 100000,
+      "sizes": [
+        100000
+      ],
+      "seed": 2040,
+      "source_seed": 3712336832425968660,
+      "start": 0,
+      "scene": "docs/validation/gpu/g4/scene_portrait_detector.yaml",
+      "grid": null,
+      "detector": {
+        "center_cm": [
+          0,
+          0,
+          0
+        ],
+        "normal": [
+          0,
+          0,
+          1
+        ],
+        "u_axis": [
+          1,
+          0,
+          0
+        ],
+        "size_cm": [
+          15,
+          18
+        ],
+        "shape": [
+          100,
+          120
+        ]
+      },
+      "flags": {
+        "observe": true,
+        "record": false,
+        "trace_capacity": 0,
+        "fluorescence": true
+      },
+      "launch": {
+        "blocks": "ceil(n/128)",
+        "threads": 128,
+        "capacity": null
+      },
+      "scene_file_sha256": "1dba953e6c52df5cafa8fef42326f0d9a5c4ec708047f47f8e643a792f267d7b",
+      "scene_model_sha256": "127c53035f2bbccfa43187952599a7a1898d80239c33b688e68acc5fb139c4cf"
+    },
+    {
+      "id": "p7A",
+      "kind": "p7",
+      "bundle": "p7",
+      "condition": "A",
+      "production_n": 200000,
+      "sizes": [
+        200000,
+        100000
+      ],
+      "seed": 20291831,
+      "start": 0,
+      "layout": "p7",
+      "field_half_cm": 2.5,
+      "ssd_cm": 100.0,
+      "flags": {
+        "history": false,
+        "field": true,
+        "regions": true,
+        "maxsteps": 10000000,
+        "count_additions": false
+      },
+      "launch": {
+        "blocks": 40,
+        "threads": 256,
+        "capacity": 64
+      },
+      "scoring": {
+        "axis_half_cm": 1,
+        "extent_cm": 20,
+        "axis_coarse_cm": 0.25,
+        "axis_fine_cm": 0.1,
+        "slab_coarse_cm": 0.25,
+        "profile_coarse_cm": 0.25,
+        "profile_fine_cm": 0.125,
+        "profile_depths_cm": [
+          5,
+          10,
+          20
+        ],
+        "packed_bins": 3420
+      }
+    },
+    {
+      "id": "p7B",
+      "kind": "p7",
+      "bundle": "p7",
+      "condition": "B",
+      "production_n": 1380000,
+      "sizes": [
+        1380000,
+        100000
+      ],
+      "seed": 20291832,
+      "start": 0,
+      "layout": "p7",
+      "field_half_cm": 10.0,
+      "ssd_cm": 100.0,
+      "flags": {
+        "history": false,
+        "field": true,
+        "regions": true,
+        "maxsteps": 10000000,
+        "count_additions": false
+      },
+      "launch": {
+        "blocks": 40,
+        "threads": 256,
+        "capacity": 64
+      },
+      "scoring": {
+        "axis_half_cm": 1,
+        "extent_cm": 20,
+        "axis_coarse_cm": 0.25,
+        "axis_fine_cm": 0.1,
+        "slab_coarse_cm": 0.25,
+        "profile_coarse_cm": 0.25,
+        "profile_fine_cm": 0.125,
+        "profile_depths_cm": [
+          5,
+          10,
+          20
+        ],
+        "packed_bins": 3420
+      }
+    },
+    {
+      "id": "p7C",
+      "kind": "p7",
+      "bundle": "p7",
+      "condition": "C",
+      "production_n": 260000,
+      "sizes": [
+        260000,
+        100000
+      ],
+      "seed": 20291833,
+      "start": 0,
+      "layout": "p7",
+      "field_half_cm": 5.0,
+      "ssd_cm": 100.0,
+      "flags": {
+        "history": false,
+        "field": true,
+        "regions": true,
+        "maxsteps": 10000000,
+        "count_additions": false
+      },
+      "launch": {
+        "blocks": 40,
+        "threads": 256,
+        "capacity": 64
+      },
+      "scoring": {
+        "axis_half_cm": 1,
+        "extent_cm": 20,
+        "axis_coarse_cm": 0.25,
+        "axis_fine_cm": 0.1,
+        "slab_coarse_cm": 0.25,
+        "profile_coarse_cm": 0.25,
+        "profile_fine_cm": 0.125,
+        "profile_depths_cm": [
+          5,
+          10,
+          20
+        ],
+        "packed_bins": 3420
+      }
+    },
+    {
+      "id": "p8g2",
+      "kind": "p8g2",
+      "bundle": "p8g2",
+      "production_n": 200000,
+      "sizes": [
+        200000,
+        100000
+      ],
+      "seed": 820301,
+      "start": 0,
+      "flags": {
+        "history": false,
+        "maxsteps": 10000000,
+        "reference": false
+      },
+      "launch": {
+        "blocks": 40,
+        "threads": 256,
+        "capacity": 18,
+        "check": false,
+        "fault": 0
+      },
+      "scoring": {
+        "faces_cm": [
+          0.0,
+          5.0,
+          11.0,
+          15.0,
+          17.0,
+          21.0,
+          21.5
+        ],
+        "material_ids": [
+          0,
+          1,
+          0,
+          2,
+          0,
+          3
+        ],
+        "layer_density_g_cm3": [
+          1.0,
+          0.26,
+          1.0,
+          1.85,
+          1.0,
+          11.35
+        ],
+        "layer_bin_cm": [
+          0.1,
+          0.1,
+          0.1,
+          0.1,
+          0.1,
+          0.05
+        ],
+        "sizes": [
+          6,
+          220,
+          108,
+          430,
+          20
+        ],
+        "binding": true,
+        "fluorescence": true
+      }
+    }
+  ],
+  "warmup_order": [
+    "g2b:500000",
+    "g2b:100000",
+    "g4:100000",
+    "p7A:200000",
+    "p7A:100000",
+    "p7B:1380000",
+    "p7B:100000",
+    "p7C:260000",
+    "p7C:100000",
+    "p8g2:200000",
+    "p8g2:100000"
+  ],
+  "round_orders": [
+    [
+      "g2b:500000",
+      "g2b:100000",
+      "g4:100000",
+      "p7A:200000",
+      "p7A:100000",
+      "p7B:1380000",
+      "p7B:100000",
+      "p7C:260000",
+      "p7C:100000",
+      "p8g2:200000",
+      "p8g2:100000"
+    ],
+    [
+      "g4:100000",
+      "p7A:200000",
+      "p7A:100000",
+      "p7B:1380000",
+      "p7B:100000",
+      "p7C:260000",
+      "p7C:100000",
+      "p8g2:200000",
+      "p8g2:100000",
+      "g2b:500000",
+      "g2b:100000"
+    ],
+    [
+      "p7A:100000",
+      "p7B:1380000",
+      "p7B:100000",
+      "p7C:260000",
+      "p7C:100000",
+      "p8g2:200000",
+      "p8g2:100000",
+      "g2b:500000",
+      "g2b:100000",
+      "g4:100000",
+      "p7A:200000"
+    ]
+  ],
+  "tolerance_rule": {
+    "low_spread": 0.025,
+    "high_spread": 0.05,
+    "minimum_ratio": 1.05,
+    "maximum_ratio": 1.1
+  }
+}

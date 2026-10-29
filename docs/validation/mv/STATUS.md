@@ -11,6 +11,7 @@
 
 | 段階 | 日付 | 状態・判定 | 正典 | 一言 |
 |---|---|---|---|---|
+| G5-A0（診断・治療の GPU 統合の基準） | 2026-10-29 | **完了**（表 1〜5、照合はすべて通過。2 件はユーザー了承: G1 の判定コードは承認済みの改訂、G2 の参照は source.py の改訂でバイト再現せず A1 で作り直しを使う） | [RESULTS](../gpu/g5/RESULTS.md)・[plan](../../ai/plans/2026-10-29-chatcarlo-gpu-g5-a0-baseline.md) | T4 の同じセッションで 6 構成。本番の大きさで P7 A/B/C 29.0/25.0/22.9、P8g-2 45.5、診断 0.59/2.33 µs/履歴。許容の比 1.0571 |
 | 全体計画 | 2026-10-07 | draft | [plan](../../ai/plans/2026-10-07-native-10mv-photon-electron-transport.md) | 発表の筋は [presentation_jsmp133](../../presentation_jsmp133.md) |
 | P0 | — | 完了 | [RESULTS](p0/RESULTS.md) | xraylib は約 800 keV まで。MV の光子データは NIST XCOM |
 | P1 | — | 完了（EGS5 比較は 3.02% で許容 3% を外れた） | [RESULTS](p1/RESULTS.md) | 電子だけの試作。弾性 DCS は遮蔽 Rutherford |

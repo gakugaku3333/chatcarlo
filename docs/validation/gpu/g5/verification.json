@@ -1,0 +1,32 @@
+{
+  "status": "all local tests passed; A0 baseline stopped pending hash mismatch/missing references and Claude work",
+  "checks": [
+    {
+      "command": ".venv/bin/python -m pytest tests/ -q",
+      "exit_code": 0,
+      "summary": "745 passed, 2 warnings in 250.13s (0:04:10)",
+      "log": "tests_main.log",
+      "log_sha256": "c5191f84599b89218f1459d910245ba04284715270c9d79e95690375b419e929"
+    },
+    {
+      "command": ".venv/bin/python -m pytest tests/test_gpu_g5_a0.py -q",
+      "exit_code": 0,
+      "summary": "27 passed in 6.90s",
+      "log": "tests_unit.log",
+      "log_sha256": "fea14ea1f99b18791ae0b9bdc3f9ed4c0beb4112e5daf77207063c7543f6c102"
+    },
+    {
+      "command": ".venv/bin/python -m pytest prototypes/mv_electron/tests -q",
+      "exit_code": 0,
+      "summary": "1808 passed, 17 skipped in 1460.30s (0:24:20)",
+      "log": "tests_mv.log",
+      "log_sha256": "927b232c86dcc47211ac4ef51eddd05090124b22a14c1b6277291e58c6fa621e"
+    },
+    {
+      "command": "git diff --stat -- chatcarlo prototypes/mv_electron",
+      "exit_code": 0,
+      "stdout": "",
+      "summary": "no diff"
+    }
+  ]
+}

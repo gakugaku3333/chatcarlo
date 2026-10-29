@@ -5,7 +5,7 @@
 - 実装担当: codex（Colab の実行・`~/.cache` を使う検査は Claude）
 - 日付: 2026-10-21
 - Codexレビュー: 1巡（骨子: 致命 0・実質 3・軽微 2・参考 3。原文 `data/logs/codex_gpu_review1.md`。すべて反映）
-- 子計画: 第 1 段 [2026-10-21-chatcarlo-gpu-g1-diagnostic-core.md](2026-10-21-chatcarlo-gpu-g1-diagnostic-core.md)
+- 子計画: 第 1 段 [2026-10-21-chatcarlo-gpu-g1-diagnostic-core.md](2026-10-21-chatcarlo-gpu-g1-diagnostic-core.md)、G5（2026-10-29、draft）[2026-10-29-chatcarlo-gpu-g5-unified-energy.md](2026-10-29-chatcarlo-gpu-g5-unified-energy.md)
 
 ## 目的
 
