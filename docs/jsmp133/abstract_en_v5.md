@@ -15,11 +15,11 @@ Running Monte Carlo simulations requires users to learn specialized input format
 
 [Methods]
 Using Claude Code (Anthropic), we developed a Monte Carlo code in Python for photon, electron, and positron transport up to 10 MeV that runs on GPUs via CUDA. Photon cross sections are taken from evaluated data, including NIST data, and electron elastic-scattering cross sections from the publicly available code ELSEPA. The code is operated by conversational AI agents. Their behavior is defined in Agent Skills, a vendor-neutral instruction format, so the same system can be used with Claude Code, Codex (OpenAI), and similar agent tools. The agent first clarifies what the user wants to calculate, discusses feasible methods, and agrees on the output format; it then generates the input automatically. After the user approves the setup in a 3D view, the calculation runs on GPUs in Google Colaboratory (Google).
-Evaluation 1 benchmarked the code against the well-established Monte Carlo code EGS5. We compared percentage depth dose (PDD) and off-axis ratio (OAR) profiles for a 60 keV, 10 × 10 cm beam in water, and PDD for a 10 MV beam in a multilayer phantom of water, lung, bone, and lead. Local percentage differences were calculated relative to the EGS5 value at each point and summarized by their mean and maximum absolute values. PDDs covered the full depth, including the 10 MV buildup region, and OARs covered the field and extended to 3 cm beyond the geometric field edge. Each code simulated 1.0 × 10^8 incident photons per case.
+Evaluation 1 benchmarked the code against the well-established Monte Carlo code EGS5. We compared percentage depth dose (PDD) and off-center ratio (OCR) profiles for a 60 keV, 10 × 10 cm beam in water, and PDD for a 10 MV beam in a multilayer phantom of water, lung, bone, and lead. Local percentage differences were calculated relative to the EGS5 value at each point and summarized by their mean and maximum absolute values. PDDs covered the full depth, including the 10 MV buildup region, and OCRs covered the field and extended to 3 cm beyond the geometric field edge. Each code simulated 1.0 × 10^8 incident photons per case.
 Evaluation 2 tested whether the system could carry out two dissimilar requests through dialogue: simulated X-ray images at five incident photon counts from 10^4 to 10^8, and the dose perturbation caused by 58 intraprostatic I-125 seeds in 10 MV external-beam irradiation, computed with 3.0 × 10^8 incident photons each with and without the seeds.
 
 [Results]
-In Evaluation 1, for the 60 keV water phantom, the mean and maximum absolute differences were 0.16% and 0.6% for PDD and 0.39% and 1.3% for OAR; the OAR maximum occurred just outside the field edge. For the 10 MV multilayer phantom, they were 0.17% and 1.3% for PDD, with the maximum immediately upstream of the lead layer.
+In Evaluation 1, for the 60 keV water phantom, the mean and maximum absolute differences were 0.16% and 0.6% for PDD and 0.39% and 1.3% for OCR; the OCR maximum occurred just outside the field edge. For the 10 MV multilayer phantom, they were 0.17% and 1.3% for PDD, with the maximum immediately upstream of the lead layer.
 In Evaluation 2, both requests were executed as intended. Image noise decreased visibly as the photon count increased. The dose increase averaged over all seeds was 3.3% about 0.2 mm from the seed surface and about 0.3% approximately 2 mm from the surface; the mean prostate dose increased by 0.5%.
 
 [Conclusion]
@@ -69,6 +69,8 @@ Codex の確認（[english_phrasing/reviews/codex_en_review3.md](english_phrasin
 シードの本数（使用者決定 2026-10-28）: 58 本は Methods（評価 2）に移し、Results は "averaged over all seeds"。
 
 最終チェック（2026-10-28、使用者決定）: Results の書き出しを "In Evaluation 1," にそろえた。
+
+用語（使用者決定 2026-10-29）: 日本の学会で発表するため、OAR（off-axis ratio）を日本で一般的な **off-center ratio (OCR)** に戻した。2026-10-28 の「OAR を使う」決定を置き換える。
 
 ## 第 3 稿（第 4 稿の前の版。記録）
 

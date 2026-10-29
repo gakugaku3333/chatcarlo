@@ -2,7 +2,7 @@
 phase: 開発中
 next: 抄録の登録（締切11/1）：採用済み日本語v5・英語第4稿を登録画面で確認する（語数・上付き文字・生成AIの開示規定）。公開版33の記録・復旧先はdocs/jsmp133/abstract_plan.md
 blocker: ELSEPAで作った表の配布の方法（表を置くか、生成スクリプトだけか）とリポジトリのLICENSEはユーザーの判断待ち。急がない
-updated: 2026-10-28
+updated: 2026-10-29
 ---
 
 治療領域拡張の段階の状況は [docs/validation/mv/STATUS.md](docs/validation/mv/STATUS.md)、常設ルールは

@@ -46,7 +46,7 @@
 | 汎用コード EGS5 | the general-purpose Monte Carlo code EGS5 | EGS5 は電子・光子の汎用コード（KEK/SLAC） |
 | 水・肺・骨・鉛の積層ファントム | a multilayer slab phantom of water, lung, bone, and lead | 5・7 は "water–lung–water slab phantom" の形。順番まで書くなら water–lung–water–bone–water–lead |
 | PDD | percentage depth dose (PDD) | 一般的 |
-| OCR | **決定（使用者、2026-10-28）: off-axis ratio (OAR)** | 下の注を参照 |
+| OCR | **決定（使用者、2026-10-29）: off-center ratio (OCR)**（日本の学会で発表するため。2026-10-28 の OAR は取り消し） | 下の注を参照 |
 | 差は各点の EGS5 の値に対する局所の割合 | differences were expressed as local percentage differences relative to EGS5 at each point | 7 は最大線量に対する割合なので、定義を明記する意味がある |
 | ビルドアップを含む全域 | over the entire depth range, including the buildup region | 9 |
 | 照射野内と照射野端から外側 3 cm まで | within the field and up to 3 cm outside the geometric field edge | 9（領域の呼び方） |

@@ -191,3 +191,5 @@ v4 に B2（入射光子数を「いずれも両コードで 1.0×10⁸」にま
 - **保全と使い方**：`runs/jsmp133_site_v33/review.html` に最終HTML、`site-source-v33.bundle` にSitesの完全なGit履歴を保全し検証した。確認画像は `runs/jsmp133-glossary-v33.png` と `runs/jsmp133_site_v32/english.png`。次の編集では必ずSitesの最新ソースを取得し、控えを丸ごと再適用しない。`runs/` はGit対象外なので、別のMacではSitesから取得する。
 - **次の一手（登録時）**：日本語v5と英語第4稿を登録画面に入れ、実際の語数計数・上付き文字・生成AIの開示規定を確認する。今回の編集には登録送信は含まれない。旧英語案の更新という以前のTODOは完了扱いとし、現行の `abstract_en_v5.md` を使う。
 - **一時ファイル整理**：使い捨ての編集・報告スクリプト、変更前HTML、抽出図、配信アーカイブの6ファイルとSitesの作業チェックアウト1ディレクトリを、最終版の保全後に削除。個別一覧は `runs/jsmp133_site_v33/cleanup_20261028.json`。既存の未追跡HTML2点はこの編集の一時ファイルではないため保持した。
+- 2026-10-29 追記（使用者決定）: 日本で発表するため、英語でも OCR（off-center ratio）と書く（2026-10-28 の OAR を取り消し）。英語 477 words。公開ページの英語抄録（Sites 33）は OAR のままなので、次の公開更新で直す。
+- 2026-10-29 追記: 公開ページの英語抄録を OCR に直した（依頼 [page_update_request_v12.md](page_update_request_v12.md)、報告 [page_update_report_v12.md](page_update_report_v12.md)、Sites version 34）。Claude が公開ページで OAR・off-axis が 0 件、off-center ratio (OCR) があることを確認。
