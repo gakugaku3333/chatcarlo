@@ -1954,3 +1954,5 @@ P8e の試作の本計算（約 3 時間の見込み）を夜に流したとこ�
 - **事実**: G5-A2-1 で Codex が `pytest prototypes/mv_electron/tests` を流したところ、追跡中の `docs/validation/mv/p8g1/faults_gate0.json` と `p8g3/fault_observations.json` に一時パスや UUID を含む観測が書き出された。Codex は内容を `docs/validation/gpu/g5/a2_run/legacy_test_outputs/` に退避して HEAD に戻した。Claude の再実行でも同じ 2 ファイルが書き換わった（変わったのは一時パスだけ）。
 - **Why**: 古い段のテストが、記録用の JSON を出力先として兼ねている。変更禁止の範囲を、テストを流すだけで汚しうる。
 - **How to apply**: MV の全体テストを流したあとは、コミット前に `git status --short docs/validation/mv` を必ず見る（`prototypes/` だけ見ても気づかない。Claude の再実行でも再発し、最初はそこを見落とした）。差分が一時パスだけなら `git checkout` で戻す。確度: n=2。
+
+**G5-A2 E4: GPU の履歴ごとの大きな配列は、使わなくても遅さになる（2026-10-31、n=1）。** 統合した核で p7A が 1.37 倍遅く、スレッドあたりの局所メモリーが 92,160 バイトあった。未使用の場の配列をコンパイル時に外し（V1）、採点を全体配列へ直接足す形（V2）にすると 37,328 バイト、比 0.994 になった。Why: 速くなった一方でレジスターは 168 から 158 に減っており、レジスター数より局所メモリーの方が結果と合う（2 要因を分けた測定はしていない）。How to apply: T4 で遅いときは ncu の前に局所メモリーの増分を比べる。ncu は本番の大きさだと時間切れになるので 2 万履歴で取り、`.ncu-rep` は VM 内で表に書き出す。

@@ -29,8 +29,6 @@ struct P8g2State {
 P5State stack[P8G_STACK_CAP],state;
 RngState rng;P8gLocal local;P8gRecord record;
 double source_state[6],resume_xyz[3];
-unsigned long long field_additions[3420];
-double field_scores[3420],field_sums[15];
 P6Sink sink;
 int resume_top,resume_kind;bool boundary_pending;
 int phase,top,steps,touch[4],diag_used,maxdepth;long long diag_overflow;
@@ -48,10 +46,13 @@ int b=g->nb,c=b+g->nc,f=c+g->nf;
 P8gOutput o={r->d+b,r->d+c,r->d+f,r->d+f+6,r->d+f+9,r->d,r->d+f+19,
 r->i,r->i+3,r->i+19,r->i+20,r->i+25,r->i+43,r->i+61,r->i+69,0};return o;
 }
-P5_FN void p8g2_begin(P8g2State *q,const double *data,const long long *meta,const double *constants,const P8gGeometry *g,uint64_t seed,uint64_t hid,unsigned long long *hits,const P5State *injected=0,const P6Geometry *field_geometry=0,double hx=0.,double hy=0.,double ssd=100.){
+P5_FN void p8g2_begin(P8g2State *q,const double *data,const long long *meta,const double *constants,const P8gGeometry *g,uint64_t seed,uint64_t hid,unsigned long long *hits,const P5State *injected=0,const P6Geometry *field_geometry=0,double hx=0.,double hy=0.,double ssd=100.,double *field=0,double *ledger=0,unsigned long long *field_additions=0){
 P8gOutput out=p8g2_output(g,&q->record);P8gOutput *o=&out;
-for(int j=0;j<3420;++j){q->field_scores[j]=0.;q->field_additions[j]=0;}for(int j=0;j<15;++j)q->field_sums[j]=0.;
-q->sink={q->field_scores,q->field_sums,field_geometry,field_geometry?1:0,q->field_additions};
+#if T2_FIELD
+q->sink={field,ledger,field_geometry,field_geometry?1:0,field_additions};
+#else
+q->sink={0,0,0,0,0};
+#endif
 auto &phase=q->phase;
 auto &top=q->top;
 auto &steps=q->steps;

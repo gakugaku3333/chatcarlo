@@ -1,8 +1,8 @@
 ---
 phase: 開発中
-next: 抄録の登録（締切11/1）：docs/jsmp133/registration_text.md をUMINに貼り、語数・×・上付き・生成AIの開示規定を確認する。公開版37との対応は docs/jsmp133/abstract_plan.md
+next: 抄録の登録（締切11/1）：docs/jsmp133/registration_text.md をUMINに貼り、語数・×・上付き・生成AIの開示規定を確認する。公開版37との対応は docs/jsmp133/abstract_plan.md。G5 は A2-2（E3 の4構成の速さと物理の判定）へ、変種後の値は docs/validation/gpu/g5/A2.md
 blocker: ELSEPAで作った表の配布の方法（表を置くか、生成スクリプトだけか）とリポジトリのLICENSEはユーザーの判断待ち。急がない
-updated: 2026-10-30
+updated: 2026-10-31
 ---
 
 治療領域拡張の段階の状況は [docs/validation/mv/STATUS.md](docs/validation/mv/STATUS.md)、常設ルールは

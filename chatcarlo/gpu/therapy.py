@@ -98,6 +98,7 @@ class CPU:
         work=Path(work);space(work);work.mkdir(parents=True,exist_ok=True)
         flags=['-O2','-ffp-contract=off','-std=c++11','-shared','-fPIC','-DP5_RNG_PHILOX',
                '-DP8G2_CHECK=1',f'-DP8G_STACK_CAP={cap}',f'-DT2_FAULT={fault}',
+               f'-DT2_FIELD={int(field_geometry is not None)}',
                f'-DG5_SET_ID={self.physics_set["id"]}',f'-DG5_SET_TAG={self.physics_set["tag"]}ULL']
         sources={p.name:hashlib.sha256(p.read_bytes()).hexdigest() for p in sorted(HERE.glob('t2_*')) if p.suffix in ('.h','.cpp')}
         sources.update({n:hashlib.sha256((HERE/n).read_bytes()).hexdigest() for n in ('g5_base.h','physics_set.h')})

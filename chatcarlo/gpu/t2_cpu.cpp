@@ -8,14 +8,12 @@ extern "C" void p8g2_init(double *data,const long long *meta,const double *const
 // Frozen reference wrapper deliberately accepts capacities below 16 and maxsteps.
 extern "C" void p8g2_histories(const double *data,const long long *meta,const double *constants,const P8gGeometry *g,uint64_t seed,uint64_t start,int n,int maxsteps,int slots,int reference,const double *injected,const P6Geometry *fg,double hx,double hy,double ssd,double *fs,double *fl,unsigned long long *fa,double *sources,double *d,long long *ints,long long *visits,unsigned long long *hits,double *groups,unsigned long long *group_ints){
     std::unique_ptr<P8g2State[]> arena(new P8g2State[slots]);for(int j=0;j<slots;++j)p8g2_slot_init(&arena[j],g);std::vector<int> ids(slots,-1),snapshot(slots);int next=0;
-    for(int j=0;j<slots && next<n;++j){ids[j]=next++;P5State a;if(injected)for(int k=0;k<23;++k)a.a[k]=injected[ids[j]*23+k];p8g2_begin(&arena[j],data,meta,constants,g,seed,start+ids[j],hits,injected?&a:0,fg,hx,hy,ssd);}
+    for(int j=0;j<slots && next<n;++j){ids[j]=next++;P5State a;if(injected)for(int k=0;k<23;++k)a.a[k]=injected[ids[j]*23+k];p8g2_begin(&arena[j],data,meta,constants,g,seed,start+ids[j],hits,injected?&a:0,fg,hx,hy,ssd,fs,fl,fa);}
     for(;;){bool active=false;for(int j=0;j<slots;++j){snapshot[j]=ids[j]>=0?arena[j].phase:P8G2_D;if(ids[j]>=0)active=true;}if(!active)break;
         for(int phase=0;phase<4;++phase)for(int j=0;j<slots;++j)if(snapshot[j]==phase){
             P8g2State *q=&arena[j];int h=ids[j];
             p8g2_advance(q,data,meta,constants,g,0,maxsteps,hits);
             if(q->phase==P8G2_D){
-                for(int k=0;k<3420;++k){fs[k]+=q->field_scores[k];fa[k]+=q->field_additions[k];}
-for(int k=0;k<15;++k)fl[k]+=q->field_sums[k];
 for(int k=0;k<6;++k)sources[h*6+k]=q->source_state[k];
 int copies=1;
 #if P8G2_FAULT == 3
@@ -35,7 +33,7 @@ int copies=1;
                         if((k>=f+6 && k<f+9)||(k>=f+19 && k<f+21))groups[b*dw+k]=p5_max(groups[b*dw+k],q->record.d[k]);else groups[b*dw+k]+=q->record.d[k];}
                     for(int k=0;k<iw;++k)if(k==77)group_ints[b*iw+k]=p5_max(group_ints[b*iw+k],(unsigned long long)q->record.i[k]);else if(k<75||k>=79)group_ints[b*iw+k]+=q->record.i[k];
                 }
-                if(next<n){ids[j]=next++;P5State a;if(injected)for(int k=0;k<23;++k)a.a[k]=injected[ids[j]*23+k];p8g2_begin(q,data,meta,constants,g,seed,start+ids[j],hits,injected?&a:0,fg,hx,hy,ssd);}else ids[j]=-1;
+                if(next<n){ids[j]=next++;P5State a;if(injected)for(int k=0;k<23;++k)a.a[k]=injected[ids[j]*23+k];p8g2_begin(q,data,meta,constants,g,seed,start+ids[j],hits,injected?&a:0,fg,hx,hy,ssd,fs,fl,fa);}else ids[j]=-1;
             }
         }
     }

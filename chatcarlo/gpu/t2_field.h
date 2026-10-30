@@ -2,6 +2,12 @@
 #ifndef P6_FIELD_H
 #define P6_FIELD_H
 #include "t2_physics.h"
+#ifndef T2_FIELD
+#define T2_FIELD 1
+#endif
+#if T2_FIELD != 0 && T2_FIELD != 1
+#error T2_FIELD must be 0 or 1
+#endif
 #ifndef P6_FAULT
 #define P6_FAULT T2_FAULT
 #endif
@@ -38,20 +44,31 @@ P5_FN int p6_bin(int i,int nb,int axis) {
 // Null in ordinary transport; no scoring arithmetic or RNG calls are changed.
 P5_FN void p6_count_addition(unsigned long long *additions,int i) {
     if(!additions)return;
-// Each sink and its counters belong to one history/lane, including CUDA.
+// CUDA sinks write directly to caller-owned global memory.
+#ifdef P5_GPU
+    atomicAdd(additions+i,1ULL);
+#else
     ++additions[i];
+#endif
+}
+P5_FN void p6_add(double *target,double amount) {
+#ifdef P5_GPU
+    atomicAdd(target,amount);
+#else
+    *target+=amount;
+#endif
 }
 P5_FN double p6_score_box_point(double *score,int nb,const double *p,double loss,int axis,double origin,double width,const double *lo,const double *hi,unsigned long long *additions=0) {
     for(int j=0;j<3;++j)if(p[j]<lo[j] || p[j]>=hi[j])return 0.;
     int i=int(floor((p[axis]-origin)/width));
-    if(i>=0 && i<nb){int bin=p6_bin(i,nb,axis);score[bin]+=loss;p6_count_addition(additions,bin);return loss;}return 0.;
+    if(i>=0 && i<nb){int bin=p6_bin(i,nb,axis);p6_add(score+bin,loss);p6_count_addition(additions,bin);return loss;}return 0.;
 }
 P5_FN double p6_score_box_bins(double *score,int nb,const double *p0,const double *p1,double loss,int axis,double origin,double width,const double *lo,const double *hi,unsigned long long *additions=0) {
     if(p0[0]==p1[0] && p0[1]==p1[1] && p0[2]==p1[2])return p6_score_box_point(score,nb,p0,loss,axis,origin,width,lo,hi,additions);
     double t0,t1;p6_clip(p0,p1,lo,hi,&t0,&t1);if(t0>=t1)return 0.;
     double d=p1[axis]-p0[axis];
     if(d==0.) {int i=int(floor((p0[axis]-origin)/width));
-        if(i>=0 && i<nb){double amount=loss*(t1-t0);int bin=p6_bin(i,nb,axis);score[bin]+=amount;p6_count_addition(additions,bin);return amount;}return 0.;}
+        if(i>=0 && i<nb){double amount=loss*(t1-t0);int bin=p6_bin(i,nb,axis);p6_add(score+bin,amount);p6_count_addition(additions,bin);return amount;}return 0.;}
     double q0=p0[axis]+t0*d,q1=p0[axis]+t1*d;
     int first=int(floor((p5_min(q0,q1)-origin)/width));if(first<0)first=0;
     int last=int(floor((p5_max(q0,q1)-origin)/width));if(last>nb-1)last=nb-1;
@@ -59,7 +76,7 @@ P5_FN double p6_score_box_bins(double *score,int nb,const double *p0,const doubl
     for(int i=first;i<=last;++i) {
         double a=(origin+i*width-p0[axis])/d,b=(origin+(i+1)*width-p0[axis])/d;
         double amount=loss*p5_max(0.,p5_min(t1,p5_max(a,b))-p5_max(t0,p5_min(a,b)));
-        int bin=p6_bin(i,nb,axis);score[bin]+=amount;p6_count_addition(additions,bin);total+=amount;
+        int bin=p6_bin(i,nb,axis);p6_add(score+bin,amount);p6_count_addition(additions,bin);total+=amount;
     }return total;
 }
 P5_FN void p6_record_deposit(P6Records *r,int site,int kind,const double *p0,const double *p1,double loss) {
@@ -91,12 +108,12 @@ P5_FN void p6_deposit(P6Sink *sink,P6Records *r,int site,int kind,const double *
         unsigned long long *additions=sink->additions?sink->additions+g->offsets[j]:0;
         if(kind) {
             if(p0[0]<lo[0] || p0[0]>=hi[0] || p0[1]<lo[1] || p0[1]>=hi[1] || p0[2]<lo[2] || p0[2]>=hi[2])continue;
-            sink->sums[j]+=p6_score_box_point(sink->scores+g->offsets[j],g->sizes[j],p0,loss,g->axes[j],g->origins[j],g->widths[j],lo,hi,additions);
+            p6_add(sink->sums+j,p6_score_box_point(sink->scores+g->offsets[j],g->sizes[j],p0,loss,g->axes[j],g->origins[j],g->widths[j],lo,hi,additions));
         }else {
             bool outside=false;
             for(int k=0;k<3;++k)if((p0[k]<lo[k] && p1[k]<lo[k]) || (p0[k]>=hi[k] && p1[k]>=hi[k]))outside=true;
             if(outside)continue;
-            sink->sums[j]+=p6_score_box_bins(sink->scores+g->offsets[j],g->sizes[j],p0,p1,loss,g->axes[j],g->origins[j],g->widths[j],lo,hi,additions);
+            p6_add(sink->sums+j,p6_score_box_bins(sink->scores+g->offsets[j],g->sizes[j],p0,p1,loss,g->axes[j],g->origins[j],g->widths[j],lo,hi,additions));
         }
     }
 }

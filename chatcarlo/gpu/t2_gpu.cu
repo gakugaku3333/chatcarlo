@@ -6,10 +6,10 @@
 #define INFINITY (__longlong_as_double(0x7ff0000000000000ULL))
 #endif
 #include "t2_kernel.h"
-P5_FN void p8g2_gpu_begin(P8g2State *q,int h,int n,const double *data,const long long *meta,const double *constants,const P8gGeometry *g,uint64_t seed,uint64_t start,unsigned long long *hits,const double *injected,const P6Geometry *fg,double hx,double hy,double ssd){
+P5_FN void p8g2_gpu_begin(P8g2State *q,int h,int n,const double *data,const long long *meta,const double *constants,const P8gGeometry *g,uint64_t seed,uint64_t start,unsigned long long *hits,const double *injected,const P6Geometry *fg,double hx,double hy,double ssd,double *field,double *ledger,unsigned long long *field_additions){
     if(h>=n){q->phase=P8G2_D;return;}P5State a;
     if(injected)for(int j=0;j<23;++j)a.a[j]=injected[h*23+j];
-    p8g2_begin(q,data,meta,constants,g,seed,start+uint64_t(h),hits,injected?&a:0,fg,hx,hy,ssd);
+    p8g2_begin(q,data,meta,constants,g,seed,start+uint64_t(h),hits,injected?&a:0,fg,hx,hy,ssd,field,ledger,field_additions);
 #if T2_FAULT == 4
     if(h>0){q->source_energy*=1.1;p8g2_hit(hits,64);}
 #endif
@@ -22,7 +22,7 @@ extern "C" __global__ void p8g2_kernel(const double *data,const long long *meta,
     P8gGeometry g={geometry,geometry+nl+1,geometry+2*nl+1,geometry+2*nl+nb+2,
         geometry+2*nl+nb+19,geometry+2*nl+nb+20+nspec,mapping,mapping+nl,nl,nb,nc,nf,nspec,1,1,1.};
     P8g2State local;P8g2State *q=&local;p8g2_slot_init(q,&g);
-    int h=atomicAdd(next,1);p8g2_gpu_begin(q,h,n,data,meta,constants,&g,seed,start,hits,injected,fg,hx,hy,ssd);
+    int h=atomicAdd(next,1);p8g2_gpu_begin(q,h,n,data,meta,constants,&g,seed,start,hits,injected,fg,hx,hy,ssd,field,ledger,field_additions);
     for(;;){
         int snapshot=q->phase;
         unsigned done=__ballot_sync(0xffffffffu,snapshot==P8G2_D);
@@ -32,8 +32,6 @@ extern "C" __global__ void p8g2_kernel(const double *data,const long long *meta,
         for(int p=0;p<4;++p)if(masks[p]&lane){
             p8g2_advance(q,data,meta,constants,&g,0,maxsteps,hits);
             if(q->phase==P8G2_D){
-                for(int j=0;j<3420;++j){atomicAdd(field+j,q->field_scores[j]);atomicAdd(field_additions+j,q->field_additions[j]);}
-                for(int j=0;j<15;++j)atomicAdd(ledger+j,q->field_sums[j]);
                 int copies=1;
 #if P8G2_FAULT == 3
                 copies=2;p8g2_hit(hits,32);
@@ -57,7 +55,7 @@ extern "C" __global__ void p8g2_kernel(const double *data,const long long *meta,
                     }
                     for(int j=0;j<iw;++j){if(j==77)atomicMax(group_ints+b*iw+j,(unsigned long long)r.i[j]);else if(j<75||j>=79)atomicAdd(group_ints+b*iw+j,(unsigned long long)r.i[j]);}
                 }
-                h=atomicAdd(next,1);p8g2_gpu_begin(q,h,n,data,meta,constants,&g,seed,start,hits,injected,fg,hx,hy,ssd);
+                h=atomicAdd(next,1);p8g2_gpu_begin(q,h,n,data,meta,constants,&g,seed,start,hits,injected,fg,hx,hy,ssd,field,ledger,field_additions);
             }
         }
     }

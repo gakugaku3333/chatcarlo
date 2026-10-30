@@ -1,0 +1,216 @@
+{
+  "status": "complete",
+  "environment": "",
+  "construction": {
+    "old-p7A": 124.57948095099994,
+    "new-p7A": 21.111850500999935,
+    "old-stack": 25.89635484900009,
+    "new-stack": 3.6457017910001923
+  },
+  "resources": {
+    "old-p7A": {
+      "attributes": {
+        "max_threads_per_block": 256,
+        "shared_size_bytes": 0,
+        "const_size_bytes": 0,
+        "local_size_bytes": 58320,
+        "num_regs": 255,
+        "ptx_version": 75,
+        "binary_version": 75,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_size_bytes": 49152,
+        "preferred_shared_memory_carveout": -1
+      },
+      "launch": {
+        "blocks": 40,
+        "threads": 256,
+        "capacity": 64
+      },
+      "manual": {
+        "blocks_per_sm": 1,
+        "registers_per_block": 65536,
+        "shared_bytes_per_block": 0,
+        "limits": {
+          "blocks": 16,
+          "threads": 4,
+          "registers": 1
+        }
+      },
+      "occupancy_api_blocks_per_sm": 1
+    },
+    "new-p7A": {
+      "attributes": {
+        "max_threads_per_block": 384,
+        "shared_size_bytes": 0,
+        "const_size_bytes": 0,
+        "local_size_bytes": 92160,
+        "num_regs": 168,
+        "ptx_version": 75,
+        "binary_version": 75,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_size_bytes": 49152,
+        "preferred_shared_memory_carveout": -1
+      },
+      "launch": {
+        "blocks": 40,
+        "threads": 256,
+        "capacity": 64
+      },
+      "manual": {
+        "blocks_per_sm": 1,
+        "registers_per_block": 43008,
+        "shared_bytes_per_block": 0,
+        "limits": {
+          "blocks": 16,
+          "threads": 4,
+          "registers": 1
+        }
+      },
+      "occupancy_api_blocks_per_sm": 1
+    },
+    "old-stack": {
+      "attributes": {
+        "max_threads_per_block": 256,
+        "shared_size_bytes": 0,
+        "const_size_bytes": 0,
+        "local_size_bytes": 39360,
+        "num_regs": 234,
+        "ptx_version": 75,
+        "binary_version": 75,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_size_bytes": 49152,
+        "preferred_shared_memory_carveout": -1
+      },
+      "launch": {
+        "blocks": 40,
+        "threads": 256,
+        "capacity": 18,
+        "check": false,
+        "fault": 0
+      },
+      "manual": {
+        "blocks_per_sm": 1,
+        "registers_per_block": 61440,
+        "shared_bytes_per_block": 0,
+        "limits": {
+          "blocks": 16,
+          "threads": 4,
+          "registers": 1
+        }
+      },
+      "occupancy_api_blocks_per_sm": 1
+    },
+    "new-stack": {
+      "attributes": {
+        "max_threads_per_block": 384,
+        "shared_size_bytes": 0,
+        "const_size_bytes": 0,
+        "local_size_bytes": 92160,
+        "num_regs": 168,
+        "ptx_version": 75,
+        "binary_version": 75,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_size_bytes": 49152,
+        "preferred_shared_memory_carveout": -1
+      },
+      "launch": {
+        "blocks": 40,
+        "threads": 256,
+        "capacity": 18,
+        "check": false,
+        "fault": 0
+      },
+      "manual": {
+        "blocks_per_sm": 1,
+        "registers_per_block": 43008,
+        "shared_bytes_per_block": 0,
+        "limits": {
+          "blocks": 16,
+          "threads": 4,
+          "registers": 1
+        }
+      },
+      "occupancy_api_blocks_per_sm": 1
+    }
+  },
+  "rows": [
+    {
+      "kernel_s": 5.119078125,
+      "health": {
+        "status": "pass",
+        "report": {
+          "status": "pass"
+        }
+      },
+      "task": "old-p7A",
+      "phase": "warmup"
+    },
+    {
+      "kernel_s": 7.075751953125,
+      "field_sum": 385245.05934312183,
+      "groups_finite": true,
+      "task": "new-p7A",
+      "phase": "warmup"
+    },
+    {
+      "kernel_s": 7.8991318359375,
+      "health": {
+        "status": "pass",
+        "visits": "all exactly one",
+        "run_health": true
+      },
+      "task": "old-stack",
+      "phase": "warmup"
+    },
+    {
+      "kernel_s": 9.415607421875,
+      "field_sum": 0.0,
+      "groups_finite": true,
+      "task": "new-stack",
+      "phase": "warmup"
+    },
+    {
+      "kernel_s": 5.19705615234375,
+      "health": {
+        "status": "pass",
+        "report": {
+          "status": "pass"
+        }
+      },
+      "task": "old-p7A",
+      "phase": "valid"
+    },
+    {
+      "kernel_s": 7.098181640625,
+      "field_sum": 385245.0593431217,
+      "groups_finite": true,
+      "task": "new-p7A",
+      "phase": "valid"
+    },
+    {
+      "kernel_s": 8.0738291015625,
+      "health": {
+        "status": "pass",
+        "visits": "all exactly one",
+        "run_health": true
+      },
+      "task": "old-stack",
+      "phase": "valid"
+    },
+    {
+      "kernel_s": 9.6459853515625,
+      "field_sum": 0.0,
+      "groups_finite": true,
+      "task": "new-stack",
+      "phase": "valid"
+    }
+  ],
+  "ratio": {
+    "p7A": 1.365808148411844,
+    "stack": 1.194722507774625
+  },
+  "ncu": {
+    "p7A": 0,
+    "stack": "Command '['ncu', '--set', 'full', '--target-processes', 'all', '--kernel-name', 'p8g2_kernel', '--launch-count', '1', '--force-overwrite', '--export', '/content/g5a2-g5-a2/results/new_stack_full', '--csv', '--log-file', '/content/g5a2-g5-a2/results/new_stack_full.csv', '/usr/bin/python3', '/content/g5a2-g5-a2/a2_speed.py', '--bundles', '/content/g5a2-g5-a2/bundles', '--water', '/content/g5a2-g5-a2/water.npz', '--profile', 'stack']' timed out after 1200 seconds"
+  }
+}
