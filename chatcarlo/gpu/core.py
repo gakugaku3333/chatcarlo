@@ -46,6 +46,8 @@ class Core:
     def __init__(self,arrays,device='cpu',*,build_dir=None,rng='philox',fault=0,physics_set=physics_sets.DIAGNOSTIC,physics_declaration=None):
         if device not in ('cpu','cuda'):raise ValueError('device must be cpu or cuda')
         if rng not in ('mt','philox') or (device=='cuda' and rng!='philox'):raise ValueError('MT is CPU verification only')
+        if physics_set != physics_sets.DIAGNOSTIC:
+            raise ValueError('physics_set not implemented by diagnostic core: '+str(physics_set))
         self.physics_set=physics_sets.declaration(physics_set)
         if physics_declaration is not None:physics_sets.check(physics_declaration,self.physics_set)
         self.set_options=(f'-DG5_SET_ID={self.physics_set["id"]}',f'-DG5_SET_TAG={self.physics_set["tag"]}ULL')

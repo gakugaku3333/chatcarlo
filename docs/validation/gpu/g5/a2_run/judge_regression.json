@@ -1,0 +1,22 @@
+{
+  "status": "pass",
+  "conditions": {
+    "A": {
+      "status": "pass",
+      "quantities": 11
+    },
+    "C": {
+      "status": "pass",
+      "quantities": 11
+    },
+    "B": {
+      "status": "pass",
+      "quantities": 11
+    },
+    "stack": {
+      "status": "pass",
+      "blocks": 19,
+      "max_difference_error": 0.0
+    }
+  }
+}

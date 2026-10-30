@@ -1,0 +1,4639 @@
+{
+  "status": "pass",
+  "conditions": {
+    "A": {
+      "status": "pass",
+      "N": 100000,
+      "seed": 20301831,
+      "seconds": 28.664340167306364,
+      "health": [
+        {
+          "status": "pass",
+          "histories": 1000,
+          "failures": 0,
+          "max_balance": 4.452730693307379e-15
+        },
+        {
+          "status": "pass",
+          "histories": 1000,
+          "failures": 0,
+          "max_balance": 3.4527178242198957e-15
+        },
+        {
+          "status": "pass",
+          "histories": 1000,
+          "failures": 0,
+          "max_balance": 4.044547337636568e-15
+        },
+        {
+          "status": "pass",
+          "histories": 1000,
+          "failures": 0,
+          "max_balance": 5.1383834691881555e-15
+        },
+        {
+          "status": "pass",
+          "histories": 1000,
+          "failures": 0,
+          "max_balance": 4.422598874301988e-15
+        },
+        {
+          "status": "pass",
+          "histories": 1000,
+          "failures": 0,
+          "max_balance": 4.216859873303646e-15
+        },
+        {
+          "status": "pass",
+          "histories": 1000,
+          "failures": 0,
+          "max_balance": 3.963417181513495e-15
+        },
+        {
+          "status": "pass",
+          "histories": 1000,
+          "failures": 0,
+          "max_balance": 4.578915173116469e-15
+        },
+        {
+          "status": "pass",
+          "histories": 1000,
+          "failures": 0,
+          "max_balance": 4.981804098077666e-15
+        },
+        {
+          "status": "pass",
+          "histories": 1000,
+          "failures": 0,
+          "max_balance": 4.279635688318812e-15
+        },
+        {
+          "status": "pass",
+          "histories": 1000,
+          "failures": 0,
+          "max_balance": 5.8707766610107605e-15
+        },
+        {
+          "status": "pass",
+          "histories": 1000,
+          "failures": 0,
+          "max_balance": 4.144146078668627e-15
+        },
+        {
+          "status": "pass",
+          "histories": 1000,
+          "failures": 0,
+          "max_balance": 4.68573730294713e-15
+        },
+        {
+          "status": "pass",
+          "histories": 1000,
+          "failures": 0,
+          "max_balance": 5.09569087968753e-15
+        },
+        {
+          "status": "pass",
+          "histories": 1000,
+          "failures": 0,
+          "max_balance": 5.60007731494104e-15
+        },
+        {
+          "status": "pass",
+          "histories": 1000,
+          "failures": 0,
+          "max_balance": 5.325984828474846e-15
+        },
+        {
+          "status": "pass",
+          "histories": 1000,
+          "failures": 0,
+          "max_balance": 6.161629326462237e-15
+        },
+        {
+          "status": "pass",
+          "histories": 1000,
+          "failures": 0,
+          "max_balance": 4.313455154617754e-15
+        },
+        {
+          "status": "pass",
+          "histories": 1000,
+          "failures": 0,
+          "max_balance": 3.900155899644877e-15
+        },
+        {
+          "status": "pass",
+          "histories": 1000,
+          "failures": 0,
+          "max_balance": 4.283062541138302e-15
+        },
+        {
+          "status": "pass",
+          "histories": 1000,
+          "failures": 0,
+          "max_balance": 3.822525511981254e-15
+        },
+        {
+          "status": "pass",
+          "histories": 1000,
+          "failures": 0,
+          "max_balance": 5.759503671372159e-15
+        },
+        {
+          "status": "pass",
+          "histories": 1000,
+          "failures": 0,
+          "max_balance": 5.242454059859136e-15
+        },
+        {
+          "status": "pass",
+          "histories": 1000,
+          "failures": 0,
+          "max_balance": 4.623602920208291e-15
+        },
+        {
+          "status": "pass",
+          "histories": 1000,
+          "failures": 0,
+          "max_balance": 5.291291817079111e-15
+        },
+        {
+          "status": "pass",
+          "histories": 1000,
+          "failures": 0,
+          "max_balance": 5.908229905688085e-15
+        },
+        {
+          "status": "pass",
+          "histories": 1000,
+          "failures": 0,
+          "max_balance": 4.977567827891492e-15
+        },
+        {
+          "status": "pass",
+          "histories": 1000,
+          "failures": 0,
+          "max_balance": 5.466363569415282e-15
+        },
+        {
+          "status": "pass",
+          "histories": 1000,
+          "failures": 0,
+          "max_balance": 3.841231265107457e-15
+        },
+        {
+          "status": "pass",
+          "histories": 1000,
+          "failures": 0,
+          "max_balance": 3.627247474114891e-15
+        },
+        {
+          "status": "pass",
+          "histories": 1000,
+          "failures": 0,
+          "max_balance": 4.600407357988745e-15
+        },
+        {
+          "status": "pass",
+          "histories": 1000,
+          "failures": 0,
+          "max_balance": 5.336670890971e-15
+        },
+        {
+          "status": "pass",
+          "histories": 1000,
+          "failures": 0,
+          "max_balance": 4.990848357300919e-15
+        },
+        {
+          "status": "pass",
+          "histories": 1000,
+          "failures": 0,
+          "max_balance": 7.398307355014206e-15
+        },
+        {
+          "status": "pass",
+          "histories": 1000,
+          "failures": 0,
+          "max_balance": 5.1897996355423585e-15
+        },
+        {
+          "status": "pass",
+          "histories": 1000,
+          "failures": 0,
+          "max_balance": 4.224521170195575e-15
+        },
+        {
+          "status": "pass",
+          "histories": 1000,
+          "failures": 0,
+          "max_balance": 3.688940882120147e-15
+        },
+        {
+          "status": "pass",
+          "histories": 1000,
+          "failures": 0,
+          "max_balance": 5.147032981585571e-15
+        },
+        {
+          "status": "pass",
+          "histories": 1000,
+          "failures": 0,
+          "max_balance": 5.209742558539789e-15
+        },
+        {
+          "status": "pass",
+          "histories": 1000,
+          "failures": 0,
+          "max_balance": 4.4172201031672036e-15
+        },
+        {
+          "status": "pass",
+          "histories": 1000,
+          "failures": 0,
+          "max_balance": 4.814905249459719e-15
+        },
+        {
+          "status": "pass",
+          "histories": 1000,
+          "failures": 0,
+          "max_balance": 4.179444255667722e-15
+        },
+        {
+          "status": "pass",
+          "histories": 1000,
+          "failures": 0,
+          "max_balance": 4.0110260951300965e-15
+        },
+        {
+          "status": "pass",
+          "histories": 1000,
+          "failures": 0,
+          "max_balance": 3.786639822772326e-15
+        },
+        {
+          "status": "pass",
+          "histories": 1000,
+          "failures": 0,
+          "max_balance": 3.4100313135279103e-15
+        },
+        {
+          "status": "pass",
+          "histories": 1000,
+          "failures": 0,
+          "max_balance": 4.852935130241007e-15
+        },
+        {
+          "status": "pass",
+          "histories": 1000,
+          "failures": 0,
+          "max_balance": 5.1472182172113566e-15
+        },
+        {
+          "status": "pass",
+          "histories": 1000,
+          "failures": 0,
+          "max_balance": 4.229142137595078e-15
+        },
+        {
+          "status": "pass",
+          "histories": 1000,
+          "failures": 0,
+          "max_balance": 4.584662215632707e-15
+        },
+        {
+          "status": "pass",
+          "histories": 1000,
+          "failures": 0,
+          "max_balance": 3.5387736733826157e-15
+        },
+        {
+          "status": "pass",
+          "histories": 1000,
+          "failures": 0,
+          "max_balance": 4.68495284347274e-15
+        },
+        {
+          "status": "pass",
+          "histories": 1000,
+          "failures": 0,
+          "max_balance": 5.081534999458019e-15
+        },
+        {
+          "status": "pass",
+          "histories": 1000,
+          "failures": 0,
+          "max_balance": 4.9119535012655986e-15
+        },
+        {
+          "status": "pass",
+          "histories": 1000,
+          "failures": 0,
+          "max_balance": 5.383736465262905e-15
+        },
+        {
+          "status": "pass",
+          "histories": 1000,
+          "failures": 0,
+          "max_balance": 5.162045610420006e-15
+        },
+        {
+          "status": "pass",
+          "histories": 1000,
+          "failures": 0,
+          "max_balance": 5.049617232023389e-15
+        },
+        {
+          "status": "pass",
+          "histories": 1000,
+          "failures": 0,
+          "max_balance": 4.46622479016971e-15
+        },
+        {
+          "status": "pass",
+          "histories": 1000,
+          "failures": 0,
+          "max_balance": 4.201965866835769e-15
+        },
+        {
+          "status": "pass",
+          "histories": 1000,
+          "failures": 0,
+          "max_balance": 5.861885406888481e-15
+        },
+        {
+          "status": "pass",
+          "histories": 1000,
+          "failures": 0,
+          "max_balance": 4.9405156066826325e-15
+        },
+        {
+          "status": "pass",
+          "histories": 1000,
+          "failures": 0,
+          "max_balance": 4.893526987198063e-15
+        },
+        {
+          "status": "pass",
+          "histories": 1000,
+          "failures": 0,
+          "max_balance": 5.205268635367448e-15
+        },
+        {
+          "status": "pass",
+          "histories": 1000,
+          "failures": 0,
+          "max_balance": 5.006781122706158e-15
+        },
+        {
+          "status": "pass",
+          "histories": 1000,
+          "failures": 0,
+          "max_balance": 3.933667153144722e-15
+        },
+        {
+          "status": "pass",
+          "histories": 1000,
+          "failures": 0,
+          "max_balance": 3.4499906154460517e-15
+        },
+        {
+          "status": "pass",
+          "histories": 1000,
+          "failures": 0,
+          "max_balance": 4.4950963042268704e-15
+        },
+        {
+          "status": "pass",
+          "histories": 1000,
+          "failures": 0,
+          "max_balance": 4.775100371947576e-15
+        },
+        {
+          "status": "pass",
+          "histories": 1000,
+          "failures": 0,
+          "max_balance": 4.861081398728972e-15
+        },
+        {
+          "status": "pass",
+          "histories": 1000,
+          "failures": 0,
+          "max_balance": 4.037445082374392e-15
+        },
+        {
+          "status": "pass",
+          "histories": 1000,
+          "failures": 0,
+          "max_balance": 3.878774260952955e-15
+        },
+        {
+          "status": "pass",
+          "histories": 1000,
+          "failures": 0,
+          "max_balance": 4.04543890414521e-15
+        },
+        {
+          "status": "pass",
+          "histories": 1000,
+          "failures": 0,
+          "max_balance": 6.251784133652289e-15
+        },
+        {
+          "status": "pass",
+          "histories": 1000,
+          "failures": 0,
+          "max_balance": 4.1968540043327535e-15
+        },
+        {
+          "status": "pass",
+          "histories": 1000,
+          "failures": 0,
+          "max_balance": 4.581552790606839e-15
+        },
+        {
+          "status": "pass",
+          "histories": 1000,
+          "failures": 0,
+          "max_balance": 4.510755428512899e-15
+        },
+        {
+          "status": "pass",
+          "histories": 1000,
+          "failures": 0,
+          "max_balance": 4.271943283487981e-15
+        },
+        {
+          "status": "pass",
+          "histories": 1000,
+          "failures": 0,
+          "max_balance": 5.003910683633714e-15
+        },
+        {
+          "status": "pass",
+          "histories": 1000,
+          "failures": 0,
+          "max_balance": 6.295987142480845e-15
+        },
+        {
+          "status": "pass",
+          "histories": 1000,
+          "failures": 0,
+          "max_balance": 4.9271521953419e-15
+        },
+        {
+          "status": "pass",
+          "histories": 1000,
+          "failures": 0,
+          "max_balance": 4.260671034411718e-15
+        },
+        {
+          "status": "pass",
+          "histories": 1000,
+          "failures": 0,
+          "max_balance": 4.8813384966402596e-15
+        },
+        {
+          "status": "pass",
+          "histories": 1000,
+          "failures": 0,
+          "max_balance": 4.4159519452422126e-15
+        },
+        {
+          "status": "pass",
+          "histories": 1000,
+          "failures": 0,
+          "max_balance": 4.0694462867295284e-15
+        },
+        {
+          "status": "pass",
+          "histories": 1000,
+          "failures": 0,
+          "max_balance": 3.836620424001807e-15
+        },
+        {
+          "status": "pass",
+          "histories": 1000,
+          "failures": 0,
+          "max_balance": 4.645632284560463e-15
+        },
+        {
+          "status": "pass",
+          "histories": 1000,
+          "failures": 0,
+          "max_balance": 4.6209161739085116e-15
+        },
+        {
+          "status": "pass",
+          "histories": 1000,
+          "failures": 0,
+          "max_balance": 5.129525131621138e-15
+        },
+        {
+          "status": "pass",
+          "histories": 1000,
+          "failures": 0,
+          "max_balance": 5.637993488931527e-15
+        },
+        {
+          "status": "pass",
+          "histories": 1000,
+          "failures": 0,
+          "max_balance": 4.7788693248099835e-15
+        },
+        {
+          "status": "pass",
+          "histories": 1000,
+          "failures": 0,
+          "max_balance": 3.8346270632461755e-15
+        },
+        {
+          "status": "pass",
+          "histories": 1000,
+          "failures": 0,
+          "max_balance": 3.767540283692145e-15
+        },
+        {
+          "status": "pass",
+          "histories": 1000,
+          "failures": 0,
+          "max_balance": 6.054293098096439e-15
+        },
+        {
+          "status": "pass",
+          "histories": 1000,
+          "failures": 0,
+          "max_balance": 4.7342465746012835e-15
+        },
+        {
+          "status": "pass",
+          "histories": 1000,
+          "failures": 0,
+          "max_balance": 3.2074496261837463e-15
+        },
+        {
+          "status": "pass",
+          "histories": 1000,
+          "failures": 0,
+          "max_balance": 4.3780497838716436e-15
+        },
+        {
+          "status": "pass",
+          "histories": 1000,
+          "failures": 0,
+          "max_balance": 4.935642489025961e-15
+        },
+        {
+          "status": "pass",
+          "histories": 1000,
+          "failures": 0,
+          "max_balance": 4.86057857467067e-15
+        },
+        {
+          "status": "pass",
+          "histories": 1000,
+          "failures": 0,
+          "max_balance": 4.399246281265659e-15
+        },
+        {
+          "status": "pass",
+          "histories": 1000,
+          "failures": 0,
+          "max_balance": 5.454442069194038e-15
+        },
+        {
+          "status": "pass",
+          "histories": 1000,
+          "failures": 0,
+          "max_balance": 4.929109932703599e-15
+        }
+      ],
+      "receipts": [
+        {
+          "N": 1000,
+          "seed": 20301831,
+          "start": 0,
+          "physics_set": {
+            "name": "therapy-electron-v1",
+            "id": 2,
+            "tag": 7198080100198966926
+          },
+          "health": {
+            "status": "pass",
+            "histories": 1000,
+            "failures": 0,
+            "max_balance": 4.452730693307379e-15
+          },
+          "sha256": "ee796d87cf91139fca2d6f628b6ea2d0e46e8772d18175c826f37d72431d0909"
+        },
+        {
+          "N": 1000,
+          "seed": 20301831,
+          "start": 1000,
+          "physics_set": {
+            "name": "therapy-electron-v1",
+            "id": 2,
+            "tag": 7198080100198966926
+          },
+          "health": {
+            "status": "pass",
+            "histories": 1000,
+            "failures": 0,
+            "max_balance": 3.4527178242198957e-15
+          },
+          "sha256": "42ffb9e942b64dc91c0d8c002cada7fe78a36255ba339cdd2cdf165d4e5f280a"
+        },
+        {
+          "N": 1000,
+          "seed": 20301831,
+          "start": 2000,
+          "physics_set": {
+            "name": "therapy-electron-v1",
+            "id": 2,
+            "tag": 7198080100198966926
+          },
+          "health": {
+            "status": "pass",
+            "histories": 1000,
+            "failures": 0,
+            "max_balance": 4.044547337636568e-15
+          },
+          "sha256": "9e47a9cdec65dee61e700863433a20dd715617cf4737bed04942343300b74f93"
+        },
+        {
+          "N": 1000,
+          "seed": 20301831,
+          "start": 3000,
+          "physics_set": {
+            "name": "therapy-electron-v1",
+            "id": 2,
+            "tag": 7198080100198966926
+          },
+          "health": {
+            "status": "pass",
+            "histories": 1000,
+            "failures": 0,
+            "max_balance": 5.1383834691881555e-15
+          },
+          "sha256": "f37ebc97588cf08c57610cb386ae287b11c84722b05266f01ec2a9e2b1d390db"
+        },
+        {
+          "N": 1000,
+          "seed": 20301831,
+          "start": 4000,
+          "physics_set": {
+            "name": "therapy-electron-v1",
+            "id": 2,
+            "tag": 7198080100198966926
+          },
+          "health": {
+            "status": "pass",
+            "histories": 1000,
+            "failures": 0,
+            "max_balance": 4.422598874301988e-15
+          },
+          "sha256": "fc3b60c24b26f8c8d784bd620fe2a1b82f43386f4fa899a09844c3b15d920f35"
+        },
+        {
+          "N": 1000,
+          "seed": 20301831,
+          "start": 5000,
+          "physics_set": {
+            "name": "therapy-electron-v1",
+            "id": 2,
+            "tag": 7198080100198966926
+          },
+          "health": {
+            "status": "pass",
+            "histories": 1000,
+            "failures": 0,
+            "max_balance": 4.216859873303646e-15
+          },
+          "sha256": "f6669404c85689a086e8008f44c9f22ce8f64c0fa318e45ae0b9177bb60b365f"
+        },
+        {
+          "N": 1000,
+          "seed": 20301831,
+          "start": 6000,
+          "physics_set": {
+            "name": "therapy-electron-v1",
+            "id": 2,
+            "tag": 7198080100198966926
+          },
+          "health": {
+            "status": "pass",
+            "histories": 1000,
+            "failures": 0,
+            "max_balance": 3.963417181513495e-15
+          },
+          "sha256": "09959ff03e483f4b0fe67506da0ffbc1784d7efa24547ade01e1c8e712769bc6"
+        },
+        {
+          "N": 1000,
+          "seed": 20301831,
+          "start": 7000,
+          "physics_set": {
+            "name": "therapy-electron-v1",
+            "id": 2,
+            "tag": 7198080100198966926
+          },
+          "health": {
+            "status": "pass",
+            "histories": 1000,
+            "failures": 0,
+            "max_balance": 4.578915173116469e-15
+          },
+          "sha256": "22f41df0a49c26607ce967dd9b297d423203e23b9cc2a938e6476bf6b96cb37d"
+        },
+        {
+          "N": 1000,
+          "seed": 20301831,
+          "start": 8000,
+          "physics_set": {
+            "name": "therapy-electron-v1",
+            "id": 2,
+            "tag": 7198080100198966926
+          },
+          "health": {
+            "status": "pass",
+            "histories": 1000,
+            "failures": 0,
+            "max_balance": 4.981804098077666e-15
+          },
+          "sha256": "4f5dad5b25a18ea69231bd8ffb50dcddc3dc915be559de85236de661ea8b53ba"
+        },
+        {
+          "N": 1000,
+          "seed": 20301831,
+          "start": 9000,
+          "physics_set": {
+            "name": "therapy-electron-v1",
+            "id": 2,
+            "tag": 7198080100198966926
+          },
+          "health": {
+            "status": "pass",
+            "histories": 1000,
+            "failures": 0,
+            "max_balance": 4.279635688318812e-15
+          },
+          "sha256": "b0895b43aa7f1266b10d15b8dfc6326a7f8985eee1d19c4ab0130b3ff1d22b6e"
+        },
+        {
+          "N": 1000,
+          "seed": 20301831,
+          "start": 10000,
+          "physics_set": {
+            "name": "therapy-electron-v1",
+            "id": 2,
+            "tag": 7198080100198966926
+          },
+          "health": {
+            "status": "pass",
+            "histories": 1000,
+            "failures": 0,
+            "max_balance": 5.8707766610107605e-15
+          },
+          "sha256": "c80ad07d85623f914dc5e958457b80f60a739c887e84066b8890c9dbf739e669"
+        },
+        {
+          "N": 1000,
+          "seed": 20301831,
+          "start": 11000,
+          "physics_set": {
+            "name": "therapy-electron-v1",
+            "id": 2,
+            "tag": 7198080100198966926
+          },
+          "health": {
+            "status": "pass",
+            "histories": 1000,
+            "failures": 0,
+            "max_balance": 4.144146078668627e-15
+          },
+          "sha256": "dfdbf49449e6b6fa6bf0b7c83184fb3d7504a4ea01585f709df0ec4cd4d5bf40"
+        },
+        {
+          "N": 1000,
+          "seed": 20301831,
+          "start": 12000,
+          "physics_set": {
+            "name": "therapy-electron-v1",
+            "id": 2,
+            "tag": 7198080100198966926
+          },
+          "health": {
+            "status": "pass",
+            "histories": 1000,
+            "failures": 0,
+            "max_balance": 4.68573730294713e-15
+          },
+          "sha256": "a3c1134b2949b187e089e4bcfd75db1df036750283ad1530500728ff0c36c804"
+        },
+        {
+          "N": 1000,
+          "seed": 20301831,
+          "start": 13000,
+          "physics_set": {
+            "name": "therapy-electron-v1",
+            "id": 2,
+            "tag": 7198080100198966926
+          },
+          "health": {
+            "status": "pass",
+            "histories": 1000,
+            "failures": 0,
+            "max_balance": 5.09569087968753e-15
+          },
+          "sha256": "7200f29a84b3767174613879888e98c7c1f7cb259f6cdc26bc14d2e2aeb53c32"
+        },
+        {
+          "N": 1000,
+          "seed": 20301831,
+          "start": 14000,
+          "physics_set": {
+            "name": "therapy-electron-v1",
+            "id": 2,
+            "tag": 7198080100198966926
+          },
+          "health": {
+            "status": "pass",
+            "histories": 1000,
+            "failures": 0,
+            "max_balance": 5.60007731494104e-15
+          },
+          "sha256": "c82cf62e325af634a00bc424071724755f6a48ac36edcc4c7f6474ff5f1ecd7b"
+        },
+        {
+          "N": 1000,
+          "seed": 20301831,
+          "start": 15000,
+          "physics_set": {
+            "name": "therapy-electron-v1",
+            "id": 2,
+            "tag": 7198080100198966926
+          },
+          "health": {
+            "status": "pass",
+            "histories": 1000,
+            "failures": 0,
+            "max_balance": 5.325984828474846e-15
+          },
+          "sha256": "54fa43fb2c6d2373b1c2d1f53d541003cf00f9eb3705f09c3f562539d33631ea"
+        },
+        {
+          "N": 1000,
+          "seed": 20301831,
+          "start": 16000,
+          "physics_set": {
+            "name": "therapy-electron-v1",
+            "id": 2,
+            "tag": 7198080100198966926
+          },
+          "health": {
+            "status": "pass",
+            "histories": 1000,
+            "failures": 0,
+            "max_balance": 6.161629326462237e-15
+          },
+          "sha256": "9ebb961525ac53f739ac912d155c5353bb6b8bbf75953efb0af9c8879df7d2fc"
+        },
+        {
+          "N": 1000,
+          "seed": 20301831,
+          "start": 17000,
+          "physics_set": {
+            "name": "therapy-electron-v1",
+            "id": 2,
+            "tag": 7198080100198966926
+          },
+          "health": {
+            "status": "pass",
+            "histories": 1000,
+            "failures": 0,
+            "max_balance": 4.313455154617754e-15
+          },
+          "sha256": "b0cc0a4db1bf56034617fe12ac28b1cc40674946706297245908beb12eac5f83"
+        },
+        {
+          "N": 1000,
+          "seed": 20301831,
+          "start": 18000,
+          "physics_set": {
+            "name": "therapy-electron-v1",
+            "id": 2,
+            "tag": 7198080100198966926
+          },
+          "health": {
+            "status": "pass",
+            "histories": 1000,
+            "failures": 0,
+            "max_balance": 3.900155899644877e-15
+          },
+          "sha256": "b06d92c843c1944c2115029d20f40298e0d78f5db184e99fa5647061b4eeb67d"
+        },
+        {
+          "N": 1000,
+          "seed": 20301831,
+          "start": 19000,
+          "physics_set": {
+            "name": "therapy-electron-v1",
+            "id": 2,
+            "tag": 7198080100198966926
+          },
+          "health": {
+            "status": "pass",
+            "histories": 1000,
+            "failures": 0,
+            "max_balance": 4.283062541138302e-15
+          },
+          "sha256": "9ec9b710f5ae462b2390a6edd294ab9ca8280a3c972dc066854f0cb6cf247940"
+        },
+        {
+          "N": 1000,
+          "seed": 20301831,
+          "start": 20000,
+          "physics_set": {
+            "name": "therapy-electron-v1",
+            "id": 2,
+            "tag": 7198080100198966926
+          },
+          "health": {
+            "status": "pass",
+            "histories": 1000,
+            "failures": 0,
+            "max_balance": 3.822525511981254e-15
+          },
+          "sha256": "0f5deb20e4b3d1c6f38f1f55f2c7b3ed892d510e20036e292f17bcc63b3ffbbd"
+        },
+        {
+          "N": 1000,
+          "seed": 20301831,
+          "start": 21000,
+          "physics_set": {
+            "name": "therapy-electron-v1",
+            "id": 2,
+            "tag": 7198080100198966926
+          },
+          "health": {
+            "status": "pass",
+            "histories": 1000,
+            "failures": 0,
+            "max_balance": 5.759503671372159e-15
+          },
+          "sha256": "c092e9b417afd68254c3fb967c65bc298b81b71f0cad6e6ee5bc277c97d030ad"
+        },
+        {
+          "N": 1000,
+          "seed": 20301831,
+          "start": 22000,
+          "physics_set": {
+            "name": "therapy-electron-v1",
+            "id": 2,
+            "tag": 7198080100198966926
+          },
+          "health": {
+            "status": "pass",
+            "histories": 1000,
+            "failures": 0,
+            "max_balance": 5.242454059859136e-15
+          },
+          "sha256": "97bf2d254044c4acd63ab5895b2bd11881ee9bf563d52064a3511ae76a0b3af4"
+        },
+        {
+          "N": 1000,
+          "seed": 20301831,
+          "start": 23000,
+          "physics_set": {
+            "name": "therapy-electron-v1",
+            "id": 2,
+            "tag": 7198080100198966926
+          },
+          "health": {
+            "status": "pass",
+            "histories": 1000,
+            "failures": 0,
+            "max_balance": 4.623602920208291e-15
+          },
+          "sha256": "b6e82de2ce771cbff7d40a4cb0f5f52522c53b21fa24a8ee2a6943eab4febdc9"
+        },
+        {
+          "N": 1000,
+          "seed": 20301831,
+          "start": 24000,
+          "physics_set": {
+            "name": "therapy-electron-v1",
+            "id": 2,
+            "tag": 7198080100198966926
+          },
+          "health": {
+            "status": "pass",
+            "histories": 1000,
+            "failures": 0,
+            "max_balance": 5.291291817079111e-15
+          },
+          "sha256": "0856f8f9f5f788598ef578985b88c0b87aad91127630f8a6e66c9e482ef072d6"
+        },
+        {
+          "N": 1000,
+          "seed": 20301831,
+          "start": 25000,
+          "physics_set": {
+            "name": "therapy-electron-v1",
+            "id": 2,
+            "tag": 7198080100198966926
+          },
+          "health": {
+            "status": "pass",
+            "histories": 1000,
+            "failures": 0,
+            "max_balance": 5.908229905688085e-15
+          },
+          "sha256": "8f418caa88a64bfc604a2c4ce526cb41c05c4f03cc03acce9b2dcd4ff9f2480d"
+        },
+        {
+          "N": 1000,
+          "seed": 20301831,
+          "start": 26000,
+          "physics_set": {
+            "name": "therapy-electron-v1",
+            "id": 2,
+            "tag": 7198080100198966926
+          },
+          "health": {
+            "status": "pass",
+            "histories": 1000,
+            "failures": 0,
+            "max_balance": 4.977567827891492e-15
+          },
+          "sha256": "2199d4a1867361fefccffba62133059977a1e1da546f77f8df3e5627171d0ac7"
+        },
+        {
+          "N": 1000,
+          "seed": 20301831,
+          "start": 27000,
+          "physics_set": {
+            "name": "therapy-electron-v1",
+            "id": 2,
+            "tag": 7198080100198966926
+          },
+          "health": {
+            "status": "pass",
+            "histories": 1000,
+            "failures": 0,
+            "max_balance": 5.466363569415282e-15
+          },
+          "sha256": "9b799d728b2e0cec332b34680f101d9247f4574daa0a55ae14edba32c5123d9e"
+        },
+        {
+          "N": 1000,
+          "seed": 20301831,
+          "start": 28000,
+          "physics_set": {
+            "name": "therapy-electron-v1",
+            "id": 2,
+            "tag": 7198080100198966926
+          },
+          "health": {
+            "status": "pass",
+            "histories": 1000,
+            "failures": 0,
+            "max_balance": 3.841231265107457e-15
+          },
+          "sha256": "a1663bf06e88c11e7040d8fbe4d2dbd500e9e2c5e624591931a389b24d96544c"
+        },
+        {
+          "N": 1000,
+          "seed": 20301831,
+          "start": 29000,
+          "physics_set": {
+            "name": "therapy-electron-v1",
+            "id": 2,
+            "tag": 7198080100198966926
+          },
+          "health": {
+            "status": "pass",
+            "histories": 1000,
+            "failures": 0,
+            "max_balance": 3.627247474114891e-15
+          },
+          "sha256": "9471704cc452c38dcce1566c1adbdc40aac2e319564e21500c0b894a9117c7d4"
+        },
+        {
+          "N": 1000,
+          "seed": 20301831,
+          "start": 30000,
+          "physics_set": {
+            "name": "therapy-electron-v1",
+            "id": 2,
+            "tag": 7198080100198966926
+          },
+          "health": {
+            "status": "pass",
+            "histories": 1000,
+            "failures": 0,
+            "max_balance": 4.600407357988745e-15
+          },
+          "sha256": "1fc0a5ad0b9ae1bc471b707d3905fee3a1e98f245abd4ba96f473166bb1f4d07"
+        },
+        {
+          "N": 1000,
+          "seed": 20301831,
+          "start": 31000,
+          "physics_set": {
+            "name": "therapy-electron-v1",
+            "id": 2,
+            "tag": 7198080100198966926
+          },
+          "health": {
+            "status": "pass",
+            "histories": 1000,
+            "failures": 0,
+            "max_balance": 5.336670890971e-15
+          },
+          "sha256": "5792cc016112f800bb07e0ba29f2962303044d8f7a871be0805d432a9bb9bd8c"
+        },
+        {
+          "N": 1000,
+          "seed": 20301831,
+          "start": 32000,
+          "physics_set": {
+            "name": "therapy-electron-v1",
+            "id": 2,
+            "tag": 7198080100198966926
+          },
+          "health": {
+            "status": "pass",
+            "histories": 1000,
+            "failures": 0,
+            "max_balance": 4.990848357300919e-15
+          },
+          "sha256": "7a2c943cb656f387c9062e605252c7325dc7562e27c164591e4fa14c3941993e"
+        },
+        {
+          "N": 1000,
+          "seed": 20301831,
+          "start": 33000,
+          "physics_set": {
+            "name": "therapy-electron-v1",
+            "id": 2,
+            "tag": 7198080100198966926
+          },
+          "health": {
+            "status": "pass",
+            "histories": 1000,
+            "failures": 0,
+            "max_balance": 7.398307355014206e-15
+          },
+          "sha256": "1a4c877b91ad47954a1eb58f3df6bbb8fedfc2dc04438c3c5a85ac5a1e6c2e79"
+        },
+        {
+          "N": 1000,
+          "seed": 20301831,
+          "start": 34000,
+          "physics_set": {
+            "name": "therapy-electron-v1",
+            "id": 2,
+            "tag": 7198080100198966926
+          },
+          "health": {
+            "status": "pass",
+            "histories": 1000,
+            "failures": 0,
+            "max_balance": 5.1897996355423585e-15
+          },
+          "sha256": "ff4e373e289c0d6cb4590426298671efe5af546fc76dc7205237d9efdfbfac00"
+        },
+        {
+          "N": 1000,
+          "seed": 20301831,
+          "start": 35000,
+          "physics_set": {
+            "name": "therapy-electron-v1",
+            "id": 2,
+            "tag": 7198080100198966926
+          },
+          "health": {
+            "status": "pass",
+            "histories": 1000,
+            "failures": 0,
+            "max_balance": 4.224521170195575e-15
+          },
+          "sha256": "71c98a8d55742c0dcc4b31b2913ab0feb660aa24addc90b73e327265c6609d4b"
+        },
+        {
+          "N": 1000,
+          "seed": 20301831,
+          "start": 36000,
+          "physics_set": {
+            "name": "therapy-electron-v1",
+            "id": 2,
+            "tag": 7198080100198966926
+          },
+          "health": {
+            "status": "pass",
+            "histories": 1000,
+            "failures": 0,
+            "max_balance": 3.688940882120147e-15
+          },
+          "sha256": "d30905534c1e63ef63df6a90a974c25d8d5ba30ab9acb7f8cac3f12372df66d0"
+        },
+        {
+          "N": 1000,
+          "seed": 20301831,
+          "start": 37000,
+          "physics_set": {
+            "name": "therapy-electron-v1",
+            "id": 2,
+            "tag": 7198080100198966926
+          },
+          "health": {
+            "status": "pass",
+            "histories": 1000,
+            "failures": 0,
+            "max_balance": 5.147032981585571e-15
+          },
+          "sha256": "d825c7d78c20b58d77464c6fd9d1910eba9c3916008d35b5bfb4a98e9697f78d"
+        },
+        {
+          "N": 1000,
+          "seed": 20301831,
+          "start": 38000,
+          "physics_set": {
+            "name": "therapy-electron-v1",
+            "id": 2,
+            "tag": 7198080100198966926
+          },
+          "health": {
+            "status": "pass",
+            "histories": 1000,
+            "failures": 0,
+            "max_balance": 5.209742558539789e-15
+          },
+          "sha256": "a1ec8e55da5fdc6122b27c8e0f250af34fa20e13f66116fbd7989d538bf34fd6"
+        },
+        {
+          "N": 1000,
+          "seed": 20301831,
+          "start": 39000,
+          "physics_set": {
+            "name": "therapy-electron-v1",
+            "id": 2,
+            "tag": 7198080100198966926
+          },
+          "health": {
+            "status": "pass",
+            "histories": 1000,
+            "failures": 0,
+            "max_balance": 4.4172201031672036e-15
+          },
+          "sha256": "8781ce1c1a5e5421a02a9803bf873c2493ce1e85215c675e5cdf9ead98bfe97e"
+        },
+        {
+          "N": 1000,
+          "seed": 20301831,
+          "start": 40000,
+          "physics_set": {
+            "name": "therapy-electron-v1",
+            "id": 2,
+            "tag": 7198080100198966926
+          },
+          "health": {
+            "status": "pass",
+            "histories": 1000,
+            "failures": 0,
+            "max_balance": 4.814905249459719e-15
+          },
+          "sha256": "2070cfa735af6e28cb6f3d081802756c6f592c57efa2ba79a254fa354cb83812"
+        },
+        {
+          "N": 1000,
+          "seed": 20301831,
+          "start": 41000,
+          "physics_set": {
+            "name": "therapy-electron-v1",
+            "id": 2,
+            "tag": 7198080100198966926
+          },
+          "health": {
+            "status": "pass",
+            "histories": 1000,
+            "failures": 0,
+            "max_balance": 4.179444255667722e-15
+          },
+          "sha256": "4dad7a4288f5550623cfb035f59eb9a20077171eb9d5798437d09d7b531ca847"
+        },
+        {
+          "N": 1000,
+          "seed": 20301831,
+          "start": 42000,
+          "physics_set": {
+            "name": "therapy-electron-v1",
+            "id": 2,
+            "tag": 7198080100198966926
+          },
+          "health": {
+            "status": "pass",
+            "histories": 1000,
+            "failures": 0,
+            "max_balance": 4.0110260951300965e-15
+          },
+          "sha256": "6867c474466d4b96509103de02c88ce202bf278a4a7afc45bf831c2463d42737"
+        },
+        {
+          "N": 1000,
+          "seed": 20301831,
+          "start": 43000,
+          "physics_set": {
+            "name": "therapy-electron-v1",
+            "id": 2,
+            "tag": 7198080100198966926
+          },
+          "health": {
+            "status": "pass",
+            "histories": 1000,
+            "failures": 0,
+            "max_balance": 3.786639822772326e-15
+          },
+          "sha256": "df941f667befe958fbe6f5b6fd81e9300f53fbbc82002fb701fc8353e60213fd"
+        },
+        {
+          "N": 1000,
+          "seed": 20301831,
+          "start": 44000,
+          "physics_set": {
+            "name": "therapy-electron-v1",
+            "id": 2,
+            "tag": 7198080100198966926
+          },
+          "health": {
+            "status": "pass",
+            "histories": 1000,
+            "failures": 0,
+            "max_balance": 3.4100313135279103e-15
+          },
+          "sha256": "60a1504ebb5be6da8409e642bd8f84b30b55fd33350ffe0e8795097d2911a24b"
+        },
+        {
+          "N": 1000,
+          "seed": 20301831,
+          "start": 45000,
+          "physics_set": {
+            "name": "therapy-electron-v1",
+            "id": 2,
+            "tag": 7198080100198966926
+          },
+          "health": {
+            "status": "pass",
+            "histories": 1000,
+            "failures": 0,
+            "max_balance": 4.852935130241007e-15
+          },
+          "sha256": "aa628ef20ac22762c71546a1e94f9ba425456fc38040ae4514f57c7a08762014"
+        },
+        {
+          "N": 1000,
+          "seed": 20301831,
+          "start": 46000,
+          "physics_set": {
+            "name": "therapy-electron-v1",
+            "id": 2,
+            "tag": 7198080100198966926
+          },
+          "health": {
+            "status": "pass",
+            "histories": 1000,
+            "failures": 0,
+            "max_balance": 5.1472182172113566e-15
+          },
+          "sha256": "0148845473d8838e7c4158ec4908c700133b3b9738e49d9058444d089b562cdb"
+        },
+        {
+          "N": 1000,
+          "seed": 20301831,
+          "start": 47000,
+          "physics_set": {
+            "name": "therapy-electron-v1",
+            "id": 2,
+            "tag": 7198080100198966926
+          },
+          "health": {
+            "status": "pass",
+            "histories": 1000,
+            "failures": 0,
+            "max_balance": 4.229142137595078e-15
+          },
+          "sha256": "3318b39122771fafd2831dde2676dd77eb9ea677b440c9f58c942ed0e2fbe67e"
+        },
+        {
+          "N": 1000,
+          "seed": 20301831,
+          "start": 48000,
+          "physics_set": {
+            "name": "therapy-electron-v1",
+            "id": 2,
+            "tag": 7198080100198966926
+          },
+          "health": {
+            "status": "pass",
+            "histories": 1000,
+            "failures": 0,
+            "max_balance": 4.584662215632707e-15
+          },
+          "sha256": "7ea79566488352a1b216a54034c0374c2f53320c6a643155f65c62a9aea18aea"
+        },
+        {
+          "N": 1000,
+          "seed": 20301831,
+          "start": 49000,
+          "physics_set": {
+            "name": "therapy-electron-v1",
+            "id": 2,
+            "tag": 7198080100198966926
+          },
+          "health": {
+            "status": "pass",
+            "histories": 1000,
+            "failures": 0,
+            "max_balance": 3.5387736733826157e-15
+          },
+          "sha256": "190ed3c8f53a6a05c836240f5c2b8684b948b96caa0fffdf6cfe45357b00f57e"
+        },
+        {
+          "N": 1000,
+          "seed": 20301831,
+          "start": 50000,
+          "physics_set": {
+            "name": "therapy-electron-v1",
+            "id": 2,
+            "tag": 7198080100198966926
+          },
+          "health": {
+            "status": "pass",
+            "histories": 1000,
+            "failures": 0,
+            "max_balance": 4.68495284347274e-15
+          },
+          "sha256": "697ba7b1c1d26e2b869f1be842a0e59386afb743af63858a77b54a6e5dd5de54"
+        },
+        {
+          "N": 1000,
+          "seed": 20301831,
+          "start": 51000,
+          "physics_set": {
+            "name": "therapy-electron-v1",
+            "id": 2,
+            "tag": 7198080100198966926
+          },
+          "health": {
+            "status": "pass",
+            "histories": 1000,
+            "failures": 0,
+            "max_balance": 5.081534999458019e-15
+          },
+          "sha256": "835a099e375de4b3aa42e52e352d23619d9c08a4cb0d687974031d76472e6638"
+        },
+        {
+          "N": 1000,
+          "seed": 20301831,
+          "start": 52000,
+          "physics_set": {
+            "name": "therapy-electron-v1",
+            "id": 2,
+            "tag": 7198080100198966926
+          },
+          "health": {
+            "status": "pass",
+            "histories": 1000,
+            "failures": 0,
+            "max_balance": 4.9119535012655986e-15
+          },
+          "sha256": "9f9a879596ac1bae4c6acbed30f9b191b35c97d0f28e07ddf5de986dfaaa3513"
+        },
+        {
+          "N": 1000,
+          "seed": 20301831,
+          "start": 53000,
+          "physics_set": {
+            "name": "therapy-electron-v1",
+            "id": 2,
+            "tag": 7198080100198966926
+          },
+          "health": {
+            "status": "pass",
+            "histories": 1000,
+            "failures": 0,
+            "max_balance": 5.383736465262905e-15
+          },
+          "sha256": "5044cbca3b5ed103a3a01ee705ce8f86547e271e99454deab69ef1ffae5ffe96"
+        },
+        {
+          "N": 1000,
+          "seed": 20301831,
+          "start": 54000,
+          "physics_set": {
+            "name": "therapy-electron-v1",
+            "id": 2,
+            "tag": 7198080100198966926
+          },
+          "health": {
+            "status": "pass",
+            "histories": 1000,
+            "failures": 0,
+            "max_balance": 5.162045610420006e-15
+          },
+          "sha256": "5b28852578e0ac0d4ffbe8c4112068572966e46ba45efd2f8aad86205c4f9661"
+        },
+        {
+          "N": 1000,
+          "seed": 20301831,
+          "start": 55000,
+          "physics_set": {
+            "name": "therapy-electron-v1",
+            "id": 2,
+            "tag": 7198080100198966926
+          },
+          "health": {
+            "status": "pass",
+            "histories": 1000,
+            "failures": 0,
+            "max_balance": 5.049617232023389e-15
+          },
+          "sha256": "7a89dc5a6321cb79d6a9b33a6e0c487534005cb7483573b92296ed094b255d26"
+        },
+        {
+          "N": 1000,
+          "seed": 20301831,
+          "start": 56000,
+          "physics_set": {
+            "name": "therapy-electron-v1",
+            "id": 2,
+            "tag": 7198080100198966926
+          },
+          "health": {
+            "status": "pass",
+            "histories": 1000,
+            "failures": 0,
+            "max_balance": 4.46622479016971e-15
+          },
+          "sha256": "b3d6b02c100c100d18bd188799f9e74ea28357972e2e7879258e58e10ec67f5b"
+        },
+        {
+          "N": 1000,
+          "seed": 20301831,
+          "start": 57000,
+          "physics_set": {
+            "name": "therapy-electron-v1",
+            "id": 2,
+            "tag": 7198080100198966926
+          },
+          "health": {
+            "status": "pass",
+            "histories": 1000,
+            "failures": 0,
+            "max_balance": 4.201965866835769e-15
+          },
+          "sha256": "51bf0a14a171cfbacee1355b273fe99d9015064766d27c8298f90673f75daf7a"
+        },
+        {
+          "N": 1000,
+          "seed": 20301831,
+          "start": 58000,
+          "physics_set": {
+            "name": "therapy-electron-v1",
+            "id": 2,
+            "tag": 7198080100198966926
+          },
+          "health": {
+            "status": "pass",
+            "histories": 1000,
+            "failures": 0,
+            "max_balance": 5.861885406888481e-15
+          },
+          "sha256": "eedee734a75fac410f23f4fc3f257efaf57be2466c8231179e1ea1138a13912d"
+        },
+        {
+          "N": 1000,
+          "seed": 20301831,
+          "start": 59000,
+          "physics_set": {
+            "name": "therapy-electron-v1",
+            "id": 2,
+            "tag": 7198080100198966926
+          },
+          "health": {
+            "status": "pass",
+            "histories": 1000,
+            "failures": 0,
+            "max_balance": 4.9405156066826325e-15
+          },
+          "sha256": "c1572c75dcbbf0cfa3b3f2fcf305d85a81a5aeade81a749e8869fe934c881175"
+        },
+        {
+          "N": 1000,
+          "seed": 20301831,
+          "start": 60000,
+          "physics_set": {
+            "name": "therapy-electron-v1",
+            "id": 2,
+            "tag": 7198080100198966926
+          },
+          "health": {
+            "status": "pass",
+            "histories": 1000,
+            "failures": 0,
+            "max_balance": 4.893526987198063e-15
+          },
+          "sha256": "b407055bf33642279d397f41dbdc338b0af2570f3ffa41a939a5d1492b1d337a"
+        },
+        {
+          "N": 1000,
+          "seed": 20301831,
+          "start": 61000,
+          "physics_set": {
+            "name": "therapy-electron-v1",
+            "id": 2,
+            "tag": 7198080100198966926
+          },
+          "health": {
+            "status": "pass",
+            "histories": 1000,
+            "failures": 0,
+            "max_balance": 5.205268635367448e-15
+          },
+          "sha256": "adda21d281231bd4260833d4ecddba382337369a8cb3d010f6d4054b796ce1a6"
+        },
+        {
+          "N": 1000,
+          "seed": 20301831,
+          "start": 62000,
+          "physics_set": {
+            "name": "therapy-electron-v1",
+            "id": 2,
+            "tag": 7198080100198966926
+          },
+          "health": {
+            "status": "pass",
+            "histories": 1000,
+            "failures": 0,
+            "max_balance": 5.006781122706158e-15
+          },
+          "sha256": "0823af84457959f59c139e58e3cfa5a14bcaff3992c2897df54d3dc268396d44"
+        },
+        {
+          "N": 1000,
+          "seed": 20301831,
+          "start": 63000,
+          "physics_set": {
+            "name": "therapy-electron-v1",
+            "id": 2,
+            "tag": 7198080100198966926
+          },
+          "health": {
+            "status": "pass",
+            "histories": 1000,
+            "failures": 0,
+            "max_balance": 3.933667153144722e-15
+          },
+          "sha256": "573829118f91f5efcb885ae567596a041cd490acf647147130fc1e58c4a0247c"
+        },
+        {
+          "N": 1000,
+          "seed": 20301831,
+          "start": 64000,
+          "physics_set": {
+            "name": "therapy-electron-v1",
+            "id": 2,
+            "tag": 7198080100198966926
+          },
+          "health": {
+            "status": "pass",
+            "histories": 1000,
+            "failures": 0,
+            "max_balance": 3.4499906154460517e-15
+          },
+          "sha256": "19a3311a3aa97505b11105ecac0ec1bd45f78d2f9c9e95b3f4c16bd4907e20cf"
+        },
+        {
+          "N": 1000,
+          "seed": 20301831,
+          "start": 65000,
+          "physics_set": {
+            "name": "therapy-electron-v1",
+            "id": 2,
+            "tag": 7198080100198966926
+          },
+          "health": {
+            "status": "pass",
+            "histories": 1000,
+            "failures": 0,
+            "max_balance": 4.4950963042268704e-15
+          },
+          "sha256": "0a90d909a896cadbe16d66f07c814cedb2d39cc8d14ecaeb1621aeffd1d4cd6b"
+        },
+        {
+          "N": 1000,
+          "seed": 20301831,
+          "start": 66000,
+          "physics_set": {
+            "name": "therapy-electron-v1",
+            "id": 2,
+            "tag": 7198080100198966926
+          },
+          "health": {
+            "status": "pass",
+            "histories": 1000,
+            "failures": 0,
+            "max_balance": 4.775100371947576e-15
+          },
+          "sha256": "617c3423ae2d2df37a66bf6c863ce8e68305de07bd67eaeb2d9345dac0123a98"
+        },
+        {
+          "N": 1000,
+          "seed": 20301831,
+          "start": 67000,
+          "physics_set": {
+            "name": "therapy-electron-v1",
+            "id": 2,
+            "tag": 7198080100198966926
+          },
+          "health": {
+            "status": "pass",
+            "histories": 1000,
+            "failures": 0,
+            "max_balance": 4.861081398728972e-15
+          },
+          "sha256": "42f842c96b2ce5f915c386e7bd10234f1fa255cd4fbdea3e6a216ef445d1f0c5"
+        },
+        {
+          "N": 1000,
+          "seed": 20301831,
+          "start": 68000,
+          "physics_set": {
+            "name": "therapy-electron-v1",
+            "id": 2,
+            "tag": 7198080100198966926
+          },
+          "health": {
+            "status": "pass",
+            "histories": 1000,
+            "failures": 0,
+            "max_balance": 4.037445082374392e-15
+          },
+          "sha256": "8c91c4d859c46bb7ac73eaab0c8cd1f39c7930ef8d2cb63ef089fd853467497e"
+        },
+        {
+          "N": 1000,
+          "seed": 20301831,
+          "start": 69000,
+          "physics_set": {
+            "name": "therapy-electron-v1",
+            "id": 2,
+            "tag": 7198080100198966926
+          },
+          "health": {
+            "status": "pass",
+            "histories": 1000,
+            "failures": 0,
+            "max_balance": 3.878774260952955e-15
+          },
+          "sha256": "5abeddd030267fb965d7f7f94c6ff476ecdc6467602fb3d1d01da17c28f7906b"
+        },
+        {
+          "N": 1000,
+          "seed": 20301831,
+          "start": 70000,
+          "physics_set": {
+            "name": "therapy-electron-v1",
+            "id": 2,
+            "tag": 7198080100198966926
+          },
+          "health": {
+            "status": "pass",
+            "histories": 1000,
+            "failures": 0,
+            "max_balance": 4.04543890414521e-15
+          },
+          "sha256": "60e3ed7ea456e65cb66eafaa188afc7f8c3bd9f392ea55034167113abc3068c9"
+        },
+        {
+          "N": 1000,
+          "seed": 20301831,
+          "start": 71000,
+          "physics_set": {
+            "name": "therapy-electron-v1",
+            "id": 2,
+            "tag": 7198080100198966926
+          },
+          "health": {
+            "status": "pass",
+            "histories": 1000,
+            "failures": 0,
+            "max_balance": 6.251784133652289e-15
+          },
+          "sha256": "6d8c92bd8012027ff24b20ababc75ce2646cb850c35039e87bde9ce40c78ec98"
+        },
+        {
+          "N": 1000,
+          "seed": 20301831,
+          "start": 72000,
+          "physics_set": {
+            "name": "therapy-electron-v1",
+            "id": 2,
+            "tag": 7198080100198966926
+          },
+          "health": {
+            "status": "pass",
+            "histories": 1000,
+            "failures": 0,
+            "max_balance": 4.1968540043327535e-15
+          },
+          "sha256": "82cbabd492a7da919d77502d998c90823ebc9f76d0cabc4c5e17fdf6cd526499"
+        },
+        {
+          "N": 1000,
+          "seed": 20301831,
+          "start": 73000,
+          "physics_set": {
+            "name": "therapy-electron-v1",
+            "id": 2,
+            "tag": 7198080100198966926
+          },
+          "health": {
+            "status": "pass",
+            "histories": 1000,
+            "failures": 0,
+            "max_balance": 4.581552790606839e-15
+          },
+          "sha256": "65f83006a74c977ff66396052e573d61d2ab65bc24a30e5d8beaadab044c942f"
+        },
+        {
+          "N": 1000,
+          "seed": 20301831,
+          "start": 74000,
+          "physics_set": {
+            "name": "therapy-electron-v1",
+            "id": 2,
+            "tag": 7198080100198966926
+          },
+          "health": {
+            "status": "pass",
+            "histories": 1000,
+            "failures": 0,
+            "max_balance": 4.510755428512899e-15
+          },
+          "sha256": "56ffad4e458e24ca2e36eed702538f6e0ff30c0fc63c437c25d09245d01b4cc4"
+        },
+        {
+          "N": 1000,
+          "seed": 20301831,
+          "start": 75000,
+          "physics_set": {
+            "name": "therapy-electron-v1",
+            "id": 2,
+            "tag": 7198080100198966926
+          },
+          "health": {
+            "status": "pass",
+            "histories": 1000,
+            "failures": 0,
+            "max_balance": 4.271943283487981e-15
+          },
+          "sha256": "3b2a8c023833ddac78bd93c47a721b1ede9b59c39ae2d6ff34c44fd455f8056a"
+        },
+        {
+          "N": 1000,
+          "seed": 20301831,
+          "start": 76000,
+          "physics_set": {
+            "name": "therapy-electron-v1",
+            "id": 2,
+            "tag": 7198080100198966926
+          },
+          "health": {
+            "status": "pass",
+            "histories": 1000,
+            "failures": 0,
+            "max_balance": 5.003910683633714e-15
+          },
+          "sha256": "42b04f069ad059ef20e8be048414c85a77060b54f454230839e9243466dc016c"
+        },
+        {
+          "N": 1000,
+          "seed": 20301831,
+          "start": 77000,
+          "physics_set": {
+            "name": "therapy-electron-v1",
+            "id": 2,
+            "tag": 7198080100198966926
+          },
+          "health": {
+            "status": "pass",
+            "histories": 1000,
+            "failures": 0,
+            "max_balance": 6.295987142480845e-15
+          },
+          "sha256": "a501fc894cada9d674735d328cbcc7a1373b18074822cb1071959d1a2ea68126"
+        },
+        {
+          "N": 1000,
+          "seed": 20301831,
+          "start": 78000,
+          "physics_set": {
+            "name": "therapy-electron-v1",
+            "id": 2,
+            "tag": 7198080100198966926
+          },
+          "health": {
+            "status": "pass",
+            "histories": 1000,
+            "failures": 0,
+            "max_balance": 4.9271521953419e-15
+          },
+          "sha256": "86b59ecbbcc2a06f78fdb068a75fc8446cfe7f25526c2232df049c82d005b882"
+        },
+        {
+          "N": 1000,
+          "seed": 20301831,
+          "start": 79000,
+          "physics_set": {
+            "name": "therapy-electron-v1",
+            "id": 2,
+            "tag": 7198080100198966926
+          },
+          "health": {
+            "status": "pass",
+            "histories": 1000,
+            "failures": 0,
+            "max_balance": 4.260671034411718e-15
+          },
+          "sha256": "6c734af24fa962588ac8d5573f28ad9cf7f86f4d34aa2c4a094f82375b34ca53"
+        },
+        {
+          "N": 1000,
+          "seed": 20301831,
+          "start": 80000,
+          "physics_set": {
+            "name": "therapy-electron-v1",
+            "id": 2,
+            "tag": 7198080100198966926
+          },
+          "health": {
+            "status": "pass",
+            "histories": 1000,
+            "failures": 0,
+            "max_balance": 4.8813384966402596e-15
+          },
+          "sha256": "a8d9e3dc9c273ced0ab1f20e1cfa1e81a5c6d06ff2ac16a8d6f02a0d7ab27609"
+        },
+        {
+          "N": 1000,
+          "seed": 20301831,
+          "start": 81000,
+          "physics_set": {
+            "name": "therapy-electron-v1",
+            "id": 2,
+            "tag": 7198080100198966926
+          },
+          "health": {
+            "status": "pass",
+            "histories": 1000,
+            "failures": 0,
+            "max_balance": 4.4159519452422126e-15
+          },
+          "sha256": "b0e5384f2fcb09c5a61da675e212ef1c8da91b59a07611f0c11535b39e033772"
+        },
+        {
+          "N": 1000,
+          "seed": 20301831,
+          "start": 82000,
+          "physics_set": {
+            "name": "therapy-electron-v1",
+            "id": 2,
+            "tag": 7198080100198966926
+          },
+          "health": {
+            "status": "pass",
+            "histories": 1000,
+            "failures": 0,
+            "max_balance": 4.0694462867295284e-15
+          },
+          "sha256": "c41510fafae941e6e0567feea94031e43ca378e85f8ac9a9991fdf982887d072"
+        },
+        {
+          "N": 1000,
+          "seed": 20301831,
+          "start": 83000,
+          "physics_set": {
+            "name": "therapy-electron-v1",
+            "id": 2,
+            "tag": 7198080100198966926
+          },
+          "health": {
+            "status": "pass",
+            "histories": 1000,
+            "failures": 0,
+            "max_balance": 3.836620424001807e-15
+          },
+          "sha256": "d13e38480a5f4f0d367d64850f848be6584483e241b96c789c4f62489df4282a"
+        },
+        {
+          "N": 1000,
+          "seed": 20301831,
+          "start": 84000,
+          "physics_set": {
+            "name": "therapy-electron-v1",
+            "id": 2,
+            "tag": 7198080100198966926
+          },
+          "health": {
+            "status": "pass",
+            "histories": 1000,
+            "failures": 0,
+            "max_balance": 4.645632284560463e-15
+          },
+          "sha256": "ffde5649839e8d622f5ef30b8e78ceb0729c3aee8a8f75adb847babb197a502a"
+        },
+        {
+          "N": 1000,
+          "seed": 20301831,
+          "start": 85000,
+          "physics_set": {
+            "name": "therapy-electron-v1",
+            "id": 2,
+            "tag": 7198080100198966926
+          },
+          "health": {
+            "status": "pass",
+            "histories": 1000,
+            "failures": 0,
+            "max_balance": 4.6209161739085116e-15
+          },
+          "sha256": "112c519d5a974f241f2810186d5dc3f7704baed8971573fe059132b964756926"
+        },
+        {
+          "N": 1000,
+          "seed": 20301831,
+          "start": 86000,
+          "physics_set": {
+            "name": "therapy-electron-v1",
+            "id": 2,
+            "tag": 7198080100198966926
+          },
+          "health": {
+            "status": "pass",
+            "histories": 1000,
+            "failures": 0,
+            "max_balance": 5.129525131621138e-15
+          },
+          "sha256": "4e3073565386e84929f48bd51f57f0953de723a5b93807ad297bba7354f78756"
+        },
+        {
+          "N": 1000,
+          "seed": 20301831,
+          "start": 87000,
+          "physics_set": {
+            "name": "therapy-electron-v1",
+            "id": 2,
+            "tag": 7198080100198966926
+          },
+          "health": {
+            "status": "pass",
+            "histories": 1000,
+            "failures": 0,
+            "max_balance": 5.637993488931527e-15
+          },
+          "sha256": "4592e41169a913ca85366b9163f53cc61fd082508c6e784408a6fd2547d56b2e"
+        },
+        {
+          "N": 1000,
+          "seed": 20301831,
+          "start": 88000,
+          "physics_set": {
+            "name": "therapy-electron-v1",
+            "id": 2,
+            "tag": 7198080100198966926
+          },
+          "health": {
+            "status": "pass",
+            "histories": 1000,
+            "failures": 0,
+            "max_balance": 4.7788693248099835e-15
+          },
+          "sha256": "41fd2b4493157f14668ade902dbbb2eec8c86d85cafc9385d7587063116d7f43"
+        },
+        {
+          "N": 1000,
+          "seed": 20301831,
+          "start": 89000,
+          "physics_set": {
+            "name": "therapy-electron-v1",
+            "id": 2,
+            "tag": 7198080100198966926
+          },
+          "health": {
+            "status": "pass",
+            "histories": 1000,
+            "failures": 0,
+            "max_balance": 3.8346270632461755e-15
+          },
+          "sha256": "1d43a5e12afac11685ccc523a3801b66bf646d3cb58e8acd3647219772b5e00a"
+        },
+        {
+          "N": 1000,
+          "seed": 20301831,
+          "start": 90000,
+          "physics_set": {
+            "name": "therapy-electron-v1",
+            "id": 2,
+            "tag": 7198080100198966926
+          },
+          "health": {
+            "status": "pass",
+            "histories": 1000,
+            "failures": 0,
+            "max_balance": 3.767540283692145e-15
+          },
+          "sha256": "cc469da38d90832a8602e9bc6c5db56ac320cf0976352a2f818cb1642977a51e"
+        },
+        {
+          "N": 1000,
+          "seed": 20301831,
+          "start": 91000,
+          "physics_set": {
+            "name": "therapy-electron-v1",
+            "id": 2,
+            "tag": 7198080100198966926
+          },
+          "health": {
+            "status": "pass",
+            "histories": 1000,
+            "failures": 0,
+            "max_balance": 6.054293098096439e-15
+          },
+          "sha256": "b5044c6771c8e5b297bf4cdb81e6251b6800aff6fbe32545d49d95a42cda6e46"
+        },
+        {
+          "N": 1000,
+          "seed": 20301831,
+          "start": 92000,
+          "physics_set": {
+            "name": "therapy-electron-v1",
+            "id": 2,
+            "tag": 7198080100198966926
+          },
+          "health": {
+            "status": "pass",
+            "histories": 1000,
+            "failures": 0,
+            "max_balance": 4.7342465746012835e-15
+          },
+          "sha256": "7f30858a7c89983bdaa9ab987f6ec52336f5161b04ac1063c4abda2a73c98d81"
+        },
+        {
+          "N": 1000,
+          "seed": 20301831,
+          "start": 93000,
+          "physics_set": {
+            "name": "therapy-electron-v1",
+            "id": 2,
+            "tag": 7198080100198966926
+          },
+          "health": {
+            "status": "pass",
+            "histories": 1000,
+            "failures": 0,
+            "max_balance": 3.2074496261837463e-15
+          },
+          "sha256": "922e26eddbbc595f611772aeacb693f8ef5f5cfd1f541ecb7ff321f4a68819db"
+        },
+        {
+          "N": 1000,
+          "seed": 20301831,
+          "start": 94000,
+          "physics_set": {
+            "name": "therapy-electron-v1",
+            "id": 2,
+            "tag": 7198080100198966926
+          },
+          "health": {
+            "status": "pass",
+            "histories": 1000,
+            "failures": 0,
+            "max_balance": 4.3780497838716436e-15
+          },
+          "sha256": "c985c5d08a596bfa4da83f9330745f2e8b766ec1a9359c24cb27acc7699461d7"
+        },
+        {
+          "N": 1000,
+          "seed": 20301831,
+          "start": 95000,
+          "physics_set": {
+            "name": "therapy-electron-v1",
+            "id": 2,
+            "tag": 7198080100198966926
+          },
+          "health": {
+            "status": "pass",
+            "histories": 1000,
+            "failures": 0,
+            "max_balance": 4.935642489025961e-15
+          },
+          "sha256": "169126ac49d78116beb934ccb85632c079b50c5957dba0ecc98f6c1579342160"
+        },
+        {
+          "N": 1000,
+          "seed": 20301831,
+          "start": 96000,
+          "physics_set": {
+            "name": "therapy-electron-v1",
+            "id": 2,
+            "tag": 7198080100198966926
+          },
+          "health": {
+            "status": "pass",
+            "histories": 1000,
+            "failures": 0,
+            "max_balance": 4.86057857467067e-15
+          },
+          "sha256": "df9d586e07e4df2a0ca02cccb5625ea8352ca2ce6cf32dc58a5b919b7e226960"
+        },
+        {
+          "N": 1000,
+          "seed": 20301831,
+          "start": 97000,
+          "physics_set": {
+            "name": "therapy-electron-v1",
+            "id": 2,
+            "tag": 7198080100198966926
+          },
+          "health": {
+            "status": "pass",
+            "histories": 1000,
+            "failures": 0,
+            "max_balance": 4.399246281265659e-15
+          },
+          "sha256": "67662becdc147617c19381a65c3a4d23f6bd54b68a3db48441e2881cfd241929"
+        },
+        {
+          "N": 1000,
+          "seed": 20301831,
+          "start": 98000,
+          "physics_set": {
+            "name": "therapy-electron-v1",
+            "id": 2,
+            "tag": 7198080100198966926
+          },
+          "health": {
+            "status": "pass",
+            "histories": 1000,
+            "failures": 0,
+            "max_balance": 5.454442069194038e-15
+          },
+          "sha256": "bde2ab030fda6f276c4baa49163bc3f178873c7b2af7b3d5f3280707d9bd462a"
+        },
+        {
+          "N": 1000,
+          "seed": 20301831,
+          "start": 99000,
+          "physics_set": {
+            "name": "therapy-electron-v1",
+            "id": 2,
+            "tag": 7198080100198966926
+          },
+          "health": {
+            "status": "pass",
+            "histories": 1000,
+            "failures": 0,
+            "max_balance": 4.929109932703599e-15
+          },
+          "sha256": "9ebcfdb70bc0317f94a6b30ab42b9438f86f37dfb86e49719daaf1bc681ec3e4"
+        }
+      ],
+      "mean_deposited_MeV": 1.4134680944274791,
+      "observed": {
+        "name": "therapy-electron-v1",
+        "id": 2,
+        "tag": 7198080100198966926
+      },
+      "table_sha256": "baca9658d8982032844dcf5f6d9003ec0e2dbd33d9a38514569521e3c474db7f"
+    },
+    "stack": {
+      "status": "pass",
+      "N": 100000,
+      "seed": 830101,
+      "seconds": 54.588686499744654,
+      "health": [
+        {
+          "status": "pass",
+          "histories": 1000,
+          "failures": 0,
+          "max_balance": 8.28900080140543e-15
+        },
+        {
+          "status": "pass",
+          "histories": 1000,
+          "failures": 0,
+          "max_balance": 1.181448348902202e-14
+        },
+        {
+          "status": "pass",
+          "histories": 1000,
+          "failures": 0,
+          "max_balance": 1.509427395642454e-14
+        },
+        {
+          "status": "pass",
+          "histories": 1000,
+          "failures": 0,
+          "max_balance": 1.4650178313212816e-14
+        },
+        {
+          "status": "pass",
+          "histories": 1000,
+          "failures": 0,
+          "max_balance": 1.1055284666474799e-14
+        },
+        {
+          "status": "pass",
+          "histories": 1000,
+          "failures": 0,
+          "max_balance": 1.0173879511386161e-14
+        },
+        {
+          "status": "pass",
+          "histories": 1000,
+          "failures": 0,
+          "max_balance": 9.591298698553563e-15
+        },
+        {
+          "status": "pass",
+          "histories": 1000,
+          "failures": 0,
+          "max_balance": 7.980695574777139e-15
+        },
+        {
+          "status": "pass",
+          "histories": 1000,
+          "failures": 0,
+          "max_balance": 1.4269171644099164e-14
+        },
+        {
+          "status": "pass",
+          "histories": 1000,
+          "failures": 0,
+          "max_balance": 1.1668992180141251e-14
+        },
+        {
+          "status": "pass",
+          "histories": 1000,
+          "failures": 0,
+          "max_balance": 9.920107180864295e-15
+        },
+        {
+          "status": "pass",
+          "histories": 1000,
+          "failures": 0,
+          "max_balance": 9.888053417444592e-15
+        },
+        {
+          "status": "pass",
+          "histories": 1000,
+          "failures": 0,
+          "max_balance": 8.159001724450133e-15
+        },
+        {
+          "status": "pass",
+          "histories": 1000,
+          "failures": 0,
+          "max_balance": 8.559410956131188e-15
+        },
+        {
+          "status": "pass",
+          "histories": 1000,
+          "failures": 0,
+          "max_balance": 7.090927285536177e-15
+        },
+        {
+          "status": "pass",
+          "histories": 1000,
+          "failures": 0,
+          "max_balance": 8.791787868223824e-15
+        },
+        {
+          "status": "pass",
+          "histories": 1000,
+          "failures": 0,
+          "max_balance": 1.0164550422812053e-14
+        },
+        {
+          "status": "pass",
+          "histories": 1000,
+          "failures": 0,
+          "max_balance": 1.2428012802140153e-14
+        },
+        {
+          "status": "pass",
+          "histories": 1000,
+          "failures": 0,
+          "max_balance": 8.571044890868092e-15
+        },
+        {
+          "status": "pass",
+          "histories": 1000,
+          "failures": 0,
+          "max_balance": 7.577364284288764e-15
+        },
+        {
+          "status": "pass",
+          "histories": 1000,
+          "failures": 0,
+          "max_balance": 8.686537998276838e-15
+        },
+        {
+          "status": "pass",
+          "histories": 1000,
+          "failures": 0,
+          "max_balance": 8.30501830577172e-15
+        },
+        {
+          "status": "pass",
+          "histories": 1000,
+          "failures": 0,
+          "max_balance": 9.866313303964229e-15
+        },
+        {
+          "status": "pass",
+          "histories": 1000,
+          "failures": 0,
+          "max_balance": 8.242977544672048e-15
+        },
+        {
+          "status": "pass",
+          "histories": 1000,
+          "failures": 0,
+          "max_balance": 1.0446631267587482e-14
+        },
+        {
+          "status": "pass",
+          "histories": 1000,
+          "failures": 0,
+          "max_balance": 6.620350234775464e-15
+        },
+        {
+          "status": "pass",
+          "histories": 1000,
+          "failures": 0,
+          "max_balance": 7.634860431630694e-15
+        },
+        {
+          "status": "pass",
+          "histories": 1000,
+          "failures": 0,
+          "max_balance": 9.115797907683418e-15
+        },
+        {
+          "status": "pass",
+          "histories": 1000,
+          "failures": 0,
+          "max_balance": 1.0570440664654296e-14
+        },
+        {
+          "status": "pass",
+          "histories": 1000,
+          "failures": 0,
+          "max_balance": 7.435775584126146e-15
+        },
+        {
+          "status": "pass",
+          "histories": 1000,
+          "failures": 0,
+          "max_balance": 8.407783848531795e-15
+        },
+        {
+          "status": "pass",
+          "histories": 1000,
+          "failures": 0,
+          "max_balance": 1.1616728055558976e-14
+        },
+        {
+          "status": "pass",
+          "histories": 1000,
+          "failures": 0,
+          "max_balance": 9.038824904999178e-15
+        },
+        {
+          "status": "pass",
+          "histories": 1000,
+          "failures": 0,
+          "max_balance": 8.807810298360662e-15
+        },
+        {
+          "status": "pass",
+          "histories": 1000,
+          "failures": 0,
+          "max_balance": 1.0469057177498553e-14
+        },
+        {
+          "status": "pass",
+          "histories": 1000,
+          "failures": 0,
+          "max_balance": 8.886043982528412e-15
+        },
+        {
+          "status": "pass",
+          "histories": 1000,
+          "failures": 0,
+          "max_balance": 1.1848185677152008e-14
+        },
+        {
+          "status": "pass",
+          "histories": 1000,
+          "failures": 0,
+          "max_balance": 1.1321522056225494e-14
+        },
+        {
+          "status": "pass",
+          "histories": 1000,
+          "failures": 0,
+          "max_balance": 8.914986806313602e-15
+        },
+        {
+          "status": "pass",
+          "histories": 1000,
+          "failures": 0,
+          "max_balance": 7.787017107327618e-15
+        },
+        {
+          "status": "pass",
+          "histories": 1000,
+          "failures": 0,
+          "max_balance": 9.704147057489307e-15
+        },
+        {
+          "status": "pass",
+          "histories": 1000,
+          "failures": 0,
+          "max_balance": 1.1111887166956886e-14
+        },
+        {
+          "status": "pass",
+          "histories": 1000,
+          "failures": 0,
+          "max_balance": 8.999535615006867e-15
+        },
+        {
+          "status": "pass",
+          "histories": 1000,
+          "failures": 0,
+          "max_balance": 1.1556584978978723e-14
+        },
+        {
+          "status": "pass",
+          "histories": 1000,
+          "failures": 0,
+          "max_balance": 1.1673013435986504e-14
+        },
+        {
+          "status": "pass",
+          "histories": 1000,
+          "failures": 0,
+          "max_balance": 1.2104556604921063e-14
+        },
+        {
+          "status": "pass",
+          "histories": 1000,
+          "failures": 0,
+          "max_balance": 7.761974641286942e-15
+        },
+        {
+          "status": "pass",
+          "histories": 1000,
+          "failures": 0,
+          "max_balance": 1.4793855685588542e-14
+        },
+        {
+          "status": "pass",
+          "histories": 1000,
+          "failures": 0,
+          "max_balance": 8.76143438876675e-15
+        },
+        {
+          "status": "pass",
+          "histories": 1000,
+          "failures": 0,
+          "max_balance": 1.0542995932791501e-14
+        },
+        {
+          "status": "pass",
+          "histories": 1000,
+          "failures": 0,
+          "max_balance": 9.099911378412683e-15
+        },
+        {
+          "status": "pass",
+          "histories": 1000,
+          "failures": 0,
+          "max_balance": 8.720402740467102e-15
+        },
+        {
+          "status": "pass",
+          "histories": 1000,
+          "failures": 0,
+          "max_balance": 1.1118092335541709e-14
+        },
+        {
+          "status": "pass",
+          "histories": 1000,
+          "failures": 0,
+          "max_balance": 9.921480324785302e-15
+        },
+        {
+          "status": "pass",
+          "histories": 1000,
+          "failures": 0,
+          "max_balance": 8.175928341741572e-15
+        },
+        {
+          "status": "pass",
+          "histories": 1000,
+          "failures": 0,
+          "max_balance": 9.226693919409098e-15
+        },
+        {
+          "status": "pass",
+          "histories": 1000,
+          "failures": 0,
+          "max_balance": 8.394839999691176e-15
+        },
+        {
+          "status": "pass",
+          "histories": 1000,
+          "failures": 0,
+          "max_balance": 8.184978308694307e-15
+        },
+        {
+          "status": "pass",
+          "histories": 1000,
+          "failures": 0,
+          "max_balance": 8.358239131038737e-15
+        },
+        {
+          "status": "pass",
+          "histories": 1000,
+          "failures": 0,
+          "max_balance": 1.0782001328936292e-14
+        },
+        {
+          "status": "pass",
+          "histories": 1000,
+          "failures": 0,
+          "max_balance": 8.430533444886826e-15
+        },
+        {
+          "status": "pass",
+          "histories": 1000,
+          "failures": 0,
+          "max_balance": 6.819996381668992e-15
+        },
+        {
+          "status": "pass",
+          "histories": 1000,
+          "failures": 0,
+          "max_balance": 8.84917794275394e-15
+        },
+        {
+          "status": "pass",
+          "histories": 1000,
+          "failures": 0,
+          "max_balance": 1.0610859469893939e-14
+        },
+        {
+          "status": "pass",
+          "histories": 1000,
+          "failures": 0,
+          "max_balance": 8.90845861267542e-15
+        },
+        {
+          "status": "pass",
+          "histories": 1000,
+          "failures": 0,
+          "max_balance": 8.012883741953212e-15
+        },
+        {
+          "status": "pass",
+          "histories": 1000,
+          "failures": 0,
+          "max_balance": 9.649102577568045e-15
+        },
+        {
+          "status": "pass",
+          "histories": 1000,
+          "failures": 0,
+          "max_balance": 9.224362511449085e-15
+        },
+        {
+          "status": "pass",
+          "histories": 1000,
+          "failures": 0,
+          "max_balance": 1.0030982169614002e-14
+        },
+        {
+          "status": "pass",
+          "histories": 1000,
+          "failures": 0,
+          "max_balance": 1.3957064418489555e-14
+        },
+        {
+          "status": "pass",
+          "histories": 1000,
+          "failures": 0,
+          "max_balance": 7.320503509184703e-15
+        },
+        {
+          "status": "pass",
+          "histories": 1000,
+          "failures": 0,
+          "max_balance": 1.034411298412442e-14
+        },
+        {
+          "status": "pass",
+          "histories": 1000,
+          "failures": 0,
+          "max_balance": 1.0747836420234547e-14
+        },
+        {
+          "status": "pass",
+          "histories": 1000,
+          "failures": 0,
+          "max_balance": 8.075656946054913e-15
+        },
+        {
+          "status": "pass",
+          "histories": 1000,
+          "failures": 0,
+          "max_balance": 1.1003405348549518e-14
+        },
+        {
+          "status": "pass",
+          "histories": 1000,
+          "failures": 0,
+          "max_balance": 6.511189090882401e-15
+        },
+        {
+          "status": "pass",
+          "histories": 1000,
+          "failures": 0,
+          "max_balance": 7.620432903555411e-15
+        },
+        {
+          "status": "pass",
+          "histories": 1000,
+          "failures": 0,
+          "max_balance": 8.743184568825716e-15
+        },
+        {
+          "status": "pass",
+          "histories": 1000,
+          "failures": 0,
+          "max_balance": 9.543368042987176e-15
+        },
+        {
+          "status": "pass",
+          "histories": 1000,
+          "failures": 0,
+          "max_balance": 7.912270417809099e-15
+        },
+        {
+          "status": "pass",
+          "histories": 1000,
+          "failures": 0,
+          "max_balance": 1.1896032490249827e-14
+        },
+        {
+          "status": "pass",
+          "histories": 1000,
+          "failures": 0,
+          "max_balance": 9.403288809883817e-15
+        },
+        {
+          "status": "pass",
+          "histories": 1000,
+          "failures": 0,
+          "max_balance": 8.89341893113021e-15
+        },
+        {
+          "status": "pass",
+          "histories": 1000,
+          "failures": 0,
+          "max_balance": 9.266552210896129e-15
+        },
+        {
+          "status": "pass",
+          "histories": 1000,
+          "failures": 0,
+          "max_balance": 1.1234468872687422e-14
+        },
+        {
+          "status": "pass",
+          "histories": 1000,
+          "failures": 0,
+          "max_balance": 1.1151008480614343e-14
+        },
+        {
+          "status": "pass",
+          "histories": 1000,
+          "failures": 0,
+          "max_balance": 9.636145747794867e-15
+        },
+        {
+          "status": "pass",
+          "histories": 1000,
+          "failures": 0,
+          "max_balance": 1.1127243761255729e-14
+        },
+        {
+          "status": "pass",
+          "histories": 1000,
+          "failures": 0,
+          "max_balance": 8.552951075026763e-15
+        },
+        {
+          "status": "pass",
+          "histories": 1000,
+          "failures": 0,
+          "max_balance": 1.131777737005925e-14
+        },
+        {
+          "status": "pass",
+          "histories": 1000,
+          "failures": 0,
+          "max_balance": 9.265373309293026e-15
+        },
+        {
+          "status": "pass",
+          "histories": 1000,
+          "failures": 0,
+          "max_balance": 7.864379570076824e-15
+        },
+        {
+          "status": "pass",
+          "histories": 1000,
+          "failures": 0,
+          "max_balance": 8.855910541019974e-15
+        },
+        {
+          "status": "pass",
+          "histories": 1000,
+          "failures": 0,
+          "max_balance": 7.213411862022677e-15
+        },
+        {
+          "status": "pass",
+          "histories": 1000,
+          "failures": 0,
+          "max_balance": 1.0858700365018302e-14
+        },
+        {
+          "status": "pass",
+          "histories": 1000,
+          "failures": 0,
+          "max_balance": 8.901440052661856e-15
+        },
+        {
+          "status": "pass",
+          "histories": 1000,
+          "failures": 0,
+          "max_balance": 1.5076829617236264e-14
+        },
+        {
+          "status": "pass",
+          "histories": 1000,
+          "failures": 0,
+          "max_balance": 7.639061303231352e-15
+        },
+        {
+          "status": "pass",
+          "histories": 1000,
+          "failures": 0,
+          "max_balance": 1.1652516909469482e-14
+        },
+        {
+          "status": "pass",
+          "histories": 1000,
+          "failures": 0,
+          "max_balance": 9.64594037710317e-15
+        }
+      ],
+      "receipts": [
+        {
+          "N": 1000,
+          "seed": 830101,
+          "start": 0,
+          "physics_set": {
+            "name": "therapy-electron-v1",
+            "id": 2,
+            "tag": 7198080100198966926
+          },
+          "health": {
+            "status": "pass",
+            "histories": 1000,
+            "failures": 0,
+            "max_balance": 8.28900080140543e-15
+          },
+          "sha256": "9aaa0ecdfe5d8827e5ef241d8eee7f4c367a59c0e6356d4e77ef3ef36956b19e"
+        },
+        {
+          "N": 1000,
+          "seed": 830101,
+          "start": 1000,
+          "physics_set": {
+            "name": "therapy-electron-v1",
+            "id": 2,
+            "tag": 7198080100198966926
+          },
+          "health": {
+            "status": "pass",
+            "histories": 1000,
+            "failures": 0,
+            "max_balance": 1.181448348902202e-14
+          },
+          "sha256": "fb5ec021691aca420f4c019fed33eecef281a52bb2df7f8a1934d43f3d30b73d"
+        },
+        {
+          "N": 1000,
+          "seed": 830101,
+          "start": 2000,
+          "physics_set": {
+            "name": "therapy-electron-v1",
+            "id": 2,
+            "tag": 7198080100198966926
+          },
+          "health": {
+            "status": "pass",
+            "histories": 1000,
+            "failures": 0,
+            "max_balance": 1.509427395642454e-14
+          },
+          "sha256": "7d11bd565af3296b645f353f8ea00199742e0b37746eeba3e3b57f0c4fade592"
+        },
+        {
+          "N": 1000,
+          "seed": 830101,
+          "start": 3000,
+          "physics_set": {
+            "name": "therapy-electron-v1",
+            "id": 2,
+            "tag": 7198080100198966926
+          },
+          "health": {
+            "status": "pass",
+            "histories": 1000,
+            "failures": 0,
+            "max_balance": 1.4650178313212816e-14
+          },
+          "sha256": "a7a7bd3f1d13c589f7efa8e60b6a29ac09a90601a06d2c6cbcc7b00373f50639"
+        },
+        {
+          "N": 1000,
+          "seed": 830101,
+          "start": 4000,
+          "physics_set": {
+            "name": "therapy-electron-v1",
+            "id": 2,
+            "tag": 7198080100198966926
+          },
+          "health": {
+            "status": "pass",
+            "histories": 1000,
+            "failures": 0,
+            "max_balance": 1.1055284666474799e-14
+          },
+          "sha256": "760e5ca6df690ad77c18455553084e7387d19a3237b0557cf584adaaf42d6029"
+        },
+        {
+          "N": 1000,
+          "seed": 830101,
+          "start": 5000,
+          "physics_set": {
+            "name": "therapy-electron-v1",
+            "id": 2,
+            "tag": 7198080100198966926
+          },
+          "health": {
+            "status": "pass",
+            "histories": 1000,
+            "failures": 0,
+            "max_balance": 1.0173879511386161e-14
+          },
+          "sha256": "ac211ad089ec922adb686558cbfabe5e47746856c078765ddc876bdfb0130249"
+        },
+        {
+          "N": 1000,
+          "seed": 830101,
+          "start": 6000,
+          "physics_set": {
+            "name": "therapy-electron-v1",
+            "id": 2,
+            "tag": 7198080100198966926
+          },
+          "health": {
+            "status": "pass",
+            "histories": 1000,
+            "failures": 0,
+            "max_balance": 9.591298698553563e-15
+          },
+          "sha256": "c34422ee9eb4a80dd7d0bd1eb29a756df2453744976de9ff3ada91a4f3a5aeed"
+        },
+        {
+          "N": 1000,
+          "seed": 830101,
+          "start": 7000,
+          "physics_set": {
+            "name": "therapy-electron-v1",
+            "id": 2,
+            "tag": 7198080100198966926
+          },
+          "health": {
+            "status": "pass",
+            "histories": 1000,
+            "failures": 0,
+            "max_balance": 7.980695574777139e-15
+          },
+          "sha256": "6519f257fb2edbc510060035d36a892a735cfcee566bf897b55156c85539787b"
+        },
+        {
+          "N": 1000,
+          "seed": 830101,
+          "start": 8000,
+          "physics_set": {
+            "name": "therapy-electron-v1",
+            "id": 2,
+            "tag": 7198080100198966926
+          },
+          "health": {
+            "status": "pass",
+            "histories": 1000,
+            "failures": 0,
+            "max_balance": 1.4269171644099164e-14
+          },
+          "sha256": "71f238f25bb5452d592afd830b772c700e12052ae4c6ddbb8eec9f6089b35c6b"
+        },
+        {
+          "N": 1000,
+          "seed": 830101,
+          "start": 9000,
+          "physics_set": {
+            "name": "therapy-electron-v1",
+            "id": 2,
+            "tag": 7198080100198966926
+          },
+          "health": {
+            "status": "pass",
+            "histories": 1000,
+            "failures": 0,
+            "max_balance": 1.1668992180141251e-14
+          },
+          "sha256": "4e549159f50ff445f47f9071ad7c6e3deb3e28595a9194c9383ba466cc23eba8"
+        },
+        {
+          "N": 1000,
+          "seed": 830101,
+          "start": 10000,
+          "physics_set": {
+            "name": "therapy-electron-v1",
+            "id": 2,
+            "tag": 7198080100198966926
+          },
+          "health": {
+            "status": "pass",
+            "histories": 1000,
+            "failures": 0,
+            "max_balance": 9.920107180864295e-15
+          },
+          "sha256": "c0b4002aa5c04cca1a202013c37b43b4beea071da6a452e4b1f785a3c220f4c9"
+        },
+        {
+          "N": 1000,
+          "seed": 830101,
+          "start": 11000,
+          "physics_set": {
+            "name": "therapy-electron-v1",
+            "id": 2,
+            "tag": 7198080100198966926
+          },
+          "health": {
+            "status": "pass",
+            "histories": 1000,
+            "failures": 0,
+            "max_balance": 9.888053417444592e-15
+          },
+          "sha256": "2ac2ba9b09e35239f9d4e0e927bbef9aff6dc9a68ac817dce380b2364e9c55a3"
+        },
+        {
+          "N": 1000,
+          "seed": 830101,
+          "start": 12000,
+          "physics_set": {
+            "name": "therapy-electron-v1",
+            "id": 2,
+            "tag": 7198080100198966926
+          },
+          "health": {
+            "status": "pass",
+            "histories": 1000,
+            "failures": 0,
+            "max_balance": 8.159001724450133e-15
+          },
+          "sha256": "95482a1be8139caf50c711a2179a9b146e5ee6abaaf5a8ff248e9ac1cf2b91d5"
+        },
+        {
+          "N": 1000,
+          "seed": 830101,
+          "start": 13000,
+          "physics_set": {
+            "name": "therapy-electron-v1",
+            "id": 2,
+            "tag": 7198080100198966926
+          },
+          "health": {
+            "status": "pass",
+            "histories": 1000,
+            "failures": 0,
+            "max_balance": 8.559410956131188e-15
+          },
+          "sha256": "f79bda7453feabf773afecde3560cdc18e0139d9a8d38354e6ebace4deead1b5"
+        },
+        {
+          "N": 1000,
+          "seed": 830101,
+          "start": 14000,
+          "physics_set": {
+            "name": "therapy-electron-v1",
+            "id": 2,
+            "tag": 7198080100198966926
+          },
+          "health": {
+            "status": "pass",
+            "histories": 1000,
+            "failures": 0,
+            "max_balance": 7.090927285536177e-15
+          },
+          "sha256": "34b589c62953b953e913568e9eb7660f938e11f4a498b04c4bc4f84bedb6ea8a"
+        },
+        {
+          "N": 1000,
+          "seed": 830101,
+          "start": 15000,
+          "physics_set": {
+            "name": "therapy-electron-v1",
+            "id": 2,
+            "tag": 7198080100198966926
+          },
+          "health": {
+            "status": "pass",
+            "histories": 1000,
+            "failures": 0,
+            "max_balance": 8.791787868223824e-15
+          },
+          "sha256": "1cd6d001be8adbdce52bcd12c0fa20571ec7396eb8d2d10372cb03844f07b4af"
+        },
+        {
+          "N": 1000,
+          "seed": 830101,
+          "start": 16000,
+          "physics_set": {
+            "name": "therapy-electron-v1",
+            "id": 2,
+            "tag": 7198080100198966926
+          },
+          "health": {
+            "status": "pass",
+            "histories": 1000,
+            "failures": 0,
+            "max_balance": 1.0164550422812053e-14
+          },
+          "sha256": "ebfe04fed2784b208424787ccd66669d6fcfe745af0cc36b01a6fa5349941b9e"
+        },
+        {
+          "N": 1000,
+          "seed": 830101,
+          "start": 17000,
+          "physics_set": {
+            "name": "therapy-electron-v1",
+            "id": 2,
+            "tag": 7198080100198966926
+          },
+          "health": {
+            "status": "pass",
+            "histories": 1000,
+            "failures": 0,
+            "max_balance": 1.2428012802140153e-14
+          },
+          "sha256": "de930d1e20928ec2268ab9951954f4b0a21ea13953859895352974dd20802bfa"
+        },
+        {
+          "N": 1000,
+          "seed": 830101,
+          "start": 18000,
+          "physics_set": {
+            "name": "therapy-electron-v1",
+            "id": 2,
+            "tag": 7198080100198966926
+          },
+          "health": {
+            "status": "pass",
+            "histories": 1000,
+            "failures": 0,
+            "max_balance": 8.571044890868092e-15
+          },
+          "sha256": "53d7bc5bad32869c77a27d850522054e4d4c84bf1f6459e211af9b703c7d951c"
+        },
+        {
+          "N": 1000,
+          "seed": 830101,
+          "start": 19000,
+          "physics_set": {
+            "name": "therapy-electron-v1",
+            "id": 2,
+            "tag": 7198080100198966926
+          },
+          "health": {
+            "status": "pass",
+            "histories": 1000,
+            "failures": 0,
+            "max_balance": 7.577364284288764e-15
+          },
+          "sha256": "e70396f9dae47ce5226a4dcb56f6536d314db7f83308edd06fa34813151aa629"
+        },
+        {
+          "N": 1000,
+          "seed": 830101,
+          "start": 20000,
+          "physics_set": {
+            "name": "therapy-electron-v1",
+            "id": 2,
+            "tag": 7198080100198966926
+          },
+          "health": {
+            "status": "pass",
+            "histories": 1000,
+            "failures": 0,
+            "max_balance": 8.686537998276838e-15
+          },
+          "sha256": "8b899e8f46ed046d9ce1238ec674aba422ce5579f93c3699dc6fb49ee0d34c47"
+        },
+        {
+          "N": 1000,
+          "seed": 830101,
+          "start": 21000,
+          "physics_set": {
+            "name": "therapy-electron-v1",
+            "id": 2,
+            "tag": 7198080100198966926
+          },
+          "health": {
+            "status": "pass",
+            "histories": 1000,
+            "failures": 0,
+            "max_balance": 8.30501830577172e-15
+          },
+          "sha256": "ce6460a3f472a33ac5a359f7575dddf0a1fa6695d78feb84a22f4c6ce5d3177c"
+        },
+        {
+          "N": 1000,
+          "seed": 830101,
+          "start": 22000,
+          "physics_set": {
+            "name": "therapy-electron-v1",
+            "id": 2,
+            "tag": 7198080100198966926
+          },
+          "health": {
+            "status": "pass",
+            "histories": 1000,
+            "failures": 0,
+            "max_balance": 9.866313303964229e-15
+          },
+          "sha256": "e47d1a2e221bbdda5b466bb9227c65793c838921ef70011afe58a293914944f9"
+        },
+        {
+          "N": 1000,
+          "seed": 830101,
+          "start": 23000,
+          "physics_set": {
+            "name": "therapy-electron-v1",
+            "id": 2,
+            "tag": 7198080100198966926
+          },
+          "health": {
+            "status": "pass",
+            "histories": 1000,
+            "failures": 0,
+            "max_balance": 8.242977544672048e-15
+          },
+          "sha256": "a13fa8aba24f42c226d8e7ab232fa8a51538829fd7d6494cc4bc4db2ebfd6c9d"
+        },
+        {
+          "N": 1000,
+          "seed": 830101,
+          "start": 24000,
+          "physics_set": {
+            "name": "therapy-electron-v1",
+            "id": 2,
+            "tag": 7198080100198966926
+          },
+          "health": {
+            "status": "pass",
+            "histories": 1000,
+            "failures": 0,
+            "max_balance": 1.0446631267587482e-14
+          },
+          "sha256": "449ed6c44e7e07229d52daa0267db8d30a51a544b524ddd153cac3a3a673b3d9"
+        },
+        {
+          "N": 1000,
+          "seed": 830101,
+          "start": 25000,
+          "physics_set": {
+            "name": "therapy-electron-v1",
+            "id": 2,
+            "tag": 7198080100198966926
+          },
+          "health": {
+            "status": "pass",
+            "histories": 1000,
+            "failures": 0,
+            "max_balance": 6.620350234775464e-15
+          },
+          "sha256": "2508ee883ec85375bf47bac7589944cfcad2336a22793e5fb7ba6abf85ed0b4b"
+        },
+        {
+          "N": 1000,
+          "seed": 830101,
+          "start": 26000,
+          "physics_set": {
+            "name": "therapy-electron-v1",
+            "id": 2,
+            "tag": 7198080100198966926
+          },
+          "health": {
+            "status": "pass",
+            "histories": 1000,
+            "failures": 0,
+            "max_balance": 7.634860431630694e-15
+          },
+          "sha256": "75d9ca1b06bb2c91fa533aaea42ac0959ac795dfecb1076dc8a77f8bfd69a894"
+        },
+        {
+          "N": 1000,
+          "seed": 830101,
+          "start": 27000,
+          "physics_set": {
+            "name": "therapy-electron-v1",
+            "id": 2,
+            "tag": 7198080100198966926
+          },
+          "health": {
+            "status": "pass",
+            "histories": 1000,
+            "failures": 0,
+            "max_balance": 9.115797907683418e-15
+          },
+          "sha256": "ac53c89c3739785f078b4475dd768ba5a5c22dac7e56474e7bcdb33fea5ab5e9"
+        },
+        {
+          "N": 1000,
+          "seed": 830101,
+          "start": 28000,
+          "physics_set": {
+            "name": "therapy-electron-v1",
+            "id": 2,
+            "tag": 7198080100198966926
+          },
+          "health": {
+            "status": "pass",
+            "histories": 1000,
+            "failures": 0,
+            "max_balance": 1.0570440664654296e-14
+          },
+          "sha256": "5c01dc8159c4625f525ed3ffa36409688355e29b54db5a92cdf1e276bfa0d6f3"
+        },
+        {
+          "N": 1000,
+          "seed": 830101,
+          "start": 29000,
+          "physics_set": {
+            "name": "therapy-electron-v1",
+            "id": 2,
+            "tag": 7198080100198966926
+          },
+          "health": {
+            "status": "pass",
+            "histories": 1000,
+            "failures": 0,
+            "max_balance": 7.435775584126146e-15
+          },
+          "sha256": "940cf12213e161b875ed0e834a5f9623580d3432754185fcf561af50af47e81b"
+        },
+        {
+          "N": 1000,
+          "seed": 830101,
+          "start": 30000,
+          "physics_set": {
+            "name": "therapy-electron-v1",
+            "id": 2,
+            "tag": 7198080100198966926
+          },
+          "health": {
+            "status": "pass",
+            "histories": 1000,
+            "failures": 0,
+            "max_balance": 8.407783848531795e-15
+          },
+          "sha256": "30b9044077024d7d0e03b6882452d26882f477cdb29807a26f557d0092ab1c20"
+        },
+        {
+          "N": 1000,
+          "seed": 830101,
+          "start": 31000,
+          "physics_set": {
+            "name": "therapy-electron-v1",
+            "id": 2,
+            "tag": 7198080100198966926
+          },
+          "health": {
+            "status": "pass",
+            "histories": 1000,
+            "failures": 0,
+            "max_balance": 1.1616728055558976e-14
+          },
+          "sha256": "3ef17d3f8052728e77a50eb7f0c27e4418d03f4c12e0308b72097a2be0533055"
+        },
+        {
+          "N": 1000,
+          "seed": 830101,
+          "start": 32000,
+          "physics_set": {
+            "name": "therapy-electron-v1",
+            "id": 2,
+            "tag": 7198080100198966926
+          },
+          "health": {
+            "status": "pass",
+            "histories": 1000,
+            "failures": 0,
+            "max_balance": 9.038824904999178e-15
+          },
+          "sha256": "5343591f351ff878d76ec89c7e0385f6835af0f9c611039a125e12a6b1e817fd"
+        },
+        {
+          "N": 1000,
+          "seed": 830101,
+          "start": 33000,
+          "physics_set": {
+            "name": "therapy-electron-v1",
+            "id": 2,
+            "tag": 7198080100198966926
+          },
+          "health": {
+            "status": "pass",
+            "histories": 1000,
+            "failures": 0,
+            "max_balance": 8.807810298360662e-15
+          },
+          "sha256": "31333f9454fc14e462f39af600ec65bec9b0c1ee0c35e51b4d4d7d6998698240"
+        },
+        {
+          "N": 1000,
+          "seed": 830101,
+          "start": 34000,
+          "physics_set": {
+            "name": "therapy-electron-v1",
+            "id": 2,
+            "tag": 7198080100198966926
+          },
+          "health": {
+            "status": "pass",
+            "histories": 1000,
+            "failures": 0,
+            "max_balance": 1.0469057177498553e-14
+          },
+          "sha256": "d77958ad9d9657d047d5efe8df9313f9ec9eee6cd0ae1fbe284fef0983630b1a"
+        },
+        {
+          "N": 1000,
+          "seed": 830101,
+          "start": 35000,
+          "physics_set": {
+            "name": "therapy-electron-v1",
+            "id": 2,
+            "tag": 7198080100198966926
+          },
+          "health": {
+            "status": "pass",
+            "histories": 1000,
+            "failures": 0,
+            "max_balance": 8.886043982528412e-15
+          },
+          "sha256": "cf4a50ec0681e971fa3311938240098ccaadd3372376eff5f3941404167fce9d"
+        },
+        {
+          "N": 1000,
+          "seed": 830101,
+          "start": 36000,
+          "physics_set": {
+            "name": "therapy-electron-v1",
+            "id": 2,
+            "tag": 7198080100198966926
+          },
+          "health": {
+            "status": "pass",
+            "histories": 1000,
+            "failures": 0,
+            "max_balance": 1.1848185677152008e-14
+          },
+          "sha256": "38c3999c3e7d5fc9aa8ed218bb57883c746f05d11e9e6cd1b11dd026fda69aee"
+        },
+        {
+          "N": 1000,
+          "seed": 830101,
+          "start": 37000,
+          "physics_set": {
+            "name": "therapy-electron-v1",
+            "id": 2,
+            "tag": 7198080100198966926
+          },
+          "health": {
+            "status": "pass",
+            "histories": 1000,
+            "failures": 0,
+            "max_balance": 1.1321522056225494e-14
+          },
+          "sha256": "1fe30220bb55f7bc03b7b34b5959336ee3a86610ba01c80b7ccf9179772adf90"
+        },
+        {
+          "N": 1000,
+          "seed": 830101,
+          "start": 38000,
+          "physics_set": {
+            "name": "therapy-electron-v1",
+            "id": 2,
+            "tag": 7198080100198966926
+          },
+          "health": {
+            "status": "pass",
+            "histories": 1000,
+            "failures": 0,
+            "max_balance": 8.914986806313602e-15
+          },
+          "sha256": "4b62cd6b3c5e531b86719ad4deef592d4df644864d79f5f6db541f489428233c"
+        },
+        {
+          "N": 1000,
+          "seed": 830101,
+          "start": 39000,
+          "physics_set": {
+            "name": "therapy-electron-v1",
+            "id": 2,
+            "tag": 7198080100198966926
+          },
+          "health": {
+            "status": "pass",
+            "histories": 1000,
+            "failures": 0,
+            "max_balance": 7.787017107327618e-15
+          },
+          "sha256": "1efc591bb098a994ac86191135a1c2ee49172fee90eca643c33e8fe476d80317"
+        },
+        {
+          "N": 1000,
+          "seed": 830101,
+          "start": 40000,
+          "physics_set": {
+            "name": "therapy-electron-v1",
+            "id": 2,
+            "tag": 7198080100198966926
+          },
+          "health": {
+            "status": "pass",
+            "histories": 1000,
+            "failures": 0,
+            "max_balance": 9.704147057489307e-15
+          },
+          "sha256": "07c033336b087bc95deca278e668550ce639def070207a1a7cf74d84f02d57e0"
+        },
+        {
+          "N": 1000,
+          "seed": 830101,
+          "start": 41000,
+          "physics_set": {
+            "name": "therapy-electron-v1",
+            "id": 2,
+            "tag": 7198080100198966926
+          },
+          "health": {
+            "status": "pass",
+            "histories": 1000,
+            "failures": 0,
+            "max_balance": 1.1111887166956886e-14
+          },
+          "sha256": "2e90a331073af2bbf7d91d069dfec8da962f4158d76d862e20b363d10fc6b924"
+        },
+        {
+          "N": 1000,
+          "seed": 830101,
+          "start": 42000,
+          "physics_set": {
+            "name": "therapy-electron-v1",
+            "id": 2,
+            "tag": 7198080100198966926
+          },
+          "health": {
+            "status": "pass",
+            "histories": 1000,
+            "failures": 0,
+            "max_balance": 8.999535615006867e-15
+          },
+          "sha256": "4c3a72759363da2ba61d4a79e49ae402d0f4415c79adce4edaab0e229d2b6598"
+        },
+        {
+          "N": 1000,
+          "seed": 830101,
+          "start": 43000,
+          "physics_set": {
+            "name": "therapy-electron-v1",
+            "id": 2,
+            "tag": 7198080100198966926
+          },
+          "health": {
+            "status": "pass",
+            "histories": 1000,
+            "failures": 0,
+            "max_balance": 1.1556584978978723e-14
+          },
+          "sha256": "42d22ad0d7d3bd559b269a1a6cfc33fcb6f51d5f2d7fd8922c3ed11f8e69ae22"
+        },
+        {
+          "N": 1000,
+          "seed": 830101,
+          "start": 44000,
+          "physics_set": {
+            "name": "therapy-electron-v1",
+            "id": 2,
+            "tag": 7198080100198966926
+          },
+          "health": {
+            "status": "pass",
+            "histories": 1000,
+            "failures": 0,
+            "max_balance": 1.1673013435986504e-14
+          },
+          "sha256": "0d9776531e8243bc912876bb8464f46f65add5a0fa2fc58826ebfe1d18b02347"
+        },
+        {
+          "N": 1000,
+          "seed": 830101,
+          "start": 45000,
+          "physics_set": {
+            "name": "therapy-electron-v1",
+            "id": 2,
+            "tag": 7198080100198966926
+          },
+          "health": {
+            "status": "pass",
+            "histories": 1000,
+            "failures": 0,
+            "max_balance": 1.2104556604921063e-14
+          },
+          "sha256": "7b5259cf473350b48320acef7ab5109e42fb172417f28f519bc9c89a3fe12262"
+        },
+        {
+          "N": 1000,
+          "seed": 830101,
+          "start": 46000,
+          "physics_set": {
+            "name": "therapy-electron-v1",
+            "id": 2,
+            "tag": 7198080100198966926
+          },
+          "health": {
+            "status": "pass",
+            "histories": 1000,
+            "failures": 0,
+            "max_balance": 7.761974641286942e-15
+          },
+          "sha256": "9b4c841b3410027b6cdd65c700b9014cd7420ded1c50dfa1e1b9dbd512fc7c91"
+        },
+        {
+          "N": 1000,
+          "seed": 830101,
+          "start": 47000,
+          "physics_set": {
+            "name": "therapy-electron-v1",
+            "id": 2,
+            "tag": 7198080100198966926
+          },
+          "health": {
+            "status": "pass",
+            "histories": 1000,
+            "failures": 0,
+            "max_balance": 1.4793855685588542e-14
+          },
+          "sha256": "58c09c810c92c5d041d2f98732224e216bba57425f5b19a6b6444e3b5180ed34"
+        },
+        {
+          "N": 1000,
+          "seed": 830101,
+          "start": 48000,
+          "physics_set": {
+            "name": "therapy-electron-v1",
+            "id": 2,
+            "tag": 7198080100198966926
+          },
+          "health": {
+            "status": "pass",
+            "histories": 1000,
+            "failures": 0,
+            "max_balance": 8.76143438876675e-15
+          },
+          "sha256": "7272e3c394ea6504fd37bd65f52d0e57590cc5cdb6c5bce5662e93bfc860892d"
+        },
+        {
+          "N": 1000,
+          "seed": 830101,
+          "start": 49000,
+          "physics_set": {
+            "name": "therapy-electron-v1",
+            "id": 2,
+            "tag": 7198080100198966926
+          },
+          "health": {
+            "status": "pass",
+            "histories": 1000,
+            "failures": 0,
+            "max_balance": 1.0542995932791501e-14
+          },
+          "sha256": "80c6fb1e10c04c393cb2a3c5e1efa92570a1cee3f29268a0a32d38e7fcbf5329"
+        },
+        {
+          "N": 1000,
+          "seed": 830101,
+          "start": 50000,
+          "physics_set": {
+            "name": "therapy-electron-v1",
+            "id": 2,
+            "tag": 7198080100198966926
+          },
+          "health": {
+            "status": "pass",
+            "histories": 1000,
+            "failures": 0,
+            "max_balance": 9.099911378412683e-15
+          },
+          "sha256": "479d8e99251f010f38b14decd43562219d534378798c44bf6a1253903a4de57e"
+        },
+        {
+          "N": 1000,
+          "seed": 830101,
+          "start": 51000,
+          "physics_set": {
+            "name": "therapy-electron-v1",
+            "id": 2,
+            "tag": 7198080100198966926
+          },
+          "health": {
+            "status": "pass",
+            "histories": 1000,
+            "failures": 0,
+            "max_balance": 8.720402740467102e-15
+          },
+          "sha256": "f7cf07d032fa1773886cb8d72ef4b495c873ba210df72fc9e7c81cc6fd35c88e"
+        },
+        {
+          "N": 1000,
+          "seed": 830101,
+          "start": 52000,
+          "physics_set": {
+            "name": "therapy-electron-v1",
+            "id": 2,
+            "tag": 7198080100198966926
+          },
+          "health": {
+            "status": "pass",
+            "histories": 1000,
+            "failures": 0,
+            "max_balance": 1.1118092335541709e-14
+          },
+          "sha256": "937ea9134a452770cde47ecd5dd81c6e0948329a06745945a891700f43c4cbdc"
+        },
+        {
+          "N": 1000,
+          "seed": 830101,
+          "start": 53000,
+          "physics_set": {
+            "name": "therapy-electron-v1",
+            "id": 2,
+            "tag": 7198080100198966926
+          },
+          "health": {
+            "status": "pass",
+            "histories": 1000,
+            "failures": 0,
+            "max_balance": 9.921480324785302e-15
+          },
+          "sha256": "436c65063f9de77fa505ad9009596914a8f92c3ed18fa55b7b4cade6812cb238"
+        },
+        {
+          "N": 1000,
+          "seed": 830101,
+          "start": 54000,
+          "physics_set": {
+            "name": "therapy-electron-v1",
+            "id": 2,
+            "tag": 7198080100198966926
+          },
+          "health": {
+            "status": "pass",
+            "histories": 1000,
+            "failures": 0,
+            "max_balance": 8.175928341741572e-15
+          },
+          "sha256": "04edeef982ad070d261f2c56618910b3832b0e6b82413d4a2a1afc40d600177a"
+        },
+        {
+          "N": 1000,
+          "seed": 830101,
+          "start": 55000,
+          "physics_set": {
+            "name": "therapy-electron-v1",
+            "id": 2,
+            "tag": 7198080100198966926
+          },
+          "health": {
+            "status": "pass",
+            "histories": 1000,
+            "failures": 0,
+            "max_balance": 9.226693919409098e-15
+          },
+          "sha256": "149b091d0e2466fc26c1d50757f14ff36944587280f3f9e73e974bc9e71690bd"
+        },
+        {
+          "N": 1000,
+          "seed": 830101,
+          "start": 56000,
+          "physics_set": {
+            "name": "therapy-electron-v1",
+            "id": 2,
+            "tag": 7198080100198966926
+          },
+          "health": {
+            "status": "pass",
+            "histories": 1000,
+            "failures": 0,
+            "max_balance": 8.394839999691176e-15
+          },
+          "sha256": "150903bfc1dea36a696d34c4ea6b713ee7e953d3d44f6a7abb2e55b09f5f00f5"
+        },
+        {
+          "N": 1000,
+          "seed": 830101,
+          "start": 57000,
+          "physics_set": {
+            "name": "therapy-electron-v1",
+            "id": 2,
+            "tag": 7198080100198966926
+          },
+          "health": {
+            "status": "pass",
+            "histories": 1000,
+            "failures": 0,
+            "max_balance": 8.184978308694307e-15
+          },
+          "sha256": "4546dae56804ce652a597996b98b484611fcf37c630573ed42024bc4c3385fed"
+        },
+        {
+          "N": 1000,
+          "seed": 830101,
+          "start": 58000,
+          "physics_set": {
+            "name": "therapy-electron-v1",
+            "id": 2,
+            "tag": 7198080100198966926
+          },
+          "health": {
+            "status": "pass",
+            "histories": 1000,
+            "failures": 0,
+            "max_balance": 8.358239131038737e-15
+          },
+          "sha256": "03b04ef680819c4a2214d7e9666a5d93193b2ee4dbe969ea173652f3fec145bb"
+        },
+        {
+          "N": 1000,
+          "seed": 830101,
+          "start": 59000,
+          "physics_set": {
+            "name": "therapy-electron-v1",
+            "id": 2,
+            "tag": 7198080100198966926
+          },
+          "health": {
+            "status": "pass",
+            "histories": 1000,
+            "failures": 0,
+            "max_balance": 1.0782001328936292e-14
+          },
+          "sha256": "4741e708ac6f11b1d27a1cb812da59a01653c5b2c8c56447c0bbac8e15567fae"
+        },
+        {
+          "N": 1000,
+          "seed": 830101,
+          "start": 60000,
+          "physics_set": {
+            "name": "therapy-electron-v1",
+            "id": 2,
+            "tag": 7198080100198966926
+          },
+          "health": {
+            "status": "pass",
+            "histories": 1000,
+            "failures": 0,
+            "max_balance": 8.430533444886826e-15
+          },
+          "sha256": "e86490d916af951014251fb8e7a102ac14f7a739557b11225fc5f9280d4f3e39"
+        },
+        {
+          "N": 1000,
+          "seed": 830101,
+          "start": 61000,
+          "physics_set": {
+            "name": "therapy-electron-v1",
+            "id": 2,
+            "tag": 7198080100198966926
+          },
+          "health": {
+            "status": "pass",
+            "histories": 1000,
+            "failures": 0,
+            "max_balance": 6.819996381668992e-15
+          },
+          "sha256": "aa365adda29034df9a6fafeda68e2506a2a4362eefa9afc8beef4a7dae2304e3"
+        },
+        {
+          "N": 1000,
+          "seed": 830101,
+          "start": 62000,
+          "physics_set": {
+            "name": "therapy-electron-v1",
+            "id": 2,
+            "tag": 7198080100198966926
+          },
+          "health": {
+            "status": "pass",
+            "histories": 1000,
+            "failures": 0,
+            "max_balance": 8.84917794275394e-15
+          },
+          "sha256": "84f0cc8ab9af02750cbdb253c42e57059de764122683037e9fceadb0da403b9b"
+        },
+        {
+          "N": 1000,
+          "seed": 830101,
+          "start": 63000,
+          "physics_set": {
+            "name": "therapy-electron-v1",
+            "id": 2,
+            "tag": 7198080100198966926
+          },
+          "health": {
+            "status": "pass",
+            "histories": 1000,
+            "failures": 0,
+            "max_balance": 1.0610859469893939e-14
+          },
+          "sha256": "9ae53bb9d5de0bd957112a8580d189fabd58404544c0cae73b32c5cc7303c33e"
+        },
+        {
+          "N": 1000,
+          "seed": 830101,
+          "start": 64000,
+          "physics_set": {
+            "name": "therapy-electron-v1",
+            "id": 2,
+            "tag": 7198080100198966926
+          },
+          "health": {
+            "status": "pass",
+            "histories": 1000,
+            "failures": 0,
+            "max_balance": 8.90845861267542e-15
+          },
+          "sha256": "c4d1420a928c45e4f0e8750f5956ee6719541e6c72eb85fdd75ed39f45b93afa"
+        },
+        {
+          "N": 1000,
+          "seed": 830101,
+          "start": 65000,
+          "physics_set": {
+            "name": "therapy-electron-v1",
+            "id": 2,
+            "tag": 7198080100198966926
+          },
+          "health": {
+            "status": "pass",
+            "histories": 1000,
+            "failures": 0,
+            "max_balance": 8.012883741953212e-15
+          },
+          "sha256": "2f0bf08a68e013cfa7885a5c10354fb7560be6eadf3f6f663bae88e4387a1484"
+        },
+        {
+          "N": 1000,
+          "seed": 830101,
+          "start": 66000,
+          "physics_set": {
+            "name": "therapy-electron-v1",
+            "id": 2,
+            "tag": 7198080100198966926
+          },
+          "health": {
+            "status": "pass",
+            "histories": 1000,
+            "failures": 0,
+            "max_balance": 9.649102577568045e-15
+          },
+          "sha256": "3f3483adc04db466cd1858810fc24c1439c08bba2acbb796f068229626a0a0db"
+        },
+        {
+          "N": 1000,
+          "seed": 830101,
+          "start": 67000,
+          "physics_set": {
+            "name": "therapy-electron-v1",
+            "id": 2,
+            "tag": 7198080100198966926
+          },
+          "health": {
+            "status": "pass",
+            "histories": 1000,
+            "failures": 0,
+            "max_balance": 9.224362511449085e-15
+          },
+          "sha256": "0d10a6c6048f50433f7ca56a7bc5870e7da952fc74b794941fcf3c63e8f10982"
+        },
+        {
+          "N": 1000,
+          "seed": 830101,
+          "start": 68000,
+          "physics_set": {
+            "name": "therapy-electron-v1",
+            "id": 2,
+            "tag": 7198080100198966926
+          },
+          "health": {
+            "status": "pass",
+            "histories": 1000,
+            "failures": 0,
+            "max_balance": 1.0030982169614002e-14
+          },
+          "sha256": "a09e9528a3e85366d8071496d36d0faadc1cc02098901529d3b13a009a4574af"
+        },
+        {
+          "N": 1000,
+          "seed": 830101,
+          "start": 69000,
+          "physics_set": {
+            "name": "therapy-electron-v1",
+            "id": 2,
+            "tag": 7198080100198966926
+          },
+          "health": {
+            "status": "pass",
+            "histories": 1000,
+            "failures": 0,
+            "max_balance": 1.3957064418489555e-14
+          },
+          "sha256": "8d9a2ef8cc66d4e840c00b11c015ba77a893baa1287f9c406d6633bea225a423"
+        },
+        {
+          "N": 1000,
+          "seed": 830101,
+          "start": 70000,
+          "physics_set": {
+            "name": "therapy-electron-v1",
+            "id": 2,
+            "tag": 7198080100198966926
+          },
+          "health": {
+            "status": "pass",
+            "histories": 1000,
+            "failures": 0,
+            "max_balance": 7.320503509184703e-15
+          },
+          "sha256": "8c080d40ca254173566cf0555e45cb65a19d2d15f76a80bc8e66a6d6191c724d"
+        },
+        {
+          "N": 1000,
+          "seed": 830101,
+          "start": 71000,
+          "physics_set": {
+            "name": "therapy-electron-v1",
+            "id": 2,
+            "tag": 7198080100198966926
+          },
+          "health": {
+            "status": "pass",
+            "histories": 1000,
+            "failures": 0,
+            "max_balance": 1.034411298412442e-14
+          },
+          "sha256": "21b65bf2487f4741cfc7a741157e76e1fe319b558cf17168e3ee7dedf0c2ff56"
+        },
+        {
+          "N": 1000,
+          "seed": 830101,
+          "start": 72000,
+          "physics_set": {
+            "name": "therapy-electron-v1",
+            "id": 2,
+            "tag": 7198080100198966926
+          },
+          "health": {
+            "status": "pass",
+            "histories": 1000,
+            "failures": 0,
+            "max_balance": 1.0747836420234547e-14
+          },
+          "sha256": "aff7c28f39cf4e5bb2f2ea0ce7d8fc6fac3ededeac9b572f84d240748b31ae0e"
+        },
+        {
+          "N": 1000,
+          "seed": 830101,
+          "start": 73000,
+          "physics_set": {
+            "name": "therapy-electron-v1",
+            "id": 2,
+            "tag": 7198080100198966926
+          },
+          "health": {
+            "status": "pass",
+            "histories": 1000,
+            "failures": 0,
+            "max_balance": 8.075656946054913e-15
+          },
+          "sha256": "ef03cb57fbdbba47097c245a2079741be1fa0353015432ea8e298394e4d74665"
+        },
+        {
+          "N": 1000,
+          "seed": 830101,
+          "start": 74000,
+          "physics_set": {
+            "name": "therapy-electron-v1",
+            "id": 2,
+            "tag": 7198080100198966926
+          },
+          "health": {
+            "status": "pass",
+            "histories": 1000,
+            "failures": 0,
+            "max_balance": 1.1003405348549518e-14
+          },
+          "sha256": "a5b27e7658779edc41461b7856009e1348163633c9346144f52673f9559a0949"
+        },
+        {
+          "N": 1000,
+          "seed": 830101,
+          "start": 75000,
+          "physics_set": {
+            "name": "therapy-electron-v1",
+            "id": 2,
+            "tag": 7198080100198966926
+          },
+          "health": {
+            "status": "pass",
+            "histories": 1000,
+            "failures": 0,
+            "max_balance": 6.511189090882401e-15
+          },
+          "sha256": "695fd8fbfa45756d7189492828623412edf88a15a0a738846e33edff4e4ae6f4"
+        },
+        {
+          "N": 1000,
+          "seed": 830101,
+          "start": 76000,
+          "physics_set": {
+            "name": "therapy-electron-v1",
+            "id": 2,
+            "tag": 7198080100198966926
+          },
+          "health": {
+            "status": "pass",
+            "histories": 1000,
+            "failures": 0,
+            "max_balance": 7.620432903555411e-15
+          },
+          "sha256": "6cf2ee60e0e444d560f7a1b189b7645c73723d3fcc0de9e40c84eb756c04885e"
+        },
+        {
+          "N": 1000,
+          "seed": 830101,
+          "start": 77000,
+          "physics_set": {
+            "name": "therapy-electron-v1",
+            "id": 2,
+            "tag": 7198080100198966926
+          },
+          "health": {
+            "status": "pass",
+            "histories": 1000,
+            "failures": 0,
+            "max_balance": 8.743184568825716e-15
+          },
+          "sha256": "157cdddef1b09bfee323d31e66567c3a2cfa1fced8d3509a3d082f5a451a2c1e"
+        },
+        {
+          "N": 1000,
+          "seed": 830101,
+          "start": 78000,
+          "physics_set": {
+            "name": "therapy-electron-v1",
+            "id": 2,
+            "tag": 7198080100198966926
+          },
+          "health": {
+            "status": "pass",
+            "histories": 1000,
+            "failures": 0,
+            "max_balance": 9.543368042987176e-15
+          },
+          "sha256": "8413270881b3ec454aa6c9058034f433a2f2f1aeb8fa0b3f4f86ce68a51417ee"
+        },
+        {
+          "N": 1000,
+          "seed": 830101,
+          "start": 79000,
+          "physics_set": {
+            "name": "therapy-electron-v1",
+            "id": 2,
+            "tag": 7198080100198966926
+          },
+          "health": {
+            "status": "pass",
+            "histories": 1000,
+            "failures": 0,
+            "max_balance": 7.912270417809099e-15
+          },
+          "sha256": "85cd1983c8e0c43d12b4e373ef44f91145d97e4470e4eacc2b4e0ee412910217"
+        },
+        {
+          "N": 1000,
+          "seed": 830101,
+          "start": 80000,
+          "physics_set": {
+            "name": "therapy-electron-v1",
+            "id": 2,
+            "tag": 7198080100198966926
+          },
+          "health": {
+            "status": "pass",
+            "histories": 1000,
+            "failures": 0,
+            "max_balance": 1.1896032490249827e-14
+          },
+          "sha256": "5714b83471f347c60342e3b871c43e9718b3362c2650a884534ecb77a4f30467"
+        },
+        {
+          "N": 1000,
+          "seed": 830101,
+          "start": 81000,
+          "physics_set": {
+            "name": "therapy-electron-v1",
+            "id": 2,
+            "tag": 7198080100198966926
+          },
+          "health": {
+            "status": "pass",
+            "histories": 1000,
+            "failures": 0,
+            "max_balance": 9.403288809883817e-15
+          },
+          "sha256": "c503f0d4f680a7fb6fe474199c13303a3465b0b6713bc17df680b59fcd640d8d"
+        },
+        {
+          "N": 1000,
+          "seed": 830101,
+          "start": 82000,
+          "physics_set": {
+            "name": "therapy-electron-v1",
+            "id": 2,
+            "tag": 7198080100198966926
+          },
+          "health": {
+            "status": "pass",
+            "histories": 1000,
+            "failures": 0,
+            "max_balance": 8.89341893113021e-15
+          },
+          "sha256": "9e410cc48e4a67657ca57954fe3082aa79c54051546472f9d759b92f7d35d7be"
+        },
+        {
+          "N": 1000,
+          "seed": 830101,
+          "start": 83000,
+          "physics_set": {
+            "name": "therapy-electron-v1",
+            "id": 2,
+            "tag": 7198080100198966926
+          },
+          "health": {
+            "status": "pass",
+            "histories": 1000,
+            "failures": 0,
+            "max_balance": 9.266552210896129e-15
+          },
+          "sha256": "adeb606ed4aa6687bab4b61eb4050ad28c1de85f95cf3d0b099452d3a49647b6"
+        },
+        {
+          "N": 1000,
+          "seed": 830101,
+          "start": 84000,
+          "physics_set": {
+            "name": "therapy-electron-v1",
+            "id": 2,
+            "tag": 7198080100198966926
+          },
+          "health": {
+            "status": "pass",
+            "histories": 1000,
+            "failures": 0,
+            "max_balance": 1.1234468872687422e-14
+          },
+          "sha256": "ec2668c848c763be14848a387ce9915cbb66992c59d8af37d12a9481cc7a4003"
+        },
+        {
+          "N": 1000,
+          "seed": 830101,
+          "start": 85000,
+          "physics_set": {
+            "name": "therapy-electron-v1",
+            "id": 2,
+            "tag": 7198080100198966926
+          },
+          "health": {
+            "status": "pass",
+            "histories": 1000,
+            "failures": 0,
+            "max_balance": 1.1151008480614343e-14
+          },
+          "sha256": "2aeaaf61bd9963b93e00fa161dbc23597f5dc0171dc55eecdcc242f121f79a94"
+        },
+        {
+          "N": 1000,
+          "seed": 830101,
+          "start": 86000,
+          "physics_set": {
+            "name": "therapy-electron-v1",
+            "id": 2,
+            "tag": 7198080100198966926
+          },
+          "health": {
+            "status": "pass",
+            "histories": 1000,
+            "failures": 0,
+            "max_balance": 9.636145747794867e-15
+          },
+          "sha256": "b64edea549876f22fe36b488df5bd3c464feffe6308bbf9fa09571a602d567f6"
+        },
+        {
+          "N": 1000,
+          "seed": 830101,
+          "start": 87000,
+          "physics_set": {
+            "name": "therapy-electron-v1",
+            "id": 2,
+            "tag": 7198080100198966926
+          },
+          "health": {
+            "status": "pass",
+            "histories": 1000,
+            "failures": 0,
+            "max_balance": 1.1127243761255729e-14
+          },
+          "sha256": "190e2a5c62e7941dd4e5c71233cd0a3656d0de69502152913b204e0804479a43"
+        },
+        {
+          "N": 1000,
+          "seed": 830101,
+          "start": 88000,
+          "physics_set": {
+            "name": "therapy-electron-v1",
+            "id": 2,
+            "tag": 7198080100198966926
+          },
+          "health": {
+            "status": "pass",
+            "histories": 1000,
+            "failures": 0,
+            "max_balance": 8.552951075026763e-15
+          },
+          "sha256": "1e300b0f0b781eb6d9be13f190429b51d943407ee193aca982805352ed87287c"
+        },
+        {
+          "N": 1000,
+          "seed": 830101,
+          "start": 89000,
+          "physics_set": {
+            "name": "therapy-electron-v1",
+            "id": 2,
+            "tag": 7198080100198966926
+          },
+          "health": {
+            "status": "pass",
+            "histories": 1000,
+            "failures": 0,
+            "max_balance": 1.131777737005925e-14
+          },
+          "sha256": "04d049589a235e27ae3262fde47ab2d02b9c6d60ff5bbe9d0b115458b3331542"
+        },
+        {
+          "N": 1000,
+          "seed": 830101,
+          "start": 90000,
+          "physics_set": {
+            "name": "therapy-electron-v1",
+            "id": 2,
+            "tag": 7198080100198966926
+          },
+          "health": {
+            "status": "pass",
+            "histories": 1000,
+            "failures": 0,
+            "max_balance": 9.265373309293026e-15
+          },
+          "sha256": "11784e04ab7cb5d272734214582f946f8584856d3a828eb612c667f67913fb3d"
+        },
+        {
+          "N": 1000,
+          "seed": 830101,
+          "start": 91000,
+          "physics_set": {
+            "name": "therapy-electron-v1",
+            "id": 2,
+            "tag": 7198080100198966926
+          },
+          "health": {
+            "status": "pass",
+            "histories": 1000,
+            "failures": 0,
+            "max_balance": 7.864379570076824e-15
+          },
+          "sha256": "64a744d8ea5f809170068efadf4cd5772add5d730ec362135ac79ab81a0d347d"
+        },
+        {
+          "N": 1000,
+          "seed": 830101,
+          "start": 92000,
+          "physics_set": {
+            "name": "therapy-electron-v1",
+            "id": 2,
+            "tag": 7198080100198966926
+          },
+          "health": {
+            "status": "pass",
+            "histories": 1000,
+            "failures": 0,
+            "max_balance": 8.855910541019974e-15
+          },
+          "sha256": "7af09993661d4b25ea748a1d77e858ec4d80cd92cc0e1712736dccebafde72ab"
+        },
+        {
+          "N": 1000,
+          "seed": 830101,
+          "start": 93000,
+          "physics_set": {
+            "name": "therapy-electron-v1",
+            "id": 2,
+            "tag": 7198080100198966926
+          },
+          "health": {
+            "status": "pass",
+            "histories": 1000,
+            "failures": 0,
+            "max_balance": 7.213411862022677e-15
+          },
+          "sha256": "8922cfad84937696310428ab60f1469df2f999f7b071f97be816ee57ae55cb39"
+        },
+        {
+          "N": 1000,
+          "seed": 830101,
+          "start": 94000,
+          "physics_set": {
+            "name": "therapy-electron-v1",
+            "id": 2,
+            "tag": 7198080100198966926
+          },
+          "health": {
+            "status": "pass",
+            "histories": 1000,
+            "failures": 0,
+            "max_balance": 1.0858700365018302e-14
+          },
+          "sha256": "1c8ff1dc923ebefdfe1dc4078c103d2057061d8a57c3572a450e5b8087914cd2"
+        },
+        {
+          "N": 1000,
+          "seed": 830101,
+          "start": 95000,
+          "physics_set": {
+            "name": "therapy-electron-v1",
+            "id": 2,
+            "tag": 7198080100198966926
+          },
+          "health": {
+            "status": "pass",
+            "histories": 1000,
+            "failures": 0,
+            "max_balance": 8.901440052661856e-15
+          },
+          "sha256": "0b97705658a326dde7a75f1616850e399b177302cce548aa0ff99213cbb6e3ef"
+        },
+        {
+          "N": 1000,
+          "seed": 830101,
+          "start": 96000,
+          "physics_set": {
+            "name": "therapy-electron-v1",
+            "id": 2,
+            "tag": 7198080100198966926
+          },
+          "health": {
+            "status": "pass",
+            "histories": 1000,
+            "failures": 0,
+            "max_balance": 1.5076829617236264e-14
+          },
+          "sha256": "37a05bfeb190a4a1efe45066e57f2de1ec30aa818de311e0b82f09a30b0f4e23"
+        },
+        {
+          "N": 1000,
+          "seed": 830101,
+          "start": 97000,
+          "physics_set": {
+            "name": "therapy-electron-v1",
+            "id": 2,
+            "tag": 7198080100198966926
+          },
+          "health": {
+            "status": "pass",
+            "histories": 1000,
+            "failures": 0,
+            "max_balance": 7.639061303231352e-15
+          },
+          "sha256": "620e4435dceae0efb597614b6ce51a9d3c3172f2614c60768276df8dfed7836b"
+        },
+        {
+          "N": 1000,
+          "seed": 830101,
+          "start": 98000,
+          "physics_set": {
+            "name": "therapy-electron-v1",
+            "id": 2,
+            "tag": 7198080100198966926
+          },
+          "health": {
+            "status": "pass",
+            "histories": 1000,
+            "failures": 0,
+            "max_balance": 1.1652516909469482e-14
+          },
+          "sha256": "b585e1d4dc873a05373f111011dbbee4d75b5b4593ee41e41f02fc62cf361b03"
+        },
+        {
+          "N": 1000,
+          "seed": 830101,
+          "start": 99000,
+          "physics_set": {
+            "name": "therapy-electron-v1",
+            "id": 2,
+            "tag": 7198080100198966926
+          },
+          "health": {
+            "status": "pass",
+            "histories": 1000,
+            "failures": 0,
+            "max_balance": 9.64594037710317e-15
+          },
+          "sha256": "39c18f38fb85fecd00b4b039c6ecdc06be78475a3ab265082095c5a69d433907"
+        }
+      ],
+      "mean_deposited_MeV": 1.3008202998522367,
+      "observed": {
+        "name": "therapy-electron-v1",
+        "id": 2,
+        "tag": 7198080100198966926
+      },
+      "table_sha256": "7259d2ff0aea74b38471051bbc3b4579344563bd7ba405e828befbe11f778322"
+    }
+  }
+}

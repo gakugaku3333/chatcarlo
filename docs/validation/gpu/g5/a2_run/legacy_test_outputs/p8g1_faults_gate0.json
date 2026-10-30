@@ -1,0 +1,60 @@
+{
+  "status": "pass",
+  "faults": [
+    {
+      "fault": 1,
+      "build": "success",
+      "library": "/private/var/folders/nk/ppk0zn4n2n5_gsrp89g_dw900000gn/T/pytest-of-oishifamily/pytest-12/p8g21/f1/4dd53aa57f9049f9a6d07b019e3cfa857ddca91416d9cd0f217968db6a43cf33.dylib",
+      "normal_pass": [
+        "0b",
+        "0e",
+        "0c"
+      ],
+      "identity": "4dd53aa57f9049f9a6d07b019e3cfa857ddca91416d9cd0f217968db6a43cf33",
+      "gate1": "deferred to Claude",
+      "gate2": "deferred to Claude",
+      "rejected_by": [
+        "0b",
+        "0e"
+      ],
+      "target_reads": 4,
+      "invalid_reads": 0
+    },
+    {
+      "fault": 2,
+      "build": "success",
+      "library": "/private/var/folders/nk/ppk0zn4n2n5_gsrp89g_dw900000gn/T/pytest-of-oishifamily/pytest-12/p8g21/f2/0e454617f5fb3da3a92447e8e688faa9fbe0efed24bdb6dcc4bef97c62475240.dylib",
+      "normal_pass": [
+        "0b",
+        "0e",
+        "0c"
+      ],
+      "identity": "0e454617f5fb3da3a92447e8e688faa9fbe0efed24bdb6dcc4bef97c62475240",
+      "gate1": "deferred to Claude",
+      "gate2": "deferred to Claude",
+      "rejected_by": [
+        "0e"
+      ],
+      "target_reads": 49650,
+      "invalid_reads": 0
+    },
+    {
+      "fault": 3,
+      "build": "success",
+      "library": "/private/var/folders/nk/ppk0zn4n2n5_gsrp89g_dw900000gn/T/pytest-of-oishifamily/pytest-12/p8g21/f3/38dfe2efcf4a442151eec4963afa4fe0e077959e3c3c18f330e2a0bd3eeef317.dylib",
+      "normal_pass": [
+        "0b",
+        "0e",
+        "0c"
+      ],
+      "identity": "38dfe2efcf4a442151eec4963afa4fe0e077959e3c3c18f330e2a0bd3eeef317",
+      "gate1": "deferred to Claude",
+      "gate2": "deferred to Claude",
+      "rejected_by": [
+        "0c invalid reads"
+      ],
+      "target_reads": 60,
+      "invalid_reads": 60
+    }
+  ]
+}

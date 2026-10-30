@@ -1,7 +1,7 @@
 # 計画: GPU エンジン G5 — 診断と治療の GPU コードを 1 つにして、エネルギーによらず同じコードで計算する
 
 - 状態: approved（骨子。ユーザー承認 2026-10-29: D5・D8・D10 に加え D9・D11〜D13 も推奨のとおり。各段は子計画で詳細レビュー → 承認）
-- 子計画: A0 [2026-10-29-chatcarlo-gpu-g5-a0-baseline.md](2026-10-29-chatcarlo-gpu-g5-a0-baseline.md)（implemented）、A1 [2026-10-29-chatcarlo-gpu-g5-a1-common-base.md](2026-10-29-chatcarlo-gpu-g5-a1-common-base.md)（implemented 2026-10-30）
+- 子計画: A0 [2026-10-29-chatcarlo-gpu-g5-a0-baseline.md](2026-10-29-chatcarlo-gpu-g5-a0-baseline.md)（implemented）、A1 [2026-10-29-chatcarlo-gpu-g5-a1-common-base.md](2026-10-29-chatcarlo-gpu-g5-a1-common-base.md)（implemented 2026-10-30）、A2 [2026-10-30-chatcarlo-gpu-g5-a2-therapy-set.md](2026-10-30-chatcarlo-gpu-g5-a2-therapy-set.md)（codex-reviewed、骨子・詳細 各 1 巡）
 - A0 手元実装（2026-10-29）: [RESULTS](../../validation/gpu/g5/RESULTS.md)。表・計測駆動を作成、G1判定コード不一致・G2参照2NPZなし、外部照合とT4計測はClaudeへ引継ぎ（A0全体未完了）。
 - ユーザーの方針（2026-10-29）: **バイト一致にはこだわらない。計算の速さを重視する。** 関門は統計的な比較（既存の判定基準）と
   速さの測定で作る。旧来の「鎖 0（MT19937 のバイト再現）」「履歴ごとのバイト一致」は合否に使わない

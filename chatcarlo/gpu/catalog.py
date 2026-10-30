@@ -310,3 +310,16 @@ def p8_material(material, material_name, generators):
             provenance=definition['provenance'],grid=grid,grid_kind=grid_name,band=band,**meta))
         chunks.append(a.ravel());cursor+=a.size
     return dict(format=FORMAT,fields=fields), np.concatenate(chunks)
+
+
+def therapy(materials, generators):
+    """Four independent blobs: offsets restart only inside a named material."""
+    names=('water','lung','bone','lead')
+    if len(materials)!=4:raise ValueError('four therapy materials required')
+    fields=[];blobs={}
+    for name,material in zip(names,materials):
+        cat,blob=p8_material(material,name,generators)
+        key='p8_'+name
+        for field in cat['fields']:field['blob']=key
+        fields.extend(cat['fields']);blobs[key]=blob
+    return dict(format=FORMAT,fields=fields),blobs

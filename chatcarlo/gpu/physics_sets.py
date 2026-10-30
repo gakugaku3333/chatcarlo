@@ -8,9 +8,11 @@ REGISTRY = {
         components=['photoelectric-K-fluorescence', 'bound-Compton', 'Rayleigh'],
         dose_quantities=['local-energy-deposition', 'track-length-kerma', 'H*(10)'],
         energy_band_keV=[5., 150.])),
-    'therapy-electron-v1': dict(id=2, implemented=False, descriptor=dict(
+    'therapy-electron-v1': dict(id=2, implemented=True, descriptor=dict(
         components=['photon', 'electron', 'positron'], dose_quantities=['absorbed-dose'],
-        energy_band_keV=[5., 20000.])),
+        energy_band_keV=[10., 10000.], stopping='ESTAR-table',
+        fluorescence='all-shell', elastic='ELSEPA-GS', brems='ESTAR-normalized',
+        annihilation='rest-and-in-flight')),
 }
 
 
@@ -28,3 +30,9 @@ def declaration(name=DIAGNOSTIC, *, require_implemented=True):
 def check(actual, expected):
     if actual != expected:
         raise ValueError('physics_set declaration mismatch: '+repr(actual))
+
+
+def require_quantity(name, quantity):
+    declaration(name)
+    if quantity not in REGISTRY[name]['descriptor']['dose_quantities']:
+        raise ValueError('unsupported dose quantity for '+name+': '+quantity)

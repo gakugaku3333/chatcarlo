@@ -1,0 +1,35 @@
+[
+  {
+    "command": ".venv/bin/python -m pytest tests/ -q",
+    "exit_code": 0,
+    "seconds": 263.2,
+    "log": "tests_main_final.log",
+    "summary": "815 passed, 2 warnings"
+  },
+  {
+    "command": ".venv/bin/python -m pytest prototypes/mv_electron/tests -q",
+    "exit_code": 0,
+    "seconds": 1217.6794977500103,
+    "log": "tests_mv.log",
+    "summary": "1808 passed, 17 skipped"
+  },
+  {
+    "command": ".venv/bin/python -m pytest tests/test_gpu_g5_a2_*.py tests/test_gpu_g5_a1_*.py -q",
+    "exit_code": 0,
+    "seconds": 59.439776124898344,
+    "log": "tests_unit.log",
+    "summary": "70 passed"
+  },
+  {
+    "command": ".venv/bin/python docs/validation/gpu/g5/a2_bundle.py",
+    "exit_code": 0,
+    "seconds": 5.033364832866937,
+    "log": "bundle_cli.log"
+  },
+  {
+    "command": ".venv/bin/python docs/validation/gpu/g5/a2_faults.py --cpu",
+    "exit_code": 0,
+    "seconds": 14.088787832763046,
+    "log": "faults_cli.log"
+  }
+]

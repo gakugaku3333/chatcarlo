@@ -1,0 +1,126 @@
+{
+  "faults": [
+    {
+      "fault": "p4 all actual start=0, receipts scheduled",
+      "rejected_by": "actual schedule: byte mismatch; first=[np.int64(1)]"
+    },
+    {
+      "fault": "p2 duplicate call save",
+      "rejected_by": "duplicate call save 0"
+    },
+    {
+      "fault": "p2 missing call at completion",
+      "rejected_by": "incomplete call ID set"
+    },
+    {
+      "fault": "p1 one byte corruption at resume",
+      "rejected_by": "call hash 0"
+    },
+    {
+      "fault": "p3 health violation",
+      "rejected_by": "run_health failed; call not saved"
+    },
+    {
+      "fault": "visits=0",
+      "rejected_by": "output count history 71: 0 != 1"
+    },
+    {
+      "fault": "visits=2",
+      "rejected_by": "output count history 71: 2 != 1"
+    },
+    {
+      "fault": "receipt/session missing",
+      "rejected_by": "[Errno 2] No such file or directory: '/private/var/folders/nk/ppk0zn4n2n5_gsrp89g_dw900000gn/T/pytest-of-oishifamily/pytest-12/test_p8g3_receipt_session_faul0/session_833e5a57793d4764952ce75d332bcbf9.json'"
+    },
+    {
+      "fault": "receipt/session failed",
+      "rejected_by": "session gate/conditions"
+    },
+    {
+      "fault": "receipt/session changed",
+      "rejected_by": "session seal"
+    },
+    {
+      "fault": "receipt/session conditions",
+      "rejected_by": "receipt conditions 0"
+    },
+    {
+      "fault": "receipt/session actual",
+      "rejected_by": "actual invocation mismatch 0"
+    },
+    {
+      "fault": "receipt/session visits",
+      "rejected_by": "visits receipt"
+    },
+    {
+      "fault": "receipt/session id",
+      "rejected_by": "receipt conditions 0"
+    },
+    {
+      "fault": "immutable session overwrite",
+      "rejected_by": "immutable record conflict /private/var/folders/nk/ppk0zn4n2n5_gsrp89g_dw900000gn/T/pytest-of-oishifamily/pytest-12/test_p8g3_immutable_session_an0/session_268665fe6f874a49b0fa9bc6369cb216.json"
+    },
+    {
+      "fault": "completion seal changed",
+      "rejected_by": "complete manifest mismatch"
+    },
+    {
+      "fault": "unexpected call ID",
+      "rejected_by": "unexpected call ID call_400.npz"
+    },
+    {
+      "fault": "resume _groups_i",
+      "rejected_by": "resume integer transition mismatch"
+    },
+    {
+      "fault": "resume _groups_d",
+      "rejected_by": "resume atomic sum mismatch"
+    },
+    {
+      "fault": "resume integer",
+      "rejected_by": "resume integer transition mismatch"
+    },
+    {
+      "fault": "resume float beyond bound",
+      "rejected_by": "resume atomic sum mismatch"
+    },
+    {
+      "fault": "visits=0",
+      "rejected_by": "output count history 0: 0 != 1"
+    },
+    {
+      "fault": "visits=2",
+      "rejected_by": "output count history 0: 2 != 1"
+    },
+    {
+      "fault": "p4 save actual start mismatch",
+      "rejected_by": "actual invocation mismatch"
+    },
+    {
+      "fault": "transfer conflicting validated pair",
+      "rejected_by": "collected call conflict 0"
+    },
+    {
+      "fault": "transfer stop mid npz",
+      "rejected_by": "injected transfer stop"
+    },
+    {
+      "fault": "production without T4 restart trial",
+      "rejected_by": "[Errno 2] No such file or directory: '/private/var/folders/nk/ppk0zn4n2n5_gsrp89g_dw900000gn/T/pytest-of-oishifamily/pytest-12/test_p8g3_mandatory_trial_and_0/trial/trial_qualified.json'"
+    },
+    {
+      "fault": "resend missing gate",
+      "rejected_by": "[Errno 2] No such file or directory: '/private/var/folders/nk/ppk0zn4n2n5_gsrp89g_dw900000gn/T/pytest-of-oishifamily/pytest-12/test_p8g3_mandatory_trial_and_0/trial/session_19089f90bf22458d83fd8d939f7742f0.json'"
+    },
+    {
+      "fault": "VM initial history mismatch",
+      "rejected_by": "VM initial P8g1/P8g2 field: byte mismatch; first=[np.int64(0)]"
+    },
+    {
+      "fault": "production session missing mandatory trial",
+      "rejected_by": "session mandatory T4 restart trial"
+    }
+  ],
+  "scope": "CPU/NumPy fixtures; actual T4 gates deferred",
+  "status": "observed"
+}

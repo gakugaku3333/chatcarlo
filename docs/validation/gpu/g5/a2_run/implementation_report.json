@@ -1,0 +1,147 @@
+{
+  "scope": "A2-1 local only",
+  "fixed_case_seed": 2026102102,
+  "physics_set": {
+    "id": 2,
+    "tag": 7198080100198966926
+  },
+  "sources": {
+    "chatcarlo/gpu/t2_cpu.cpp": "3db1aae8a56eb8d07c16f3b3d51171d1197e5d89f2d3ef1b64115f9c90160af8",
+    "chatcarlo/gpu/t2_field.h": "36d604a5d71773fdb2d5c4d84ebfe9b2c3723bceec041ee49c09d5fbfd1c6d1b",
+    "chatcarlo/gpu/t2_functions.h": "3d14d94e59ff53fe823e3c7016e7f171120dc8ea6012f3d53f633852a4370f55",
+    "chatcarlo/gpu/t2_gpu.cu": "f27803cf75b1c5dcb6ba65890a9c29d9021912632e957592acaab0b25678036f",
+    "chatcarlo/gpu/t2_kernel.h": "ec002214c65df4c5b685371f8c91b0ec7d7d07572b8b2877906c258ee47d98b7",
+    "chatcarlo/gpu/t2_logs.h": "90182d93a91bd6d093f83e25ac907864572c261ef5a8d86eaa5d3fba955bc496",
+    "chatcarlo/gpu/t2_materials.h": "1ef89fce05c6f2e630da2f5c42601096f26946832b452c28948dccdfc115e39d",
+    "chatcarlo/gpu/t2_physics.h": "4d80b2aef75ced45fe2701aae37493388b066f15bbd829bba70d184a88554e08",
+    "chatcarlo/gpu/t2_rng.h": "2617cc5099d0ce6caff46f6f8187ccda396b370f7332ecfd7bf8685c69185a98",
+    "chatcarlo/gpu/t2_tables.h": "1203ff7ee0998fe0cb31a1abf8783ed87065ff643164ee8e0aef958f441f2db4",
+    "chatcarlo/gpu/t2_transport.h": "4f5757ac3a104f6bc1d13f95d0a4d165a414093a7aa0baef0d2952d3fd8922cc",
+    "chatcarlo/gpu/therapy.py": "11bc8525036812e9f19a3945ab82dbaa775d20875fa7517482ebb99b2d251ea1",
+    "chatcarlo/gpu/therapy_bundle.py": "e2c199b21dd97415b338908d2a19a12e391a5c36f5e199d2247d2c9be9d3ca38",
+    "docs/validation/gpu/g5/a2_bundle.py": "47c8a6b5009aff1d33fd8d3f6c448ef8a885da119d1f627c0d8e1a9f90244c5f",
+    "docs/validation/gpu/g5/a2_cases.py": "9e2a6528d801b5a80eedaef2d738feb0941fd14fa34f33f827cb6efb4b9fc65d",
+    "docs/validation/gpu/g5/a2_common.py": "064014b52f21c7cb8d36ac704a76dbace993bc30e92a7f2171718388fd2f0aa3",
+    "docs/validation/gpu/g5/a2_faults.py": "ad8b9fcd23240b14f5c3aa31c6285bf378cbdf8a63b835718d35f88f98db4caa",
+    "docs/validation/gpu/g5/a2_health.py": "bf9bb5e465f43d101fa4f053184cf2fbb30bbf36a43fb9156ad25fb5caf8514b",
+    "docs/validation/gpu/g5/a2_judge.py": "2711aab3ea65900e062b2724e2acb30a0c0fd4eb6ec1becb60bc20cadec6daa6",
+    "docs/validation/gpu/g5/a2_scorer.py": "82c6a68918d652f21874f38abc031dfb2d736456d1b894f8ef65ee93735c0573",
+    "docs/validation/gpu/g5/a2_smoke.py": "cef892bf0e3ac540ae4a1f29aeab8692cdc32b5ed70ca7f7bc6d8fc5bac66ca9",
+    "tests/test_gpu_g5_a2_bundle.py": "2876e4ff8af89322f8694d41820b456c3ee4b5fcde0372d6c56d9258a1c0d15c",
+    "tests/test_gpu_g5_a2_core.py": "f2f2206ffdd6353146449d218d3936f112d8dd173014f6e6aa5a55db68e7cec8",
+    "tests/test_gpu_g5_a2_judge.py": "0a528dfba2619a53b63b3cd6b89c199652f85163a0d442c06e1309b4f838c010",
+    "chatcarlo/gpu/physics_sets.py": "df59851d57f767938bb657a76c43430a501ada5c0367db8222c1151be076a7e3",
+    "chatcarlo/gpu/catalog.py": "30e469a58fa47e4fd9143d4bdc0bfef9b497f3480a6ca7c03ad21e4b6af88943",
+    "chatcarlo/gpu/core.py": "b07d71e9948ae13bd830548d6f1291945451908e0ba41682ce4c0dc0e435e3f9"
+  },
+  "free_GiB": 7.423168182373047,
+  "forbidden_tracked_diff": "",
+  "deferred": [
+    "T4",
+    "Colab",
+    "E4",
+    "A2-2"
+  ],
+  "no_deletion": true,
+  "no_commit": true,
+  "initial_main_run": {
+    "command": ".venv/bin/python -m pytest tests/ -q",
+    "exit_code": 0,
+    "seconds": 257.05449020816013,
+    "log": "tests_main.log"
+  },
+  "A1_tests_diff": "",
+  "acceptance": [
+    {
+      "number": 1,
+      "status": "pass"
+    },
+    {
+      "number": 2,
+      "status": "pass"
+    },
+    {
+      "number": 3,
+      "status": "pass"
+    },
+    {
+      "number": 4,
+      "status": "pass"
+    },
+    {
+      "number": 5,
+      "status": "pass"
+    },
+    {
+      "number": 6,
+      "status": "pass"
+    },
+    {
+      "number": 7,
+      "status": "pass"
+    },
+    {
+      "number": 8,
+      "status": "pass"
+    },
+    {
+      "number": 9,
+      "status": "pass"
+    },
+    {
+      "number": 10,
+      "status": "pass"
+    },
+    {
+      "number": 11,
+      "status": "pass"
+    }
+  ],
+  "test_commands": [
+    {
+      "command": ".venv/bin/python -m pytest tests/ -q",
+      "exit_code": 0,
+      "seconds": 263.2,
+      "log": "tests_main_final.log",
+      "summary": "815 passed, 2 warnings"
+    },
+    {
+      "command": ".venv/bin/python -m pytest prototypes/mv_electron/tests -q",
+      "exit_code": 0,
+      "seconds": 1217.6794977500103,
+      "log": "tests_mv.log",
+      "summary": "1808 passed, 17 skipped"
+    },
+    {
+      "command": ".venv/bin/python -m pytest tests/test_gpu_g5_a2_*.py tests/test_gpu_g5_a1_*.py -q",
+      "exit_code": 0,
+      "seconds": 59.439776124898344,
+      "log": "tests_unit.log",
+      "summary": "70 passed"
+    },
+    {
+      "command": ".venv/bin/python docs/validation/gpu/g5/a2_bundle.py",
+      "exit_code": 0,
+      "seconds": 5.033364832866937,
+      "log": "bundle_cli.log"
+    },
+    {
+      "command": ".venv/bin/python docs/validation/gpu/g5/a2_faults.py --cpu",
+      "exit_code": 0,
+      "seconds": 14.088787832763046,
+      "log": "faults_cli.log"
+    }
+  ],
+  "legacy_test_side_effects_restored": [
+    {
+      "path": "docs/validation/mv/p8g1/faults_gate0.json",
+      "test_generated": "docs/validation/gpu/g5/a2_run/legacy_test_outputs/p8g1_faults_gate0.json",
+      "restored_sha256": "35278b0afb4c84aebeb4efe6c34d936dbdc096098a348d8abc33e14762bd841b"
+    },
+    {
+      "path": "docs/validation/mv/p8g3/fault_observations.json",
+      "test_generated": "docs/validation/gpu/g5/a2_run/legacy_test_outputs/p8g3_fault_observations.json",
+      "restored_sha256": "a7ad599f5f3d0420dcd054c7f3e592b3f88e39f60ec6045fcbd9380c1a9ea952"
+    }
+  ]
+}
