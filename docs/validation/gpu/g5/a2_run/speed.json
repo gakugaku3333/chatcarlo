@@ -1,0 +1,391 @@
+{
+  "status": "complete",
+  "resources": {
+    "old-p7A": {
+      "attributes": {
+        "max_threads_per_block": 256,
+        "shared_size_bytes": 0,
+        "const_size_bytes": 0,
+        "local_size_bytes": 58320,
+        "num_regs": 255,
+        "ptx_version": 75,
+        "binary_version": 75,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_size_bytes": 49152,
+        "preferred_shared_memory_carveout": -1
+      },
+      "launch": {
+        "blocks": 40,
+        "threads": 256,
+        "capacity": 64
+      },
+      "manual": {
+        "blocks_per_sm": 1,
+        "registers_per_block": 65536,
+        "shared_bytes_per_block": 0,
+        "limits": {
+          "blocks": 16,
+          "threads": 4,
+          "registers": 1
+        }
+      },
+      "occupancy_api_blocks_per_sm": 1
+    },
+    "new-p7A": {
+      "attributes": {
+        "max_threads_per_block": 384,
+        "shared_size_bytes": 0,
+        "const_size_bytes": 0,
+        "local_size_bytes": 37328,
+        "num_regs": 158,
+        "ptx_version": 75,
+        "binary_version": 75,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_size_bytes": 49152,
+        "preferred_shared_memory_carveout": -1
+      },
+      "launch": {
+        "blocks": 40,
+        "threads": 256,
+        "capacity": 64
+      },
+      "manual": {
+        "blocks_per_sm": 1,
+        "registers_per_block": 40960,
+        "shared_bytes_per_block": 0,
+        "limits": {
+          "blocks": 16,
+          "threads": 4,
+          "registers": 1
+        }
+      },
+      "occupancy_api_blocks_per_sm": 1
+    },
+    "old-p7B": {
+      "attributes": {
+        "max_threads_per_block": 256,
+        "shared_size_bytes": 0,
+        "const_size_bytes": 0,
+        "local_size_bytes": 58320,
+        "num_regs": 255,
+        "ptx_version": 75,
+        "binary_version": 75,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_size_bytes": 49152,
+        "preferred_shared_memory_carveout": -1
+      },
+      "launch": {
+        "blocks": 40,
+        "threads": 256,
+        "capacity": 64
+      },
+      "manual": {
+        "blocks_per_sm": 1,
+        "registers_per_block": 65536,
+        "shared_bytes_per_block": 0,
+        "limits": {
+          "blocks": 16,
+          "threads": 4,
+          "registers": 1
+        }
+      },
+      "occupancy_api_blocks_per_sm": 1
+    },
+    "new-p7B": {
+      "attributes": {
+        "max_threads_per_block": 384,
+        "shared_size_bytes": 0,
+        "const_size_bytes": 0,
+        "local_size_bytes": 37328,
+        "num_regs": 158,
+        "ptx_version": 75,
+        "binary_version": 75,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_size_bytes": 49152,
+        "preferred_shared_memory_carveout": -1
+      },
+      "launch": {
+        "blocks": 40,
+        "threads": 256,
+        "capacity": 64
+      },
+      "manual": {
+        "blocks_per_sm": 1,
+        "registers_per_block": 40960,
+        "shared_bytes_per_block": 0,
+        "limits": {
+          "blocks": 16,
+          "threads": 4,
+          "registers": 1
+        }
+      },
+      "occupancy_api_blocks_per_sm": 1
+    },
+    "old-p7C": {
+      "attributes": {
+        "max_threads_per_block": 256,
+        "shared_size_bytes": 0,
+        "const_size_bytes": 0,
+        "local_size_bytes": 58320,
+        "num_regs": 255,
+        "ptx_version": 75,
+        "binary_version": 75,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_size_bytes": 49152,
+        "preferred_shared_memory_carveout": -1
+      },
+      "launch": {
+        "blocks": 40,
+        "threads": 256,
+        "capacity": 64
+      },
+      "manual": {
+        "blocks_per_sm": 1,
+        "registers_per_block": 65536,
+        "shared_bytes_per_block": 0,
+        "limits": {
+          "blocks": 16,
+          "threads": 4,
+          "registers": 1
+        }
+      },
+      "occupancy_api_blocks_per_sm": 1
+    },
+    "new-p7C": {
+      "attributes": {
+        "max_threads_per_block": 384,
+        "shared_size_bytes": 0,
+        "const_size_bytes": 0,
+        "local_size_bytes": 37328,
+        "num_regs": 158,
+        "ptx_version": 75,
+        "binary_version": 75,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_size_bytes": 49152,
+        "preferred_shared_memory_carveout": -1
+      },
+      "launch": {
+        "blocks": 40,
+        "threads": 256,
+        "capacity": 64
+      },
+      "manual": {
+        "blocks_per_sm": 1,
+        "registers_per_block": 40960,
+        "shared_bytes_per_block": 0,
+        "limits": {
+          "blocks": 16,
+          "threads": 4,
+          "registers": 1
+        }
+      },
+      "occupancy_api_blocks_per_sm": 1
+    },
+    "old-stack": {
+      "attributes": {
+        "max_threads_per_block": 256,
+        "shared_size_bytes": 0,
+        "const_size_bytes": 0,
+        "local_size_bytes": 39360,
+        "num_regs": 234,
+        "ptx_version": 75,
+        "binary_version": 75,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_size_bytes": 49152,
+        "preferred_shared_memory_carveout": -1
+      },
+      "launch": {
+        "blocks": 40,
+        "threads": 256,
+        "capacity": 18,
+        "check": false,
+        "fault": 0
+      },
+      "manual": {
+        "blocks_per_sm": 1,
+        "registers_per_block": 61440,
+        "shared_bytes_per_block": 0,
+        "limits": {
+          "blocks": 16,
+          "threads": 4,
+          "registers": 1
+        }
+      },
+      "occupancy_api_blocks_per_sm": 1
+    },
+    "new-stack": {
+      "attributes": {
+        "max_threads_per_block": 384,
+        "shared_size_bytes": 0,
+        "const_size_bytes": 0,
+        "local_size_bytes": 37328,
+        "num_regs": 158,
+        "ptx_version": 75,
+        "binary_version": 75,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_size_bytes": 49152,
+        "preferred_shared_memory_carveout": -1
+      },
+      "launch": {
+        "blocks": 40,
+        "threads": 256,
+        "capacity": 18,
+        "check": false,
+        "fault": 0
+      },
+      "manual": {
+        "blocks_per_sm": 1,
+        "registers_per_block": 40960,
+        "shared_bytes_per_block": 0,
+        "limits": {
+          "blocks": 16,
+          "threads": 4,
+          "registers": 1
+        }
+      },
+      "occupancy_api_blocks_per_sm": 1
+    }
+  },
+  "rows": [
+    {
+      "kernel_s": 5.63718505859375,
+      "health": {
+        "status": "pass",
+        "report": {
+          "status": "pass"
+        }
+      },
+      "task": "old-p7A",
+      "phase": "warmup"
+    },
+    {
+      "kernel_s": 5.697314453125,
+      "health": "pass",
+      "task": "new-p7A",
+      "phase": "warmup"
+    },
+    {
+      "kernel_s": 35.024546875,
+      "health": {
+        "status": "pass",
+        "report": {
+          "status": "pass"
+        }
+      },
+      "task": "old-p7B",
+      "phase": "warmup"
+    },
+    {
+      "kernel_s": 33.97482421875,
+      "health": "pass",
+      "task": "new-p7B",
+      "phase": "warmup"
+    },
+    {
+      "kernel_s": 5.9203193359375,
+      "health": {
+        "status": "pass",
+        "report": {
+          "status": "pass"
+        }
+      },
+      "task": "old-p7C",
+      "phase": "warmup"
+    },
+    {
+      "kernel_s": 5.81659228515625,
+      "health": "pass",
+      "task": "new-p7C",
+      "phase": "warmup"
+    },
+    {
+      "kernel_s": 9.0107919921875,
+      "health": {
+        "status": "pass",
+        "visits": "all exactly one",
+        "run_health": true
+      },
+      "task": "old-stack",
+      "phase": "warmup"
+    },
+    {
+      "kernel_s": 9.129669921875,
+      "health": "pass",
+      "task": "new-stack",
+      "phase": "warmup"
+    },
+    {
+      "kernel_s": 5.77610498046875,
+      "health": {
+        "status": "pass",
+        "report": {
+          "status": "pass"
+        }
+      },
+      "task": "old-p7A",
+      "phase": "valid"
+    },
+    {
+      "kernel_s": 5.79693896484375,
+      "health": "pass",
+      "task": "new-p7A",
+      "phase": "valid"
+    },
+    {
+      "kernel_s": 34.40222265625,
+      "health": {
+        "status": "pass",
+        "report": {
+          "status": "pass"
+        }
+      },
+      "task": "old-p7B",
+      "phase": "valid"
+    },
+    {
+      "kernel_s": 34.15323828125,
+      "health": "pass",
+      "task": "new-p7B",
+      "phase": "valid"
+    },
+    {
+      "kernel_s": 5.96411767578125,
+      "health": {
+        "status": "pass",
+        "report": {
+          "status": "pass"
+        }
+      },
+      "task": "old-p7C",
+      "phase": "valid"
+    },
+    {
+      "kernel_s": 5.83337353515625,
+      "health": "pass",
+      "task": "new-p7C",
+      "phase": "valid"
+    },
+    {
+      "kernel_s": 9.0606591796875,
+      "health": {
+        "status": "pass",
+        "visits": "all exactly one",
+        "run_health": true
+      },
+      "task": "old-stack",
+      "phase": "valid"
+    },
+    {
+      "kernel_s": 9.2297392578125,
+      "health": "pass",
+      "task": "new-stack",
+      "phase": "valid"
+    }
+  ],
+  "ratio": {
+    "p7A": 1.0036069261977487,
+    "p7B": 0.9927625497489545,
+    "p7C": 0.978078209094378,
+    "stack": 1.018660902564799
+  }
+}

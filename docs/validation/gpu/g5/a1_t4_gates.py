@@ -196,7 +196,7 @@ def vm(base):
             log(gate, stem)
     # G2 gate 3 (report only): the unchanged historical execute().
     from chatcarlo.gpu import run_egs5_60kev as legacy
-    for name in ('pdd', 'thin', 'phantom'):
+    for name in () if (payload/'SKIP_G2GATE3').exists() else ('pdd', 'thin', 'phantom'):
         legacy.execute(payload/'g2gate3'/name, results/'g2gate3'); log('g2gate3', name)
     (base/'G5A1_GATES_DONE').write_text('done\n')
 

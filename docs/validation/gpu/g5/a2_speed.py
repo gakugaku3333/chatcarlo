@@ -39,7 +39,7 @@ class NewCore:
         absolute=cp.zeros((100,dw));next_=cp.zeros(1,np.int32);visits=cp.zeros(n,np.int64);hits=cp.zeros(80,np.uint64)
         args=self.args+(self.geometry,self.mapping,*map(np.int32,self.sizes),np.uint64(seed),np.uint64(start),np.int32(n),next_,
                         np.int32(0),np.int32(10000000),np.int32(0),np.uint64(0),self.fg,np.float64(self.half[0]),np.float64(self.half[1]),
-                        np.float64(self.ssd),field,ledger,adds,hd,hi,groups,ints,absolute,visits,hits)
+                        np.float64(self.ssd),np.float64(1.),field,ledger,adds,hd,hi,groups,ints,absolute,visits,hits)
         first,last=cp.cuda.Event(),cp.cuda.Event();first.record();self.kernel((self.blocks,),(self.threads,),args);last.record();last.synchronize()
         v=cp.asnumpy(visits)
         if not np.all(v==1):raise ValueError('visits not all one')

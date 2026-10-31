@@ -1,0 +1,26 @@
+{
+  "normal": {
+    "status": "pass",
+    "physics_set": {
+      "name": "diagnostic-photon-kerma-v1",
+      "id": 1,
+      "tag": 1253989597926028580
+    }
+  },
+  "wrong_id": {
+    "status": "pass",
+    "detail": "compiled physics_set ID/tag mismatch"
+  },
+  "wrong_tag": {
+    "status": "pass",
+    "detail": "compiled physics_set ID/tag mismatch"
+  },
+  "g2": {
+    "status": "pass",
+    "physics_set": {
+      "name": "diagnostic-photon-kerma-v1",
+      "id": 1,
+      "tag": 1253989597926028580
+    }
+  }
+}

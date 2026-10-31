@@ -1,0 +1,360 @@
+{
+  "status": "complete",
+  "session_id": "fc41c42b-4dc9-4b96-86df-63d3f707ccaf",
+  "config_sha256": "3405d469eb884036eb96287225030a44abd3001515957621d0b47376c4e8ca74",
+  "resources": {
+    "old-g2b": {
+      "attributes": {
+        "max_threads_per_block": 512,
+        "shared_size_bytes": 0,
+        "const_size_bytes": 0,
+        "local_size_bytes": 1984,
+        "num_regs": 120,
+        "ptx_version": 75,
+        "binary_version": 75,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_size_bytes": 49152,
+        "preferred_shared_memory_carveout": -1
+      },
+      "launch": {
+        "blocks": "ceil(n/128)",
+        "threads": 128,
+        "capacity": null
+      },
+      "manual": {
+        "blocks_per_sm": 4,
+        "registers_per_block": 15360,
+        "shared_bytes_per_block": 0,
+        "limits": {
+          "blocks": 16,
+          "threads": 8,
+          "registers": 4
+        }
+      },
+      "occupancy_api_blocks_per_sm": 4
+    },
+    "new-g2b": {
+      "attributes": {
+        "max_threads_per_block": 512,
+        "shared_size_bytes": 0,
+        "const_size_bytes": 0,
+        "local_size_bytes": 1984,
+        "num_regs": 120,
+        "ptx_version": 75,
+        "binary_version": 75,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_size_bytes": 49152,
+        "preferred_shared_memory_carveout": -1
+      },
+      "launch": {
+        "blocks": "ceil(n/128)",
+        "threads": 128,
+        "capacity": null
+      },
+      "manual": {
+        "blocks_per_sm": 4,
+        "registers_per_block": 15360,
+        "shared_bytes_per_block": 0,
+        "limits": {
+          "blocks": 16,
+          "threads": 8,
+          "registers": 4
+        }
+      },
+      "occupancy_api_blocks_per_sm": 4
+    },
+    "old-g4": {
+      "attributes": {
+        "max_threads_per_block": 512,
+        "shared_size_bytes": 0,
+        "const_size_bytes": 0,
+        "local_size_bytes": 1472,
+        "num_regs": 98,
+        "ptx_version": 75,
+        "binary_version": 75,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_size_bytes": 49152,
+        "preferred_shared_memory_carveout": -1
+      },
+      "launch": {
+        "blocks": "ceil(n/128)",
+        "threads": 128,
+        "capacity": null
+      },
+      "manual": {
+        "blocks_per_sm": 4,
+        "registers_per_block": 13312,
+        "shared_bytes_per_block": 0,
+        "limits": {
+          "blocks": 16,
+          "threads": 8,
+          "registers": 4
+        }
+      },
+      "occupancy_api_blocks_per_sm": 4
+    },
+    "new-g4": {
+      "attributes": {
+        "max_threads_per_block": 512,
+        "shared_size_bytes": 0,
+        "const_size_bytes": 0,
+        "local_size_bytes": 1472,
+        "num_regs": 98,
+        "ptx_version": 75,
+        "binary_version": 75,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_size_bytes": 49152,
+        "preferred_shared_memory_carveout": -1
+      },
+      "launch": {
+        "blocks": "ceil(n/128)",
+        "threads": 128,
+        "capacity": null
+      },
+      "manual": {
+        "blocks_per_sm": 4,
+        "registers_per_block": 13312,
+        "shared_bytes_per_block": 0,
+        "limits": {
+          "blocks": 16,
+          "threads": 8,
+          "registers": 4
+        }
+      },
+      "occupancy_api_blocks_per_sm": 4
+    }
+  },
+  "measurements": [
+    {
+      "task": "old-g2b:500000",
+      "repeat": -1,
+      "config_sha256": "3405d469eb884036eb96287225030a44abd3001515957621d0b47376c4e8ca74",
+      "session_id": "fc41c42b-4dc9-4b96-86df-63d3f707ccaf",
+      "seed": 20261026,
+      "source_seed": 12671299258706851920,
+      "start": 0,
+      "kernel_s": 0.434921875,
+      "call_s": 0.6242155279999224,
+      "health": {
+        "status": "pass",
+        "histories": 500000,
+        "max_energy_error_keV": 1.4210854715202004e-14,
+        "method": "untimed same-input record replay"
+      }
+    },
+    {
+      "task": "new-g2b:500000",
+      "repeat": -1,
+      "config_sha256": "3405d469eb884036eb96287225030a44abd3001515957621d0b47376c4e8ca74",
+      "session_id": "fc41c42b-4dc9-4b96-86df-63d3f707ccaf",
+      "seed": 20261026,
+      "source_seed": 12671299258706851920,
+      "start": 0,
+      "kernel_s": 0.278179931640625,
+      "call_s": 0.41628747300001123,
+      "health": {
+        "status": "pass",
+        "histories": 500000,
+        "max_energy_error_keV": 1.4210854715202004e-14,
+        "method": "untimed same-input record replay"
+      }
+    },
+    {
+      "task": "old-g2b:100000",
+      "repeat": -1,
+      "config_sha256": "3405d469eb884036eb96287225030a44abd3001515957621d0b47376c4e8ca74",
+      "session_id": "fc41c42b-4dc9-4b96-86df-63d3f707ccaf",
+      "seed": 20261026,
+      "source_seed": 12671299258706851920,
+      "start": 0,
+      "kernel_s": 0.057950496673583984,
+      "call_s": 0.11788066700000854,
+      "health": {
+        "status": "pass",
+        "histories": 100000,
+        "max_energy_error_keV": 1.4210854715202004e-14,
+        "method": "untimed same-input record replay"
+      }
+    },
+    {
+      "task": "new-g2b:100000",
+      "repeat": -1,
+      "config_sha256": "3405d469eb884036eb96287225030a44abd3001515957621d0b47376c4e8ca74",
+      "session_id": "fc41c42b-4dc9-4b96-86df-63d3f707ccaf",
+      "seed": 20261026,
+      "source_seed": 12671299258706851920,
+      "start": 0,
+      "kernel_s": 0.05841164779663086,
+      "call_s": 0.12912948600001073,
+      "health": {
+        "status": "pass",
+        "histories": 100000,
+        "max_energy_error_keV": 1.4210854715202004e-14,
+        "method": "untimed same-input record replay"
+      }
+    },
+    {
+      "task": "old-g4:100000",
+      "repeat": -1,
+      "config_sha256": "3405d469eb884036eb96287225030a44abd3001515957621d0b47376c4e8ca74",
+      "session_id": "fc41c42b-4dc9-4b96-86df-63d3f707ccaf",
+      "seed": 2040,
+      "source_seed": 3712336832425968660,
+      "start": 0,
+      "kernel_s": 0.23096957397460938,
+      "call_s": 0.25091778000000886,
+      "health": {
+        "status": "pass",
+        "histories": 100000,
+        "max_energy_error_keV": 0.0,
+        "method": "untimed same-input record replay"
+      }
+    },
+    {
+      "task": "new-g4:100000",
+      "repeat": -1,
+      "config_sha256": "3405d469eb884036eb96287225030a44abd3001515957621d0b47376c4e8ca74",
+      "session_id": "fc41c42b-4dc9-4b96-86df-63d3f707ccaf",
+      "seed": 2040,
+      "source_seed": 3712336832425968660,
+      "start": 0,
+      "kernel_s": 0.2304176025390625,
+      "call_s": 0.25084731900005863,
+      "health": {
+        "status": "pass",
+        "histories": 100000,
+        "max_energy_error_keV": 0.0,
+        "method": "untimed same-input record replay"
+      }
+    },
+    {
+      "task": "old-g2b:500000",
+      "repeat": 0,
+      "config_sha256": "3405d469eb884036eb96287225030a44abd3001515957621d0b47376c4e8ca74",
+      "session_id": "fc41c42b-4dc9-4b96-86df-63d3f707ccaf",
+      "seed": 20261026,
+      "source_seed": 12671299258706851920,
+      "start": 0,
+      "kernel_s": 0.27825997924804685,
+      "call_s": 0.4139878309999858,
+      "health": {
+        "status": "pass",
+        "histories": 500000,
+        "max_energy_error_keV": 1.4210854715202004e-14,
+        "method": "untimed same-input record replay"
+      }
+    },
+    {
+      "task": "new-g2b:500000",
+      "repeat": 0,
+      "config_sha256": "3405d469eb884036eb96287225030a44abd3001515957621d0b47376c4e8ca74",
+      "session_id": "fc41c42b-4dc9-4b96-86df-63d3f707ccaf",
+      "seed": 20261026,
+      "source_seed": 12671299258706851920,
+      "start": 0,
+      "kernel_s": 0.27863253784179687,
+      "call_s": 0.41931630199997016,
+      "health": {
+        "status": "pass",
+        "histories": 500000,
+        "max_energy_error_keV": 1.4210854715202004e-14,
+        "method": "untimed same-input record replay"
+      }
+    },
+    {
+      "task": "old-g2b:100000",
+      "repeat": 0,
+      "config_sha256": "3405d469eb884036eb96287225030a44abd3001515957621d0b47376c4e8ca74",
+      "session_id": "fc41c42b-4dc9-4b96-86df-63d3f707ccaf",
+      "seed": 20261026,
+      "source_seed": 12671299258706851920,
+      "start": 0,
+      "kernel_s": 0.05824480056762695,
+      "call_s": 0.11723834000008537,
+      "health": {
+        "status": "pass",
+        "histories": 100000,
+        "max_energy_error_keV": 1.4210854715202004e-14,
+        "method": "untimed same-input record replay"
+      }
+    },
+    {
+      "task": "new-g2b:100000",
+      "repeat": 0,
+      "config_sha256": "3405d469eb884036eb96287225030a44abd3001515957621d0b47376c4e8ca74",
+      "session_id": "fc41c42b-4dc9-4b96-86df-63d3f707ccaf",
+      "seed": 20261026,
+      "source_seed": 12671299258706851920,
+      "start": 0,
+      "kernel_s": 0.058122657775878904,
+      "call_s": 0.11737084399987907,
+      "health": {
+        "status": "pass",
+        "histories": 100000,
+        "max_energy_error_keV": 1.4210854715202004e-14,
+        "method": "untimed same-input record replay"
+      }
+    },
+    {
+      "task": "old-g4:100000",
+      "repeat": 0,
+      "config_sha256": "3405d469eb884036eb96287225030a44abd3001515957621d0b47376c4e8ca74",
+      "session_id": "fc41c42b-4dc9-4b96-86df-63d3f707ccaf",
+      "seed": 2040,
+      "source_seed": 3712336832425968660,
+      "start": 0,
+      "kernel_s": 0.22944749450683594,
+      "call_s": 0.24947018300008494,
+      "health": {
+        "status": "pass",
+        "histories": 100000,
+        "max_energy_error_keV": 0.0,
+        "method": "untimed same-input record replay"
+      }
+    },
+    {
+      "task": "new-g4:100000",
+      "repeat": 0,
+      "config_sha256": "3405d469eb884036eb96287225030a44abd3001515957621d0b47376c4e8ca74",
+      "session_id": "fc41c42b-4dc9-4b96-86df-63d3f707ccaf",
+      "seed": 2040,
+      "source_seed": 3712336832425968660,
+      "start": 0,
+      "kernel_s": 0.2297749481201172,
+      "call_s": 0.25187381199998526,
+      "health": {
+        "status": "pass",
+        "histories": 100000,
+        "max_energy_error_keV": 0.0,
+        "method": "untimed same-input record replay"
+      }
+    }
+  ],
+  "ncu": [],
+  "summary": {
+    "status": "pass",
+    "ratios": {
+      "g2b:500000": {
+        "medians": {
+          "old": 0.27825997924804685,
+          "new": 0.27863253784179687
+        },
+        "ratio": 1.0013388867301607
+      },
+      "g2b:100000": {
+        "medians": {
+          "old": 0.05824480056762695,
+          "new": 0.058122657775878904
+        },
+        "ratio": 0.9979029408538153
+      },
+      "g4:100000": {
+        "medians": {
+          "old": 0.22944749450683594,
+          "new": 0.2297749481201172
+        },
+        "ratio": 1.0014271396337757
+      }
+    }
+  }
+}

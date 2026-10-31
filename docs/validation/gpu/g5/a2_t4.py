@@ -16,11 +16,11 @@ P7=Path.home()/'.cache/chatcarlo/p7/work/export'
 GPU=common.ROOT/'chatcarlo/gpu'
 
 
-def water(path):
+def water(path,condition='A'):
     """Host-built water inputs; goes to the VM only (holds the spectrum), never to the repo."""
     _,_,a=common.inputs()
-    w,c=common.water_arrays(a,'A')
-    np.savez(path,**{k:w[k] for k in ('faces','rho','bins','strength','edges','cum','ids','owner','constants','sizes')},
+    w,c=common.water_arrays(a,condition)
+    np.savez(path,**{k:w[k] for k in ('faces','rho','bins','strength','edges','cum','ids','owner','constants','sizes','mass_g_cm2')},
              field_geometry=np.frombuffer(bytes(common.field_geometry()),np.uint8),half=c['field_half'],ssd=c['ssd'])
 
 

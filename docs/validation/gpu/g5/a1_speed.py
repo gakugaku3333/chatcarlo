@@ -23,7 +23,7 @@ def load_configs(path):
     orders=[tasks[i:]+tasks[:i] for i in (0,2,4)]
     orders[1]=[v for j in range(0,6,2) for v in orders[1][j:j+2][::-1]]
     if (cfg['format']!='g5-a1-speed-v1' or cfg['warmup_order']!=tasks or
-            cfg['round_orders']!=orders or cfg['tolerance_ratio']!=1.0571):
+            cfg['round_orders'] not in (orders,orders[:1]) or cfg['tolerance_ratio']!=1.0571):
         raise ValueError('predeclared A1 orders/config required')
     # Bind the full A0 configuration, including seeds, geometry and flags.
     baseline=HERE/'a0_configs.json'
@@ -143,7 +143,8 @@ def speed(args):
                 save()
         record['summary']=summarize(rows,cfg,digest);save()
         # Report-only ncu, one production-size launch per old/new configuration.
-        for c in cfg['configurations']:
+        # A2 recheck runs one round (user decision 2026-10-31) and needs no profile.
+        for c in cfg['configurations'] if len(cfg['round_orders'])>1 else ():
             for version in ('old','new'):
                 key=version+'-'+c['id'];stem=out/(key+'_full')
                 command=['ncu','--set','full','--target-processes','all','--kernel-name',
