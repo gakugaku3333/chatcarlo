@@ -1,8 +1,8 @@
 ---
 phase: 開発中
-next: G5 の段 A3（計画を起草）。A2 の結果は docs/validation/gpu/g5/A2.md
+next: G5 の段 A3（計画を起草）。A2 の結果は docs/validation/gpu/g5/A2.md。発表資料は日本語添削済み・公開版41（docs/jsmp133/abstract_plan.md）
 blocker: ELSEPAで作った表の配布の方法（表を置くか、生成スクリプトだけか）とリポジトリのLICENSEはユーザーの判断待ち。急がない
-updated: 2026-10-31
+updated: 2026-11-01
 ---
 
 治療領域拡張の段階の状況は [docs/validation/mv/STATUS.md](docs/validation/mv/STATUS.md)、常設ルールは
