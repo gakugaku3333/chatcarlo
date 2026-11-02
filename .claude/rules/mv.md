@@ -167,3 +167,7 @@ overwritten by later diagnostics.
   "Run all". The Drive mount often times out while the permission is pending; rerunning "Run all" fixes it.
 - Large bundles (P7: ~750 MB) take minutes to upload: name the files the user should see in the Drive folder and ask
   them to wait until all are listed before "Run all" (a partial file stops the run safely, but the run is wasted).
+- Colab launchers: before writing one, copy the rules in `docs/lessons_learned.md` "Colab の起動役の決まり" (time limits on every
+  call, retries on CLI errors, a separate stall watcher, completion marker files, one tar for results, retryable measurement units).
+- After `pytest prototypes/mv_electron/tests`, run `git status --short docs/validation/mv`: the suite rewrites
+  `p8g1/faults_gate0.json` and `p8g3/fault_observations.json` with temp paths. Restore them before committing or checking freezes.
