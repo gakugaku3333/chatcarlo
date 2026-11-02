@@ -1,6 +1,6 @@
 ---
 phase: 開発中
-next: G5 A3 のキャッシュの補足判定をユーザーが確認して完了にする。結果は docs/validation/gpu/g5/A3_LOCAL.md
+next: G5 の次の段へ。A3 の結果は docs/validation/gpu/g5/A3_LOCAL.md
 blocker: ELSEPAで作った表の配布の方法（表を置くか、生成スクリプトだけか）とリポジトリのLICENSEはユーザーの判断待ち。急がない
 updated: 2026-11-02
 ---
