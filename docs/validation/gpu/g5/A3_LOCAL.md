@@ -143,5 +143,5 @@ validate → preview → approve → run を完走した後の `sys.modules` で
 | データ | 扱い | 置き場 |
 |---|---|---|
 | 判定・速さ・故障検査の JSON | リポジトリ | `a3_run/t4/` |
-| `H5` の生データ、`g2.json`（26 MB）、入口のバッチ | 手元。Drive への複製は未実施（ユーザー確認待ち） | `/private/tmp/g5-a3-t4-20261102{d,e,f}` |
-| `f/payload.tar.gz`、各回の `entry/*/transfer`・`bundle` | 消す（作り直せる）。削除はユーザー | 同上 |
+| `H5` の生データ、`g2.json`（26 MB）、入口のバッチ | 消す。要約がリポジトリにあるので Drive へは複製しない（2026-11-02 ユーザー決定）。ゴミ箱へ移動済み | — |
+| `f/payload.tar.gz`、各回の `entry/*/transfer`・`bundle` | 消す（作り直せる）。ゴミ箱へ移動済み | — |
