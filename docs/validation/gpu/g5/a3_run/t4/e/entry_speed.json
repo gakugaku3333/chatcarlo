@@ -1,0 +1,7125 @@
+{
+  "status": "running",
+  "rows": {
+    "old_cold": {
+      "main_s": 1497.1067105829716,
+      "analysis_s": 0.0,
+      "total_s": 1497.1067105829716,
+      "cache_dir": "/content/g5-a3-537f7f01cd4b/compile_cache/old",
+      "cache_before": {},
+      "cache_after": {
+        "7cbbf4d58bfcc08b86ebe3af34d74909cca50372.cubin": "422641779dbc7db5d4b301ab6faea12d3105dbc720ca5325ab57652439370d59"
+      },
+      "compiler": {
+        "instrumented": true,
+        "rows": [
+          {
+            "kind": "RawKernel.compile",
+            "seconds": 79.27799409499994
+          },
+          {
+            "kind": "RawKernel.compile",
+            "seconds": 8.302300011564512e-05
+          },
+          {
+            "kind": "RawKernel.compile",
+            "seconds": 7.457700030499836e-05
+          }
+        ]
+      },
+      "histories": 4600000,
+      "poll_seconds": 60,
+      "local_results": "/private/tmp/g5-a3-t4-20261102e/entry/old/cold/results",
+      "instrumentation_remote": "/content/g5-a3-537f7f01cd4b/entry/old/cold",
+      "worker_roots": [
+        "/content/g5-a3-537f7f01cd4b/entry/old/cold"
+      ],
+      "transport": [
+        {
+          "operation": "exec",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 13.424442166928202,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "upload",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.1205772077664733,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "upload",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.8953059585765004,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "upload",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 17.522263416089118,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "upload",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 15.625643458683044,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "upload",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 7.2357146251015365,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "upload",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.2721735420636833,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "upload",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.7797911670058966,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "upload",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 19.741536332760006,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "upload",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.828108792193234,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "upload",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 23.694749833084643,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "upload",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 13.029563999734819,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "upload",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 11.365901582874358,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "upload",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 75.73377545783296,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "upload",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 10.461491750087589,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "upload",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 2.5682757501490414,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "upload",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 38.30671887472272,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "exec",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 14.312035874929279,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "exec",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 300.0144399171695,
+          "error": "TimeoutExpired",
+          "detail": "(\"Connection was lost.\")        \\xe2\\x94\\x82\\n\\xe2\\x94\\x82   1074 \\xe2\\x94\\x82   \\xe2\\x94\\x82   \\xe2\\x94\\x82   \\xe2\\x94\\x82                                                         \\xe2\\x94\\x82\\n\\xe2\\x94\\x82   1075 \\xe2\\x94\\x82   \\xe2\\x94\\x82   \\xe2\\x94\\x82   \\xe2\\x94\\x82   if timeout is not None:                               \\xe2\\x94\\x82\\n\\xe2\\x94\\x82   1076 \\xe2\\x94\\x82   \\xe2\\x94\\x82   \\xe2\\x94\\x82   \\xe2\\x94\\x82   \\xe2\\x94\\x82   timeout = max(0, deadline - time.monotonic())     \\xe2\\x94\\x82\\n\\xe2\\x95\\xb0\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x95\\xaf\\nRuntimeError: Connection was lost.\\n'"
+        },
+        {
+          "operation": "exec",
+          "attempt": 2,
+          "retry": true,
+          "seconds": 14.255855542141944,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 24.653310666792095,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 2.0030125002376735,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 13.948646209202707,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.6219773753546178,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.5970656252466142,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.4067357080057263,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.7980855419300497,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.5248348331078887,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.0917176250368357,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.249341458082199,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.1659949170425534,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.8981060832738876,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.2204671669751406,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.1490406673401594,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 2.9735184158198535,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.6314058750867844,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.6325192921794951,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 2.7596718329004943,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.2770441249012947,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 13.072690665721893,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.7048490829765797,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.828056207858026,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.3255747500807047,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 2.4645614167675376,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.6084283338859677,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.5264282077550888,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.4648802080191672,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.5404680832289159,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.5911906249821186,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.431415124796331,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.5630145827308297,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.5792370410636067,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.2975958748720586,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.6317234579473734,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.5131452907808125,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.1589769585989416,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.5830877921544015,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.506117207929492,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.1564345406368375,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.8813576251268387,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.5166024169884622,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.160211042035371,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 3.500645666383207,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.3524178750813007,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 20.024402083363384,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 2.1717845001257956,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 2.877732832916081,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 24.40245358273387,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.01101595768705,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 2.0032299999147654,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 30.001299124676734,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.3831799579784274,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 35.13069674978033,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.7931516668759286,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.586947875097394,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 29.254058874677867,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 2.9365868330933154,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 2.829330208245665,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.7453222922049463,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 16.030765499919653,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.142336415592581,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 2.3957850001752377,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 14.963587666396052,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.6366684576496482,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.7961368327960372,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 10.276855375152081,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.8032321673817933,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 2.077818375080824,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.9948254167102277,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.7837771661579609,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.095616249833256,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.6233385829254985,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.5416218750178814,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.7580718747340143,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.370961416978389,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.6048544575460255,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.5138744576834142,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.1493767080828547,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.5464943749830127,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.511307000182569,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 2.8558536251075566,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 2.357246625237167,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.6355587500147521,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 19.75191008299589,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 3.883769125211984,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.2135250000283122,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 6.9329102910123765,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.9560937914066017,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.40241445787251,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 9.676241665612906,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.6069606249220669,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.5388364167883992,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.4255691659636796,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.1035552090033889,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.9793812911957502,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.464230750221759,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.634748833719641,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.807824166957289,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.2651546252891421,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.8162967502139509,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.2220496670342982,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.851412707939744,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.5604982911609113,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.5330324582755566,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.3950632917694747,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.8681580424308777,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.49148312490433455,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.1489304159767926,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.7958134170621634,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.5014205002225935,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.4576122923754156,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.9221864580176771,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.7026235000230372,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.6638679169118404,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.307706582825631,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.1733733746223152,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.5584777919575572,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.9574211249127984,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 29.604138750117272,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 15.695549750234932,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.8370980829931796,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 13.006692082621157,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 15.76923262514174,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.7988149160519242,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.9099542908370495,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 10.415872291196138,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.2581368749961257,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.379820458125323,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 12.81314208265394,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.8105973331257701,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.1624951250851154,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.554635750129819,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.7425561673007905,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 9.628313624765724,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.158752541989088,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.5717850406654179,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.5267995409667492,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.1265288339927793,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.562580999918282,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.7752391248941422,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.3843735000118613,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.5481316247023642,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.6887517077848315,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.3940292499028146,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.8113164999522269,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.5234830840490758,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 2.636443791911006,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.6122653749771416,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.137413749936968,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.961380457971245,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.7740390836261213,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 36.976478916127235,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 2.849128167144954,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.922061915975064,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.5131790000014007,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.3680810830555856,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.5959731671027839,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.5134696252644062,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.3887727917172015,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.594343583099544,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.7579102087765932,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.1243722918443382,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.5581748327240348,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.5236219577491283,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.4412765419110656,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.5360125419683754,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.5241426657885313,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.5582220000214875,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.822086916770786,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.9348449166864157,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 2.4196265838108957,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.2095572501420975,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.7026550420559943,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 2.1915110000409186,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.1438860418274999,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.9543174579739571,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.1443900833837688,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.5594268748536706,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.516350916121155,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.155015124939382,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.5638246252201498,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.5677166250534356,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.9656230001710355,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 2.1626206249929965,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.516261083073914,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.1581386248581111,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.7794823753647506,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.8842137497849762,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.4964844998903573,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.5655542919412255,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.7899115420877934,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.1851600827649236,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.8209636248648167,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.5190482502803206,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.417968834284693,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.568332958035171,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 28.112490042112768,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.6840987913310528,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.6057177078910172,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.8209287500940263,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.2710914160124958,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.5583897912874818,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.8937944169156253,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.6670206668786705,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.854507707990706,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.8223214591853321,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.4130055829882622,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.6249839998781681,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 18.249647041782737,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 16.5428030830808,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.8124760827049613,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.8190307905897498,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 34.575666166841984,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.1586130834184587,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.5670047076418996,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.1987659158185124,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.5846909582614899,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.93651262531057,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.173165500164032,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.5929267080500722,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.5544771668501198,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.1797505407594144,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.7955673332326114,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 13.6870808750391,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.2274592076428235,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.5956471250392497,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.5381441661156714,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.402075625024736,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.8405776666477323,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.5637606671079993,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.148842042312026,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.6027521672658622,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.6328311669640243,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.191996708046645,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.5730087077245116,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.525805416982621,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.4240954997949302,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.5940026673488319,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.5417002500034869,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.6478280830197036,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.9676770833320916,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.9250230411998928,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.4233988751657307,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.5782879162579775,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.5453987079672515,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.451899167150259,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.8145536668598652,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.5214494168758392,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.1439470001496375,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.569578958209604,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.79385658307001,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.2408027909696102,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.9239202081225812,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.7049475410021842,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.4938151249662042,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.6162810837849975,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.6796152498573065,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.592968833167106,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.130951500032097,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.8439186671748757,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 2.2246035002171993,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.2660394157283008,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 16.155405208002776,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 2.1335714999586344,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.7213089168071747,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.5896491669118404,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 5.74800991686061,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.5864841253496706,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.5707186246290803,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.2171654580160975,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.5826268340460956,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.8572419160045683,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.1938229580409825,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.8850609171204269,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.5265152077190578,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.1834845417179167,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.814211165998131,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.5263582076877356,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.2016567499376833,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.5607355418615043,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.5489092501811683,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.443059166893363,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.6280654999427497,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.8379097077995539,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.4169854167848825,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.5897975000552833,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.8591262497939169,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.2273642499931157,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.8415778339840472,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.6808882080949843,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.2009861250407994,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.5818522498011589,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.566600542049855,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.1934156250208616,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.6245138328522444,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.5309958327561617,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.206645583268255,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.5788861247710884,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.6294504581019282,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.1913342918269336,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.5721954577602446,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.5190299157984555,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.6794136250391603,
+          "error": null,
+          "detail": null
+        }
+      ],
+      "transport_retried": true,
+      "transport_retry_attempts": 1
+    },
+    "new_cold": {
+      "main_s": 681.9431543750688,
+      "analysis_s": 0.1713244579732418,
+      "total_s": 682.1144788330421,
+      "cache_dir": "/content/g5-a3-537f7f01cd4b/compile_cache/new",
+      "cache_before": {},
+      "cache_after": {
+        "423fd88eb8447ada201dd63f68a1c189f06c3789.cubin": "c378b32f78c58894688e9157d79fc33d62e962cd44a22e7f95c179d2279d94e4",
+        "d33de8e542eca0d329fb9827b4f98bef7df5fc81.cubin": "f51cdea85920275b1fc9551d1094bb2434d7391f8691c1676795493ffbda8781"
+      },
+      "compiler": {
+        "instrumented": true,
+        "rows": [
+          {
+            "kind": "RawKernel.compile",
+            "seconds": 16.64904257299986
+          },
+          {
+            "kind": "RawKernel.compile",
+            "seconds": 8.620799962955061e-05
+          },
+          {
+            "kind": "RawKernel.compile",
+            "seconds": 3.9772000491211656e-05
+          },
+          {
+            "kind": "RawKernel.compile",
+            "seconds": 6.145199949969538e-05
+          },
+          {
+            "kind": "RawKernel.compile",
+            "seconds": 16.54187027700027
+          },
+          {
+            "kind": "RawKernel.compile",
+            "seconds": 0.00011263799933658447
+          },
+          {
+            "kind": "RawKernel.compile",
+            "seconds": 4.607800019584829e-05
+          },
+          {
+            "kind": "RawKernel.compile",
+            "seconds": 6.40460002614418e-05
+          }
+        ]
+      },
+      "histories": 4600000,
+      "poll_seconds": 60,
+      "local_results": "/private/tmp/g5-a3-t4-20261102e/entry/new/cold/results",
+      "instrumentation_remote": "/content/g5-a3-537f7f01cd4b/entry/new/cold",
+      "worker_roots": [
+        "/content/g5-entry-6e1db62b4db242609595a1f7d8f8196f"
+      ],
+      "transport": [
+        {
+          "operation": "exec",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.7010056250728667,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "upload",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.6669501662254333,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "upload",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.1424447908066213,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "upload",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.676358750090003,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "upload",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.6630181251093745,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "upload",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.2268317500129342,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "upload",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.8243004586547613,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "upload",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.9282243340276182,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "upload",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.9269719999283552,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "upload",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 9.24906291719526,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "upload",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.090246541891247,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "upload",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 30.833990292157978,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "upload",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 9.219186041969806,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "upload",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 7.545630250126123,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "upload",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 7.503941666800529,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "upload",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 19.929083541966975,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "upload",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 6.320807208307087,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "exec",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 29.863441583234817,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "exec",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 15.879866583272815,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "exec",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 2.185217374935746,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "exec",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.5690234168432653,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.6145579167641699,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.1731645409017801,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.6408518753014505,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.316927374806255,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.7863183747977018,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.1976984171196818,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.0636289580725133,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.1571928327903152,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.6419568751007318,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.2913492089137435,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.9271680829115212,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.6199784162454307,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.6054459167644382,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 2.0962328328751028,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.9918014579452574,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.0526010827161372,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.9048733343370259,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.1706675831228495,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.7090898747555912,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.4609344168566167,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.9818751672282815,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.8514512502588332,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.5502014174126089,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.5706899580545723,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.6453724168241024,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.2166794161312282,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.7220224998891354,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.533574250061065,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.6221754583530128,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.5849012089893222,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.9142868337221444,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.512030208017677,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.089949042070657,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.2227876246906817,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.6889547500759363,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.237819458823651,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.8835092922672629,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.1965664173476398,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.8540565837174654,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "exec",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.7751992079429328,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.8870985843241215,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.833238875027746,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.9023353331722319,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.7588499998673797,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.130089582875371,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.8482566247694194,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.8761879168450832,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.5405223751440644,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.9278613752685487,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.5923648746684194,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.8863952914252877,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.8221433339640498,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.1731860837899148,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.8748376662842929,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.9254441251978278,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.7918027909472585,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.1343099996447563,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.7929489160887897,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.9198184162378311,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.5335749578662217,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.9224538751877844,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.559283500071615,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.8972422499209642,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.8276314581744373,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.1727849589660764,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.5550450831651688,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.8961342498660088,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.5573888341896236,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.1835307497531176,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.5498832077719271,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.904846915975213,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.7574873748235404,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.9203356672078371,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.5407513747923076,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.9070017500780523,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.5361961247399449,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.109297875314951,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.6140789170749485,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.9274894162081182,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.5469497498124838,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.8903957502916455,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.8024993329308927,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.8818791671656072,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.5650359578430653,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.1586993327364326,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.8416623333469033,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.1926507921889424,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.5725349998101592,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.1429458330385387,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.5604992499575019,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.9286929164081812,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.5818199999630451,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.166311209090054,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.5497594159096479,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.9300536252558231,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.5652264170348644,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.9108482911251485,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.5460087498649955,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.9206859162077308,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.5465494999662042,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.8826134577393532,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.5911118746735156,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.8847486670129001,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.5762310419231653,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.1214003330096602,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.6525429589673877,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.8170442921109498,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.6776193329133093,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 2.4971270826645195,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.6614706250838935,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.4751934581436217,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.6130989161320031,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.8912515831179917,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.1171435420401394,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.809846957679838,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.0749908336438239,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.8509497079066932,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.8699719998985529,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.9837457085959613,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.6541891251690686,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 2.074181624688208,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.7510952497832477,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "exec",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.6015917919576168,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.8927536658011377,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.5611119172535837,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.9096580408513546,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.5510561252012849,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.8928397912532091,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.5680648339912295,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.8877187077887356,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.5204117922112346,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.113561833743006,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.5472524999640882,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.1533597079105675,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.5277795000001788,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.180495916865766,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.5482185832224786,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.910749249625951,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.6225626668892801,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.901293708011508,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.5504029169678688,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.1344400001689792,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.8298741248436272,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.8882540841586888,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.5320317503064871,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.8708716249093413,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.5320334578864276,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.8695476669818163,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.5367767922580242,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.115954208187759,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.5521337077952921,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.1623798748478293,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.556022415868938,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.9043766250833869,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.5561808343045413,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.9176531657576561,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.5299840001389384,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.8541688751429319,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.5183839579112828,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.8719237078912556,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.5206684996373951,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.9181070839986205,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.7604866670444608,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.936547958292067,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.5697474996559322,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.141532416921109,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.8470067922025919,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.2821525419130921,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.7049405840225518,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.2188318748958409,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.6643503750674427,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 37.147624749690294,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.8965070410631597,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.727296665776521,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.0913442503660917,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.319856416899711,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.6281235003843904,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 39.80507504194975,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.7324164169840515,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.2178027918562293,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.617766167037189,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.5308074168860912,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.6093246662057936,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.657893666997552,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.7253702920861542,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.2525400421582162,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.7037559589371085,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.670150333084166,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.0208334578201175,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 15.751600374933332,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.8731128750368953,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.3254133751615882,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.9132002079859376,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.2486877497285604,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.8728950000368059,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.8255021250806749,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.5559569159522653,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.9045109166763723,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.5542314578779042,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.1716013341210783,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.8529415410012007,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.1250813328661025,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.7929283338598907,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "exec",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.4061239999718964,
+          "error": null,
+          "detail": null
+        }
+      ],
+      "transport_retried": false,
+      "transport_retry_attempts": 0
+    },
+    "old_cached": {
+      "main_s": 938.6578733753413,
+      "analysis_s": 0.0,
+      "total_s": 938.6578733753413,
+      "cache_dir": "/content/g5-a3-537f7f01cd4b/compile_cache/old",
+      "cache_before": {
+        "7cbbf4d58bfcc08b86ebe3af34d74909cca50372.cubin": "422641779dbc7db5d4b301ab6faea12d3105dbc720ca5325ab57652439370d59"
+      },
+      "cache_after": {
+        "7cbbf4d58bfcc08b86ebe3af34d74909cca50372.cubin": "422641779dbc7db5d4b301ab6faea12d3105dbc720ca5325ab57652439370d59"
+      },
+      "compiler": {
+        "instrumented": true,
+        "rows": [
+          {
+            "kind": "RawKernel.compile",
+            "seconds": 0.21908313000039925
+          },
+          {
+            "kind": "RawKernel.compile",
+            "seconds": 7.27400001778733e-05
+          },
+          {
+            "kind": "RawKernel.compile",
+            "seconds": 6.365599983837456e-05
+          }
+        ]
+      },
+      "histories": 4600000,
+      "poll_seconds": 60,
+      "local_results": "/private/tmp/g5-a3-t4-20261102e/entry/old/cached/results",
+      "instrumentation_remote": "/content/g5-a3-537f7f01cd4b/entry/old/cached",
+      "worker_roots": [
+        "/content/g5-a3-537f7f01cd4b/entry/old/cached"
+      ],
+      "transport": [
+        {
+          "operation": "exec",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 13.2622902081348,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "upload",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.9703945838846266,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "upload",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 19.51494420832023,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "upload",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 7.83267862489447,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "upload",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 11.71640087524429,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "upload",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 7.366635541897267,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "upload",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.1966140000149608,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "upload",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.574575750157237,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "upload",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.8668316667899489,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "upload",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.8045424581505358,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "upload",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 10.334470292087644,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "upload",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 7.784849166870117,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "upload",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 7.761986792087555,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "upload",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 7.650488832965493,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "upload",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 14.817073999904096,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "upload",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 3.84566391678527,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "upload",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.5577512923628092,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "exec",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 9.945067792199552,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "exec",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.2355624581687152,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "exec",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.8547165421769023,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 6.4567029578611255,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 2.6856857500970364,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.8836071253754199,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.3045993749983609,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.5872067082673311,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.6675659590400755,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.9626566250808537,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 2.2652723751962185,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.7221021670848131,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.7439615000039339,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 2.21200441615656,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.6802234998904169,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 38.11407783301547,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.3671234580688179,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.9011295838281512,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.8788265422917902,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.513518167193979,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.5852418746799231,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.5564824170432985,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.496127292048186,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.6005708328448236,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.5731287500821054,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.2372072907164693,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.6062792502343655,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.8156835418194532,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.2116250828839839,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.8493847078643739,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.5560720418579876,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.4933290421031415,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.683307291008532,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.5559359998442233,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.4620600421912968,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.6020455840043724,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.5663798749446869,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.2425724579952657,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.8317755409516394,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.5372065827250481,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.2087802081368864,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.8415262498892844,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.7920791660435498,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.419010709039867,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.5677143330685794,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.8551239999942482,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.7034661252982914,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.6711185001768172,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.6140302089042962,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 2.3352682082913816,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.7661483753472567,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 37.14698216738179,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.2866842499934137,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.5542387091554701,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.5789934997446835,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.17094162479043,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.5640584588982165,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.5264573749154806,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.1755123753100634,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.5616342090070248,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.5717809172347188,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.4508094578050077,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.5895253331400454,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.8323977082036436,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.432044040877372,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.5887611247599125,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.8445035410113633,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.1866508340463042,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.5768831660971045,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.9217563751153648,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.7024165843613446,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.8986192918382585,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.567005957942456,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.4315198748372495,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.6189810843206942,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.5244227079674602,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 2.120537833776325,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.1017850833013654,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.6252495828084648,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 2.2088029999285936,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.8853295422159135,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.0771220419555902,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 5.6303616669029,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.7228792500682175,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.8771675839088857,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 3.521580707747489,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.1814631670713425,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.6863900413736701,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 2.0120412092655897,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.5967854997143149,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.5645864168182015,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 37.15667345793918,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.6283681252971292,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.6548090004362166,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.7079563331790268,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.9315085001289845,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 36.64071004092693,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.329612041823566,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.6649045832455158,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 22.494748167227954,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 4.564209207892418,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.3517073751427233,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 38.1064193751663,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "exec",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.6606805827468634,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.779053583741188,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.189975917339325,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.5969861247576773,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.5711584999226034,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.2012045001611114,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.6651018331758678,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.5647362088784575,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.1888864999637008,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.5992281250655651,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.8368414998985827,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 4.905673417262733,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.7855617920868099,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.7454976253211498,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 2.9072378329001367,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.7697998331859708,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.6059084166772664,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 4.358432291075587,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.0629285420291126,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.7000422501005232,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 5.265160208102316,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.1116009163670242,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.8298041252419353,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 23.9654237087816,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.0149587919004261,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.4628295418806374,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 10.960779583081603,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.7792997076176107,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.7247091671451926,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.5744268749840558,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.5901661249808967,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 40.37664549984038,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.2252491251565516,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.7371742916293442,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.7686464167200029,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.1516141248866916,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.5844430001452565,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.7779517080634832,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.2101845419965684,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.6013507922179997,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.6251141661778092,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.2063073753379285,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.5855445410124958,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.6295822500251234,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.4263057499192655,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.5967434579506516,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.7648582910187542,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 2.0962148341350257,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.8420936660841107,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.6932924166321754,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 2.038815666921437,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.9659654591232538,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.7098409589380026,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 3.446030542254448,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.0761341252364218,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.7003250829875469,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.278527541551739,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.6028862078674138,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.7503450829535723,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.4246404580771923,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.6614577090367675,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.5524921668693423,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.198816374875605,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.6031822087243199,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.7431809171102941,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.212728959042579,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.6205925000831485,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.5385341672226787,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.1986573343165219,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.8138092919252813,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.5332532497122884,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.1754422499798238,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.5687438752502203,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.5640823752619326,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.1399782076478004,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.7883587088435888,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.5532475421205163,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.225495624821633,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.5807384587824345,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.8195003331638873,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.181174666620791,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.5630172500386834,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.8140612500719726,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.121417208109051,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.5893603749573231,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.9161700839176774,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.4805977502837777,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.6062835422344506,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.5611268333159387,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.431610249914229,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.6761524588800967,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 24.457859207876027,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 5.005169374868274,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.6642002076841891,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.6301608751527965,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 2.11501616705209,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.8474870827049017,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.6918242080137134,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.6712334170006216,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.6867415001615882,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.618008750025183,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 3.1310714171268046,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.9139034161344171,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.8538783746771514,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 2.0307689998298883,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.6984581248834729,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.6453129588626325,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.9598555830307305,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.6249017920345068,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.8748554168269038,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.685668167192489,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.6160927079617977,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.6264840001240373,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 3.4637423753738403,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.6953690419904888,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.9654600829817355,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.8831811673007905,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.9505943753756583,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.5800684588029981,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.8849802906624973,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.0288934581913054,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.6819169581867754,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.7864737091585994,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.1953059169463813,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.6182974996045232,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.8512631659395993,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.8568276246078312,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.6599375419318676,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.6265847496688366,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.6803841250948608,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.7205934575758874,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.4300906658172607,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.6001117918640375,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.5458911671303213,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.1770448749884963,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.7945630000904202,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.5400149580091238,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.4106534160673618,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.8651002920232713,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.5346205406822264,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.1681380830705166,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.8151090829633176,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.5263194157741964,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.4070867919363081,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.5819434160366654,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.5682285409420729,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.1869488330557942,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.5865296670235693,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.7523541669361293,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.1843129168264568,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.5692874998785555,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.5419577080756426,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.173549875151366,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.7934541250579059,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.536094875074923,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.3991682501509786,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.5681140837259591,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.5694968327879906,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.4193669999949634,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.569480957929045,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.5479940418154001,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.385455375071615,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.5749193751253188,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.8537665829062462,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.2217165841720998,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.5939860828220844,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.5621738750487566,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.1477007498033345,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.6184440408833325,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.6509841252118349,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.534843625035137,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.7991543747484684,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 32.36649466725066,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 2.2540422920137644,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.6646555000916123,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.6735355411656201,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.9296691669151187,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.1344432500191033,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.6514339167624712,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 2.0322408750653267,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.6585629577748477,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 8.034685083199292,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.202042916789651,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.6168895410373807,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.6446394161321223,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.4369027917273343,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.5903827920556068,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.5645982911810279,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.1816372922621667,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.6284599588252604,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.8852192917838693,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.7211213330738246,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.6515490831807256,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.022298791911453,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 3.172366250306368,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.7113580419681966,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.9747559172101319,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 1.640180833172053,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.6406647497788072,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.9706307500600815,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 2.862680333200842,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.7532853749580681,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.8589595416560769,
+          "error": null,
+          "detail": null
+        },
+        {
+          "operation": "download",
+          "attempt": 1,
+          "retry": false,
+          "seconds": 0.9602418327704072,
+          "error": null,
+          "detail": null
+        }
+      ],
+      "transport_retried": false,
+      "transport_retry_attempts": 0
+    }
+  },
+  "cache": {
+    "old": {
+      "status": "undetermined",
+      "second_compile_s": 0.2192195260004155,
+      "reason": "cache use not proven"
+    }
+  }
+}

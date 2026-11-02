@@ -120,7 +120,7 @@ contributing-batch count next to the max values plus a grid summary; `--dose-out
 M=1 batch and R comes back as an actionable "increase -n or lower --batch-size" message — intentional, not a bug to fix
 by raising the default n_histories.
 
-**G5 A3 entry (local implementation, T4 gates pending)**: `therapy_mv/pdd_ocr` uses the package-owned
+**G5 A3 entry (closed 2026-11-02; docs/validation/gpu/g5/A3_LOCAL.md)**: `therapy_mv/pdd_ocr` uses the package-owned
 therapy launcher and sealed external bundle, P7 scoring ±20 cm for both 10 MV and 4 MV.
 `seed_ratio` stays at the prototype entry. Optional `physics.set` permits diagnostic-photon-kerma-v1
 for maximum energy ≤150 keV and therapy-electron-v1 for the two allowlisted MV spectra only.

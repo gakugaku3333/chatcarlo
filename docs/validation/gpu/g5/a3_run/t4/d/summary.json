@@ -1,0 +1,35 @@
+{
+  "status": "fail",
+  "session": "g5-a3-d67fd8e435ba",
+  "H2": {
+    "status": "pass",
+    "entry": {
+      "checks": {
+        "status": "pass"
+      },
+      "field_half": {
+        "status": "pass",
+        "detected": "observation mismatch: native half"
+      },
+      "id": {
+        "status": "pass",
+        "detected": "physics_set declaration mismatch: {'name': 'therapy-electron-v1', 'id': 99, 'tag': 7198080100198966926}"
+      },
+      "tag": {
+        "status": "pass",
+        "detected": "physics_set declaration mismatch: {'name': 'therapy-electron-v1', 'id': 2, 'tag': 0}"
+      }
+    }
+  },
+  "H5_statistics": {
+    "status": "pass",
+    "g1": "pass",
+    "g2": "pass"
+  },
+  "H5_g4": {
+    "status": "pass",
+    "run_dir": "/private/tmp/g5-a3-t4-20261102d/g4"
+  },
+  "error": "speed failed; see /private/tmp/g5-a3-t4-20261102d/H6/worker.log",
+  "vm_stopped": true
+}

@@ -1,0 +1,100 @@
+{
+  "status": "pass",
+  "cases": [
+    {
+      "name": "low-photon",
+      "failures": 0
+    },
+    {
+      "name": "relaxation-multiple",
+      "failures": 0
+    },
+    {
+      "name": "photon-layers",
+      "failures": 0
+    },
+    {
+      "name": "relaxation-capacity",
+      "failures": 1
+    },
+    {
+      "name": "rest",
+      "failures": 0
+    },
+    {
+      "name": "flight",
+      "failures": 0
+    },
+    {
+      "name": "escape",
+      "failures": 0
+    },
+    {
+      "name": "E-capacity",
+      "failures": 1
+    },
+    {
+      "name": "hard",
+      "failures": 0
+    },
+    {
+      "name": "brems",
+      "failures": 0
+    },
+    {
+      "name": "hard-capacity",
+      "failures": 1
+    },
+    {
+      "name": "brems-capacity",
+      "failures": 1
+    },
+    {
+      "name": "boundary",
+      "failures": 0
+    },
+    {
+      "name": "boundary-stay",
+      "failures": 0
+    },
+    {
+      "name": "P-maxsteps",
+      "failures": 1
+    },
+    {
+      "name": "C-maxsteps",
+      "failures": 1
+    }
+  ],
+  "paths": {
+    "photon_layers": 30,
+    "multiple_relaxation": 2,
+    "relaxation_capacity": 1,
+    "hard_suspend": 142,
+    "brems_suspend": 22,
+    "annihilation_rest": 3,
+    "annihilation_flight": 1,
+    "positron_escape": 1,
+    "E_capacity": 1,
+    "boundary_invalidate": 8,
+    "low_photon": 1,
+    "boundary_stay": 1,
+    "hard_repop": 131,
+    "cache_recompute": 4828,
+    "hard_capacity": 1,
+    "brems_capacity": 1,
+    "brems_repop": 13,
+    "boundary_recompute": 8
+  },
+  "transitions": {
+    "P_P": 68,
+    "P_C": 380,
+    "P_H": 12,
+    "C_C": 59745,
+    "C_E": 377,
+    "C_H": 3,
+    "E_P": 376,
+    "E_H": 1,
+    "H_D": 16
+  }
+}

@@ -1,0 +1,60 @@
+{
+  "status": "pass",
+  "normal_scorer": {
+    "status": "pass",
+    "deposits": 116,
+    "max_abs": 0.0
+  },
+  "faults": [
+    {
+      "fault": 4,
+      "target": 511,
+      "detector": "energy balance"
+    },
+    {
+      "fault": 5,
+      "target": null,
+      "detector": "geometry expected bin"
+    },
+    {
+      "fault": 6,
+      "target": null,
+      "detector": "geometry expected bin"
+    },
+    {
+      "fault": 7,
+      "target": null,
+      "detector": "geometry expected bin"
+    },
+    {
+      "fault": 11,
+      "target": 1,
+      "detector": "annihilation must occur once"
+    },
+    {
+      "fault": 12,
+      "target": 256,
+      "detector": "local bins / deposition ledger"
+    },
+    {
+      "fault": 13,
+      "target": 512,
+      "detector": "output count history 0: 2 != 1"
+    },
+    {
+      "fault": 14,
+      "target": 512,
+      "detector": "output count history 0: 0 != 1"
+    },
+    {
+      "fault": 15,
+      "target": 512,
+      "detector": "group 0 floating sum/max"
+    },
+    {
+      "fault": 16,
+      "target": 512,
+      "detector": "group 0 floating sum/max"
+    }
+  ]
+}

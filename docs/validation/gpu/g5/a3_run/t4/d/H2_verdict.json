@@ -1,0 +1,20 @@
+{
+  "status": "pass",
+  "entry": {
+    "checks": {
+      "status": "pass"
+    },
+    "field_half": {
+      "status": "pass",
+      "detected": "observation mismatch: native half"
+    },
+    "id": {
+      "status": "pass",
+      "detected": "physics_set declaration mismatch: {'name': 'therapy-electron-v1', 'id': 99, 'tag': 7198080100198966926}"
+    },
+    "tag": {
+      "status": "pass",
+      "detected": "physics_set declaration mismatch: {'name': 'therapy-electron-v1', 'id': 2, 'tag': 0}"
+    }
+  }
+}

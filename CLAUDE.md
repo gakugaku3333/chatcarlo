@@ -42,7 +42,7 @@ failure), and EGS5's Rayleigh fit warning is an unquantified reference uncertain
 old BSF/PDD JSON, figures and reports are historical records, not regenerated data.
 
 **Therapy-energy extension**: `domain: therapy_mv` with `scoring: pdd_ocr` dispatches to
-`chatcarlo/gpu/therapy_entry.py` (G5 A3, local implementation; T4/statistical/speed gates pending).
+`chatcarlo/gpu/therapy_entry.py` (G5 A3, closed 2026-11-02).
 Mohan 10 MV/4 MV, water 30 cm, 10×10 cm² at SSD 100 cm, P7 lateral scoring ±20 cm only.
 Runtime reads an externally exported sealed `therapy_bundle`; it has no prototype import dependency.
 `scoring: seed_ratio` remains in `prototypes/mv_electron/entry/` until A2b. Diagnostic sources stay
