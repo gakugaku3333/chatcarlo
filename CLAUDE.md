@@ -23,6 +23,7 @@ It is read in full at the start of every session, so keep it under 200 lines: on
   [docs/validation/mv/STATUS.md](docs/validation/mv/STATUS.md) に 1 行足す。教訓は [docs/lessons_learned.md](docs/lessons_learned.md)（冒頭に場面別の索引、移した原文は docs/history/）。
 - **計算データ（2026-10-26）**: 段階が終わるたびに、出力を「手元／バッチの表はリポジトリ・生データは Drive／消す」に分けて RESULTS に表で残す。
   計画の時点で決める（[PLAN_TEMPLATE](docs/ai/PLAN_TEMPLATE.md) の欄）。決まりは [mv.md](.claude/rules/mv.md) の「Stage-close data review」。
+- **旧い節の名前**: 古い文書が CLAUDE.md の節を名前で参照していたら、行き先は [docs/history/2026-11.md](docs/history/2026-11.md)。
 - **自動メモリー**: ユーザーの好みと進め方だけ。PC ごとで共有されないので、両方の PC で要る事実はリポジトリに書く。
 
 ## What this is
@@ -186,14 +187,3 @@ monoenergetic beam), used for physics cross-checks against reference codes. `kvp
 such scenes only produce relative `Gy/history` output. Similarly `source.field.shape: parallel` (non-divergent beam,
 `size_cm` only, no `sid_cm`) is available alongside `rect`/`cone` for reference-code matching, with the same
 `mas`/`heel_effect` restriction. See [examples/water_phantom_pdd_ocr.yaml](examples/water_phantom_pdd_ocr.yaml).
-
-## Where moved sections went (2026-10-19)
-
-Older documents cite CLAUDE.md sections by name. They now live here:
-
-| old section | now |
-|---|---|
-| "Therapy-energy extension" (stage history) | [docs/validation/mv/STATUS.md](docs/validation/mv/STATUS.md) (original text kept at the end); rules in [.claude/rules/mv.md](.claude/rules/mv.md) |
-| "Architecture": Physics, "Dose/H\*(10)タリー", module layout, kernel.py, GPU ceiling, Units, Statistical uncertainty | [.claude/rules/chatcarlo.md](.claude/rules/chatcarlo.md) |
-| "Scatter correction moved out" | "What this is" above |
-| "Known sharp edges", "Commands", data provenance, R guide | this file (condensed; history in the linked writeups) |
