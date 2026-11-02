@@ -104,7 +104,7 @@ description: どんなシミュレーションをしたいのかをヒアリン�
 
 | 項目 | できる | できない・近似になる（→ 代わりの方法） |
 |---|---|---|
-| 線源 | 管電圧 20〜150 kV のX線スペクトル（`source.kvp`）。物理検証用に 150 keV 以下の単色・任意スペクトル（`source.spectrum`、相対値のみ） | 150 kV（keV）を超える線源、治療ビーム（→ 下の「治療領域（MV）の入口」の節） |
+| 線源 | 管電圧 20〜150 kV のX線スペクトル（`source.kvp`）。物理検証用に 150 keV 以下の単色・任意スペクトル（`source.spectrum`、相対値のみ）。任意の `physics.set: diagnostic-photon-kerma-v1`（省略可） | 150 kV（keV）を超える線源、治療ビーム（→ 下の「治療領域（MV）の入口」の節） |
 | 照射野・照射の仕方 | 矩形・円錐・平行ビーム、ヒール効果、CTのガントリー回転とヘリカルの位相平均近似 | CTのボウタイフィルタ・管電流変調（→ 一様な照射として近似する、と明示する） |
 | 形状・材質 | 箱・円柱・球の組み合わせ（後に書いたものが優先）。`chatcarlo/materials.py` の登録材質 | CT画像・ボクセルファントム・人体形状ファントム（→ 箱・円柱で近似）。未登録材質（→ 登録できるかを先に確かめる） |
 | 評価量 | ボクセルの吸収線量（カーマ近似）、H*(10)、相対誤差R、材料別の吸収エネルギー | 臓器線量（臓器の形を持たない → 臓器の位置にある水・軟組織の吸収線量で代える）。電子の輸送（二次電子平衡が崩れる境界付近の吸収線量は近似になる） |
@@ -246,12 +246,12 @@ examples/ のベーステンプレートから最も近いものを雛形に選�
 ## 治療領域（MV）の入口（2026-10-21 に接続、2026-10-24 に 4 MV を追加）
 
 治療領域の計算は `scene.yaml`（`domain: therapy_mv`）と `chatcarlo validate / preview / approve / run` で行える（実装は
-`prototypes/mv_electron/entry/`、記録は [docs/validation/mv/entry/RESULTS.md](../../../docs/validation/mv/entry/RESULTS.md)）。
-入口に何が通るかは、この節より `chatcarlo validate` と実装（`entry/scene.py` の許可リスト）、
+`chatcarlo/gpu/therapy_entry.py`（G5 A3 手元実装、T4・統計・速さは未判定。`seed_ratio` は試作のまま）、旧記録は [docs/validation/mv/entry/RESULTS.md](../../../docs/validation/mv/entry/RESULTS.md)）。
+入口に何が通るかは、この節より `chatcarlo validate` と実装（`chatcarlo/gpu/therapy_scene.py` の許可リスト）、
 [docs/validation/mv/STATUS.md](../../../docs/validation/mv/STATUS.md) を正とする。
 
 - scene.yaml のキー: `domain`、`source`（`spectrum`・`field_cm`・`ssd_cm`）、`phantom`（`material`・`thickness_cm`）、
-  `scoring`、`run`（`histories`・`seed`・`engine`）。許可リストの外の値は、検査が理由つきで止める（黙って近似しない）。
+  任意の `physics: {set: therapy-electron-v1}`（蛍光の切替は拒否）、`scoring`、`run`（`histories`・`seed`・`engine`）。許可リストの外の値は、検査が理由つきで止める（黙って近似しない）。
 - 手順: 診断領域と同じ聞き取り（段階 1〜6）→ `runs/<シーン名>/requirements.md` → `scene.yaml` → `validate` → `preview` →
   **使用者が 3D 表示を承認** → `approve` → `run`（Colab は約 10〜20 分。確認と結果の回収は 10 分おき）。
   コードを変えて束が変わった場合は、条件のハッシュも変わるので、承認を取り直す。
@@ -264,6 +264,6 @@ examples/ のベーステンプレートから最も近いものを雛形に選�
 | 照射野 | 10×10 cm²、線源〜表面 100 cm（発散） | 他の大きさ・距離（P7 で 5×5・20×20 は計算したが入口は未対応） |
 | ファントム・材質 | 均質な水 30 cm | 積層（P8f は入口の外）、他の材質・厚さ |
 | 別の構成（2026-10-26） | 前立腺シード 58 本の 10 MV 7 門照射（`scoring: seed_ratio`、水の楕円柱・前立腺形の照射野・SAD 100 cm、あり／なしの比。例 `examples/therapy/prostate_seed_7field.yaml`、記録 `docs/validation/mv/entry_seed/RESULTS.md`） | 他の本数・配置・角度・材料・体の大きさ、矩形 7×7、EGS5 との比較、シード近傍の線量の照合（光子数が少ないと近傍の比は分解できない）。束と T0 は既存のものを使う（入口では作らない） |
-| 評価量 | PDD（軸上 2×2 cm）、OCR（深さ 5・10・20 cm）。光子 1 個あたりの相対値 | 絶対線量（Gy）、ビルドアップ・半影の判定 |
-| 比較 | 10 MV: 保存済みの EGS5 との比較（P3b-3 の 11 量）。4 MV: 入口の出力は PDD・OCR の表のみ（EGS5 との比較は入口の外） | 他のコードとの比較 |
+| 評価量 | PDD（軸上 2×2 cm）、OCR（深さ 5・10・20 cm、10 MV・4 MV とも ±20 cm）。光子 1 個あたりの相対値 | 絶対線量（Gy）、ビルドアップ・半影の判定 |
+| 比較 | G5 A3 の計画: 10 MV は P3b-3 の 11 量、4 MV は P7 C の 11 量。判定は検証側で行う | G5 A3 の T4・統計・速さの合格は未確認 |
 | 計算の場所 | Colab T4（`colab_t4`、上限 2.4×10⁸ 個）、手元 CPU（`cpu_local`、上限 2×10⁵ 個、試験用） | 手元の GPU |

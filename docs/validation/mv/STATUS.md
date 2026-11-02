@@ -423,3 +423,6 @@ Work toward coupled photon/electron/positron transport for nominal 10 MV is unde
 - Codex review originals for these plans are kept in `docs/ai/plans/reviews/`. Codex's sandbox cannot write outside the
   repository (`~/.cache`); checks that need it are run by Claude.
 
+
+- 2026-10-31 G5 A3: `pdd_ocr` の製品入口（P7 ±20 cm）と共通承認・受領の手元実装。H1/H2 検査の記録は `docs/validation/gpu/g5/A3_LOCAL.md`。T4・保存済み表・H3〜H6 の判定は未実行、`seed_ratio` は試作経路を維持。
+| G5 A3 | 2026-11-02 T4 の関門は速さの比を含め上限内。キャッシュの記録値は未判定で補足判定の確認待ち。[A3_LOCAL.md](../gpu/g5/A3_LOCAL.md) |

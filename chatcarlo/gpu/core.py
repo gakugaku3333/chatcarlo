@@ -109,6 +109,7 @@ class Core:
             out=self.cp.asnumpy(gpu)
         if tuple(map(int,out))!=(self.physics_set['id'],self.physics_set['tag']):
             raise ValueError('compiled physics_set ID/tag mismatch')
+        return dict(name=self.physics_set['name'],id=int(out[0]),tag=int(out[1]))
 
     def _energy_limit(self):
         a=self.a
@@ -119,7 +120,7 @@ class Core:
 
     def _observe(self, args, arrays):
         layout = CPU_INPUTS if self.device == 'cpu' else CUDA_INPUTS
-        observed = {}
+        observed = {'physics_set': self.check_physics_set()}
         for position, name in layout.items():
             value = args[position]
             if name in ARRAY_INPUTS:
@@ -219,4 +220,5 @@ def expected_observation(a, o, d, e, seed, start, fluorescence, device):
     if device == 'cpu':
         observed.update({'5:geometry.'+name:values[name] for name in GEOMETRY_INPUTS})
         observed.update({'5:geometry.nb':values['nb'], '5:geometry.bg':values['bg']})
+    observed['physics_set'] = physics_sets.declaration()
     return observed

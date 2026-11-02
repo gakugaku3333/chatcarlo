@@ -18,11 +18,18 @@ extern "C" __global__ void p8g2_kernel(const double *data,const long long *meta,
     const double *geometry,const long long *mapping,int nl,int nb,int nc,int nf,int nspec,
     uint64_t seed,uint64_t start,int n,int *next,int history,int maxsteps,int reference,const double *injected,
     const P6Geometry *fg,double hx,double hy,double ssd,double energy,double *field,double *ledger,unsigned long long *field_additions,
-    double *hd,long long *hi,double *groups,unsigned long long *group_ints,double *absolute,long long *visits,unsigned long long *hits){
+    double *hd,long long *hi,double *groups,unsigned long long *group_ints,double *absolute,long long *visits,unsigned long long *hits
+#if T2_SOURCE_CHECK
+    ,double *sources
+#endif
+    ){
     P8gGeometry g={geometry,geometry+nl+1,geometry+2*nl+1,geometry+2*nl+nb+2,
         geometry+2*nl+nb+19,geometry+2*nl+nb+20+nspec,mapping,mapping+nl,nl,nb,nc,nf,nspec,1,1,energy};
     P8g2State local;P8g2State *q=&local;p8g2_slot_init(q,&g);
     int h=atomicAdd(next,1);p8g2_gpu_begin(q,h,n,data,meta,constants,&g,seed,start,hits,injected,fg,hx,hy,ssd,field,ledger,field_additions);
+#if T2_SOURCE_CHECK
+    if(h<n)for(int j=0;j<6;++j)sources[h*6+j]=q->source_state[j];
+#endif
     for(;;){
         int snapshot=q->phase;
         unsigned done=__ballot_sync(0xffffffffu,snapshot==P8G2_D);
@@ -56,6 +63,9 @@ extern "C" __global__ void p8g2_kernel(const double *data,const long long *meta,
                     for(int j=0;j<iw;++j){if(j==77)atomicMax(group_ints+b*iw+j,(unsigned long long)r.i[j]);else if(j<75||j>=79)atomicAdd(group_ints+b*iw+j,(unsigned long long)r.i[j]);}
                 }
                 h=atomicAdd(next,1);p8g2_gpu_begin(q,h,n,data,meta,constants,&g,seed,start,hits,injected,fg,hx,hy,ssd,field,ledger,field_additions);
+#if T2_SOURCE_CHECK
+                if(h<n)for(int j=0;j<6;++j)sources[h*6+j]=q->source_state[j];
+#endif
             }
         }
     }

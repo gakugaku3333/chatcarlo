@@ -1,0 +1,31 @@
+{
+  "logs": {
+    "/private/tmp/g5a3_final_main.log": {
+      "sha256": "0386dc54feee9b4da3b29713d93bba6ba3749064f63180867e549c280f14c367",
+      "bytes": 4735
+    },
+    "/private/tmp/g5a3_full_prototypes.log": {
+      "sha256": "22302734480fec316062a34c0134a8abe8392a970c8b35663cdeffcbdb60a704",
+      "bytes": 764
+    },
+    "/private/tmp/g5a3_final_g5_4.log": {
+      "sha256": "4b6dd47a5835d8336f950f04189f1746a1c71c0942519ace3cc576ae222d7c9c",
+      "bytes": 723
+    },
+    "/private/tmp/g5a3_final_targets_2.log": {
+      "sha256": "e04f4c8c9b68418ef7f887cacac579d98fe75e16af6fda287cad73b35a60100e",
+      "bytes": 271
+    },
+    "/private/tmp/g5a3_final_bootstrap.log": {
+      "sha256": "c5d334b744f26a9488147a1627d59abde650aca05c3f9652f06508f02cd0f859",
+      "bytes": 99
+    },
+    "/private/tmp/g5a3_guard/scope_guard.py": {
+      "sha256": "e6e90fd707008d36dc3b0addc3045e7dce8a5374128aeee3ef16fe03ba21eb38",
+      "bytes": 1548
+    }
+  },
+  "scope": "H1 and local H2; no T4/cache/saved-data judgement",
+  "a3_complete": false,
+  "unresolved_test": "tests/test_dose3d.py::test_t11_mv_dispatch"
+}

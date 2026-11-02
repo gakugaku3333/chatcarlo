@@ -71,7 +71,7 @@ def test_t2_no_grid_legacy(tmp_path):
     assert condition.canonical(job) == condition.canonical(legacy)
     path = approval.prepare(scene, opts(dose_grid=False), tmp_path/'run')
     generation = json.loads((path/'generation.json').read_text())
-    assert set(generation['condition']) == {'format', 'bundle_sha256', 'job', 'detector', 'roi', 'track_uncertainty'}
+    assert set(generation['condition']) == {'format', 'physics_set', 'bundle_sha256', 'job', 'detector', 'roi', 'track_uncertainty'}
     from chatcarlo.preview import render_html
     cond = generation['condition']
     text = f"condition SHA256: {condition.sha256(cond)}; histories: {job['n_histories']}; seed: {job['seed']}; source_seed: {job['source_seed']}; detector: {cond['detector']}"
@@ -89,10 +89,13 @@ def test_t3_gate_a(tmp_path, monkeypatch, capsys):
                            seed=2401, batch_size=50000, dose_grid=True, grid_resolution_cm=2)
     expected = saved(direct, scene)
     with np.load(path) as z:
-        assert set(z.files) == set(expected)
-        for key in z.files: same(z[key], expected[key])
+        assert set(z.files) == set(expected)|{'physics_set','quantities'}
+        assert str(z['physics_set']) == 'diagnostic-photon-kerma-v1'
+        assert json.loads(str(z['quantities']))['dose_per_history_Gy']['quantity'] == 'track-length-kerma'
+        for key in expected: same(z[key], expected[key])
     from chatcarlo.gpu import cli_run
-    direct.gpu_metadata.update(condition_sha256='api', timing={})
+    receipt=json.loads(path.with_suffix('.json').read_text())
+    direct.gpu_metadata.update(condition=receipt['condition'],condition_sha256=receipt['condition_sha256'],timing={})
     monkeypatch.setattr(cli_run, 'run', lambda *a: direct)
     assert invoke(monkeypatch, *args) == 0
     second = capsys.readouterr().out
@@ -427,7 +430,7 @@ def test_cli_single_batch_and_no_uncertainty(tmp_path,monkeypatch,uncertainty):
                     dose_grid=True,grid_resolution_cm=2,track_uncertainty=uncertainty)
     expected=saved(r,scene,uncertainty)
     with np.load(str(path)+'.npz') as z:
-        assert set(z.files)==set(expected)
+        assert set(z.files)==set(expected)|{'physics_set','quantities'}
         for key,value in expected.items(): same(z[key],value)
 
 

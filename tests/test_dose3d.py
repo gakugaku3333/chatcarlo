@@ -260,7 +260,7 @@ def test_t10_cli(tmp_path):
 def test_t11_mv_dispatch(tmp_path, monkeypatch):
     from chatcarlo.__main__ import _mv_dispatch
     scene = tmp_path/'mv.yaml'
-    scene.write_text('domain: therapy_mv\n')
+    scene.write_text('domain: therapy_mv\nscoring: seed_ratio\n')
     seen = []
     stub = types.ModuleType('prototypes.mv_electron.entry.cli')
     stub.main = lambda argv: seen.append(argv) or 42

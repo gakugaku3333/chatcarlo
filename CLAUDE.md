@@ -41,12 +41,13 @@ failure), and EGS5's Rayleigh fit warning is an unquantified reference uncertain
 [docs/egs5_crosscheck/revalidation_2026_10_07/RESULTS.md](docs/egs5_crosscheck/revalidation_2026_10_07/RESULTS.md); the
 old BSF/PDD JSON, figures and reports are historical records, not regenerated data.
 
-**Therapy-energy (10 MV) extension**: a prototype in `prototypes/mv_electron/`, outside `chatcarlo/` except one dispatch in
-`chatcarlo/__main__.py` (scenes with `domain: therapy_mv` go to `prototypes/mv_electron/entry/`, 2026-10-21); the 150 keV limits and
-the diagnostic path are unchanged. Its standing rules are in
-[.claude/rules/mv.md](.claude/rules/mv.md) — **read it first when starting MV work from anywhere** (cache folders,
-Colab/Drive results, plans), since it only auto-loads when a matching repo file is touched. Current stage, passed
-configurations and what comes next: [docs/validation/mv/STATUS.md](docs/validation/mv/STATUS.md) (not repeated here).
+**Therapy-energy extension**: `domain: therapy_mv` with `scoring: pdd_ocr` dispatches to
+`chatcarlo/gpu/therapy_entry.py` (G5 A3, local implementation; T4/statistical/speed gates pending).
+Mohan 10 MV/4 MV, water 30 cm, 10×10 cm² at SSD 100 cm, P7 lateral scoring ±20 cm only.
+Runtime reads an externally exported sealed `therapy_bundle`; it has no prototype import dependency.
+`scoring: seed_ratio` remains in `prototypes/mv_electron/entry/` until A2b. Diagnostic sources stay
+at maximum 150 keV; `physics.set` optionally declares the permitted physics set. Standing rules:
+[.claude/rules/mv.md](.claude/rules/mv.md), status: [docs/validation/mv/STATUS.md](docs/validation/mv/STATUS.md).
 
 **Scatter correction moved out (2026-08-20)**: the MC scatter-correction research line now lives in `~/Projects/mcscatter`
 (engine: unmodified `DIDSR/MCGPUv1.3_PCD`, user decision). **`chatcarlo/detector.py`, its two test files and its plan

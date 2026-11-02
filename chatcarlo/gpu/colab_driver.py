@@ -54,7 +54,9 @@ def write_result(folder,name,value,key,*,observed=None,elapsed_s=None):
         with pending.open('wb') as f:np.savez_compressed(f,**value)
     else:pending.write_text(json.dumps(value,indent=2,allow_nan=False)+'\n')
     receipt=dict(sha256=digest(pending),identity=key)
-    if observed is not None:receipt['observed']=observed
+    if observed is not None:
+        receipt['observed']=observed
+        receipt['physics_set']=observed.get('physics_set')
     if elapsed_s is not None:receipt['elapsed_s']=elapsed_s
     pending.replace(path)
     rp=folder/(name+'.receipt.json.pending');rp.write_text(json.dumps(receipt,sort_keys=True)+'\n');rp.replace(folder/(name+'.receipt.json'))
@@ -147,7 +149,10 @@ def worker(bundle_path,job_path,out):
                         '--out',str(out.resolve())],cwd=Path(__file__).resolve().parents[2],check=True)
     (out/'done.json.pending').write_text(json.dumps(dict(status='complete')));(out/'done.json.pending').replace(out/'done.json')
 
-def _bootstrap(files,job_sha):
+def _bootstrap(files,job_sha,*,therapy_root=None):
+    if therapy_root is not None:
+        from .therapy_colab import bootstrap
+        return bootstrap(therapy_root,files)
     # Standalone verification before importing any uploaded source code.
     return f'''import pathlib,hashlib,json,subprocess,sys,fcntl
 base=pathlib.Path({REMOTE!r});parts=base/'parts';target=base/'chatcarlo'/'gpu';target.mkdir(parents=True,exist_ok=True)

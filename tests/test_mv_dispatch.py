@@ -59,7 +59,7 @@ def test_mv_diagnostic_output_unchanged(example, tmp_path, capsys, monkeypatch):
 
 
 def test_mv_dispatch_options_before_scene(monkeypatch, tmp_path):
-    from prototypes.mv_electron.entry import cli as mv
+    from chatcarlo.gpu import therapy_entry as mv
     argv = ['preview', '--out', str(tmp_path/'output'), MV]
     monkeypatch.setattr(mv, 'main', lambda got: 9 if got == argv else 0)
     assert cli._mv_dispatch(argv) == 9

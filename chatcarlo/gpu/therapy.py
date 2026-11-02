@@ -106,7 +106,9 @@ class CPU:
         self.identity=hashlib.sha256(json.dumps(self.build,sort_keys=True).encode()).hexdigest()
         lib=work/(self.identity+('.dylib' if sys.platform=='darwin' else '.so'))
         if not lib.exists():
-            result=subprocess.run(['clang++',*flags,str(HERE/'t2_cpu.cpp'),'-o',str(lib)],text=True,capture_output=True)
+            compiler=shutil.which('clang++') or shutil.which('g++')
+            if compiler is None:raise RuntimeError('clang++ or g++ is required for CPU twin')
+            result=subprocess.run([compiler,*flags,str(HERE/'t2_cpu.cpp'),'-o',str(lib)],text=True,capture_output=True)
             (work/(self.identity+'.log')).write_text(result.stdout+result.stderr)
             if result.returncode:raise RuntimeError(result.stderr)
         self.lib=ct.CDLL(str(lib))
@@ -126,9 +128,18 @@ class CPU:
         d=np.zeros((n,dw));i=np.zeros((n,iw),np.int64);visits=np.zeros(n,np.int64);hits=np.zeros(80,np.uint64)
         groups=np.zeros((100,dw));gi=np.zeros((100,iw),np.uint64)
         fs=np.zeros(3420);fl=np.zeros(15);fa=np.zeros(3420,np.uint64);sources=np.zeros((n,6))
-        self.lib.p8g2_histories(self.data,self.meta,self.constants,ct.byref(self.g),seed,start,n,maxsteps,slots,0,
+        args=(self.data,self.meta,self.constants,ct.byref(self.g),seed,start,n,maxsteps,slots,0,
             DP() if x is None else x.ctypes.data_as(DP),None if self.field_geometry is None else ct.byref(self.field_geometry),*self.half,self.ssd,fs,fl,fa,sources,d,i,visits,hits,groups,gi)
+        self._invoke(args)
         return dict(d=d,i=i,visits=visits,hits=hits,groups=groups,group_ints=gi,field=fs,ledger=fl,field_additions=fa,sources=sources)
+
+
+    def _invoke(self,args):
+        """Observe the final ABI tuple, immediately before the native function."""
+        if args[11] is not None:
+            from .therapy_observation import cpu_observation
+            self.last_observation=cpu_observation(self,args)
+        self.lib.p8g2_histories(*args)
 
 
 def cuda_source():

@@ -392,6 +392,22 @@ def cmd_run(args) -> int:
                 save_kwargs["sem_h10_per_history_pSv"] = h10_R * h10_per_history
                 save_kwargs["n_batches"] = np.array(grid_n_batches)
                 save_kwargs["n_batches_hit"] = n_hit
+            if engine == 'gpu':
+                import json
+                from .gpu import physics_sets
+                save_kwargs['physics_set'] = physics_sets.DIAGNOSTIC
+                save_kwargs['quantities'] = json.dumps(dict(
+                    dose_per_history_Gy=dict(quantity='track-length-kerma', unit='Gy/history', normalization='per history'),
+                    h10_per_history_pSv=dict(quantity='H*(10)', unit='pSv/history', normalization='per history'),
+                    kerma_keV=dict(quantity='track-length-kerma-energy', unit='keV', normalization='raw sum'),
+                    h10_track_pSv_cm3=dict(quantity='H*(10)-track-integral', unit='pSv cm^3', normalization='raw sum'),
+                    **{k:dict(quantity='relative-SEM',unit='1',normalization='SEM/mean') for k in ('rel_err_dose','rel_err_h10') if k in save_kwargs},
+                    **{k:dict(quantity=q,unit=u,normalization='per history') for k,q,u in (
+                        ('sem_dose_per_history_Gy','kerma-SEM','Gy/history'),('sem_h10_per_history_pSv','H*(10)-SEM','pSv/history')) if k in save_kwargs},
+                    **{k:dict(quantity=k,unit=u,normalization='not applicable') for k,u in (
+                        ('origin_cm','cm'),('voxel_size_cm','cm'),('shape','count'),('n_batches','count'),('n_batches_hit','count')) if k in save_kwargs},
+                    **{k:dict(quantity=q,unit=u,normalization='scaled by source photon count') for k,q,u in (
+                        ('dose_Gy','track-length-kerma','Gy'),('h10_pSv','H*(10)','pSv')) if k in save_kwargs}), sort_keys=True)
             np.savez(args.dose_out, **save_kwargs)
             if engine == 'gpu':
                 from types import SimpleNamespace
@@ -402,6 +418,17 @@ def cmd_run(args) -> int:
                     check_grid(SimpleNamespace(origin_cm=stored['origin_cm'],
                         shape=stored['shape'], voxel_size_cm=float(stored['voxel_size_cm'])),
                         grid_spec(scene, detector, args.resolution))
+                    if str(stored['physics_set'])!=physics_sets.DIAGNOSTIC or json.loads(str(stored['quantities']))!=json.loads(save_kwargs['quantities']):
+                        raise ValueError('grid quantity/physics metadata mismatch')
+                from pathlib import Path
+                from .gpu import contracts
+                from .gpu.therapy_bundle import sha
+                record=dict(result.gpu_metadata,physics_set=physics_sets.declaration(),quantities=json.loads(save_kwargs['quantities']),npz_sha256=sha(saved_path))
+                receipt_path=Path(saved_path).with_suffix('.json')
+                contracts.write(receipt_path,record)
+                saved_record=json.loads(receipt_path.read_text())
+                contracts.receipt(saved_record,record['condition'],physics_sets.declaration())
+                if saved_record['npz_sha256']!=sha(saved_path):raise ValueError('grid NPZ SHA256 mismatch')
             print(f"線量グリッドを書き出しました: {args.dose_out}")
     return 0
 
@@ -485,7 +512,10 @@ def _mv_dispatch(argv):
     except (OSError, ValueError, yaml.YAMLError):
         return None
     if isinstance(raw, dict) and raw.get('domain') == 'therapy_mv':
-        from prototypes.mv_electron.entry.cli import main as mv_main
+        if raw.get('scoring') == 'seed_ratio':
+            from prototypes.mv_electron.entry.cli import main as mv_main
+        else:
+            from .gpu.therapy_entry import main as mv_main
         return mv_main(argv)
     return None
 

@@ -119,3 +119,11 @@ contributing-batch count next to the max values plus a grid summary; `--dose-out
 (linear 0–0.5, own colormap, zero-batch voxels masked grey). With the default `-n 1e5` and `batch_size` 200,000 there is
 M=1 batch and R comes back as an actionable "increase -n or lower --batch-size" message — intentional, not a bug to fix
 by raising the default n_histories.
+
+**G5 A3 entry (local implementation, T4 gates pending)**: `therapy_mv/pdd_ocr` uses the package-owned
+therapy launcher and sealed external bundle, P7 scoring ±20 cm for both 10 MV and 4 MV.
+`seed_ratio` stays at the prototype entry. Optional `physics.set` permits diagnostic-photon-kerma-v1
+for maximum energy ≤150 keV and therapy-electron-v1 for the two allowlisted MV spectra only.
+Shared generation/approval/receipt contracts are in `gpu/contracts.py`; diagnostic condition format is now
+`chatcarlo-g5-entry-v1`, invalidating old approvals. Therapy outputs declare absorbed dose (Gy/history)
+and raw deposited energy (MeV); H*(10) is unsupported. Statistical and speed validation remain separate.

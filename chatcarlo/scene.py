@@ -84,8 +84,7 @@ def validate_scene(raw: dict) -> Scene:
                 bad = max(s["energy_keV"] for s in spectrum)
                 errors.append(SceneError("source.spectrum",
                               f"energy_keV={bad!r} keV は診断X線領域の上限150 keVを超えています"
-                              "（断面積テーブルの範囲外で輸送実行時にエラーになります。"
-                              "150 keV以下で指定してください）"))
+                              "（検証していない区間。許される範囲: 150 keV以下、または therapy_mv の許可済み MV スペクトル）"))
             # spectrum指定時にkvpも残っていると、実輸送(sample_spectrum)はspectrumを
             # 使うのにpreview表示はkvp側を見てしまう食い違いの温床になる（監査所見）。
             # 曖昧さを許さず、spectrumのみの指定を必須にする。
@@ -114,7 +113,7 @@ def validate_scene(raw: dict) -> Scene:
         elif not isinstance(kvp, (int, float)) or not (20 <= kvp <= 150):
             errors.append(SceneError("source.kvp",
                           f"管電圧 kvp={kvp!r} — 診断領域として 20〜150 kV の数値を指定してください"
-                          "（単色ビーム等、kvpを使わない場合は source.spectrum を指定してください）"))
+                          "（検証していない区間。許される範囲: 20〜150 kV、または therapy_mv の許可済み MV スペクトル。単色は source.spectrum）"))
         pos = _vec3(src.get("position"), "source.position", errors, "焦点位置")
         dirv = _vec3(src.get("direction"), "source.direction", errors, "中心軸方向")
         if dirv is not None:
@@ -290,9 +289,17 @@ def validate_scene(raw: dict) -> Scene:
         if not isinstance(physics, dict):
             errors.append(SceneError("physics", "physics はマッピングで指定してください"))
         else:
-            unknown = set(physics) - {"fluorescence"}
+            unknown = set(physics) - {"fluorescence", "set"}
             if unknown:
                 errors.append(SceneError("physics", f"未知のキー: {sorted(unknown)}"))
+            from .gpu.physics_sets import DIAGNOSTIC, declaration
+            try:
+                selected = physics.get("set", DIAGNOSTIC)
+                declaration(selected)
+                if selected != DIAGNOSTIC:
+                    raise ValueError("診断の低エネルギー線源には diagnostic-photon-kerma-v1 のみ許可")
+            except (ValueError, TypeError) as exc:
+                errors.append(SceneError("physics.set", str(exc)))
             fluor = physics.get("fluorescence", True)
             if not isinstance(fluor, bool):
                 errors.append(SceneError("physics.fluorescence", "fluorescence は true/false で指定してください"))

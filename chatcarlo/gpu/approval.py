@@ -5,7 +5,7 @@ import shutil
 import tempfile
 from datetime import datetime, timezone
 import numpy as np
-from . import bundle, condition
+from . import bundle, condition, contracts
 
 
 def _write(path, value):
@@ -43,18 +43,13 @@ def prepare(scene, options, run_dir=None):
             text += f"; grid: resolution={g['voxel_size_cm']} cm; origin_cm={g['origin_cm']}; shape={g['shape']}; voxels={int(np.prod(g['shape']))}"
         (target/'preview.html').write_text(render_html(scene, approval_text=text))
         files = {name:bundle.sha(target/name) for name in ('bundle/manifest.json', 'job.json', 'preview_snapshot.json', 'preview.html')}
-        _write(target/'generation.json', dict(condition=cond, condition_sha256=condition.sha256(cond), files=files))
+        contracts.seal(target, cond, files)
     return target
 
 
 def _verify(run_dir):
     path = Path(run_dir)
-    generation = json.loads((path/'generation.json').read_text())
-    if condition.sha256(generation['condition']) != generation['condition_sha256']: raise ValueError('condition hash mismatch')
-    for name in ('bundle/manifest.json', 'job.json', 'preview_snapshot.json', 'preview.html'):
-        if bundle.sha(path/name) != generation['files'].get(name):
-            label = 'HTML' if name == 'preview.html' else 'bundle' if name.startswith('bundle/') else name
-            raise ValueError(label+' SHA256 mismatch')
+    generation = contracts.verify(path, ('bundle/manifest.json','job.json','preview_snapshot.json','preview.html'))
     manifest = bundle.verify(path/'bundle')
     job = json.loads((path/'job.json').read_text())
     if job != generation['condition']['job'] or condition.colab_condition(manifest, job, type('Scene', (), {'raw': {'detector': generation['condition']['detector']}})(), generation['condition']['track_uncertainty']) != generation['condition']:
@@ -63,26 +58,14 @@ def _verify(run_dir):
 
 
 def approve(run_dir):
-    path = Path(run_dir)
-    _verify(path)
-    _write(path/'approval.json', dict(generation_sha256=bundle.sha(path/'generation.json'), approved_at=datetime.now(timezone.utc).isoformat()))
+    return contracts.approve(run_dir, _verify)
 
 
 def require(run_dir, expected_condition):
-    path = Path(run_dir)
-    if not (path/'approval.json').exists(): raise ValueError('approval.json missing')
-    approval = json.loads((path/'approval.json').read_text())
-    if approval.get('generation_sha256') != bundle.sha(path/'generation.json'): raise ValueError('generation SHA256 mismatch')
-    generation = _verify(path)
-    if generation['condition'] != expected_condition: raise ValueError('condition mismatch')
-    return generation
+    return contracts.require(run_dir, expected_condition, _verify)
 
 
-def check_observation(observed, expected, name):
-    if not isinstance(observed, dict): raise ValueError('observation mismatch: '+name+' missing observed')
-    for key in sorted(set(observed) | set(expected)):
-        if key not in observed or key not in expected or observed[key] != expected[key]:
-            raise ValueError('observation mismatch: '+name+' '+key)
+check_observation = contracts.check_observation
 
 
 def verify_batches(bundle_path, job, results, reused=()):
@@ -130,6 +113,8 @@ def verify_batches(bundle_path, job, results, reused=()):
                               'source_reference.json '+name)
             expected['16:directions'] = hashes['directions']
         check_observation(receipt.get('observed'), expected, name)
+        from . import physics_sets
+        physics_sets.check(receipt.get('physics_set'), expected['physics_set'])
         health(r, n, len(settings['material_names']), a['detector'])
         elapsed = receipt.get('elapsed_s')
         if not isinstance(elapsed, (int, float)) or not np.isfinite(elapsed) or elapsed < 0: raise ValueError('invalid elapsed_s: '+name)

@@ -9,10 +9,18 @@ paths:
 
 # Therapy-energy (MV) extension — standing rules
 
-Coupled photon/electron/positron transport for nominal 10 MV, **outside `chatcarlo/`** (prototype only;
-nothing in the production package or its 150 keV limits changes) except the dispatch in `chatcarlo/__main__.py`: a scene
-with `domain: therapy_mv` goes to `prototypes/mv_electron/entry/` (validate/preview/approve/run; two allow-listed spectra (Mohan 10 MV, 4 MV; always 10×10 cm², SSD 100 cm, water 30 cm; the 4 MV entry output has no EGS5 comparison); a second branch `scoring: seed_ratio` (2026-10-26: the P9c prostate/58-seed 7-field pair, `entry/seed_*.py`, example `examples/therapy/prostate_seed_7field.yaml`, results `docs/validation/mv/entry_seed/RESULTS.md`; allow-list values only, reuses the P9c export/T0 in `~/.cache`, the preview approval of the 2026-10-26 run was given by Claude on the user's instruction),
-P7 kernel with the `'p6'` layout, Colab CLI with bounded calls (`colab_cli.TIMEOUTS`, poll retried 3 times); user approval of the 3D preview is required before `run`). To show the preview with SendUserFile, copy `preview.html` from `~/.cache/chatcarlo/mv_entry/<hash>/` into the session folder first (e.g. gitignored `runs/<name>/`); a file under `~/.cache` did not render (2026-10-24, n=1). Watch a background `chatcarlo run` by its PID (`$!` and `kill -0`), not `pgrep -f` (the process name is `Python`, and the waiting shell matches its own pattern). Results: `docs/validation/mv/entry/RESULTS.md`. Stage-by-stage status and links:
+The frozen coupled photon/electron/positron prototypes remain unchanged for comparison.
+G5 A3 routes `domain: therapy_mv`, `scoring: pdd_ocr` to `chatcarlo/gpu/therapy_entry.py`:
+Mohan 10 MV/4 MV, water 30 cm, 10×10 cm² at SSD 100 cm, P7 scoring ±20 cm.
+Local implementation is separate from completion: T4, saved-entry crop regression, statistics and speed gates
+are pending. Runtime reads the sealed external therapy bundle; no prototype imports.
+`scoring: seed_ratio` still routes to the frozen `prototypes/mv_electron/entry/` until A2b
+(P9c prostate/58-seed seven-field configuration, `examples/therapy/prostate_seed_7field.yaml`).
+Both entries require user approval of the 3D preview before run. G5's generation seal and receipt checks
+share `chatcarlo/gpu/contracts.py` with diagnostics; G4 approvals need regeneration.
+Do not copy private spectrum values into the repository. Export is validation-side only
+(`docs/validation/gpu/g5/a3_export.py`); bundled contents are pinned to the A2 array hashes.
+Stage-by-stage status and links:
 [docs/validation/mv/STATUS.md](../../docs/validation/mv/STATUS.md) (add one row per finished stage there, write the
 stage's RESULTS; do not add stage history to CLAUDE.md). Standing decisions and known approximations:
 [KNOWN_APPROXIMATIONS.md](../../docs/validation/mv/KNOWN_APPROXIMATIONS.md). Roadmap (draft):

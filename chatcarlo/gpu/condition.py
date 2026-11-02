@@ -3,6 +3,7 @@ import hashlib
 import json
 from pathlib import Path
 import numpy as np
+from . import physics_sets
 
 
 def canonical(value):
@@ -49,12 +50,12 @@ def colab_condition(manifest, job, scene, track_uncertainty):
     # Use the existing receipt's manifest identity verbatim.
     from .colab_driver import identity
     det = scene.raw.get('detector')
-    return dict(format='chatcarlo-g4-v1', bundle_sha256=identity(manifest, job, 0, 0, 0)['bundle_sha256'],
+    return dict(format='chatcarlo-g5-entry-v1', physics_set=physics_sets.declaration(), bundle_sha256=identity(manifest, job, 0, 0, 0)['bundle_sha256'],
                 job=job, detector=det, roi=det.get('roi') if det else None, track_uncertainty=track_uncertainty)
 
 
 def local_condition(scene, options):
-    return dict(format='chatcarlo-g4-v1', scene_sha256=sha256(scene.raw), **options)
+    return dict(format='chatcarlo-g5-entry-v1', physics_set=physics_sets.declaration(), scene_sha256=sha256(scene.raw), **options)
 
 
 def default_run_dir(condition):

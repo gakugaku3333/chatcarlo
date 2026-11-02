@@ -211,7 +211,7 @@ def test_gpu_g4_cli_invalid(argv,monkeypatch,tmp_path):
 
 @pytest.mark.parametrize('prefix', [[],['--preview','somewhere']])
 def test_gpu_g4_mv_approve_routing(prefix,monkeypatch):
-    from prototypes.mv_electron.entry import cli as mv
+    from chatcarlo.gpu import therapy_entry as mv
     scene=str(ROOT/'examples/therapy/water_10mv_10x10.yaml')
     argv=['approve',*prefix,scene]+([] if prefix else ['--preview','somewhere'])
     monkeypatch.setattr(mv,'main',lambda got: 19 if got==argv else 0)
@@ -397,6 +397,7 @@ def test_gpu_g4_cuda_observation_positions_without_device(prepared,with_plane):
         def data(self):return SimpleNamespace(ptr=self.ctypes.data)
     driver=object.__new__(core.Core);driver.a=a;driver.device='cuda';driver._hash_cache={}
     driver.cp=SimpleNamespace(ndarray=DeviceArray,asnumpy=np.asarray)
+    driver.check_physics_set=lambda: core.physics_sets.declaration()
     arrays={k:v.view(DeviceArray) for k,v in a.items()}
     o=np.zeros((2,3));d=np.ones((2,3));e=np.full(2,60.)
     arrays.update(origins=o.view(DeviceArray),directions=d.view(DeviceArray),energies=e.view(DeviceArray))
@@ -450,8 +451,8 @@ def cuda_replay(prepared, monkeypatch):
 
         def run(self, *args, **kwargs):
             result, observed = self.driver.run(*args, **kwargs)
-            values = {k.split(':', 1)[1].removeprefix('geometry.'): v for k, v in observed.items()}
-            return result, {f'{i}:{name}': values[name] for i, name in core.CUDA_INPUTS.items()}
+            values = {k.split(':', 1)[1].removeprefix('geometry.'): v for k, v in observed.items() if ':' in k}
+            return result, dict({f'{i}:{name}': values[name] for i, name in core.CUDA_INPUTS.items()},physics_set=observed['physics_set'])
 
     monkeypatch.setattr(core, 'Core', CudaTwin)
     colab_driver.worker(path/'bundle', path/'job.json', path/'results')
