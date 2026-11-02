@@ -36,6 +36,7 @@ Pythonの仮想環境はリポジトリ内に作る（グローバル環境に�
 
 - `docs/ai/plans/` に `状態: approved` の計画ファイルがある場合は、その対象範囲・受入条件・テストコマンドに厳密に従う。書かれていない変更をしない。
 - 断面積や線量換算係数などの数値を記憶から書かない。出典と取得スクリプトは CLAUDE.md の「Cross-section/dose-coefficient data provenance」を参照。
+- CUDA の核で `atomicAdd` の書き込み先はグローバルメモリに限る。スレッドのローカル配列へ足すと T4 で `CUDA_ERROR_LAUNCH_FAILED` になり、CPU の検査では見つからない（P8g-1、G5 A2b で再発）。
 - 現状は研究・教育用である。線量を患者被ばくや遮蔽の判断に使う前に、確立された計算コードとの照合が必要（README.md の警告を参照）。
 
 ## Claude Code専用のもの

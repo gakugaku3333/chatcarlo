@@ -1,0 +1,10 @@
+{
+  "sha256": "aa303af596e45c25dbfcfd1e84396d3ae8d7dca8b641adcaeb336584e99f339a",
+  "counts": {
+    "water": 1794288,
+    "prostate": 186140,
+    "rectum": 193480,
+    "near": 25400
+  },
+  "definition": "all eight old 0.25 mm cells; near center <=2 mm and within seed length"
+}

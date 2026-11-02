@@ -513,7 +513,7 @@ def _mv_dispatch(argv):
         return None
     if isinstance(raw, dict) and raw.get('domain') == 'therapy_mv':
         if raw.get('scoring') == 'seed_ratio':
-            from prototypes.mv_electron.entry.cli import main as mv_main
+            from .gpu.seed_entry import main as mv_main
         else:
             from .gpu.therapy_entry import main as mv_main
         return mv_main(argv)

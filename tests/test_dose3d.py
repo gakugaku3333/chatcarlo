@@ -262,7 +262,7 @@ def test_t11_mv_dispatch(tmp_path, monkeypatch):
     scene = tmp_path/'mv.yaml'
     scene.write_text('domain: therapy_mv\nscoring: seed_ratio\n')
     seen = []
-    stub = types.ModuleType('prototypes.mv_electron.entry.cli')
+    stub = types.ModuleType('chatcarlo.gpu.seed_entry')
     stub.main = lambda argv: seen.append(argv) or 42
     monkeypatch.setitem(sys.modules, stub.__name__, stub)
     args = ['preview', '--dose', 'x.npz', '--quantity', 'h10', str(scene)]

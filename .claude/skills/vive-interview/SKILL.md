@@ -246,7 +246,7 @@ examples/ のベーステンプレートから最も近いものを雛形に選�
 ## 治療領域（MV）の入口（2026-10-21 に接続、2026-10-24 に 4 MV を追加）
 
 治療領域の計算は `scene.yaml`（`domain: therapy_mv`）と `chatcarlo validate / preview / approve / run` で行える（実装は
-`chatcarlo/gpu/therapy_entry.py`（G5 A3 手元実装、T4・統計・速さは未判定。`seed_ratio` は試作のまま）、旧記録は [docs/validation/mv/entry/RESULTS.md](../../../docs/validation/mv/entry/RESULTS.md)）。
+`chatcarlo/gpu/therapy_entry.py`（G5 A3 手元実装、T4・統計・速さは未判定。`seed_ratio` は G5 A2b で `chatcarlo/gpu/seed_entry.py` へ移行済み・2026-11-03）、旧記録は [docs/validation/mv/entry/RESULTS.md](../../../docs/validation/mv/entry/RESULTS.md)）。
 入口に何が通るかは、この節より `chatcarlo validate` と実装（`chatcarlo/gpu/therapy_scene.py` の許可リスト）、
 [docs/validation/mv/STATUS.md](../../../docs/validation/mv/STATUS.md) を正とする。
 
@@ -263,7 +263,7 @@ examples/ のベーステンプレートから最も近いものを雛形に選�
 | スペクトル | Mohan 10 MV、Mohan 4 MV（NRC 配布。リポジトリに入れない） | 6 MV など他のエネルギー、任意のスペクトル |
 | 照射野 | 10×10 cm²、線源〜表面 100 cm（発散） | 他の大きさ・距離（P7 で 5×5・20×20 は計算したが入口は未対応） |
 | ファントム・材質 | 均質な水 30 cm | 積層（P8f は入口の外）、他の材質・厚さ |
-| 別の構成（2026-10-26） | 前立腺シード 58 本の 10 MV 7 門照射（`scoring: seed_ratio`、水の楕円柱・前立腺形の照射野・SAD 100 cm、あり／なしの比。例 `examples/therapy/prostate_seed_7field.yaml`、記録 `docs/validation/mv/entry_seed/RESULTS.md`） | 他の本数・配置・角度・材料・体の大きさ、矩形 7×7、EGS5 との比較、シード近傍の線量の照合（光子数が少ないと近傍の比は分解できない）。束と T0 は既存のものを使う（入口では作らない） |
+| 別の構成（2026-10-26） | 前立腺シード 58 本の 10 MV 7 門照射（`scoring: seed_ratio`、水の楕円柱・前立腺形の照射野・SAD 100 cm、あり／なしの比。例 `examples/therapy/prostate_seed_7field_g5_a2b.yaml`（50バッチ、`--bundle` が必要）、記録 `docs/validation/mv/entry_seed/RESULTS.md`） | 他の本数・配置・角度・材料・体の大きさ、矩形 7×7、EGS5 との比較、シード近傍の線量の照合（光子数が少ないと近傍の比は分解できない）。束と T0 は既存のものを使う（入口では作らない） |
 | 評価量 | PDD（軸上 2×2 cm）、OCR（深さ 5・10・20 cm、10 MV・4 MV とも ±20 cm）。光子 1 個あたりの相対値 | 絶対線量（Gy）、ビルドアップ・半影の判定 |
 | 比較 | G5 A3 の計画: 10 MV は P3b-3 の 11 量、4 MV は P7 C の 11 量。判定は検証側で行う | G5 A3 の T4・統計・速さの合格は未確認 |
 | 計算の場所 | Colab T4（`colab_t4`、上限 2.4×10⁸ 個）、手元 CPU（`cpu_local`、上限 2×10⁵ 個、試験用） | 手元の GPU |

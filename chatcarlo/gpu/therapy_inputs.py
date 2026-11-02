@@ -16,6 +16,7 @@ def load(path, spectrum):
     materials,inputs,settings,manifest=therapy_bundle.load(path)
     pins=json.loads(PINS.read_text())
     for name,expected in pins.items():
+        if name.startswith(("seed_agti.","seed_input.")):continue
         if name.startswith('input.'):
             actual=inputs[name[6:]]
         else:

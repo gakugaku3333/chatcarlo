@@ -146,7 +146,12 @@ def cuda_source():
     """NVRTC source; includes only package-owned headers."""
     def expand(name,seen):
         out=[]
-        for line in (HERE/name).read_text().splitlines():
+        source=(HERE/name).read_text()
+        if name=='t2_kernel.h':
+            # Expand only the slab branch: includes inside the disabled seed
+            # branch must not consume the shared-header seen set.
+            source=source.split('#else\n',1)[1].rsplit('\n#endif // T2_SEED',1)[0]
+        for line in source.splitlines():
             if line.startswith('#include "'):
                 child=line.split('"')[1]
                 if child not in seen:

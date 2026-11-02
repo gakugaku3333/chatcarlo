@@ -1,8 +1,8 @@
 ---
 phase: 開発中
-next: G5 の次の段へ。A3 の結果は docs/validation/gpu/g5/A3_LOCAL.md
+next: G5 の次の段へ。A2b（seed_ratio の移行）は完了、記録は docs/validation/gpu/g5/A2B_LOCAL.md
 blocker: ELSEPAで作った表の配布の方法（表を置くか、生成スクリプトだけか）とリポジトリのLICENSEはユーザーの判断待ち。急がない
-updated: 2026-11-02
+updated: 2026-11-03
 ---
 
 治療領域拡張の段階の状況は [docs/validation/mv/STATUS.md](docs/validation/mv/STATUS.md)、常設ルールは

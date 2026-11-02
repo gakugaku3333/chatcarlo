@@ -14,8 +14,9 @@ G5 A3 routes `domain: therapy_mv`, `scoring: pdd_ocr` to `chatcarlo/gpu/therapy_
 Mohan 10 MV/4 MV, water 30 cm, 10×10 cm² at SSD 100 cm, P7 scoring ±20 cm.
 Local implementation is separate from completion: T4, saved-entry crop regression, statistics and speed gates
 are pending. Runtime reads the sealed external therapy bundle; no prototype imports.
-`scoring: seed_ratio` still routes to the frozen `prototypes/mv_electron/entry/` until A2b
-(P9c prostate/58-seed seven-field configuration, `examples/therapy/prostate_seed_7field.yaml`).
+`scoring: seed_ratio` routes to `chatcarlo/gpu/seed_entry.py` (G5 A2b, switched 2026-11-03; needs `--bundle`;
+scene `examples/therapy/prostate_seed_7field_g5_a2b.yaml`, 50 batches × 71429). The frozen P9c prototype entry
+and `examples/therapy/prostate_seed_7field.yaml` stay only as the comparison baseline.
 Both entries require user approval of the 3D preview before run. G5's generation seal and receipt checks
 share `chatcarlo/gpu/contracts.py` with diagnostics; G4 approvals need regeneration.
 Do not copy private spectrum values into the repository. Export is validation-side only
@@ -45,7 +46,7 @@ stage's RESULTS; do not add stage history to CLAUDE.md). Standing decisions and 
   yet read); how to distribute the tables is an **open user decision**. `dcslib` (EGS5's own DCS) is a research-only
   control, never to be shipped; `mf` (McKinley–Feshbach) is a data-free independent check, valid for low Z only (H, O).
 - Speed-up of the water GPU kernel is paused at P5k variant F (user decision 2026-10-18). The multi-material stack kernel is being sped up as P8g (user decision 2026-10-24): order A1 (precomputed table-constant logs, P8g-1 passed, byte-identical to P8f) → B (state machine + refill; P8g-2 passed, byte-identical, 42.5 µs/history on T4 at 40×256 and 200k histories, ×6.5 vs P8f) → A2 (regridding only where needed; not started, on hold — the remaining binary searches are a recorded speed-up candidate: rationale and entry conditions in the plan's §9). Verification no longer requires bit equality where it is not free (table accuracy, component checks, per-history health, block test vs EGS5/P8e, fault injection); use exact match wherever it holds at no cost. Plan: `docs/ai/plans/2026-10-24-mv-p8g-fast-stack-kernel.md`.
-- Check-build counters that use `atomicAdd` must point at global memory: a test kernel that kept them in a thread-local array failed with `CUDA_ERROR_LAUNCH_FAILED` on T4 (P8g-1, 2026-10-24); CPU builds never show this.
+- Check-build counters that use `atomicAdd` must point at global memory: a test kernel that kept them in a thread-local array failed with `CUDA_ERROR_LAUNCH_FAILED` on T4 (P8g-1, 2026-10-24); CPU builds never show this. Recurred in G5 A2b (2026-11-03); also stated in AGENTS.md so Codex sees it.
 
 ## Caveats to keep when citing results
 

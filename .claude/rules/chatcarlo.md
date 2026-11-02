@@ -122,7 +122,7 @@ by raising the default n_histories.
 
 **G5 A3 entry (closed 2026-11-02; docs/validation/gpu/g5/A3_LOCAL.md)**: `therapy_mv/pdd_ocr` uses the package-owned
 therapy launcher and sealed external bundle, P7 scoring ±20 cm for both 10 MV and 4 MV.
-`seed_ratio` stays at the prototype entry. Optional `physics.set` permits diagnostic-photon-kerma-v1
+`seed_ratio` moved to `gpu/seed_entry.py` in A2b (2026-11-03). Optional `physics.set` permits diagnostic-photon-kerma-v1
 for maximum energy ≤150 keV and therapy-electron-v1 for the two allowlisted MV spectra only.
 Shared generation/approval/receipt contracts are in `gpu/contracts.py`; diagnostic condition format is now
 `chatcarlo-g5-entry-v1`, invalidating old approvals. Therapy outputs declare absorbed dose (Gy/history)

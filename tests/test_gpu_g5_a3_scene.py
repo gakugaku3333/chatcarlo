@@ -86,10 +86,9 @@ main(['run','--help'])
 
 
 def test_seed_ratio_dispatch(monkeypatch):
-    from prototypes.mv_electron.entry import cli as old
-    monkeypatch.setattr(old,'main',lambda argv:37)
-    assert cli._mv_dispatch(['validate',str(ROOT/'examples/therapy/prostate_seed_7field.yaml')])==37
-
+    from chatcarlo.gpu import seed_entry
+    monkeypatch.setattr(seed_entry,'main',lambda argv:37)
+    assert cli._mv_dispatch(['validate',str(ROOT/'examples/therapy/prostate_seed_7field_g5_a2b.yaml')])==37
 
 def test_product_cli_has_no_indirect_prototype_imports(tmp_path):
     test_module=ROOT/'tests/test_gpu_g5_a3_contracts.py'

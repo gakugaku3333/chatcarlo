@@ -426,3 +426,4 @@ Work toward coupled photon/electron/positron transport for nominal 10 MV is unde
 
 - 2026-10-31 G5 A3: `pdd_ocr` の製品入口（P7 ±20 cm）と共通承認・受領の手元実装。H1/H2 検査の記録は `docs/validation/gpu/g5/A3_LOCAL.md`。T4・保存済み表・H3〜H6 の判定は未実行、`seed_ratio` は試作経路を維持。
 - 2026-11-02 G5 A3 完了。T4 の関門は全合格、速さの比は上限内。キャッシュは記録値が未判定で、補足判定をユーザーが承認。`docs/validation/gpu/g5/A3_LOCAL.md`。
+- 2026-11-03 G5 A2b 完了。`seed_ratio` を `chatcarlo/gpu/seed_entry.py` へ切り替え。B3 は7項目合格、B5 のカーネル比 0.988。キャッシュ済み入口の2本はユーザー指示で省略。`docs/validation/gpu/g5/A2B_LOCAL.md`。

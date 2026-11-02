@@ -1,0 +1,24 @@
+# seed_ratio scene for the G5 A2b entry (chatcarlo/gpu/seed_entry.py; B3 passed 2026-11-03).
+domain: therapy_mv
+scoring: seed_ratio
+physics:
+  set: therapy-electron-v1
+source:
+  spectrum: mohan10
+  sad_cm: 100
+  gantry_deg: [0, 45, 90, 135, 225, 270, 315]
+  field: prostate_projection
+body:
+  material: water
+  ellipse_cm: [36, 24]
+  length_cm: 30
+target:
+  prostate_cm: [4.5, 3.0, 3.5]
+  rectum_diameter_cm: 3
+seeds:
+  preset: p9a_58
+  material: ag_ti_mixture
+run:
+  histories_per_field: 3571450
+  seed: 9502001
+  engine: colab_t4

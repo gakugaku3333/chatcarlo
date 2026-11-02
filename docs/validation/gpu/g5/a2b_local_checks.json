@@ -1,0 +1,30 @@
+{
+  "status": "implementation-only; T4/cache gates pending",
+  "public_seed_ratio": "frozen P9c",
+  "tests": {
+    "main": {
+      "passed": 959,
+      "skipped": 7
+    },
+    "prototype": {
+      "passed": 1421,
+      "skipped": 404
+    },
+    "offline": {
+      "passed": 26,
+      "skipped": 0
+    }
+  },
+  "cache_guard": true,
+  "colab_executed": false,
+  "committed": false,
+  "shared_physics_functions": 83,
+  "slab_cuda_source_sha256": "c39b6f72f0579ecbcf2f55f287261d20d0519296cc9ecc771d11a0e78f203624",
+  "files": {
+    "a2b_masks.npz": "aa303af596e45c25dbfcfd1e84396d3ae8d7dca8b641adcaeb336584e99f339a",
+    "a2b_masks.json": "d6e375fa185b4890c24ab7da95f6a5a5f23255774a9ab118359d6bc45783bf16",
+    "a2b_tests_main.log": "08bab5a1c94f95d1078c6abd4b41e93e1bd7a7389b4fb92439f1917ac057cf24",
+    "a2b_tests_mv.log": "33e44632481dc262aa8fef9e2d2d935b0cbc7495f33c70e9b7edd1ad9f9d6956",
+    "a2b_tests_offline.log": "81906832b0a8afbecd42c68dcdc8abef97af1cbf11b03de26a73a07360a4b26f"
+  }
+}

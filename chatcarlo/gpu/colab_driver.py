@@ -149,7 +149,10 @@ def worker(bundle_path,job_path,out):
                         '--out',str(out.resolve())],cwd=Path(__file__).resolve().parents[2],check=True)
     (out/'done.json.pending').write_text(json.dumps(dict(status='complete')));(out/'done.json.pending').replace(out/'done.json')
 
-def _bootstrap(files,job_sha,*,therapy_root=None):
+def _bootstrap(files,job_sha,*,therapy_root=None,seed_root=None):
+    if seed_root is not None:
+        from .seed_colab import bootstrap
+        return bootstrap(seed_root,files)
     if therapy_root is not None:
         from .therapy_colab import bootstrap
         return bootstrap(therapy_root,files)

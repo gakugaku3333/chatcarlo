@@ -1,3 +1,6 @@
+#if defined(T2_SEED) && T2_SEED
+#include "t2_seed_kernel.h"
+#else
 // Derived from p8g2_kernel.h; G5 A2 standalone copy.
 #ifndef P8G2_KERNEL_H
 #define P8G2_KERNEL_H
@@ -471,3 +474,5 @@ q->diag_used=diagnostic.used;q->diag_overflow=diagnostic.overflow;q->maxdepth=o-
 p8g2_hit(hits,before*5+q->phase+40);
 }
 #endif
+
+#endif // T2_SEED
