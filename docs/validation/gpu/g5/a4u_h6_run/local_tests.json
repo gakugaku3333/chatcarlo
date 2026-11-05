@@ -1,0 +1,56 @@
+{
+  "status": "incomplete-disk-stop",
+  "date": "2026-11-06",
+  "stop_reason": "Free space fell from approximately 5 GiB to 3.26 GiB and continued decreasing; interrupted before the approved 3 GiB floor.",
+  "free_GiB_after_stop": 3.21868896484375,
+  "commands": [
+    {
+      "command": ".venv/bin/python -m pytest tests/ -q",
+      "exit_code": 2,
+      "status": "interrupted",
+      "passed": 477,
+      "failed_observed": 0,
+      "seconds": 202.85
+    },
+    {
+      "command": ".venv/bin/python -m pytest prototypes/mv_electron/tests -q",
+      "exit_code": 2,
+      "status": "interrupted",
+      "passed": 301,
+      "skipped": 16,
+      "failed_observed": 0,
+      "seconds": 202.85
+    },
+    {
+      "command": ".venv/bin/python docs/validation/gpu/g5/a4u_h6.py --help",
+      "exit_code": 0,
+      "status": "pass"
+    },
+    {
+      "command": ".venv/bin/python docs/validation/gpu/g5/a4u_s1_gate1.py --help",
+      "exit_code": 0,
+      "status": "pass"
+    }
+  ],
+  "additional_checks": {
+    "B1_B5_CPU": "pass",
+    "CPU_fixture_source_seal": "pass",
+    "prepare_orchestration": "pass with large numerical workloads substituted; not a physics gate",
+    "existing_paired_judge_delegation": "pass on substituted smoke inputs",
+    "missing_required_gate_rejection": "pass",
+    "colab_timeouts": "pass, mocked subprocess calls",
+    "single_session_failure_finally_stop": "pass, mocked VM creation failure",
+    "git_diff_check": "pass"
+  },
+  "GPU_execution": "not run; H6 not passed",
+  "known_out_of_scope_issue": {
+    "file": "chatcarlo/gpu/seed_cuda.py",
+    "line": 78,
+    "description": "GPU.observe references physics_sets, but the import is local to __init__, not in observe globals. Unchanged; B3 will stop on an exception."
+  },
+  "source_sha256": {
+    "a4u_h6.py": "bc81adef4735e806e03c37bef377dbb1841667f6eee34a66038128923c110e31",
+    "a4u_h6_fixtures.py": "9d27a3a937e5a828682ae6f454aa48aef81bcf9cffb181bb78361d189b852632",
+    "a4u_s1_gate1.py": "656ea7754501d6f92a6e0d0f13709f250a19a5d09de256d8cfb5d659fa494cc3"
+  }
+}

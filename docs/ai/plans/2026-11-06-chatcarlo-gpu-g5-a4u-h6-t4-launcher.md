@@ -1,6 +1,6 @@
 # 計画: G5 A4u — H6（T4 の 1 セッション）の起動役
 
-- 状態: approved（**ユーザー承認 2026-11-06**。群 A/B/C の三分割、群 B で実機の穴 3 つを塞ぐ、報告専用を除く関門が fail か未実施なら H6 を合格にしない、時間の見込みは撤回して最初の 1 本で測り直す）
+- 状態: implemented（手元まで。T4 は未実施）／approved（**ユーザー承認 2026-11-06**。群 A/B/C の三分割、群 B で実機の穴 3 つを塞ぐ、報告専用を除く関門が fail か未実施なら H6 を合格にしない、時間の見込みは撤回して最初の 1 本で測り直す）
 - Codexレビュー: 1巡（骨子、2026-11-06。致命 0・実質 5・軽微 2・参考 2。原文 `data/logs/codex_a4u_h6_review1.md`。実質 5 件と軽微 2 件を反映済み）
 - 作成者: claude
 - 実装担当: codex（起動役 `a4u_h6.py` と VM 側の仕事の一覧）。T4 の運転・採点・記録は Claude
@@ -158,3 +158,47 @@ s = 2.86% から決めた `1+2s` なので、**s を測ったのと同じ負荷�
 | `a4u_h6_run/*.json`（判定・速さ・時間・到達数） | **リポジトリ**（小さい表と条件） |
 | G4 の PNG 1 枚と要点のログ | **リポジトリ** |
 | 中間の npz・バッチ・VM のフルログ | **消す**（判定後。削除はユーザー） |
+
+## 実装の記録（2026-11-06）
+
+Codex が実装し、Claude が独立に検証した。`a4u_h6.py`（570 行、`prepare`/`run`/`judge`/`_worker`）と
+`a4u_h6_fixtures.py`（324 行）。CPU の B1〜B5 は全部通り、到達数を `a4u_h6_run/b_fixtures_cpu.json` に封印した。
+
+### 計画の範囲外の修正 1 件（記録する）
+
+**`chatcarlo/gpu/seed_cuda.py`: `physics_sets` を module 級の import に上げた。**
+`GPU.observe()`（78 行）が `physics_sets` を参照していたが、import は `__init__` の中のローカルで、
+`observe` からは見えず**呼べば必ず `NameError`**。A2b（`ffe20b9`）から残っていた。CUDA 専用なので
+CPU の試験は一度も到達せず、手元の全テストが通っていた。**群 B の B3 が止まる位置**なので直した
+（1 行、`from . import seed_geometry as core,therapy,physics_sets`）。Codex が実装中に見つけ、
+範囲外として報告したもの。教訓は lessons_learned の「CPU だけの関門では GPU の不具合を捕まえられない」に
+3 回目として足した。
+
+### 計画から戻した 1 件
+
+**`a4u_s1_gate1.py` の `--device` は戻した**（`sys.path` の修正だけ残した）。計画の「変更してよい」に
+書いていたが、**レビュー後の群 A は `a4u_h6.py` が自前で `paired_judge` を呼ぶ**ので誰も使わない。
+しかも `identity` とファイル名に device が入らないため、同じ `--out` で**CPU の結果を cuda として
+再利用してしまい、再開の照合が通ってしまう**（H6 の中心の主張が CPU 対 CPU になって空で合格する）。
+「誰も求めていないケースのために設計しない」に従って削除した。
+
+### 検証した項目
+
+| 項目 | 結果 |
+|---|---|
+| 禁止範囲 | `git status` で変更なし（`a4u_h4/h5_gate`・`a1_g2gate3`・`a1_g2vox`・`a1_speed`・`validation.py`・`physics_sets.py`・`mv/p1*`・`tests/test_gpu_g5_a4u_s2.py`） |
+| 群 A | `judge_pairs` が `validation.paired_judge`（331 行）、G2 は `grid_paired_judge`、G4 は `gate2` ＋ `gate2a` を合否（501 行）。**`independent_judge` も NumPy 比較も使っていない** |
+| 群 B の到達数 | B1 の `cutoff_local`・B2 の `annihilation_rest`/`flight` が 1 件だが、**注入した 1 粒子の決定論的な fixture**（0.007 MeV を 1 本、`old.fixed_cases()` を n=1）なので統計のゆらぎで 0 にならない |
+| B6 | module を 5 本数える: `local`・`electron`・`seed`・`local_legacy`・`electron_legacy`、全部 `backend == 'nvrtc'`（358 行） |
+| C2 | `a1_speed.load_configs/measure/summarize` と登録済みの `a1_speed_configs.json`、治療側は `a0_configs.json` の p7A。旗は `_test_legacy_physics=(version=='new')`＝新コード＋物理を戻した build で、D10 (1) の定義どおり |
+| 削除 | `rm`・`rmtree`・`unlink` の呼び出しなし |
+| colab | 全呼び出しに時間の上限（new/upload/download 900 s、stop 180 s、他 300 s）、poll は 10 分 |
+| `--help` | `a4u_h6.py`・`a4u_s1_gate1.py` ともに計算せず終了（再実行して確認） |
+
+### 未了
+
+**全テストの通し実行**。`pytest tests/` は 477 passed、`pytest prototypes/mv_electron/tests` は
+301 passed・16 skipped まで進み、**どちらも不合格 0 のまま、空きが 3.26 GiB に落ちて計画の停止条件で中断**した
+（`a4u_h6_run/local_tests.json`）。原因は pytest の一時出力 2.6 GiB（`/var/folders/.../pytest-of-oishifamily` の
+3 世代）。`~/.Trash/pytest-temp-2026-11-06/` へ退避済み（**空にするのはユーザー**。同じ volume なので
+空にするまで空きは戻らない）。参照の確認: 記録が指しているのは世代 12・62・63 で、退避したのは 114・115・116。

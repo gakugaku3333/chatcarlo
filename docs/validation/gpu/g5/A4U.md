@@ -2574,3 +2574,33 @@ D2・H2・H3b の各段で、pytest の一時ディレクトリを片付ける�
 **How to apply**: 一時出力を片付けるとき、**目録を JSON に残すのは「その場で照合する」ときだけ**に
 する。片付けが終わってから残す目録は、照合の相手が消えているので価値が無い。
 残すなら件数と合計サイズの 1 行でよい（例:「pytest-38 の 1,842 ファイル・181 MB を整理」）。
+
+
+### H6 起動役の実装（2026-11-06、実機判定は未実施）
+
+`a4u_h6.py` は手元の `prepare` → T4 を 1 セッションだけ所有する `run` → 手元の `judge`。
+入力は `--therapy-bundle`（封印済み A3 束）、`--p8g2`（既存 export）、`--p7`（旧 export）、
+`--old-diagnostic`（`a1_old_bundles.py` で旧木から作った束、A1 のハッシュで照合）。
+生データ用 `--output` はリポジトリと `~/.cache` の外の新規ディレクトリにする。
+`prepare` は CPU 基準と B1〜B5 の `expected.json` を先に固定する。
+`run` は全 colab 呼び出しに timeout を付け、PID と `kill(pid, 0)` で見張り、10 分ごとの poll で回収する。
+完了した関門は直ちに回収・照合し、不合格で後続を止め、finally で stop する。VM の自動取り直しは行わない。
+
+A1 は `validation.paired_judge`、A2 は既存 `grid_paired_judge`、A3 は `gate2a`・`gate2` を使用する。
+B1 の到達カウンターだけは検証用コピーで既存の `hits[73:75]` を使う（Rayleigh と束縛棄却）。
+CUDA 側の書き込み先は既存のグローバル配列であり、RNG・分岐条件・スコアは変えない。
+B4 は CPU の既存 relax probe と同じループを NVRTC の `g5_relax_probe_kernel` に載せる。
+新しい数値基準は加えない。B3 は本番 seed CUDA API のまま呼び、旧 P9c 比には当てない。
+
+手元の B1〜B5 の到達数は [a4u_h6_run/b_fixtures_cpu.json](a4u_h6_run/b_fixtures_cpu.json)。
+これは CPU fixture の固定記録であり、T4・NVRTC・H6 の合格記録ではない。
+コンパイル時間・核時間・通信時間・総時間を分けて残し、共通の固定費とは呼ばない。
+
+コードを読んで見つけた実機側の未解決事項: `chatcarlo/gpu/seed_cuda.py` の `GPU.observe()` は
+`physics_sets` を参照するが、その import は `__init__` のローカルスコープにしかない。
+本体は今回の変更範囲に含まれないため変更していない。実機の B3 で例外になれば H6 は停止・未合格とする。
+
+ローカル検査の結果は [a4u_h6_run/local_tests.json](a4u_h6_run/local_tests.json)。
+指定の `--help` 2 本は成功。全スイートは空き容量が約 3.26 GiB まで減って増加中だったため、
+3 GiB の床を守って中断した。本体は 477 passed、MV 試作は 301 passed・16 skipped までで、
+いずれも失敗は観測していないが、全件通過とは扱わない。削除は行っていない。

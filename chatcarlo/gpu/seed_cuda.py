@@ -1,7 +1,7 @@
 """Seed CUDA launcher; table pointers and geometry read back before launch."""
 import ctypes as ct
 import numpy as np
-from . import seed_geometry as core,therapy
+from . import seed_geometry as core,therapy,physics_sets
 from .seed_core import DP,IP,bind_grids,field_seed,check_result,cuda_source,unpack,observation
 
 class GPU:

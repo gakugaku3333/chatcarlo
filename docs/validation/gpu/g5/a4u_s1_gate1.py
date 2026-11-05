@@ -4,9 +4,11 @@ import importlib.util
 import json
 from pathlib import Path
 import tempfile
+import sys
+ROOT=Path(__file__).resolve().parents[4]
+if str(ROOT) not in sys.path:sys.path.insert(0,str(ROOT))
 from chatcarlo.gpu import bundle, validation
 from chatcarlo.transport import run_transport
-ROOT=Path(__file__).resolve().parents[4]
 HERE=ROOT/'docs/validation/gpu/g1'
 spec=importlib.util.spec_from_file_location('a4u_g1_reference',HERE/'run_gates.py')
 reference_gate=importlib.util.module_from_spec(spec)
