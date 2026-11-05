@@ -1,0 +1,39 @@
+{
+  "status": "tests_passed",
+  "scope": "H4 expected-table-hash fix; no transport/build measurements",
+  "command": ".venv/bin/python -m pytest tests/test_gpu_g5_a4u_h4.py -q",
+  "passed": 12,
+  "seconds": 4.21,
+  "regression": "real prepare_cpu(20) vs therapy.pack -> therapy_observation.table_hashes",
+  "keys_checked": 136,
+  "materials": 4,
+  "mismatches_after": [],
+  "mismatches_before": [
+    "0.line_counts",
+    "1.line_counts",
+    "2.line_counts",
+    "3.line_counts"
+  ],
+  "cause": "raw int64 line_counts vs float64 production/native table encoding",
+  "canonical_function": "catalog.p8_material",
+  "protected_files_unchanged": {
+    "chatcarlo/gpu/therapy_inputs.py": "74d9ddde30112d1bcdf5ba3bd75f550b71d0791d93d5964027e94bcdf180c81e",
+    "chatcarlo/gpu/therapy_observation.py": "50e07381e49c7a3f94a683e19e4a4cff8017ea72911811f52319559b33927c80",
+    "chatcarlo/gpu/therapy.py": "debc17288badee2d02ac8b0a71fc9a137d14828b8cc81118e08efc72b256f811",
+    "chatcarlo/gpu/catalog.py": "b89a52fe9dc79f0fa860e54e8399f04e90db1289e82cb8bca5945fa83eb4059e",
+    "chatcarlo/gpu/generate_photon_tables.py": "982870d94d95472974d9274e5b4b31ab7d2e8ed9e76f563dbcf46dcb3b7da750",
+    "chatcarlo/gpu/photon_physics.h": "a9c89e4b4b5036ed0f8d3ff78e1e9003340c0ce6309556c15799a35aa919ce6c",
+    "chatcarlo/gpu/t2_kernel.h": "eac0599da4ab903e5781c7b03871d0d029d021c702015abddf299f6adb4bb502",
+    "chatcarlo/gpu/t2_physics.h": "f88aa17d397251b9f14b916f15a5d2a3de377ca417a7f8a28b8bde5e078b8abd",
+    "docs/validation/gpu/g5/a4u_d2_fixed.json": "729bb26566feef8da5983bf3f4965388f0164388407cd1d12851f77990ee3d5c",
+    "tests/test_gpu_g5_a4u_s2.py": "7e895c6c23ba9fd98212cdcf143c8032acd62f4f612847315ac3a9decd18b8a4"
+  },
+  "source_sha256": {
+    "docs/validation/gpu/g5/a4u_h4_gate.py": "63504d0a735f1f887350b58d254a08069fe2526573297b47b079c8ec0cc7e83c",
+    "tests/test_gpu_g5_a4u_h4.py": "6d7ba3de373b54b95a06eb9d569c60c7dcffc2553f4c386c9df3e2a40a6b6a17"
+  },
+  "log_sha256": "5f42c10a19244c90bae664d4af1e760640ba1b0a6fbbe08a38fcc432b9757387",
+  "EGS5_started": false,
+  "CPU_pilot_started": false,
+  "transport_started": false
+}

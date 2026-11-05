@@ -1,0 +1,97 @@
+{
+  "scope": "launcher implementation and tests only",
+  "existing_code_changes_from_start": [],
+  "source_changes_after_final_implementation": [],
+  "historical_records_restored": {
+    "docs/validation/gpu/g5/a2_run/implementation_report.json": {
+      "sha256": "308c255cd6887cf5633635f7ee493905b2f9077ecacd5c94aedbde698d011352",
+      "rewritten_by_tests": false
+    },
+    "docs/validation/gpu/g5/a2_run/diag_gate1_t4.json": {
+      "sha256": "17460adafd59922180ede29c85b97fed04ade893eee3d2bd23451d604a4c539a",
+      "rewritten_by_tests": false
+    },
+    "docs/validation/gpu/g5/a2_run/tests.json": {
+      "sha256": "6274a567ec442c7eed10c027e489dd36ddf566503ce431c3997c897c004d0a02",
+      "rewritten_by_tests": false
+    },
+    "docs/validation/gpu/g5/a2_run/judge_regression.json": {
+      "sha256": "08e5fea5c0666fbdf7450044e24a15d9be55ab6e415ca94d5dfb05dd1da6d987",
+      "rewritten_by_tests": false
+    },
+    "docs/validation/gpu/g5/a2_run/cases_t4.json": {
+      "sha256": "7572bdeeee87f53c6c1b0db3f2ae331fb368f7fb9a1a104e036e15ab2ba7b1fe",
+      "rewritten_by_tests": false
+    },
+    "docs/validation/gpu/g5/a2_run/diag_identity_t4.json": {
+      "sha256": "5c3134827c6bd567e978d9b05b3d6850f8bbef3b2a8bc7e9f69b68e2e0ebb154",
+      "rewritten_by_tests": false
+    },
+    "docs/validation/gpu/g5/a2_run/diag_g2vox_t4.json": {
+      "sha256": "15f03efbbba3854fb0c4eb3fa1d9224d4f55d6ec051d2c798a0a8b9cc806c98c",
+      "rewritten_by_tests": false
+    },
+    "docs/validation/gpu/g5/a2_run/verdict.json": {
+      "sha256": "8e7bf59339eaac28609709a4ce38d7c968be1bcefc3536d3c302028472df6dc4",
+      "rewritten_by_tests": false
+    },
+    "docs/validation/gpu/g5/a2_run/speed.json": {
+      "sha256": "7194e9c750c13b51f4301343e109891dd5f25b5ab027bfcd601563b4813b7aa7",
+      "rewritten_by_tests": false
+    },
+    "docs/validation/gpu/g5/a2_run/bundle.json": {
+      "sha256": "2b2f2b67035ce9a99950fd0d381fae6172719526fa17ca69d5dfa17dfbec9838",
+      "rewritten_by_tests": false
+    },
+    "docs/validation/gpu/g5/a2_run/smoke_cpu.json": {
+      "sha256": "873c0f7c180f2f0bf8a3bec5aeb706bec829d43bc5888451d045e1d433549f7c",
+      "rewritten_by_tests": false
+    },
+    "docs/validation/gpu/g5/a2_run/checks.json": {
+      "sha256": "a1bc26ff11e0701c44696dfe0947d11506c66c7518f16249e903689646a9fa6d",
+      "rewritten_by_tests": false
+    },
+    "docs/validation/gpu/g5/a2_run/smoke_comparison.json": {
+      "sha256": "8d4e96bd7ab93352cd43cb1c08ea19712fad9e5d74d843c7fb2df113cd6f831a",
+      "rewritten_by_tests": false
+    },
+    "docs/validation/gpu/g5/a2_run/faults_cpu.json": {
+      "sha256": "58550dc19ac80da6882f154d5a0ee0a9faf8f3bc7233e0cb98b7246718ee6eb6",
+      "rewritten_by_tests": false
+    },
+    "docs/validation/gpu/g5/a2_run/oldnew.json": {
+      "sha256": "21ff760fade6f7fdf7e21ac5306279f7ab7746a9a59ccd6727a4767bd417b231",
+      "rewritten_by_tests": false
+    },
+    "docs/validation/gpu/g5/a2_run/diag_speed_t4.json": {
+      "sha256": "59639c1382c166591c7002690c9e9c0d08eb07513ff95ae2dabdf52a770d6d0e",
+      "rewritten_by_tests": false
+    },
+    "docs/validation/gpu/g5/a2_run/cases_cpu.json": {
+      "sha256": "afd23cd71be1d9c2f7eabae2faab87f6b46616ac842d6a35278ed1979e064de6",
+      "rewritten_by_tests": false
+    },
+    "docs/validation/gpu/g5/a2_run/faults_t4.json": {
+      "sha256": "12cb2adaa61c854dbe6fab300262199aba0b6f0d12ad187a0dd098a85fa3b0ad",
+      "rewritten_by_tests": false
+    },
+    "docs/validation/mv/p8g1/faults_gate0.json": {
+      "sha256": "35278b0afb4c84aebeb4efe6c34d936dbdc096098a348d8abc33e14762bd841b",
+      "rewritten_by_tests": true
+    },
+    "docs/validation/mv/p8g3/fault_observations.json": {
+      "sha256": "a7ad599f5f3d0420dcd054c7f3e592b3f88e39f60ec6045fcbd9380c1a9ea952",
+      "rewritten_by_tests": true
+    }
+  },
+  "Claude_H2_measurement_preserved": true,
+  "H2_launcher_unchanged": true,
+  "EGS5_reference_sha256": "a23ffc257cf53c314d764f2f9581111abbcb253202831a16f26346991f6769b8",
+  "EGS5_reference_unchanged": true,
+  "actual_H3b_measurement_started": false,
+  "H3b_result_generated": false,
+  "T4_executed": false,
+  "EGS5_executed": false,
+  "new_fault_mechanisms": false,
+  "forbidden_tracked_diff_empty": true
+}

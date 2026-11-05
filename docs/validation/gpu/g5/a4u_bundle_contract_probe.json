@@ -1,0 +1,122 @@
+{
+  "status": "fail",
+  "bundle": "/private/tmp/claude-501/-Users-oishifamily-Projects-viveMonte/f8845517-1235-48e8-84ed-cacbe0f7b4da/scratchpad/probe_bundle_out2",
+  "checks": {
+    "1_electron_region_bytes_identical": {
+      "size_new": 36364709,
+      "size_old": 36364709,
+      "result": true
+    },
+    "2_meta_first_132_identical": {
+      "result": true
+    },
+    "4_photon_block_equals_sealed_0": {
+      "size": 52085,
+      "result": true
+    },
+    "3_pad37_zero_0": {
+      "result": true
+    },
+    "3_log_nan_0": {
+      "result": true
+    },
+    "4_photon_block_equals_sealed_1": {
+      "size": 324378,
+      "result": true
+    },
+    "3_pad37_zero_1": {
+      "result": true
+    },
+    "3_log_nan_1": {
+      "result": true
+    },
+    "4_photon_block_equals_sealed_2": {
+      "size": 225351,
+      "result": true
+    },
+    "3_pad37_zero_2": {
+      "result": true
+    },
+    "3_log_nan_2": {
+      "result": true
+    },
+    "4_photon_block_equals_sealed_3": {
+      "size": 28720,
+      "result": true
+    },
+    "3_pad37_zero_3": {
+      "result": true
+    },
+    "3_log_nan_3": {
+      "result": true
+    },
+    "5_meta_offset_formula": {
+      "formula": "meta[mid+1,132] = meta[mid,133] + 37 + len(photon[mid])",
+      "checks": [
+        {
+          "mid": 1,
+          "predicted": 36442948,
+          "observed": 36442948,
+          "result": true
+        },
+        {
+          "mid": 2,
+          "predicted": 36795793,
+          "observed": 36795793,
+          "result": true
+        },
+        {
+          "mid": 3,
+          "predicted": 37048818,
+          "observed": 37048818,
+          "result": true
+        }
+      ],
+      "result": true
+    },
+    "5b_log_sizes_unchanged": {
+      "new": [
+        26117,
+        28430,
+        27637,
+        27810
+      ],
+      "old": [
+        26117,
+        28430,
+        27637,
+        27810
+      ],
+      "result": true
+    },
+    "5c_meta_134_is_arange": {
+      "result": true
+    },
+    "5d_meta_0_135_addend": {
+      "new": 28417,
+      "old": 28417,
+      "result": true
+    },
+    "6_total_growth": {
+      "new": 37105385,
+      "old": 36474851,
+      "growth": 630534,
+      "photon_sizes": [
+        52085,
+        324378,
+        225351,
+        28720
+      ],
+      "sum_photon": 630534,
+      "result": true
+    },
+    "7_therapy_inputs_load_mohan10": {
+      "result": false,
+      "error": "ValueError: pinned input SHA256 mismatch: bone.photon"
+    },
+    "7_therapy_inputs_load_mohan4": {
+      "result": false,
+      "error": "ValueError: pinned input SHA256 mismatch: bone.photon"
+    }
+  }
+}

@@ -29,7 +29,7 @@ def test_geometry_local(tmp_path):
 @pytest.fixture(scope='module')
 def native(tmp_path_factory):
     coarse=g.Grid((-20.,)*3,(10.,)*3,(4,)*3)
-    return seed_core.CPU(tmp_path_factory.mktemp('a2b-native'),[artificial_material()]*5,constants=np.ones(6),strength=np.arange(17,dtype=float),densities=[1]*5,energy=.007,grids=(coarse,coarse))
+    return seed_core.CPU(tmp_path_factory.mktemp('a2b-native'),[artificial_material()]*5,constants=np.ones(6),strength=np.arange(17,dtype=float),densities=[1]*5,energy=.004,grids=(coarse,coarse))
 
 
 def test_native_split_and_faults(native,tmp_path):
@@ -202,7 +202,8 @@ def test_physics_helpers_and_notebook(tmp_path):
     import importlib.util
     def module(name):
         spec=importlib.util.spec_from_file_location(name,Path('docs/validation/gpu/g5')/(name+'.py'));m=importlib.util.module_from_spec(spec);spec.loader.exec_module(m);return m
-    assert module('a2b_physics').check()['status']=='pass'
+    from docs.validation.gpu.g5.a4u_d2_update import check_physics
+    assert check_physics()['status']=='pass'
     result=module('a2b_notebook').create(tmp_path)
     nb=json.loads(Path(result['notebook']).read_text());code=''.join(nb['cells'][1]['source']);compile(code,'<notebook>','exec')
     import zipfile

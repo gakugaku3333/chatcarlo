@@ -5,7 +5,7 @@ from . import seed_geometry as core,therapy
 from .seed_core import DP,IP,bind_grids,field_seed,check_result,cuda_source,unpack,observation
 
 class GPU:
-    def __init__(self,cp,materials,*,constants,strength,fault=0,**kw):
+    def __init__(self,cp,materials,*,constants,strength,fault=0,_test_legacy_physics=False,**kw):
         from . import therapy,physics_sets
         self.cp=cp;self.g,self.arrays,self.grids=core.geometry(**kw)
         self.arrays['strength']=np.ascontiguousarray(strength,float);self.g.strength=self.arrays['strength'].ctypes.data_as(DP)
@@ -13,10 +13,10 @@ class GPU:
         self.device_arrays={k:cp.asarray(v) for k,v in self.arrays.items()}
         data,meta=therapy.pack(materials)
         self.args=(cp.asarray(data),cp.asarray(meta),cp.asarray(constants))
-        self.module=cp.RawModule(code=cuda_source(),options=('-DP5_GPU','-DP5_RNG_PHILOX','--fmad=false','-DT2_SEED=1','-DP8G_STACK_CAP=18','-DT2S_CHECK=0',f'-DT2_SEED_FAULT={fault}',f'-DG5_SET_ID={physics_sets.declaration(therapy.NAME)["id"]}',f'-DG5_SET_TAG={physics_sets.declaration(therapy.NAME)["tag"]}ULL'),backend='nvrtc')
+        self.module=cp.RawModule(code=cuda_source(),options=(f'-DG5_TEST_LEGACY_ELECTRON={int(_test_legacy_physics)}','-DP5_GPU','-DP5_RNG_PHILOX','--fmad=false','-DT2_SEED=1','-DP8G_STACK_CAP=18','-DT2S_CHECK=0',f'-DT2_SEED_FAULT={fault}',f'-DG5_SET_ID={physics_sets.declaration(therapy.NAME, specialization=physics_sets.ELECTRON)["id"]}',f'-DG5_SET_TAG={physics_sets.declaration(therapy.NAME, specialization=physics_sets.ELECTRON)["tag"]}ULL'),backend='nvrtc')
         self.module.get_function('t2_seed_init')((1,),(1,),self.args+(np.int32(len(materials)),));self.upload()
         out=cp.zeros(2,np.uint64);self.module.get_function('t2_seed_identity')((1,),(1,),(out,));v=cp.asnumpy(out)
-        self.observed=dict(name=therapy.NAME,id=int(v[0]),tag=int(v[1]));physics_sets.check(self.observed,physics_sets.declaration(therapy.NAME))
+        self.observed=physics_sets.observation(therapy.NAME,int(v[0]),int(v[1]));physics_sets.check(self.observed,physics_sets.declaration(therapy.NAME, specialization=physics_sets.ELECTRON))
     def upload(self):
         cp=self.cp;g=core.Geometry.from_buffer_copy(bytes(self.g))
         for k,t in therapy.Geometry._fields_[:8]:setattr(g,k,ct.cast(int(self.device_arrays[k].data.ptr),t))
@@ -75,5 +75,5 @@ class GPU:
             shape=self.arrays[name].shape;arrays[name]=read(getattr(g,name),self.arrays[name].size,self.arrays[name].dtype).reshape(shape)
         arrays['seeds']=read(g.seeds,g.ns*5,float).reshape(-1,5);arrays['parents']=read(g.parents,g.ns,np.int64)
         out=cp.zeros(2,np.uint64);self.module.get_function('t2_seed_identity')((1,),(1,),(out,));v=cp.asnumpy(out)
-        declared=dict(name=therapy.NAME,id=int(v[0]),tag=int(v[1]))
+        declared=physics_sets.observation(therapy.NAME,int(v[0]),int(v[1]))
         return observation(g,arrays,tuple(cp.asnumpy(a) for a in args[:3]),seed,start,n,field,declared)

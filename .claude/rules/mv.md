@@ -80,6 +80,16 @@ overwritten by later diagnostics.
 - EGS5 field runs: `run_p3b2.run_egs` (not `run_p3r.run_egs`). EGS5 start-up is ≈ 78 s, so size runs with
   `CPU_seconds`, not wall time. P7 reuses `run_p3b2.run_egs` unchanged with scoped paths/spectrum SHA, one process per
   condition; EGS5 results are sealed (hashes) at completion.
+- **Seal mismatch limited to one source hash (user decision 2026-11-05)**: seals hash source BYTES, so a
+  comment-only edit breaks them while the compiled physics is identical. Procedure: (1) diff the condition
+  field by field to find which entry differs -- never judge from the whole hash; (2) if exactly one source
+  hash differs, check whether that file's change is comments only; (3) recompute ONE batch at the same
+  seed/start/count and compare bitwise with the saved batch (8 s for 231,640 histories, not a full rerun);
+  (4) if bitwise equal, the physics is unchanged -- RECORD that fact, or a later reader sees two condition
+  hashes for the same run and suspects a physics change; (5) if not bitwise equal, stop and ask. Never wave a
+  mismatch off as "probably a comment" without running the batch. Applied 2026-11-05 to `photon_physics.h`
+  (`a9c89e4b` -> `161bdd9b`): batch 0 bit-identical, and all 100 batches reproduced H5's `fine` exactly.
+  Same spirit as PLAN_TEMPLATE.md:66 (keep plan/report files out of the freeze), one level deeper.
 - Production kerma scoring was off (`score_kerma=False`) in all runs before P4: no earlier saved run contains kerma.
 - GPU: the current passed configuration is **P5k variant F** (slab). Field kernels: `gpu/p6_*` (P6), `gpu/p7_*` (P7; field
   half-width/SSD as arguments, common ±20 cm layout). P7 entry: `run_p7.py` (`local`/`gate1`/`pilot`/`egs`/`export`/`analyse`).
@@ -152,6 +162,15 @@ overwritten by later diagnostics.
      or manifest, e.g.:
      - EGS5 `gsdist.dat` / `pgs5job.GSlst`
      - Colab export bundles and their split transfer parts
+  - **Order (2026-11-03, learned the hard way): move aside → run the FULL suites AND the CLI paths that read
+    those folders (`run_p7 analyse`, `p8f analyse`, `p6 analyse`, pilot-lock checks) → only then let the Trash be
+    emptied.** Class membership is not enough: `p8g2/export` is in the "delete without Drive" class but
+    `tests/test_gpu_g5_a2_bundle.py::test_real_roundtrip` reads `p8g2/export/p8g2_manifest.json` through an A4u
+    fixture, and `run_p7.py:269,328` reads `p7/work/export`. Some `gsdist.dat`/`pgs5job.GSlst` under
+    `p8a/fluorescence/` are hashed in `docs/validation/mv/p9a/protected_start.json` — grep the absolute paths in
+    `docs/validation/mv/**/*.json` before moving anything.
+  - Record every removed export's per-file SHA256 under `~/.cache/chatcarlo/archive/removed_exports_<date>/`
+    (precedent: `removed_exports_20261025`), so the folder can be regenerated and checked.
   - Measure the space gained with `df` after the Trash is emptied, not with `du`: APFS clones share blocks.
   - Emptying the Trash is the user's step.
 

@@ -13,7 +13,7 @@ def write(path, value):
 
 def seal(path, cond, members):
     path=Path(path)
-    physics_sets.check(cond['physics_set'],physics_sets.declaration(cond['physics_set']['name']))
+    physics_sets.check(cond['physics_set'],physics_sets.declaration(cond['physics_set']['name'],specialization=cond['physics_set'].get('specialization')))
     write(path/'generation.json',dict(condition=cond,condition_sha256=sha256(cond),
           files={name:sha(path/name) for name in members}))
 
@@ -22,7 +22,7 @@ def verify(path, members=None):
     path=Path(path);g=json.loads((path/'generation.json').read_text())
     if sha256(g['condition'])!=g['condition_sha256']:raise ValueError('condition hash mismatch')
     if members is not None and set(g['files'])!=set(members):raise ValueError('generation members mismatch')
-    physics_sets.check(g['condition']['physics_set'],physics_sets.declaration(g['condition']['physics_set']['name']))
+    physics_sets.check(g['condition']['physics_set'],physics_sets.declaration(g['condition']['physics_set']['name'],specialization=g['condition']['physics_set'].get('specialization')))
     for name,digest in g['files'].items():
         if Path(name).is_absolute() or '..' in Path(name).parts:raise ValueError('invalid seal member')
         if sha(path/name)!=digest:

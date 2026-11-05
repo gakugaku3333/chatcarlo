@@ -1,0 +1,14 @@
+# A4u: entry-path check at 60 keV only (user decision 2026-11-04).
+# Geometry matches a4u_h5_gate exactly; at 60 keV the entry's source bin
+# [59.9, 60.1] keV is identical to a4_egs.mono_edges(60), so this run is
+# comparable with H5's reference. NOTE (2026-11-05): what H5 judged against
+# EGS5 is the whole-slab depth dose (field 2), not the central-axis PDD that
+# this entry reports as fields 0/1. 20 keV is NOT run through this entry
+# (the 20 keV floor shifts the bin centre by +0.05 keV; see A4U.md).
+# 200,000 histories is cpu_local's cap: this checks that the path works,
+# not statistics.
+domain: therapy_mv
+source: {energy_keV: 60, field_cm: [10, 10], ssd_cm: 100}
+phantom: {material: water, thickness_cm: 30}
+scoring: pdd_ocr
+run: {histories: 200000, seed: 20261104, engine: cpu_local}

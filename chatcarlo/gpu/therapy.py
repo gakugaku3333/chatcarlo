@@ -10,7 +10,7 @@ import numpy as np
 from . import physics_sets, catalog
 
 HERE=Path(__file__).resolve().parent
-NAME='therapy-electron-v1'
+NAME=physics_sets.NAME
 D=np.ctypeslib.ndpointer(np.float64,flags='C_CONTIGUOUS')
 I=np.ctypeslib.ndpointer(np.int64,flags='C_CONTIGUOUS')
 U=np.ctypeslib.ndpointer(np.uint64,flags='C_CONTIGUOUS')
@@ -51,7 +51,7 @@ def pack(materials):
         for x,y in (('photo_E','photo'),('pair_E','pair_n'),('pair_E','pair_e')):
             if np.shape(getattr(m,x))!=np.shape(getattr(m,y)):raise ValueError('photon shape')
         row=[]
-        for name in catalog.P8_DEFINITIONS:
+        for name in list(catalog.P8_DEFINITIONS)[:33]:
             a=np.asarray(getattr(m,name),np.float64)
             if not np.isfinite(a).all():raise ValueError('nonfinite '+name)
             shape=a.shape
@@ -62,7 +62,9 @@ def pack(materials):
     meta=np.zeros((len(rows),136),np.int64);meta[:,:132]=rows
     for mid,m in enumerate(materials):
         size=sum(lengths(m));meta[mid,132:135]=[offset,offset+size,mid]
-        chunks.extend((np.full(size,np.nan),np.zeros(37)));offset+=size+37
+        from .generate_photon_tables import ensure
+        photon=ensure(m)
+        chunks.extend((np.full(size,np.nan),np.zeros(37),photon));offset+=size+37+len(photon)
     if len(materials)>1:meta[0,135]=meta[1,132]+sum(lengths(materials[1])[:17])
     return np.ascontiguousarray(np.concatenate(chunks)),meta
 
@@ -77,9 +79,9 @@ class FieldGeometry(ct.Structure):
 
 class CPU:
     def __init__(self,work,materials,arrays,*,cap=18,fault=0,field_geometry=None,
-                 half=(0.,0.),ssd=100.,physics_declaration=None,quantity='absorbed-dose'):
-        physics_sets.require_quantity(NAME,quantity)
-        self.physics_set=physics_sets.declaration(NAME)
+                 half=(0.,0.),ssd=100.,physics_declaration=None,quantity='absorbed-dose',_test_legacy_physics=False,_test_photon_fault=0):
+        physics_sets.require_quantity(NAME,quantity,specialization=physics_sets.ELECTRON)
+        self.physics_set=physics_sets.declaration(NAME, specialization=physics_sets.ELECTRON)
         if physics_declaration is not None:physics_sets.check(physics_declaration,self.physics_set)
         if not 1<=cap<=4096 or fault not in (0,1,2,3,4,5,6,7,8,11,12,13,14,15,16):raise ValueError('build configuration')
         self.data,self.meta=pack(materials);self.arrays=arrays
@@ -97,11 +99,11 @@ class CPU:
         self.g=Geometry(*[arrays[k].ctypes.data_as(t) for k,t in Geometry._fields_[:8]],nl,nb,nc,nf,nspec,1,1,1.)
         work=Path(work);space(work);work.mkdir(parents=True,exist_ok=True)
         flags=['-O2','-ffp-contract=off','-std=c++11','-shared','-fPIC','-DP5_RNG_PHILOX',
-               '-DP8G2_CHECK=1',f'-DP8G_STACK_CAP={cap}',f'-DT2_FAULT={fault}',
+               f'-DG5_PHOTON_FAULT={int(_test_photon_fault)}',f'-DG5_TEST_LEGACY_ELECTRON={int(_test_legacy_physics)}','-DP8G2_CHECK=1',f'-DP8G_STACK_CAP={cap}',f'-DT2_FAULT={fault}',
                f'-DT2_FIELD={int(field_geometry is not None)}',
                f'-DG5_SET_ID={self.physics_set["id"]}',f'-DG5_SET_TAG={self.physics_set["tag"]}ULL']
         sources={p.name:hashlib.sha256(p.read_bytes()).hexdigest() for p in sorted(HERE.glob('t2_*')) if p.suffix in ('.h','.cpp')}
-        sources.update({n:hashlib.sha256((HERE/n).read_bytes()).hexdigest() for n in ('g5_base.h','physics_set.h')})
+        sources.update({n:hashlib.sha256((HERE/n).read_bytes()).hexdigest() for n in ('g5_base.h','physics_set.h','photon_physics.h')})
         self.build=dict(sources=sources,flags=flags)
         self.identity=hashlib.sha256(json.dumps(self.build,sort_keys=True).encode()).hexdigest()
         lib=work/(self.identity+('.dylib' if sys.platform=='darwin' else '.so'))
@@ -113,7 +115,7 @@ class CPU:
             if result.returncode:raise RuntimeError(result.stderr)
         self.lib=ct.CDLL(str(lib))
         self.lib.t2_set_id.restype=ct.c_int;self.lib.t2_set_tag.restype=ct.c_uint64
-        self.observed=dict(name=NAME,id=self.lib.t2_set_id(),tag=self.lib.t2_set_tag())
+        self.observed=physics_sets.observation(NAME,self.lib.t2_set_id(),self.lib.t2_set_tag())
         physics_sets.check(self.observed,self.physics_set)
         self.lib.p8g2_init.argtypes=[D,I,D,ct.c_int]
         self.lib.p8g2_histories.argtypes=[D,I,D,ct.POINTER(Geometry),ct.c_uint64,ct.c_uint64,ct.c_int,ct.c_int,ct.c_int,ct.c_int,DP,ct.POINTER(FieldGeometry),ct.c_double,ct.c_double,ct.c_double,D,D,U,D,D,I,I,U,D,U]
@@ -154,7 +156,7 @@ def cuda_source():
         for line in source.splitlines():
             if line.startswith('#include "'):
                 child=line.split('"')[1]
-                if child not in seen:
+                if child == "photon_physics.h" or child not in seen:
                     seen.add(child);out.append(expand(child,seen))
             else:out.append(line)
         return '\n'.join(out)

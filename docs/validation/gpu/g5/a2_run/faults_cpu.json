@@ -10,61 +10,61 @@
       "fault": 1,
       "target": 321,
       "detector": "geometry expected bin",
-      "build": "48573bf7f14ec45ded92755f2a1ba90f291026b538f949a87d55736f8aca54d8"
+      "build": "bfe718c12535bb34a4e78ad812954a68c6a1e03124480b2bc8d49ef10ddce481"
     },
     {
       "fault": 2,
       "target": 2,
       "detector": "local bins / deposition ledger",
-      "build": "d17ba385ca7cc203b55bc32748ab73014c5f26a43ee7dcb45c25654f675a5c6f"
+      "build": "a527fddce44f8a5f95fdbaa641dfbc09801dc2f1333498999b44c13cb956c1d6"
     },
     {
       "fault": 3,
       "target": 32,
       "detector": "source coordinate/direction",
-      "build": "e69d8e49230b73ef26ec5c186264162b718ad74f01bc10afab87afc93df2f543"
+      "build": "ad693e83240c3a48136caa58cedd8b2101edf4d2446144eb6fb800651dc24f28"
     },
     {
       "fault": 8,
       "target": 32,
       "detector": "source coordinate range",
-      "build": "fb1150466c1747e420d240f05514d9c73e85137ca4b21fdbc228857f72081fdf"
+      "build": "82f0836974abf6b67641f6cf2db01597a213455f257a284af6604227bd2ccd11"
     },
     {
       "fault": 11,
       "target": 1,
       "detector": "annihilation must occur once",
-      "build": "1f3735228b359357501b0d69f0741a7aef3d5a573bd0b4385acd6ff01e1a91a4"
+      "build": "29b3b085b94f809d9d87d53c07d7a5224ef471363641125a6e8dd956ff3f617f"
     },
     {
       "fault": 12,
       "target": 1,
       "detector": "local bins / deposition ledger",
-      "build": "2f023fa8bf69f1ffe76503f9ee3c991fdeaf17bf52da727f326e9e9643639426"
+      "build": "17e857bc242e51ab33c87a2056bacd1d8ca63a58d7b155fa1917884e77db201d"
     },
     {
       "fault": 13,
       "target": 2,
       "detector": "output count history 0: 2 != 1",
-      "build": "d78efd5ecd5337a8b59d93792ac241ca90b1f0abd7659f1feaa8bfd69e413be3"
+      "build": "1b16dd5665bbca461c07fd3c2065dddddf49f8d18b425146c2ef19fe96dde040"
     },
     {
       "fault": 14,
       "target": 2,
       "detector": "output count history 0: 0 != 1",
-      "build": "cc332acc758ee763d162a8ddede6a3cac64d7f2865ab7975f767398981572b2c"
+      "build": "d20ca776dc63cfb44f74016ccbb0543908201923cf12151a2450fdcd7fff538f"
     },
     {
       "fault": 15,
       "target": 2,
       "detector": "group 0 floating sum/max",
-      "build": "36a755057ddcd360f0edad03b9aa4252473b7305e2c27bceaee90b437ca1d907"
+      "build": "0c27129c315eaaf1164f337c7ae6b8401b5eae8759920dc98f64ac99f3fdfe2e"
     },
     {
       "fault": 16,
       "target": 2,
       "detector": "group 0 floating sum/max",
-      "build": "186ba090683229101ec04038c01c6a7cd0fc7248f444bd7847d7b93d7a045038"
+      "build": "2ce1357c82e77363f6ad96bef4d91d1e39db1e6e3d861b7094c9b58884eeff35"
     }
   ]
 }

@@ -1,0 +1,1302 @@
+........................................................................ [  7%]
+........................................................................ [ 14%]
+........F..................FFFFFF....................................... [ 21%]
+....F................................................................... [ 29%]
+.....................................................................F.. [ 36%]
+.....................FFFFFFFF........F.................................. [ 43%]
+......FFFF..........F.............F............F......F.FF.............. [ 51%]
+.......EEE........F..................................................... [ 58%]
+...............................................EEEE.EE.................. [ 65%]
+........................................................................ [ 73%]
+........................................................................ [ 80%]
+........................................................................ [ 87%]
+........................................................................ [ 95%]
+..............................................                           [100%]
+==================================== ERRORS ====================================
+________________ ERROR at setup of test_native_split_and_faults ________________
+
+tmp_path_factory = TempPathFactory(_given_basetemp=None, _trace=<pluggy._tracing.TagTracerSub object at 0x109fcbf90>, _basetemp=PosixPath...ers/nk/ppk0zn4n2n5_gsrp89g_dw900000gn/T/pytest-of-oishifamily/pytest-54'), _retention_count=3, _retention_policy='all')
+
+    @pytest.fixture(scope='module')
+    def native(tmp_path_factory):
+        coarse=g.Grid((-20.,)*3,(10.,)*3,(4,)*3)
+>       return seed_core.CPU(tmp_path_factory.mktemp('a2b-native'),[artificial_material()]*5,constants=np.ones(6),strength=np.arange(17,dtype=float),densities=[1]*5,energy=.007,grids=(coarse,coarse))
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_gpu_g5_a2b.py:32: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+chatcarlo/gpu/seed_core.py:61: in __init__
+    data,meta=therapy.pack(materials)
+              ^^^^^^^^^^^^^^^^^^^^^^^
+chatcarlo/gpu/therapy.py:66: in pack
+    photon=ensure(m)
+           ^^^^^^^^^
+chatcarlo/gpu/generate_photon_tables.py:177: in ensure
+    if hasattr(m,'photon'):return validate(m.photon)
+                                  ^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+blob = array(1.)
+
+    def validate(blob):
+        p=np.asarray(blob,float)
+>       if p.ndim!=1 or len(p)<20 or not np.isfinite(p).all():raise ValueError('invalid A4u photon table')
+                                                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       ValueError: invalid A4u photon table
+
+chatcarlo/gpu/generate_photon_tables.py:214: ValueError
+________________ ERROR at setup of test_actual_argument_tamper _________________
+
+tmp_path_factory = TempPathFactory(_given_basetemp=None, _trace=<pluggy._tracing.TagTracerSub object at 0x109fcbf90>, _basetemp=PosixPath...ers/nk/ppk0zn4n2n5_gsrp89g_dw900000gn/T/pytest-of-oishifamily/pytest-54'), _retention_count=3, _retention_policy='all')
+
+    @pytest.fixture(scope='module')
+    def native(tmp_path_factory):
+        coarse=g.Grid((-20.,)*3,(10.,)*3,(4,)*3)
+>       return seed_core.CPU(tmp_path_factory.mktemp('a2b-native'),[artificial_material()]*5,constants=np.ones(6),strength=np.arange(17,dtype=float),densities=[1]*5,energy=.007,grids=(coarse,coarse))
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_gpu_g5_a2b.py:32: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+chatcarlo/gpu/seed_core.py:61: in __init__
+    data,meta=therapy.pack(materials)
+              ^^^^^^^^^^^^^^^^^^^^^^^
+chatcarlo/gpu/therapy.py:66: in pack
+    photon=ensure(m)
+           ^^^^^^^^^
+chatcarlo/gpu/generate_photon_tables.py:177: in ensure
+    if hasattr(m,'photon'):return validate(m.photon)
+                                  ^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+blob = array(1.)
+
+    def validate(blob):
+        p=np.asarray(blob,float)
+>       if p.ndim!=1 or len(p)<20 or not np.isfinite(p).all():raise ValueError('invalid A4u photon table')
+                                                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       ValueError: invalid A4u photon table
+
+chatcarlo/gpu/generate_photon_tables.py:214: ValueError
+_________________ ERROR at setup of test_table_pointer_tamper __________________
+
+tmp_path_factory = TempPathFactory(_given_basetemp=None, _trace=<pluggy._tracing.TagTracerSub object at 0x109fcbf90>, _basetemp=PosixPath...ers/nk/ppk0zn4n2n5_gsrp89g_dw900000gn/T/pytest-of-oishifamily/pytest-54'), _retention_count=3, _retention_policy='all')
+
+    @pytest.fixture(scope='module')
+    def native(tmp_path_factory):
+        coarse=g.Grid((-20.,)*3,(10.,)*3,(4,)*3)
+>       return seed_core.CPU(tmp_path_factory.mktemp('a2b-native'),[artificial_material()]*5,constants=np.ones(6),strength=np.arange(17,dtype=float),densities=[1]*5,energy=.007,grids=(coarse,coarse))
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_gpu_g5_a2b.py:32: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+chatcarlo/gpu/seed_core.py:61: in __init__
+    data,meta=therapy.pack(materials)
+              ^^^^^^^^^^^^^^^^^^^^^^^
+chatcarlo/gpu/therapy.py:66: in pack
+    photon=ensure(m)
+           ^^^^^^^^^
+chatcarlo/gpu/generate_photon_tables.py:177: in ensure
+    if hasattr(m,'photon'):return validate(m.photon)
+                                  ^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+blob = array(1.)
+
+    def validate(blob):
+        p=np.asarray(blob,float)
+>       if p.ndim!=1 or len(p)<20 or not np.isfinite(p).all():raise ValueError('invalid A4u photon table')
+                                                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       ValueError: invalid A4u photon table
+
+chatcarlo/gpu/generate_photon_tables.py:214: ValueError
+________________ ERROR at setup of test_native_split_and_scorer ________________
+
+tmp_path_factory = TempPathFactory(_given_basetemp=None, _trace=<pluggy._tracing.TagTracerSub object at 0x109fcbf90>, _basetemp=PosixPath...ers/nk/ppk0zn4n2n5_gsrp89g_dw900000gn/T/pytest-of-oishifamily/pytest-54'), _retention_count=3, _retention_policy='all')
+
+    @pytest.fixture(scope='module')
+    def native(tmp_path_factory):
+        g=geometry();a=dict(faces=np.array([0.,30.]),rho=np.ones(1),bins=np.arange(301)*.1,strength=np.arange(17,dtype=float),
+            edges=np.empty(0),cum=np.empty(0),ids=np.zeros(1,np.int64),owner=np.zeros(300,np.int64),constants=np.ones(6),sizes=np.array([1,300,150,600,0],np.int64))
+        a['_table_hashes']={'0.'+k:catalog.digest(getattr(artificial_material(),k)) for k in catalog.P8_DEFINITIONS}
+>       cpu=therapy.CPU(tmp_path_factory.mktemp('native'),[artificial_material()],a,field_geometry=g,half=(5.,5.));cpu.g.energy=.007
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_gpu_g5_a3_native.py:42: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+chatcarlo/gpu/therapy.py:87: in __init__
+    self.data,self.meta=pack(materials);self.arrays=arrays
+                        ^^^^^^^^^^^^^^^
+chatcarlo/gpu/therapy.py:66: in pack
+    photon=ensure(m)
+           ^^^^^^^^^
+chatcarlo/gpu/generate_photon_tables.py:177: in ensure
+    if hasattr(m,'photon'):return validate(m.photon)
+                                  ^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+blob = array(1.)
+
+    def validate(blob):
+        p=np.asarray(blob,float)
+>       if p.ndim!=1 or len(p)<20 or not np.isfinite(p).all():raise ValueError('invalid A4u photon table')
+                                                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       ValueError: invalid A4u photon table
+
+chatcarlo/gpu/generate_photon_tables.py:214: ValueError
+______________ ERROR at setup of test_native_argument_observation ______________
+
+tmp_path_factory = TempPathFactory(_given_basetemp=None, _trace=<pluggy._tracing.TagTracerSub object at 0x109fcbf90>, _basetemp=PosixPath...ers/nk/ppk0zn4n2n5_gsrp89g_dw900000gn/T/pytest-of-oishifamily/pytest-54'), _retention_count=3, _retention_policy='all')
+
+    @pytest.fixture(scope='module')
+    def native(tmp_path_factory):
+        g=geometry();a=dict(faces=np.array([0.,30.]),rho=np.ones(1),bins=np.arange(301)*.1,strength=np.arange(17,dtype=float),
+            edges=np.empty(0),cum=np.empty(0),ids=np.zeros(1,np.int64),owner=np.zeros(300,np.int64),constants=np.ones(6),sizes=np.array([1,300,150,600,0],np.int64))
+        a['_table_hashes']={'0.'+k:catalog.digest(getattr(artificial_material(),k)) for k in catalog.P8_DEFINITIONS}
+>       cpu=therapy.CPU(tmp_path_factory.mktemp('native'),[artificial_material()],a,field_geometry=g,half=(5.,5.));cpu.g.energy=.007
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_gpu_g5_a3_native.py:42: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+chatcarlo/gpu/therapy.py:87: in __init__
+    self.data,self.meta=pack(materials);self.arrays=arrays
+                        ^^^^^^^^^^^^^^^
+chatcarlo/gpu/therapy.py:66: in pack
+    photon=ensure(m)
+           ^^^^^^^^^
+chatcarlo/gpu/generate_photon_tables.py:177: in ensure
+    if hasattr(m,'photon'):return validate(m.photon)
+                                  ^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+blob = array(1.)
+
+    def validate(blob):
+        p=np.asarray(blob,float)
+>       if p.ndim!=1 or len(p)<20 or not np.isfinite(p).all():raise ValueError('invalid A4u photon table')
+                                                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       ValueError: invalid A4u photon table
+
+chatcarlo/gpu/generate_photon_tables.py:214: ValueError
+________________ ERROR at setup of test_native_only_id_tag[id] _________________
+
+tmp_path_factory = TempPathFactory(_given_basetemp=None, _trace=<pluggy._tracing.TagTracerSub object at 0x109fcbf90>, _basetemp=PosixPath...ers/nk/ppk0zn4n2n5_gsrp89g_dw900000gn/T/pytest-of-oishifamily/pytest-54'), _retention_count=3, _retention_policy='all')
+
+    @pytest.fixture(scope='module')
+    def native(tmp_path_factory):
+        g=geometry();a=dict(faces=np.array([0.,30.]),rho=np.ones(1),bins=np.arange(301)*.1,strength=np.arange(17,dtype=float),
+            edges=np.empty(0),cum=np.empty(0),ids=np.zeros(1,np.int64),owner=np.zeros(300,np.int64),constants=np.ones(6),sizes=np.array([1,300,150,600,0],np.int64))
+        a['_table_hashes']={'0.'+k:catalog.digest(getattr(artificial_material(),k)) for k in catalog.P8_DEFINITIONS}
+>       cpu=therapy.CPU(tmp_path_factory.mktemp('native'),[artificial_material()],a,field_geometry=g,half=(5.,5.));cpu.g.energy=.007
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_gpu_g5_a3_native.py:42: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+chatcarlo/gpu/therapy.py:87: in __init__
+    self.data,self.meta=pack(materials);self.arrays=arrays
+                        ^^^^^^^^^^^^^^^
+chatcarlo/gpu/therapy.py:66: in pack
+    photon=ensure(m)
+           ^^^^^^^^^
+chatcarlo/gpu/generate_photon_tables.py:177: in ensure
+    if hasattr(m,'photon'):return validate(m.photon)
+                                  ^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+blob = array(1.)
+
+    def validate(blob):
+        p=np.asarray(blob,float)
+>       if p.ndim!=1 or len(p)<20 or not np.isfinite(p).all():raise ValueError('invalid A4u photon table')
+                                                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       ValueError: invalid A4u photon table
+
+chatcarlo/gpu/generate_photon_tables.py:214: ValueError
+________________ ERROR at setup of test_native_only_id_tag[tag] ________________
+
+tmp_path_factory = TempPathFactory(_given_basetemp=None, _trace=<pluggy._tracing.TagTracerSub object at 0x109fcbf90>, _basetemp=PosixPath...ers/nk/ppk0zn4n2n5_gsrp89g_dw900000gn/T/pytest-of-oishifamily/pytest-54'), _retention_count=3, _retention_policy='all')
+
+    @pytest.fixture(scope='module')
+    def native(tmp_path_factory):
+        g=geometry();a=dict(faces=np.array([0.,30.]),rho=np.ones(1),bins=np.arange(301)*.1,strength=np.arange(17,dtype=float),
+            edges=np.empty(0),cum=np.empty(0),ids=np.zeros(1,np.int64),owner=np.zeros(300,np.int64),constants=np.ones(6),sizes=np.array([1,300,150,600,0],np.int64))
+        a['_table_hashes']={'0.'+k:catalog.digest(getattr(artificial_material(),k)) for k in catalog.P8_DEFINITIONS}
+>       cpu=therapy.CPU(tmp_path_factory.mktemp('native'),[artificial_material()],a,field_geometry=g,half=(5.,5.));cpu.g.energy=.007
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_gpu_g5_a3_native.py:42: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+chatcarlo/gpu/therapy.py:87: in __init__
+    self.data,self.meta=pack(materials);self.arrays=arrays
+                        ^^^^^^^^^^^^^^^
+chatcarlo/gpu/therapy.py:66: in pack
+    photon=ensure(m)
+           ^^^^^^^^^
+chatcarlo/gpu/generate_photon_tables.py:177: in ensure
+    if hasattr(m,'photon'):return validate(m.photon)
+                                  ^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+blob = array(1.)
+
+    def validate(blob):
+        p=np.asarray(blob,float)
+>       if p.ndim!=1 or len(p)<20 or not np.isfinite(p).all():raise ValueError('invalid A4u photon table')
+                                                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       ValueError: invalid A4u photon table
+
+chatcarlo/gpu/generate_photon_tables.py:214: ValueError
+_________________ ERROR at setup of test_native_table_mutation _________________
+
+tmp_path_factory = TempPathFactory(_given_basetemp=None, _trace=<pluggy._tracing.TagTracerSub object at 0x109fcbf90>, _basetemp=PosixPath...ers/nk/ppk0zn4n2n5_gsrp89g_dw900000gn/T/pytest-of-oishifamily/pytest-54'), _retention_count=3, _retention_policy='all')
+
+    @pytest.fixture(scope='module')
+    def native(tmp_path_factory):
+        g=geometry();a=dict(faces=np.array([0.,30.]),rho=np.ones(1),bins=np.arange(301)*.1,strength=np.arange(17,dtype=float),
+            edges=np.empty(0),cum=np.empty(0),ids=np.zeros(1,np.int64),owner=np.zeros(300,np.int64),constants=np.ones(6),sizes=np.array([1,300,150,600,0],np.int64))
+        a['_table_hashes']={'0.'+k:catalog.digest(getattr(artificial_material(),k)) for k in catalog.P8_DEFINITIONS}
+>       cpu=therapy.CPU(tmp_path_factory.mktemp('native'),[artificial_material()],a,field_geometry=g,half=(5.,5.));cpu.g.energy=.007
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_gpu_g5_a3_native.py:42: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+chatcarlo/gpu/therapy.py:87: in __init__
+    self.data,self.meta=pack(materials);self.arrays=arrays
+                        ^^^^^^^^^^^^^^^
+chatcarlo/gpu/therapy.py:66: in pack
+    photon=ensure(m)
+           ^^^^^^^^^
+chatcarlo/gpu/generate_photon_tables.py:177: in ensure
+    if hasattr(m,'photon'):return validate(m.photon)
+                                  ^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+blob = array(1.)
+
+    def validate(blob):
+        p=np.asarray(blob,float)
+>       if p.ndim!=1 or len(p)<20 or not np.isfinite(p).all():raise ValueError('invalid A4u photon table')
+                                                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       ValueError: invalid A4u photon table
+
+chatcarlo/gpu/generate_photon_tables.py:214: ValueError
+__________ ERROR at setup of test_actual_native_argument_tuple_tamper __________
+
+tmp_path_factory = TempPathFactory(_given_basetemp=None, _trace=<pluggy._tracing.TagTracerSub object at 0x109fcbf90>, _basetemp=PosixPath...ers/nk/ppk0zn4n2n5_gsrp89g_dw900000gn/T/pytest-of-oishifamily/pytest-54'), _retention_count=3, _retention_policy='all')
+
+    @pytest.fixture(scope='module')
+    def native(tmp_path_factory):
+        g=geometry();a=dict(faces=np.array([0.,30.]),rho=np.ones(1),bins=np.arange(301)*.1,strength=np.arange(17,dtype=float),
+            edges=np.empty(0),cum=np.empty(0),ids=np.zeros(1,np.int64),owner=np.zeros(300,np.int64),constants=np.ones(6),sizes=np.array([1,300,150,600,0],np.int64))
+        a['_table_hashes']={'0.'+k:catalog.digest(getattr(artificial_material(),k)) for k in catalog.P8_DEFINITIONS}
+>       cpu=therapy.CPU(tmp_path_factory.mktemp('native'),[artificial_material()],a,field_geometry=g,half=(5.,5.));cpu.g.energy=.007
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_gpu_g5_a3_native.py:42: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+chatcarlo/gpu/therapy.py:87: in __init__
+    self.data,self.meta=pack(materials);self.arrays=arrays
+                        ^^^^^^^^^^^^^^^
+chatcarlo/gpu/therapy.py:66: in pack
+    photon=ensure(m)
+           ^^^^^^^^^
+chatcarlo/gpu/generate_photon_tables.py:177: in ensure
+    if hasattr(m,'photon'):return validate(m.photon)
+                                  ^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+blob = array(1.)
+
+    def validate(blob):
+        p=np.asarray(blob,float)
+>       if p.ndim!=1 or len(p)<20 or not np.isfinite(p).all():raise ValueError('invalid A4u photon table')
+                                                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       ValueError: invalid A4u photon table
+
+chatcarlo/gpu/generate_photon_tables.py:214: ValueError
+=================================== FAILURES ===================================
+_________________ test_gpu_g1_0c_detection_first[interaction] __________________
+
+tmp_path = PosixPath('/private/var/folders/nk/ppk0zn4n2n5_gsrp89g_dw900000gn/T/pytest-of-oishifamily/pytest-54/test_gpu_g1_0c_detection_first1')
+coincident = 'interaction'
+
+    @pytest.mark.parametrize('coincident',['boundary','interaction'])
+    def test_gpu_g1_0c_detection_first(tmp_path,coincident):
+        scene=load_scene(str(DOC/'scenes/s2.yaml'));plane=DetectorPlane([0,0,0],[0,0,1],[1,0,0],(30,30),(60,60))
+        bundle.create(scene,plane,tmp_path);a,*_=bundle.load(tmp_path)
+        if coincident=='boundary':
+            # The S2 aluminum bottom coincides with z=0. Force a flight to that face.
+            a['data'][int(a['offsets'][19]):]=0.
+            o=np.array([[0.,6.,.5]]);energy=60.;seed=42
+        else:
+            t=kernel.bake_scene_materials(['air']);a=core.pack(t)
+            a.update(centers=np.empty((0,3)),halves=np.empty((0,3)),materials=np.empty(0,np.int64),background=np.array(0),world=np.array([0.,0.,0.,100.,100.,100.]),detector=np.r_[0.,0.,0.,0.,0.,1.,1.,0.,0.,0.,1.,0.,30.,30.,60.,60.])
+            # mu is computed by the unchanged reference; exact t=ds, not a tolerance.
+            p=np.zeros(t.zs.shape[1]);c=p.copy();r=p.copy();idx=np.zeros(len(p),np.int64);f=p.copy()
+            mu,*_=kernel._mu_and_parts_scalar(60.,0,t.n_elem,t.fracs,t.log_e,t.step,t.n_grid,t.photo,t.compt,t.rayl,t.density_g_cm3,p,c,r,idx,f)
+            seed=42;tau=-np.log(np.random.RandomState(seed).random_sample());distance=tau/mu
+            a['world'][3:]=max(100.,distance*2);a['detector'][2]=-distance;o=np.zeros((1,3));energy=60.
+        driver=core.Core(a,build_dir=tmp_path/'build',rng='mt');result=driver.run(o,np.array([[0.,0.,-1.]]),np.array([energy]),seed=seed,record=True)
+>       assert result['i'][0,3]==2 and result['i'][0,0]==0 and result['i'][0,7]==1
+E       assert (np.int64(2) == 2 and np.int64(1) == 0)
+
+tests/test_gpu_g1_faults_tally.py:63: AssertionError
+__________________________ test_gpu_g1_0b_history[1] ___________________________
+
+case = 1
+tmp_path = PosixPath('/private/var/folders/nk/ppk0zn4n2n5_gsrp89g_dw900000gn/T/pytest-of-oishifamily/pytest-54/test_gpu_g1_0b_history_1_0')
+
+    @pytest.mark.parametrize('case',range(1,7))
+    def test_gpu_g1_0b_history(case,tmp_path):
+        scene=load_scene(str(DOC/f'scenes/s{1 if case==1 else 2}.yaml'))
+        bundle.create(scene,None,tmp_path);a,src,spec,settings,_=bundle.load(tmp_path)
+        t=kernel.bake_scene_materials(settings['material_names']);g=kernel.bake_box_scene(scene.raw['geometry'],'air',t)
+        origin=[(0,0,100),(4,0,100),(4,-6,100),(4,-6,100),(-3,0,100),(1,2,100)][case-1]
+        d=np.array([.3,.2,-1.] if case==6 else [0.,0.,-1.]);d/=np.linalg.norm(d)
+        energy=[60,100,100,100,60,80][case-1];n=10000;seed=2026102100+case
+        ref=kernel.run_batch(t,g,energy,origin,tuple(d),n,seed,n_chunks=1,fluorescence_enabled=case!=4)
+        mt_seed=int(kernel._chunk_plan(n,1,seed)[0][0])
+        twin=core.Core(a,build_dir=tmp_path/'build',rng='mt')
+        r=twin.run(np.tile(origin,(n,1)),np.tile(d,(n,1)),np.full(n,energy),seed=mt_seed,fluorescence=case!=4,record=True)
+>       bitwise(r['i'][:,0],ref.n_scatter,'interaction count')
+
+tests/test_gpu_g1_history.py:27: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+a = array([3, 5, 3, ..., 3, 7, 8], shape=(10000,))
+b = array([3, 5, 9, ..., 3, 5, 8], shape=(10000,)), label = 'interaction count'
+
+    def bitwise(a,b,label):
+        assert a.shape==b.shape and a.dtype==b.dtype
+        if a.tobytes()!=b.tobytes():
+            bad=np.flatnonzero(a.view(np.uint64).ravel()!=b.view(np.uint64).ravel())
+            first=int(bad[0]);av=a.ravel()[first];bv=b.ravel()[first]
+>           raise AssertionError(f'{label}: byte mismatch at flat index {first}: C++={av!r} ({float(av).hex()}), Numba={bv!r} ({float(bv).hex()}); mismatches={len(bad)}/{a.size}')
+E           AssertionError: interaction count: byte mismatch at flat index 2: C++=np.int64(3) (0x1.8000000000000p+1), Numba=np.int64(9) (0x1.2000000000000p+3); mismatches=8685/10000
+
+tests/test_gpu_g1_functions.py:45: AssertionError
+__________________________ test_gpu_g1_0b_history[2] ___________________________
+
+case = 2
+tmp_path = PosixPath('/private/var/folders/nk/ppk0zn4n2n5_gsrp89g_dw900000gn/T/pytest-of-oishifamily/pytest-54/test_gpu_g1_0b_history_2_0')
+
+    @pytest.mark.parametrize('case',range(1,7))
+    def test_gpu_g1_0b_history(case,tmp_path):
+        scene=load_scene(str(DOC/f'scenes/s{1 if case==1 else 2}.yaml'))
+        bundle.create(scene,None,tmp_path);a,src,spec,settings,_=bundle.load(tmp_path)
+        t=kernel.bake_scene_materials(settings['material_names']);g=kernel.bake_box_scene(scene.raw['geometry'],'air',t)
+        origin=[(0,0,100),(4,0,100),(4,-6,100),(4,-6,100),(-3,0,100),(1,2,100)][case-1]
+        d=np.array([.3,.2,-1.] if case==6 else [0.,0.,-1.]);d/=np.linalg.norm(d)
+        energy=[60,100,100,100,60,80][case-1];n=10000;seed=2026102100+case
+        ref=kernel.run_batch(t,g,energy,origin,tuple(d),n,seed,n_chunks=1,fluorescence_enabled=case!=4)
+        mt_seed=int(kernel._chunk_plan(n,1,seed)[0][0])
+        twin=core.Core(a,build_dir=tmp_path/'build',rng='mt')
+        r=twin.run(np.tile(origin,(n,1)),np.tile(d,(n,1)),np.full(n,energy),seed=mt_seed,fluorescence=case!=4,record=True)
+>       bitwise(r['i'][:,0],ref.n_scatter,'interaction count')
+
+tests/test_gpu_g1_history.py:27: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+a = array([0, 7, 0, ..., 2, 1, 0], shape=(10000,))
+b = array([0, 7, 0, ..., 2, 1, 4], shape=(10000,)), label = 'interaction count'
+
+    def bitwise(a,b,label):
+        assert a.shape==b.shape and a.dtype==b.dtype
+        if a.tobytes()!=b.tobytes():
+            bad=np.flatnonzero(a.view(np.uint64).ravel()!=b.view(np.uint64).ravel())
+            first=int(bad[0]);av=a.ravel()[first];bv=b.ravel()[first]
+>           raise AssertionError(f'{label}: byte mismatch at flat index {first}: C++={av!r} ({float(av).hex()}), Numba={bv!r} ({float(bv).hex()}); mismatches={len(bad)}/{a.size}')
+E           AssertionError: interaction count: byte mismatch at flat index 4: C++=np.int64(2) (0x1.0000000000000p+1), Numba=np.int64(1) (0x1.0000000000000p+0); mismatches=8348/10000
+
+tests/test_gpu_g1_functions.py:45: AssertionError
+__________________________ test_gpu_g1_0b_history[3] ___________________________
+
+case = 3
+tmp_path = PosixPath('/private/var/folders/nk/ppk0zn4n2n5_gsrp89g_dw900000gn/T/pytest-of-oishifamily/pytest-54/test_gpu_g1_0b_history_3_0')
+
+    @pytest.mark.parametrize('case',range(1,7))
+    def test_gpu_g1_0b_history(case,tmp_path):
+        scene=load_scene(str(DOC/f'scenes/s{1 if case==1 else 2}.yaml'))
+        bundle.create(scene,None,tmp_path);a,src,spec,settings,_=bundle.load(tmp_path)
+        t=kernel.bake_scene_materials(settings['material_names']);g=kernel.bake_box_scene(scene.raw['geometry'],'air',t)
+        origin=[(0,0,100),(4,0,100),(4,-6,100),(4,-6,100),(-3,0,100),(1,2,100)][case-1]
+        d=np.array([.3,.2,-1.] if case==6 else [0.,0.,-1.]);d/=np.linalg.norm(d)
+        energy=[60,100,100,100,60,80][case-1];n=10000;seed=2026102100+case
+        ref=kernel.run_batch(t,g,energy,origin,tuple(d),n,seed,n_chunks=1,fluorescence_enabled=case!=4)
+        mt_seed=int(kernel._chunk_plan(n,1,seed)[0][0])
+        twin=core.Core(a,build_dir=tmp_path/'build',rng='mt')
+        r=twin.run(np.tile(origin,(n,1)),np.tile(d,(n,1)),np.full(n,energy),seed=mt_seed,fluorescence=case!=4,record=True)
+>       bitwise(r['i'][:,0],ref.n_scatter,'interaction count')
+
+tests/test_gpu_g1_history.py:27: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+a = array([6, 1, 6, ..., 3, 1, 1], shape=(10000,))
+b = array([6, 1, 6, ..., 2, 6, 1], shape=(10000,)), label = 'interaction count'
+
+    def bitwise(a,b,label):
+        assert a.shape==b.shape and a.dtype==b.dtype
+        if a.tobytes()!=b.tobytes():
+            bad=np.flatnonzero(a.view(np.uint64).ravel()!=b.view(np.uint64).ravel())
+            first=int(bad[0]);av=a.ravel()[first];bv=b.ravel()[first]
+>           raise AssertionError(f'{label}: byte mismatch at flat index {first}: C++={av!r} ({float(av).hex()}), Numba={bv!r} ({float(bv).hex()}); mismatches={len(bad)}/{a.size}')
+E           AssertionError: interaction count: byte mismatch at flat index 3: C++=np.int64(5) (0x1.4000000000000p+2), Numba=np.int64(1) (0x1.0000000000000p+0); mismatches=8286/10000
+
+tests/test_gpu_g1_functions.py:45: AssertionError
+__________________________ test_gpu_g1_0b_history[4] ___________________________
+
+case = 4
+tmp_path = PosixPath('/private/var/folders/nk/ppk0zn4n2n5_gsrp89g_dw900000gn/T/pytest-of-oishifamily/pytest-54/test_gpu_g1_0b_history_4_0')
+
+    @pytest.mark.parametrize('case',range(1,7))
+    def test_gpu_g1_0b_history(case,tmp_path):
+        scene=load_scene(str(DOC/f'scenes/s{1 if case==1 else 2}.yaml'))
+        bundle.create(scene,None,tmp_path);a,src,spec,settings,_=bundle.load(tmp_path)
+        t=kernel.bake_scene_materials(settings['material_names']);g=kernel.bake_box_scene(scene.raw['geometry'],'air',t)
+        origin=[(0,0,100),(4,0,100),(4,-6,100),(4,-6,100),(-3,0,100),(1,2,100)][case-1]
+        d=np.array([.3,.2,-1.] if case==6 else [0.,0.,-1.]);d/=np.linalg.norm(d)
+        energy=[60,100,100,100,60,80][case-1];n=10000;seed=2026102100+case
+        ref=kernel.run_batch(t,g,energy,origin,tuple(d),n,seed,n_chunks=1,fluorescence_enabled=case!=4)
+        mt_seed=int(kernel._chunk_plan(n,1,seed)[0][0])
+        twin=core.Core(a,build_dir=tmp_path/'build',rng='mt')
+        r=twin.run(np.tile(origin,(n,1)),np.tile(d,(n,1)),np.full(n,energy),seed=mt_seed,fluorescence=case!=4,record=True)
+>       bitwise(r['i'][:,0],ref.n_scatter,'interaction count')
+
+tests/test_gpu_g1_history.py:27: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+a = array([2, 1, 1, ..., 4, 2, 1], shape=(10000,))
+b = array([2, 2, 2, ..., 5, 1, 2], shape=(10000,)), label = 'interaction count'
+
+    def bitwise(a,b,label):
+        assert a.shape==b.shape and a.dtype==b.dtype
+        if a.tobytes()!=b.tobytes():
+            bad=np.flatnonzero(a.view(np.uint64).ravel()!=b.view(np.uint64).ravel())
+            first=int(bad[0]);av=a.ravel()[first];bv=b.ravel()[first]
+>           raise AssertionError(f'{label}: byte mismatch at flat index {first}: C++={av!r} ({float(av).hex()}), Numba={bv!r} ({float(bv).hex()}); mismatches={len(bad)}/{a.size}')
+E           AssertionError: interaction count: byte mismatch at flat index 1: C++=np.int64(1) (0x1.0000000000000p+0), Numba=np.int64(2) (0x1.0000000000000p+1); mismatches=8056/10000
+
+tests/test_gpu_g1_functions.py:45: AssertionError
+__________________________ test_gpu_g1_0b_history[5] ___________________________
+
+case = 5
+tmp_path = PosixPath('/private/var/folders/nk/ppk0zn4n2n5_gsrp89g_dw900000gn/T/pytest-of-oishifamily/pytest-54/test_gpu_g1_0b_history_5_0')
+
+    @pytest.mark.parametrize('case',range(1,7))
+    def test_gpu_g1_0b_history(case,tmp_path):
+        scene=load_scene(str(DOC/f'scenes/s{1 if case==1 else 2}.yaml'))
+        bundle.create(scene,None,tmp_path);a,src,spec,settings,_=bundle.load(tmp_path)
+        t=kernel.bake_scene_materials(settings['material_names']);g=kernel.bake_box_scene(scene.raw['geometry'],'air',t)
+        origin=[(0,0,100),(4,0,100),(4,-6,100),(4,-6,100),(-3,0,100),(1,2,100)][case-1]
+        d=np.array([.3,.2,-1.] if case==6 else [0.,0.,-1.]);d/=np.linalg.norm(d)
+        energy=[60,100,100,100,60,80][case-1];n=10000;seed=2026102100+case
+        ref=kernel.run_batch(t,g,energy,origin,tuple(d),n,seed,n_chunks=1,fluorescence_enabled=case!=4)
+        mt_seed=int(kernel._chunk_plan(n,1,seed)[0][0])
+        twin=core.Core(a,build_dir=tmp_path/'build',rng='mt')
+        r=twin.run(np.tile(origin,(n,1)),np.tile(d,(n,1)),np.full(n,energy),seed=mt_seed,fluorescence=case!=4,record=True)
+>       bitwise(r['i'][:,0],ref.n_scatter,'interaction count')
+
+tests/test_gpu_g1_history.py:27: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+a = array([2, 2, 8, ..., 1, 1, 4], shape=(10000,))
+b = array([2, 1, 2, ..., 5, 4, 1], shape=(10000,)), label = 'interaction count'
+
+    def bitwise(a,b,label):
+        assert a.shape==b.shape and a.dtype==b.dtype
+        if a.tobytes()!=b.tobytes():
+            bad=np.flatnonzero(a.view(np.uint64).ravel()!=b.view(np.uint64).ravel())
+            first=int(bad[0]);av=a.ravel()[first];bv=b.ravel()[first]
+>           raise AssertionError(f'{label}: byte mismatch at flat index {first}: C++={av!r} ({float(av).hex()}), Numba={bv!r} ({float(bv).hex()}); mismatches={len(bad)}/{a.size}')
+E           AssertionError: interaction count: byte mismatch at flat index 1: C++=np.int64(2) (0x1.0000000000000p+1), Numba=np.int64(1) (0x1.0000000000000p+0); mismatches=7743/10000
+
+tests/test_gpu_g1_functions.py:45: AssertionError
+__________________________ test_gpu_g1_0b_history[6] ___________________________
+
+case = 6
+tmp_path = PosixPath('/private/var/folders/nk/ppk0zn4n2n5_gsrp89g_dw900000gn/T/pytest-of-oishifamily/pytest-54/test_gpu_g1_0b_history_6_0')
+
+    @pytest.mark.parametrize('case',range(1,7))
+    def test_gpu_g1_0b_history(case,tmp_path):
+        scene=load_scene(str(DOC/f'scenes/s{1 if case==1 else 2}.yaml'))
+        bundle.create(scene,None,tmp_path);a,src,spec,settings,_=bundle.load(tmp_path)
+        t=kernel.bake_scene_materials(settings['material_names']);g=kernel.bake_box_scene(scene.raw['geometry'],'air',t)
+        origin=[(0,0,100),(4,0,100),(4,-6,100),(4,-6,100),(-3,0,100),(1,2,100)][case-1]
+        d=np.array([.3,.2,-1.] if case==6 else [0.,0.,-1.]);d/=np.linalg.norm(d)
+        energy=[60,100,100,100,60,80][case-1];n=10000;seed=2026102100+case
+        ref=kernel.run_batch(t,g,energy,origin,tuple(d),n,seed,n_chunks=1,fluorescence_enabled=case!=4)
+        mt_seed=int(kernel._chunk_plan(n,1,seed)[0][0])
+        twin=core.Core(a,build_dir=tmp_path/'build',rng='mt')
+        r=twin.run(np.tile(origin,(n,1)),np.tile(d,(n,1)),np.full(n,energy),seed=mt_seed,fluorescence=case!=4,record=True)
+>       bitwise(r['i'][:,0],ref.n_scatter,'interaction count')
+
+tests/test_gpu_g1_history.py:27: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+a = array([0, 0, 0, ..., 0, 0, 0], shape=(10000,))
+b = array([0, 0, 0, ..., 0, 0, 0], shape=(10000,)), label = 'interaction count'
+
+    def bitwise(a,b,label):
+        assert a.shape==b.shape and a.dtype==b.dtype
+        if a.tobytes()!=b.tobytes():
+            bad=np.flatnonzero(a.view(np.uint64).ravel()!=b.view(np.uint64).ravel())
+            first=int(bad[0]);av=a.ravel()[first];bv=b.ravel()[first]
+>           raise AssertionError(f'{label}: byte mismatch at flat index {first}: C++={av!r} ({float(av).hex()}), Numba={bv!r} ({float(bv).hex()}); mismatches={len(bad)}/{a.size}')
+E           AssertionError: interaction count: byte mismatch at flat index 461: C++=np.int64(1) (0x1.0000000000000p+0), Numba=np.int64(0) (0x0.0p+0); mismatches=607/10000
+
+tests/test_gpu_g1_functions.py:45: AssertionError
+___________________________ test_null_tally_fixed_g1 ___________________________
+
+tmp_path = PosixPath('/private/var/folders/nk/ppk0zn4n2n5_gsrp89g_dw900000gn/T/pytest-of-oishifamily/pytest-54/test_null_tally_fixed_g10')
+
+    def test_null_tally_fixed_g1(tmp_path):
+        from chatcarlo.source import sample_source_photons
+        scene = load_scene(str(ROOT/'examples/water_phantom_pdd_ocr.yaml'))
+        bundle.create(scene, None, tmp_path)
+        a, *_ = bundle.load(tmp_path)
+        driver = core.Core(a)
+        o, d, e = sample_source_photons(scene.raw['source'], 128, np.random.default_rng(713))
+        r = driver.run(o, d, e, seed=712, record=True)
+        expected = dict(deposits='d424085911c924d0b70c2678da6caf91991a0f5a1ad5753d2c9e5cdbbae36e06',
+                        endings='46d27f6b8fc6ff1a71c1acb951457a9a9c49c26b0c5cdc39e4c55391a3d9b9c9',
+                        scatter_sum='6602cf082886b358e25715c49ab10047eb8871d8c2ea5e3340dcc0b76065f69e',
+                        n_fluorescence='af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc',
+                        d='5a28e04a585df9951c0e807e6f949474b10402fb3bac1a5e3672e33df292d071',
+                        i='8391c9b32ff975bf86558de646d1111834b311f1fabb66acc3df3da98e9b108c')
+>       assert {k: hashlib.sha256(np.asarray(v).tobytes()).hexdigest() for k, v in r.items()} == expected
+E       AssertionError: assert {'deposits': ...0e83dfc', ...} == {'deposits': ...0e83dfc', ...}
+E         
+E         Omitting 5 identical items, use -vv to show
+E         Differing items:
+E         {'i': '464b344fc97d448f27f542505ecaa871521cf1c5d882dcb97f5e144c0413bddb'} != {'i': '8391c9b32ff975bf86558de646d1111834b311f1fabb66acc3df3da98e9b108c'}
+E         Left contains 4 more items:
+E         {'completed': '6ff6480f7ecb3e3aa42116fecee7c99b00fe9c28cd564b835a249d74b74c679a',
+E          'created': '6ff6480f7ecb3e3aa42116fecee7c99b00fe9c28cd564b835a249d74b74c679a',...
+E         
+E         ...Full output truncated (3 lines hidden), use '-vv' to show
+
+tests/test_gpu_g2.py:188: AssertionError
+_________________________ test_gpu_g4_frozen_engine[2] _________________________
+
+number = 2
+
+    @pytest.mark.parametrize('number', [1,2])
+    def test_gpu_g4_frozen_engine(number):
+        fixed=json.loads((DOC/'local_baseline.json').read_text())
+        r=run_transport(load_scene(str(ROOT/f'docs/validation/gpu/g1/scenes/s{number}.yaml')),n_histories=1000,seed=42,batch_size=400,engine='gpu',detector=DetectorPlane([0,0,0],[0,0,1],[1,0,0],(30,30),(60,60)))
+        expected=json.loads(json.dumps(fixed[f'gpu_s{number}']).replace('NaN','"NaN"'))
+>       assert fingerprint(r)==expected
+E       AssertionError: assert {'n_histories...': 0.268, ...} == {'n_histories...': 0.268, ...}
+E         
+E         Omitting 9 identical items, use -vv to show
+E         Differing items:
+E         {'n_fluorescence': 22} != {'n_fluorescence': 18}
+E         {'mean_scatter_events': 2.404} != {'mean_scatter_events': 2.399}
+E         {'fraction_absorbed': 0.641} != {'fraction_absorbed': 0.619}
+E         Use -v to get more diff
+
+tests/test_gpu_g4.py:81: AssertionError
+____________ test_gpu_g4_aggregate_independent[sizes0-False-False] _____________
+
+track = False, with_plane = False, sizes = (5,)
+
+    @pytest.mark.parametrize('track', [False,True])
+    @pytest.mark.parametrize('with_plane', [False,True])
+    @pytest.mark.parametrize('sizes', [(5,), (5,5,2)])
+    def test_gpu_g4_aggregate_independent(track,with_plane,sizes):
+        """Independent loops and explicit moment equations, including zero-hit batches."""
+        names=['water','air','lead']
+        plane=DetectorPlane([0,0,0],[0,0,1],[1,0,0],(2,3),(2,3)) if with_plane else None
+        roi=((0,2),(0,3)) if plane else None
+        batches=[]
+        for b,n in enumerate(sizes):
+            images=np.zeros((7,2,3))
+            if b!=1:
+                images[0]=[[1,0,2],[3,1,0]]
+                images[1]=[[0,1,1],[0,2,0]]
+                images[4]=images[:4].sum(axis=0)
+                images[5]=images[4]*40;images[6]=images[4]*1600
+            batches.append((n,dict(deposits=np.array([1.1+b,0.,3.2+b]),endings=np.array([2.,n-2,0]),scatter_sum=2.3+b,n_fluorescence=b,images=images)))
+>       r=aggregate(batches,names,plane,roi,track)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_gpu_g4.py:245: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+chatcarlo/gpu/aggregate.py:24: in aggregate
+    health(r,n,len(names),np.array([]) if detector is None else np.r_[detector.center_cm,detector.normal,detector.u_axis,detector.v_axis,detector.size_cm,detector.shape])
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+result = {'deposits': array([1.1, 0. , 3.2]), 'endings': array([2., 3., 0.]), 'scatter_sum': 2.3, 'n_fluorescence': 0, ...}
+n = 5, nm = 3, plane = array([], dtype=float64)
+
+    def health(result,n,nm,plane):
+        if not all(np.isfinite(v).all() for v in result.values()):raise ValueError('nonfinite batch output')
+        if np.any(result['deposits']<0) or np.any(result['endings']<0) or result.get('completed',n)!=n or result['endings'].sum()!=result.get('created',n):raise ValueError('invalid deposits/endings or history conservation')
+        if 'escaped_spectrum' in result and result['escaped_spectrum'].sum()!=result['endings'][1]:raise ValueError('escaped photon conservation')
+        if 'terminals' in result and len(result['terminals'])!=result['created']:raise ValueError('terminal photon conservation')
+        if 'images' in result:
+>           if np.any(result['images']<0) or np.any(result['category_count']<0):raise ValueError('negative detector output')
+                                                    ^^^^^^^^^^^^^^^^^^^^^^^^
+E           KeyError: 'category_count'
+
+chatcarlo/gpu/core.py:206: KeyError
+_____________ test_gpu_g4_aggregate_independent[sizes0-False-True] _____________
+
+track = True, with_plane = False, sizes = (5,)
+
+    @pytest.mark.parametrize('track', [False,True])
+    @pytest.mark.parametrize('with_plane', [False,True])
+    @pytest.mark.parametrize('sizes', [(5,), (5,5,2)])
+    def test_gpu_g4_aggregate_independent(track,with_plane,sizes):
+        """Independent loops and explicit moment equations, including zero-hit batches."""
+        names=['water','air','lead']
+        plane=DetectorPlane([0,0,0],[0,0,1],[1,0,0],(2,3),(2,3)) if with_plane else None
+        roi=((0,2),(0,3)) if plane else None
+        batches=[]
+        for b,n in enumerate(sizes):
+            images=np.zeros((7,2,3))
+            if b!=1:
+                images[0]=[[1,0,2],[3,1,0]]
+                images[1]=[[0,1,1],[0,2,0]]
+                images[4]=images[:4].sum(axis=0)
+                images[5]=images[4]*40;images[6]=images[4]*1600
+            batches.append((n,dict(deposits=np.array([1.1+b,0.,3.2+b]),endings=np.array([2.,n-2,0]),scatter_sum=2.3+b,n_fluorescence=b,images=images)))
+>       r=aggregate(batches,names,plane,roi,track)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_gpu_g4.py:245: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+chatcarlo/gpu/aggregate.py:24: in aggregate
+    health(r,n,len(names),np.array([]) if detector is None else np.r_[detector.center_cm,detector.normal,detector.u_axis,detector.v_axis,detector.size_cm,detector.shape])
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+result = {'deposits': array([1.1, 0. , 3.2]), 'endings': array([2., 3., 0.]), 'scatter_sum': 2.3, 'n_fluorescence': 0, ...}
+n = 5, nm = 3, plane = array([], dtype=float64)
+
+    def health(result,n,nm,plane):
+        if not all(np.isfinite(v).all() for v in result.values()):raise ValueError('nonfinite batch output')
+        if np.any(result['deposits']<0) or np.any(result['endings']<0) or result.get('completed',n)!=n or result['endings'].sum()!=result.get('created',n):raise ValueError('invalid deposits/endings or history conservation')
+        if 'escaped_spectrum' in result and result['escaped_spectrum'].sum()!=result['endings'][1]:raise ValueError('escaped photon conservation')
+        if 'terminals' in result and len(result['terminals'])!=result['created']:raise ValueError('terminal photon conservation')
+        if 'images' in result:
+>           if np.any(result['images']<0) or np.any(result['category_count']<0):raise ValueError('negative detector output')
+                                                    ^^^^^^^^^^^^^^^^^^^^^^^^
+E           KeyError: 'category_count'
+
+chatcarlo/gpu/core.py:206: KeyError
+_____________ test_gpu_g4_aggregate_independent[sizes0-True-False] _____________
+
+track = False, with_plane = True, sizes = (5,)
+
+    @pytest.mark.parametrize('track', [False,True])
+    @pytest.mark.parametrize('with_plane', [False,True])
+    @pytest.mark.parametrize('sizes', [(5,), (5,5,2)])
+    def test_gpu_g4_aggregate_independent(track,with_plane,sizes):
+        """Independent loops and explicit moment equations, including zero-hit batches."""
+        names=['water','air','lead']
+        plane=DetectorPlane([0,0,0],[0,0,1],[1,0,0],(2,3),(2,3)) if with_plane else None
+        roi=((0,2),(0,3)) if plane else None
+        batches=[]
+        for b,n in enumerate(sizes):
+            images=np.zeros((7,2,3))
+            if b!=1:
+                images[0]=[[1,0,2],[3,1,0]]
+                images[1]=[[0,1,1],[0,2,0]]
+                images[4]=images[:4].sum(axis=0)
+                images[5]=images[4]*40;images[6]=images[4]*1600
+            batches.append((n,dict(deposits=np.array([1.1+b,0.,3.2+b]),endings=np.array([2.,n-2,0]),scatter_sum=2.3+b,n_fluorescence=b,images=images)))
+>       r=aggregate(batches,names,plane,roi,track)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_gpu_g4.py:245: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+chatcarlo/gpu/aggregate.py:24: in aggregate
+    health(r,n,len(names),np.array([]) if detector is None else np.r_[detector.center_cm,detector.normal,detector.u_axis,detector.v_axis,detector.size_cm,detector.shape])
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+result = {'deposits': array([1.1, 0. , 3.2]), 'endings': array([2., 3., 0.]), 'scatter_sum': 2.3, 'n_fluorescence': 0, ...}
+n = 5, nm = 3
+plane = array([0., 0., 0., 0., 0., 1., 1., 0., 0., 0., 1., 0., 2., 3., 2., 3.])
+
+    def health(result,n,nm,plane):
+        if not all(np.isfinite(v).all() for v in result.values()):raise ValueError('nonfinite batch output')
+        if np.any(result['deposits']<0) or np.any(result['endings']<0) or result.get('completed',n)!=n or result['endings'].sum()!=result.get('created',n):raise ValueError('invalid deposits/endings or history conservation')
+        if 'escaped_spectrum' in result and result['escaped_spectrum'].sum()!=result['endings'][1]:raise ValueError('escaped photon conservation')
+        if 'terminals' in result and len(result['terminals'])!=result['created']:raise ValueError('terminal photon conservation')
+        if 'images' in result:
+>           if np.any(result['images']<0) or np.any(result['category_count']<0):raise ValueError('negative detector output')
+                                                    ^^^^^^^^^^^^^^^^^^^^^^^^
+E           KeyError: 'category_count'
+
+chatcarlo/gpu/core.py:206: KeyError
+_____________ test_gpu_g4_aggregate_independent[sizes0-True-True] ______________
+
+track = True, with_plane = True, sizes = (5,)
+
+    @pytest.mark.parametrize('track', [False,True])
+    @pytest.mark.parametrize('with_plane', [False,True])
+    @pytest.mark.parametrize('sizes', [(5,), (5,5,2)])
+    def test_gpu_g4_aggregate_independent(track,with_plane,sizes):
+        """Independent loops and explicit moment equations, including zero-hit batches."""
+        names=['water','air','lead']
+        plane=DetectorPlane([0,0,0],[0,0,1],[1,0,0],(2,3),(2,3)) if with_plane else None
+        roi=((0,2),(0,3)) if plane else None
+        batches=[]
+        for b,n in enumerate(sizes):
+            images=np.zeros((7,2,3))
+            if b!=1:
+                images[0]=[[1,0,2],[3,1,0]]
+                images[1]=[[0,1,1],[0,2,0]]
+                images[4]=images[:4].sum(axis=0)
+                images[5]=images[4]*40;images[6]=images[4]*1600
+            batches.append((n,dict(deposits=np.array([1.1+b,0.,3.2+b]),endings=np.array([2.,n-2,0]),scatter_sum=2.3+b,n_fluorescence=b,images=images)))
+>       r=aggregate(batches,names,plane,roi,track)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_gpu_g4.py:245: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+chatcarlo/gpu/aggregate.py:24: in aggregate
+    health(r,n,len(names),np.array([]) if detector is None else np.r_[detector.center_cm,detector.normal,detector.u_axis,detector.v_axis,detector.size_cm,detector.shape])
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+result = {'deposits': array([1.1, 0. , 3.2]), 'endings': array([2., 3., 0.]), 'scatter_sum': 2.3, 'n_fluorescence': 0, ...}
+n = 5, nm = 3
+plane = array([0., 0., 0., 0., 0., 1., 1., 0., 0., 0., 1., 0., 2., 3., 2., 3.])
+
+    def health(result,n,nm,plane):
+        if not all(np.isfinite(v).all() for v in result.values()):raise ValueError('nonfinite batch output')
+        if np.any(result['deposits']<0) or np.any(result['endings']<0) or result.get('completed',n)!=n or result['endings'].sum()!=result.get('created',n):raise ValueError('invalid deposits/endings or history conservation')
+        if 'escaped_spectrum' in result and result['escaped_spectrum'].sum()!=result['endings'][1]:raise ValueError('escaped photon conservation')
+        if 'terminals' in result and len(result['terminals'])!=result['created']:raise ValueError('terminal photon conservation')
+        if 'images' in result:
+>           if np.any(result['images']<0) or np.any(result['category_count']<0):raise ValueError('negative detector output')
+                                                    ^^^^^^^^^^^^^^^^^^^^^^^^
+E           KeyError: 'category_count'
+
+chatcarlo/gpu/core.py:206: KeyError
+____________ test_gpu_g4_aggregate_independent[sizes1-False-False] _____________
+
+track = False, with_plane = False, sizes = (5, 5, 2)
+
+    @pytest.mark.parametrize('track', [False,True])
+    @pytest.mark.parametrize('with_plane', [False,True])
+    @pytest.mark.parametrize('sizes', [(5,), (5,5,2)])
+    def test_gpu_g4_aggregate_independent(track,with_plane,sizes):
+        """Independent loops and explicit moment equations, including zero-hit batches."""
+        names=['water','air','lead']
+        plane=DetectorPlane([0,0,0],[0,0,1],[1,0,0],(2,3),(2,3)) if with_plane else None
+        roi=((0,2),(0,3)) if plane else None
+        batches=[]
+        for b,n in enumerate(sizes):
+            images=np.zeros((7,2,3))
+            if b!=1:
+                images[0]=[[1,0,2],[3,1,0]]
+                images[1]=[[0,1,1],[0,2,0]]
+                images[4]=images[:4].sum(axis=0)
+                images[5]=images[4]*40;images[6]=images[4]*1600
+            batches.append((n,dict(deposits=np.array([1.1+b,0.,3.2+b]),endings=np.array([2.,n-2,0]),scatter_sum=2.3+b,n_fluorescence=b,images=images)))
+>       r=aggregate(batches,names,plane,roi,track)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_gpu_g4.py:245: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+chatcarlo/gpu/aggregate.py:24: in aggregate
+    health(r,n,len(names),np.array([]) if detector is None else np.r_[detector.center_cm,detector.normal,detector.u_axis,detector.v_axis,detector.size_cm,detector.shape])
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+result = {'deposits': array([1.1, 0. , 3.2]), 'endings': array([2., 3., 0.]), 'scatter_sum': 2.3, 'n_fluorescence': 0, ...}
+n = 5, nm = 3, plane = array([], dtype=float64)
+
+    def health(result,n,nm,plane):
+        if not all(np.isfinite(v).all() for v in result.values()):raise ValueError('nonfinite batch output')
+        if np.any(result['deposits']<0) or np.any(result['endings']<0) or result.get('completed',n)!=n or result['endings'].sum()!=result.get('created',n):raise ValueError('invalid deposits/endings or history conservation')
+        if 'escaped_spectrum' in result and result['escaped_spectrum'].sum()!=result['endings'][1]:raise ValueError('escaped photon conservation')
+        if 'terminals' in result and len(result['terminals'])!=result['created']:raise ValueError('terminal photon conservation')
+        if 'images' in result:
+>           if np.any(result['images']<0) or np.any(result['category_count']<0):raise ValueError('negative detector output')
+                                                    ^^^^^^^^^^^^^^^^^^^^^^^^
+E           KeyError: 'category_count'
+
+chatcarlo/gpu/core.py:206: KeyError
+_____________ test_gpu_g4_aggregate_independent[sizes1-False-True] _____________
+
+track = True, with_plane = False, sizes = (5, 5, 2)
+
+    @pytest.mark.parametrize('track', [False,True])
+    @pytest.mark.parametrize('with_plane', [False,True])
+    @pytest.mark.parametrize('sizes', [(5,), (5,5,2)])
+    def test_gpu_g4_aggregate_independent(track,with_plane,sizes):
+        """Independent loops and explicit moment equations, including zero-hit batches."""
+        names=['water','air','lead']
+        plane=DetectorPlane([0,0,0],[0,0,1],[1,0,0],(2,3),(2,3)) if with_plane else None
+        roi=((0,2),(0,3)) if plane else None
+        batches=[]
+        for b,n in enumerate(sizes):
+            images=np.zeros((7,2,3))
+            if b!=1:
+                images[0]=[[1,0,2],[3,1,0]]
+                images[1]=[[0,1,1],[0,2,0]]
+                images[4]=images[:4].sum(axis=0)
+                images[5]=images[4]*40;images[6]=images[4]*1600
+            batches.append((n,dict(deposits=np.array([1.1+b,0.,3.2+b]),endings=np.array([2.,n-2,0]),scatter_sum=2.3+b,n_fluorescence=b,images=images)))
+>       r=aggregate(batches,names,plane,roi,track)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_gpu_g4.py:245: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+chatcarlo/gpu/aggregate.py:24: in aggregate
+    health(r,n,len(names),np.array([]) if detector is None else np.r_[detector.center_cm,detector.normal,detector.u_axis,detector.v_axis,detector.size_cm,detector.shape])
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+result = {'deposits': array([1.1, 0. , 3.2]), 'endings': array([2., 3., 0.]), 'scatter_sum': 2.3, 'n_fluorescence': 0, ...}
+n = 5, nm = 3, plane = array([], dtype=float64)
+
+    def health(result,n,nm,plane):
+        if not all(np.isfinite(v).all() for v in result.values()):raise ValueError('nonfinite batch output')
+        if np.any(result['deposits']<0) or np.any(result['endings']<0) or result.get('completed',n)!=n or result['endings'].sum()!=result.get('created',n):raise ValueError('invalid deposits/endings or history conservation')
+        if 'escaped_spectrum' in result and result['escaped_spectrum'].sum()!=result['endings'][1]:raise ValueError('escaped photon conservation')
+        if 'terminals' in result and len(result['terminals'])!=result['created']:raise ValueError('terminal photon conservation')
+        if 'images' in result:
+>           if np.any(result['images']<0) or np.any(result['category_count']<0):raise ValueError('negative detector output')
+                                                    ^^^^^^^^^^^^^^^^^^^^^^^^
+E           KeyError: 'category_count'
+
+chatcarlo/gpu/core.py:206: KeyError
+_____________ test_gpu_g4_aggregate_independent[sizes1-True-False] _____________
+
+track = False, with_plane = True, sizes = (5, 5, 2)
+
+    @pytest.mark.parametrize('track', [False,True])
+    @pytest.mark.parametrize('with_plane', [False,True])
+    @pytest.mark.parametrize('sizes', [(5,), (5,5,2)])
+    def test_gpu_g4_aggregate_independent(track,with_plane,sizes):
+        """Independent loops and explicit moment equations, including zero-hit batches."""
+        names=['water','air','lead']
+        plane=DetectorPlane([0,0,0],[0,0,1],[1,0,0],(2,3),(2,3)) if with_plane else None
+        roi=((0,2),(0,3)) if plane else None
+        batches=[]
+        for b,n in enumerate(sizes):
+            images=np.zeros((7,2,3))
+            if b!=1:
+                images[0]=[[1,0,2],[3,1,0]]
+                images[1]=[[0,1,1],[0,2,0]]
+                images[4]=images[:4].sum(axis=0)
+                images[5]=images[4]*40;images[6]=images[4]*1600
+            batches.append((n,dict(deposits=np.array([1.1+b,0.,3.2+b]),endings=np.array([2.,n-2,0]),scatter_sum=2.3+b,n_fluorescence=b,images=images)))
+>       r=aggregate(batches,names,plane,roi,track)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_gpu_g4.py:245: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+chatcarlo/gpu/aggregate.py:24: in aggregate
+    health(r,n,len(names),np.array([]) if detector is None else np.r_[detector.center_cm,detector.normal,detector.u_axis,detector.v_axis,detector.size_cm,detector.shape])
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+result = {'deposits': array([1.1, 0. , 3.2]), 'endings': array([2., 3., 0.]), 'scatter_sum': 2.3, 'n_fluorescence': 0, ...}
+n = 5, nm = 3
+plane = array([0., 0., 0., 0., 0., 1., 1., 0., 0., 0., 1., 0., 2., 3., 2., 3.])
+
+    def health(result,n,nm,plane):
+        if not all(np.isfinite(v).all() for v in result.values()):raise ValueError('nonfinite batch output')
+        if np.any(result['deposits']<0) or np.any(result['endings']<0) or result.get('completed',n)!=n or result['endings'].sum()!=result.get('created',n):raise ValueError('invalid deposits/endings or history conservation')
+        if 'escaped_spectrum' in result and result['escaped_spectrum'].sum()!=result['endings'][1]:raise ValueError('escaped photon conservation')
+        if 'terminals' in result and len(result['terminals'])!=result['created']:raise ValueError('terminal photon conservation')
+        if 'images' in result:
+>           if np.any(result['images']<0) or np.any(result['category_count']<0):raise ValueError('negative detector output')
+                                                    ^^^^^^^^^^^^^^^^^^^^^^^^
+E           KeyError: 'category_count'
+
+chatcarlo/gpu/core.py:206: KeyError
+_____________ test_gpu_g4_aggregate_independent[sizes1-True-True] ______________
+
+track = True, with_plane = True, sizes = (5, 5, 2)
+
+    @pytest.mark.parametrize('track', [False,True])
+    @pytest.mark.parametrize('with_plane', [False,True])
+    @pytest.mark.parametrize('sizes', [(5,), (5,5,2)])
+    def test_gpu_g4_aggregate_independent(track,with_plane,sizes):
+        """Independent loops and explicit moment equations, including zero-hit batches."""
+        names=['water','air','lead']
+        plane=DetectorPlane([0,0,0],[0,0,1],[1,0,0],(2,3),(2,3)) if with_plane else None
+        roi=((0,2),(0,3)) if plane else None
+        batches=[]
+        for b,n in enumerate(sizes):
+            images=np.zeros((7,2,3))
+            if b!=1:
+                images[0]=[[1,0,2],[3,1,0]]
+                images[1]=[[0,1,1],[0,2,0]]
+                images[4]=images[:4].sum(axis=0)
+                images[5]=images[4]*40;images[6]=images[4]*1600
+            batches.append((n,dict(deposits=np.array([1.1+b,0.,3.2+b]),endings=np.array([2.,n-2,0]),scatter_sum=2.3+b,n_fluorescence=b,images=images)))
+>       r=aggregate(batches,names,plane,roi,track)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_gpu_g4.py:245: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+chatcarlo/gpu/aggregate.py:24: in aggregate
+    health(r,n,len(names),np.array([]) if detector is None else np.r_[detector.center_cm,detector.normal,detector.u_axis,detector.v_axis,detector.size_cm,detector.shape])
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+result = {'deposits': array([1.1, 0. , 3.2]), 'endings': array([2., 3., 0.]), 'scatter_sum': 2.3, 'n_fluorescence': 0, ...}
+n = 5, nm = 3
+plane = array([0., 0., 0., 0., 0., 1., 1., 0., 0., 0., 1., 0., 2., 3., 2., 3.])
+
+    def health(result,n,nm,plane):
+        if not all(np.isfinite(v).all() for v in result.values()):raise ValueError('nonfinite batch output')
+        if np.any(result['deposits']<0) or np.any(result['endings']<0) or result.get('completed',n)!=n or result['endings'].sum()!=result.get('created',n):raise ValueError('invalid deposits/endings or history conservation')
+        if 'escaped_spectrum' in result and result['escaped_spectrum'].sum()!=result['endings'][1]:raise ValueError('escaped photon conservation')
+        if 'terminals' in result and len(result['terminals'])!=result['created']:raise ValueError('terminal photon conservation')
+        if 'images' in result:
+>           if np.any(result['images']<0) or np.any(result['category_count']<0):raise ValueError('negative detector output')
+                                                    ^^^^^^^^^^^^^^^^^^^^^^^^
+E           KeyError: 'category_count'
+
+chatcarlo/gpu/core.py:206: KeyError
+________________________ test_gpu_g4_colab_output_copy _________________________
+
+tmp_path = PosixPath('/private/var/folders/nk/ppk0zn4n2n5_gsrp89g_dw900000gn/T/pytest-of-oishifamily/pytest-54/test_gpu_g4_colab_output_copy0')
+
+    def test_gpu_g4_colab_output_copy(tmp_path):
+        from chatcarlo.gpu.cli_run import save_detector
+        scene=load_scene(str(SCENE));plane,_=detector_from_scene(scene)
+>       r=aggregate([(1,dict(deposits=np.array([1.,2.]),endings=np.array([1.,0.,0.]),scatter_sum=0.,n_fluorescence=0.,images=np.zeros((7,100,120))))],['air','aluminum'],plane)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_gpu_g4.py:418: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+chatcarlo/gpu/aggregate.py:24: in aggregate
+    health(r,n,len(names),np.array([]) if detector is None else np.r_[detector.center_cm,detector.normal,detector.u_axis,detector.v_axis,detector.size_cm,detector.shape])
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+result = {'deposits': array([1., 2.]), 'endings': array([1., 0., 0.]), 'scatter_sum': 0.0, 'n_fluorescence': 0.0, ...}
+n = 1, nm = 2
+plane = array([  0.,   0.,   0.,   0.,   0.,   1.,   1.,   0.,   0.,   0.,   1.,
+         0.,  15.,  18., 100., 120.])
+
+    def health(result,n,nm,plane):
+        if not all(np.isfinite(v).all() for v in result.values()):raise ValueError('nonfinite batch output')
+        if np.any(result['deposits']<0) or np.any(result['endings']<0) or result.get('completed',n)!=n or result['endings'].sum()!=result.get('created',n):raise ValueError('invalid deposits/endings or history conservation')
+        if 'escaped_spectrum' in result and result['escaped_spectrum'].sum()!=result['endings'][1]:raise ValueError('escaped photon conservation')
+        if 'terminals' in result and len(result['terminals'])!=result['created']:raise ValueError('terminal photon conservation')
+        if 'images' in result:
+>           if np.any(result['images']<0) or np.any(result['category_count']<0):raise ValueError('negative detector output')
+                                                    ^^^^^^^^^^^^^^^^^^^^^^^^
+E           KeyError: 'category_count'
+
+chatcarlo/gpu/core.py:206: KeyError
+____ test_original_pack_and_geometry[docs/validation/gpu/g1/scenes/s1.yaml] ____
+
+tmp_path = PosixPath('/private/var/folders/nk/ppk0zn4n2n5_gsrp89g_dw900000gn/T/pytest-of-oishifamily/pytest-54/test_original_pack_and_geometr0')
+scene_path = 'docs/validation/gpu/g1/scenes/s1.yaml'
+
+    @pytest.mark.parametrize('scene_path',[
+     'docs/validation/gpu/g1/scenes/s1.yaml','docs/validation/gpu/g1/scenes/s2.yaml',
+     'docs/jsmp133/request_d_history_noise/scene_portrait.yaml','examples/water_phantom_pdd_ocr.yaml'])
+    def test_original_pack_and_geometry(tmp_path,scene_path):
+        old=tmp_path/'old_core.py';old.write_bytes(subprocess.check_output(['git','show','19c281e:chatcarlo/gpu/core.py']))
+        spec=importlib.util.spec_from_file_location('g5_old_pack',old);mod=importlib.util.module_from_spec(spec);spec.loader.exec_module(mod)
+        scene=load_scene(str(ROOT/scene_path));path=tmp_path/'bundle';bundle.create(scene,None,path,g2_tally=True)
+        a,_,_,settings,_=bundle.load(path)
+        t=kernel.bake_scene_materials(settings['material_names']);expected=mod.pack(t)
+>       for k,v in expected.items():assert v.dtype==a[k].dtype and v.tobytes()==a[k].tobytes()
+                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AssertionError: assert (dtype('float64') == dtype('float64') and b'\x00\x00\x0...\x00\x00\xf0?' == b'\x00\x00\x0...8b86\x00\x89@'
+E        +  where dtype('float64') = array([4.000e+00, 2.000e+00, 6.000e+00, ..., 0.000e+00, 1.205e-03,\n       1.000e+00], shape=(145428,)).dtype
+E        +  and   dtype('float64') = array([  4.        ,   2.        ,   6.        , ..., 800.02647504,\n       800.02647504, 800.02647504], shape=(274209,)).dtype
+E         
+E         Use -v to get more diff)
+
+tests/test_gpu_g5_a1_catalog.py:38: AssertionError
+____ test_original_pack_and_geometry[docs/validation/gpu/g1/scenes/s2.yaml] ____
+
+tmp_path = PosixPath('/private/var/folders/nk/ppk0zn4n2n5_gsrp89g_dw900000gn/T/pytest-of-oishifamily/pytest-54/test_original_pack_and_geometr1')
+scene_path = 'docs/validation/gpu/g1/scenes/s2.yaml'
+
+    @pytest.mark.parametrize('scene_path',[
+     'docs/validation/gpu/g1/scenes/s1.yaml','docs/validation/gpu/g1/scenes/s2.yaml',
+     'docs/jsmp133/request_d_history_noise/scene_portrait.yaml','examples/water_phantom_pdd_ocr.yaml'])
+    def test_original_pack_and_geometry(tmp_path,scene_path):
+        old=tmp_path/'old_core.py';old.write_bytes(subprocess.check_output(['git','show','19c281e:chatcarlo/gpu/core.py']))
+        spec=importlib.util.spec_from_file_location('g5_old_pack',old);mod=importlib.util.module_from_spec(spec);spec.loader.exec_module(mod)
+        scene=load_scene(str(ROOT/scene_path));path=tmp_path/'bundle';bundle.create(scene,None,path,g2_tally=True)
+        a,_,_,settings,_=bundle.load(path)
+        t=kernel.bake_scene_materials(settings['material_names']);expected=mod.pack(t)
+>       for k,v in expected.items():assert v.dtype==a[k].dtype and v.tobytes()==a[k].tobytes()
+                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AssertionError: assert (dtype('float64') == dtype('float64') and b'\x00\x00\x0...\x8d\x97\x05@' == b'\x00\x00\x0...8b86\x00\x89@'
+E        +  where dtype('float64') = array([ 4.   , 13.   ,  9.   , ...,  8.96 , 11.35 ,  2.699],\n      shape=(1514616,)).dtype
+E        +  and   dtype('float64') = array([  4.        ,  13.        ,   9.        , ..., 999.98954199,\n       800.02647504, 800.02647504], shape=(2137806,)).dtype
+E         
+E         Use -v to get more diff)
+
+tests/test_gpu_g5_a1_catalog.py:38: AssertionError
+_ test_original_pack_and_geometry[docs/jsmp133/request_d_history_noise/scene_portrait.yaml] _
+
+tmp_path = PosixPath('/private/var/folders/nk/ppk0zn4n2n5_gsrp89g_dw900000gn/T/pytest-of-oishifamily/pytest-54/test_original_pack_and_geometr2')
+scene_path = 'docs/jsmp133/request_d_history_noise/scene_portrait.yaml'
+
+    @pytest.mark.parametrize('scene_path',[
+     'docs/validation/gpu/g1/scenes/s1.yaml','docs/validation/gpu/g1/scenes/s2.yaml',
+     'docs/jsmp133/request_d_history_noise/scene_portrait.yaml','examples/water_phantom_pdd_ocr.yaml'])
+    def test_original_pack_and_geometry(tmp_path,scene_path):
+        old=tmp_path/'old_core.py';old.write_bytes(subprocess.check_output(['git','show','19c281e:chatcarlo/gpu/core.py']))
+        spec=importlib.util.spec_from_file_location('g5_old_pack',old);mod=importlib.util.module_from_spec(spec);spec.loader.exec_module(mod)
+        scene=load_scene(str(ROOT/scene_path));path=tmp_path/'bundle';bundle.create(scene,None,path,g2_tally=True)
+        a,_,_,settings,_=bundle.load(path)
+        t=kernel.bake_scene_materials(settings['material_names']);expected=mod.pack(t)
+>       for k,v in expected.items():assert v.dtype==a[k].dtype and v.tobytes()==a[k].tobytes()
+                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AssertionError: assert (dtype('float64') == dtype('float64') and b'\x00\x00\x0...\x8d\x97\x05@' == b'\x00\x00\x0...8b86\x00\x89@'
+E        +  where dtype('float64') = array([4.000e+00, 1.000e+00, 6.000e+00, ..., 0.000e+00, 1.205e-03,\n       2.699e+00], shape=(145428,)).dtype
+E        +  and   dtype('float64') = array([  4.        ,   1.        ,   6.        , ..., 999.98954199,\n       800.02647504, 800.02647504], shape=(252762,)).dtype
+E         
+E         Use -v to get more diff)
+
+tests/test_gpu_g5_a1_catalog.py:38: AssertionError
+_____ test_original_pack_and_geometry[examples/water_phantom_pdd_ocr.yaml] _____
+
+tmp_path = PosixPath('/private/var/folders/nk/ppk0zn4n2n5_gsrp89g_dw900000gn/T/pytest-of-oishifamily/pytest-54/test_original_pack_and_geometr3')
+scene_path = 'examples/water_phantom_pdd_ocr.yaml'
+
+    @pytest.mark.parametrize('scene_path',[
+     'docs/validation/gpu/g1/scenes/s1.yaml','docs/validation/gpu/g1/scenes/s2.yaml',
+     'docs/jsmp133/request_d_history_noise/scene_portrait.yaml','examples/water_phantom_pdd_ocr.yaml'])
+    def test_original_pack_and_geometry(tmp_path,scene_path):
+        old=tmp_path/'old_core.py';old.write_bytes(subprocess.check_output(['git','show','19c281e:chatcarlo/gpu/core.py']))
+        spec=importlib.util.spec_from_file_location('g5_old_pack',old);mod=importlib.util.module_from_spec(spec);spec.loader.exec_module(mod)
+        scene=load_scene(str(ROOT/scene_path));path=tmp_path/'bundle';bundle.create(scene,None,path,g2_tally=True)
+        a,_,_,settings,_=bundle.load(path)
+        t=kernel.bake_scene_materials(settings['material_names']);expected=mod.pack(t)
+>       for k,v in expected.items():assert v.dtype==a[k].dtype and v.tobytes()==a[k].tobytes()
+                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AssertionError: assert (dtype('float64') == dtype('float64') and b'\x00\x00\x0...\x00\x00\xf0?' == b'\x00\x00\x0...8b86\x00\x89@'
+E        +  where dtype('float64') = array([4.000e+00, 2.000e+00, 6.000e+00, ..., 0.000e+00, 1.205e-03,\n       1.000e+00], shape=(145428,)).dtype
+E        +  and   dtype('float64') = array([  4.        ,   2.        ,   6.        , ..., 800.02647504,\n       800.02647504, 800.02647504], shape=(274209,)).dtype
+E         
+E         Use -v to get more diff)
+
+tests/test_gpu_g5_a1_catalog.py:38: AssertionError
+_____________________ test_p8_small_scalar_3d_4d_roundtrip _____________________
+
+    def test_p8_small_scalar_3d_4d_roundtrip():
+        values={f:np.array(1.) for f in catalog.P8_DEFINITIONS}
+        for f in ('stop_T','gs_T','photo_E','pair_E','brems_E'):values[f]=np.array([.01,1.,20.])
+        values.update(gs_y=np.arange(24.).reshape(2,3,4),lines=np.arange(64.).reshape(2,4,2,4),
+                      rates=np.array([[.01,1.,2.],[10.,3.,4.]]))
+        m=SimpleNamespace(**values)
+        generators={d['generator_path']:dict(path=d['generator_path'],sha256='0'*64,options={}) for d in catalog.P8_DEFINITIONS.values()}
+        cat,blob=catalog.p8_material(m,'water',generators);r=catalog.reconstruct(cat,{'p8':blob})
+>       assert len(r)==33
+E       AssertionError: assert 34 == 33
+E        +  where 34 = len({'water.ne': array(1.), 'water.excitation': array(1.), 'water.c': array(1.), 'water.z': array(1.), ...})
+
+tests/test_gpu_g5_a1_catalog.py:100: AssertionError
+_____________________________ test_p8_driver_small _____________________________
+
+tmp_path = PosixPath('/private/var/folders/nk/ppk0zn4n2n5_gsrp89g_dw900000gn/T/pytest-of-oishifamily/pytest-54/test_p8_driver_small0')
+
+    def test_p8_driver_small(tmp_path):
+        from chatcarlo.gpu import catalog
+        m=SimpleNamespace(**{f:np.array(1.) for f in catalog.P8_DEFINITIONS})
+        for f in ('stop_T','gs_T','photo_E','pair_E','brems_E'):setattr(m,f,np.array([.01,10.]))
+        m.rates=np.array([[.01,1.],[10.,2.]])
+        m.gs_y=np.zeros((2,3,4));m.lines=np.zeros((2,4,3,4))
+        cat,blob=p8.roundtrip(m,'water')
+>       assert len(cat['fields'])==33
+E       AssertionError: assert 34 == 33
+E        +  where 34 = len([{'name': 'water.ne', 'used_by': ['chatcarlo-photon-electron-v1'], 'blob': 'p8', 'offset': 0, ...}, {'name': 'water.ex...': 4, ...}, {'name': 'water.stop_T', 'used_by': ['chatcarlo-photon-electron-v1'], 'blob': 'p8', 'offset': 5, ...}, ...])
+
+tests/test_gpu_g5_a1_drivers.py:84: AssertionError
+_____________________________ test_real_roundtrip ______________________________
+
+tmp_path = PosixPath('/private/var/folders/nk/ppk0zn4n2n5_gsrp89g_dw900000gn/T/pytest-of-oishifamily/pytest-54/test_real_roundtrip0')
+
+    def test_real_roundtrip(tmp_path):
+        # Use one persisted real bundle for all fields, geometry and initialized logs.
+>       r=a2_bundle.run(out=tmp_path/'bundle',summary=common.SUMMARY/'bundle.json')
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_gpu_g5_a2_bundle.py:21: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+source = PosixPath('/Users/oishifamily/.cache/chatcarlo/p8g2/export')
+out = PosixPath('/private/var/folders/nk/ppk0zn4n2n5_gsrp89g_dw900000gn/T/pytest-of-oishifamily/pytest-54/test_real_roundtrip0/bundle')
+summary = PosixPath('/Users/oishifamily/Projects/viveMonte/docs/validation/gpu/g5/a2_run/bundle.json')
+
+    def run(source=common.SOURCE,out=common.CACHE/'bundle',summary=common.SUMMARY/'bundle.json'):
+        from prototypes.mv_electron.gpu import p8g2_core as old,p7_core
+        manifest,materials,arrays=common.inputs(source)
+        generators={d['generator_path']:catalog.generator(d['generator_path'],common.ROOT) for d in catalog.P8_DEFINITIONS.values()}
+        # Read private spectra at their sealed paths; save hashes only in repo evidence.
+        spectra={}
+        for name in p7_core.SPECTRA:
+            e,p,c=p7_core.spectrum(name);spectra[name]=(e,p,c)
+        all_inputs={**arrays}
+        for name,(e,p,c) in spectra.items():
+            all_inputs.update({name+'_edges':e,name+'_prob':p,name+'_cum':c})
+        fg,ga=p7_core.geometry('p7');L=p7_core.layout('p7')
+        all_inputs.update({'field_'+n:v for n,v in ga.items()})
+        all_inputs['field_volumes']=np.array(L['volumes'])
+        # Also verify the separately sealed fluorescence and slab spectrum files.
+        extra={}
+        for filename in ('p8f_spectrum.npz',*(n+'_fluorescence.npz' for n in therapy_bundle.NAMES)):
+            with np.load(Path(source)/filename,allow_pickle=False) as z:
+                for n in z.files:
+                    all_inputs[filename+'.'+n]=z[n];extra[filename+'.'+n]=z[n]
+        for mid,name in enumerate(therapy_bundle.NAMES):
+            for field in ('yields','lines','line_counts'):
+                equal(np.asarray(getattr(materials[mid],field)),extra[name+'_fluorescence.npz.'+field],name+' fluorescence '+field)
+        for field in ('edges','cum'):equal(arrays[field],extra['p8f_spectrum.npz.'+field],'slab spectrum '+field)
+        therapy_bundle.create(out,materials,all_inputs,generators)
+        restored,a,settings,_=therapy_bundle.load(out)
+        rows={}
+        for name,l,r in zip(therapy_bundle.NAMES,materials,restored):
+>           for f in catalog.P8_DEFINITIONS:rows[name+'.'+f]=equal(np.asarray(getattr(l,f),np.float64),getattr(r,f),name+'.'+f)
+                                                                              ^^^^^^^^^^^^
+E           AttributeError: 'types.SimpleNamespace' object has no attribute 'photon'
+
+docs/validation/gpu/g5/a2_bundle.py:45: AttributeError
+_______________________________ test_declaration _______________________________
+
+    def test_declaration():
+        d=physics_sets.declaration(therapy.NAME)
+        assert d['id']==2 and d['tag']!=0
+>       assert physics_sets.REGISTRY[therapy.NAME]['descriptor']['energy_band_keV']==[10.,10000.]
+E       assert [5.0, 10000.0] == [10.0, 10000.0]
+E         
+E         At index 0 diff: 5.0 != 10.0
+E         Use -v to get more diff
+
+tests/test_gpu_g5_a2_core.py:22: AssertionError
+__________________________________ test_cases __________________________________
+
+tmp_path = PosixPath('/private/var/folders/nk/ppk0zn4n2n5_gsrp89g_dw900000gn/T/pytest-of-oishifamily/pytest-54/test_cases0')
+
+    def test_cases(tmp_path):
+>       r=a2_cases.run(tmp_path)
+          ^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_gpu_g5_a2_core.py:37: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+work = PosixPath('/private/var/folders/nk/ppk0zn4n2n5_gsrp89g_dw900000gn/T/pytest-of-oishifamily/pytest-54/test_cases0')
+source = PosixPath('/Users/oishifamily/.cache/chatcarlo/p8g2/export')
+
+    def run(work,source=common.SOURCE):
+        _,m,a=common.inputs(source);a=common.no_spectrum(a)
+        builds={};rows=[];total=np.zeros(80,np.uint64)
+        for case in core.fixed_cases():
+            cap=case['cap']
+            if cap not in builds:builds[cap]=CPU(work,m,a,cap=cap)
+            cpu=builds[cap];cpu.g.energy=case['state'][6]
+            r=cpu.histories(1,core.SEED2,start=case['start'],maxsteps=case['maxsteps'],injected=np.array([case['state']]))
+            core.check_visits(r['visits'])
+            for target in case['targets']:
+>               if r['hits'][target]==0:raise AssertionError(case['name']+': target '+core.PATHS[target])
+                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E               AssertionError: low-photon: target low_photon
+
+docs/validation/gpu/g5/a2_cases.py:22: AssertionError
+_________________________________ test_faults __________________________________
+
+tmp_path = PosixPath('/private/var/folders/nk/ppk0zn4n2n5_gsrp89g_dw900000gn/T/pytest-of-oishifamily/pytest-54/test_faults0')
+
+    def test_faults(tmp_path):
+>       assert len(a2_faults.run(tmp_path)['faults'])==10
+                   ^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_gpu_g5_a2_core.py:42: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+docs/validation/gpu/g5/a2_faults.py:61: in run
+    msg=reject(lambda:a2_health.check(r,cpu.g,a))
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+action = <function run.<locals>.<lambda> at 0x117928900>
+
+    def reject(action):
+        try:action()
+        except AssertionError as exc:return str(exc)
+>       raise AssertionError('fault escaped detector')
+E       AssertionError: fault escaped detector
+
+docs/validation/gpu/g5/a2_faults.py:16: AssertionError
+______________________ test_physics_helpers_and_notebook _______________________
+
+tmp_path = PosixPath('/private/var/folders/nk/ppk0zn4n2n5_gsrp89g_dw900000gn/T/pytest-of-oishifamily/pytest-54/test_physics_helpers_and_noteb0')
+
+    def test_physics_helpers_and_notebook(tmp_path):
+        import importlib.util
+        def module(name):
+            spec=importlib.util.spec_from_file_location(name,Path('docs/validation/gpu/g5')/(name+'.py'));m=importlib.util.module_from_spec(spec);spec.loader.exec_module(m);return m
+>       assert module('a2b_physics').check()['status']=='pass'
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_gpu_g5_a2b.py:205: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def check():
+        old=ROOT/'prototypes/mv_electron/gpu';new=ROOT/'chatcarlo/gpu'
+        pairs=(('p5a0_common.h','g5_base.h'),('p5_rng.h','t2_rng.h'),('p5_kernel.h','t2_physics.h'),('p8g_logs.h','t2_logs.h'),('p8g_functions.h','t2_functions.h'),('p8g_materials.h','t2_materials.h'),('p8g_kernel.h','t2_transport.h'))
+        rows={}
+        for a,b in pairs:
+            x,y=functions(old/a),functions(new/b)
+            for name,digest in x.items():
+                if name in ('toy','p8g_history','p8g_record_history','p8g_clear'):continue
+                if name not in y:
+                    # A2 moved base interpolation/quantities to t2_rng.h.
+                    y.update(functions(new/'t2_rng.h'))
+>               if name not in y or y[name]!=digest:raise ValueError('shared physics function differs: '+name)
+                                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E               ValueError: shared physics function differs: history
+
+docs/validation/gpu/g5/a2b_physics.py:33: ValueError
+=============================== warnings summary ===============================
+tests/test_heel_effect.py::test_anode_cutoff_warns_and_still_samples
+  /Users/oishifamily/Projects/viveMonte/.venv/lib/python3.11/site-packages/spekpy/SpekTools.py:216: UserWarning: Zero emission for the user's geometrical inputs
+    warnings.warn('Zero emission for the user\'s geometrical inputs')
+
+tests/test_spectrum.py::test_fallback_spectrum_used_when_spekpy_unavailable
+  /Users/oishifamily/Projects/viveMonte/tests/test_spectrum.py:54: UserWarning: spekpy が見つからないためKramers則の粗い近似スペクトルを使用します。`pip install spekpy` を推奨します。
+    e, w = spectrum._default_spectrum(kvp=100.0, filtration_mm_al=2.5, anode_angle_deg=12.0)
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED tests/test_gpu_g1_faults_tally.py::test_gpu_g1_0c_detection_first[interaction]
+FAILED tests/test_gpu_g1_history.py::test_gpu_g1_0b_history[1] - AssertionErr...
+FAILED tests/test_gpu_g1_history.py::test_gpu_g1_0b_history[2] - AssertionErr...
+FAILED tests/test_gpu_g1_history.py::test_gpu_g1_0b_history[3] - AssertionErr...
+FAILED tests/test_gpu_g1_history.py::test_gpu_g1_0b_history[4] - AssertionErr...
+FAILED tests/test_gpu_g1_history.py::test_gpu_g1_0b_history[5] - AssertionErr...
+FAILED tests/test_gpu_g1_history.py::test_gpu_g1_0b_history[6] - AssertionErr...
+FAILED tests/test_gpu_g2.py::test_null_tally_fixed_g1 - AssertionError: asser...
+FAILED tests/test_gpu_g4.py::test_gpu_g4_frozen_engine[2] - AssertionError: a...
+FAILED tests/test_gpu_g4.py::test_gpu_g4_aggregate_independent[sizes0-False-False]
+FAILED tests/test_gpu_g4.py::test_gpu_g4_aggregate_independent[sizes0-False-True]
+FAILED tests/test_gpu_g4.py::test_gpu_g4_aggregate_independent[sizes0-True-False]
+FAILED tests/test_gpu_g4.py::test_gpu_g4_aggregate_independent[sizes0-True-True]
+FAILED tests/test_gpu_g4.py::test_gpu_g4_aggregate_independent[sizes1-False-False]
+FAILED tests/test_gpu_g4.py::test_gpu_g4_aggregate_independent[sizes1-False-True]
+FAILED tests/test_gpu_g4.py::test_gpu_g4_aggregate_independent[sizes1-True-False]
+FAILED tests/test_gpu_g4.py::test_gpu_g4_aggregate_independent[sizes1-True-True]
+FAILED tests/test_gpu_g4.py::test_gpu_g4_colab_output_copy - KeyError: 'categ...
+FAILED tests/test_gpu_g5_a1_catalog.py::test_original_pack_and_geometry[docs/validation/gpu/g1/scenes/s1.yaml]
+FAILED tests/test_gpu_g5_a1_catalog.py::test_original_pack_and_geometry[docs/validation/gpu/g1/scenes/s2.yaml]
+FAILED tests/test_gpu_g5_a1_catalog.py::test_original_pack_and_geometry[docs/jsmp133/request_d_history_noise/scene_portrait.yaml]
+FAILED tests/test_gpu_g5_a1_catalog.py::test_original_pack_and_geometry[examples/water_phantom_pdd_ocr.yaml]
+FAILED tests/test_gpu_g5_a1_catalog.py::test_p8_small_scalar_3d_4d_roundtrip
+FAILED tests/test_gpu_g5_a1_drivers.py::test_p8_driver_small - AssertionError...
+FAILED tests/test_gpu_g5_a2_bundle.py::test_real_roundtrip - AttributeError: ...
+FAILED tests/test_gpu_g5_a2_core.py::test_declaration - assert [5.0, 10000.0]...
+FAILED tests/test_gpu_g5_a2_core.py::test_cases - AssertionError: low-photon:...
+FAILED tests/test_gpu_g5_a2_core.py::test_faults - AssertionError: fault esca...
+FAILED tests/test_gpu_g5_a2b.py::test_physics_helpers_and_notebook - ValueErr...
+ERROR tests/test_gpu_g5_a2b.py::test_native_split_and_faults - ValueError: in...
+ERROR tests/test_gpu_g5_a2b.py::test_actual_argument_tamper - ValueError: inv...
+ERROR tests/test_gpu_g5_a2b.py::test_table_pointer_tamper - ValueError: inval...
+ERROR tests/test_gpu_g5_a3_native.py::test_native_split_and_scorer - ValueErr...
+ERROR tests/test_gpu_g5_a3_native.py::test_native_argument_observation - Valu...
+ERROR tests/test_gpu_g5_a3_native.py::test_native_only_id_tag[id] - ValueErro...
+ERROR tests/test_gpu_g5_a3_native.py::test_native_only_id_tag[tag] - ValueErr...
+ERROR tests/test_gpu_g5_a3_native.py::test_native_table_mutation - ValueError...
+ERROR tests/test_gpu_g5_a3_native.py::test_actual_native_argument_tuple_tamper
+29 failed, 944 passed, 2 warnings, 9 errors in 307.71s (0:05:07)

@@ -166,14 +166,20 @@ def gate2a(cpu,gpu):
     return dict(status='pass' if all(r['status']=='pass' for r in reports.values()) else 'fail',probes=reports)
 
 def record_reduce(r,a):
-    nm=int(a['nm'].item());i=r['i'];d=r['d'];result=dict(deposits=d[:,2:].sum(axis=0),endings=np.bincount(i[:,3],minlength=3).astype(float),scatter_sum=float(i[:,0].sum()),n_fluorescence=float(i[:,2].sum()))
+    nm=int(a['nm'].item());i=r['i'];d=r['d']
+    if 'terminals' not in r:raise ValueError('A4u reduction requires all terminal photons')
+    tr=r['terminals'];ends=np.bincount(np.where(tr[:,1]>=0,2,np.where(tr[:,1]==-1,1,0)),minlength=3).astype(float)
+    result=dict(deposits=d[:,2:].sum(axis=0),endings=ends,scatter_sum=float(i[:,0].sum()),n_fluorescence=float(i[:,2].sum()))
     if len(a['detector']):
-        plane=a['detector'];nu,nv=map(int,plane[14:16]);images=np.zeros((7,nu,nv));area=plane[12]*plane[13]/(nu*nv)
-        hit=i[:,3]==2;ii=i[hit];ee=d[hit,0]
-        np.add.at(images,(ii[:,6],ii[:,4],ii[:,5]),ee/area)
-        for cat,weights in ((4,np.ones(len(ee))),(5,ee),(6,ee*ee)):np.add.at(images[cat],(ii[:,4],ii[:,5]),weights)
-        result['images']=images
-        counts=np.zeros((4,nu,nv));np.add.at(counts,(ii[:,6],ii[:,4],ii[:,5]),1.);result['category_count']=counts
+        plane=a['detector'];nu,nv=map(int,plane[14:16]);npix=nu*nv;images=np.zeros((7,npix));counts=np.zeros((4,npix));area=plane[12]*plane[13]/npix
+        hits=tr[tr[:,1]>=0];h,pix,cat=hits[:,:3].astype(np.int64).T;e=hits[:,3]
+        np.add.at(images,(cat,pix),e/area);np.add.at(images[4],pix,1);np.add.at(images[5],pix,e);np.add.at(counts,(cat,pix),1)
+        # Square the SUM of all descendants reaching the same pixel/history.
+        if len(h):
+            keys=h*npix+pix;unique,inverse=np.unique(keys,return_inverse=True);sums=np.bincount(inverse,weights=e)
+            np.add.at(images[6],unique%npix,sums*sums)
+        result.update(images=images.reshape(7,nu,nv),category_count=counts.reshape(4,nu,nv))
+    if ends.sum()!=r['created'] or r['completed']!=len(i):raise ValueError('photon/history conservation')
     return result
 
 def reconstruction_bounds(r,rebuilt,n):

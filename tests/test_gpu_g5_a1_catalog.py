@@ -35,7 +35,15 @@ def test_original_pack_and_geometry(tmp_path,scene_path):
     scene=load_scene(str(ROOT/scene_path));path=tmp_path/'bundle';bundle.create(scene,None,path,g2_tally=True)
     a,_,_,settings,_=bundle.load(path)
     t=kernel.bake_scene_materials(settings['material_names']);expected=mod.pack(t)
-    for k,v in expected.items():assert v.dtype==a[k].dtype and v.tobytes()==a[k].tobytes()
+    for k,v in expected.items():
+        current=a[k][:v.size] if k in ('data','offsets') else a[k]
+        assert v.dtype==current.dtype and v.tobytes()==current.tobytes()
+    assert len(a['offsets'])==21 and a['offsets'][-1]==expected['data'].size
+    from chatcarlo.gpu.generate_photon_tables import validate
+    photons=a['data'][a['offsets'][-1]:]
+    for m in range(int(a['nm'])):
+        start=int(photons[m]);end=int(photons[m+1]) if m+1<int(a['nm']) else len(photons)
+        validate(photons[start:end])
     from chatcarlo.geometry import Geometry
     geom=Geometry(scene.raw['geometry'],bbox_margin_cm=50.)
     geoms=scene.raw['geometry']
@@ -45,7 +53,7 @@ def test_original_pack_and_geometry(tmp_path,scene_path):
                   world=np.r_[(geom.bbox_min+geom.bbox_max)/2,(geom.bbox_max-geom.bbox_min)/2],
                   bbox_min=geom.bbox_min,bbox_max=geom.bbox_max,background=np.array(0),detector=np.array([]))
     for k,v in geometry.items():assert a[k].tobytes()==v.tobytes()
-    cat=json.loads((path/'catalog.json').read_text());assert len(cat['fields'])==26
+    cat=json.loads((path/'catalog.json').read_text());assert len(cat['fields'])==27
     for f in cat['fields']:
         blob={'tables':a['data'],'g2_tables':a['g2_table'],'g2_sizes':a['g2_sizes']}[f['blob']]
         assert catalog.digest(blob[f['offset']:f['offset']+f['size']])==f['data_sha256']
@@ -97,6 +105,6 @@ def test_p8_small_scalar_3d_4d_roundtrip():
     m=SimpleNamespace(**values)
     generators={d['generator_path']:dict(path=d['generator_path'],sha256='0'*64,options={}) for d in catalog.P8_DEFINITIONS.values()}
     cat,blob=catalog.p8_material(m,'water',generators);r=catalog.reconstruct(cat,{'p8':blob})
-    assert len(r)==33
+    assert len(r)==34
     for f,v in values.items():assert r['water.'+f].shape==v.shape and r['water.'+f].tobytes()==v.tobytes()
     for f in ('ne','gs_K','gs_u'):assert next(e for e in cat['fields'] if e['name']=='water.'+f)['energy_band_keV'] is None

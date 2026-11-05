@@ -1388,9 +1388,10 @@
     }
   },
   "observed": {
-    "name": "therapy-electron-v1",
+    "name": "chatcarlo-photon-electron-v1",
+    "specialization": "electron-transport",
     "id": 2,
-    "tag": 7198080100198966926
+    "tag": 11068429372807448304
   },
   "source_manifest": "c37af0dde0468cc581dea3c269172415ceac08222c034ea2a34fc773a1af60ff"
 }

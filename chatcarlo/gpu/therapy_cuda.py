@@ -3,17 +3,17 @@ import numpy as np
 
 class T4:
     """One compiled build of the unified kernel; same launch shape as production."""
-    def __init__(self,cp,materials,arrays,fg=None,half=(0.,0.),ssd=100.,*,cap=18,fault=0,check=0,blocks=40,threads=256,source_check=False):
+    def __init__(self,cp,materials,arrays,fg=None,half=(0.,0.),ssd=100.,*,cap=18,fault=0,check=0,blocks=40,threads=256,source_check=False,_test_legacy_physics=False):
         from chatcarlo.gpu import therapy,physics_sets
         self.cp,self.blocks,self.threads=cp,blocks,threads
         self.source_check=source_check
         self.sizes=tuple(map(int,arrays['sizes']));self.half,self.ssd=half,ssd
-        data,meta=therapy.pack(materials);self.declared=physics_sets.declaration(therapy.NAME);s=self.declared
+        data,meta=therapy.pack(materials);self.declared=physics_sets.declaration(therapy.NAME, specialization=physics_sets.ELECTRON);s=self.declared
         self.args=(cp.asarray(data),cp.asarray(meta),cp.asarray(np.ascontiguousarray(arrays['constants'],float)))
         self.geometry=cp.asarray(np.concatenate([arrays[k] for k in ('faces','rho','bins','strength','edges','cum')]))
         self.mapping=cp.asarray(np.r_[arrays['ids'],arrays['owner']])
         self.fg=np.uint64(0) if fg is None else cp.asarray(np.frombuffer(bytes(fg),np.uint8))
-        o=('-DP5_GPU','-DP5_RNG_PHILOX','--fmad=false',f'-DP8G_STACK_CAP={cap}',f'-DT2_FAULT={fault}',f'-DP8G2_CHECK={check}',
+        o=(f'-DG5_TEST_LEGACY_ELECTRON={int(_test_legacy_physics)}','-DP5_GPU','-DP5_RNG_PHILOX','--fmad=false',f'-DP8G_STACK_CAP={cap}',f'-DT2_FAULT={fault}',f'-DP8G2_CHECK={check}',
            f'-DT2_FIELD={int(fg is not None)}',f'-DT2_SOURCE_CHECK={int(source_check)}',f'-DG5_SET_ID={s["id"]}',f'-DG5_SET_TAG={s["tag"]}ULL')
         src=therapy.cuda_source();self.kernels={}
         for n in ('p8g2_kernel','p8g2_init','t2_identity','t2_score_kernel'):
@@ -21,7 +21,7 @@ class T4:
         self.kernel=self.kernels['p8g2_kernel']
         self.kernels['p8g2_init']((1,),(1,),self.args+(np.int32(len(materials)),));cp.cuda.Device().synchronize()
         out=cp.zeros(2,np.uint64);self.kernels['t2_identity']((1,),(1,),(out,));cp.cuda.Device().synchronize();x=cp.asnumpy(out)
-        self.observed=dict(name=therapy.NAME,id=int(x[0]),tag=int(x[1]))
+        self.observed=physics_sets.observation(therapy.NAME,int(x[0]),int(x[1]))
         physics_sets.check(self.observed,s)
 
     def run(self,n,seed,start=0,maxsteps=10000000,injected=None,energy=1.,history=0):

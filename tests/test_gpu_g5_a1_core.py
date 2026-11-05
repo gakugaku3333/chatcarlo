@@ -29,16 +29,12 @@ def test_expanded_source_insertions_and_fixture(tmp_path):
     assert module.cuda_source()==old
     new=core.cuda_source();assert '#include "' not in new
     assert 'g5_physics_set_kernel' in new
-    # Explicit permitted line vocabulary; every other line must be an old line
-    # in its original order. Includes repeated header guards after expansion.
-    allowed={'#ifndef G5_BASE_H','#define G5_BASE_H','#endif','',
-        '#ifndef G5_PHYSICS_SET_H','#define G5_PHYSICS_SET_H','#ifndef G5_SET_ID',
-        '#define G5_SET_ID 1','#ifndef G5_SET_TAG','#define G5_SET_TAG 0ULL',
-        'extern "C" __global__ void g5_physics_set_kernel(uint64_t *out) {if(blockIdx.x || threadIdx.x)return;out[0]=G5_SET_ID;out[1]=G5_SET_TAG;}'}
-    changes=difflib.SequenceMatcher(None,old.splitlines(),new.splitlines(),autojunk=False)
-    for tag,i,j,k,l in changes.get_opcodes():
-        assert tag in ('equal','insert'),(tag,old.splitlines()[i:j],new.splitlines()[k:l])
-        if tag=='insert':assert set(new.splitlines()[k:l])<=allowed
+    # S1 moves the unchanged photon body into the common header. The old
+    # diagnostic header stays frozen; compare the complete body verbatim.
+    frozen=(core.HERE/'g1_physics.h').read_text()
+    body=frozen.split('#include "g1_common.h"\n',1)[1].rsplit('#endif',1)[0]
+    assert body in (core.HERE/'photon_physics.h').read_text()
+    assert '#include "g1_physics.h"' not in (core.HERE/'g1_history.h').read_text()
 
 
 def test_source_closure():

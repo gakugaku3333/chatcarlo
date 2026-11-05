@@ -1,0 +1,32 @@
+{
+  "scope": "previous launcher implementation tests; physical H2 later run by Claude",
+  "status": "tests_passed",
+  "commands": [
+    {
+      "command": ".venv/bin/python -m pytest tests/ -q",
+      "passed": 995,
+      "warnings": 2,
+      "seconds": 362.87,
+      "exit_code": 0,
+      "log": "a4u_h2_tests.log",
+      "log_sha256": "afd8d77961520b0b30d565e26a4cbbd6871298d31e7d97cfc61309bd2ea61472"
+    },
+    {
+      "command": ".venv/bin/python -m pytest prototypes/mv_electron/tests -q",
+      "passed": 1808,
+      "skipped": 17,
+      "seconds": 1438.02,
+      "exit_code": 0,
+      "log": "a4u_h2_prototypes.log",
+      "log_sha256": "f88df0090cb75e423851501231742ec6a2a5175311ba20af1e7372f7c993b29d"
+    },
+    {
+      "command": ".venv/bin/python -m pytest tests/test_gpu_g5_a4u_*.py tests/test_gpu_g5_a3_*.py tests/test_gpu_g5_a2_*.py tests/test_gpu_g5_a1_*.py -q",
+      "passed": 224,
+      "seconds": 111.15,
+      "exit_code": 0,
+      "log": "a4u_h2_focused.log",
+      "log_sha256": "7fdc81e3438f2a1383b25f4d4c8884e8cfac8e4fa11f38898bdc3a073fe969d3"
+    }
+  ]
+}

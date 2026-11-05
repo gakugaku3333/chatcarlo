@@ -1,0 +1,1060 @@
+{
+  "condition": {
+    "format": "a4u-h5-main-v1",
+    "energy_keV": 20,
+    "N": 20127000,
+    "cpu_seed": 20111,
+    "batches": 100,
+    "slots": 32,
+    "half": 5.0,
+    "ssd": 100.0,
+    "regions": [
+      0.0,
+      0.0,
+      1.0,
+      1.0,
+      20.0,
+      0.25,
+      0.125,
+      1.0,
+      5.0,
+      10.0,
+      20.0
+    ],
+    "edges": [
+      0.0199,
+      0.0201
+    ],
+    "cum": [
+      1.0
+    ],
+    "physics_set": {
+      "name": "chatcarlo-photon-electron-v1",
+      "specialization": "electron-transport",
+      "id": 2,
+      "tag": 6882153074982124678
+    },
+    "legacy": false,
+    "table_hashes": {
+      "0.ne": "91418c3a541952042d81487969a22296ac1520527861135714956af0170ca99a",
+      "0.excitation": "fcbff2f5deb144e4704c7acd5d91aac8ba982d58566cde6f598d42452f8edcc2",
+      "0.c": "7f9523f522b3aedefd6b5164cb76b4a93be8139d8e7196af735a7b3e7cd15cae",
+      "0.z": "9241d9c1acd9e5dafdabc21ceaba32442f6d594d70292693b5402fe9bbefbe07",
+      "0.nj": "815b6b6d89bc1b8cf3b8decf323e90adee141183a38533558427aa0cf59c98d6",
+      "0.stop_T": "23266c06debbf94c4fc924cb28ccc2409131e1746ca29dd6b1b65cb92d363594",
+      "0.stop_delta": "adaf948e9536579f03fe5808c713373c6be87fbc7f277601fad3e7e9ab37ceb1",
+      "0.stop_collision": "bd15c2841cdb7608678f28cbb31836e967dbce22ba7cd1b32118018f2cd30213",
+      "0.stop_rad": "2986c3024099a5d4b7faeec51f14ece0c9b6867357e0a993d1e6d86e0ee9d562",
+      "0.gs_T": "94913f89e2a9c16f61b42b45f9dcb8a1833608a45667d2fee9b7c3f57e939fa8",
+      "0.gs_K": "f26b0ec8cf9bd86e81721e72de8e21821e92d683ff6f95ffba98d88b45dc0d54",
+      "0.gs_u": "f7c24d7af723bb0b50d31aa598c4a5dda60dc6088143a95233eb87c452a66613",
+      "0.gs_y": "a23f2304f607290e65dff347f9d52f19027d2582bd080387e5e2887040d9c07e",
+      "0.rates": "bfedcf7da5f967b51bf9c705d75f03fdd3e663c83721902c94c5c699b052af7e",
+      "0.photo_E": "fcc482f65b93c9029163135698bdf639c65a085b743d6b23684efff1cd8e29b7",
+      "0.photo": "23c9ac1a31d8324d299fe23193b0f7412fff8b7f18d4302cda72a127590f0c7a",
+      "0.pair_E": "fcc482f65b93c9029163135698bdf639c65a085b743d6b23684efff1cd8e29b7",
+      "0.pair_n": "75c1ab2be04a267b02e3a0b26413c8ef4246ace2ece1a0bebeefb08c582520cf",
+      "0.pair_e": "fca95e5115e7413d82c63ea330ef4310f0a35779796fbe450d7e77d8fab1812c",
+      "0.thresholds": "eb3746615c730112dfc92dd2baca5584b2adb990cf5fd86de8433e45fa89c5bb",
+      "0.dl": "fd745e2f01fa4a720bb1fc9221cb738b4c0906deeb6cf0d74fdcba8904da7261",
+      "0.bpar": "6922abbfcb86970a0cfb2617ae97aec6e8891a6533d534e6495db682b3b3138e",
+      "0.delcm": "3f10870c55f6b129ef782eedb14913cd027331bed3bfae5f3a8d39a43d841e17",
+      "0.delpos": "04f8a5f09334fa5e248dbd1198d9a1b2b82a034f13e42bfc01f5e5c39e300d85",
+      "0.bindings": "0aa77d6bc8b603ecfd9e48ce7dbb1d41cb38c37e0c8a2bba09bfb057e0c4e8e8",
+      "0.pm": "f39c6c5f07f398837573b23fad4da0f67d360322f903b8a26a88ce1100771f78",
+      "0.shell_nj": "815b6b6d89bc1b8cf3b8decf323e90adee141183a38533558427aa0cf59c98d6",
+      "0.yields": "264dabba131d59eceb02dc876c28104ce67a3da3dab3465e77828bfef43a2bf6",
+      "0.lines": "1050e33ef43d6b2ae815612c4b9306ee42bf1e397a649220c5ff01db5b32408f",
+      "0.line_counts": "1205f4789155711e2542dba1a64d226626fe3eb43baa854752d0b59077e010fc",
+      "0.brems_E": "b981c83adc819c8cb99bcb3eb5300fdb492e7b1b959ab82c9e50d81b015dcaa4",
+      "0.brems_V": "7207265f26f73cabd80139fe4b4637fe249392f69fe5ebe46bb283bd0d405ffd",
+      "0.log_stop_T": "eb324a1f8377f53355f83d03fa20fb191bbac7b13c89fe700baee3c72d723750",
+      "0.photon": "4f8eed4c9bcdd5ebce41f56e174aae3912da04e3aa59fc587f5db7e5acfeb736",
+      "1.ne": "3c0b51427f46d5094761534320bd8ab2e95b9d7b5992bc3fde2133246dd3e88b",
+      "1.excitation": "5c6bec7b4c09bc587d56929d6e351daff159d3ddf564e03f8cf2e561be23c062",
+      "1.c": "a0503187028a90a63c81796ffe1b3eaa04af4a5932d7aac9290734d0326e6f3d",
+      "1.z": "b658f05ab70296f8eab708b01fe97ea03b6427abd0cbfd725bdb1f39fd565bbf",
+      "1.nj": "d317c89647a211d17d03f57e1b64711016b4b1aa5587da7efa68f2ffda8728b0",
+      "1.stop_T": "23266c06debbf94c4fc924cb28ccc2409131e1746ca29dd6b1b65cb92d363594",
+      "1.stop_delta": "57df354221a4172913a7aa3bdfb55baaf67ff2d2f63274e314f37bd4396f0981",
+      "1.stop_collision": "8197077a2f2f05a6e10f7fa9d0c16b1d8dfb8a8aa0e06a102a7b32402ca4f5ee",
+      "1.stop_rad": "0d463c2a0801591716a48f8ebeadfb1f16db629d62ea0d664e9c0ec2d519057d",
+      "1.gs_T": "94913f89e2a9c16f61b42b45f9dcb8a1833608a45667d2fee9b7c3f57e939fa8",
+      "1.gs_K": "f26b0ec8cf9bd86e81721e72de8e21821e92d683ff6f95ffba98d88b45dc0d54",
+      "1.gs_u": "f7c24d7af723bb0b50d31aa598c4a5dda60dc6088143a95233eb87c452a66613",
+      "1.gs_y": "c58086d040f0fcecf356f7ca6e1db00c019ea5288abf8aa0bab57e26ce682671",
+      "1.rates": "f8de984e9c63fe882b46b15cb1af44beaadc7d042c2238d8634ff2a1ea95bfe3",
+      "1.photo_E": "c1c58ec856777078432e11e02ff0a2c06719e74dad6f5ab1740af2a92128bacf",
+      "1.photo": "38bc78649bde61a8f0eaa016f4300917f377af41946a33c8647e809f46a602cd",
+      "1.pair_E": "bc9ab4c762af82db890b6efd18b22bd16822cfeeb859712698777c793a34aa8e",
+      "1.pair_n": "e88afd59474728f46a0318af733e39fe40e9576d003fdc9e59d1ec5013b14a7c",
+      "1.pair_e": "f102aeedc178c0432cfea7fe874016800d8e23ca79f2c3dba116ff6db79a6921",
+      "1.thresholds": "eb3746615c730112dfc92dd2baca5584b2adb990cf5fd86de8433e45fa89c5bb",
+      "1.dl": "a629a5914cf58a072c2d6e52e4d31a66d15fc37836b801af104a973b1df09f3e",
+      "1.bpar": "6fc16eb479617f4873f74fe9874a7c0d96906169dcaecaad0ce68a7a1739ec9d",
+      "1.delcm": "c0971a954e268071002d9703d61c1669fbfa65acc307df0ebdd501a50a797d7b",
+      "1.delpos": "c49dc09c83480fb372b7c5de4a15312e5479f36c83ce3a417b286a1f83a0baac",
+      "1.bindings": "cae11a815b76299a2366013568ae233916dfa6c5afdc938ba5f1aa82b65a4f82",
+      "1.pm": "b1b613a5e5af8c0c7905b396aee43d4cc5e00989885c889121912ea21cf046b5",
+      "1.shell_nj": "d317c89647a211d17d03f57e1b64711016b4b1aa5587da7efa68f2ffda8728b0",
+      "1.yields": "cbfa8806c3340883f46f3ac4d4e79453fd18959349ce519dfdfa132b7836362f",
+      "1.lines": "f285ad0c1f1f377cd4086ae69a8e0868d1f48c0e3541b44da422973c40332ec5",
+      "1.line_counts": "6bac27311572dcfac6ecd810889cf5be122a48cb702c9eceea34d29bc94d57cf",
+      "1.brems_E": "b981c83adc819c8cb99bcb3eb5300fdb492e7b1b959ab82c9e50d81b015dcaa4",
+      "1.brems_V": "c1f319ead78496a534c76cd66df44b276d6a2cfd44a18a15d85e9679acfb3a27",
+      "1.log_stop_T": "eb324a1f8377f53355f83d03fa20fb191bbac7b13c89fe700baee3c72d723750",
+      "1.photon": "f4f9d5579e9164c8e6ab5931eac73815ecc9be0970d8575b2566cb66dd4b318e",
+      "2.ne": "30206b5cafaa2cdbd8040039e28e9eea68b172e6302adf80a30b616949bb9061",
+      "2.excitation": "cd9c0aa7177e134bd2910fbcaac559779b89fec8836601ad3817c5a9105b1a07",
+      "2.c": "c32f3decb5441b7a3138664df2c5afefe2a10f80cdc9b51a50af8b3267f8b730",
+      "2.z": "af8f569b7363fc6c376b948ee7c8b8b417f481cfe5575c0f9899b37e999af088",
+      "2.nj": "116a34d71cac7a9f005c3df603fe9580eb19324e1f78afe65e024a1979f272c8",
+      "2.stop_T": "23266c06debbf94c4fc924cb28ccc2409131e1746ca29dd6b1b65cb92d363594",
+      "2.stop_delta": "6b928ade77b0c819ce573ded9f831eb7d15b35eeda14486483ba4f4e283fe892",
+      "2.stop_collision": "8c9b887657d2ef0c8b10a81963185565855f68bc1f9fe4808f07d2576e434a82",
+      "2.stop_rad": "32d1ee3100358c503d314e3ece826fbe33d51e078d0a2236aab25c2e78a4cfbe",
+      "2.gs_T": "94913f89e2a9c16f61b42b45f9dcb8a1833608a45667d2fee9b7c3f57e939fa8",
+      "2.gs_K": "f26b0ec8cf9bd86e81721e72de8e21821e92d683ff6f95ffba98d88b45dc0d54",
+      "2.gs_u": "f7c24d7af723bb0b50d31aa598c4a5dda60dc6088143a95233eb87c452a66613",
+      "2.gs_y": "42dafbea298b4aaacda60467be175d2162e58af1a3001d249577edf3030f3872",
+      "2.rates": "4c121d216fd3290cc636c94b6b98433a0af1441b2507f81f7569cafa8a0c1493",
+      "2.photo_E": "bceaf22eb8b4bdf53ce499598daf32e804269530bbeb5c497a4b1c6e9aaca56c",
+      "2.photo": "99962fa27c5c94bb9ed42aed0c9e9ad30a17b1fff955cf316bd913ebaa3275d9",
+      "2.pair_E": "e974ae80f5de2c77fbd918a483a9a6b85cf445c7a014ec3230ca78cf91862d9b",
+      "2.pair_n": "d97821e40077638ed5a63ce22fb87a38d183108a4859f10c77a04b157533cb91",
+      "2.pair_e": "209668e3876fb6b19cfc51a27726464939529302278724063b53f498e4b31f74",
+      "2.thresholds": "eb3746615c730112dfc92dd2baca5584b2adb990cf5fd86de8433e45fa89c5bb",
+      "2.dl": "8ace235c67897cc739bf829674da1fb9b3c326ac6d8ad92930f8551266536689",
+      "2.bpar": "68feac674e6a1f5d1ac21c7d4ec8c84497a5b3481ab4b1a23ddbd580a375e17e",
+      "2.delcm": "0f7f7ff084e444b925b00f743a3b799df75a16b1ce7147a00ff914d1b2f50485",
+      "2.delpos": "6e778df8bfb67ef29075cd8f4878c0cfe71e2ecdc633e80f7befd88f5298c50c",
+      "2.bindings": "17d029b840966710ae39a46cc59f786029f87787105707fe6b8df279f33c0ff2",
+      "2.pm": "b836fde9fc323e084a3777612cf20a2a499bfc7bab0d320c7c5a630414d3bb99",
+      "2.shell_nj": "116a34d71cac7a9f005c3df603fe9580eb19324e1f78afe65e024a1979f272c8",
+      "2.yields": "07c386e8da023e68d2346528e0f386ade1553259b287689ec93dd03558fe4382",
+      "2.lines": "09c594d9c92610d4b5b64590c5dbe0d67f7e928ae73b070e5e80b293a4280a3d",
+      "2.line_counts": "99920c4fb3282189fb9bdbb6be6a3acb456108f658d4fccf9b7b75dbc6478480",
+      "2.brems_E": "b981c83adc819c8cb99bcb3eb5300fdb492e7b1b959ab82c9e50d81b015dcaa4",
+      "2.brems_V": "56c7402d8d74dc971ec5bba23395b5571dbbcc46848445928e3098aa33bfced3",
+      "2.log_stop_T": "eb324a1f8377f53355f83d03fa20fb191bbac7b13c89fe700baee3c72d723750",
+      "2.photon": "7e68a7f4b5b1e6f8a340f67850bb752be0f9dae01e9e05f738e4cdcb57f2a6f0",
+      "3.ne": "a65d55487bdf0222edd4b967c6c4165b018c4717d552308390ec826048da5fd7",
+      "3.excitation": "f6d00e21a7fb3d6a0faaa9e955320ef9c77e660f2078ab774c8a67e4d3cef975",
+      "3.c": "61a78d9909801e825ff65f528b68c6d935f82ae92ca6f6c1f7b8b60e16eea29a",
+      "3.z": "c54296eff318002b0a7a066d9d1c8f9494c0a10e6afad57407e5fd341014e704",
+      "3.nj": "ec02d4f1ca666f67e63e86a2ed0f4a466d0870d3ebff3e2db505c1866903f669",
+      "3.stop_T": "23266c06debbf94c4fc924cb28ccc2409131e1746ca29dd6b1b65cb92d363594",
+      "3.stop_delta": "4e1d6c3b9f524cfdd998fb71141dd6b83443d0b1ef33d39aeb4a0ee51bb931ab",
+      "3.stop_collision": "1014a56d952aecfcb239d438f1f0978d8effb590b7d9cbcf562a5d1a2ab9578f",
+      "3.stop_rad": "1f88740671966e5f67f1a047c522defef3e0bbab77cd2c23687f21b29bbee815",
+      "3.gs_T": "94913f89e2a9c16f61b42b45f9dcb8a1833608a45667d2fee9b7c3f57e939fa8",
+      "3.gs_K": "f26b0ec8cf9bd86e81721e72de8e21821e92d683ff6f95ffba98d88b45dc0d54",
+      "3.gs_u": "f7c24d7af723bb0b50d31aa598c4a5dda60dc6088143a95233eb87c452a66613",
+      "3.gs_y": "65dcfdb71be22ddfd0eba1aacb5ab8c5e2eababb8b1feaf2ed94ae68c658c472",
+      "3.rates": "8940040eb1fa33227585e29bb6e8809e10932965ae1740ce0f0fc57bdbd40247",
+      "3.photo_E": "16179e10f9612c37d7096f42f5a0452ce0414a5c873e434c0ee032b3f28c8970",
+      "3.photo": "453880958efb489e2dd319dd952301d1cb50fc1b1c3caee072971fc88501b2b7",
+      "3.pair_E": "36ef7eaa52b421fa74c466ea9c45c270d4729f753facbfdb2e524159e8fd549b",
+      "3.pair_n": "c89fcbe49863e788f289578cab4b206cee3efcf8db61d0797674593356addd9f",
+      "3.pair_e": "448c2bf877887de3e05066feb62d12a54f634800ad5aff7b03d047e5bb9bc36f",
+      "3.thresholds": "eb3746615c730112dfc92dd2baca5584b2adb990cf5fd86de8433e45fa89c5bb",
+      "3.dl": "6f482dd3c71678112cc077c34ea27d6025b9cf2b59302eaaee5ce07599bbd6c5",
+      "3.bpar": "d4476fef080316046ec9a0c6693b15eb38d21067041f7b65ede7bf1aa92451a6",
+      "3.delcm": "4284912c8c32578d3ac9bec1892f08f24b4ed32d4b90ce3f0b610169649302bc",
+      "3.delpos": "ac9ccae262cd0d8fb7e089ce3ca6f4cf80612473bf81bcadbfea2c57d2384280",
+      "3.bindings": "ece83cdcad370bcedcc1708ffcf680cd7f2ff2a25886fbcd151a866ad23c1f6c",
+      "3.pm": "2f90145131f96a20add6fea61e2d6ce08a7bfc4185cbb532171135026bf33da4",
+      "3.shell_nj": "ec02d4f1ca666f67e63e86a2ed0f4a466d0870d3ebff3e2db505c1866903f669",
+      "3.yields": "63d8a3efdb49596faac14ebe8d6e6e02f4512969db3d3d96c87be40142a8495d",
+      "3.lines": "69b9a884dbb238ec26f950c525deee91357b544b309b908947b10af5d9242326",
+      "3.line_counts": "e410d0bbbf8fd45df0db6a75c1cc35e54c0023ef9ec7f994ca985849d445586c",
+      "3.brems_E": "b981c83adc819c8cb99bcb3eb5300fdb492e7b1b959ab82c9e50d81b015dcaa4",
+      "3.brems_V": "9a0f05720463412e163c3e9097f9e938e7749b2d4e79c97e8e421f1c12df6b15",
+      "3.log_stop_T": "eb324a1f8377f53355f83d03fa20fb191bbac7b13c89fe700baee3c72d723750",
+      "3.photon": "5f44a24a9ca2ace2b255efb3acb472bb2a3d0e05d32ec6d7613a71466d766a2c"
+    },
+    "input_hashes": {
+      "faces": "56f044778f60e7488b5c3626db70b507edb4aa340e64c166ad82fb8eb41baa4b",
+      "rho": "fc6986bca557ac3b85f9aa49769e20c6868a49568c50ac8de693e049551eabaa",
+      "bins": "dacbdafd1898fe63d4d36bce2300a5f7ca4492a662a5d5a3f71170ef2eb243cb",
+      "strength": "a5ee4c1f59cca0089de2f1f4262724102e8296a444fb93dd917b303a687ff90f",
+      "edges": "12529ee3fefc07ea6d06d017f3cb713adbc0fbc02de3f59235e63416080b6b11",
+      "cum": "fc6986bca557ac3b85f9aa49769e20c6868a49568c50ac8de693e049551eabaa",
+      "ids": "45adabbfed6d5c15e65388c91d304b353a63747b2e17a7860a030a4b2b26246b",
+      "owner": "1c166499670fa7674efb1084bbc191159fedfab7766c0ff8d9bead7c74ffa93d",
+      "constants": "996e3f9b17d2a052c58661a5368cf35bdb767672b989ffa7362ce9d9197981f4",
+      "sizes": "61a82e6537b8445acae443436bbd7e6d0ce8d05803230d04089563a58c1c0b39",
+      "mass_g_cm2": "9b7d112e5c392a8c9db054fc9577e5fe3581fd605d4e9c08901fa8be29681c66"
+    },
+    "field_geometry_sha256": "fdbfcc34a773ec3e286ed0543c940d29a0c30bb120b3c57a4e7a70d71596824f",
+    "sources": {
+      "t2_rng.h": "2617cc5099d0ce6caff46f6f8187ccda396b370f7332ecfd7bf8685c69185a98",
+      "t2_logs.h": "90182d93a91bd6d093f83e25ac907864572c261ef5a8d86eaa5d3fba955bc496",
+      "t2_cpu.cpp": "683574d16444644028fe7bad3e444d0ad6c039165c672d2df452098f20384f26",
+      "t2_seed_geometry.h": "fed70a65a50a404cc6926f60d1edc20c3f7b29fec81ccc8baad6f0408019565c",
+      "t2_seed_entry.h": "b0c22103d72c21daed1b344e85e736f877851acf968429012eb7ea0bcde33109",
+      "t2_seed_probe.h": "651656e465a6aa7e80a29f927bf1bcad41434fb6519c23c121d1acbf05f33cf0",
+      "t2_seed_grid.h": "3d730fa01b557244a2935992a7fce3eba8d5f2d6fec43d635d072a565ed47c07",
+      "t2_materials.h": "1ef89fce05c6f2e630da2f5c42601096f26946832b452c28948dccdfc115e39d",
+      "t2_transport.h": "b63608a5a744d2e2624f16b67db0f76a00f34b4e00e4e5a98a07417945a853f5",
+      "t2_functions.h": "3d14d94e59ff53fe823e3c7016e7f171120dc8ea6012f3d53f633852a4370f55",
+      "t2_seed_cpu.cpp": "3ba3980f72ed25986e04187e109f41ad811b97618942031bf25047b58a7b6611",
+      "t2_field.h": "d079dc22dc94bf25e5b7520f22c818ddeba2cc680b48a9680742f69c13cc048e",
+      "t2_kernel.h": "eac0599da4ab903e5781c7b03871d0d029d021c702015abddf299f6adb4bb502",
+      "t2_seed_kernel.h": "53ea4c28726e1ca9fbfaed42b30ced5ac9e71e0fca3d5550d8ad24a9c8b0cdda",
+      "t2_physics.h": "f88aa17d397251b9f14b916f15a5d2a3de377ca417a7f8a28b8bde5e078b8abd",
+      "t2_tables.h": "ef985128511eefae3dfae424a10871221ea40041e26fe629b7ce9653b42335ad",
+      "photon_physics.h": "161bdd9b5eaaddea62aea30af783eca9ec124d2f86efe13bd0e36c30e5ce31a1",
+      "g5_base.h": "1403e2d0783c390a86494521be215bd8a7c6a403a5d436f04d0a18df5930cb96",
+      "physics_set.h": "ecec3373d2ea0cd3d6f6b0d573e7c57f27f46042d7526cc448c4cfaed2d0ac4e",
+      "therapy.py": "debc17288badee2d02ac8b0a71fc9a137d14828b8cc81118e08efc72b256f811",
+      "physics_sets.py": "e4930f95ccdd12c0954e792e0811061f0ea570393ed4f895d4bb4e3b96934a98",
+      "generate_photon_tables.py": "982870d94d95472974d9274e5b4b31ab7d2e8ed9e76f563dbcf46dcb3b7da750"
+    },
+    "reference_files": {
+      "main/config.json": "3897b86dce308089d2203d292c58e77124b777dc9ac4a1b52e452cb0a2108830",
+      "main/summary.json": "342e63c9643a0f78650b03b937fe03c8f98d352dffeb3a535959bde3012e48d1",
+      "main/result.npz": "eed492336dced531150e284c6bcac44fe34b058f32c1829d5ee1d426bc5abaa6",
+      "pilot/config.json": "8e73a29b2c5767a4c2ad9b00499fe1d746f6d61741828c709a862550084df6a2",
+      "pilot/summary.json": "1cec4442e5f1b3c728bb4cc3dcdc3ce28a142a41f462161020004df1a57b044c"
+    },
+    "registration": {
+      "proposal": {
+        "status": "approved_by_user_2026-11-04: PDD only, judged depth <= 15 cm",
+        "pdd_fraction": 0.05,
+        "max_judged_depth_cm": 15.0,
+        "ocr_depth_cm": 5.0,
+        "ocr_half_width_cm": 0.25,
+        "mandatory_pdd_end_cm": 0.5,
+        "mandatory_ocr_half_width_cm": 0.125,
+        "minimum_mandatory_bins": {
+          "fine": 4
+        },
+        "minimum_evaluable_count": 8,
+        "minimum_evaluable_fraction": 0.8,
+        "max_main_histories": 240000000,
+        "rule": {
+          "multiplicity_family": "per_energy",
+          "alpha": 0.05,
+          "relative_limit": 0.02,
+          "SEM_limit": 0.01,
+          "cutoff_sigma": 2,
+          "N_margin": 1.5,
+          "variance_allocation": "equal sides"
+        }
+      },
+      "indices": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30,
+        31,
+        32,
+        33,
+        34,
+        35,
+        36,
+        37,
+        38,
+        39,
+        40,
+        41,
+        42,
+        43,
+        44,
+        45,
+        46,
+        47,
+        48,
+        49,
+        50,
+        51,
+        52,
+        53,
+        54,
+        55,
+        56,
+        57,
+        58,
+        59,
+        60,
+        61,
+        62,
+        63,
+        64,
+        65,
+        66,
+        67,
+        68,
+        69,
+        70,
+        71,
+        72,
+        73,
+        74,
+        75,
+        76,
+        77,
+        78,
+        79,
+        80,
+        81,
+        82,
+        83,
+        84,
+        85,
+        86,
+        87
+      ],
+      "bins": [
+        {
+          "name": "fine:0",
+          "kind": "fine",
+          "index": 0,
+          "z_cm": 0.025,
+          "unit": "Gy cm2/history"
+        },
+        {
+          "name": "fine:1",
+          "kind": "fine",
+          "index": 1,
+          "z_cm": 0.07500000000000001,
+          "unit": "Gy cm2/history"
+        },
+        {
+          "name": "fine:2",
+          "kind": "fine",
+          "index": 2,
+          "z_cm": 0.125,
+          "unit": "Gy cm2/history"
+        },
+        {
+          "name": "fine:3",
+          "kind": "fine",
+          "index": 3,
+          "z_cm": 0.17500000000000002,
+          "unit": "Gy cm2/history"
+        },
+        {
+          "name": "fine:4",
+          "kind": "fine",
+          "index": 4,
+          "z_cm": 0.225,
+          "unit": "Gy cm2/history"
+        },
+        {
+          "name": "fine:5",
+          "kind": "fine",
+          "index": 5,
+          "z_cm": 0.275,
+          "unit": "Gy cm2/history"
+        },
+        {
+          "name": "fine:6",
+          "kind": "fine",
+          "index": 6,
+          "z_cm": 0.325,
+          "unit": "Gy cm2/history"
+        },
+        {
+          "name": "fine:7",
+          "kind": "fine",
+          "index": 7,
+          "z_cm": 0.375,
+          "unit": "Gy cm2/history"
+        },
+        {
+          "name": "fine:8",
+          "kind": "fine",
+          "index": 8,
+          "z_cm": 0.42500000000000004,
+          "unit": "Gy cm2/history"
+        },
+        {
+          "name": "fine:9",
+          "kind": "fine",
+          "index": 9,
+          "z_cm": 0.47500000000000003,
+          "unit": "Gy cm2/history"
+        },
+        {
+          "name": "fine:10",
+          "kind": "fine",
+          "index": 10,
+          "z_cm": 0.525,
+          "unit": "Gy cm2/history"
+        },
+        {
+          "name": "fine:11",
+          "kind": "fine",
+          "index": 11,
+          "z_cm": 0.5750000000000001,
+          "unit": "Gy cm2/history"
+        },
+        {
+          "name": "fine:12",
+          "kind": "fine",
+          "index": 12,
+          "z_cm": 0.625,
+          "unit": "Gy cm2/history"
+        },
+        {
+          "name": "fine:13",
+          "kind": "fine",
+          "index": 13,
+          "z_cm": 0.675,
+          "unit": "Gy cm2/history"
+        },
+        {
+          "name": "fine:14",
+          "kind": "fine",
+          "index": 14,
+          "z_cm": 0.7250000000000001,
+          "unit": "Gy cm2/history"
+        },
+        {
+          "name": "fine:15",
+          "kind": "fine",
+          "index": 15,
+          "z_cm": 0.775,
+          "unit": "Gy cm2/history"
+        },
+        {
+          "name": "fine:16",
+          "kind": "fine",
+          "index": 16,
+          "z_cm": 0.8250000000000001,
+          "unit": "Gy cm2/history"
+        },
+        {
+          "name": "fine:17",
+          "kind": "fine",
+          "index": 17,
+          "z_cm": 0.875,
+          "unit": "Gy cm2/history"
+        },
+        {
+          "name": "fine:18",
+          "kind": "fine",
+          "index": 18,
+          "z_cm": 0.925,
+          "unit": "Gy cm2/history"
+        },
+        {
+          "name": "fine:19",
+          "kind": "fine",
+          "index": 19,
+          "z_cm": 0.9750000000000001,
+          "unit": "Gy cm2/history"
+        },
+        {
+          "name": "fine:20",
+          "kind": "fine",
+          "index": 20,
+          "z_cm": 1.0250000000000001,
+          "unit": "Gy cm2/history"
+        },
+        {
+          "name": "fine:21",
+          "kind": "fine",
+          "index": 21,
+          "z_cm": 1.075,
+          "unit": "Gy cm2/history"
+        },
+        {
+          "name": "fine:22",
+          "kind": "fine",
+          "index": 22,
+          "z_cm": 1.125,
+          "unit": "Gy cm2/history"
+        },
+        {
+          "name": "fine:23",
+          "kind": "fine",
+          "index": 23,
+          "z_cm": 1.175,
+          "unit": "Gy cm2/history"
+        },
+        {
+          "name": "fine:24",
+          "kind": "fine",
+          "index": 24,
+          "z_cm": 1.225,
+          "unit": "Gy cm2/history"
+        },
+        {
+          "name": "fine:25",
+          "kind": "fine",
+          "index": 25,
+          "z_cm": 1.2750000000000001,
+          "unit": "Gy cm2/history"
+        },
+        {
+          "name": "fine:26",
+          "kind": "fine",
+          "index": 26,
+          "z_cm": 1.3250000000000002,
+          "unit": "Gy cm2/history"
+        },
+        {
+          "name": "fine:27",
+          "kind": "fine",
+          "index": 27,
+          "z_cm": 1.375,
+          "unit": "Gy cm2/history"
+        },
+        {
+          "name": "fine:28",
+          "kind": "fine",
+          "index": 28,
+          "z_cm": 1.425,
+          "unit": "Gy cm2/history"
+        },
+        {
+          "name": "fine:29",
+          "kind": "fine",
+          "index": 29,
+          "z_cm": 1.475,
+          "unit": "Gy cm2/history"
+        },
+        {
+          "name": "fine:30",
+          "kind": "fine",
+          "index": 30,
+          "z_cm": 1.5250000000000001,
+          "unit": "Gy cm2/history"
+        },
+        {
+          "name": "fine:31",
+          "kind": "fine",
+          "index": 31,
+          "z_cm": 1.5750000000000002,
+          "unit": "Gy cm2/history"
+        },
+        {
+          "name": "fine:32",
+          "kind": "fine",
+          "index": 32,
+          "z_cm": 1.625,
+          "unit": "Gy cm2/history"
+        },
+        {
+          "name": "fine:33",
+          "kind": "fine",
+          "index": 33,
+          "z_cm": 1.675,
+          "unit": "Gy cm2/history"
+        },
+        {
+          "name": "fine:34",
+          "kind": "fine",
+          "index": 34,
+          "z_cm": 1.725,
+          "unit": "Gy cm2/history"
+        },
+        {
+          "name": "fine:35",
+          "kind": "fine",
+          "index": 35,
+          "z_cm": 1.7750000000000001,
+          "unit": "Gy cm2/history"
+        },
+        {
+          "name": "fine:36",
+          "kind": "fine",
+          "index": 36,
+          "z_cm": 1.8250000000000002,
+          "unit": "Gy cm2/history"
+        },
+        {
+          "name": "fine:37",
+          "kind": "fine",
+          "index": 37,
+          "z_cm": 1.875,
+          "unit": "Gy cm2/history"
+        },
+        {
+          "name": "fine:38",
+          "kind": "fine",
+          "index": 38,
+          "z_cm": 1.925,
+          "unit": "Gy cm2/history"
+        },
+        {
+          "name": "fine:39",
+          "kind": "fine",
+          "index": 39,
+          "z_cm": 1.975,
+          "unit": "Gy cm2/history"
+        },
+        {
+          "name": "fine:40",
+          "kind": "fine",
+          "index": 40,
+          "z_cm": 2.025,
+          "unit": "Gy cm2/history"
+        },
+        {
+          "name": "fine:41",
+          "kind": "fine",
+          "index": 41,
+          "z_cm": 2.075,
+          "unit": "Gy cm2/history"
+        },
+        {
+          "name": "fine:42",
+          "kind": "fine",
+          "index": 42,
+          "z_cm": 2.125,
+          "unit": "Gy cm2/history"
+        },
+        {
+          "name": "fine:43",
+          "kind": "fine",
+          "index": 43,
+          "z_cm": 2.1750000000000003,
+          "unit": "Gy cm2/history"
+        },
+        {
+          "name": "fine:44",
+          "kind": "fine",
+          "index": 44,
+          "z_cm": 2.225,
+          "unit": "Gy cm2/history"
+        },
+        {
+          "name": "fine:45",
+          "kind": "fine",
+          "index": 45,
+          "z_cm": 2.275,
+          "unit": "Gy cm2/history"
+        },
+        {
+          "name": "fine:46",
+          "kind": "fine",
+          "index": 46,
+          "z_cm": 2.325,
+          "unit": "Gy cm2/history"
+        },
+        {
+          "name": "fine:47",
+          "kind": "fine",
+          "index": 47,
+          "z_cm": 2.375,
+          "unit": "Gy cm2/history"
+        },
+        {
+          "name": "fine:48",
+          "kind": "fine",
+          "index": 48,
+          "z_cm": 2.4250000000000003,
+          "unit": "Gy cm2/history"
+        },
+        {
+          "name": "fine:49",
+          "kind": "fine",
+          "index": 49,
+          "z_cm": 2.475,
+          "unit": "Gy cm2/history"
+        },
+        {
+          "name": "fine:50",
+          "kind": "fine",
+          "index": 50,
+          "z_cm": 2.5250000000000004,
+          "unit": "Gy cm2/history"
+        },
+        {
+          "name": "fine:51",
+          "kind": "fine",
+          "index": 51,
+          "z_cm": 2.575,
+          "unit": "Gy cm2/history"
+        },
+        {
+          "name": "fine:52",
+          "kind": "fine",
+          "index": 52,
+          "z_cm": 2.625,
+          "unit": "Gy cm2/history"
+        },
+        {
+          "name": "fine:53",
+          "kind": "fine",
+          "index": 53,
+          "z_cm": 2.6750000000000003,
+          "unit": "Gy cm2/history"
+        },
+        {
+          "name": "fine:54",
+          "kind": "fine",
+          "index": 54,
+          "z_cm": 2.725,
+          "unit": "Gy cm2/history"
+        },
+        {
+          "name": "fine:55",
+          "kind": "fine",
+          "index": 55,
+          "z_cm": 2.7750000000000004,
+          "unit": "Gy cm2/history"
+        },
+        {
+          "name": "fine:56",
+          "kind": "fine",
+          "index": 56,
+          "z_cm": 2.825,
+          "unit": "Gy cm2/history"
+        },
+        {
+          "name": "fine:57",
+          "kind": "fine",
+          "index": 57,
+          "z_cm": 2.875,
+          "unit": "Gy cm2/history"
+        },
+        {
+          "name": "fine:58",
+          "kind": "fine",
+          "index": 58,
+          "z_cm": 2.9250000000000003,
+          "unit": "Gy cm2/history"
+        },
+        {
+          "name": "fine:59",
+          "kind": "fine",
+          "index": 59,
+          "z_cm": 2.975,
+          "unit": "Gy cm2/history"
+        },
+        {
+          "name": "fine:60",
+          "kind": "fine",
+          "index": 60,
+          "z_cm": 3.0250000000000004,
+          "unit": "Gy cm2/history"
+        },
+        {
+          "name": "fine:61",
+          "kind": "fine",
+          "index": 61,
+          "z_cm": 3.075,
+          "unit": "Gy cm2/history"
+        },
+        {
+          "name": "fine:62",
+          "kind": "fine",
+          "index": 62,
+          "z_cm": 3.125,
+          "unit": "Gy cm2/history"
+        },
+        {
+          "name": "fine:63",
+          "kind": "fine",
+          "index": 63,
+          "z_cm": 3.1750000000000003,
+          "unit": "Gy cm2/history"
+        },
+        {
+          "name": "fine:64",
+          "kind": "fine",
+          "index": 64,
+          "z_cm": 3.225,
+          "unit": "Gy cm2/history"
+        },
+        {
+          "name": "fine:65",
+          "kind": "fine",
+          "index": 65,
+          "z_cm": 3.2750000000000004,
+          "unit": "Gy cm2/history"
+        },
+        {
+          "name": "fine:66",
+          "kind": "fine",
+          "index": 66,
+          "z_cm": 3.325,
+          "unit": "Gy cm2/history"
+        },
+        {
+          "name": "fine:67",
+          "kind": "fine",
+          "index": 67,
+          "z_cm": 3.375,
+          "unit": "Gy cm2/history"
+        },
+        {
+          "name": "fine:68",
+          "kind": "fine",
+          "index": 68,
+          "z_cm": 3.4250000000000003,
+          "unit": "Gy cm2/history"
+        },
+        {
+          "name": "fine:69",
+          "kind": "fine",
+          "index": 69,
+          "z_cm": 3.475,
+          "unit": "Gy cm2/history"
+        },
+        {
+          "name": "fine:70",
+          "kind": "fine",
+          "index": 70,
+          "z_cm": 3.5250000000000004,
+          "unit": "Gy cm2/history"
+        },
+        {
+          "name": "fine:71",
+          "kind": "fine",
+          "index": 71,
+          "z_cm": 3.575,
+          "unit": "Gy cm2/history"
+        },
+        {
+          "name": "fine:72",
+          "kind": "fine",
+          "index": 72,
+          "z_cm": 3.625,
+          "unit": "Gy cm2/history"
+        },
+        {
+          "name": "fine:73",
+          "kind": "fine",
+          "index": 73,
+          "z_cm": 3.6750000000000003,
+          "unit": "Gy cm2/history"
+        },
+        {
+          "name": "fine:74",
+          "kind": "fine",
+          "index": 74,
+          "z_cm": 3.725,
+          "unit": "Gy cm2/history"
+        },
+        {
+          "name": "fine:75",
+          "kind": "fine",
+          "index": 75,
+          "z_cm": 3.7750000000000004,
+          "unit": "Gy cm2/history"
+        },
+        {
+          "name": "fine:76",
+          "kind": "fine",
+          "index": 76,
+          "z_cm": 3.825,
+          "unit": "Gy cm2/history"
+        },
+        {
+          "name": "fine:77",
+          "kind": "fine",
+          "index": 77,
+          "z_cm": 3.875,
+          "unit": "Gy cm2/history"
+        },
+        {
+          "name": "fine:78",
+          "kind": "fine",
+          "index": 78,
+          "z_cm": 3.9250000000000003,
+          "unit": "Gy cm2/history"
+        },
+        {
+          "name": "fine:79",
+          "kind": "fine",
+          "index": 79,
+          "z_cm": 3.975,
+          "unit": "Gy cm2/history"
+        },
+        {
+          "name": "fine:80",
+          "kind": "fine",
+          "index": 80,
+          "z_cm": 4.025,
+          "unit": "Gy cm2/history"
+        },
+        {
+          "name": "fine:81",
+          "kind": "fine",
+          "index": 81,
+          "z_cm": 4.075,
+          "unit": "Gy cm2/history"
+        },
+        {
+          "name": "fine:82",
+          "kind": "fine",
+          "index": 82,
+          "z_cm": 4.125,
+          "unit": "Gy cm2/history"
+        },
+        {
+          "name": "fine:83",
+          "kind": "fine",
+          "index": 83,
+          "z_cm": 4.175,
+          "unit": "Gy cm2/history"
+        },
+        {
+          "name": "fine:84",
+          "kind": "fine",
+          "index": 84,
+          "z_cm": 4.2250000000000005,
+          "unit": "Gy cm2/history"
+        },
+        {
+          "name": "fine:85",
+          "kind": "fine",
+          "index": 85,
+          "z_cm": 4.275,
+          "unit": "Gy cm2/history"
+        },
+        {
+          "name": "fine:86",
+          "kind": "fine",
+          "index": 86,
+          "z_cm": 4.325,
+          "unit": "Gy cm2/history"
+        },
+        {
+          "name": "fine:87",
+          "kind": "fine",
+          "index": 87,
+          "z_cm": 4.375,
+          "unit": "Gy cm2/history"
+        }
+      ],
+      "mandatory": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "mandatory_counts": {
+        "fine": 10
+      },
+      "valid": true,
+      "K": 88,
+      "z_critical": 3.44636526292631,
+      "minimum_evaluable": 71
+    },
+    "retry_cpu_seed": 20121,
+    "EGS5_N": 18438400,
+    "EGS5_seed": 20101,
+    "attempt": "initial",
+    "chunk_size": 10000,
+    "retry_policy": "one human-decided fresh CPU seed; same sealed EGS5 reference; never automatic"
+  },
+  "sha256": "88cd988753bb793069f9722ecd14d5eb3f845c7d9b0f96b78c66eaf376a184c5"
+}

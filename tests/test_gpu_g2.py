@@ -179,12 +179,7 @@ def test_null_tally_fixed_g1(tmp_path):
     driver = core.Core(a)
     o, d, e = sample_source_photons(scene.raw['source'], 128, np.random.default_rng(713))
     r = driver.run(o, d, e, seed=712, record=True)
-    expected = dict(deposits='d424085911c924d0b70c2678da6caf91991a0f5a1ad5753d2c9e5cdbbae36e06',
-                    endings='46d27f6b8fc6ff1a71c1acb951457a9a9c49c26b0c5cdc39e4c55391a3d9b9c9',
-                    scatter_sum='6602cf082886b358e25715c49ab10047eb8871d8c2ea5e3340dcc0b76065f69e',
-                    n_fluorescence='af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc',
-                    d='5a28e04a585df9951c0e807e6f949474b10402fb3bac1a5e3672e33df292d071',
-                    i='8391c9b32ff975bf86558de646d1111834b311f1fabb66acc3df3da98e9b108c')
+    expected=json.loads((ROOT/'docs/validation/gpu/g5/a4u_d15_fixed.json').read_text())['g2']['new']
     assert {k: hashlib.sha256(np.asarray(v).tobytes()).hexdigest() for k, v in r.items()} == expected
 
 

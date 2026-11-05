@@ -1,0 +1,1209 @@
+{
+  "status": "pass",
+  "K": 51,
+  "sum_z2_over_K": 1.2264936531732271,
+  "quantities": {
+    "s1:deposit:air": {
+      "reference_mean": 0.2737251505920482,
+      "twin_mean": 0.27229682565382063,
+      "reference_SEM": 0.0011078949743819982,
+      "twin_SEM": 0.0008748543944881778,
+      "z": -1.011800756478788,
+      "detectable_difference": 0.00423499862719523,
+      "status": "pass"
+    },
+    "s1:deposit:water": {
+      "reference_mean": 37.09517971934009,
+      "twin_mean": 37.11121108926135,
+      "reference_SEM": 0.0069398410524372026,
+      "twin_SEM": 0.0076917188622138335,
+      "z": 1.5474703836206174,
+      "detectable_difference": 0.03107917946143139,
+      "status": "pass"
+    },
+    "s1:escape": {
+      "reference_mean": 0.4034829999999999,
+      "twin_mean": 0.40328489999999995,
+      "reference_SEM": 0.00014424154125016324,
+      "twin_SEM": 0.00012673353059777765,
+      "z": -1.031728713107024,
+      "detectable_difference": 0.0005760235151450013,
+      "status": "pass"
+    },
+    "s1:category:0:all": {
+      "reference_mean": 3.8454,
+      "twin_mean": 3.822,
+      "reference_SEM": 0.01081428684657477,
+      "twin_SEM": 0.007907869498164483,
+      "z": -1.7466422267477155,
+      "detectable_difference": 0.040191402065616,
+      "status": "pass"
+    },
+    "s1:category:0:roi0": {
+      "reference_mean": 0.9613919999999998,
+      "twin_mean": 0.957672,
+      "reference_SEM": 0.004114022848745495,
+      "twin_SEM": 0.0048365342963738,
+      "z": -0.5858649273085267,
+      "detectable_difference": 0.01904875932967814,
+      "status": "pass"
+    },
+    "s1:category:0:roi1": {
+      "reference_mean": 0.0,
+      "twin_mean": 0.0,
+      "reference_SEM": 0.0,
+      "twin_SEM": 0.0,
+      "z": null,
+      "detectable_difference": 0.0,
+      "status": "both_zero"
+    },
+    "s1:category:0:roi2": {
+      "reference_mean": 0.0,
+      "twin_mean": 0.0,
+      "reference_SEM": 0.0,
+      "twin_SEM": 0.0,
+      "z": null,
+      "detectable_difference": 0.0,
+      "status": "both_zero"
+    },
+    "s1:category:1:all": {
+      "reference_mean": 3.1824187524940237,
+      "twin_mean": 3.1818213341723127,
+      "reference_SEM": 0.010583545185613101,
+      "twin_SEM": 0.010928006095816591,
+      "z": -0.039270473101333275,
+      "detectable_difference": 0.045638741364492835,
+      "status": "pass"
+    },
+    "s1:category:1:roi0": {
+      "reference_mean": 0.36376516234085937,
+      "twin_mean": 0.36006173394786967,
+      "reference_SEM": 0.004519103700946357,
+      "twin_SEM": 0.0023385601788682934,
+      "z": -0.7278270311646949,
+      "detectable_difference": 0.015265007623020044,
+      "status": "pass"
+    },
+    "s1:category:1:roi1": {
+      "reference_mean": 0.015464464431092447,
+      "twin_mean": 0.015509787090807256,
+      "reference_SEM": 0.0008769957243346544,
+      "twin_SEM": 0.0008983307201022071,
+      "z": 0.03610113079370124,
+      "detectable_difference": 0.0037663080395296316,
+      "status": "pass"
+    },
+    "s1:category:1:roi2": {
+      "reference_mean": 0.07867886924145925,
+      "twin_mean": 0.07950557742879959,
+      "reference_SEM": 0.0012744652317459436,
+      "twin_SEM": 0.0012665834754033635,
+      "z": 0.46009991987083615,
+      "detectable_difference": 0.005390404246793272,
+      "status": "pass"
+    },
+    "s1:category:2:all": {
+      "reference_mean": 6.965594997989214,
+      "twin_mean": 6.967542571705825,
+      "reference_SEM": 0.011309365516095264,
+      "twin_SEM": 0.01057331193729136,
+      "z": 0.12579486148608263,
+      "detectable_difference": 0.046446421426189696,
+      "status": "pass"
+    },
+    "s1:category:2:roi0": {
+      "reference_mean": 0.4388256577412365,
+      "twin_mean": 0.4455532992059698,
+      "reference_SEM": 0.002143352247261508,
+      "twin_SEM": 0.0027347168032065892,
+      "z": 1.9362516731887764,
+      "detectable_difference": 0.010423709207678081,
+      "status": "pass"
+    },
+    "s1:category:2:roi1": {
+      "reference_mean": 0.0663578895535419,
+      "twin_mean": 0.06843192803875991,
+      "reference_SEM": 0.0012027186290944683,
+      "twin_SEM": 0.0010520605922243395,
+      "z": 1.2979575234538387,
+      "detectable_difference": 0.004793774328683062,
+      "status": "pass"
+    },
+    "s1:category:2:roi2": {
+      "reference_mean": 0.2164615202478462,
+      "twin_mean": 0.21600489846279475,
+      "reference_SEM": 0.0020960973153824,
+      "twin_SEM": 0.0019445339134951604,
+      "z": -0.15970448054134345,
+      "detectable_difference": 0.008577501085198124,
+      "status": "pass"
+    },
+    "s1:category:3:all": {
+      "reference_mean": 0.0,
+      "twin_mean": 0.0,
+      "reference_SEM": 0.0,
+      "twin_SEM": 0.0,
+      "z": null,
+      "detectable_difference": 0.0,
+      "status": "both_zero"
+    },
+    "s1:category:3:roi0": {
+      "reference_mean": 0.0,
+      "twin_mean": 0.0,
+      "reference_SEM": 0.0,
+      "twin_SEM": 0.0,
+      "z": null,
+      "detectable_difference": 0.0,
+      "status": "both_zero"
+    },
+    "s1:category:3:roi1": {
+      "reference_mean": 0.0,
+      "twin_mean": 0.0,
+      "reference_SEM": 0.0,
+      "twin_SEM": 0.0,
+      "z": null,
+      "detectable_difference": 0.0,
+      "status": "both_zero"
+    },
+    "s1:category:3:roi2": {
+      "reference_mean": 0.0,
+      "twin_mean": 0.0,
+      "reference_SEM": 0.0,
+      "twin_SEM": 0.0,
+      "z": null,
+      "detectable_difference": 0.0,
+      "status": "both_zero"
+    },
+    "s2:deposit:air": {
+      "reference_mean": 0.40515228825628774,
+      "twin_mean": 0.4023222354124303,
+      "reference_SEM": 0.0013412016872698502,
+      "twin_SEM": 0.0010609632399916143,
+      "z": -1.6548983907701766,
+      "detectable_difference": 0.005130320132598059,
+      "status": "pass"
+    },
+    "s2:deposit:soft_tissue": {
+      "reference_mean": 18.208836541969966,
+      "twin_mean": 18.21957711900469,
+      "reference_SEM": 0.008319865151939347,
+      "twin_SEM": 0.009508485955417825,
+      "z": 0.8500967771289979,
+      "detectable_difference": 0.0379036034144182,
+      "status": "pass"
+    },
+    "s2:deposit:bone": {
+      "reference_mean": 11.584310669350346,
+      "twin_mean": 11.591973306467882,
+      "reference_SEM": 0.005967310497322266,
+      "twin_SEM": 0.0057749813483298365,
+      "z": 0.9227459307381367,
+      "detectable_difference": 0.024912503633819905,
+      "status": "pass"
+    },
+    "s2:deposit:copper": {
+      "reference_mean": 2.183089201514742,
+      "twin_mean": 2.1771725611792614,
+      "reference_SEM": 0.0027550023046321952,
+      "twin_SEM": 0.004264082292488075,
+      "z": -1.1654601788485492,
+      "detectable_difference": 0.0152299678089204,
+      "status": "pass"
+    },
+    "s2:deposit:lead": {
+      "reference_mean": 0.7185256661745321,
+      "twin_mean": 0.7182540166350062,
+      "reference_SEM": 0.0016699512185799259,
+      "twin_SEM": 0.0017937780521110921,
+      "z": -0.11084157479790772,
+      "detectable_difference": 0.0073523731511701985,
+      "status": "pass"
+    },
+    "s2:deposit:aluminum": {
+      "reference_mean": 0.45358835336562997,
+      "twin_mean": 0.4560828078900231,
+      "reference_SEM": 0.0014813195247995806,
+      "twin_SEM": 0.0016105882937318874,
+      "z": 1.1399474083357732,
+      "detectable_difference": 0.006564656859130401,
+      "status": "pass"
+    },
+    "s2:escape": {
+      "reference_mean": 0.27563439999999995,
+      "twin_mean": 0.27569849999999996,
+      "reference_SEM": 0.0001670024750315605,
+      "twin_SEM": 0.00016991718571115496,
+      "z": 0.2690484050127607,
+      "detectable_difference": 0.0007147412748680427,
+      "status": "pass"
+    },
+    "s2:category:0:all": {
+      "reference_mean": 13.650198799999998,
+      "twin_mean": 13.650740900000002,
+      "reference_SEM": 0.01603013161365528,
+      "twin_SEM": 0.01884821338804044,
+      "z": 0.021909151369875007,
+      "detectable_difference": 0.07422925573687207,
+      "status": "pass"
+    },
+    "s2:category:0:roi0": {
+      "reference_mean": 1.0843682,
+      "twin_mean": 1.0779966,
+      "reference_SEM": 0.004085983384422621,
+      "twin_SEM": 0.003857892024293978,
+      "z": -1.1338409259637017,
+      "detectable_difference": 0.016858449507591126,
+      "status": "pass"
+    },
+    "s2:category:0:roi1": {
+      "reference_mean": 0.9593081999999999,
+      "twin_mean": 0.9430805,
+      "reference_SEM": 0.0042970492195872675,
+      "twin_SEM": 0.006636692843159498,
+      "z": -2.0524902169705017,
+      "detectable_difference": 0.023719041190781734,
+      "status": "pass"
+    },
+    "s2:category:0:roi2": {
+      "reference_mean": 0.3521288,
+      "twin_mean": 0.3462967,
+      "reference_SEM": 0.002684986400958732,
+      "twin_SEM": 0.0035620075676817725,
+      "z": -1.3074666428146793,
+      "detectable_difference": 0.013381832795622573,
+      "status": "pass"
+    },
+    "s2:category:1:all": {
+      "reference_mean": 7.921364692028959,
+      "twin_mean": 7.912241855044385,
+      "reference_SEM": 0.015605345907182619,
+      "twin_SEM": 0.011999491062669397,
+      "z": -0.4634318479073348,
+      "detectable_difference": 0.059056172072130916,
+      "status": "pass"
+    },
+    "s2:category:1:roi0": {
+      "reference_mean": 0.5565514897474241,
+      "twin_mean": 0.5474010442845714,
+      "reference_SEM": 0.0034022991470881348,
+      "twin_SEM": 0.0026968831298974216,
+      "z": -2.1076581649007986,
+      "detectable_difference": 0.013024567667428263,
+      "status": "pass"
+    },
+    "s2:category:1:roi1": {
+      "reference_mean": 0.33783505378052753,
+      "twin_mean": 0.33371512320764024,
+      "reference_SEM": 0.004011107162169715,
+      "twin_SEM": 0.0017320328628488862,
+      "z": -0.9429729518421855,
+      "detectable_difference": 0.013107260069884143,
+      "status": "pass"
+    },
+    "s2:category:1:roi2": {
+      "reference_mean": 0.23836899860704003,
+      "twin_mean": 0.23640546905975626,
+      "reference_SEM": 0.002812233350589307,
+      "twin_SEM": 0.003738790775192724,
+      "z": -0.41970313185367564,
+      "detectable_difference": 0.014035131488856694,
+      "status": "pass"
+    },
+    "s2:category:2:all": {
+      "reference_mean": 8.499691850769766,
+      "twin_mean": 8.466595303029864,
+      "reference_SEM": 0.009968289213243834,
+      "twin_SEM": 0.01417839573682195,
+      "z": -1.9095774986896066,
+      "detectable_difference": 0.05199560807971417,
+      "status": "pass"
+    },
+    "s2:category:2:roi0": {
+      "reference_mean": 0.5166086155502851,
+      "twin_mean": 0.5079839605677502,
+      "reference_SEM": 0.003757135433944442,
+      "twin_SEM": 0.004139582493004396,
+      "z": -1.5427706372981365,
+      "detectable_difference": 0.016771102795239926,
+      "status": "pass"
+    },
+    "s2:category:2:roi1": {
+      "reference_mean": 0.2601375266550132,
+      "twin_mean": 0.2578076288785751,
+      "reference_SEM": 0.0034216697237246306,
+      "twin_SEM": 0.0024161172119104004,
+      "z": -0.5562303216334302,
+      "detectable_difference": 0.01256618536865867,
+      "status": "pass"
+    },
+    "s2:category:2:roi2": {
+      "reference_mean": 0.23924103076253625,
+      "twin_mean": 0.2350188628616278,
+      "reference_SEM": 0.002135354785370813,
+      "twin_SEM": 0.001088052212233525,
+      "z": -1.7617468114210504,
+      "detectable_difference": 0.007189741238985635,
+      "status": "pass"
+    },
+    "s2:category:3:all": {
+      "reference_mean": 0.09722939951005972,
+      "twin_mean": 0.10079645232940534,
+      "reference_SEM": 0.0013132966176599523,
+      "twin_SEM": 0.002001187679718548,
+      "z": 1.490222695395123,
+      "detectable_difference": 0.007180912283180279,
+      "status": "pass"
+    },
+    "s2:category:3:roi0": {
+      "reference_mean": 0.003575102564222947,
+      "twin_mean": 0.00372644247194412,
+      "reference_SEM": 0.0004377266491979078,
+      "twin_SEM": 0.000443484257211727,
+      "z": 0.24287305142239873,
+      "detectable_difference": 0.0018693705230140947,
+      "status": "pass"
+    },
+    "s2:category:3:roi1": {
+      "reference_mean": 0.044786312588767044,
+      "twin_mean": 0.04607661017891236,
+      "reference_SEM": 0.0008228556373858734,
+      "twin_SEM": 0.0012030145329878685,
+      "z": 0.8852752985104164,
+      "detectable_difference": 0.004372529965479892,
+      "status": "pass"
+    },
+    "s2:category:3:roi2": {
+      "reference_mean": 0.00011136265724491715,
+      "twin_mean": 0.0002512052765182451,
+      "reference_SEM": 4.9346473548460486e-05,
+      "twin_SEM": 7.567595770165215e-05,
+      "z": 1.5479012438305395,
+      "detectable_difference": 0.00027103011867978883,
+      "status": "pass"
+    },
+    "s3:deposit:air": {
+      "reference_mean": 0.5482963287293658,
+      "twin_mean": 0.5458004516106835,
+      "reference_SEM": 0.0014401965323356768,
+      "twin_SEM": 0.0011747346073600006,
+      "z": -1.3429242183214276,
+      "detectable_difference": 0.005575617189632791,
+      "status": "pass"
+    },
+    "s3:deposit:aluminum": {
+      "reference_mean": 17.11850052033999,
+      "twin_mean": 17.127088096745048,
+      "reference_SEM": 0.004979545704130438,
+      "twin_SEM": 0.008126930174405932,
+      "z": 0.9010008321780273,
+      "detectable_difference": 0.028593457736215497,
+      "status": "pass"
+    },
+    "s3:escape": {
+      "reference_mean": 0.06127590000000001,
+      "twin_mean": 0.061174400000000004,
+      "reference_SEM": 7.627209333840446e-05,
+      "twin_SEM": 6.764764921595192e-05,
+      "z": -0.9955940139969631,
+      "detectable_difference": 0.00030584756006873893,
+      "status": "pass"
+    },
+    "s3:category:0:all": {
+      "reference_mean": 753.4187222222222,
+      "twin_mean": 753.3571,
+      "reference_SEM": 0.22254538547918087,
+      "twin_SEM": 0.4396015503654157,
+      "z": -0.12506463077781543,
+      "detectable_difference": 1.478169051609385,
+      "status": "pass"
+    },
+    "s3:category:0:roi0": {
+      "reference_mean": 42.67713111111111,
+      "twin_mean": 42.80188333333333,
+      "reference_SEM": 0.0694734332936528,
+      "twin_SEM": 0.11552629883967631,
+      "z": 0.9254146434935256,
+      "detectable_difference": 0.40442051495295883,
+      "status": "pass"
+    },
+    "s3:category:0:roi1": {
+      "reference_mean": 13.280305555555554,
+      "twin_mean": 13.282826666666669,
+      "reference_SEM": 0.046781714893989294,
+      "twin_SEM": 0.04678829007711447,
+      "z": 0.038103979131841145,
+      "detectable_difference": 0.19849195558224614,
+      "status": "pass"
+    },
+    "s3:category:0:roi2": {
+      "reference_mean": 10.528452222222223,
+      "twin_mean": 10.417270000000002,
+      "reference_SEM": 0.05389848681359819,
+      "twin_SEM": 0.040449966962874985,
+      "z": -1.649862692215469,
+      "detectable_difference": 0.20216631859149947,
+      "status": "pass"
+    },
+    "s3:category:1:all": {
+      "reference_mean": 92.425900164395,
+      "twin_mean": 92.5062560925099,
+      "reference_SEM": 0.1589059523130585,
+      "twin_SEM": 0.08758579342245937,
+      "z": 0.4428660175089978,
+      "detectable_difference": 0.544335701575467,
+      "status": "pass"
+    },
+    "s3:category:1:roi0": {
+      "reference_mean": 3.314357089017508,
+      "twin_mean": 3.342489683421107,
+      "reference_SEM": 0.0224706871602168,
+      "twin_SEM": 0.013724004973415705,
+      "z": 1.0684529921354435,
+      "detectable_difference": 0.07899063770893384,
+      "status": "pass"
+    },
+    "s3:category:1:roi1": {
+      "reference_mean": 1.6755632916927445,
+      "twin_mean": 1.6788252919712554,
+      "reference_SEM": 0.016161147959005737,
+      "twin_SEM": 0.020256281452950376,
+      "z": 0.12588126575602,
+      "detectable_difference": 0.07773993037613391,
+      "status": "pass"
+    },
+    "s3:category:1:roi2": {
+      "reference_mean": 1.6481321873744261,
+      "twin_mean": 1.6538894052011641,
+      "reference_SEM": 0.02309826708555746,
+      "twin_SEM": 0.019577441234826423,
+      "z": 0.19014018103771607,
+      "detectable_difference": 0.09083642071839611,
+      "status": "pass"
+    },
+    "s3:category:2:all": {
+      "reference_mean": 15.1399097595823,
+      "twin_mean": 15.263560146041016,
+      "reference_SEM": 0.04078665978169923,
+      "twin_SEM": 0.05297113042633354,
+      "z": 1.849551304079343,
+      "detectable_difference": 0.20056278436720382,
+      "status": "pass"
+    },
+    "s3:category:2:roi0": {
+      "reference_mean": 0.4803079324962951,
+      "twin_mean": 0.500936159268729,
+      "reference_SEM": 0.01443418366223937,
+      "twin_SEM": 0.012428706863078611,
+      "z": 1.082972024097245,
+      "detectable_difference": 0.057143378536383,
+      "status": "pass"
+    },
+    "s3:category:2:roi1": {
+      "reference_mean": 0.22436148276323645,
+      "twin_mean": 0.22207122361608853,
+      "reference_SEM": 0.007303753232372249,
+      "twin_SEM": 0.008298585817074428,
+      "z": -0.2071709593745662,
+      "detectable_difference": 0.03316477107692185,
+      "status": "pass"
+    },
+    "s3:category:2:roi2": {
+      "reference_mean": 0.28941127488948015,
+      "twin_mean": 0.2842984013682465,
+      "reference_SEM": 0.007073805745950235,
+      "twin_SEM": 0.005147698516575119,
+      "z": -0.5844237204093464,
+      "detectable_difference": 0.026245718693548747,
+      "status": "pass"
+    },
+    "s3:category:3:all": {
+      "reference_mean": 0.0,
+      "twin_mean": 0.0,
+      "reference_SEM": 0.0,
+      "twin_SEM": 0.0,
+      "z": null,
+      "detectable_difference": 0.0,
+      "status": "both_zero"
+    },
+    "s3:category:3:roi0": {
+      "reference_mean": 0.0,
+      "twin_mean": 0.0,
+      "reference_SEM": 0.0,
+      "twin_SEM": 0.0,
+      "z": null,
+      "detectable_difference": 0.0,
+      "status": "both_zero"
+    },
+    "s3:category:3:roi1": {
+      "reference_mean": 0.0,
+      "twin_mean": 0.0,
+      "reference_SEM": 0.0,
+      "twin_SEM": 0.0,
+      "z": null,
+      "detectable_difference": 0.0,
+      "status": "both_zero"
+    },
+    "s3:category:3:roi2": {
+      "reference_mean": 0.0,
+      "twin_mean": 0.0,
+      "reference_SEM": 0.0,
+      "twin_SEM": 0.0,
+      "z": null,
+      "detectable_difference": 0.0,
+      "status": "both_zero"
+    }
+  },
+  "scene_sha256": {
+    "s1": "8845281fc8643ad2625f7b1ed4ab2091560cd558b70886416a8b701fd943564e",
+    "s2": "1890bc6b0a9ed2d969ed17c9eabfdd211b19e83f59dc396a4655907b6be7c066",
+    "s3": "12c46b401c37508349a71d624b57bf202d0f885b1834df3f872e77d08e7bb892"
+  },
+  "seeds": {
+    "reference": [
+      5000,
+      5001,
+      5002,
+      5003,
+      5004,
+      5005,
+      5006,
+      5007,
+      5008,
+      5009
+    ],
+    "transport": [
+      6000,
+      6001,
+      6002,
+      6003,
+      6004,
+      6005,
+      6006,
+      6007,
+      6008,
+      6009
+    ],
+    "source": [
+      7000,
+      7001,
+      7002,
+      7003,
+      7004,
+      7005,
+      7006,
+      7007,
+      7008,
+      7009
+    ]
+  },
+  "n_histories_per_run": 1000000,
+  "n_runs": 10,
+  "batch_size": 200000,
+  "retry": false,
+  "attempts": [
+    {
+      "status": "pass",
+      "K": 51,
+      "sum_z2_over_K": 1.2264936531732271,
+      "quantities": {
+        "s1:deposit:air": {
+          "reference_mean": 0.2737251505920482,
+          "twin_mean": 0.27229682565382063,
+          "reference_SEM": 0.0011078949743819982,
+          "twin_SEM": 0.0008748543944881778,
+          "z": -1.011800756478788,
+          "detectable_difference": 0.00423499862719523,
+          "status": "pass"
+        },
+        "s1:deposit:water": {
+          "reference_mean": 37.09517971934009,
+          "twin_mean": 37.11121108926135,
+          "reference_SEM": 0.0069398410524372026,
+          "twin_SEM": 0.0076917188622138335,
+          "z": 1.5474703836206174,
+          "detectable_difference": 0.03107917946143139,
+          "status": "pass"
+        },
+        "s1:escape": {
+          "reference_mean": 0.4034829999999999,
+          "twin_mean": 0.40328489999999995,
+          "reference_SEM": 0.00014424154125016324,
+          "twin_SEM": 0.00012673353059777765,
+          "z": -1.031728713107024,
+          "detectable_difference": 0.0005760235151450013,
+          "status": "pass"
+        },
+        "s1:category:0:all": {
+          "reference_mean": 3.8454,
+          "twin_mean": 3.822,
+          "reference_SEM": 0.01081428684657477,
+          "twin_SEM": 0.007907869498164483,
+          "z": -1.7466422267477155,
+          "detectable_difference": 0.040191402065616,
+          "status": "pass"
+        },
+        "s1:category:0:roi0": {
+          "reference_mean": 0.9613919999999998,
+          "twin_mean": 0.957672,
+          "reference_SEM": 0.004114022848745495,
+          "twin_SEM": 0.0048365342963738,
+          "z": -0.5858649273085267,
+          "detectable_difference": 0.01904875932967814,
+          "status": "pass"
+        },
+        "s1:category:0:roi1": {
+          "reference_mean": 0.0,
+          "twin_mean": 0.0,
+          "reference_SEM": 0.0,
+          "twin_SEM": 0.0,
+          "z": null,
+          "detectable_difference": 0.0,
+          "status": "both_zero"
+        },
+        "s1:category:0:roi2": {
+          "reference_mean": 0.0,
+          "twin_mean": 0.0,
+          "reference_SEM": 0.0,
+          "twin_SEM": 0.0,
+          "z": null,
+          "detectable_difference": 0.0,
+          "status": "both_zero"
+        },
+        "s1:category:1:all": {
+          "reference_mean": 3.1824187524940237,
+          "twin_mean": 3.1818213341723127,
+          "reference_SEM": 0.010583545185613101,
+          "twin_SEM": 0.010928006095816591,
+          "z": -0.039270473101333275,
+          "detectable_difference": 0.045638741364492835,
+          "status": "pass"
+        },
+        "s1:category:1:roi0": {
+          "reference_mean": 0.36376516234085937,
+          "twin_mean": 0.36006173394786967,
+          "reference_SEM": 0.004519103700946357,
+          "twin_SEM": 0.0023385601788682934,
+          "z": -0.7278270311646949,
+          "detectable_difference": 0.015265007623020044,
+          "status": "pass"
+        },
+        "s1:category:1:roi1": {
+          "reference_mean": 0.015464464431092447,
+          "twin_mean": 0.015509787090807256,
+          "reference_SEM": 0.0008769957243346544,
+          "twin_SEM": 0.0008983307201022071,
+          "z": 0.03610113079370124,
+          "detectable_difference": 0.0037663080395296316,
+          "status": "pass"
+        },
+        "s1:category:1:roi2": {
+          "reference_mean": 0.07867886924145925,
+          "twin_mean": 0.07950557742879959,
+          "reference_SEM": 0.0012744652317459436,
+          "twin_SEM": 0.0012665834754033635,
+          "z": 0.46009991987083615,
+          "detectable_difference": 0.005390404246793272,
+          "status": "pass"
+        },
+        "s1:category:2:all": {
+          "reference_mean": 6.965594997989214,
+          "twin_mean": 6.967542571705825,
+          "reference_SEM": 0.011309365516095264,
+          "twin_SEM": 0.01057331193729136,
+          "z": 0.12579486148608263,
+          "detectable_difference": 0.046446421426189696,
+          "status": "pass"
+        },
+        "s1:category:2:roi0": {
+          "reference_mean": 0.4388256577412365,
+          "twin_mean": 0.4455532992059698,
+          "reference_SEM": 0.002143352247261508,
+          "twin_SEM": 0.0027347168032065892,
+          "z": 1.9362516731887764,
+          "detectable_difference": 0.010423709207678081,
+          "status": "pass"
+        },
+        "s1:category:2:roi1": {
+          "reference_mean": 0.0663578895535419,
+          "twin_mean": 0.06843192803875991,
+          "reference_SEM": 0.0012027186290944683,
+          "twin_SEM": 0.0010520605922243395,
+          "z": 1.2979575234538387,
+          "detectable_difference": 0.004793774328683062,
+          "status": "pass"
+        },
+        "s1:category:2:roi2": {
+          "reference_mean": 0.2164615202478462,
+          "twin_mean": 0.21600489846279475,
+          "reference_SEM": 0.0020960973153824,
+          "twin_SEM": 0.0019445339134951604,
+          "z": -0.15970448054134345,
+          "detectable_difference": 0.008577501085198124,
+          "status": "pass"
+        },
+        "s1:category:3:all": {
+          "reference_mean": 0.0,
+          "twin_mean": 0.0,
+          "reference_SEM": 0.0,
+          "twin_SEM": 0.0,
+          "z": null,
+          "detectable_difference": 0.0,
+          "status": "both_zero"
+        },
+        "s1:category:3:roi0": {
+          "reference_mean": 0.0,
+          "twin_mean": 0.0,
+          "reference_SEM": 0.0,
+          "twin_SEM": 0.0,
+          "z": null,
+          "detectable_difference": 0.0,
+          "status": "both_zero"
+        },
+        "s1:category:3:roi1": {
+          "reference_mean": 0.0,
+          "twin_mean": 0.0,
+          "reference_SEM": 0.0,
+          "twin_SEM": 0.0,
+          "z": null,
+          "detectable_difference": 0.0,
+          "status": "both_zero"
+        },
+        "s1:category:3:roi2": {
+          "reference_mean": 0.0,
+          "twin_mean": 0.0,
+          "reference_SEM": 0.0,
+          "twin_SEM": 0.0,
+          "z": null,
+          "detectable_difference": 0.0,
+          "status": "both_zero"
+        },
+        "s2:deposit:air": {
+          "reference_mean": 0.40515228825628774,
+          "twin_mean": 0.4023222354124303,
+          "reference_SEM": 0.0013412016872698502,
+          "twin_SEM": 0.0010609632399916143,
+          "z": -1.6548983907701766,
+          "detectable_difference": 0.005130320132598059,
+          "status": "pass"
+        },
+        "s2:deposit:soft_tissue": {
+          "reference_mean": 18.208836541969966,
+          "twin_mean": 18.21957711900469,
+          "reference_SEM": 0.008319865151939347,
+          "twin_SEM": 0.009508485955417825,
+          "z": 0.8500967771289979,
+          "detectable_difference": 0.0379036034144182,
+          "status": "pass"
+        },
+        "s2:deposit:bone": {
+          "reference_mean": 11.584310669350346,
+          "twin_mean": 11.591973306467882,
+          "reference_SEM": 0.005967310497322266,
+          "twin_SEM": 0.0057749813483298365,
+          "z": 0.9227459307381367,
+          "detectable_difference": 0.024912503633819905,
+          "status": "pass"
+        },
+        "s2:deposit:copper": {
+          "reference_mean": 2.183089201514742,
+          "twin_mean": 2.1771725611792614,
+          "reference_SEM": 0.0027550023046321952,
+          "twin_SEM": 0.004264082292488075,
+          "z": -1.1654601788485492,
+          "detectable_difference": 0.0152299678089204,
+          "status": "pass"
+        },
+        "s2:deposit:lead": {
+          "reference_mean": 0.7185256661745321,
+          "twin_mean": 0.7182540166350062,
+          "reference_SEM": 0.0016699512185799259,
+          "twin_SEM": 0.0017937780521110921,
+          "z": -0.11084157479790772,
+          "detectable_difference": 0.0073523731511701985,
+          "status": "pass"
+        },
+        "s2:deposit:aluminum": {
+          "reference_mean": 0.45358835336562997,
+          "twin_mean": 0.4560828078900231,
+          "reference_SEM": 0.0014813195247995806,
+          "twin_SEM": 0.0016105882937318874,
+          "z": 1.1399474083357732,
+          "detectable_difference": 0.006564656859130401,
+          "status": "pass"
+        },
+        "s2:escape": {
+          "reference_mean": 0.27563439999999995,
+          "twin_mean": 0.27569849999999996,
+          "reference_SEM": 0.0001670024750315605,
+          "twin_SEM": 0.00016991718571115496,
+          "z": 0.2690484050127607,
+          "detectable_difference": 0.0007147412748680427,
+          "status": "pass"
+        },
+        "s2:category:0:all": {
+          "reference_mean": 13.650198799999998,
+          "twin_mean": 13.650740900000002,
+          "reference_SEM": 0.01603013161365528,
+          "twin_SEM": 0.01884821338804044,
+          "z": 0.021909151369875007,
+          "detectable_difference": 0.07422925573687207,
+          "status": "pass"
+        },
+        "s2:category:0:roi0": {
+          "reference_mean": 1.0843682,
+          "twin_mean": 1.0779966,
+          "reference_SEM": 0.004085983384422621,
+          "twin_SEM": 0.003857892024293978,
+          "z": -1.1338409259637017,
+          "detectable_difference": 0.016858449507591126,
+          "status": "pass"
+        },
+        "s2:category:0:roi1": {
+          "reference_mean": 0.9593081999999999,
+          "twin_mean": 0.9430805,
+          "reference_SEM": 0.0042970492195872675,
+          "twin_SEM": 0.006636692843159498,
+          "z": -2.0524902169705017,
+          "detectable_difference": 0.023719041190781734,
+          "status": "pass"
+        },
+        "s2:category:0:roi2": {
+          "reference_mean": 0.3521288,
+          "twin_mean": 0.3462967,
+          "reference_SEM": 0.002684986400958732,
+          "twin_SEM": 0.0035620075676817725,
+          "z": -1.3074666428146793,
+          "detectable_difference": 0.013381832795622573,
+          "status": "pass"
+        },
+        "s2:category:1:all": {
+          "reference_mean": 7.921364692028959,
+          "twin_mean": 7.912241855044385,
+          "reference_SEM": 0.015605345907182619,
+          "twin_SEM": 0.011999491062669397,
+          "z": -0.4634318479073348,
+          "detectable_difference": 0.059056172072130916,
+          "status": "pass"
+        },
+        "s2:category:1:roi0": {
+          "reference_mean": 0.5565514897474241,
+          "twin_mean": 0.5474010442845714,
+          "reference_SEM": 0.0034022991470881348,
+          "twin_SEM": 0.0026968831298974216,
+          "z": -2.1076581649007986,
+          "detectable_difference": 0.013024567667428263,
+          "status": "pass"
+        },
+        "s2:category:1:roi1": {
+          "reference_mean": 0.33783505378052753,
+          "twin_mean": 0.33371512320764024,
+          "reference_SEM": 0.004011107162169715,
+          "twin_SEM": 0.0017320328628488862,
+          "z": -0.9429729518421855,
+          "detectable_difference": 0.013107260069884143,
+          "status": "pass"
+        },
+        "s2:category:1:roi2": {
+          "reference_mean": 0.23836899860704003,
+          "twin_mean": 0.23640546905975626,
+          "reference_SEM": 0.002812233350589307,
+          "twin_SEM": 0.003738790775192724,
+          "z": -0.41970313185367564,
+          "detectable_difference": 0.014035131488856694,
+          "status": "pass"
+        },
+        "s2:category:2:all": {
+          "reference_mean": 8.499691850769766,
+          "twin_mean": 8.466595303029864,
+          "reference_SEM": 0.009968289213243834,
+          "twin_SEM": 0.01417839573682195,
+          "z": -1.9095774986896066,
+          "detectable_difference": 0.05199560807971417,
+          "status": "pass"
+        },
+        "s2:category:2:roi0": {
+          "reference_mean": 0.5166086155502851,
+          "twin_mean": 0.5079839605677502,
+          "reference_SEM": 0.003757135433944442,
+          "twin_SEM": 0.004139582493004396,
+          "z": -1.5427706372981365,
+          "detectable_difference": 0.016771102795239926,
+          "status": "pass"
+        },
+        "s2:category:2:roi1": {
+          "reference_mean": 0.2601375266550132,
+          "twin_mean": 0.2578076288785751,
+          "reference_SEM": 0.0034216697237246306,
+          "twin_SEM": 0.0024161172119104004,
+          "z": -0.5562303216334302,
+          "detectable_difference": 0.01256618536865867,
+          "status": "pass"
+        },
+        "s2:category:2:roi2": {
+          "reference_mean": 0.23924103076253625,
+          "twin_mean": 0.2350188628616278,
+          "reference_SEM": 0.002135354785370813,
+          "twin_SEM": 0.001088052212233525,
+          "z": -1.7617468114210504,
+          "detectable_difference": 0.007189741238985635,
+          "status": "pass"
+        },
+        "s2:category:3:all": {
+          "reference_mean": 0.09722939951005972,
+          "twin_mean": 0.10079645232940534,
+          "reference_SEM": 0.0013132966176599523,
+          "twin_SEM": 0.002001187679718548,
+          "z": 1.490222695395123,
+          "detectable_difference": 0.007180912283180279,
+          "status": "pass"
+        },
+        "s2:category:3:roi0": {
+          "reference_mean": 0.003575102564222947,
+          "twin_mean": 0.00372644247194412,
+          "reference_SEM": 0.0004377266491979078,
+          "twin_SEM": 0.000443484257211727,
+          "z": 0.24287305142239873,
+          "detectable_difference": 0.0018693705230140947,
+          "status": "pass"
+        },
+        "s2:category:3:roi1": {
+          "reference_mean": 0.044786312588767044,
+          "twin_mean": 0.04607661017891236,
+          "reference_SEM": 0.0008228556373858734,
+          "twin_SEM": 0.0012030145329878685,
+          "z": 0.8852752985104164,
+          "detectable_difference": 0.004372529965479892,
+          "status": "pass"
+        },
+        "s2:category:3:roi2": {
+          "reference_mean": 0.00011136265724491715,
+          "twin_mean": 0.0002512052765182451,
+          "reference_SEM": 4.9346473548460486e-05,
+          "twin_SEM": 7.567595770165215e-05,
+          "z": 1.5479012438305395,
+          "detectable_difference": 0.00027103011867978883,
+          "status": "pass"
+        },
+        "s3:deposit:air": {
+          "reference_mean": 0.5482963287293658,
+          "twin_mean": 0.5458004516106835,
+          "reference_SEM": 0.0014401965323356768,
+          "twin_SEM": 0.0011747346073600006,
+          "z": -1.3429242183214276,
+          "detectable_difference": 0.005575617189632791,
+          "status": "pass"
+        },
+        "s3:deposit:aluminum": {
+          "reference_mean": 17.11850052033999,
+          "twin_mean": 17.127088096745048,
+          "reference_SEM": 0.004979545704130438,
+          "twin_SEM": 0.008126930174405932,
+          "z": 0.9010008321780273,
+          "detectable_difference": 0.028593457736215497,
+          "status": "pass"
+        },
+        "s3:escape": {
+          "reference_mean": 0.06127590000000001,
+          "twin_mean": 0.061174400000000004,
+          "reference_SEM": 7.627209333840446e-05,
+          "twin_SEM": 6.764764921595192e-05,
+          "z": -0.9955940139969631,
+          "detectable_difference": 0.00030584756006873893,
+          "status": "pass"
+        },
+        "s3:category:0:all": {
+          "reference_mean": 753.4187222222222,
+          "twin_mean": 753.3571,
+          "reference_SEM": 0.22254538547918087,
+          "twin_SEM": 0.4396015503654157,
+          "z": -0.12506463077781543,
+          "detectable_difference": 1.478169051609385,
+          "status": "pass"
+        },
+        "s3:category:0:roi0": {
+          "reference_mean": 42.67713111111111,
+          "twin_mean": 42.80188333333333,
+          "reference_SEM": 0.0694734332936528,
+          "twin_SEM": 0.11552629883967631,
+          "z": 0.9254146434935256,
+          "detectable_difference": 0.40442051495295883,
+          "status": "pass"
+        },
+        "s3:category:0:roi1": {
+          "reference_mean": 13.280305555555554,
+          "twin_mean": 13.282826666666669,
+          "reference_SEM": 0.046781714893989294,
+          "twin_SEM": 0.04678829007711447,
+          "z": 0.038103979131841145,
+          "detectable_difference": 0.19849195558224614,
+          "status": "pass"
+        },
+        "s3:category:0:roi2": {
+          "reference_mean": 10.528452222222223,
+          "twin_mean": 10.417270000000002,
+          "reference_SEM": 0.05389848681359819,
+          "twin_SEM": 0.040449966962874985,
+          "z": -1.649862692215469,
+          "detectable_difference": 0.20216631859149947,
+          "status": "pass"
+        },
+        "s3:category:1:all": {
+          "reference_mean": 92.425900164395,
+          "twin_mean": 92.5062560925099,
+          "reference_SEM": 0.1589059523130585,
+          "twin_SEM": 0.08758579342245937,
+          "z": 0.4428660175089978,
+          "detectable_difference": 0.544335701575467,
+          "status": "pass"
+        },
+        "s3:category:1:roi0": {
+          "reference_mean": 3.314357089017508,
+          "twin_mean": 3.342489683421107,
+          "reference_SEM": 0.0224706871602168,
+          "twin_SEM": 0.013724004973415705,
+          "z": 1.0684529921354435,
+          "detectable_difference": 0.07899063770893384,
+          "status": "pass"
+        },
+        "s3:category:1:roi1": {
+          "reference_mean": 1.6755632916927445,
+          "twin_mean": 1.6788252919712554,
+          "reference_SEM": 0.016161147959005737,
+          "twin_SEM": 0.020256281452950376,
+          "z": 0.12588126575602,
+          "detectable_difference": 0.07773993037613391,
+          "status": "pass"
+        },
+        "s3:category:1:roi2": {
+          "reference_mean": 1.6481321873744261,
+          "twin_mean": 1.6538894052011641,
+          "reference_SEM": 0.02309826708555746,
+          "twin_SEM": 0.019577441234826423,
+          "z": 0.19014018103771607,
+          "detectable_difference": 0.09083642071839611,
+          "status": "pass"
+        },
+        "s3:category:2:all": {
+          "reference_mean": 15.1399097595823,
+          "twin_mean": 15.263560146041016,
+          "reference_SEM": 0.04078665978169923,
+          "twin_SEM": 0.05297113042633354,
+          "z": 1.849551304079343,
+          "detectable_difference": 0.20056278436720382,
+          "status": "pass"
+        },
+        "s3:category:2:roi0": {
+          "reference_mean": 0.4803079324962951,
+          "twin_mean": 0.500936159268729,
+          "reference_SEM": 0.01443418366223937,
+          "twin_SEM": 0.012428706863078611,
+          "z": 1.082972024097245,
+          "detectable_difference": 0.057143378536383,
+          "status": "pass"
+        },
+        "s3:category:2:roi1": {
+          "reference_mean": 0.22436148276323645,
+          "twin_mean": 0.22207122361608853,
+          "reference_SEM": 0.007303753232372249,
+          "twin_SEM": 0.008298585817074428,
+          "z": -0.2071709593745662,
+          "detectable_difference": 0.03316477107692185,
+          "status": "pass"
+        },
+        "s3:category:2:roi2": {
+          "reference_mean": 0.28941127488948015,
+          "twin_mean": 0.2842984013682465,
+          "reference_SEM": 0.007073805745950235,
+          "twin_SEM": 0.005147698516575119,
+          "z": -0.5844237204093464,
+          "detectable_difference": 0.026245718693548747,
+          "status": "pass"
+        },
+        "s3:category:3:all": {
+          "reference_mean": 0.0,
+          "twin_mean": 0.0,
+          "reference_SEM": 0.0,
+          "twin_SEM": 0.0,
+          "z": null,
+          "detectable_difference": 0.0,
+          "status": "both_zero"
+        },
+        "s3:category:3:roi0": {
+          "reference_mean": 0.0,
+          "twin_mean": 0.0,
+          "reference_SEM": 0.0,
+          "twin_SEM": 0.0,
+          "z": null,
+          "detectable_difference": 0.0,
+          "status": "both_zero"
+        },
+        "s3:category:3:roi1": {
+          "reference_mean": 0.0,
+          "twin_mean": 0.0,
+          "reference_SEM": 0.0,
+          "twin_SEM": 0.0,
+          "z": null,
+          "detectable_difference": 0.0,
+          "status": "both_zero"
+        },
+        "s3:category:3:roi2": {
+          "reference_mean": 0.0,
+          "twin_mean": 0.0,
+          "reference_SEM": 0.0,
+          "twin_SEM": 0.0,
+          "z": null,
+          "detectable_difference": 0.0,
+          "status": "both_zero"
+        }
+      },
+      "scene_sha256": {
+        "s1": "8845281fc8643ad2625f7b1ed4ab2091560cd558b70886416a8b701fd943564e",
+        "s2": "1890bc6b0a9ed2d969ed17c9eabfdd211b19e83f59dc396a4655907b6be7c066",
+        "s3": "12c46b401c37508349a71d624b57bf202d0f885b1834df3f872e77d08e7bb892"
+      },
+      "seeds": {
+        "reference": [
+          5000,
+          5001,
+          5002,
+          5003,
+          5004,
+          5005,
+          5006,
+          5007,
+          5008,
+          5009
+        ],
+        "transport": [
+          6000,
+          6001,
+          6002,
+          6003,
+          6004,
+          6005,
+          6006,
+          6007,
+          6008,
+          6009
+        ],
+        "source": [
+          7000,
+          7001,
+          7002,
+          7003,
+          7004,
+          7005,
+          7006,
+          7007,
+          7008,
+          7009
+        ]
+      },
+      "n_histories_per_run": 1000000,
+      "n_runs": 10,
+      "batch_size": 200000,
+      "retry": false
+    }
+  ],
+  "interpretation": "\u3053\u306e\u7cbe\u5ea6\u3067\u306f\u5dee\u3092\u691c\u51fa\u3057\u306a\u304b\u3063\u305f\u3002\u540c\u7b49\u6027\u306e\u8a3c\u660e\u3067\u306f\u306a\u3044\u3002"
+}

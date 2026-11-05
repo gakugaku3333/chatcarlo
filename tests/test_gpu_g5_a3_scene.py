@@ -52,7 +52,7 @@ def test_diagnostic_set_rejected(setting):
 
 
 @pytest.mark.parametrize('spectrum',['mohan10','mohan4'])
-@pytest.mark.parametrize('setting',[None,'therapy-electron-v1'])
+@pytest.mark.parametrize('setting',[None,physics_sets.NAME])
 def test_therapy_valid(spectrum,setting):
     raw=mv();raw['source']['spectrum']=spectrum
     if setting:raw['physics']={'set':setting}
@@ -65,12 +65,12 @@ def test_therapy_refusals(damage):
     if damage=='spectrum':raw['source']['spectrum']='mohan6'
     elif damage=='quantity':raw['quantity']='H*(10)'
     elif damage=='fluor':raw['physics']={'fluorescence':False}
-    else:raw['physics']={'set':physics_sets.DIAGNOSTIC if damage=='diagnostic' else 'unknown'}
+    else:raw['physics']={'set':'diagnostic-photon-kerma-v1' if damage=='diagnostic' else 'unknown'}
     with pytest.raises(ValueError):therapy_scene.validate(raw)
 
 
 def test_quantity_api():
-    with pytest.raises(ValueError,match='unsupported'):physics_sets.require_quantity('therapy-electron-v1','H*(10)')
+    with pytest.raises(ValueError,match='unsupported'):physics_sets.require_quantity(physics_sets.NAME,'H*(10)',specialization=physics_sets.ELECTRON)
 
 
 def test_no_prototype_runtime_and_help():

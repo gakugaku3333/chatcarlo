@@ -27,7 +27,8 @@ def load(path, spectrum):
     for name in ('lo','hi','origins','widths','axes','sizes','offsets'):
         getattr(fg,name)[:]=inputs['field_'+name]
     # P7 geometry and probabilities come from the sealed bundle, never a prototype.
-    edges=inputs[spectrum+'_edges'];cum=inputs[spectrum+'_cum']
+    if isinstance(spectrum,dict):edges=np.asarray(spectrum['edges'],float);cum=np.asarray(spectrum['cum'],float)
+    else:edges=inputs[spectrum+'_edges'];cum=inputs[spectrum+'_cum']
     bins=np.arange(301,dtype=float)*.1
     arrays=dict(faces=np.array([0.,30.]),rho=np.array([1.]),bins=bins,
                 strength=inputs['strength'],edges=edges,cum=cum,ids=np.array([0],np.int64),

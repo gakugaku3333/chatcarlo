@@ -32,14 +32,14 @@ def retry(name,fn):
 
 def faults(factory):
     reports={};g=core.Grid((-2.,)*3,(.1,)*3,(40,)*3);coarse=core.Grid((-20.,)*3,(40.,)*3,(1,)*3)
-    state=np.zeros((1,23));state[0,:3]=(.125,.125,.125);state[0,3]=1.;state[0,6]=.007
+    state=np.zeros((1,23));state[0,:3]=(.125,.125,.125);state[0,3]=1.;state[0,6]=.004
     for fault in (0,1,2,3,4):
-        e=factory(fault,grids=(g,coarse),energy=.007,cylinders=())
+        e=factory(fault,grids=(g,coarse),energy=.004,cylinders=())
         try:
             r=e.run(1,9502101,injected=state)
             values=r['grids'][0]
             if hasattr(e,'cp'):values=e.cp.asnumpy(values)
-            want=np.zeros(g.shape);want[g.index(state[0,:3])]=.007
+            want=np.zeros(g.shape);want[g.index(state[0,:3])]=.004
             np.testing.assert_allclose(values,want,rtol=1e-12,atol=0)
         except (AssertionError,ValueError):
             if fault==0:raise

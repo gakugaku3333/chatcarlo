@@ -122,8 +122,15 @@ by raising the default n_histories.
 
 **G5 A3 entry (closed 2026-11-02; docs/validation/gpu/g5/A3_LOCAL.md)**: `therapy_mv/pdd_ocr` uses the package-owned
 therapy launcher and sealed external bundle, P7 scoring ±20 cm for both 10 MV and 4 MV.
-`seed_ratio` moved to `gpu/seed_entry.py` in A2b (2026-11-03). Optional `physics.set` permits diagnostic-photon-kerma-v1
-for maximum energy ≤150 keV and therapy-electron-v1 for the two allowlisted MV spectra only.
+`seed_ratio` moved to `gpu/seed_entry.py` in A2b (2026-11-03). **A4u (2026-11-03, in progress): one registered name, `chatcarlo-photon-electron-v1`, with two compile-time
+specializations, `local-deposition` (id 1, diagnostic drivers) and `electron-transport` (id 2, therapy drivers).**
+The old names diagnostic-photon-kerma-v1 and therapy-electron-v1 are retired and rejected, so old conditions and
+approvals must be regenerated. `validate` on the therapy entry now also accepts 20 keV–10 MeV monochromatic and **20 and 60 keV monochromatic passed against EGS5 on 2026-11-04 (depth curve to 15 cm only; OCR and deeper bins measured, not judged). That depth curve is the laterally integrated whole-slab depth dose, NOT the central-axis PDD users read (confirmed 2026-11-05: `a4u_h4_gate.py:260` scores `groups[:,450:1050]`, which equals the whole-slab field to 3e-15). The central-axis PDD (the quantity users read) was judged on 2026-11-05: **20 keV passes to 4.12 cm depth** (its ROI ends there), and **60 keV passes at 1.0 cm bins to 14.50 cm** -- the same binning as the canonical 2026-10-07 PDD validation, so only the ORDER of that judgement is post hoc, not the width. **At 0.25 cm bins 60 keV is insufficient statistics**, and that 0.25 cm choice was a design error of ours (4x finer than the project standard for this quantity). No disagreement is detected: the systematic central-axis offset is **+0.054% +- 0.165% (1 sigma), i.e. within +-0.33% at 2 sigma**. Counts, per-bin values, caveats (evaluable exactly at the minimum, one historical-2sigma failure) and the pre-registration are in `docs/validation/gpu/g5/a4u_pdd_final.json` and `A4U_PDD_PREREG.md` -- cite those, not this summary; other energies stay unvalidated. Exactly 20 or exactly 10000 keV halves the sampled bin and shifts its centre by +-0.05 keV (recorded, not changed).**
+histogram sources (spectra straddling 150 keV included), but **that range is not validated yet** — the A4u gates
+**H6 and H7 are still pending** (as of 2026-11-05; H0/H1/H2/H3a/H4/H5 passed, H3b closed as a failure with 14-15 keV
+unexplained at -13.9%, H1 still has the lead seam +1.13% unjudged), so numbers from anything other
+than the Mohan spectra are not results of a passed configuration. Plan and records:
+`docs/ai/plans/2026-11-03-chatcarlo-gpu-g5-a4u-unified-physics-set.md`, `docs/validation/gpu/g5/A4U.md`.
 Shared generation/approval/receipt contracts are in `gpu/contracts.py`; diagnostic condition format is now
 `chatcarlo-g5-entry-v1`, invalidating old approvals. Therapy outputs declare absorbed dose (Gy/history)
 and raw deposited energy (MeV); H*(10) is unsupported. Statistical and speed validation remain separate.

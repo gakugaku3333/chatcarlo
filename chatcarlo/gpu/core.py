@@ -6,6 +6,7 @@ from pathlib import Path
 import shutil
 import subprocess
 import tempfile
+import json
 
 import numpy as np
 from . import physics_sets
@@ -14,15 +15,19 @@ HERE=Path(__file__).resolve().parent
 FIELDS='n_elem zs fracs log_e step n_grid photo compt rayl incoh_q incoh_s rayl_x rayl_a k_edge k_omega k_line_e k_line_p n_lines k_frac density_g_cm3'.split()
 CPU_FLAGS=('-O2','-ffp-contract=off','-std=c++11','-shared','-fPIC')
 CUDA_OPTIONS=('-DP5_GPU','-DP5_RNG_PHILOX','--fmad=false')
-SOURCES=('g5_base.h','physics_set.h','g2_tally.h','g1_common.h','g1_physics.h','g1_geometry.h','g1_history.h','g1_cpu.cpp','g1_gpu.cu')
+SOURCES=('g5_base.h','physics_set.h','g2_tally.h','g1_common.h','photon_physics.h','g1_geometry.h','g1_history.h','g1_cpu.cpp','g1_gpu.cu')
 
 class Geometry(ctypes.Structure):
     _fields_=[('centers',ctypes.c_void_p),('halves',ctypes.c_void_p),('materials',ctypes.c_void_p),('nb',ctypes.c_int),('bg',ctypes.c_int),('world',ctypes.c_void_p),('det',ctypes.c_void_p)]
 
 def pack(tables):
     chunks=[np.asarray(getattr(tables,f),np.float64).ravel() for f in FIELDS]
+    from .generate_photon_tables import material
+    photons=[material(tables.zs[m,:int(tables.n_elem[m])],tables.fracs[m,:int(tables.n_elem[m])])[0] for m in range(len(tables.material_names))]
+    starts=np.r_[len(photons),len(photons)+np.cumsum([len(p) for p in photons])[:-1]]
+    chunks.append(np.r_[starts,*photons])
     offsets=np.r_[0,np.cumsum([len(c) for c in chunks])[:-1]].astype(np.int64)
-    return dict(data=np.concatenate(chunks),offsets=offsets,me=np.array(tables.zs.shape[1]),ng=np.array(tables.log_e.shape[2]),nm=np.array(len(tables.material_names)))
+    return dict(data=np.concatenate(chunks),offsets=offsets,me=np.array(tables.zs.shape[1]),ng=np.array(tables.log_e.shape[2]),nm=np.array(len(tables.material_names)),photon_generator_sha256=np.frombuffer(hashlib.sha256((HERE/'generate_photon_tables.py').read_bytes()).digest(),dtype=np.uint8).copy())
 
 def cuda_source():
     def expand(name):
@@ -34,7 +39,7 @@ def cuda_source():
     probes=(HERE/'g1_cpu.cpp').read_text()
     probes=probes[probes.index('extern "C" void g1_direction_probe'):probes.index('#include "g1_history.h"')]
     probes=probes.replace('#include "g1_geometry.h"','')
-    for name in ('g1_direction_probe','g1_physics_probe','g1_geometry_probe'):
+    for name in ('g1_direction_probe','g1_physics_probe','g1_geometry_probe','g5_relax_probe'):
         probes=probes.replace('extern "C" void '+name+'(', 'extern "C" __global__ void '+name+'_kernel(')
     # Probes deliberately run serially; each input consumes the same single stream.
     probes=probes.replace('{\n    RngState rng;', '{\n    if(blockIdx.x || threadIdx.x)return;RngState rng;')
@@ -43,16 +48,17 @@ def cuda_source():
     return (HERE/'g1_gpu.cu').read_text().replace('//@@COMMON@@',expand('g1_history.h'))+'\n'+probes
 
 class Core:
-    def __init__(self,arrays,device='cpu',*,build_dir=None,rng='philox',fault=0,physics_set=physics_sets.DIAGNOSTIC,physics_declaration=None):
+    def __init__(self,arrays,device='cpu',*,build_dir=None,rng='philox',fault=0,physics_set=physics_sets.DIAGNOSTIC,physics_declaration=None,_test_legacy_physics=False,_test_photon_fault=0,_test_two_photons=False,_test_stack_capacity=32):
         if device not in ('cpu','cuda'):raise ValueError('device must be cpu or cuda')
         if rng not in ('mt','philox') or (device=='cuda' and rng!='philox'):raise ValueError('MT is CPU verification only')
         if physics_set != physics_sets.DIAGNOSTIC:
             raise ValueError('physics_set not implemented by diagnostic core: '+str(physics_set))
-        self.physics_set=physics_sets.declaration(physics_set)
+        self.physics_set=physics_sets.declaration(physics_set, specialization=physics_sets.LOCAL)
         if physics_declaration is not None:physics_sets.check(physics_declaration,self.physics_set)
-        self.set_options=(f'-DG5_SET_ID={self.physics_set["id"]}',f'-DG5_SET_TAG={self.physics_set["tag"]}ULL')
+        self.set_options=(f'-DG5_PHOTON_STACK_CAP={int(_test_stack_capacity)}',f'-DG5_PHOTON_FAULT={int(_test_photon_fault)}',f'-DG5_TEST_TWO_PHOTONS={int(_test_two_photons)}',f'-DG5_TEST_LEGACY_LOCAL={int(_test_legacy_physics)}',f'-DG5_SET_ID={self.physics_set["id"]}',f'-DG5_SET_TAG={self.physics_set["tag"]}ULL')
         self.cuda_options=CUDA_OPTIONS+self.set_options+((f'-DP5_FAULT={fault}',) if fault else ())
         self.a={k:np.ascontiguousarray(v) for k,v in arrays.items()};self.device=device;self.rng=rng
+        if not _test_legacy_physics and self.a['offsets'].shape!=(21,):raise ValueError('A4u photon tables missing; regenerate bundle')
         self.me=int(self.a['me'].item());self.ng=int(self.a['ng'].item());self.nm=int(self.a['nm'].item())
         if not 1<=self.me<=32 or not 1<=self.nm<=32:raise ValueError('G1 table capacity exceeded')
         self._hash_cache = {}
@@ -109,7 +115,7 @@ class Core:
             out=self.cp.asnumpy(gpu)
         if tuple(map(int,out))!=(self.physics_set['id'],self.physics_set['tag']):
             raise ValueError('compiled physics_set ID/tag mismatch')
-        return dict(name=self.physics_set['name'],id=int(out[0]),tag=int(out[1]))
+        return physics_sets.observation(self.physics_set['name'],int(out[0]),int(out[1]))
 
     def _energy_limit(self):
         a=self.a
@@ -159,7 +165,7 @@ class Core:
         if not all(np.isfinite(v).all() for v in (o,d,e)) or np.any(e<=0):raise ValueError('invalid source values')
         if np.any(np.log(e)>self.max_log_energy+1e-12):raise ValueError('source energy exceeds table upper bound')
         if trace_capacity and n!=1:raise ValueError('diagnostic replay requires exactly one history')
-        a=self.a;agg=np.zeros(self.nm+6+11*self.npix);rd=np.zeros((n if record else 1,self.nm+2));ri=np.zeros((n if record else 1,9),np.int64);trace=np.full((trace_capacity,8),np.nan)
+        a=self.a;agg=np.zeros(self.nm+6+11*self.npix+2+10001+1+(n*8*4 if record else 0));rd=np.zeros((n if record else 1,self.nm+2));ri=np.zeros((n if record else 1,9),np.int64);trace=np.full((trace_capacity,8),np.nan)
         fault = os.environ.get('CHATCARLO_G4_FAULT')
         seed = int(seed) + (fault == 'seed')
         start = int(start) + (fault == 'start')
@@ -179,19 +185,23 @@ class Core:
                 observed = self._observe(args, dict(g, origins=go, directions=gd, energies=ge))
             self.fn(((n+127)//128,),(128,),args)
             cp.cuda.Stream.null.synchronize();agg,rd,ri,trace=map(cp.asnumpy,(ga,grd,gri,gt))
-        if agg[-1]!=0:raise ValueError('invalid history output in device aggregation')
+        if agg[self.nm+5+11*self.npix]!=0:raise ValueError('invalid history output in device aggregation')
         result=dict(deposits=agg[:self.nm],endings=agg[self.nm:self.nm+3],scatter_sum=agg[self.nm+3],n_fluorescence=agg[self.nm+4])
+        result.update(completed=agg[self.nm+6+11*self.npix],created=agg[self.nm+7+11*self.npix],escaped_spectrum=agg[self.nm+8+11*self.npix:self.nm+8+11*self.npix+10001])
         if self.npix:
             result['images']=agg[self.nm+5:self.nm+5+7*self.npix].reshape(7,int(a['detector'][14]),int(a['detector'][15]))
-            result['category_count']=agg[self.nm+5+7*self.npix:-1].reshape(4,int(a['detector'][14]),int(a['detector'][15]))
-        if record:result.update(d=rd,i=ri)
+            result['category_count']=agg[self.nm+5+7*self.npix:self.nm+5+11*self.npix].reshape(4,int(a['detector'][14]),int(a['detector'][15]))
+        if record:
+            count=int(agg[self.nm+6+11*self.npix+10003]);result.update(d=rd,i=ri,terminals=agg[self.nm+6+11*self.npix+10004:].reshape(n*8,4)[:count])
         if trace_capacity:result['trace']=trace[np.isfinite(trace[:,0])]
         health(result,n,self.nm,a['detector'])
         return (result, observed) if observe else result
 
 def health(result,n,nm,plane):
     if not all(np.isfinite(v).all() for v in result.values()):raise ValueError('nonfinite batch output')
-    if np.any(result['deposits']<0) or np.any(result['endings']<0) or result['endings'].sum()!=n:raise ValueError('invalid deposits/endings or history conservation')
+    if np.any(result['deposits']<0) or np.any(result['endings']<0) or result.get('completed',n)!=n or result['endings'].sum()!=result.get('created',n):raise ValueError('invalid deposits/endings or history conservation')
+    if 'escaped_spectrum' in result and result['escaped_spectrum'].sum()!=result['endings'][1]:raise ValueError('escaped photon conservation')
+    if 'terminals' in result and len(result['terminals'])!=result['created']:raise ValueError('terminal photon conservation')
     if 'images' in result:
         if np.any(result['images']<0) or np.any(result['category_count']<0):raise ValueError('negative detector output')
         if result['category_count'].sum()!=result['endings'][2] or result['images'][4].sum()!=result['endings'][2]:raise ValueError('detector counts do not match endings')

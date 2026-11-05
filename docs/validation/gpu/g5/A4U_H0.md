@@ -1,0 +1,118 @@
+# A4u H0（手元・計算なし）の記録
+
+計画: [docs/ai/plans/2026-11-03-chatcarlo-gpu-g5-a4u-unified-physics-set.md](../../../ai/plans/2026-11-03-chatcarlo-gpu-g5-a4u-unified-physics-set.md)。
+Codex の計画レビューと並行して Claude が実施（2026-11-03）。
+
+## (1) 主張できる下限
+
+| 事実 | 値 | 出どころ |
+|---|---|---|
+| 治療の束の光子の表の範囲 | **0.001〜20 MeV**（水 711 点・鉛 917 点、`photo_E`・`pair_E` 同一格子） | `~/.cache/chatcarlo/p8e/materials/{water,lead}_bundle.npz` |
+| 対生成の閾値 | 1.022007 / 2.044014 MeV | 同 `thresholds` |
+| 鉛の殻の束縛エネルギー | K 0.088005・L1 0.015861・L2 0.0152・L3 0.013035・M 0.0028694 MeV | 同 `bindings` |
+| 電子の打ち切り | 10 keV（ユーザーの常設決定。上げない） | `.claude/rules/mv.md` |
+| 診断の帯 | 5〜150 keV、蛍光の線の下限 5 keV | `physics_sets.py`・`chatcarlo.md` |
+
+**結論**: 表は 1 keV まであるので表が下限を決めない。**下限は 5 keV**（診断の帯と蛍光の線の下限）とし、
+D6 の低い点は計画どおり **20 keV**（下限より上で、足した物理の効きが最大の端）。電子の打ち切りは 10 keV のまま。
+
+## (2) 直す箇所の一覧
+
+4 チャンネル固定（**計画に書いた 2 か所より多い**）:
+
+| 箇所 | 内容 |
+|---|---|
+| `t2_kernel.h:181` | `double c[4]` と `for(z<4)` の 2 つのループ |
+| `t2_kernel.h:190` | 材料境界での再構築のループ |
+| `t2_physics.h:349` | `p5_coefficients` を使う輸送の中 |
+| `t2_seed_kernel.h:203` | seed の核 |
+| `t2_seed_geometry.h:89` | seed の光子の遷移 |
+| `t2_seed_probe.h:7` | 検査の入口の `double c[4]` 宣言 |
+
+古い組名の直書き（22 件・15 ファイル。**計画の範囲に `chatcarlo/scene.py`・`tests/test_gpu_g5_a2b.py`・`tests/test_gpu_g2b.py` が抜けていたので追加**）:
+`chatcarlo/gpu/catalog.py`・`physics_sets.py`・`seed_scene.py`・`therapy_scene.py`・`therapy.py`・`therapy_layout.py`、
+`chatcarlo/scene.py`、`tests/test_gpu_g5_a2b.py`・`test_gpu_g5_a3_contracts.py`・`test_gpu_g5_a3_scene.py`・`test_gpu_g2b.py`・`test_gpu_g5_a1_core.py`、
+`examples/therapy/prostate_seed_7field_g5_a2b.yaml`、`.claude/rules/chatcarlo.md`、`.claude/skills/vive-interview/SKILL.md`。
+
+## (5) 診断の 60 keV の「6 不合格」の出どころ
+
+`a1_run/g2gate3/comparison.json` の `PDD_OCR.counts`:
+
+| 基準 | 合格 | 不合格 | 統計不足 |
+|---|---|---|---|
+| 歴史的 2σ | 37 | 6 | 4 |
+| Bonferroni 補助 | 42 | 1 | 4 |
+
+最大 \|z\| は **3.084**、Bonferroni の閾値は **3.273**。つまり 6 件は**領域に固まった不一致ではなく多重性の産物**で、
+2 < \|z\| < 3.08 の bin が 6 つあるという意味。平均の相対差は PDD 0.218%・OCR 0.242%、最大 3.21%。
+
+**計画への反映**: D7 の「領域を事前に除外する」案は取り下げ、**多重性を補正した閾値で合否・2σ の件数は併記**という
+既存の記録と同じ二本立てに書き直した。
+
+## (3) 入口から届く幾何
+
+`chatcarlo/__main__.py:514-519` の分岐は `domain: therapy_mv` の下で 2 つだけ:
+
+| 入口 | 幾何 | 固定の度合い |
+|---|---|---|
+| `scoring: pdd_ocr` → `gpu/therapy_entry.py` | 水 30 cm・10×10 cm²・SSD 100 cm・P7 の ±20 cm 採点 | `therapy_layout.py` の `SIZES`/`VOLUMES` で固定（水のみ） |
+| `scoring: seed_ratio` → `gpu/seed_entry.py` | P9c の固定（外側の楕円体・y 向きの円柱の種・7 門・3 次元格子） | シーンの許可リストで固定 |
+
+**積層（P8e の水–肺–水–骨–水–鉛）はどの入口からも届かない。** よって A4u では積層の判定を作り直さず、
+「検証していない・作り直していない」と RESULTS に明記する（計画 §H0 (3) の宣言）。
+
+## (4) 未了
+- (4) Mohan 2 つの Rayleigh・束縛の割合（束に Rayleigh の表がないので **XCOM**（`fetch_materials_p8a.prepare_xcom`）で 1〜10 MeV を取る。xraylib は約 1 MeV で止まる）
+
+## (6) H3b の GPU 側の観測量（2026-11-03 に決定）
+
+計画 H3b の「GPU 側の観測量は H0 で決める」への答え。**`core.Core.run()` の `escaped_spectrum`**（S2 で入った）を使う。
+実測で確かめた性質（`.venv/bin/python` で鉛 0.05 cm・100 keV・20 万履歴、seed=1）:
+
+| 性質 | 値 | 確かめ方 |
+|---|---|---|
+| 刻み | **1 keV**（添字 = floor(E[keV])、0〜10000） | `g1_history.h:131,203` の `int(out[0])`／`int(e)`、上限は 10000 に丸める |
+| 単位 | keV（線源も keV。`tests/test_gpu_g5_a4u_s2.py` の 100 keV 固定値） | bin 100 に無衝突透過が 9572 件 |
+| 収集範囲 | 世界の外へ出た**すべての**光子（方向を問わない＝前方・後方の両方） | `core.py:203` の保存則 `escaped_spectrum.sum() == endings[1]`（実測 62577 = 62577） |
+| 二次光子 | 含む（`endings[1]` は光子数であって履歴数ではない） | 同上 |
+
+EGS5 側（`docs/egs5_crosscheck/fluorescence/fluor_on/fluor_on.f:88,262`）も **1 keV 刻み・両方向**の `ebin(120)` なので、
+**再ビン化なしで添字が一致する**（`ebin(j)` が (j−1, j] keV、こちらは [j, j+1) keV。端のずれは線が整数 keV から離れているため影響しない）。
+
+## (7) H3b の検出力の事前見積もり（2026-11-03、結果を見る前）
+
+振り返りの教訓「分岐の確認は先に検出力を見積もる」に従い、xraylib だけで (a) CK 無効・(b) L1→L3 を誤った実装が
+落ちるかを先に計算した（100 keV の鉛。D3 の 1.25 倍・0.68→1.81 は **60 keV** の値で、100 keV では K→L の供給が
+主になるため別に出し直す必要がある）。
+
+100 keV の光電吸収あたりの L 空孔（K 蛍光からの供給込み）と、放射遷移で出る L 線の帯別の本数:
+
+| 帯 | 本番（全殻＋CK） | (a) CK 無効 | (b) f13=0（L1→L3 を 0.62→0 に誤る） |
+|---|---|---|---|
+| 9〜10 keV | 0.00749 | 0.00626 (−16.4%) | 0.00674 (−10.0%) |
+| **10〜11 keV（Lα）** | **0.13912** | **0.11620 (−16.5%)** | **0.12511 (−10.1%)** |
+| 12〜13 keV | 0.10169 | 0.10973 (+7.9%) | 0.10328 (+1.6%) |
+| 14〜16 keV | 0.01735 | 0.02086 (+20%) | 0.01885 (+8.6%) |
+| L 合計 9〜16 keV | 0.27092 | 0.25820 (−4.7%) | 0.25911 (−4.4%) |
+
+**結論**: 事前登録の「2σ/5% の OR」で落とせるのは **10〜11 keV の帯**（EGS5 側 2152 件 → 2σ ≈ 4.3%、
+ChatCarlo 側も同程度なら合成 6% 前後）。(a) の −16.5%・(b) の −10.1% はどちらもこれを超えるので、
+**識別力はある**。一方 **L 合計（9〜16 keV）では (a)(b) とも 5% を下回るので落とせない** —— 合計は一致の確認に使い、
+識別力の根拠にはしない。12〜13 keV は Lβ1（L2 由来）と Lβ2（L3 由来）が同じ帯に入って打ち消すため (b) に鈍い。
+
+**ChatCarlo 側の履歴数**: 20 万履歴の試し（上記）で 10〜11 keV が 441 件（EGS5 の 2152 件/100 万 を 20 万に直すと 430 件で整合）。
+判定では **ChatCarlo 側を 400 万履歴**にして自分側の 2σ を 2% 台に落とし、合成の検出限界を EGS5 側の 4.3% に寄せる。
+
+## (8) 保存済み EGS5 `fluor_on` が Coster-Kronig を使っているかの確認（2026-11-03）
+
+計画は「EGS5 側は CK のデータを持つ」としか書いていなかったので、**その走行で実際に使われたか**を源まで追った。
+
+- 入力の旗: `fluor_on.f:160` で `iedgfl(2)=1`、`iauger(2)` は既定の 0。PEGS5 は `IRAYL=1,IBOUND=1,INCOH=1`。
+- 経路: `egs5_photo.f:159-169` が L1/L2/L3 の光電吸収で `lshell(1..3)` を呼び、`egs5_kxray.f:45-51` が
+  K 蛍光（Kα1→L3・Kα2→L2・Kβ→L1）のあとにも `lshell` を呼ぶ。
+- `egs5_lshell.f:38,41,62` が `f12`・`f13`・`f23` を実際に引いて空孔を移す（`include/egs5_edge.f:14` の common/EDGE/、
+  値は `egs5_block_data_atom.f:1677` 以降）。
+- `iedgfl(irl)<=0` のときだけ `nxray=0`（`egs5_photo.f:173`）。この走行は 1 なので蛍光は出る。
+
+**結論**: 保存済みの `fluor_on` は **CK 込みの L 連鎖**で走っている。よって (a) CK 無効の実装は EGS5 から離れる向きに動く
+（比較の向きは反転していない）。`iauger=0` は Auger 電子を飛ばさないだけで、空孔の分岐そのものは起きる。

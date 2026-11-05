@@ -29,7 +29,7 @@ def create(path,materials,arrays,generators):
     if (path/'manifest.json').exists():raise ValueError('bundle already exists')
     np.savez(path/'tables.npz',**blobs)
     np.savez(path/'inputs.npz',**arrays)
-    settings=dict(physics_set=physics_sets.declaration(therapy.NAME),material_names=list(NAMES),generators=generators,
+    settings=dict(physics_set=physics_sets.declaration(therapy.NAME, specialization=physics_sets.ELECTRON),material_names=list(NAMES),generators=generators,
                   material_hashes={n:catalog.digest(blobs['p8_'+n]) for n in NAMES})
     (path/'settings.json').write_text(json.dumps(settings,sort_keys=True)+'\n')
     (path/'catalog.json').write_text(json.dumps(cat,sort_keys=True)+'\n')
@@ -41,7 +41,7 @@ def create(path,materials,arrays,generators):
 def verify(path,*,expected_declaration=None):
     path=Path(path);m=json.loads((path/'manifest.json').read_text())
     if m.get('format')!='chatcarlo-g5-v1' or set(m['files'])!=MEMBERS:raise ValueError('invalid therapy bundle format/members')
-    want=physics_sets.declaration(therapy.NAME) if expected_declaration is None else expected_declaration
+    want=physics_sets.declaration(therapy.NAME, specialization=physics_sets.ELECTRON) if expected_declaration is None else expected_declaration
     physics_sets.check(m['physics_set'],want)
     for name,digest in m['files'].items():
         if sha(path/name)!=digest:raise ValueError('bundle SHA256 mismatch: '+name)

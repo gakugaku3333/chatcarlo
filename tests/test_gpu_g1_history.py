@@ -22,7 +22,8 @@ def test_gpu_g1_0b_history(case,tmp_path):
     energy=[60,100,100,100,60,80][case-1];n=10000;seed=2026102100+case
     ref=kernel.run_batch(t,g,energy,origin,tuple(d),n,seed,n_chunks=1,fluorescence_enabled=case!=4)
     mt_seed=int(kernel._chunk_plan(n,1,seed)[0][0])
-    twin=core.Core(a,build_dir=tmp_path/'build',rng='mt')
+    twin=core.Core(a,build_dir=tmp_path/'build',rng='mt',_test_legacy_physics=True)
+    assert '-DG5_TEST_LEGACY_LOCAL=1' in twin.set_options
     r=twin.run(np.tile(origin,(n,1)),np.tile(d,(n,1)),np.full(n,energy),seed=mt_seed,fluorescence=case!=4,record=True)
     bitwise(r['i'][:,0],ref.n_scatter,'interaction count')
     np.testing.assert_array_equal(r['i'][:,3]==0,ref.absorbed)

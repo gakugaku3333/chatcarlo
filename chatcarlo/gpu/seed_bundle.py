@@ -22,14 +22,14 @@ def create(path,materials,inputs,densities,generators):
     therapy.space(path,sum(v.nbytes for v in blobs.values())+sum(np.asarray(v).nbytes for v in inputs.values())+16*1024**2)
     np.savez(path/'tables.npz',**blobs);np.savez(path/'inputs.npz',**inputs,densities=np.asarray(densities,float))
     contracts.write(path/'catalog.json',dict(format=catalog.FORMAT,fields=fields))
-    contracts.write(path/'settings.json',dict(material_names=list(NAMES),physics_set=physics_sets.declaration(therapy.NAME),generators=generators))
-    manifest=dict(format='chatcarlo-g5-seed-bundle-v1',physics_set=physics_sets.declaration(therapy.NAME),files={k:therapy_bundle.sha(path/k) for k in sorted(therapy_bundle.MEMBERS)})
+    contracts.write(path/'settings.json',dict(material_names=list(NAMES),physics_set=physics_sets.declaration(therapy.NAME, specialization=physics_sets.ELECTRON),generators=generators))
+    manifest=dict(format='chatcarlo-g5-seed-bundle-v1',physics_set=physics_sets.declaration(therapy.NAME, specialization=physics_sets.ELECTRON),files={k:therapy_bundle.sha(path/k) for k in sorted(therapy_bundle.MEMBERS)})
     contracts.write(path/'manifest.json',manifest);return manifest
 
 def load(path):
     path=Path(path);manifest=json.loads((path/'manifest.json').read_text());settings=json.loads((path/'settings.json').read_text())
     if manifest.get('format')!='chatcarlo-g5-seed-bundle-v1' or set(manifest['files'])!=therapy_bundle.MEMBERS or settings['material_names']!=list(NAMES):raise ValueError('seed bundle members/material IDs')
-    physics_sets.check(manifest['physics_set'],physics_sets.declaration(therapy.NAME));physics_sets.check(settings['physics_set'],manifest['physics_set'])
+    physics_sets.check(manifest['physics_set'],physics_sets.declaration(therapy.NAME, specialization=physics_sets.ELECTRON));physics_sets.check(settings['physics_set'],manifest['physics_set'])
     for k,v in manifest['files'].items():
         if therapy_bundle.sha(path/k)!=v:raise ValueError('bundle SHA256 '+k)
     cat=json.loads((path/'catalog.json').read_text())

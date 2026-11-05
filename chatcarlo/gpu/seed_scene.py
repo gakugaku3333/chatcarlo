@@ -20,7 +20,7 @@ def validate(raw):
     if physics is not None:
         from .physics_sets import declaration
         keys(physics,('set',),'physics')
-        if physics['set']!='therapy-electron-v1':fail('physics.set','therapy-electron-v1 のみ')
+        if physics['set']!='chatcarlo-photon-electron-v1':fail('physics.set','chatcarlo-photon-electron-v1 のみ')
         declaration(physics['set'])
     schema={k:v for k,v in raw.items() if k!='physics'}
     keys(schema, ('domain', 'scoring', 'source', 'body', 'target', 'seeds', 'run'), 'scene')

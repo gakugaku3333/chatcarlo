@@ -19,7 +19,7 @@ def inputs():
 def test_declaration():
     d=physics_sets.declaration(therapy.NAME)
     assert d['id']==2 and d['tag']!=0
-    assert physics_sets.REGISTRY[therapy.NAME]['descriptor']['energy_band_keV']==[10.,10000.]
+    assert physics_sets.REGISTRY[therapy.NAME]['descriptor']['energy_band_keV']==[5.,10000.]
     with pytest.raises(ValueError,match='unsupported'):physics_sets.require_quantity(therapy.NAME,'H*(10)')
 
 
@@ -33,13 +33,30 @@ def test_cuda_source():
     assert 'g5_base' not in src or 'philox' in src
 
 
-def test_cases(tmp_path):
+def cutoff_cases(monkeypatch):
+    # Frozen control-flow witnesses used 7 keV as "below cutoff". In S2 the
+    # same local-deposit/fault witness must be below 5 keV instead.
+    from prototypes.mv_electron.gpu import p8g2_core
+    import copy
+    original=p8g2_core.fixed_cases
+    def cases():
+        result=copy.deepcopy(original())
+        for case in result:
+            if case['name']=='low-photon':case['state'][6]=.004
+        return result
+    monkeypatch.setattr(p8g2_core,'fixed_cases',cases)
+
+
+def test_cases(tmp_path,monkeypatch):
+    cutoff_cases(monkeypatch)
     r=a2_cases.run(tmp_path)
     assert len(r['cases'])==16 and len(r['paths'])==18 and len(r['transitions'])==9
 
 
-def test_faults(tmp_path):
-    assert len(a2_faults.run(tmp_path)['faults'])==10
+def test_faults(tmp_path,monkeypatch):
+    cutoff_cases(monkeypatch)
+    from docs.validation.gpu.g5 import a4u_d15_faults
+    assert len(a4u_d15_faults.run(tmp_path)['faults'])==10
 
 
 def test_identity_and_refill(tmp_path,inputs):

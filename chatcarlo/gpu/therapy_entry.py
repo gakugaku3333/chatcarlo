@@ -18,9 +18,9 @@ def source_hashes():
 
 
 def condition(scene,manifest):
-    return dict(format='chatcarlo-g5-therapy-entry-v1',physics_set=physics_sets.declaration(NAME),
+    return dict(format='chatcarlo-g5-therapy-entry-v1',physics_set=physics_sets.declaration(NAME, specialization=physics_sets.ELECTRON),
                 scene=scene,bundle_manifest_sha256=sha256(manifest),sources=source_hashes(),
-                spectrum=scene['source']['spectrum'],histories=scene['run']['histories'],seed=scene['run']['seed'],
+                spectrum=therapy_scene.source_spec(scene['source']),histories=scene['run']['histories'],seed=scene['run']['seed'],
                 engine=scene['run']['engine'],layout='p7',lateral_extent_cm=20)
 
 
@@ -32,8 +32,8 @@ def geometry_json(spectrum):
         for depth in (5,10,20):
             size=[2,2,1];size[axis]=40
             objects.append(dict(name=f'{"xy"[axis]} ±20 cm / 深さ{depth} cm',shape='box',material='scoring',center=[0,0,30-depth],size_cm=size))
-    raw=dict(geometry=objects,source=dict(position=[0,0,130],direction=[0,0,-1],spectrum=[dict(energy_keV=10000 if spectrum=='mohan10' else 4000,weight=1)],field=dict(shape='rect',size_cm=[10,10],sid_cm=100)))
-    data=scene_to_json(SimpleNamespace(raw=raw,warnings=[]));data['beam']['energy_label']='Mohan '+('10' if spectrum=='mohan10' else '4')+' MV'
+    raw=dict(geometry=objects,source=dict(position=[0,0,130],direction=[0,0,-1],spectrum=[dict(energy_keV=(1000*max(spectrum['edges']) if isinstance(spectrum,dict) else 10000 if spectrum=='mohan10' else 4000),weight=1)],field=dict(shape='rect',size_cm=[10,10],sid_cm=100)))
+    data=scene_to_json(SimpleNamespace(raw=raw,warnings=[]));data['beam']['energy_label']=(str(min(spectrum['edges'])*1000)+'〜'+str(max(spectrum['edges'])*1000)+' keV') if isinstance(spectrum,dict) else 'Mohan '+('10' if spectrum=='mohan10' else '4')+' MV'
     return data
 
 
@@ -95,8 +95,8 @@ def main(argv=None):
         s=therapy_scene.load(args.scene)
         if args.command in ('trace','animate','plot'):raise ValueError('治療領域では未対応')
         if args.command=='validate':
-            print(f'OK: {args.scene} は有効な治療領域シーンです（{s["source"]["spectrum"]}、水30 cm、10×10 cm²、SSD 100 cm、採点±20 cm）');return 0
-        inputs=therapy_inputs.load(therapy_inputs.DEFAULT_BUNDLE,s['source']['spectrum'])
+            print(f'OK: {args.scene} は有効な治療領域シーンです（{therapy_scene.source_spec(s["source"])}、水30 cm、10×10 cm²、SSD 100 cm、採点±20 cm）');return 0
+        inputs=therapy_inputs.load(therapy_inputs.DEFAULT_BUNDLE,therapy_scene.source_spec(s['source']))
         cond=condition(s,inputs[-1]);out=getattr(args,'out',None) or Path.home()/'.cache/chatcarlo/g5/a3/runs'/sha256(cond)[:12]
         if args.command=='approve':
             g=verify(args.preview)

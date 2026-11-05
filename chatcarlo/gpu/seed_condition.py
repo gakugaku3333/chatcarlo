@@ -10,7 +10,7 @@ SEEDS=(9502001,9502002)
 
 def condition(scene,manifest,materials,inputs):
     seed_scene.validate(scene)
-    cond=dict(format='chatcarlo-g5-seed-entry-v1',scene=scene,physics_set=physics_sets.declaration(therapy.NAME),
+    cond=dict(format='chatcarlo-g5-seed-entry-v1',scene=scene,physics_set=physics_sets.declaration(therapy.NAME, specialization=physics_sets.ELECTRON),
         sources=seed_core.source_hashes(),bundle_manifest_sha256=sha256(manifest),
         masks_sha256=sha(seed_analysis.MASK_PATH),batches=BATCHES,per_batch_per_field=PER_BATCH_PER_FIELD,
         histories_per_field=BATCHES*PER_BATCH_PER_FIELD,histories_per_side=7*BATCHES*PER_BATCH_PER_FIELD,

@@ -23,7 +23,7 @@ def cpu_observation(driver,args):
     arrays['constants']=args[2];arrays['sizes']=np.array([g.nl,g.nb,g.nc,g.nf,g.nspec],np.int64)
     arrays['_table_hashes']=table_hashes(args[0],args[1])
     fg=ct.cast(args[11],ct.POINTER(FieldGeometry)).contents
-    observed=dict(name=NAME,id=driver.lib.t2_set_id(),tag=driver.lib.t2_set_tag())
+    observed=physics_sets.observation(NAME,driver.lib.t2_set_id(),driver.lib.t2_set_tag())
     return descriptor(arrays,fg,args[12:14],args[14],args[4],args[5],args[6],observed)
 
 
@@ -41,14 +41,16 @@ def gpu_observation(driver,args):
     arrays['_table_hashes']=table_hashes(cp.asnumpy(args[0]),cp.asnumpy(args[1]))
     fg=FieldGeometry.from_buffer_copy(cp.asnumpy(args[18]).tobytes())
     out=cp.zeros(2,np.uint64);driver.kernels['t2_identity']((1,),(1,),(out,));cp.cuda.Device().synchronize();ids=cp.asnumpy(out)
-    return descriptor(arrays,fg,args[19:21],args[21],args[10],args[11],args[12],dict(name=NAME,id=int(ids[0]),tag=int(ids[1])))
+    return descriptor(arrays,fg,args[19:21],args[21],args[10],args[11],args[12],physics_sets.observation(NAME,int(ids[0]),int(ids[1])))
 
 
 def table_hashes(data,meta):
     result={}
     for mid,row in enumerate(meta):
         for j,name in enumerate(P8_DEFINITIONS):
-            offset,size=map(int,row[4*j:4*j+2])
+            if name=='photon':
+                offset=int(row[133])+37;p=data[offset:];tail=int(p[1]);size=tail+1+3*int(p[0])+4*int(p[tail])
+            else:offset,size=map(int,row[4*j:4*j+2])
             if offset<0 or size<0 or offset+size>len(data):raise ValueError('native table descriptor range')
             result[str(mid)+'.'+name]=digest(data[offset:offset+size])
     return result

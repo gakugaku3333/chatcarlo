@@ -1,7 +1,7 @@
 // Derived from p8g_kernel.h; G5 A2 standalone copy.
 #ifndef P8G_KERNEL_H
 #define P8G_KERNEL_H
-#include "t2_materials.h"
+#include "t2_tables.h"
 #ifndef P8G_STACK_CAP
 #define P8G_STACK_CAP 4096
 #endif

@@ -16,7 +16,7 @@ def expected(cond,materials,inputs,batch,field,side):
     a['strength']=np.ascontiguousarray(inputs['strength'],float)
     args=(*therapy.pack(materials),np.ascontiguousarray(inputs['constants'],float))
     key=seed_condition.identity(cond,batch)
-    return observation(g,a,args,cond['seed'],key['start'],key['count'],field,physics_sets.declaration(therapy.NAME))
+    return observation(g,a,args,cond['seed'],key['start'],key['count'],field,physics_sets.declaration(therapy.NAME, specialization=physics_sets.ELECTRON))
 
 
 def require_gates(report):

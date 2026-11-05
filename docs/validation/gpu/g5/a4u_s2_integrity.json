@@ -1,0 +1,10 @@
+{
+  "source_hash_changes": [],
+  "records_restored": {
+    "docs/validation/gpu/g5/a2_run/bundle.json": true,
+    "docs/validation/gpu/g5/a2_run/faults_cpu.json": true,
+    "docs/validation/mv/p8g1/faults_gate0.json": true,
+    "docs/validation/mv/p8g3/fault_observations.json": true
+  },
+  "protected_tracked_diff_empty": true
+}

@@ -2,6 +2,7 @@
 import argparse
 import tempfile
 from pathlib import Path
+from types import SimpleNamespace
 import numpy as np
 import a2_common as common
 from chatcarlo.gpu import catalog,therapy,therapy_bundle,physics_sets
@@ -42,11 +43,28 @@ def run(source=common.SOURCE,out=common.CACHE/'bundle',summary=common.SUMMARY/'b
     restored,a,settings,_=therapy_bundle.load(out)
     rows={}
     for name,l,r in zip(therapy_bundle.NAMES,materials,restored):
+        if not hasattr(l,'photon'):
+            from chatcarlo.gpu.generate_photon_tables import ensure
+            l=SimpleNamespace(**{**{k:getattr(l,k) for k in catalog.P8_DEFINITIONS if k!='photon'},'photon':ensure(l)})
         for f in catalog.P8_DEFINITIONS:rows[name+'.'+f]=equal(np.asarray(getattr(l,f),np.float64),getattr(r,f),name+'.'+f)
     for name in all_inputs:rows['input.'+name]=equal(all_inputs[name],a[name],name)
     data,meta=therapy.pack(restored);old_data,old_meta=old.pack(materials)
-    rows['native.data']=equal(data,old_data,'native data (uninitialized log NaNs)')
-    rows['native.meta']=equal(meta,old_meta,'native descriptors')
+    # The first 33 fields are unchanged; A4u appends sealed photon tables after logs.
+    rows['native.electron_data']=equal(data[:meta[0,132]],old_data[:old_meta[0,132]],'33-field data region')
+    rows['native.electron_meta']=equal(meta[:,:132],old_meta[:,:132],'33-field descriptors')
+    for mid,m in enumerate(restored):
+        start,end=meta[mid,132:134]
+        label='native.'+therapy_bundle.NAMES[mid]
+        rows[label+'.log_nan']=equal(np.isnan(data[start:end]).all(),np.bool_(True),label+' uninitialized log NaNs')
+        rows[label+'.padding']=equal(data[end:end+37],np.zeros(37),label+' zero padding')
+        photon_end=meta[mid+1,132] if mid+1<len(restored) else len(data)
+        # Compare against the sealed restored table, not another call to ensure().
+        rows[label+'.photon']=equal(data[end+37:photon_end],m.photon,label+' sealed photon roundtrip')
+    rows['native.log_sizes']=equal(meta[:,133]-meta[:,132],old_meta[:,133]-old_meta[:,132],'log sizes')
+    starts=np.r_[old_meta[0,132],meta[:-1,133]+37+np.array([len(m.photon) for m in restored[:-1]],np.int64)]
+    rows['native.log_offsets']=equal(meta[:,132],starts,'log offset formula')
+    rows['native.material_ids']=equal(meta[:,134],np.arange(len(restored),dtype=np.int64),'material IDs')
+    rows['native.meta_135_addend']=equal(meta[0,135]-meta[1,132],old_meta[0,135]-old_meta[1,132],'meta[0,135] addend')
     native_field=therapy.FieldGeometry()
     for key in ('lo','hi','origins','widths','axes','sizes','offsets'):
         getattr(native_field,key)[:]=a['field_'+key]
@@ -60,7 +78,7 @@ def run(source=common.SOURCE,out=common.CACHE/'bundle',summary=common.SUMMARY/'b
     equal(c.constants,arrays['constants'],'constants')
     for mid,q in enumerate(c.meta):
         rows['logs.'+str(mid)]=equal(c.data[q[132]:q[133]],ref.data[ref.meta[mid,132]:ref.meta[mid,133]],'initialized logs')
-    report=dict(status='pass',fields_per_material=33,rows=rows,observed=c.observed,source_manifest=therapy_bundle.sha(Path(source)/'p8g2_manifest.json'))
+    report=dict(status='pass',fields_per_material=34,photon_validation='34th field photon: roundtrip only; table contents are validated by H1',rows=rows,observed=c.observed,source_manifest=therapy_bundle.sha(Path(source)/'p8g2_manifest.json'))
     common.write(summary,report);return report
 
 

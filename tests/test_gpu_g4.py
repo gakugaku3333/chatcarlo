@@ -75,7 +75,7 @@ def test_gpu_g4_scene_copy_and_declaration():
 
 @pytest.mark.parametrize('number', [1,2])
 def test_gpu_g4_frozen_engine(number):
-    fixed=json.loads((DOC/'local_baseline.json').read_text())
+    fixed=json.loads((ROOT/'docs/validation/gpu/g5/a4u_d15_fixed.json').read_text())['g4']['new']
     r=run_transport(load_scene(str(ROOT/f'docs/validation/gpu/g1/scenes/s{number}.yaml')),n_histories=1000,seed=42,batch_size=400,engine='gpu',detector=DetectorPlane([0,0,0],[0,0,1],[1,0,0],(30,30),(60,60)))
     expected=json.loads(json.dumps(fixed[f'gpu_s{number}']).replace('NaN','"NaN"'))
     assert fingerprint(r)==expected
@@ -241,7 +241,13 @@ def test_gpu_g4_aggregate_independent(track,with_plane,sizes):
             images[1]=[[0,1,1],[0,2,0]]
             images[4]=images[:4].sum(axis=0)
             images[5]=images[4]*40;images[6]=images[4]*1600
-        batches.append((n,dict(deposits=np.array([1.1+b,0.,3.2+b]),endings=np.array([2.,n-2,0]),scatter_sum=2.3+b,n_fluorescence=b,images=images)))
+        counts=images[:4].copy()
+        images[:4]*=40.  # one counted photon carries 40 keV; pixel area is 1 cm²
+        detected=float(counts.sum()) if plane else 0.
+        batch=dict(deposits=np.array([1.1+b,0.,3.2+b]),endings=np.array([2.,n-2,detected]),scatter_sum=2.3+b,n_fluorescence=b,
+                   completed=np.array(n),created=np.array(n+detected))
+        if plane:batch.update(images=images,category_count=counts)
+        batches.append((n,batch))
     r=aggregate(batches,names,plane,roi,track)
     N=sum(sizes);M=len(sizes)
     sums=np.zeros(3);Q=np.zeros(3);ends=np.zeros(3);scatter=fluor=0.
@@ -250,7 +256,7 @@ def test_gpu_g4_aggregate_independent(track,with_plane,sizes):
     for n,b in batches:
         for i in range(3):sums[i]+=float(b['deposits'][i]);Q[i]+=float(b['deposits'][i])**2/n
         ends+=b['endings'];scatter+=b['scatter_sum'];fluor+=b['n_fluorescence']
-        image+=b['images']
+        image+=b.get('images',np.zeros_like(image))
         delta=image[:4]-prev;prev=image[:4].copy()
         catQ+=delta**2/n;totalQ+=delta.sum(axis=0)**2/n;hit+=np.any(delta!=0,axis=0).astype(np.int32)
         pb=delta[0].sum();sb=delta[1:].sum();p+=pb;s+=sb;qp+=pb**2/n;qs+=sb**2/n;cps+=pb*sb/n
@@ -415,7 +421,7 @@ def test_gpu_g4_cuda_observation_positions_without_device(prepared,with_plane):
 def test_gpu_g4_colab_output_copy(tmp_path):
     from chatcarlo.gpu.cli_run import save_detector
     scene=load_scene(str(SCENE));plane,_=detector_from_scene(scene)
-    r=aggregate([(1,dict(deposits=np.array([1.,2.]),endings=np.array([1.,0.,0.]),scatter_sum=0.,n_fluorescence=0.,images=np.zeros((7,100,120))))],['air','aluminum'],plane)
+    r=aggregate([(1,dict(deposits=np.array([1.,2.]),endings=np.array([1.,0.,0.]),scatter_sum=0.,n_fluorescence=0.,completed=np.array(1),created=np.array(1),images=np.zeros((7,100,120)),category_count=np.zeros((4,100,120))))],['air','aluminum'],plane)
     args=SimpleNamespace(**options(),run_dir=tmp_path/'run',detector_out=tmp_path/'copy/image.npz')
     r.gpu_metadata=dict(condition=condition.local_condition(scene,condition.resolve(args)))
     save_detector(scene,args,r)

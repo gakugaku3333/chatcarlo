@@ -16,7 +16,7 @@ def fixture(tmp_path,monkeypatch):
     s=dict(domain='therapy_mv',source=dict(spectrum='mohan4',field_cm=[10,10],ssd_cm=100),phantom=dict(material='water',thickness_cm=30),scoring='pdd_ocr',run=dict(histories=100,seed=7,engine='colab_t4'))
     a={k:np.zeros(1) for k in ('faces','rho','bins','strength','edges','cum','ids','owner','constants')};a['sizes']=np.array([1,300,150,600,0],np.int64)
     fg=FieldGeometry();fg.sizes[:]=layout.SIZES;fg.offsets[:]=np.r_[0,np.cumsum(layout.SIZES)[:-1]]
-    m=dict(format='synthetic-test-only',physics_set=physics_sets.declaration('therapy-electron-v1'))
+    m=dict(format='synthetic-test-only',physics_set=physics_sets.declaration('chatcarlo-photon-electron-v1'))
     inputs=([],a,fg,layout.VOLUMES,m)
     monkeypatch.setattr(therapy_inputs,'load',lambda *args:inputs)
     bundle=tmp_path/'inputs';bundle.mkdir();contracts.write(bundle/'manifest.json',m)
@@ -84,7 +84,7 @@ def test_final_artifacts_readback(tmp_path,monkeypatch):
     out,c,a,fg,_=fixture(tmp_path,monkeypatch);contracts.approve(out,entry.verify)
     saved=run.run(out/'results',c,a,fg,Driver(c,a,fg),lambda:None)
     assert saved['metadata']['arrays']['absorbed_dose_Gy']['unit']=='Gy/history'
-    with np.load(out/'results/dose.npz') as z:assert str(z['physics_set'])=='therapy-electron-v1'
+    with np.load(out/'results/dose.npz') as z:assert str(z['physics_set'])=='chatcarlo-photon-electron-v1'
 
 
 class FakeVM:

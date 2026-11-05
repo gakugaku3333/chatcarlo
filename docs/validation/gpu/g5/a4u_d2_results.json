@@ -1,0 +1,33 @@
+{
+  "status": "pass",
+  "phase": "D2 completion, not H2-H7 acceptance",
+  "commands": [
+    {
+      "command": ".venv/bin/python -m pytest tests/ -q",
+      "passed": 991,
+      "warnings": 2,
+      "seconds": 347.81,
+      "exit_code": 0,
+      "log": "a4u_d2_tests.log",
+      "log_sha256": "379eda793ca1e3fdd52629a6b2139107c66126a8401ed1f0337fdcacb667e067"
+    },
+    {
+      "command": ".venv/bin/python -m pytest prototypes/mv_electron/tests -q",
+      "passed": 1808,
+      "skipped": 17,
+      "seconds": 1235.87,
+      "exit_code": 0,
+      "log": "a4u_d2_prototypes.log",
+      "log_sha256": "3d14925ae7ea2bd97f7147d6729e1cb86aabeb587aaebad643f6f2bda8a0c7b2"
+    },
+    {
+      "command": ".venv/bin/python -m pytest tests/test_gpu_g5_a4u_*.py tests/test_gpu_g5_a3_*.py tests/test_gpu_g5_a2_*.py tests/test_gpu_g5_a1_*.py -q",
+      "passed": 220,
+      "seconds": 99.09,
+      "exit_code": 0,
+      "log": "a4u_d2_focused.log",
+      "log_sha256": "369be2dbe149d97ee4d44252a991680b7b4fd2da33ffee9a71294ed92dad6902"
+    }
+  ],
+  "unexplained_failures": []
+}

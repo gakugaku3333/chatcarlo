@@ -1,0 +1,13 @@
+{
+  "status": "not-fixed-per-D15c",
+  "file": "chatcarlo/gpu/seed_core.py",
+  "line": 158,
+  "exception": "NameError: name 'digest' is not defined",
+  "cause": "digest is imported in observation local scope, not in photon_digest scope",
+  "tests": [
+    "test_gpu_g5_a2b.py::test_native_split_and_faults",
+    "test_gpu_g5_a2b.py::test_actual_argument_tamper",
+    "test_gpu_g5_a2b.py::test_table_pointer_tamper"
+  ],
+  "source_sha256": "f051a9643b17fb109c6fdbcf12957d45a62390e7e3bc960307d57b17d380701a"
+}

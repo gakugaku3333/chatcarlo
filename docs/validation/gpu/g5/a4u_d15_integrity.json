@@ -1,0 +1,29 @@
+{
+  "source_changes_since_final_launch": [],
+  "history_records_restored": {
+    "docs/validation/gpu/g5/a2_run/implementation_report.json": true,
+    "docs/validation/gpu/g5/a2_run/diag_gate1_t4.json": true,
+    "docs/validation/gpu/g5/a2_run/tests.json": true,
+    "docs/validation/gpu/g5/a2_run/judge_regression.json": true,
+    "docs/validation/gpu/g5/a2_run/cases_t4.json": true,
+    "docs/validation/gpu/g5/a2_run/diag_identity_t4.json": true,
+    "docs/validation/gpu/g5/a2_run/diag_g2vox_t4.json": true,
+    "docs/validation/gpu/g5/a2_run/verdict.json": true,
+    "docs/validation/gpu/g5/a2_run/speed.json": true,
+    "docs/validation/gpu/g5/a2_run/bundle.json": true,
+    "docs/validation/gpu/g5/a2_run/smoke_cpu.json": true,
+    "docs/validation/gpu/g5/a2_run/checks.json": true,
+    "docs/validation/gpu/g5/a2_run/smoke_comparison.json": true,
+    "docs/validation/gpu/g5/a2_run/faults_cpu.json": true,
+    "docs/validation/gpu/g5/a2_run/oldnew.json": true,
+    "docs/validation/gpu/g5/a2_run/diag_speed_t4.json": true,
+    "docs/validation/gpu/g5/a2_run/cases_cpu.json": true,
+    "docs/validation/gpu/g5/a2_run/faults_t4.json": true,
+    "docs/validation/mv/p8g1/faults_gate0.json": true,
+    "docs/validation/mv/p8g3/fault_observations.json": true
+  },
+  "protected_tracked_diff_empty": true,
+  "seed_core_unchanged": true,
+  "test_change_records_valid": true,
+  "fixed_values_sha256": "8b91412abec60719360bbb682bccc7f59b1bbae0e35178fa3a797e94be57ed5d"
+}

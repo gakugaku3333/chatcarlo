@@ -90,7 +90,7 @@ def test_t3_gate_a(tmp_path, monkeypatch, capsys):
     expected = saved(direct, scene)
     with np.load(path) as z:
         assert set(z.files) == set(expected)|{'physics_set','quantities'}
-        assert str(z['physics_set']) == 'diagnostic-photon-kerma-v1'
+        assert str(z['physics_set']) == 'chatcarlo-photon-electron-v1'
         assert json.loads(str(z['quantities']))['dose_per_history_Gy']['quantity'] == 'track-length-kerma'
         for key in expected: same(z[key], expected[key])
     from chatcarlo.gpu import cli_run

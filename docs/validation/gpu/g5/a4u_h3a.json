@@ -1,0 +1,183 @@
+{
+  "stage": "A4u-H3a",
+  "date": "2026-11-04",
+  "criterion": "51量からD13の4量を除いた判定可能な量で|z|<=3（事前登録）。both_zeroの10量はzが定義できないため除外",
+  "K_judged": 47,
+  "K_recorded": 61,
+  "both_zero": [
+    "s1:category:0:roi1",
+    "s1:category:0:roi2",
+    "s1:category:3:all",
+    "s1:category:3:roi0",
+    "s1:category:3:roi1",
+    "s1:category:3:roi2",
+    "s3:category:3:all",
+    "s3:category:3:roi0",
+    "s3:category:3:roi1",
+    "s3:category:3:roi2"
+  ],
+  "divergent_excluded": {
+    "s2:category:3:all": {
+      "z": 1.490222695395123,
+      "note": "D13(ii): 記録のみ。合否に使わない"
+    },
+    "s2:category:3:roi0": {
+      "z": 0.24287305142239873,
+      "note": "D13(ii): 記録のみ。合否に使わない"
+    },
+    "s2:category:3:roi1": {
+      "z": 0.8852752985104164,
+      "note": "D13(ii): 記録のみ。合否に使わない"
+    },
+    "s2:category:3:roi2": {
+      "z": 1.5479012438305395,
+      "note": "D13(ii): 記録のみ。合否に使わない"
+    }
+  },
+  "max_abs_z": 2.1076581649007986,
+  "sum_z2_over_K": 1.2147173339585495,
+  "outside_3sigma": [],
+  "status": "pass (H3a (1)(2)(3))",
+  "gate_status_all61": "pass",
+  "gate_sum_z2_over_K_all61": 1.2264936531732271,
+  "reference_means_identical_to_S1": 61,
+  "twin_means_identical_to_S1": 22,
+  "identity": {
+    "physics_set": {
+      "name": "chatcarlo-photon-electron-v1",
+      "specialization": "local-deposition",
+      "id": 1,
+      "tag": 17852070779063545495
+    },
+    "legacy_physics": false,
+    "device": "cpu twin of the GPU engine (engine=\"gpu\", gpu_device=\"cpu\")",
+    "gpu_sources": {
+      "g5_base.h": "1403e2d0783c390a86494521be215bd8a7c6a403a5d436f04d0a18df5930cb96",
+      "physics_set.h": "ecec3373d2ea0cd3d6f6b0d573e7c57f27f46042d7526cc448c4cfaed2d0ac4e",
+      "g2_tally.h": "afc921606193bf8b6b5a94408eb1a1b4c268ca4d44b07ce07f3242dd9c3cddf4",
+      "g1_common.h": "80d4a9af8305f21d11e572f96d2af2c45b9fb155b150d2f49b8cfc8a916e1314",
+      "photon_physics.h": "161bdd9b5eaaddea62aea30af783eca9ec124d2f86efe13bd0e36c30e5ce31a1",
+      "g1_geometry.h": "52fdd6531a71ad32d20d0f049b5521173687e489b2e7949d0bdbdf850e0fee74",
+      "g1_history.h": "360d1ce0a47e03def94f9bd3bf062275915c9f5169a7a95dddf41e3ffedc4929",
+      "g1_cpu.cpp": "a5faa252d968deddb758e4db658219c25b285607fd1259513e001affaa4be366",
+      "g1_gpu.cu": "bb0c06fcf0ee1276b557f56eb77b20a4aa9d7431c55bdf58b44e2a00e031b511",
+      "core.py": "f041e933bd88b9f9c4a2255d7b344e89c6ce7cc67db6ec40be5f99251606d181",
+      "physics_sets.py": "e4930f95ccdd12c0954e792e0811061f0ea570393ed4f895d4bb4e3b96934a98"
+    },
+    "generate_photon_tables_sha256": "982870d94d95472974d9274e5b4b31ab7d2e8ed9e76f563dbcf46dcb3b7da750",
+    "divergence_sha256": "138de34fc7f1cc17e2cd7130f0b2a199bee0c37f8336e708473e1c76d22c43a8",
+    "scene_sha256": {
+      "s1": "8845281fc8643ad2625f7b1ed4ab2091560cd558b70886416a8b701fd943564e",
+      "s2": "1890bc6b0a9ed2d969ed17c9eabfdd211b19e83f59dc396a4655907b6be7c066",
+      "s3": "12c46b401c37508349a71d624b57bf202d0f885b1834df3f872e77d08e7bb892"
+    },
+    "seeds": {
+      "reference": [
+        5000,
+        5001,
+        5002,
+        5003,
+        5004,
+        5005,
+        5006,
+        5007,
+        5008,
+        5009
+      ],
+      "transport": [
+        6000,
+        6001,
+        6002,
+        6003,
+        6004,
+        6005,
+        6006,
+        6007,
+        6008,
+        6009
+      ],
+      "source": [
+        7000,
+        7001,
+        7002,
+        7003,
+        7004,
+        7005,
+        7006,
+        7007,
+        7008,
+        7009
+      ]
+    },
+    "n_histories_per_run": 1000000,
+    "n_runs": 10,
+    "batch_size": 200000,
+    "generator_note": "982870d9… は H4・H5 の条件記録と同じ値。A4U.md の f2e41991… は bracket_edge の無限ループを直す前の値で、以後の測定には使われていない"
+  },
+  "primary_transmission": {
+    "20": {
+      "mu_per_cm": 0.8098277187339462,
+      "thickness_cm": 0.1,
+      "analytic": 0.9222095792511371,
+      "observed": 0.922168,
+      "SEM": 0.0002678415038573704,
+      "z": -0.1552382679245502,
+      "relative_difference": -4.508655307056131e-05,
+      "histories": 1000000,
+      "seed": 9504006
+    },
+    "150": {
+      "mu_per_cm": 0.1505240165555182,
+      "thickness_cm": 0.1,
+      "analytic": 0.985060319459026,
+      "observed": 0.984836,
+      "SEM": 0.00012131152660117543,
+      "z": -1.8491190846470456,
+      "relative_difference": -0.0002277215461781168,
+      "histories": 1000000,
+      "seed": 9504006
+    }
+  },
+  "fault_injection": {
+    "test": "tests/test_gpu_g5_a4u_s2.py::test_photon_ledger_escape_spectrum_and_faults",
+    "kinds": [
+      "overflow (fault 3)",
+      "dropped secondary (fault 4)",
+      "stale state on slot reuse (fault 5)"
+    ],
+    "result": "pass"
+  },
+  "scope": "CPUのみ。NVRTCのコンパイル誤りは検出しない（H6のT4セッション）。D13の4量はEGS5で検証済みとは呼ばない",
+  "D8_3_classification": {
+    "status": "deferred_to_H6_T4",
+    "note": "D8 (3) の「今の 37・6・4」は GPU エンジンの記録（a1_run/g2gate3、2026-10-30）。transport.py の 2026-10-07 再検証は 42/1/4（Bonferroni 43/0/4）で別物。どちらも A4u の表の修正と 10 keV 打ち切りより前。今の物理での再測定（a1_g2gate3 の 3 条件・計 600 万履歴）はユーザーの判断待ち（手元 CPU か H6 の T4 か）",
+    "numpy_2026_10_07": {
+      "historical_2sigma": {
+        "pass_": 42,
+        "fail": 1,
+        "insufficient_statistics": 4
+      },
+      "bonferroni": {
+        "pass_": 43,
+        "fail": 0,
+        "insufficient_statistics": 4
+      }
+    },
+    "gpu_a1_2026_10_30": {
+      "historical_2sigma": {
+        "pass_": 37,
+        "fail": 6,
+        "insufficient_statistics": 4
+      },
+      "bonferroni": {
+        "pass_": 42,
+        "fail": 1,
+        "insufficient_statistics": 4
+      }
+    },
+    "decision": "ユーザー決定 2026-11-04: H6 の T4 セッションに同梱（A1 の記録が T4 なので装置を揃える）"
+  },
+  "open_items": [
+    "D8 (3): 今の物理での 60 keV 水 PDD/OCR の再分類 → H6 の T4 セッションで実施"
+  ]
+}

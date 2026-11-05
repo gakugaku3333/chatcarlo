@@ -1,0 +1,38 @@
+{
+  "scope": "launcher tests only; not the H3b physical comparison",
+  "status": "tests_passed",
+  "H3b_measurement": "not_run",
+  "targeted_tests": {
+    "command": ".venv/bin/python -m pytest tests/test_gpu_g5_a4u_h3b.py -q",
+    "passed": 10,
+    "seconds": 0.7
+  },
+  "commands": [
+    {
+      "command": ".venv/bin/python -m pytest tests/ -q",
+      "passed": 1005,
+      "warnings": 2,
+      "seconds": 341.62,
+      "exit_code": 0,
+      "log": "a4u_h3b_tests.log",
+      "log_sha256": "45842e18526d453beeafc1e26bd54c677d2e04891b0a731419888968a1162f69"
+    },
+    {
+      "command": ".venv/bin/python -m pytest prototypes/mv_electron/tests -q",
+      "passed": 1808,
+      "skipped": 17,
+      "seconds": 1315.39,
+      "exit_code": 0,
+      "log": "a4u_h3b_prototypes.log",
+      "log_sha256": "5796a37113762611cf9d47e50eb3aa835d0ebcdff7bba1a290b9f2e14f2d50ed"
+    },
+    {
+      "command": ".venv/bin/python -m pytest tests/test_gpu_g5_a4u_*.py tests/test_gpu_g5_a3_*.py tests/test_gpu_g5_a2_*.py tests/test_gpu_g5_a1_*.py -q",
+      "passed": 234,
+      "seconds": 88.3,
+      "exit_code": 0,
+      "log": "a4u_h3b_focused.log",
+      "log_sha256": "0d73378556c78429803123dee103deca9c52a3187a74fbee959b3a38edd75625"
+    }
+  ]
+}

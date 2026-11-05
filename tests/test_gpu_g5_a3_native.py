@@ -19,6 +19,8 @@ def artificial_material():
     m.z=np.array([2.]);m.nj=np.ones(1);m.gs_y=np.ones((2,2,2));m.brems_V=np.ones((2,5));m.dl=np.ones((6,6))
     m.thresholds=np.array([1.,2.]);m.bindings=np.ones((1,5));m.pm=np.ones((1,5,4));m.shell_nj=np.ones(1)
     m.yields=np.zeros((1,4));m.lines=np.zeros((1,4,1,4));m.line_counts=np.ones((1,4))
+    from chatcarlo.gpu.generate_photon_tables import material
+    m.photon=material([2],[1.])[0]
     return m
 
 
@@ -39,7 +41,7 @@ def native(tmp_path_factory):
     g=geometry();a=dict(faces=np.array([0.,30.]),rho=np.ones(1),bins=np.arange(301)*.1,strength=np.arange(17,dtype=float),
         edges=np.empty(0),cum=np.empty(0),ids=np.zeros(1,np.int64),owner=np.zeros(300,np.int64),constants=np.ones(6),sizes=np.array([1,300,150,600,0],np.int64))
     a['_table_hashes']={'0.'+k:catalog.digest(getattr(artificial_material(),k)) for k in catalog.P8_DEFINITIONS}
-    cpu=therapy.CPU(tmp_path_factory.mktemp('native'),[artificial_material()],a,field_geometry=g,half=(5.,5.));cpu.g.energy=.007
+    cpu=therapy.CPU(tmp_path_factory.mktemp('native'),[artificial_material()],a,field_geometry=g,half=(5.,5.));cpu.g.energy=.004
     return cpu,a,g
 
 

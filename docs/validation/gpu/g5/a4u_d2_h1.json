@@ -1,0 +1,2772 @@
+{
+  "status": "recorded_not_a_dose_gate",
+  "generator_sha256": "e852ba21d23be19cc5ef000e35c8a93ee34a6975be00e9dd4253fe40cf77cfd6",
+  "photon_source_sha256": "04a764e19b072012c4cf03bea7c078852e9447c12968480932370e8e4bbd382b",
+  "native_probe": "p8g_coefficients; production specialization; no photon histories",
+  "fallback_columns": [
+    "energy_keV",
+    "photo",
+    "compt",
+    "rayleigh"
+  ],
+  "previous_record_note": "Previous H1 reconstructed mixture fallbacks and analytic KN; current H1 probes actual native coefficients.",
+  "previous_record_sha256": "2dd50240757068769222cc3ba9f0e6fb656ee94fd1f07622855a32b2b97452f5",
+  "materials": {
+    "water": {
+      "photon_sha256": "4f8eed4c9bcdd5ebce41f56e174aae3912da04e3aa59fc587f5db7e5acfeb736",
+      "photon_size": 52085,
+      "joins": [
+        {
+          "channel": "photo",
+          "keV": 800.026475038008,
+          "below": 5.920266038291703e-06,
+          "above": 5.92012195043246e-06,
+          "relative_step": -2.4338071686447194e-05,
+          "XCOM_above": 5.920120949184351e-06,
+          "relative_difference_XCOM_above": 1.69126292748345e-07
+        },
+        {
+          "channel": "compt",
+          "keV": 800.026475038008,
+          "below": 0.07856275086768183,
+          "above": 0.0785607783648474,
+          "relative_step": -2.510735447325274e-05,
+          "XCOM_above": 0.07856076990335893,
+          "relative_difference_XCOM_above": 1.077062823373609e-07
+        },
+        {
+          "channel": "rayleigh",
+          "keV": 800.026475038008,
+          "below": 8.789723272651651e-05,
+          "above": 8.789176503906792e-05,
+          "relative_step": -6.220545606483441e-05,
+          "XCOM_above": 8.78917542405174e-05,
+          "relative_difference_XCOM_above": 1.2286192951904695e-07
+        }
+      ],
+      "xs_vs_XCOM": [
+        {
+          "channel": "photo",
+          "keV": 5.0,
+          "XCOM": 41.92198674405714,
+          "unified": 41.92173485540653,
+          "relative_difference": -6.008509380928118e-06
+        },
+        {
+          "channel": "compt",
+          "keV": 5.0,
+          "XCOM": 0.11233007199556908,
+          "unified": 0.11233232273597049,
+          "relative_difference": 2.003684642448711e-05
+        },
+        {
+          "channel": "rayleigh",
+          "keV": 5.0,
+          "XCOM": 0.5578528893583915,
+          "unified": 0.5578528361830535,
+          "relative_difference": -9.532143518953262e-08
+        },
+        {
+          "channel": "photo",
+          "keV": 20.0,
+          "XCOM": 0.5439003383134955,
+          "unified": 0.5439076617860308,
+          "relative_difference": 1.3464732450785277e-05
+        },
+        {
+          "channel": "compt",
+          "keV": 20.0,
+          "XCOM": 0.1773534322530844,
+          "unified": 0.17735578566034055,
+          "relative_difference": 1.326958957759139e-05
+        },
+        {
+          "channel": "rayleigh",
+          "keV": 20.0,
+          "XCOM": 0.08856259092591197,
+          "unified": 0.08856411469233919,
+          "relative_difference": 1.7205531266384355e-05
+        },
+        {
+          "channel": "photo",
+          "keV": 60.0,
+          "XCOM": 0.014926297938682295,
+          "unified": 0.014926298313912357,
+          "relative_difference": 2.513885655197612e-08
+        },
+        {
+          "channel": "compt",
+          "keV": 60.0,
+          "XCOM": 0.1770264669429102,
+          "unified": 0.17702903106128537,
+          "relative_difference": 1.448437863249552e-05
+        },
+        {
+          "channel": "rayleigh",
+          "keV": 60.0,
+          "XCOM": 0.013918095159638518,
+          "unified": 0.013918080423066097,
+          "relative_difference": -1.058806700982018e-06
+        },
+        {
+          "channel": "photo",
+          "keV": 150.0,
+          "XCOM": 0.0007307677503636455,
+          "unified": 0.0007307895555561688,
+          "relative_difference": 2.9838744953547547e-05
+        },
+        {
+          "channel": "compt",
+          "keV": 150.0,
+          "XCOM": 0.14734918362133478,
+          "unified": 0.14735116515097255,
+          "relative_difference": 1.3447849448899873e-05
+        },
+        {
+          "channel": "rayleigh",
+          "keV": 150.0,
+          "XCOM": 0.002441947914403813,
+          "unified": 0.002442009587674792,
+          "relative_difference": 2.525576840328725e-05
+        },
+        {
+          "channel": "photo",
+          "keV": 1000.0,
+          "XCOM": 3.6791512565542192e-06,
+          "unified": 3.679151569168422e-06,
+          "relative_difference": 8.49691086379778e-08
+        },
+        {
+          "channel": "compt",
+          "keV": 1000.0,
+          "XCOM": 0.07065948406139724,
+          "unified": 0.07065949350394103,
+          "relative_difference": 1.3363448525538502e-07
+        },
+        {
+          "channel": "rayleigh",
+          "keV": 1000.0,
+          "XCOM": 5.626800790996075e-05,
+          "unified": 5.626801321055023e-05,
+          "relative_difference": 9.42025437655758e-08
+        },
+        {
+          "channel": "photo",
+          "keV": 10000.0,
+          "XCOM": 1.3859855130249343e-07,
+          "unified": 1.3859855683216756e-07,
+          "relative_difference": 3.989705565921042e-08
+        },
+        {
+          "channel": "compt",
+          "keV": 10000.0,
+          "XCOM": 0.017102334648370743,
+          "unified": 0.017102336175940935,
+          "relative_difference": 8.931939543543876e-08
+        },
+        {
+          "channel": "rayleigh",
+          "keV": 10000.0,
+          "XCOM": 5.630126338473925e-07,
+          "unified": 5.630126952469114e-07,
+          "relative_difference": 1.090553127802707e-07
+        }
+      ],
+      "coefficient_low_keV": 5.0,
+      "shell_freeze_keV": {
+        "1": 60.0000082606745,
+        "8": 100.00001139119121
+      },
+      "previous_joins": [
+        {
+          "channel": "photo",
+          "keV": 800.026475038008,
+          "below": 5.920266038291692e-06,
+          "above": 5.920120949184351e-06,
+          "relative_step": -2.4507193832623564e-05
+        },
+        {
+          "channel": "compt",
+          "keV": 800.026475038008,
+          "below": 0.07856275086768183,
+          "above": 0.07850634564927834,
+          "relative_step": -0.0007179638923092702
+        },
+        {
+          "channel": "rayleigh",
+          "keV": 800.026475038008,
+          "below": 8.789723272651635e-05,
+          "above": 8.78917542405174e-05,
+          "relative_step": -6.232831033481379e-05
+        }
+      ]
+    },
+    "lung": {
+      "photon_sha256": "6fb0f8d863938b6dedd346fb71860b15c8a136bda64c53e457a1ce2d4ee7787b",
+      "photon_size": 324378,
+      "joins": [
+        {
+          "channel": "photo",
+          "keV": 800.026475038008,
+          "below": 6.630690051516111e-06,
+          "above": 6.630549832739024e-06,
+          "relative_step": -2.1146935838878278e-05,
+          "XCOM_above": 6.630444857028106e-06,
+          "relative_difference_XCOM_above": 1.583237824642758e-05
+        },
+        {
+          "channel": "photo",
+          "keV": 999.9895419903946,
+          "below": 4.121182591737526e-06,
+          "above": 4.1210606239958315e-06,
+          "relative_step": -2.9595325851117238e-05,
+          "XCOM_above": 4.121068406957799e-06,
+          "relative_difference_XCOM_above": -1.8885786885469713e-06
+        },
+        {
+          "channel": "compt",
+          "keV": 800.026475038008,
+          "below": 0.07779226957003765,
+          "above": 0.07779037739132337,
+          "relative_step": -2.4323480015908672e-05,
+          "XCOM_above": 0.07779038116169815,
+          "relative_difference_XCOM_above": -4.8468393187839354e-08
+        },
+        {
+          "channel": "rayleigh",
+          "keV": 800.026475038008,
+          "below": 8.681376249916806e-05,
+          "above": 8.680817588778731e-05,
+          "relative_step": -6.435167904172978e-05,
+          "XCOM_above": 8.680817774182876e-05,
+          "relative_difference_XCOM_above": -2.1357912216579678e-08
+        }
+      ],
+      "xs_vs_XCOM": [
+        {
+          "channel": "photo",
+          "keV": 5.0,
+          "XCOM": 42.015747300287686,
+          "unified": 42.01563183438953,
+          "relative_difference": -2.7481576688748177e-06
+        },
+        {
+          "channel": "compt",
+          "keV": 5.0,
+          "XCOM": 0.11121723681921668,
+          "unified": 0.1112193390541109,
+          "relative_difference": 1.890206009735884e-05
+        },
+        {
+          "channel": "rayleigh",
+          "keV": 5.0,
+          "XCOM": 0.5410134334294284,
+          "unified": 0.5410138041727531,
+          "relative_difference": 6.85275636014282e-07
+        },
+        {
+          "channel": "photo",
+          "keV": 20.0,
+          "XCOM": 0.5704623077768413,
+          "unified": 0.570472470010241,
+          "relative_difference": 1.781403128875425e-05
+        },
+        {
+          "channel": "compt",
+          "keV": 20.0,
+          "XCOM": 0.17556724460420256,
+          "unified": 0.1755694844128819,
+          "relative_difference": 1.275755443086446e-05
+        },
+        {
+          "channel": "rayleigh",
+          "keV": 20.0,
+          "XCOM": 0.0874301734394818,
+          "unified": 0.08743180225934419,
+          "relative_difference": 1.8629951174853332e-05
+        },
+        {
+          "channel": "photo",
+          "keV": 60.0,
+          "XCOM": 0.01610565074688817,
+          "unified": 0.016105730382153943,
+          "relative_difference": 4.944554369501475e-06
+        },
+        {
+          "channel": "compt",
+          "keV": 60.0,
+          "XCOM": 0.17531052047886664,
+          "unified": 0.17531294399328146,
+          "relative_difference": 1.3824124235117807e-05
+        },
+        {
+          "channel": "rayleigh",
+          "keV": 60.0,
+          "XCOM": 0.013734205510086129,
+          "unified": 0.01373421505838147,
+          "relative_difference": 6.9522007195566e-07
+        },
+        {
+          "channel": "photo",
+          "keV": 150.0,
+          "XCOM": 0.0008039518020541721,
+          "unified": 0.0008039797245660374,
+          "relative_difference": 3.473157444755515e-05
+        },
+        {
+          "channel": "compt",
+          "keV": 150.0,
+          "XCOM": 0.14590767954168635,
+          "unified": 0.14590959543049925,
+          "relative_difference": 1.3130829157992352e-05
+        },
+        {
+          "channel": "rayleigh",
+          "keV": 150.0,
+          "XCOM": 0.002410196481569321,
+          "unified": 0.0024102588319581454,
+          "relative_difference": 2.586942156002081e-05
+        },
+        {
+          "channel": "photo",
+          "keV": 1000.0,
+          "XCOM": 4.120936421210167e-06,
+          "unified": 4.120928642071137e-06,
+          "relative_difference": -1.887711489456656e-06
+        },
+        {
+          "channel": "compt",
+          "keV": 1000.0,
+          "XCOM": 0.06996494319617676,
+          "unified": 0.06996494313681519,
+          "relative_difference": -8.484473124070746e-10
+        },
+        {
+          "channel": "rayleigh",
+          "keV": 1000.0,
+          "XCOM": 5.5575909876835865e-05,
+          "unified": 5.5575909842837846e-05,
+          "relative_difference": -6.117402140404238e-10
+        },
+        {
+          "channel": "photo",
+          "keV": 10000.0,
+          "XCOM": 1.53533449065435e-07,
+          "unified": 1.535334444223975e-07,
+          "relative_difference": -3.0241211534942636e-08
+        },
+        {
+          "channel": "compt",
+          "keV": 10000.0,
+          "XCOM": 0.016934450715780255,
+          "unified": 0.016934450149333098,
+          "relative_difference": -3.344939647487166e-08
+        },
+        {
+          "channel": "rayleigh",
+          "keV": 10000.0,
+          "XCOM": 5.561112743635023e-07,
+          "unified": 5.561113099616791e-07,
+          "relative_difference": 6.401268670686022e-08
+        }
+      ],
+      "coefficient_low_keV": 5.0,
+      "shell_freeze_keV": {
+        "1": 60.0000082606745,
+        "6": 100.00001139119121,
+        "7": 100.00001139119121,
+        "8": 100.00001139119121,
+        "11": 300.00003757313243,
+        "12": 300.00003757313243,
+        "15": 300.00003757313243,
+        "16": 300.00003757313243,
+        "17": 300.00003757313243,
+        "19": 300.00003757313243,
+        "20": 300.00003757313243,
+        "26": 300.00003757313243,
+        "30": 300.00003757313243
+      },
+      "previous_joins": [
+        {
+          "channel": "photo",
+          "keV": 800.026475038008,
+          "below": 6.630690051516102e-06,
+          "above": 6.630444857028106e-06,
+          "relative_step": -3.697872862262752e-05
+        },
+        {
+          "channel": "compt",
+          "keV": 800.026475038008,
+          "below": 0.07779226957003765,
+          "above": 0.07774073290402275,
+          "relative_step": -0.0006624908400248986
+        },
+        {
+          "channel": "rayleigh",
+          "keV": 800.026475038008,
+          "below": 8.681376249916793e-05,
+          "above": 8.680817774182876e-05,
+          "relative_step": -6.433032250185988e-05
+        }
+      ]
+    },
+    "bone": {
+      "photon_sha256": "d0e34c0e9a05048ac93251ec6d5224962ceea2d9100dfd5a6d8ba9cd87493cca",
+      "photon_size": 225351,
+      "joins": [
+        {
+          "channel": "photo",
+          "keV": 800.026475038008,
+          "below": 5.955318961388429e-05,
+          "above": 5.955309007733933e-05,
+          "relative_step": -1.6713889819941485e-06,
+          "XCOM_above": 5.955249320070316e-05,
+          "relative_difference_XCOM_above": 1.0022697692235738e-05
+        },
+        {
+          "channel": "photo",
+          "keV": 999.9895419903946,
+          "below": 3.70218900233341e-05,
+          "above": 3.701911997057887e-05,
+          "relative_step": -7.482202430753038e-05,
+          "XCOM_above": 3.701914932995902e-05,
+          "relative_difference_XCOM_above": -7.930862995220167e-07
+        },
+        {
+          "channel": "compt",
+          "keV": 800.026475038008,
+          "below": 0.07374867018153254,
+          "above": 0.07374789014869863,
+          "relative_step": -1.0576907108816869e-05,
+          "XCOM_above": 0.07374789018689472,
+          "relative_difference_XCOM_above": -5.179278117495301e-10
+        },
+        {
+          "channel": "rayleigh",
+          "keV": 800.026475038008,
+          "below": 0.00018658539897634138,
+          "above": 0.00018657835991720865,
+          "relative_step": -3.7725669700505726e-05,
+          "XCOM_above": 0.00018657835413873853,
+          "relative_difference_XCOM_above": 3.0970742193048295e-08
+        }
+      ],
+      "xs_vs_XCOM": [
+        {
+          "channel": "photo",
+          "keV": 5.0,
+          "XCOM": 182.51844889748395,
+          "unified": 182.5110908007181,
+          "relative_difference": -4.031426308015451e-05
+        },
+        {
+          "channel": "compt",
+          "keV": 5.0,
+          "XCOM": 0.09388017529325295,
+          "unified": 0.09388062878236138,
+          "relative_difference": 4.83050981769928e-06
+        },
+        {
+          "channel": "rayleigh",
+          "keV": 5.0,
+          "XCOM": 0.8494060380582036,
+          "unified": 0.8493882603756094,
+          "relative_difference": -2.092954582100237e-05
+        },
+        {
+          "channel": "photo",
+          "keV": 20.0,
+          "XCOM": 3.504666396994347,
+          "unified": 3.5045821029705984,
+          "relative_difference": -2.4051939386038335e-05
+        },
+        {
+          "channel": "compt",
+          "keV": 20.0,
+          "XCOM": 0.1580861786907687,
+          "unified": 0.15808630538154625,
+          "relative_difference": 8.014032508718572e-07
+        },
+        {
+          "channel": "rayleigh",
+          "keV": 20.0,
+          "XCOM": 0.16503025077248423,
+          "unified": 0.165029059863875,
+          "relative_difference": -7.21630491173908e-06
+        },
+        {
+          "channel": "photo",
+          "keV": 60.0,
+          "XCOM": 0.11942812228260802,
+          "unified": 0.11942361699210302,
+          "relative_difference": -3.772386619571577e-05
+        },
+        {
+          "channel": "compt",
+          "keV": 60.0,
+          "XCOM": 0.1632562699848448,
+          "unified": 0.16325605682261962,
+          "relative_difference": -1.3056908944042434e-06
+        },
+        {
+          "channel": "rayleigh",
+          "keV": 60.0,
+          "XCOM": 0.02754146223264753,
+          "unified": 0.027540817830418198,
+          "relative_difference": -2.33975314704038e-05
+        },
+        {
+          "channel": "photo",
+          "keV": 150.0,
+          "XCOM": 0.006624324596411124,
+          "unified": 0.006624238086426201,
+          "relative_difference": -1.305944231200229e-05
+        },
+        {
+          "channel": "compt",
+          "keV": 150.0,
+          "XCOM": 0.13765660327922175,
+          "unified": 0.13765671174282354,
+          "relative_difference": 7.879287968748372e-07
+        },
+        {
+          "channel": "rayleigh",
+          "keV": 150.0,
+          "XCOM": 0.00504165258824963,
+          "unified": 0.0050416400071810275,
+          "relative_difference": -2.495425534099205e-06
+        },
+        {
+          "channel": "photo",
+          "keV": 1000.0,
+          "XCOM": 3.701816622269142e-05,
+          "unified": 3.701813687902452e-05,
+          "relative_difference": -7.926828877735659e-07
+        },
+        {
+          "channel": "compt",
+          "keV": 1000.0,
+          "XCOM": 0.06633270159010628,
+          "unified": 0.06633270621918531,
+          "relative_difference": 6.978577582472667e-08
+        },
+        {
+          "channel": "rayleigh",
+          "keV": 1000.0,
+          "XCOM": 0.00011952747920298756,
+          "unified": 0.00011952748584531807,
+          "relative_difference": 5.557157689572989e-08
+        },
+        {
+          "channel": "photo",
+          "keV": 10000.0,
+          "XCOM": 1.3101641798129989e-06,
+          "unified": 1.3101642288546357e-06,
+          "relative_difference": 3.743167265035652e-08
+        },
+        {
+          "channel": "compt",
+          "keV": 10000.0,
+          "XCOM": 0.016059936955571175,
+          "unified": 0.01605993850521371,
+          "relative_difference": 9.649119681043317e-08
+        },
+        {
+          "channel": "rayleigh",
+          "keV": 10000.0,
+          "XCOM": 1.197359210891591e-06,
+          "unified": 1.1973592904743237e-06,
+          "relative_difference": 6.646521111264292e-08
+        }
+      ],
+      "coefficient_low_keV": 5.0,
+      "shell_freeze_keV": {
+        "1": 60.0000082606745,
+        "6": 100.00001139119121,
+        "7": 100.00001139119121,
+        "8": 100.00001139119121,
+        "12": 300.00003757313243,
+        "15": 300.00003757313243,
+        "16": 300.00003757313243,
+        "20": 300.00003757313243,
+        "30": 300.00003757313243
+      },
+      "previous_joins": [
+        {
+          "channel": "photo",
+          "keV": 800.026475038008,
+          "below": 5.955318961388428e-05,
+          "above": 5.955249320070316e-05,
+          "relative_step": -1.1693969468984378e-05
+        },
+        {
+          "channel": "compt",
+          "keV": 800.026475038008,
+          "below": 0.07374867018153254,
+          "above": 0.07374413031640775,
+          "relative_step": -6.155860320755657e-05
+        },
+        {
+          "channel": "rayleigh",
+          "keV": 800.026475038008,
+          "below": 0.00018658539897634124,
+          "above": 0.00018657835413873853,
+          "relative_step": -3.775663927274575e-05
+        }
+      ]
+    },
+    "lead": {
+      "photon_sha256": "e49545d952579dddabfcb16c68fef78d656192f3bfc4b5618541e51c9a97ebe2",
+      "photon_size": 28688,
+      "joins": [
+        {
+          "channel": "photo",
+          "keV": 999.9895419903946,
+          "below": 0.018095532689914224,
+          "above": 0.018096052657791604,
+          "relative_step": 2.8734599101909453e-05,
+          "XCOM_above": 0.018096052657791604,
+          "relative_difference_XCOM_above": 0.0
+        },
+        {
+          "channel": "compt",
+          "keV": 800.026475038008,
+          "below": 0.05536763624318664,
+          "above": 0.05536670477832773,
+          "relative_step": -1.6823272982469106e-05,
+          "XCOM_above": 0.05536670477832773,
+          "relative_difference_XCOM_above": 0.0
+        },
+        {
+          "channel": "rayleigh",
+          "keV": 800.026475038008,
+          "below": 0.004621249415802149,
+          "above": 0.0046209345659958545,
+          "relative_step": -6.813088365620334e-05,
+          "XCOM_above": 0.0046209345659958545,
+          "relative_difference_XCOM_above": 0.0
+        }
+      ],
+      "xs_vs_XCOM": [
+        {
+          "channel": "photo",
+          "keV": 5.0,
+          "XCOM": 722.2341373142676,
+          "unified": 722.2433235388232,
+          "relative_difference": 1.2719178007492005e-05
+        },
+        {
+          "channel": "compt",
+          "keV": 5.0,
+          "XCOM": 0.025155215996057648,
+          "unified": 0.025155290570768107,
+          "relative_difference": 2.964582394016091e-06
+        },
+        {
+          "channel": "rayleigh",
+          "keV": 5.0,
+          "XCOM": 8.207759406337583,
+          "unified": 8.207745124021505,
+          "relative_difference": -1.7400992611271704e-06
+        },
+        {
+          "channel": "photo",
+          "keV": 20.0,
+          "XCOM": 83.94228719080829,
+          "unified": 83.96477964559908,
+          "relative_difference": 0.00026795141690216795
+        },
+        {
+          "channel": "compt",
+          "keV": 20.0,
+          "XCOM": 0.06896946831009701,
+          "unified": 0.0689694643805263,
+          "relative_difference": -5.697551119787647e-08
+        },
+        {
+          "channel": "rayleigh",
+          "keV": 20.0,
+          "XCOM": 2.3379274857640118,
+          "unified": 2.3379440326009426,
+          "relative_difference": 7.077566362312382e-06
+        },
+        {
+          "channel": "photo",
+          "keV": 60.0,
+          "XCOM": 4.432207759340852,
+          "unified": 4.432249798601577,
+          "relative_difference": 9.48494813601819e-06
+        },
+        {
+          "channel": "compt",
+          "keV": 60.0,
+          "XCOM": 0.09733613396079147,
+          "unified": 0.09733653050959401,
+          "relative_difference": 4.074014309018992e-06
+        },
+        {
+          "channel": "rayleigh",
+          "keV": 60.0,
+          "XCOM": 0.4900251457940582,
+          "unified": 0.49002556945954157,
+          "relative_difference": 8.645790670058773e-07
+        },
+        {
+          "channel": "photo",
+          "keV": 150.0,
+          "XCOM": 1.8147672547916471,
+          "unified": 1.8148233026022214,
+          "relative_difference": 3.08842968299583e-05
+        },
+        {
+          "channel": "compt",
+          "keV": 150.0,
+          "XCOM": 0.0948364159852247,
+          "unified": 0.09483666023391163,
+          "relative_difference": 2.575473613042334e-06
+        },
+        {
+          "channel": "rayleigh",
+          "keV": 150.0,
+          "XCOM": 0.10492201107258314,
+          "unified": 0.104924566824214,
+          "relative_difference": 2.43585841019911e-05
+        },
+        {
+          "channel": "photo",
+          "keV": 1000.0,
+          "XCOM": 0.018095670958567244,
+          "unified": 0.01809567095856721,
+          "relative_difference": -1.887379141862766e-15
+        },
+        {
+          "channel": "compt",
+          "keV": 1000.0,
+          "XCOM": 0.0499327996071965,
+          "unified": 0.0499327996071965,
+          "relative_difference": 0.0
+        },
+        {
+          "channel": "rayleigh",
+          "keV": 1000.0,
+          "XCOM": 0.002990712432755867,
+          "unified": 0.002990712432755862,
+          "relative_difference": -1.7763568394002505e-15
+        },
+        {
+          "channel": "photo",
+          "keV": 10000.0,
+          "XCOM": 0.0005202522152103485,
+          "unified": 0.0005202522152103485,
+          "relative_difference": 0.0
+        },
+        {
+          "channel": "compt",
+          "keV": 10000.0,
+          "XCOM": 0.012186689302325252,
+          "unified": 0.012186689302325252,
+          "relative_difference": 0.0
+        },
+        {
+          "channel": "rayleigh",
+          "keV": 10000.0,
+          "XCOM": 3.077917426708155e-05,
+          "unified": 3.077917426708155e-05,
+          "relative_difference": 0.0
+        }
+      ],
+      "coefficient_low_keV": 5.0,
+      "shell_freeze_keV": {
+        "82": 300.0060376338852
+      },
+      "previous_joins": [
+        {
+          "channel": "photo",
+          "keV": 999.9895419903946,
+          "below": 0.018095532689914255,
+          "above": 0.018096052657791604,
+          "relative_step": 2.8734599100133096e-05
+        },
+        {
+          "channel": "compt",
+          "keV": 800.026475038008,
+          "below": 0.05536763624318664,
+          "above": 0.055993912579894986,
+          "relative_step": 0.011311234851305585
+        },
+        {
+          "channel": "rayleigh",
+          "keV": 800.026475038008,
+          "below": 0.004621249415802149,
+          "above": 0.0046209345659958545,
+          "relative_step": -6.813088365620334e-05
+        }
+      ]
+    }
+  },
+  "elements": [
+    {
+      "Z": 1,
+      "xraylib": "4.2.1",
+      "ranges": {
+        "CS_Photo": {
+          "low": 5.0,
+          "high": 800.026475038008,
+          "termination": {
+            "first_invalid": 800.0264751180398,
+            "error": "Spline extrapolation is not allowed"
+          }
+        },
+        "CS_Compt": {
+          "low": 5.0,
+          "high": 800.026475038008,
+          "termination": {
+            "first_invalid": 800.0264751180398,
+            "error": "Spline extrapolation is not allowed"
+          }
+        },
+        "CS_Rayl": {
+          "low": 5.0,
+          "high": 800.026475038008,
+          "termination": {
+            "first_invalid": 800.0264751180398,
+            "error": "Spline extrapolation is not allowed"
+          }
+        },
+        "partial_K": {
+          "low": 5.0,
+          "high": 60.0000082606745,
+          "termination": {
+            "first_invalid": 60.00000826667664,
+            "error": "Spline extrapolation is not allowed"
+          }
+        },
+        "SF_Compt": {
+          "low": 0.001,
+          "high": 10000.0,
+          "termination": null
+        },
+        "FF_Rayl": {
+          "low": 0.001,
+          "high": 10000.0,
+          "termination": null
+        }
+      },
+      "shells": [
+        "K"
+      ],
+      "partial_vs_total": [
+        {
+          "E": 20.0,
+          "photo": 0.00024987455265784936,
+          "partial_sum": 4.0617949548324035e-52
+        },
+        {
+          "E": 60.0,
+          "photo": 5.6491839668771845e-06,
+          "partial_sum": 1.14316224573748e-151
+        },
+        {
+          "E": 150.0,
+          "photo": 2.495095954655258e-07,
+          "partial_sum": 1.1431130376638104e-151
+        }
+      ],
+      "lines_ge5": []
+    },
+    {
+      "Z": 6,
+      "xraylib": "4.2.1",
+      "ranges": {
+        "CS_Photo": {
+          "low": 5.0,
+          "high": 800.026475038008,
+          "termination": {
+            "first_invalid": 800.0264751180398,
+            "error": "Spline extrapolation is not allowed"
+          }
+        },
+        "CS_Compt": {
+          "low": 5.0,
+          "high": 800.026475038008,
+          "termination": {
+            "first_invalid": 800.0264751180398,
+            "error": "Spline extrapolation is not allowed"
+          }
+        },
+        "CS_Rayl": {
+          "low": 5.0,
+          "high": 800.026475038008,
+          "termination": {
+            "first_invalid": 800.0264751180398,
+            "error": "Spline extrapolation is not allowed"
+          }
+        },
+        "partial_K": {
+          "low": 5.0,
+          "high": 100.00001139119121,
+          "termination": {
+            "first_invalid": 100.0000114011948,
+            "error": "Spline extrapolation is not allowed"
+          }
+        },
+        "partial_L1": {
+          "low": 5.0,
+          "high": 100.00001139119121,
+          "termination": {
+            "first_invalid": 100.0000114011948,
+            "error": "Spline extrapolation is not allowed"
+          }
+        },
+        "partial_L2": {
+          "low": 5.0,
+          "high": 100.00001139119121,
+          "termination": {
+            "first_invalid": 100.0000114011948,
+            "error": "Spline extrapolation is not allowed"
+          }
+        },
+        "partial_L3": {
+          "low": 5.0,
+          "high": 100.00001139119121,
+          "termination": {
+            "first_invalid": 100.0000114011948,
+            "error": "Spline extrapolation is not allowed"
+          }
+        },
+        "SF_Compt": {
+          "low": 0.001,
+          "high": 10000.0,
+          "termination": null
+        },
+        "FF_Rayl": {
+          "low": 0.001,
+          "high": 10000.0,
+          "termination": null
+        }
+      },
+      "shells": [
+        "K",
+        "L1",
+        "L2",
+        "L3"
+      ],
+      "partial_vs_total": [
+        {
+          "E": 20.0,
+          "photo": 0.21765327759443884,
+          "partial_sum": 0.01156202967420346
+        },
+        {
+          "E": 60.0,
+          "photo": 0.005670661680835167,
+          "partial_sum": 9.004293976642191e-09
+        },
+        {
+          "E": 150.0,
+          "photo": 0.00027060533120929956,
+          "partial_sum": 4.601048345230047e-14
+        }
+      ],
+      "lines_ge5": []
+    },
+    {
+      "Z": 7,
+      "xraylib": "4.2.1",
+      "ranges": {
+        "CS_Photo": {
+          "low": 5.0,
+          "high": 800.026475038008,
+          "termination": {
+            "first_invalid": 800.0264751180398,
+            "error": "Spline extrapolation is not allowed"
+          }
+        },
+        "CS_Compt": {
+          "low": 5.0,
+          "high": 800.026475038008,
+          "termination": {
+            "first_invalid": 800.0264751180398,
+            "error": "Spline extrapolation is not allowed"
+          }
+        },
+        "CS_Rayl": {
+          "low": 5.0,
+          "high": 800.026475038008,
+          "termination": {
+            "first_invalid": 800.0264751180398,
+            "error": "Spline extrapolation is not allowed"
+          }
+        },
+        "partial_K": {
+          "low": 5.0,
+          "high": 100.00001139119121,
+          "termination": {
+            "first_invalid": 100.0000114011948,
+            "error": "Spline extrapolation is not allowed"
+          }
+        },
+        "partial_L1": {
+          "low": 5.0,
+          "high": 100.00001139119121,
+          "termination": {
+            "first_invalid": 100.0000114011948,
+            "error": "Spline extrapolation is not allowed"
+          }
+        },
+        "partial_L2": {
+          "low": 5.0,
+          "high": 100.00001139119121,
+          "termination": {
+            "first_invalid": 100.0000114011948,
+            "error": "Spline extrapolation is not allowed"
+          }
+        },
+        "partial_L3": {
+          "low": 5.0,
+          "high": 100.00001139119121,
+          "termination": {
+            "first_invalid": 100.0000114011948,
+            "error": "Spline extrapolation is not allowed"
+          }
+        },
+        "SF_Compt": {
+          "low": 0.001,
+          "high": 10000.0,
+          "termination": null
+        },
+        "FF_Rayl": {
+          "low": 0.001,
+          "high": 10000.0,
+          "termination": null
+        }
+      },
+      "shells": [
+        "K",
+        "L1",
+        "L2",
+        "L3"
+      ],
+      "partial_vs_total": [
+        {
+          "E": 20.0,
+          "photo": 0.38076380446293734,
+          "partial_sum": 0.08635076952459513
+        },
+        {
+          "E": 60.0,
+          "photo": 0.010185404931347808,
+          "partial_sum": 1.2897468541943168e-06
+        },
+        {
+          "E": 150.0,
+          "photo": 0.0004918733692471909,
+          "partial_sum": 1.2678229859759037e-10
+        }
+      ],
+      "lines_ge5": []
+    },
+    {
+      "Z": 8,
+      "xraylib": "4.2.1",
+      "ranges": {
+        "CS_Photo": {
+          "low": 5.0,
+          "high": 800.026475038008,
+          "termination": {
+            "first_invalid": 800.0264751180398,
+            "error": "Spline extrapolation is not allowed"
+          }
+        },
+        "CS_Compt": {
+          "low": 5.0,
+          "high": 800.026475038008,
+          "termination": {
+            "first_invalid": 800.0264751180398,
+            "error": "Spline extrapolation is not allowed"
+          }
+        },
+        "CS_Rayl": {
+          "low": 5.0,
+          "high": 800.026475038008,
+          "termination": {
+            "first_invalid": 800.0264751180398,
+            "error": "Spline extrapolation is not allowed"
+          }
+        },
+        "partial_K": {
+          "low": 5.0,
+          "high": 100.00001139119121,
+          "termination": {
+            "first_invalid": 100.0000114011948,
+            "error": "Spline extrapolation is not allowed"
+          }
+        },
+        "partial_L1": {
+          "low": 5.0,
+          "high": 100.00001139119121,
+          "termination": {
+            "first_invalid": 100.0000114011948,
+            "error": "Spline extrapolation is not allowed"
+          }
+        },
+        "partial_L2": {
+          "low": 5.0,
+          "high": 100.00001139119121,
+          "termination": {
+            "first_invalid": 100.0000114011948,
+            "error": "Spline extrapolation is not allowed"
+          }
+        },
+        "partial_L3": {
+          "low": 5.0,
+          "high": 100.00001139119121,
+          "termination": {
+            "first_invalid": 100.0000114011948,
+            "error": "Spline extrapolation is not allowed"
+          }
+        },
+        "SF_Compt": {
+          "low": 0.001,
+          "high": 10000.0,
+          "termination": null
+        },
+        "FF_Rayl": {
+          "low": 0.001,
+          "high": 10000.0,
+          "termination": null
+        }
+      },
+      "shells": [
+        "K",
+        "L1",
+        "L2",
+        "L3"
+      ],
+      "partial_vs_total": [
+        {
+          "E": 20.0,
+          "photo": 0.6124039877798737,
+          "partial_sum": 0.3475808710094017
+        },
+        {
+          "E": 60.0,
+          "photo": 0.01680616533998774,
+          "partial_sum": 3.34066173480433e-05
+        },
+        {
+          "E": 150.0,
+          "photo": 0.0008228313482660762,
+          "partial_sum": 2.1231586150378386e-08
+        }
+      ],
+      "lines_ge5": []
+    },
+    {
+      "Z": 11,
+      "xraylib": "4.2.1",
+      "ranges": {
+        "CS_Photo": {
+          "low": 5.0,
+          "high": 999.9895419903946,
+          "termination": {
+            "first_invalid": 999.989542090429,
+            "error": "Spline extrapolation is not allowed"
+          }
+        },
+        "CS_Compt": {
+          "low": 5.0,
+          "high": 800.026475038008,
+          "termination": {
+            "first_invalid": 800.0264751180398,
+            "error": "Spline extrapolation is not allowed"
+          }
+        },
+        "CS_Rayl": {
+          "low": 5.0,
+          "high": 800.026475038008,
+          "termination": {
+            "first_invalid": 800.0264751180398,
+            "error": "Spline extrapolation is not allowed"
+          }
+        },
+        "partial_K": {
+          "low": 5.0,
+          "high": 300.00003757313243,
+          "termination": {
+            "first_invalid": 300.00003760314326,
+            "error": "Spline extrapolation is not allowed"
+          }
+        },
+        "partial_L1": {
+          "low": 5.0,
+          "high": 300.00003757313243,
+          "termination": {
+            "first_invalid": 300.00003760314326,
+            "error": "Spline extrapolation is not allowed"
+          }
+        },
+        "partial_L2": {
+          "low": 5.0,
+          "high": 300.00003757313243,
+          "termination": {
+            "first_invalid": 300.00003760314326,
+            "error": "Spline extrapolation is not allowed"
+          }
+        },
+        "partial_L3": {
+          "low": 5.0,
+          "high": 300.00003757313243,
+          "termination": {
+            "first_invalid": 300.00003760314326,
+            "error": "Spline extrapolation is not allowed"
+          }
+        },
+        "partial_M1": {
+          "low": 5.0,
+          "high": 300.00003757313243,
+          "termination": {
+            "first_invalid": 300.00003760314326,
+            "error": "Spline extrapolation is not allowed"
+          }
+        },
+        "SF_Compt": {
+          "low": 0.001,
+          "high": 10000.0,
+          "termination": null
+        },
+        "FF_Rayl": {
+          "low": 0.001,
+          "high": 10000.0,
+          "termination": null
+        }
+      },
+      "shells": [
+        "K",
+        "L1",
+        "L2",
+        "L3",
+        "M1"
+      ],
+      "partial_vs_total": [
+        {
+          "E": 20.0,
+          "photo": 1.7563779393883274,
+          "partial_sum": 1.7519262943940337
+        },
+        {
+          "E": 60.0,
+          "photo": 0.05186560196035425,
+          "partial_sum": 0.0069327239479509434
+        },
+        {
+          "E": 150.0,
+          "photo": 0.0026379065695558727,
+          "partial_sum": 5.583496932027246e-07
+        }
+      ],
+      "lines_ge5": []
+    },
+    {
+      "Z": 12,
+      "xraylib": "4.2.1",
+      "ranges": {
+        "CS_Photo": {
+          "low": 5.0,
+          "high": 999.9895419903946,
+          "termination": {
+            "first_invalid": 999.989542090429,
+            "error": "Spline extrapolation is not allowed"
+          }
+        },
+        "CS_Compt": {
+          "low": 5.0,
+          "high": 800.026475038008,
+          "termination": {
+            "first_invalid": 800.0264751180398,
+            "error": "Spline extrapolation is not allowed"
+          }
+        },
+        "CS_Rayl": {
+          "low": 5.0,
+          "high": 800.026475038008,
+          "termination": {
+            "first_invalid": 800.0264751180398,
+            "error": "Spline extrapolation is not allowed"
+          }
+        },
+        "partial_K": {
+          "low": 5.0,
+          "high": 300.00003757313243,
+          "termination": {
+            "first_invalid": 300.00003760314326,
+            "error": "Spline extrapolation is not allowed"
+          }
+        },
+        "partial_L1": {
+          "low": 5.0,
+          "high": 300.00003757313243,
+          "termination": {
+            "first_invalid": 300.00003760314326,
+            "error": "Spline extrapolation is not allowed"
+          }
+        },
+        "partial_L2": {
+          "low": 5.0,
+          "high": 300.00003757313243,
+          "termination": {
+            "first_invalid": 300.00003760314326,
+            "error": "Spline extrapolation is not allowed"
+          }
+        },
+        "partial_L3": {
+          "low": 5.0,
+          "high": 300.00003757313243,
+          "termination": {
+            "first_invalid": 300.00003760314326,
+            "error": "Spline extrapolation is not allowed"
+          }
+        },
+        "partial_M1": {
+          "low": 5.0,
+          "high": 300.00003757313243,
+          "termination": {
+            "first_invalid": 300.00003760314326,
+            "error": "Spline extrapolation is not allowed"
+          }
+        },
+        "SF_Compt": {
+          "low": 0.001,
+          "high": 10000.0,
+          "termination": null
+        },
+        "FF_Rayl": {
+          "low": 0.001,
+          "high": 10000.0,
+          "termination": null
+        }
+      },
+      "shells": [
+        "K",
+        "L1",
+        "L2",
+        "L3",
+        "M1"
+      ],
+      "partial_vs_total": [
+        {
+          "E": 20.0,
+          "photo": 2.432906518813114,
+          "partial_sum": 2.422648973884977
+        },
+        {
+          "E": 60.0,
+          "photo": 0.0734647568448418,
+          "partial_sum": 0.021016012092289087
+        },
+        {
+          "E": 150.0,
+          "photo": 0.003786096463587953,
+          "partial_sum": 5.398252634134941e-06
+        }
+      ],
+      "lines_ge5": []
+    },
+    {
+      "Z": 15,
+      "xraylib": "4.2.1",
+      "ranges": {
+        "CS_Photo": {
+          "low": 5.0,
+          "high": 999.9895419903946,
+          "termination": {
+            "first_invalid": 999.989542090429,
+            "error": "Spline extrapolation is not allowed"
+          }
+        },
+        "CS_Compt": {
+          "low": 5.0,
+          "high": 800.026475038008,
+          "termination": {
+            "first_invalid": 800.0264751180398,
+            "error": "Spline extrapolation is not allowed"
+          }
+        },
+        "CS_Rayl": {
+          "low": 5.0,
+          "high": 800.026475038008,
+          "termination": {
+            "first_invalid": 800.0264751180398,
+            "error": "Spline extrapolation is not allowed"
+          }
+        },
+        "partial_K": {
+          "low": 5.0,
+          "high": 300.00003757313243,
+          "termination": {
+            "first_invalid": 300.00003760314326,
+            "error": "Spline extrapolation is not allowed"
+          }
+        },
+        "partial_L1": {
+          "low": 5.0,
+          "high": 300.00003757313243,
+          "termination": {
+            "first_invalid": 300.00003760314326,
+            "error": "Spline extrapolation is not allowed"
+          }
+        },
+        "partial_L2": {
+          "low": 5.0,
+          "high": 300.00003757313243,
+          "termination": {
+            "first_invalid": 300.00003760314326,
+            "error": "Spline extrapolation is not allowed"
+          }
+        },
+        "partial_L3": {
+          "low": 5.0,
+          "high": 300.00003757313243,
+          "termination": {
+            "first_invalid": 300.00003760314326,
+            "error": "Spline extrapolation is not allowed"
+          }
+        },
+        "partial_M1": {
+          "low": 5.0,
+          "high": 300.00003757313243,
+          "termination": {
+            "first_invalid": 300.00003760314326,
+            "error": "Spline extrapolation is not allowed"
+          }
+        },
+        "partial_M2": {
+          "low": 5.0,
+          "high": 300.00003757313243,
+          "termination": {
+            "first_invalid": 300.00003760314326,
+            "error": "Spline extrapolation is not allowed"
+          }
+        },
+        "partial_M3": {
+          "low": 5.0,
+          "high": 300.00003757313243,
+          "termination": {
+            "first_invalid": 300.00003760314326,
+            "error": "Spline extrapolation is not allowed"
+          }
+        },
+        "SF_Compt": {
+          "low": 0.001,
+          "high": 10000.0,
+          "termination": null
+        },
+        "FF_Rayl": {
+          "low": 0.001,
+          "high": 10000.0,
+          "termination": null
+        }
+      },
+      "shells": [
+        "K",
+        "L1",
+        "L2",
+        "L3",
+        "M1",
+        "M2",
+        "M3"
+      ],
+      "partial_vs_total": [
+        {
+          "E": 20.0,
+          "photo": 4.969590671494283,
+          "partial_sum": 4.934298142007387
+        },
+        {
+          "E": 60.0,
+          "photo": 0.15968223119899486,
+          "partial_sum": 0.15850167912797805
+        },
+        {
+          "E": 150.0,
+          "photo": 0.008533633568526263,
+          "partial_sum": 0.0003836366536783554
+        }
+      ],
+      "lines_ge5": []
+    },
+    {
+      "Z": 16,
+      "xraylib": "4.2.1",
+      "ranges": {
+        "CS_Photo": {
+          "low": 5.0,
+          "high": 999.9895419903946,
+          "termination": {
+            "first_invalid": 999.989542090429,
+            "error": "Spline extrapolation is not allowed"
+          }
+        },
+        "CS_Compt": {
+          "low": 5.0,
+          "high": 800.026475038008,
+          "termination": {
+            "first_invalid": 800.0264751180398,
+            "error": "Spline extrapolation is not allowed"
+          }
+        },
+        "CS_Rayl": {
+          "low": 5.0,
+          "high": 800.026475038008,
+          "termination": {
+            "first_invalid": 800.0264751180398,
+            "error": "Spline extrapolation is not allowed"
+          }
+        },
+        "partial_K": {
+          "low": 5.0,
+          "high": 300.00003757313243,
+          "termination": {
+            "first_invalid": 300.00003760314326,
+            "error": "Spline extrapolation is not allowed"
+          }
+        },
+        "partial_L1": {
+          "low": 5.0,
+          "high": 300.00003757313243,
+          "termination": {
+            "first_invalid": 300.00003760314326,
+            "error": "Spline extrapolation is not allowed"
+          }
+        },
+        "partial_L2": {
+          "low": 5.0,
+          "high": 300.00003757313243,
+          "termination": {
+            "first_invalid": 300.00003760314326,
+            "error": "Spline extrapolation is not allowed"
+          }
+        },
+        "partial_L3": {
+          "low": 5.0,
+          "high": 300.00003757313243,
+          "termination": {
+            "first_invalid": 300.00003760314326,
+            "error": "Spline extrapolation is not allowed"
+          }
+        },
+        "partial_M1": {
+          "low": 5.0,
+          "high": 300.00003757313243,
+          "termination": {
+            "first_invalid": 300.00003760314326,
+            "error": "Spline extrapolation is not allowed"
+          }
+        },
+        "partial_M2": {
+          "low": 5.0,
+          "high": 300.00003757313243,
+          "termination": {
+            "first_invalid": 300.00003760314326,
+            "error": "Spline extrapolation is not allowed"
+          }
+        },
+        "partial_M3": {
+          "low": 5.0,
+          "high": 300.00003757313243,
+          "termination": {
+            "first_invalid": 300.00003760314326,
+            "error": "Spline extrapolation is not allowed"
+          }
+        },
+        "SF_Compt": {
+          "low": 0.001,
+          "high": 10000.0,
+          "termination": null
+        },
+        "FF_Rayl": {
+          "low": 0.001,
+          "high": 10000.0,
+          "termination": null
+        }
+      },
+      "shells": [
+        "K",
+        "L1",
+        "L2",
+        "L3",
+        "M1",
+        "M2",
+        "M3"
+      ],
+      "partial_vs_total": [
+        {
+          "E": 20.0,
+          "photo": 6.290794826553164,
+          "partial_sum": 6.2456901959106865
+        },
+        {
+          "E": 60.0,
+          "photo": 0.20605966912047444,
+          "partial_sum": 0.2044623116883917
+        },
+        {
+          "E": 150.0,
+          "photo": 0.011146718403742994,
+          "partial_sum": 0.0010182775711683706
+        }
+      ],
+      "lines_ge5": []
+    },
+    {
+      "Z": 17,
+      "xraylib": "4.2.1",
+      "ranges": {
+        "CS_Photo": {
+          "low": 5.0,
+          "high": 999.9895419903946,
+          "termination": {
+            "first_invalid": 999.989542090429,
+            "error": "Spline extrapolation is not allowed"
+          }
+        },
+        "CS_Compt": {
+          "low": 5.0,
+          "high": 800.026475038008,
+          "termination": {
+            "first_invalid": 800.0264751180398,
+            "error": "Spline extrapolation is not allowed"
+          }
+        },
+        "CS_Rayl": {
+          "low": 5.0,
+          "high": 800.026475038008,
+          "termination": {
+            "first_invalid": 800.0264751180398,
+            "error": "Spline extrapolation is not allowed"
+          }
+        },
+        "partial_K": {
+          "low": 5.0,
+          "high": 300.00003757313243,
+          "termination": {
+            "first_invalid": 300.00003760314326,
+            "error": "Spline extrapolation is not allowed"
+          }
+        },
+        "partial_L1": {
+          "low": 5.0,
+          "high": 300.00003757313243,
+          "termination": {
+            "first_invalid": 300.00003760314326,
+            "error": "Spline extrapolation is not allowed"
+          }
+        },
+        "partial_L2": {
+          "low": 5.0,
+          "high": 300.00003757313243,
+          "termination": {
+            "first_invalid": 300.00003760314326,
+            "error": "Spline extrapolation is not allowed"
+          }
+        },
+        "partial_L3": {
+          "low": 5.0,
+          "high": 300.00003757313243,
+          "termination": {
+            "first_invalid": 300.00003760314326,
+            "error": "Spline extrapolation is not allowed"
+          }
+        },
+        "partial_M1": {
+          "low": 5.0,
+          "high": 300.00003757313243,
+          "termination": {
+            "first_invalid": 300.00003760314326,
+            "error": "Spline extrapolation is not allowed"
+          }
+        },
+        "partial_M2": {
+          "low": 5.0,
+          "high": 300.00003757313243,
+          "termination": {
+            "first_invalid": 300.00003760314326,
+            "error": "Spline extrapolation is not allowed"
+          }
+        },
+        "partial_M3": {
+          "low": 5.0,
+          "high": 300.00003757313243,
+          "termination": {
+            "first_invalid": 300.00003760314326,
+            "error": "Spline extrapolation is not allowed"
+          }
+        },
+        "SF_Compt": {
+          "low": 0.001,
+          "high": 10000.0,
+          "termination": null
+        },
+        "FF_Rayl": {
+          "low": 0.001,
+          "high": 10000.0,
+          "termination": null
+        }
+      },
+      "shells": [
+        "K",
+        "L1",
+        "L2",
+        "L3",
+        "M1",
+        "M2",
+        "M3"
+      ],
+      "partial_vs_total": [
+        {
+          "E": 20.0,
+          "photo": 7.3143441646061325,
+          "partial_sum": 7.265186103959469
+        },
+        {
+          "E": 60.0,
+          "photo": 0.2442630651712863,
+          "partial_sum": 0.2421770515881048
+        },
+        {
+          "E": 150.0,
+          "photo": 0.013360131919875673,
+          "partial_sum": 0.0021841417948549545
+        }
+      ],
+      "lines_ge5": []
+    },
+    {
+      "Z": 19,
+      "xraylib": "4.2.1",
+      "ranges": {
+        "CS_Photo": {
+          "low": 5.0,
+          "high": 999.9895419903946,
+          "termination": {
+            "first_invalid": 999.989542090429,
+            "error": "Spline extrapolation is not allowed"
+          }
+        },
+        "CS_Compt": {
+          "low": 5.0,
+          "high": 800.026475038008,
+          "termination": {
+            "first_invalid": 800.0264751180398,
+            "error": "Spline extrapolation is not allowed"
+          }
+        },
+        "CS_Rayl": {
+          "low": 5.0,
+          "high": 800.026475038008,
+          "termination": {
+            "first_invalid": 800.0264751180398,
+            "error": "Spline extrapolation is not allowed"
+          }
+        },
+        "partial_K": {
+          "low": 5.0,
+          "high": 300.00003757313243,
+          "termination": {
+            "first_invalid": 300.00003760314326,
+            "error": "Spline extrapolation is not allowed"
+          }
+        },
+        "partial_L1": {
+          "low": 5.0,
+          "high": 300.00003757313243,
+          "termination": {
+            "first_invalid": 300.00003760314326,
+            "error": "Spline extrapolation is not allowed"
+          }
+        },
+        "partial_L2": {
+          "low": 5.0,
+          "high": 300.00003757313243,
+          "termination": {
+            "first_invalid": 300.00003760314326,
+            "error": "Spline extrapolation is not allowed"
+          }
+        },
+        "partial_L3": {
+          "low": 5.0,
+          "high": 300.00003757313243,
+          "termination": {
+            "first_invalid": 300.00003760314326,
+            "error": "Spline extrapolation is not allowed"
+          }
+        },
+        "partial_M1": {
+          "low": 5.0,
+          "high": 300.00003757313243,
+          "termination": {
+            "first_invalid": 300.00003760314326,
+            "error": "Spline extrapolation is not allowed"
+          }
+        },
+        "partial_M2": {
+          "low": 5.0,
+          "high": 300.00003757313243,
+          "termination": {
+            "first_invalid": 300.00003760314326,
+            "error": "Spline extrapolation is not allowed"
+          }
+        },
+        "partial_M3": {
+          "low": 5.0,
+          "high": 300.00003757313243,
+          "termination": {
+            "first_invalid": 300.00003760314326,
+            "error": "Spline extrapolation is not allowed"
+          }
+        },
+        "SF_Compt": {
+          "low": 0.001,
+          "high": 10000.0,
+          "termination": null
+        },
+        "FF_Rayl": {
+          "low": 0.001,
+          "high": 10000.0,
+          "termination": null
+        }
+      },
+      "shells": [
+        "K",
+        "L1",
+        "L2",
+        "L3",
+        "M1",
+        "M2",
+        "M3"
+      ],
+      "partial_vs_total": [
+        {
+          "E": 20.0,
+          "photo": 10.45381806903367,
+          "partial_sum": 10.437271185940519
+        },
+        {
+          "E": 60.0,
+          "photo": 0.3622685457244068,
+          "partial_sum": 0.3585511734570756
+        },
+        {
+          "E": 150.0,
+          "photo": 0.02025486204153224,
+          "partial_sum": 0.008045552699919387
+        }
+      ],
+      "lines_ge5": []
+    },
+    {
+      "Z": 20,
+      "xraylib": "4.2.1",
+      "ranges": {
+        "CS_Photo": {
+          "low": 5.0,
+          "high": 999.9895419903946,
+          "termination": {
+            "first_invalid": 999.989542090429,
+            "error": "Spline extrapolation is not allowed"
+          }
+        },
+        "CS_Compt": {
+          "low": 5.0,
+          "high": 800.026475038008,
+          "termination": {
+            "first_invalid": 800.0264751180398,
+            "error": "Spline extrapolation is not allowed"
+          }
+        },
+        "CS_Rayl": {
+          "low": 5.0,
+          "high": 800.026475038008,
+          "termination": {
+            "first_invalid": 800.0264751180398,
+            "error": "Spline extrapolation is not allowed"
+          }
+        },
+        "partial_K": {
+          "low": 5.0,
+          "high": 300.00003757313243,
+          "termination": {
+            "first_invalid": 300.00003760314326,
+            "error": "Spline extrapolation is not allowed"
+          }
+        },
+        "partial_L1": {
+          "low": 5.0,
+          "high": 300.00003757313243,
+          "termination": {
+            "first_invalid": 300.00003760314326,
+            "error": "Spline extrapolation is not allowed"
+          }
+        },
+        "partial_L2": {
+          "low": 5.0,
+          "high": 300.00003757313243,
+          "termination": {
+            "first_invalid": 300.00003760314326,
+            "error": "Spline extrapolation is not allowed"
+          }
+        },
+        "partial_L3": {
+          "low": 5.0,
+          "high": 300.00003757313243,
+          "termination": {
+            "first_invalid": 300.00003760314326,
+            "error": "Spline extrapolation is not allowed"
+          }
+        },
+        "partial_M1": {
+          "low": 5.0,
+          "high": 300.00003757313243,
+          "termination": {
+            "first_invalid": 300.00003760314326,
+            "error": "Spline extrapolation is not allowed"
+          }
+        },
+        "partial_M2": {
+          "low": 5.0,
+          "high": 300.00003757313243,
+          "termination": {
+            "first_invalid": 300.00003760314326,
+            "error": "Spline extrapolation is not allowed"
+          }
+        },
+        "partial_M3": {
+          "low": 5.0,
+          "high": 300.00003757313243,
+          "termination": {
+            "first_invalid": 300.00003760314326,
+            "error": "Spline extrapolation is not allowed"
+          }
+        },
+        "SF_Compt": {
+          "low": 0.001,
+          "high": 10000.0,
+          "termination": null
+        },
+        "FF_Rayl": {
+          "low": 0.001,
+          "high": 10000.0,
+          "termination": null
+        }
+      },
+      "shells": [
+        "K",
+        "L1",
+        "L2",
+        "L3",
+        "M1",
+        "M2",
+        "M3"
+      ],
+      "partial_vs_total": [
+        {
+          "E": 20.0,
+          "photo": 12.544687035980612,
+          "partial_sum": 12.525370879327065
+        },
+        {
+          "E": 60.0,
+          "photo": 0.4427953829161428,
+          "partial_sum": 0.43773923604929604
+        },
+        {
+          "E": 150.0,
+          "photo": 0.025002723768360102,
+          "partial_sum": 0.014018701633403472
+        }
+      ],
+      "lines_ge5": []
+    },
+    {
+      "Z": 26,
+      "xraylib": "4.2.1",
+      "ranges": {
+        "CS_Photo": {
+          "low": 5.0,
+          "high": 999.9895419903946,
+          "termination": {
+            "first_invalid": 999.989542090429,
+            "error": "Spline extrapolation is not allowed"
+          }
+        },
+        "CS_Compt": {
+          "low": 5.0,
+          "high": 800.026475038008,
+          "termination": {
+            "first_invalid": 800.0264751180398,
+            "error": "Spline extrapolation is not allowed"
+          }
+        },
+        "CS_Rayl": {
+          "low": 5.0,
+          "high": 800.026475038008,
+          "termination": {
+            "first_invalid": 800.0264751180398,
+            "error": "Spline extrapolation is not allowed"
+          }
+        },
+        "partial_K": {
+          "low": 7.1120007112,
+          "high": 300.00003757314096,
+          "termination": {
+            "first_invalid": 300.00003760315144,
+            "error": "Spline extrapolation is not allowed"
+          }
+        },
+        "partial_L1": {
+          "low": 5.0,
+          "high": 300.00003757313243,
+          "termination": {
+            "first_invalid": 300.00003760314326,
+            "error": "Spline extrapolation is not allowed"
+          }
+        },
+        "partial_L2": {
+          "low": 5.0,
+          "high": 300.00003757313243,
+          "termination": {
+            "first_invalid": 300.00003760314326,
+            "error": "Spline extrapolation is not allowed"
+          }
+        },
+        "partial_L3": {
+          "low": 5.0,
+          "high": 300.00003757313243,
+          "termination": {
+            "first_invalid": 300.00003760314326,
+            "error": "Spline extrapolation is not allowed"
+          }
+        },
+        "partial_M1": {
+          "low": 5.0,
+          "high": 300.00003757313243,
+          "termination": {
+            "first_invalid": 300.00003760314326,
+            "error": "Spline extrapolation is not allowed"
+          }
+        },
+        "partial_M2": {
+          "low": 5.0,
+          "high": 300.00003757313243,
+          "termination": {
+            "first_invalid": 300.00003760314326,
+            "error": "Spline extrapolation is not allowed"
+          }
+        },
+        "partial_M3": {
+          "low": 5.0,
+          "high": 300.00003757313243,
+          "termination": {
+            "first_invalid": 300.00003760314326,
+            "error": "Spline extrapolation is not allowed"
+          }
+        },
+        "partial_M4": {
+          "low": 5.0,
+          "high": 300.00003757313243,
+          "termination": {
+            "first_invalid": 300.00003760314326,
+            "error": "Spline extrapolation is not allowed"
+          }
+        },
+        "partial_M5": {
+          "low": 5.0,
+          "high": 300.00003757313243,
+          "termination": {
+            "first_invalid": 300.00003760314326,
+            "error": "Spline extrapolation is not allowed"
+          }
+        },
+        "SF_Compt": {
+          "low": 0.001,
+          "high": 10000.0,
+          "termination": null
+        },
+        "FF_Rayl": {
+          "low": 0.001,
+          "high": 10000.0,
+          "termination": null
+        }
+      },
+      "shells": [
+        "K",
+        "L1",
+        "L2",
+        "L3",
+        "M1",
+        "M2",
+        "M3",
+        "M4",
+        "M5"
+      ],
+      "partial_vs_total": [
+        {
+          "E": 20.0,
+          "photo": 25.049828164484282,
+          "partial_sum": 25.0253013146086
+        },
+        {
+          "E": 60.0,
+          "photo": 0.9776123892007894,
+          "partial_sum": 0.9714408073834889
+        },
+        {
+          "E": 150.0,
+          "photo": 0.058608764515768304,
+          "partial_sum": 0.057778455323930264
+        }
+      ],
+      "lines_ge5": [
+        [
+          0,
+          6.3909,
+          0.29799,
+          2
+        ],
+        [
+          0,
+          6.4039,
+          0.58357,
+          3
+        ],
+        [
+          0,
+          7.058,
+          0.03988,
+          5
+        ],
+        [
+          0,
+          7.058,
+          0.07856,
+          6
+        ]
+      ]
+    },
+    {
+      "Z": 30,
+      "xraylib": "4.2.1",
+      "ranges": {
+        "CS_Photo": {
+          "low": 5.0,
+          "high": 999.9895419903946,
+          "termination": {
+            "first_invalid": 999.989542090429,
+            "error": "Spline extrapolation is not allowed"
+          }
+        },
+        "CS_Compt": {
+          "low": 5.0,
+          "high": 800.026475038008,
+          "termination": {
+            "first_invalid": 800.0264751180398,
+            "error": "Spline extrapolation is not allowed"
+          }
+        },
+        "CS_Rayl": {
+          "low": 5.0,
+          "high": 800.026475038008,
+          "termination": {
+            "first_invalid": 800.0264751180398,
+            "error": "Spline extrapolation is not allowed"
+          }
+        },
+        "partial_K": {
+          "low": 9.65860096586,
+          "high": 300.0000375731387,
+          "termination": {
+            "first_invalid": 300.0000376031487,
+            "error": "Spline extrapolation is not allowed"
+          }
+        },
+        "partial_L1": {
+          "low": 5.0,
+          "high": 300.00003757313243,
+          "termination": {
+            "first_invalid": 300.00003760314326,
+            "error": "Spline extrapolation is not allowed"
+          }
+        },
+        "partial_L2": {
+          "low": 5.0,
+          "high": 300.00003757313243,
+          "termination": {
+            "first_invalid": 300.00003760314326,
+            "error": "Spline extrapolation is not allowed"
+          }
+        },
+        "partial_L3": {
+          "low": 5.0,
+          "high": 300.00003757313243,
+          "termination": {
+            "first_invalid": 300.00003760314326,
+            "error": "Spline extrapolation is not allowed"
+          }
+        },
+        "partial_M1": {
+          "low": 5.0,
+          "high": 300.00003757313243,
+          "termination": {
+            "first_invalid": 300.00003760314326,
+            "error": "Spline extrapolation is not allowed"
+          }
+        },
+        "partial_M2": {
+          "low": 5.0,
+          "high": 300.00003757313243,
+          "termination": {
+            "first_invalid": 300.00003760314326,
+            "error": "Spline extrapolation is not allowed"
+          }
+        },
+        "partial_M3": {
+          "low": 5.0,
+          "high": 300.00003757313243,
+          "termination": {
+            "first_invalid": 300.00003760314326,
+            "error": "Spline extrapolation is not allowed"
+          }
+        },
+        "partial_M4": {
+          "low": 5.0,
+          "high": 300.00003757313243,
+          "termination": {
+            "first_invalid": 300.00003760314326,
+            "error": "Spline extrapolation is not allowed"
+          }
+        },
+        "partial_M5": {
+          "low": 5.0,
+          "high": 300.00003757313243,
+          "termination": {
+            "first_invalid": 300.00003760314326,
+            "error": "Spline extrapolation is not allowed"
+          }
+        },
+        "SF_Compt": {
+          "low": 0.001,
+          "high": 10000.0,
+          "termination": null
+        },
+        "FF_Rayl": {
+          "low": 0.001,
+          "high": 10000.0,
+          "termination": null
+        }
+      },
+      "shells": [
+        "K",
+        "L1",
+        "L2",
+        "L3",
+        "M1",
+        "M2",
+        "M3",
+        "M4",
+        "M5"
+      ],
+      "partial_vs_total": [
+        {
+          "E": 20.0,
+          "photo": 36.4480073631583,
+          "partial_sum": 36.419562859821895
+        },
+        {
+          "E": 60.0,
+          "photo": 1.5142851434532787,
+          "partial_sum": 1.5105375109734458
+        },
+        {
+          "E": 150.0,
+          "photo": 0.09413914231524363,
+          "partial_sum": 0.09283743711763427
+        }
+      ],
+      "lines_ge5": [
+        [
+          0,
+          8.6158,
+          0.29856,
+          2
+        ],
+        [
+          0,
+          8.6389,
+          0.58102,
+          3
+        ],
+        [
+          0,
+          9.572,
+          0.04074,
+          5
+        ],
+        [
+          0,
+          9.572,
+          0.07968,
+          6
+        ]
+      ]
+    },
+    {
+      "Z": 82,
+      "xraylib": "4.2.1",
+      "ranges": {
+        "CS_Photo": {
+          "low": 5.0,
+          "high": 999.9895419903946,
+          "termination": {
+            "first_invalid": 999.989542090429,
+            "error": "Spline extrapolation is not allowed"
+          }
+        },
+        "CS_Compt": {
+          "low": 5.0,
+          "high": 800.026475038008,
+          "termination": {
+            "first_invalid": 800.0264751180398,
+            "error": "Spline extrapolation is not allowed"
+          }
+        },
+        "CS_Rayl": {
+          "low": 5.0,
+          "high": 800.026475038008,
+          "termination": {
+            "first_invalid": 800.0264751180398,
+            "error": "Spline extrapolation is not allowed"
+          }
+        },
+        "partial_K": {
+          "low": 88.00450880045,
+          "high": 300.00603763389097,
+          "termination": {
+            "first_invalid": 300.00603766389827,
+            "error": "Spline extrapolation is not allowed"
+          }
+        },
+        "partial_L1": {
+          "low": 15.860801586080001,
+          "high": 300.00603763389057,
+          "termination": {
+            "first_invalid": 300.0060376639003,
+            "error": "Spline extrapolation is not allowed"
+          }
+        },
+        "partial_L2": {
+          "low": 15.20000152,
+          "high": 300.0060376338922,
+          "termination": {
+            "first_invalid": 300.00603766390213,
+            "error": "Spline extrapolation is not allowed"
+          }
+        },
+        "partial_L3": {
+          "low": 13.035201303520001,
+          "high": 300.00603763389256,
+          "termination": {
+            "first_invalid": 300.00603766390253,
+            "error": "Spline extrapolation is not allowed"
+          }
+        },
+        "partial_M1": {
+          "low": 5.0,
+          "high": 300.0060376338852,
+          "termination": {
+            "first_invalid": 300.0060376638967,
+            "error": "Spline extrapolation is not allowed"
+          }
+        },
+        "partial_M2": {
+          "low": 5.0,
+          "high": 300.0060376338852,
+          "termination": {
+            "first_invalid": 300.0060376638967,
+            "error": "Spline extrapolation is not allowed"
+          }
+        },
+        "partial_M3": {
+          "low": 5.0,
+          "high": 300.0060376338852,
+          "termination": {
+            "first_invalid": 300.0060376638967,
+            "error": "Spline extrapolation is not allowed"
+          }
+        },
+        "partial_M4": {
+          "low": 5.0,
+          "high": 300.0060376338852,
+          "termination": {
+            "first_invalid": 300.0060376638967,
+            "error": "Spline extrapolation is not allowed"
+          }
+        },
+        "partial_M5": {
+          "low": 5.0,
+          "high": 300.0060376338852,
+          "termination": {
+            "first_invalid": 300.0060376638967,
+            "error": "Spline extrapolation is not allowed"
+          }
+        },
+        "SF_Compt": {
+          "low": 0.001,
+          "high": 10000.0,
+          "termination": null
+        },
+        "FF_Rayl": {
+          "low": 0.001,
+          "high": 10000.0,
+          "termination": null
+        }
+      },
+      "shells": [
+        "K",
+        "L1",
+        "L2",
+        "L3",
+        "M1",
+        "M2",
+        "M3",
+        "M4",
+        "M5"
+      ],
+      "partial_vs_total": [
+        {
+          "E": 20.0,
+          "photo": 83.96719949772746,
+          "partial_sum": 79.06544488940033
+        },
+        {
+          "E": 60.0,
+          "photo": 4.432307964900744,
+          "partial_sum": 4.1881691779424495
+        },
+        {
+          "E": 150.0,
+          "photo": 1.8148246357388433,
+          "partial_sum": 1.7949090147518219
+        }
+      ],
+      "lines_ge5": [
+        [
+          0,
+          72.8045,
+          0.29506775286336506,
+          2
+        ],
+        [
+          0,
+          74.9693,
+          0.4959670914663656,
+          3
+        ],
+        [
+          0,
+          84.4503,
+          0.05692450395225037,
+          5
+        ],
+        [
+          0,
+          84.9381,
+          0.11037062429424101,
+          6
+        ],
+        [
+          0,
+          87.2406,
+          0.013974028069043395,
+          9
+        ],
+        [
+          0,
+          87.36,
+          0.027695999354734636,
+          9
+        ],
+        [
+          1,
+          12.0101,
+          8.386657590896631e-06,
+          4
+        ],
+        [
+          1,
+          12.3066,
+          0.33768965924271865,
+          5
+        ],
+        [
+          1,
+          12.7944,
+          0.3688667133153975,
+          6
+        ],
+        [
+          1,
+          13.2752,
+          0.012194404445516763,
+          7
+        ],
+        [
+          1,
+          13.3768,
+          0.01825054469535578,
+          8
+        ],
+        [
+          1,
+          14.9672,
+          3.6589222405758003e-06,
+          9
+        ],
+        [
+          1,
+          15.0969,
+          0.08690916795113779,
+          9
+        ],
+        [
+          1,
+          15.2163,
+          0.10345614152610724,
+          9
+        ],
+        [
+          1,
+          15.4256,
+          0.0018740283835784303,
+          9
+        ],
+        [
+          1,
+          15.4479,
+          0.002961269305560444,
+          9
+        ],
+        [
+          1,
+          15.7135,
+          8.906141623903328e-07,
+          9
+        ],
+        [
+          1,
+          15.756,
+          0.017025696088517166,
+          9
+        ],
+        [
+          1,
+          15.7778,
+          0.019913053842822753,
+          9
+        ],
+        [
+          2,
+          11.3493,
+          0.021505903047518,
+          4
+        ],
+        [
+          2,
+          11.6458,
+          1.3114940875485846e-06,
+          5
+        ],
+        [
+          2,
+          12.1336,
+          0.0008830160192048425,
+          6
+        ],
+        [
+          2,
+          12.6144,
+          0.7906664355333887,
+          7
+        ],
+        [
+          2,
+          12.716,
+          5.2837761797859016e-05,
+          8
+        ],
+        [
+          2,
+          14.3064,
+          0.005553574963484421,
+          9
+        ],
+        [
+          2,
+          14.4361,
+          5.144576807321729e-07,
+          9
+        ],
+        [
+          2,
+          14.5555,
+          0.0002454188936074522,
+          9
+        ],
+        [
+          2,
+          14.7648,
+          0.16150927188713066,
+          9
+        ],
+        [
+          2,
+          14.7871,
+          1.2059945631594302e-05,
+          9
+        ],
+        [
+          2,
+          15.0588,
+          0.0006810269298080156,
+          9
+        ],
+        [
+          2,
+          15.0527,
+          0.0012030945762330932,
+          9
+        ],
+        [
+          2,
+          15.0952,
+          1.0921950761880014e-07,
+          9
+        ],
+        [
+          2,
+          15.117,
+          4.684978879271916e-05,
+          9
+        ],
+        [
+          2,
+          15.1782,
+          0.01745792129654837,
+          9
+        ],
+        [
+          2,
+          15.1969,
+          0.0001539193061040626,
+          9
+        ],
+        [
+          3,
+          9.1845,
+          0.04172242434880487,
+          4
+        ],
+        [
+          3,
+          9.481,
+          0.0004849441459562384,
+          5
+        ],
+        [
+          3,
+          9.9688,
+          0.0004384738956382685,
+          6
+        ],
+        [
+          3,
+          10.4496,
+          0.08072525977124477,
+          7
+        ],
+        [
+          3,
+          10.5512,
+          0.710860428615116,
+          8
+        ],
+        [
+          3,
+          12.1416,
+          0.010307150393707486,
+          9
+        ],
+        [
+          3,
+          12.2713,
+          0.0001096490196481635,
+          9
+        ],
+        [
+          3,
+          12.3907,
+          0.00011236759038324194,
+          9
+        ],
+        [
+          3,
+          12.6,
+          0.01512726794421734,
+          9
+        ],
+        [
+          3,
+          12.6223,
+          0.13678381743462054,
+          9
+        ],
+        [
+          3,
+          12.894,
+          0.0001197800229492985,
+          9
+        ],
+        [
+          3,
+          12.8989,
+          0.000668839674219353,
+          9
+        ],
+        [
+          3,
+          12.8879,
+          0.002214667867366705,
+          9
+        ],
+        [
+          3,
+          12.9304,
+          2.0910594451799927e-05,
+          9
+        ],
+        [
+          3,
+          12.9522,
+          2.1256779489225646e-05,
+          9
+        ],
+        [
+          3,
+          13.0321,
+          0.00028276190218675355,
+          9
+        ]
+      ]
+    }
+  ],
+  "note": "Cross-section comparison only; no MV dose, EGS5 or T4 gate is claimed."
+}

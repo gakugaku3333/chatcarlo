@@ -7,6 +7,7 @@
 struct P5Tables {
     const double *constants,*loget,*ed,*ts,*ks,*us,*ys,*rates,*pes,*water,*thresholds;
     int ne,nt,nk,nu,nrates,ratecols,np,watercols;
+    const double *photon;
     const double *er,*Z,*NJ,*dl,*brems_e,*brems_v,*edges,*cum;
     double bpar,delcm,delpos;
     int nz,nbrems,nspec;
@@ -55,55 +56,9 @@ P5_FN double p5_sample_W(double T,const P5Tables *t,RngState *s) {
         if(accept*(2+a/4)<=v)return T*x;
     }
 }
-P5_FN double p5_kn_total(double E,const P5Tables *t) {
-    double x=E/t->constants[0],L=log1p(2*x),one=1+2*x;
-    double RE=t->constants[3],NE=t->constants[4];
-    return 2*3.141592653589793*(RE*RE)*NE*((1+x)/(x*x)
-        *(2*(1+x)/(1+2*x)-L/x)+L/(2*x)-(1+3*x)/(one*one));
-}
-P5_FN double p5_log_interp(double E,const double *es,const double *vs,int n,int stride) {
-    // np.interp searches the LOG grid, including ties after rounding log().
-    double x=log(E);
-    if(x<log(es[0]))return exp(log(vs[0]));
-    if(x>log(es[n-1]))return exp(log(vs[(n-1)*stride]));
-    int lo=0,hi=n;
-    while(lo<hi) {int m=lo+(hi-lo)/2;if(log(es[m])<x)lo=m+1;else hi=m;}
-    int j=lo;
-    if(j<n && x==log(es[j]))return exp(log(vs[j*stride]));
-    --j;
-    double y0=log(vs[j*stride]),y1=log(vs[(j+1)*stride]);
-    double slope=(y1-y0)/(log(es[j+1])-log(es[j]));
-    return exp(slope*(x-log(es[j]))+y0);
-}
-P5_FN double p5_pair_value(int j,const double *es,const double *vs,int stride,double th) {
-    double q=1-th/es[j];return log(vs[j*stride]/((q*q)*q));
-}
-P5_FN double p5_pair_interp(double E,const double *es,const double *vs,int n,int stride,double th) {
-    if(E<=th)return 0.;
-    int start=0;while(start<n && es[start]<=th)++start;
-    double x=log(E),y;
-    if(x<log(es[start]))y=p5_pair_value(start,es,vs,stride,th);
-    else if(x>log(es[n-1]))y=p5_pair_value(n-1,es,vs,stride,th);
-    else {
-        int lo=start,hi=n;
-        while(lo<hi) {int m=lo+(hi-lo)/2;if(log(es[m])<x)lo=m+1;else hi=m;}
-        int j=lo;
-        if(j<n && x==log(es[j]))y=p5_pair_value(j,es,vs,stride,th);
-        else {
-            --j;double y0=p5_pair_value(j,es,vs,stride,th);
-            double y1=p5_pair_value(j+1,es,vs,stride,th);
-            double slope=(y1-y0)/(log(es[j+1])-log(es[j]));
-            y=slope*(x-log(es[j]))+y0;
-        }
-    }
-    double q=1-th/E;return exp(y)*((q*q)*q);
-}
-P5_FN void p5_coefficients(double E,const P5Tables *t,double *c) {
-    c[0]=p5_kn_total(E,t);
-    c[1]=p5_log_interp(E,t->pes,t->water+2,t->np,t->watercols);
-    c[2]=p5_pair_interp(E,t->pes,t->water+3,t->np,t->watercols,t->thresholds[0]);
-    c[3]=p5_pair_interp(E,t->pes,t->water+4,t->np,t->watercols,t->thresholds[1]);
-}
+
+#define G5_PHOTON_P5
+#include "photon_physics.h"
 P5_FN void p5_table_rates(double T,const P5Tables *t,double *total,double *G1) {
     int shift=t->ratecols==3?1:0,n=shift?t->nrates:t->nt,lo=0,hi=n;
     while(lo<hi) {int m=lo+(hi-lo)/2;double e=shift?t->rates[m*t->ratecols]:t->ts[m];
@@ -157,47 +112,7 @@ P5_FN void p5_rotate(double ux,double uy,double uz,double mu,double phi,double *
     double cp=cos(phi),sp=sin(phi);
     v[0]=mu*ux+sn*(cp*ax+sp*bx);v[1]=mu*uy+sn*(cp*ay+sp*by);v[2]=mu*uz+sn*cp*az;
 }
-P5_FN void p5_compton(double E,double ux,double uy,double uz,const P5Tables *t,RngState *s,double *out) {
-    double M=t->constants[0],qmin=1/(1+2*E/M),a=log(1/qmin),b=(1-qmin*qmin)/2,q,mu;
-    for(;;) {
-        double choose=rng_uniform(s);
-        if(choose*(a+b)<a) {double u=rng_uniform(s);q=exp(-u*a);}
-        else {double u=rng_uniform(s);q=sqrt(qmin*qmin+u*(1-qmin*qmin));}
-        mu=1-M/E*(1/q-1);double sin2=p5_max(0.,1-mu*mu);
-        double accept=rng_uniform(s);if(accept*(q+1/q)<=q+1/q-sin2)break;
-    }
-    double u=rng_uniform(s),v[3];p5_rotate(ux,uy,uz,mu,2*3.141592653589793*u,v);
-    double ep=E*q,T=E-ep,px=E*ux-ep*v[0],py=E*uy-ep*v[1],pz=E*uz-ep*v[2];
-    double p=sqrt(px*px+py*py+pz*pz);out[0]=ep;
-    for(int j=0;j<3;++j)out[j+1]=v[j];
-    if(p==0) {out[4]=0.;out[5]=ux;out[6]=uy;out[7]=uz;return;}
-    out[4]=T;out[5]=px/p;out[6]=py/p;out[7]=pz/p;
-}
-P5_FN double p5_pair_small_total(double E,const P5Tables *t,RngState *s) {
-    double M=t->constants[0];
-    if(E<=2.1) {double u=rng_uniform(s);return M+u*(E/2-M);}
-    for(;;) {
-        double r1=rng_uniform(s);double r=rng_uniform(s),br;int lvl;
-        if(r>=t->bpar) {
-            double r2=rng_uniform(s);double r3=rng_uniform(s);
-            br=.5*(1-p5_max(p5_max(r1,r2),r3));lvl=0;
-        } else {br=r1*.5;lvl=2;}
-        if(E*br<M)continue;
-        double d=1/(E*br*(1-br));if(d>=t->delpos)continue;
-        double delta=t->delcm*d,rej;const double *v=t->dl+lvl*6;
-        if(delta<1)rej=v[0]+delta*(v[1]+delta*v[2]);
-        else rej=v[3]+v[4]*log(delta+v[5]);
-        double accept=rng_uniform(s);if(accept<=rej)return E*br;
-    }
-}
-P5_FN void p5_pair(double E,double ux,double uy,double uz,const P5Tables *t,RngState *s,double *p) {
-    double e2=p5_pair_small_total(E,t,s),e1=E-e2,M=t->constants[0],mu=cos(M/E);
-    double u=rng_uniform(s),phi=2*3.141592653589793*u,d1[3],d2[3];
-    p5_rotate(ux,uy,uz,mu,phi,d1);p5_rotate(ux,uy,uz,mu,phi+3.141592653589793,d2);
-    double charge=rng_uniform(s),charge1=charge<=.5?1.:-1.;
-    p[0]=e1-M;p[5]=e2-M;p[4]=charge1;p[9]=-charge1;
-    for(int j=0;j<3;++j) {p[1+j]=d1[j];p[6+j]=d2[j];}
-}
+
 P5_FN void p5_annihilation(RngState *s,double *v) {
     double u=rng_uniform(s),mu=2*u-1;double r=rng_uniform(s),phi=2*3.141592653589793*r;
     double sn=sqrt(1-mu*mu);v[0]=sn*cos(phi);v[1]=sn*sin(phi);v[2]=mu;
@@ -338,7 +253,7 @@ P5_FN void history(const P5Tables *t,RngState *s,int batch,int maxsteps,P5Output
             ++steps;p5_record(diagnostic,&state,s->calls);
             if(steps>maxsteps) {failed=true;++counts[5];break;}
             double E=a[6];
-            if(E<.01) {
+            if(E<G5_ELECTRON_PHOTON_CUT) {
                 // The fault macro for charged deposits must not change photons.
                 p5_local(hs,150,a[2],E,.2);p5_local(fine,600,a[2],E,.05);
                 int b0=p5_clip_bin(int(a[2]/.2),150),b1=p5_clip_bin(int(a[2]/.05),600);
@@ -346,7 +261,7 @@ P5_FN void history(const P5Tables *t,RngState *s,int batch,int maxsteps,P5Output
                 if(b1<touch[2])touch[2]=b1;if(b1>touch[3])touch[3]=b1;
                 dep+=E;continue;
             }
-            double c[4];p5_coefficients(E,t,c);double mu=0.;for(int z=0;z<4;++z)mu+=c[z];
+            double c[5];p5_coefficients(E,t,c);double mu=0.;for(int z=0;z<5;++z)mu+=c[z];
             double bb;int nr;p5_boundary(a[2],a[5],int(a[16]),&bb,&nr);
             double flight_u=rng_uniform(s),tau=-log(flight_u),flight=tau/mu,length=p5_min(flight,bb);
             a[0]+=length*a[3];a[1]+=length*a[4];a[2]+=length*a[5];
@@ -355,9 +270,12 @@ P5_FN void history(const P5Tables *t,RngState *s,int batch,int maxsteps,P5Output
             double unused=rng_uniform(s);(void)unused;
 #endif
             double select=rng_uniform(s),r=select*mu;int process=0;
-            while(process<3 && r>=c[process]) {r-=c[process];++process;}
-            ++counts[8+process];
+            while(process<4 && r>=c[process]) {r-=c[process];++process;}
+            if(process<4)++counts[8+process];
             if(top+3>=P5_STACK_CAP) {failed=true;++counts[6];break;}
+            if(process==4){double v[3];p5_rotate(a[3],a[4],a[5],g5_rayleigh(t->photon,E*1000,s),2*3.141592653589793*rng_uniform(s),v);
+                ++top;p5_photon(stack+top,E,a[0],a[1],a[2],v[0],v[1],v[2],int(a[16]),int(a[20]));continue;
+            }
             if(process==0) {
                 double p[8];p5_compton(E,a[3],a[4],a[5],t,s,p);
                 ++top;p5_photon(stack+top,p[0],a[0],a[1],a[2],p[1],p[2],p[3],int(a[16]),int(a[20]));
@@ -487,4 +405,104 @@ P5_FN void history(const P5Tables *t,RngState *s,int batch,int maxsteps,P5Output
     for(int z=touch[2];z<=touch[3];++z)o->fine_batches[batch*600+z]+=fine[z];
     o->step_batches[batch]+=steps;
 }
+// Frozen photon reference (S1); active implementations are in photon_physics.h.
+#if 0
+P5_FN double p5_kn_total(double E,const P5Tables *t) {
+    double x=E/t->constants[0],L=log1p(2*x),one=1+2*x;
+    double RE=t->constants[3],NE=t->constants[4];
+    return 2*3.141592653589793*(RE*RE)*NE*((1+x)/(x*x)
+        *(2*(1+x)/(1+2*x)-L/x)+L/(2*x)-(1+3*x)/(one*one));
+}
+
+P5_FN double p5_log_interp(double E,const double *es,const double *vs,int n,int stride) {
+    // np.interp searches the LOG grid, including ties after rounding log().
+    double x=log(E);
+    if(x<log(es[0]))return exp(log(vs[0]));
+    if(x>log(es[n-1]))return exp(log(vs[(n-1)*stride]));
+    int lo=0,hi=n;
+    while(lo<hi) {int m=lo+(hi-lo)/2;if(log(es[m])<x)lo=m+1;else hi=m;}
+    int j=lo;
+    if(j<n && x==log(es[j]))return exp(log(vs[j*stride]));
+    --j;
+    double y0=log(vs[j*stride]),y1=log(vs[(j+1)*stride]);
+    double slope=(y1-y0)/(log(es[j+1])-log(es[j]));
+    return exp(slope*(x-log(es[j]))+y0);
+}
+
+P5_FN double p5_pair_value(int j,const double *es,const double *vs,int stride,double th) {
+    double q=1-th/es[j];return log(vs[j*stride]/((q*q)*q));
+}
+
+P5_FN double p5_pair_interp(double E,const double *es,const double *vs,int n,int stride,double th) {
+    if(E<=th)return 0.;
+    int start=0;while(start<n && es[start]<=th)++start;
+    double x=log(E),y;
+    if(x<log(es[start]))y=p5_pair_value(start,es,vs,stride,th);
+    else if(x>log(es[n-1]))y=p5_pair_value(n-1,es,vs,stride,th);
+    else {
+        int lo=start,hi=n;
+        while(lo<hi) {int m=lo+(hi-lo)/2;if(log(es[m])<x)lo=m+1;else hi=m;}
+        int j=lo;
+        if(j<n && x==log(es[j]))y=p5_pair_value(j,es,vs,stride,th);
+        else {
+            --j;double y0=p5_pair_value(j,es,vs,stride,th);
+            double y1=p5_pair_value(j+1,es,vs,stride,th);
+            double slope=(y1-y0)/(log(es[j+1])-log(es[j]));
+            y=slope*(x-log(es[j]))+y0;
+        }
+    }
+    double q=1-th/E;return exp(y)*((q*q)*q);
+}
+
+P5_FN void p5_coefficients(double E,const P5Tables *t,double *c) {
+    c[0]=p5_kn_total(E,t);
+    c[1]=p5_log_interp(E,t->pes,t->water+2,t->np,t->watercols);
+    c[2]=p5_pair_interp(E,t->pes,t->water+3,t->np,t->watercols,t->thresholds[0]);
+    c[3]=p5_pair_interp(E,t->pes,t->water+4,t->np,t->watercols,t->thresholds[1]);
+}
+
+P5_FN void p5_compton(double E,double ux,double uy,double uz,const P5Tables *t,RngState *s,double *out) {
+    double M=t->constants[0],qmin=1/(1+2*E/M),a=log(1/qmin),b=(1-qmin*qmin)/2,q,mu;
+    for(;;) {
+        double choose=rng_uniform(s);
+        if(choose*(a+b)<a) {double u=rng_uniform(s);q=exp(-u*a);}
+        else {double u=rng_uniform(s);q=sqrt(qmin*qmin+u*(1-qmin*qmin));}
+        mu=1-M/E*(1/q-1);double sin2=p5_max(0.,1-mu*mu);
+        double accept=rng_uniform(s);if(accept*(q+1/q)<=q+1/q-sin2)break;
+    }
+    double u=rng_uniform(s),v[3];p5_rotate(ux,uy,uz,mu,2*3.141592653589793*u,v);
+    double ep=E*q,T=E-ep,px=E*ux-ep*v[0],py=E*uy-ep*v[1],pz=E*uz-ep*v[2];
+    double p=sqrt(px*px+py*py+pz*pz);out[0]=ep;
+    for(int j=0;j<3;++j)out[j+1]=v[j];
+    if(p==0) {out[4]=0.;out[5]=ux;out[6]=uy;out[7]=uz;return;}
+    out[4]=T;out[5]=px/p;out[6]=py/p;out[7]=pz/p;
+}
+
+P5_FN double p5_pair_small_total(double E,const P5Tables *t,RngState *s) {
+    double M=t->constants[0];
+    if(E<=2.1) {double u=rng_uniform(s);return M+u*(E/2-M);}
+    for(;;) {
+        double r1=rng_uniform(s);double r=rng_uniform(s),br;int lvl;
+        if(r>=t->bpar) {
+            double r2=rng_uniform(s);double r3=rng_uniform(s);
+            br=.5*(1-p5_max(p5_max(r1,r2),r3));lvl=0;
+        } else {br=r1*.5;lvl=2;}
+        if(E*br<M)continue;
+        double d=1/(E*br*(1-br));if(d>=t->delpos)continue;
+        double delta=t->delcm*d,rej;const double *v=t->dl+lvl*6;
+        if(delta<1)rej=v[0]+delta*(v[1]+delta*v[2]);
+        else rej=v[3]+v[4]*log(delta+v[5]);
+        double accept=rng_uniform(s);if(accept<=rej)return E*br;
+    }
+}
+
+P5_FN void p5_pair(double E,double ux,double uy,double uz,const P5Tables *t,RngState *s,double *p) {
+    double e2=p5_pair_small_total(E,t,s),e1=E-e2,M=t->constants[0],mu=cos(M/E);
+    double u=rng_uniform(s),phi=2*3.141592653589793*u,d1[3],d2[3];
+    p5_rotate(ux,uy,uz,mu,phi,d1);p5_rotate(ux,uy,uz,mu,phi+3.141592653589793,d2);
+    double charge=rng_uniform(s),charge1=charge<=.5?1.:-1.;
+    p[0]=e1-M;p[5]=e2-M;p[4]=charge1;p[9]=-charge1;
+    for(int j=0;j<3;++j) {p[1+j]=d1[j];p[6+j]=d2[j];}
+}
+#endif
 #endif

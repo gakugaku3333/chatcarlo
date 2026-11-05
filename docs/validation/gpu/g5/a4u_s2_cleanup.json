@@ -1,0 +1,27 @@
+[
+  {
+    "path": "/var/folders/nk/ppk0zn4n2n5_gsrp89g_dw900000gn/T/pytest-of-oishifamily/pytest-53",
+    "bytes": 1292717392,
+    "reason": "completed S2 pytest, logs retained in repository; regenerable fixtures"
+  },
+  {
+    "path": "/var/folders/nk/ppk0zn4n2n5_gsrp89g_dw900000gn/T/pytest-of-oishifamily/pytest-54",
+    "bytes": 487117228,
+    "reason": "completed S2 pytest, logs retained in repository; regenerable fixtures"
+  },
+  {
+    "path": "/var/folders/nk/ppk0zn4n2n5_gsrp89g_dw900000gn/T/pytest-of-oishifamily/pytest-54",
+    "bytes": 1292770002,
+    "reason": "completed final tests suite; logs retained"
+  },
+  {
+    "path": "/var/folders/nk/ppk0zn4n2n5_gsrp89g_dw900000gn/T/pytest-of-oishifamily/pytest-52",
+    "bytes": 3058228380,
+    "reason": "completed final prototype/focused suite; logs retained"
+  },
+  {
+    "path": "/var/folders/nk/ppk0zn4n2n5_gsrp89g_dw900000gn/T/pytest-of-oishifamily/pytest-54",
+    "bytes": 487138327,
+    "reason": "completed final prototype/focused suite; logs retained"
+  }
+]

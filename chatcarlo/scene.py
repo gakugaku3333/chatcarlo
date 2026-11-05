@@ -295,9 +295,9 @@ def validate_scene(raw: dict) -> Scene:
             from .gpu.physics_sets import DIAGNOSTIC, declaration
             try:
                 selected = physics.get("set", DIAGNOSTIC)
-                declaration(selected)
+                declaration(selected, specialization="local-deposition")
                 if selected != DIAGNOSTIC:
-                    raise ValueError("診断の低エネルギー線源には diagnostic-photon-kerma-v1 のみ許可")
+                    raise ValueError("診断の低エネルギー線源には chatcarlo-photon-electron-v1 のみ許可")
             except (ValueError, TypeError) as exc:
                 errors.append(SceneError("physics.set", str(exc)))
             fluor = physics.get("fluorescence", True)

@@ -1,0 +1,146 @@
+{
+  "stage": "A4u 入口経由 60 keV（1 本）",
+  "date": "2026-11-05",
+  "status": "pass (path confirmed)",
+  "purpose": "製品の入口（validate→preview→承認→approve→run）が低エネルギーで端から端まで通ることの確認。統計の判定ではない",
+  "scene": "examples/therapy/water_60kev_10x10.yaml",
+  "histories": 200000,
+  "seed": 20261104,
+  "engine": "cpu_local",
+  "wall_seconds": 28,
+  "source_bin_keV": [
+    59.9,
+    60.1
+  ],
+  "source_bin_note": "a4_egs.mono_edges(60) と完全に一致。20 keV は床で中心が +0.05 keV ずれるため入口では回さない",
+  "condition_sha256": "a1a86f6acc2d671fa16cffdf16db8d111113a6695eb4988db506a4aa37473a2d",
+  "bundle_manifest_sha256": "9f54db5a996dc6822611d7fd53de9b21da8fd4b1296c3f6f25b0eea9e49dc119",
+  "physics_set": "chatcarlo-photon-electron-v1",
+  "specialization": "electron-transport",
+  "physics_tag": 6882153074982124678,
+  "comparison": {
+    "scorer": "field 2（offset 420、120 bin × 0.25 cm、x,y は ±inf＝スラブ全体）",
+    "mapped_to": "H5 の gate の fine（600 bin × 0.05 cm、スラブ全体）を 5 bin ずつまとめて 0.25 cm に揃えた",
+    "absolute_ratio_entry_over_H5CPU": {
+      "mean": 3126167430186.969,
+      "std_over_mean": 0.01893846529568786,
+      "note": "単位の違い（MeV 対 Gy cm2/history）による定数倍。0〜15 cm で 1.9% 以内に一定"
+    },
+    "integral_windows": {
+      "5-15cm_over_0-5cm": {
+        "entry": 1.1313411949777754,
+        "entry_SEM": 0.005058191457355745,
+        "H5_CPU": 1.1258957060003307,
+        "H5_EGS5": 1.1251933260038625,
+        "relative_difference_vs_CPU": 0.0048365838402470995,
+        "z_vs_CPU": 1.0765683789065983,
+        "relative_difference_vs_EGS5": 0.005463833486950342
+      },
+      "15-30cm_over_0-5cm": {
+        "entry": 0.3666267319978115,
+        "entry_SEM": 0.002662612264534923,
+        "H5_CPU": 0.36586500549854417,
+        "H5_EGS5": 0.36543816960004044,
+        "relative_difference_vs_CPU": 0.002081987858416179,
+        "z_vs_CPU": 0.28608239713053474,
+        "relative_difference_vs_EGS5": 0.003252430908002424
+      }
+    },
+    "per_bin_relative_SEM_0_15cm": {
+      "median": 0.016364738817538353,
+      "max": 0.024211656714706414
+    }
+  },
+  "my_error": {
+    "what": "最初に field 1（offset 120、2×2 cm² の細い中心の柱、300 bin × 0.1 cm）を H5 の fine と対応させ、5-15/0-5 の比が −31%（z=−16）ずれると出した",
+    "why": "H5 の gate の fine は r[\"groups\"][:,450:1050]、すなわち**スラブ全体**を横方向に積分した深さ曲線（a4u_h4_gate.py:260）。入口が書き出す r[\"field\"] の P7 の 3420 bin とは別の採点器で、細い柱は散乱を取りこぼすので深さ方向の落ち方が速いのが当然だった",
+    "resolution": "採点器を field 2（スラブ全体）に取り替えたら +0.48%（z=+1.08）と +0.21%（z=+0.29）で一致した"
+  },
+  "scope": "経路の確認のみ。20 万履歴は cpu_local の上限で、本番の N での入口は H6 の T4 セッション。H5 の判定を置き換えるものではない。H5 が判定したのはスラブ全体の深さ線量であり、中心軸の PDD は低エネルギーでは未照合（上の central_axis_PDD）",
+  "scorer_identification": {
+    "method": "同じ 2000 履歴を 1 回走らせ、同じ履歴を 2 通りに採点して比べた（数値を見てから選んだのではない）",
+    "groups_450_1050_equals": "field 2（スラブ全体）。5 bin ずつまとめて最大|比−1|=2.8e-15、合計 88.453099 が一致",
+    "vs_field1": "2 bin ずつでは比の平均 129、中心の柱はスラブ全体の 2.1% しか受け取らない",
+    "code": "docs/validation/gpu/g5/a4u_h4_gate.py:260、gate の幾何は faces=[0,30] の 1 次元スラブ（横方向の境界なし）"
+  },
+  "normalization_check": {
+    "absorbed_dose_Gy_reproduced_from_field_MeV": true,
+    "max_relative_difference": 0.0,
+    "constant_factor_observed": 3126170000000.0,
+    "constant_factor_expected": 3120750000000.0,
+    "expected_formula": "2000 histories/batch × 0.25 g ÷ 1.602176634e-10",
+    "relative_difference": 0.00173,
+    "z": 0.7,
+    "note": "field 2 の 120 bin は横方向に境界が無く質量 0.25 g/cm² を使うので実際の単位は Gy cm²/history。metadata は Gy/history と書いており食い違う（A3 からの持ち越し、記録のみ）"
+  },
+  "central_axis_PDD": {
+    "finding": "H5 が EGS5 と照合したのはスラブ全体の深さ線量で、製品が PDD として出す中心軸（2×2 cm² の柱）ではない",
+    "magnitude": "60 keV の ∫5-15/∫0-5 は スラブ全体 1.126 対 中心軸 0.789 で約 30% 違う",
+    "egs5_data_already_exists": "a4_run/egs5/h4_pilot_60kev/result.npz の axis_fine (100,300) と axis_coarse (100,120)。EGS5 は regions=layout(\"p7\")[\"regions\"] で全領域を採点していた（a4_egs.py:94）",
+    "first_look": {
+      "window_5_15_over_0_5": {
+        "entry": 0.776,
+        "entry_SEM": 0.0213,
+        "EGS5": 0.78872,
+        "EGS5_SEM": 0.00931,
+        "z": -0.55
+      },
+      "window_15_30_over_0_5": {
+        "entry": 0.17092,
+        "entry_SEM": 0.00825,
+        "EGS5": 0.15365,
+        "EGS5_SEM": 0.00316,
+        "z": 1.95
+      },
+      "verdict": "5-15 cm は食い違いが見えないが 15-30 cm は z=+1.95 で「見えない」とは言えない。合格でも不合格でもなく判定保留",
+      "source": "h4_pilot_60kev（N=1,000,000）。本番ではなく試し計算"
+    },
+    "decision_pending": "中心軸の PDD を判定するかどうかはユーザーの判断。EGS5 は 0 本、ChatCarlo の CPU を必要な N で 1 本",
+    "egs5_scorer_identification": {
+      "method": "npz の内部整合（新しい計算なし）",
+      "axis_fine_vs_axis_coarse": "0.5 cm に足した値が 1.00000000 一致（最大|比−1| 2e-15）→ 同じ柱",
+      "fine_vs_slab_coarse": "比が定数（std/mean 4.9e-14）→ どちらもスラブ全体",
+      "central_fraction_60keV": {
+        "0-5cm": 0.029,
+        "5-10cm": 0.0217,
+        "10-15cm": 0.0167
+      }
+    },
+    "production_egs5": {
+      "labels": [
+        "h5_main_20kev",
+        "h5_main_60kev"
+      ],
+      "N": [
+        18438400,
+        23216500
+      ],
+      "has_axis_arrays": true,
+      "evaluable_bins_SEM_le_1pct_depth_le_15cm": {
+        "axis_fine_0.1cm": {
+          "20keV": "24/150 (median 6.38%)",
+          "60keV": "4/150 (median 1.61%)"
+        },
+        "axis_coarse_0.25cm": {
+          "20keV": "15/60 (median 4.34%)",
+          "60keV": "29/60 (median 1.01%)"
+        },
+        "fine_slab_0.05cm": {
+          "20keV": "119/300 (median 1.91%)",
+          "60keV": "300/300 (median 0.33%)"
+        }
+      },
+      "why_slab_was_used": "中心の柱はスラブ全体の 2〜3% しか受け取らないので同じ N では SEM が約 7 倍悪い"
+    },
+    "options": {
+      "a": {
+        "what": "本番の EGS5（保存済み）+ ChatCarlo CPU 1 回で中心軸を判定。0.25 cm bin、60 keV 約 29 bin・20 keV 約 15 bin",
+        "cost": "EGS5 0 本 + CPU 約 23 分（H5 実測 500.4 s + 880.0 s）。H5 のスラブ全体の値との完全一致も確認できる"
+      },
+      "b": {
+        "what": "中心軸は「低エネルギーでは未照合」と記録して文言を直すだけ",
+        "cost": "0"
+      }
+    }
+  }
+}

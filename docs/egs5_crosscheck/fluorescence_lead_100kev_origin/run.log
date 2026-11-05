@@ -1,0 +1,59 @@
+ 
+============================
+egs5run script has started 
+============================
+ 
+working directory is /Users/oishifamily/Projects/viveMonte/docs/egs5_crosscheck/egs5/run_fluor_pb100_origin
+ 
+------------------------------------------------------------
+Erasing files (and links) from previous runs (if they exist)
+------------------------------------------------------------
+
+                  OS_TYPE  = gfort
+
+Your Compiler is gfortran
+ 
+---------------------------------------
+        Enter name of User Code        
+      (file extension must be '.f')    
+---------------------------------------
+ 
+------------------------------------------
+      Enter name of READ(4) data file     
+      (file extension must be '.data')    
+   (<CR> for same file name as User Code) 
+------------------------------------------
+
+  --> Empty file created as egs5job.inp
+ 
+------------------------------------------
+  Enter name of UNIT(25) (pegs input file)
+      (file extension must be '.inp')     
+   (<CR> for same file name as data file  
+      or same file name as User Code)     
+------------------------------------------
+
+  --> fluor_origin.inp linked to pgs5job.pegs5inp
+
+------------------------------------
+Compiling (with -fno-automatic -std=legacy -fallow-argument-mismatch -w and O)
+------------------------------------
+ 
+-----------------------------------------------
+  Does this user code read from the terminal?  
+  (Enter 1 for yes, anything else for no)      
+-----------------------------------------------
+ 
+      *******************************************************
+      * User code fluor_origin.f has been compiled and is starting *
+      *******************************************************
+ 
+ Running egs5job.exe in background
+ 
+========================
+egs5run script has ended
+========================
+
+real	0m18.645s
+user	0m18.184s
+sys	0m0.075s

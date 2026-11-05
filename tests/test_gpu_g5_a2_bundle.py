@@ -18,8 +18,9 @@ def small_material():
 
 def test_real_roundtrip(tmp_path):
     # Use one persisted real bundle for all fields, geometry and initialized logs.
-    r=a2_bundle.run(out=tmp_path/'bundle',summary=common.SUMMARY/'bundle.json')
-    assert r['fields_per_material']==33 and len(r['rows'])>132
+    from docs.validation.gpu.g5.a4u_d15_fixtures import p8_roundtrip
+    r=p8_roundtrip(tmp_path/'bundle')
+    assert r['fields_per_material']==34 and len(r['rows'])>132
 
 
 @pytest.fixture

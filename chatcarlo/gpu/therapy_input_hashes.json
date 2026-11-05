@@ -134,6 +134,12 @@
       898
     ]
   },
+  "bone.photon": {
+    "sha256": "7e68a7f4b5b1e6f8a340f67850bb752be0f9dae01e9e05f738e4cdcb57f2a6f0",
+    "shape": [
+      225351
+    ]
+  },
   "bone.pm": {
     "sha256": "b836fde9fc323e084a3777612cf20a2a499bfc7bab0d320c7c5a630414d3bb99",
     "shape": [
@@ -635,6 +641,12 @@
       917
     ]
   },
+  "lead.photon": {
+    "sha256": "5f44a24a9ca2ace2b255efb3acb472bb2a3d0e05d32ec6d7613a71466d766a2c",
+    "shape": [
+      28720
+    ]
+  },
   "lead.pm": {
     "sha256": "2f90145131f96a20add6fea61e2d6ce08a7bfc4185cbb532171135026bf33da4",
     "shape": [
@@ -834,6 +846,12 @@
       996
     ]
   },
+  "lung.photon": {
+    "sha256": "f4f9d5579e9164c8e6ab5931eac73815ecc9be0970d8575b2566cb66dd4b318e",
+    "shape": [
+      324378
+    ]
+  },
   "lung.pm": {
     "sha256": "b1b613a5e5af8c0c7905b396aee43d4cc5e00989885c889121912ea21cf046b5",
     "shape": [
@@ -1031,6 +1049,12 @@
     "sha256": "f990495453327acbe671315a37c353d1f818f649e6787b08583232ad68e66002",
     "shape": [
       812
+    ]
+  },
+  "seed_agti.photon": {
+    "sha256": "a6f2d6a3e537ca06febbbe439f3c873be64a0d06c278c021c81a6eb9a02fb065",
+    "shape": [
+      52617
     ]
   },
   "seed_agti.pm": {
@@ -1236,6 +1260,12 @@
     "sha256": "fcc482f65b93c9029163135698bdf639c65a085b743d6b23684efff1cd8e29b7",
     "shape": [
       711
+    ]
+  },
+  "water.photon": {
+    "sha256": "4f8eed4c9bcdd5ebce41f56e174aae3912da04e3aa59fc587f5db7e5acfeb736",
+    "shape": [
+      52085
     ]
   },
   "water.pm": {

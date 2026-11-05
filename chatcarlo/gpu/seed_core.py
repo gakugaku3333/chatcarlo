@@ -15,12 +15,12 @@ from .therapy import HERE
 U=np.ctypeslib.ndpointer(np.uint64,flags='C_CONTIGUOUS')
 GP=ct.POINTER(Geometry)
 
-def compile_cpu(work,fault=0):
+def compile_cpu(work,fault=0,_test_legacy_physics=False):
     work=Path(work);therapy.space(work);work.mkdir(parents=True,exist_ok=True)
-    digest=hashlib.sha256(json.dumps(dict(sources=source_hashes(),fault=fault),sort_keys=True).encode()).hexdigest()
+    digest=hashlib.sha256(json.dumps(dict(sources=source_hashes(),fault=fault,legacy=_test_legacy_physics),sort_keys=True).encode()).hexdigest()
     path=work/(digest+('.dylib' if sys.platform=='darwin' else '.so'))
     if not path.exists():
-        flags=['-O2','-ffp-contract=off','-std=c++11','-shared','-fPIC','-DP5_RNG_PHILOX','-DP8G_STACK_CAP=18','-DT2S_CHECK=0','-DT2_SEED=1',f'-DT2_SEED_FAULT={fault}',f'-DG5_SET_ID={physics_sets.declaration(therapy.NAME)["id"]}',f'-DG5_SET_TAG={physics_sets.declaration(therapy.NAME)["tag"]}ULL']
+        flags=[f'-DG5_TEST_LEGACY_ELECTRON={int(_test_legacy_physics)}','-O2','-ffp-contract=off','-std=c++11','-shared','-fPIC','-DP5_RNG_PHILOX','-DP8G_STACK_CAP=18','-DT2S_CHECK=0','-DT2_SEED=1',f'-DT2_SEED_FAULT={fault}',f'-DG5_SET_ID={physics_sets.declaration(therapy.NAME, specialization=physics_sets.ELECTRON)["id"]}',f'-DG5_SET_TAG={physics_sets.declaration(therapy.NAME, specialization=physics_sets.ELECTRON)["tag"]}ULL']
         compiler=shutil.which('clang++') or shutil.which('g++')
         if compiler is None:raise RuntimeError('clang++ or g++ is required for CPU twin')
         result=subprocess.run([compiler,*flags,str(HERE/'t2_seed_cpu.cpp'),'-o',str(path)],capture_output=True,text=True)
@@ -48,14 +48,14 @@ def check_result(h,ledger,counts):
     if np.any(abs(ledger.sum(1)-h['dep'])>1e-12*h['sources']):raise AssertionError('P9c ledger')
 
 class CPU:
-    def __init__(self,work,materials=None,*,constants=None,strength=None,fault=0,**kw):
-        self.lib=compile_cpu(work,fault);self.g,self.arrays,self.grids=core.geometry(**kw)
+    def __init__(self,work,materials=None,*,constants=None,strength=None,fault=0,_test_legacy_physics=False,**kw):
+        self.lib=compile_cpu(work,fault,_test_legacy_physics);self.g,self.arrays,self.grids=core.geometry(**kw)
         self.values=[np.zeros(g.shape) for g in self.grids];self.adds=[np.zeros(g.shape,np.uint64) for g in self.grids]
         bind_grids(self.g,self.grids,self.values,self.adds)
         self.args=None
         self.lib.t2_seed_set_id.restype=ct.c_int;self.lib.t2_seed_set_tag.restype=ct.c_uint64
-        self.observed=dict(name=therapy.NAME,id=self.lib.t2_seed_set_id(),tag=self.lib.t2_seed_set_tag())
-        physics_sets.check(self.observed,physics_sets.declaration(therapy.NAME))
+        self.observed=physics_sets.observation(therapy.NAME,self.lib.t2_seed_set_id(),self.lib.t2_seed_set_tag())
+        physics_sets.check(self.observed,physics_sets.declaration(therapy.NAME, specialization=physics_sets.ELECTRON))
         if materials is not None:
             if len(materials)<=self.arrays['ids'].max():raise ValueError('material IDs')
             data,meta=therapy.pack(materials)
@@ -93,7 +93,7 @@ class CPU:
             a=self.arrays[k];arrays[k]=np.ctypeslib.as_array(getattr(g,k),shape=(a.size,)).reshape(a.shape).copy()
         arrays['seeds']=np.ctypeslib.as_array(g.seeds,shape=(g.ns*5,)).reshape(-1,5).copy()
         arrays['parents']=np.ctypeslib.as_array(g.parents,shape=(g.ns,)).copy()
-        declaration=dict(name=therapy.NAME,id=self.lib.t2_seed_set_id(),tag=self.lib.t2_seed_set_tag())
+        declaration=physics_sets.observation(therapy.NAME,self.lib.t2_seed_set_id(),self.lib.t2_seed_set_tag())
         self.last_observation=observation(g,arrays,args[:3],args[4]//8,args[5],args[6],args[4]%8,declaration)
         self.lib.t2_seed_histories(*args)
 
@@ -124,7 +124,7 @@ def cuda_source():
         for line in source.splitlines():
             if line.startswith('#include "'):
                 child=line.split('"')[1]
-                if child not in seen:seen.add(child);out.append(expand(child,seen))
+                if child == "photon_physics.h" or child not in seen:seen.add(child);out.append(expand(child,seen))
             else:out.append(line)
         return '\n'.join(out)
     return expand('t2_seed_gpu.cu',set())
@@ -133,7 +133,7 @@ def observation(g,arrays,args,seed,start,n,field,declared):
     # Callers pass arrays reconstructed from the final native ABI pointers.
     from .catalog import digest
     return dict(physics_set=declared,seed=field_seed(seed,field),start=int(start),count=int(n),
-        material_data={str(mid)+'.'+str(j):digest(args[0][row[4*j]:row[4*j]+row[4*j+1]]) for mid,row in enumerate(args[1]) for j in range(33)},material_meta=digest(args[1]),constants=digest(args[2]),
+        material_data={str(mid)+'.'+str(j):digest(args[0][row[4*j]:row[4*j]+row[4*j+1]]) for mid,row in enumerate(args[1]) for j in range(33)},material_photons={str(mid):photon_digest(args[0],row) for mid,row in enumerate(args[1])},material_meta=digest(args[1]),constants=digest(args[2]),
         geometry={k:digest(v) for k,v in arrays.items()},
         scalars={k:getattr(g,k) for k in ('nl','ns','nspec','outer','beam','angle','binding','fluorescence','axis','energy','field_half','ssd','scoring_enabled')},
         radii=list(g.radii),half=list(g.half),scoring=hashlib.sha256(bytes(g.scoring)).hexdigest(),
@@ -151,3 +151,9 @@ def unpack(d,i):
         if s==1:r[k]=r[k][:,0]
     r['dep']=r['dep'][:,0];r['sources']=r['sources'][:,0]
     return r
+
+
+def photon_digest(data,row):
+    from .catalog import digest
+    start=int(row[133])+37;p=data[start:];tail=int(p[1]);size=tail+1+3*int(p[0])+4*int(p[tail])
+    return digest(p[:size])

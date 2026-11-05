@@ -1,0 +1,38 @@
+{
+  "tests": {
+    "command": ".venv/bin/python -m pytest tests/ -q",
+    "summary": "3 failed, 982 passed, 2 warnings in 338.64s (0:05:38)",
+    "passed": 982,
+    "failed": 3,
+    "skipped": 0,
+    "errors": 0,
+    "warnings": 2,
+    "elapsed_s": 338.64,
+    "exit_code": 1,
+    "log_sha256": "42d8539dc07509d7631c3618bacb77533d4a4f6c165b54f17ada980e28f8c8c8"
+  },
+  "prototypes": {
+    "command": ".venv/bin/python -m pytest prototypes/mv_electron/tests -q",
+    "summary": "1808 passed, 17 skipped in 1262.12s (0:21:02)",
+    "passed": 1808,
+    "failed": 0,
+    "skipped": 17,
+    "errors": 0,
+    "warnings": 0,
+    "elapsed_s": 1262.12,
+    "exit_code": 0,
+    "log_sha256": "f94d348915f2d35535004cb7c96a4e383376c436c9ebd647abed0e28306436e2"
+  },
+  "focused": {
+    "command": ".venv/bin/python -m pytest tests/test_gpu_g5_a4u_*.py tests/test_gpu_g5_a3_*.py tests/test_gpu_g5_a2_*.py tests/test_gpu_g5_a1_*.py -q",
+    "summary": "214 passed in 95.95s (0:01:35)",
+    "passed": 214,
+    "failed": 0,
+    "skipped": 0,
+    "errors": 0,
+    "warnings": 0,
+    "elapsed_s": 95.95,
+    "exit_code": 0,
+    "log_sha256": "1b4be6c08102d39b445e18a01a704e86e1c44d173465806ad33dbeb97df61740"
+  }
+}

@@ -19,7 +19,7 @@ def masses():
 
 
 def metadata(n):
-    return dict(physics_set='therapy-electron-v1',layout='p7',lateral_extent_cm=20,
+    return dict(physics_set='chatcarlo-photon-electron-v1',specialization='electron-transport',layout='p7',lateral_extent_cm=20,
         arrays=dict(absorbed_dose_Gy=dict(quantity='absorbed-dose',unit='Gy/history',normalization=f'divided by {n} histories'),
                     field_MeV=dict(quantity='deposited-energy',unit='MeV',normalization='raw sum')))
 

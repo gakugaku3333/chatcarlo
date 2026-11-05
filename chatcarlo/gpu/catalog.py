@@ -11,8 +11,8 @@ from pathlib import Path
 import numpy as np
 
 FORMAT = 'chatcarlo-catalog-v1'
-DIAGNOSTIC = 'diagnostic-photon-kerma-v1'
-THERAPY = 'therapy-electron-v1'
+DIAGNOSTIC = 'chatcarlo-photon-electron-v1'
+THERAPY = DIAGNOSTIC
 FIELDS = 'n_elem zs fracs log_e step n_grid photo compt rayl incoh_q incoh_s rayl_x rayl_a k_edge k_omega k_line_e k_line_p n_lines k_frac density_g_cm3'.split()
 # G2 prepare() adds scoring descriptions after table creation. These are not
 # transport tables and are deliberately excluded from the catalogue contract.
@@ -52,7 +52,7 @@ def diagnostic_arrays(a):
     for f in ('incoh_q','incoh_s','rayl_x','rayl_a'): shapes[f]=(nm,me,2000)
     for f in ('k_line_e','k_line_p'): shapes[f]=(nm,me,8)
     off = np.asarray(a['offsets'])
-    if off.shape != (len(FIELDS),) or off.dtype != np.dtype('int64'):
+    if off.shape != (len(FIELDS)+1,) or off.dtype != np.dtype('int64'):
         raise ValueError('offsets: invalid descriptor')
     arrays = {}
     expected = 0
@@ -62,7 +62,8 @@ def diagnostic_arrays(a):
             raise ValueError(f+': invalid packed offset/size')
         arrays[f] = a['data'][expected:expected+size].reshape(shapes[f])
         expected += size
-    if expected != len(a['data']): raise ValueError('data: unexpected trailing elements')
+    if expected != int(off[-1]): raise ValueError('data: unexpected offset')
+    arrays['photon']=a['data'][expected:]
     return arrays
 
 
@@ -80,12 +81,13 @@ def diagnostic(a, generators, material_names):
         grid_name = 'log_e' if f in ENERGY_FIELDS else {'incoh_q':'incoh_q',
             'incoh_s':'incoh_q','rayl_x':'rayl_x','rayl_a':'rayl_x'}.get(f)
         fields.append(entry(f,'tables',a['offsets'][i],arrays[f], unit=UNITS[f],
-            used_by=[DIAGNOSTIC], generator=generators['diagnostic'],
+            used_by=[DIAGNOSTIC],specialization="local-deposition", generator=generators['diagnostic'],
             provenance='xraylib / material composition; chatcarlo/kernel.py:bake_scene_materials',
             grid=None if grid_name is None else arrays[grid_name], grid_kind=grid_name,
             band=band if f in ENERGY_FIELDS else None, material_names=list(material_names),
             valid_length='n_grid' if f in ENERGY_FIELDS else None,
             padding='per-element to ng' if f in ENERGY_FIELDS else None))
+    fields.append(entry('photon','tables',int(a['offsets'][-1]),arrays['photon'],unit='A4u packed keV / cm2/g / probabilities',used_by=[DIAGNOSTIC],specialization='local-deposition',generator=dict(path='chatcarlo/gpu/generate_photon_tables.py',sha256=bytes(a['photon_generator_sha256']).hex(),options={}),provenance='generate_photon_tables.py: xraylib full totals and conditional shells / CK'))
     if 'g2_table' in a:
         stride, nh = map(int,a['g2_sizes'][:2]); nm=len(material_names)
         defs=[('g2_x',(nm,stride),'ln(keV)',None),
@@ -103,14 +105,14 @@ def diagnostic(a, generators, material_names):
                 b=[float(np.exp(min(v[0] for v in valid))),float(np.exp(max(v[-1] for v in valid)))]
             elif name in ('g2_log_e','g2_log_h'): b=[float(np.exp(grid[0])),float(np.exp(grid[-1]))]
             else:b=None
-            fields.append(entry(name,'g2_tables',cursor,value,unit=unit,used_by=[DIAGNOSTIC],
+            fields.append(entry(name,'g2_tables',cursor,value,unit=unit,used_by=[DIAGNOSTIC],specialization="local-deposition",
                 generator=generators['g2'],provenance='NIST XAAMDI; ICRP74/ICRU57; material density',
                 grid=grid,grid_kind=grid_name,band=b,material_names=list(material_names),
                 valid_length='g2_sizes[2:]' if name in ('g2_x','g2_c') else None,
                 padding='zero to stride' if name in ('g2_x','g2_c') else None))
             cursor+=size
         if cursor!=len(a['g2_table']):raise ValueError('g2_table: unexpected size')
-        fields.append(entry('g2_sizes','g2_sizes',0,a['g2_sizes'],unit='count',used_by=[DIAGNOSTIC],
+        fields.append(entry('g2_sizes','g2_sizes',0,a['g2_sizes'],unit='count',used_by=[DIAGNOSTIC],specialization="local-deposition",
             generator=generators['g2'],provenance='g2_tables.pack dimensions'))
     return dict(format=FORMAT,fields=fields)
 
@@ -278,6 +280,8 @@ P8_DEFINITIONS = {'ne': {'unit': '電子/g',
                 'provenance': 'stop_T から生成',
                 'definition': 'stop_T の対数',
                 'generator_path': 'prototypes/mv_electron/photon_transport_p8e.py'}}
+P8_DEFINITIONS['photon']=dict(unit='A4u packed keV / cm2/g / probabilities',provenance='generate_photon_tables.py: xraylib / sealed XCOM fallback',definition='self describing elemental photon table',generator_path='chatcarlo/gpu/generate_photon_tables.py')
+
 P8_GRIDS = {**dict.fromkeys(('stop_T','stop_delta','stop_collision','stop_rad','log_stop_T'),'stop_T'),
             **dict.fromkeys(('gs_T','gs_y'),'gs_T'), **dict.fromkeys(('photo_E','photo'),'photo_E'),
             **dict.fromkeys(('pair_E','pair_n','pair_e'),'pair_E'),
@@ -290,6 +294,13 @@ P8_DEFINITIONS['brems_V']['unit']=['cm2/g','MeV cm2/g','MeV cm2/g','cm2/g','dime
 def p8_material(material, material_name, generators):
     """Input is a duck-typed material; preserve every original dimension."""
     fields=[];chunks=[];cursor=0
+    if not hasattr(material,'photon'):
+        from types import SimpleNamespace
+        from .generate_photon_tables import ensure
+        material=SimpleNamespace(**{**{k:getattr(material,k) for k in P8_DEFINITIONS if k!='photon'},'photon':ensure(material)})
+    generators=dict(generators)
+    if 'chatcarlo/gpu/generate_photon_tables.py' not in generators:
+        generators['chatcarlo/gpu/generate_photon_tables.py']=dict(path='chatcarlo/gpu/generate_photon_tables.py',sha256=hashlib.sha256(Path(__file__).with_name('generate_photon_tables.py').read_bytes()).hexdigest(),options={})
     for name,definition in P8_DEFINITIONS.items():
         a=np.asarray(getattr(material,name),dtype=np.float64)
         grid_name=P8_GRIDS.get(name)
@@ -306,7 +317,7 @@ def p8_material(material, material_name, generators):
         if name=='gs_y':meta['axes']=['gs_T','gs_K','gs_u']
         if name=='lines':meta['valid_length']='line_counts';meta['padding']='unused lines'
         fields.append(entry(material_name+'.'+name,'p8',cursor,a,unit=definition['unit'],
-            used_by=[THERAPY],generator=generators[definition['generator_path']],
+            used_by=[THERAPY],specialization="electron-transport",generator=generators[definition['generator_path']],
             provenance=definition['provenance'],grid=grid,grid_kind=grid_name,band=band,**meta))
         chunks.append(a.ravel());cursor+=a.size
     return dict(format=FORMAT,fields=fields), np.concatenate(chunks)

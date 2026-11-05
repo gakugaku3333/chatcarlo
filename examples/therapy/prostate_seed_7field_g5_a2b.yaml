@@ -2,7 +2,7 @@
 domain: therapy_mv
 scoring: seed_ratio
 physics:
-  set: therapy-electron-v1
+  set: chatcarlo-photon-electron-v1
 source:
   spectrum: mohan10
   sad_cm: 100

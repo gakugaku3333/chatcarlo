@@ -193,14 +193,14 @@ P8gMaterial m=p8g_material(data,meta,constants);const P5Tables *t=&m.p;
             if(steps>maxsteps) {failed=true;++counts[5];phase=T2S_H;return;}
             double E=a[6];
             m=p8g_material(data,meta+p8g_mid(g->ids[int(a[16])])*136,constants);t=&m.p;
-            if(E<.01) {
+            if(E<G5_ELECTRON_PHOTON_CUT) {
                 if(a[17]>=2)++o->fluorescence_counts[3];if(a[17]==3)++o->fluorescence_counts[7];
                 t2_seed_field(q,g,1,a,a,E);t2_seed_sink(g,local,a[g->axis],a[g->axis],int(a[16]),E);
                 // The fault macro for charged deposits must not change photons.
                 
                 dep+=E;t2_seed_hit(hits,10);return;
             }
-            double c[4];p8g_coefficients(E,m,c);for(int z=0;z<4;++z)c[z]*=g->rho[int(a[16])];double mu=0.;for(int z=0;z<4;++z)mu+=c[z];
+            double c[5];p8g_coefficients(E,m,c);for(int z=0;z<5;++z)c[z]*=g->rho[int(a[16])];double mu=0.;for(int z=0;z<5;++z)mu+=c[z];
             T2SeedHit hit=t2_seed_boundary(a,g);double bb=hit.distance;int nr=hit.next;
             double flight_u=rng_uniform(s),tau=-log(flight_u),flight=tau/mu,length=p5_min(flight,bb);
             bool escaped_photon=false;
@@ -215,9 +215,12 @@ P8gMaterial m=p8g_material(data,meta,constants);const P5Tables *t=&m.p;
             if(escaped_photon){if(a[17]>=2)++o->fluorescence_counts[1];if(a[17]==3)++o->fluorescence_counts[5];escaped+=E;++counts[7];return;}
 
             double select=rng_uniform(s),r=select*mu;int process=0;
-            while(process<3 && r>=c[process]) {r-=c[process];++process;}
-            ++counts[8+process];
+            while(process<4 && r>=c[process]) {r-=c[process];++process;}
+            if(process<4)++counts[8+process];
             if(top+3>=P8G_STACK_CAP) {failed=true;++counts[6];phase=T2S_H;return;}
+            if(process==4){double v[3];p5_rotate(a[3],a[4],a[5],g5_rayleigh(m.p.photon,E*1000,s),2*3.141592653589793*rng_uniform(s),v);
+                ++top;p5_photon(stack+top,E,a[0],a[1],a[2],v[0],v[1],v[2],int(a[16]),int(a[20]));stack[top].a[17]=a[17];return;
+            }
             if(process==0) {
                 double p[8];p5_compton(E,a[3],a[4],a[5],t,s,p);
                 ++top;p5_photon(stack+top,p[0],a[0],a[1],a[2],p[1],p[2],p[3],int(a[16]),int(a[20]));stack[top].a[17]=a[17];
@@ -225,7 +228,8 @@ P8gMaterial m=p8g_material(data,meta,constants);const P5Tables *t=&m.p;
             } else if(process==1) {
                 ++o->branches[1];if(a[17]>=2)++o->fluorescence_counts[2];if(a[17]==3)++o->fluorescence_counts[6];double T=E;
                 if(g->binding){int element,shell;p8g_select_shell(E,m,s,&element,&shell);double binding=E,local_energy=E,emitted[32];long long trace[24];int events=0,used=0;
-                    if(element>=0){binding=m.bindings[element*5+shell];used=p8g_relax(element,shell,m,s,g->fluorescence,emitted,&local_energy,trace,&events);}
+                    if(element>=0){binding=g5_binding(m,element,shell);used=p8g_relax(element,shell,m,s,g->fluorescence,emitted,&local_energy,trace,&events);}
+                    if(used<0){failed=true;++counts[6];phase=T2S_H;return;}
                     T=E-binding;if(used>1)t2_seed_hit(hits,1);
                     if(top+used+2>=P8G_STACK_CAP){t2_seed_hit(hits,2);failed=true;++counts[6];phase=T2S_H;return;}
 #if P8F_FAULT == 3
@@ -234,7 +238,11 @@ P8gMaterial m=p8g_material(data,meta,constants);const P5Tables *t=&m.p;
                     dep+=local_energy;t2_seed_field(q,g,6,a,a,local_energy);t2_seed_sink(g,local,a[g->axis],a[g->axis],int(a[16]),local_energy);
                     
                     for(int j=0;j<used;++j){++top;p5_photon(stack+top,emitted[4*j],a[0],a[1],a[2],emitted[4*j+1],emitted[4*j+2],emitted[4*j+3],int(a[16]),int(a[20]));stack[top].a[17]=2;
+                        #if G5_TEST_LEGACY_ELECTRON
                         for(int k=0;k<int(m.line_counts[element*4]);++k)if(emitted[4*j]==m.lines[(element*4*m.nline+k)*4])stack[top].a[17]=3;
+#else
+                        if(g5_k_line(m,element,emitted[4*j]))stack[top].a[17]=3;
+#endif
                         ++o->fluorescence_counts[0];if(stack[top].a[17]==3)++o->fluorescence_counts[4];}
                 }
                 ++top;p5_initial(stack+top,T,a[0],a[1],a[2],a[3],a[4],a[5],int(a[16]),int(a[20]),t,s);

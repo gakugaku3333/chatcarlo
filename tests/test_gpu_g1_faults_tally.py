@@ -19,7 +19,7 @@ def data(tmp_path):
 def test_gpu_g1_0f_faults(tmp_path,fault):
     t=kernel.bake_scene_materials(['air','water','lead']);a=core.pack(t)
     a.update(centers=np.array([[0.,0.,0.],[0.,0.,0.]]),halves=np.array([[10.,10.,10.],[5.,5.,5.]]),materials=np.array([1,2],np.int64),background=np.array(0),world=np.array([0.,0.,0.,60.,60.,60.]),detector=np.array([]))
-    good=core.Core(a,build_dir=tmp_path,rng='mt');bad=core.Core(a,build_dir=tmp_path,rng='mt',fault=fault)
+    good=core.Core(a,build_dir=tmp_path,rng='mt',_test_legacy_physics=True);bad=core.Core(a,build_dir=tmp_path,rng='mt',_test_legacy_physics=True,fault=fault)
     if fault==4:
         x=np.zeros((1,10));out=[]
         g=core.Geometry(a['centers'].ctypes.data,a['halves'].ctypes.data,a['materials'].ctypes.data,2,0,a['world'].ctypes.data,None)
@@ -49,7 +49,7 @@ def test_gpu_g1_0c_detection_first(tmp_path,coincident):
     bundle.create(scene,plane,tmp_path);a,*_=bundle.load(tmp_path)
     if coincident=='boundary':
         # The S2 aluminum bottom coincides with z=0. Force a flight to that face.
-        a['data'][int(a['offsets'][19]):]=0.
+        a['data'][int(a['offsets'][19]):int(a['offsets'][20])]=0.
         o=np.array([[0.,6.,.5]]);energy=60.;seed=42
     else:
         t=kernel.bake_scene_materials(['air']);a=core.pack(t)
@@ -59,7 +59,7 @@ def test_gpu_g1_0c_detection_first(tmp_path,coincident):
         mu,*_=kernel._mu_and_parts_scalar(60.,0,t.n_elem,t.fracs,t.log_e,t.step,t.n_grid,t.photo,t.compt,t.rayl,t.density_g_cm3,p,c,r,idx,f)
         seed=42;tau=-np.log(np.random.RandomState(seed).random_sample());distance=tau/mu
         a['world'][3:]=max(100.,distance*2);a['detector'][2]=-distance;o=np.zeros((1,3));energy=60.
-    driver=core.Core(a,build_dir=tmp_path/'build',rng='mt');result=driver.run(o,np.array([[0.,0.,-1.]]),np.array([energy]),seed=seed,record=True)
+    driver=core.Core(a,build_dir=tmp_path/'build',rng='mt',_test_legacy_physics=True);result=driver.run(o,np.array([[0.,0.,-1.]]),np.array([energy]),seed=seed,record=True)
     assert result['i'][0,3]==2 and result['i'][0,0]==0 and result['i'][0,7]==1
     assert result['d'][0,1]==0 and result['images'][4].sum()==1
 

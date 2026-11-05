@@ -1,6 +1,7 @@
 // G5 A2b fixed P9c specialization; shared t2 physics and Philox.
 #ifndef T2_SEED_GEOMETRY_H
 #define T2_SEED_GEOMETRY_H
+#include "t2_tables.h"
 #include "t2_transport.h"
 #include "t2_field.h"
 #include "t2_seed_grid.h"
@@ -86,6 +87,6 @@ P5_FN void t2_seed_photon_transition(double *a,const T2SeedGeometry *g,const T2S
     t2_seed_snap(a,g,hit);a[16]=hit.next;
     *m=p8g_material(data,meta+p8g_mid(g->ids[hit.next])*136,constants);
     p8g_coefficients(E,*m,c);*mu=0.;
-    for(int z=0;z<4;++z){c[z]*=g->rho[hit.next];*mu+=c[z];}++*rebuilds;
+    for(int z=0;z<5;++z){c[z]*=g->rho[hit.next];*mu+=c[z];}++*rebuilds;
 }
 #endif

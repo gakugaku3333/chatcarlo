@@ -1,0 +1,17 @@
+[
+  {
+    "path": "/var/folders/nk/ppk0zn4n2n5_gsrp89g_dw900000gn/T/pytest-of-oishifamily/pytest-63",
+    "bytes": 1300708843,
+    "reason": "completed D15 tests suite, logs retained"
+  },
+  {
+    "path": "/private/var/folders/nk/ppk0zn4n2n5_gsrp89g_dw900000gn/T/pytest-of-oishifamily/pytest-63",
+    "bytes": 488409324,
+    "reason": "completed D15 focused suite, logs retained"
+  },
+  {
+    "path": "/var/folders/nk/ppk0zn4n2n5_gsrp89g_dw900000gn/T/pytest-of-oishifamily/pytest-62",
+    "bytes": 3058226774,
+    "reason": "completed D15 prototype suite, logs retained"
+  }
+]

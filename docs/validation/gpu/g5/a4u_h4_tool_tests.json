@@ -1,0 +1,35 @@
+{
+  "scope": "H4 launcher tests only; no pilot measurement by this task",
+  "status": "tests_passed",
+  "command": ".venv/bin/python -m pytest tests/test_gpu_g5_a4u_h4.py -q",
+  "passed": 11,
+  "seconds": 1.01,
+  "log": "a4u_h4_tests.log",
+  "log_sha256": "4bd6a2e2f125c1ca1f7ee4cb098dc856072cb7a8de77a49148ac537cf44378dc",
+  "source_sha256": {
+    "docs/validation/gpu/g5/a4u_h4_gate.py": "57c5b8f1210a292826fa0169030998a75de9ea12a301dd8daf86d56d32004b9d",
+    "tests/test_gpu_g5_a4u_h4.py": "8071179e4d57381b93973c4cdfe4ea7cc1d3a52d16dbe2718e4290e65b7595ac"
+  },
+  "observed_workspace_code_changes": {
+    "chatcarlo/gpu/photon_physics.h": {
+      "start_sha256": "04a764e19b072012c4cf03bea7c078852e9447c12968480932370e8e4bbd382b",
+      "current_sha256": "a9c89e4b4b5036ed0f8d3ff78e1e9003340c0ce6309556c15799a35aa919ce6c"
+    },
+    "chatcarlo/gpu/t2_kernel.h": {
+      "start_sha256": "2f9546aea0ee1b8e82e45625b0c8e23221e16de7eab85a9b8538722c7283f515",
+      "current_sha256": "eac0599da4ab903e5781c7b03871d0d029d021c702015abddf299f6adb4bb502"
+    },
+    "chatcarlo/gpu/t2_physics.h": {
+      "start_sha256": "8dba0ecc5653af9692ca6a30c56d658a6d17caa420ac1a938da3d533ae92b0cb",
+      "current_sha256": "f88aa17d397251b9f14b916f15a5d2a3de377ca417a7f8a28b8bde5e078b8abd"
+    }
+  },
+  "workspace_change_note": "These three headers were not written by this task. Changes preserved; author not determined. No native transport was tested.",
+  "preserved_photon_generator_sha256": "982870d94d95472974d9274e5b4b31ab7d2e8ed9e76f563dbcf46dcb3b7da750",
+  "EGS5_started": false,
+  "CPU_pilot_started": false,
+  "H5_started": false,
+  "CUDA_used": false,
+  "result_policy": "a4u_h4.json is written only on explicit pilot execution",
+  "registration": "proposal pending Claude approval"
+}

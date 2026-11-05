@@ -1,4 +1,5 @@
-#include "g1_physics.h"
+#define G5_PHOTON_LOCAL
+#include "photon_physics.h"
 // Verification-only entry: one sequential MT stream, including the complete state.
 extern "C" void g1_direction_probe(int which,const double *x,int n,uint64_t seed,double *out,uint64_t *state,double *next) {
     RngState rng;rng_init(&rng,seed,0);
@@ -45,6 +46,11 @@ extern "C" void g1_geometry_probe(int which,const G1Geometry *g,const double *x,
         if(which==3)g1_detector(a,a+3,a[6],g->det,y);
     }
 }
+// Direct shell injection, shared by the CPU and NVRTC verification path.
+extern "C" void g5_relax_probe(const double *p,int el,int shell,int n,uint64_t seed,double *out,long long *trace){
+    RngState rng;rng_init(&rng,seed,0);
+    for(int j=0;j<n;++j){double *row=out+38*j;int events;row[36]=0.;row[37]=g5_relax(p,el,shell,&rng,true,row,row+36,trace+28*j,&events);trace[28*j+27]=events;}
+}
 #include "g1_history.h"
 extern "C" void g1_histories(const double *data,const long long *offsets,int me,int ng,int nm,const G1Geometry *g,
     uint64_t seed,uint64_t start,int n,const double *o,const double *dir,const double *energy,int fluor,
@@ -55,8 +61,8 @@ extern "C" void g1_histories(const double *data,const long long *offsets,int me,
         rng_init(&rng,seed,start+uint64_t(h));
 #endif
         double local[34];long long li[9];uint64_t before=rng.calls;
-        g1_history(&t,g,&rng,o+3*h,dir+3*h,energy[h],fluor,local,li,trace,trace_capacity);
-        li[7]-=before;g1_add_record(&t,g,local,li,agg);
+        g1_history(&t,g,&rng,o+3*h,dir+3*h,energy[h],fluor,local,li,trace,trace_capacity,0,agg,h,record?n*8:0);
+        li[7]-=before;
         if(record){for(int j=0;j<2+nm;++j)d[h*(2+nm)+j]=local[j];for(int j=0;j<9;++j)ints[h*9+j]=li[j];}
     }
 }
@@ -75,8 +81,8 @@ extern "C" void g2_histories(const double *data,const long long *offsets,int me,
         rng_init(&rng,seed,start+uint64_t(h));
 #endif
         double local[34];long long li[9];uint64_t before=rng.calls;
-        g1_history(&t,g,&rng,o+3*h,dir+3*h,energy[h],fluor,local,li,trace,trace_capacity,&tally);
-        li[7]-=before;g1_add_record(&t,g,local,li,agg);
+        g1_history(&t,g,&rng,o+3*h,dir+3*h,energy[h],fluor,local,li,trace,trace_capacity,&tally,agg,h,record?n*8:0);
+        li[7]-=before;
         if(record){for(int j=0;j<2+nm;++j)d[h*(2+nm)+j]=local[j];for(int j=0;j<9;++j)ints[h*9+j]=li[j];}
     }
 }

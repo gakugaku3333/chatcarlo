@@ -81,7 +81,7 @@ def test_p8_driver_small(tmp_path):
     m.rates=np.array([[.01,1.],[10.,2.]])
     m.gs_y=np.zeros((2,3,4));m.lines=np.zeros((2,4,3,4))
     cat,blob=p8.roundtrip(m,'water')
-    assert len(cat['fields'])==33
+    assert len(cat['fields'])==34
 
 
 def test_config_order_and_hash_rows():

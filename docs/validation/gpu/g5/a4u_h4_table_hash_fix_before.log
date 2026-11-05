@@ -1,0 +1,21 @@
+F                                                                        [100%]
+=================================== FAILURES ===================================
+____________ test_real_prepare_table_hashes_match_all_packed_fields ____________
+
+    def test_real_prepare_table_hashes_match_all_packed_fields():
+        from chatcarlo.gpu import catalog,therapy,therapy_observation
+        materials,arrays,_=h4.prepare_cpu(20)
+        data,meta=therapy.pack(materials)
+        actual=therapy_observation.table_hashes(data,meta)
+        expected=arrays['_table_hashes']
+        names={str(i)+'.'+name for i in range(4) for name in catalog.P8_DEFINITIONS}
+        assert set(actual)==set(expected)==names
+        mismatches=[name for name in sorted(names) if actual[name]!=expected[name]]
+>       assert not mismatches,mismatches
+E       AssertionError: ['0.line_counts', '1.line_counts', '2.line_counts', '3.line_counts']
+E       assert not ['0.line_counts', '1.line_counts', '2.line_counts', '3.line_counts']
+
+tests/test_gpu_g5_a4u_h4.py:179: AssertionError
+=========================== short test summary info ============================
+FAILED tests/test_gpu_g5_a4u_h4.py::test_real_prepare_table_hashes_match_all_packed_fields
+1 failed in 1.72s

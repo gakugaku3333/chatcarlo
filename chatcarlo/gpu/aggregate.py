@@ -19,6 +19,9 @@ def aggregate(batches, names, detector=None, roi=None, track_uncertainty=True, g
             grid.kerma_keV += r['kerma'].reshape(grid.shape)
             grid.h10_track_pSv_cm3 += r['h10'].reshape(grid.shape)
             grid.end_batch(n)
+        # Endings are photon counts; completion remains incident histories.
+        from .core import health
+        health(r,n,len(names),np.array([]) if detector is None else np.r_[detector.center_cm,detector.normal,detector.u_axis,detector.v_axis,detector.size_cm,detector.shape])
         histories += n
         batch = {name: float(v) for name, v in zip(names, r['deposits'])}
         for name, value in batch.items(): deposits[name] += value

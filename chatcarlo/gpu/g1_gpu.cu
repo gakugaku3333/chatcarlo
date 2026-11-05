@@ -6,8 +6,8 @@ extern "C" __global__ void g1_histories_kernel(const double *data,const long lon
     int h=blockIdx.x*blockDim.x+threadIdx.x;if(h>=n)return;
     G1Tables t={data,offsets,me,ng,nm};G1Geometry g={centers,halves,materials,nb,bg,world,det};
     RngState rng;rng_init(&rng,seed,start+uint64_t(h));double local[34];long long li[9];
-    g1_history(&t,&g,&rng,o+3*h,dir+3*h,energy[h],fluor,local,li,trace,trace_capacity);
-    g1_add_record(&t,&g,local,li,agg);
+    g1_history(&t,&g,&rng,o+3*h,dir+3*h,energy[h],fluor,local,li,trace,trace_capacity,0,agg,h,record?n*8:0);
+
     if(record){for(int j=0;j<2+nm;++j)d[h*(2+nm)+j]=local[j];for(int j=0;j<9;++j)ints[h*9+j]=li[j];}
 }
 extern "C" __global__ void g1_geometry_probe_flat(int which,const double *centers,const double *halves,const long long *materials,int nb,int bg,const double *world,const double *det,const double *x,int n,double *out) {
@@ -28,8 +28,8 @@ extern "C" __global__ void g2_histories_kernel(const double *data,const long lon
     int h=blockIdx.x*blockDim.x+threadIdx.x;if(h>=n)return;
     G1Tables t={data,offsets,me,ng,nm};G1Geometry g={centers,halves,materials,nb,bg,world,det};
     RngState rng;rng_init(&rng,seed,start+uint64_t(h));double local[34];long long li[9];
-    g1_history(&t,&g,&rng,o+3*h,dir+3*h,energy[h],fluor,local,li,trace,trace_capacity,&tally);
-    g1_add_record(&t,&g,local,li,agg);
+    g1_history(&t,&g,&rng,o+3*h,dir+3*h,energy[h],fluor,local,li,trace,trace_capacity,&tally,agg,h,record?n*8:0);
+
     if(record){for(int j=0;j<2+nm;++j)d[h*(2+nm)+j]=local[j];for(int j=0;j<9;++j)ints[h*9+j]=li[j];}
 }
 
