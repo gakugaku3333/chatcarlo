@@ -1,56 +1,97 @@
 {
-  "status": "incomplete-disk-stop",
-  "date": "2026-11-06",
-  "stop_reason": "Free space fell from approximately 5 GiB to 3.26 GiB and continued decreasing; interrupted before the approved 3 GiB floor.",
-  "free_GiB_after_stop": 3.21868896484375,
-  "commands": [
-    {
-      "command": ".venv/bin/python -m pytest tests/ -q",
-      "exit_code": 2,
-      "status": "interrupted",
-      "passed": 477,
-      "failed_observed": 0,
-      "seconds": 202.85
-    },
-    {
-      "command": ".venv/bin/python -m pytest prototypes/mv_electron/tests -q",
-      "exit_code": 2,
-      "status": "interrupted",
-      "passed": 301,
-      "skipped": 16,
-      "failed_observed": 0,
-      "seconds": 202.85
-    },
-    {
-      "command": ".venv/bin/python docs/validation/gpu/g5/a4u_h6.py --help",
-      "exit_code": 0,
-      "status": "pass"
-    },
-    {
-      "command": ".venv/bin/python docs/validation/gpu/g5/a4u_s1_gate1.py --help",
-      "exit_code": 0,
-      "status": "pass"
-    }
-  ],
-  "additional_checks": {
-    "B1_B5_CPU": "pass",
-    "CPU_fixture_source_seal": "pass",
-    "prepare_orchestration": "pass with large numerical workloads substituted; not a physics gate",
-    "existing_paired_judge_delegation": "pass on substituted smoke inputs",
-    "missing_required_gate_rejection": "pass",
-    "colab_timeouts": "pass, mocked subprocess calls",
-    "single_session_failure_finally_stop": "pass, mocked VM creation failure",
-    "git_diff_check": "pass"
+ "status": "incomplete-disk-stop",
+ "date": "2026-11-06",
+ "stop_reason": "Free space fell from approximately 5 GiB to 3.26 GiB and continued decreasing; interrupted before the approved 3 GiB floor.",
+ "free_GiB_after_stop": 3.21868896484375,
+ "commands": [
+  {
+   "command": ".venv/bin/python -m pytest tests/ -q",
+   "exit_code": 2,
+   "status": "interrupted",
+   "passed": 477,
+   "failed_observed": 0,
+   "seconds": 202.85
   },
-  "GPU_execution": "not run; H6 not passed",
-  "known_out_of_scope_issue": {
-    "file": "chatcarlo/gpu/seed_cuda.py",
-    "line": 78,
-    "description": "GPU.observe references physics_sets, but the import is local to __init__, not in observe globals. Unchanged; B3 will stop on an exception."
+  {
+   "command": ".venv/bin/python -m pytest prototypes/mv_electron/tests -q",
+   "exit_code": 2,
+   "status": "interrupted",
+   "passed": 301,
+   "skipped": 16,
+   "failed_observed": 0,
+   "seconds": 202.85
   },
-  "source_sha256": {
-    "a4u_h6.py": "bc81adef4735e806e03c37bef377dbb1841667f6eee34a66038128923c110e31",
-    "a4u_h6_fixtures.py": "9d27a3a937e5a828682ae6f454aa48aef81bcf9cffb181bb78361d189b852632",
-    "a4u_s1_gate1.py": "656ea7754501d6f92a6e0d0f13709f250a19a5d09de256d8cfb5d659fa494cc3"
+  {
+   "command": ".venv/bin/python docs/validation/gpu/g5/a4u_h6.py --help",
+   "exit_code": 0,
+   "status": "pass"
+  },
+  {
+   "command": ".venv/bin/python docs/validation/gpu/g5/a4u_s1_gate1.py --help",
+   "exit_code": 0,
+   "status": "pass"
   }
+ ],
+ "additional_checks": {
+  "B1_B5_CPU": "pass",
+  "CPU_fixture_source_seal": "pass",
+  "prepare_orchestration": "pass with large numerical workloads substituted; not a physics gate",
+  "existing_paired_judge_delegation": "pass on substituted smoke inputs",
+  "missing_required_gate_rejection": "pass",
+  "colab_timeouts": "pass, mocked subprocess calls",
+  "single_session_failure_finally_stop": "pass, mocked VM creation failure",
+  "git_diff_check": "pass"
+ },
+ "GPU_execution": "not run; H6 not passed",
+ "known_out_of_scope_issue": {
+  "file": "chatcarlo/gpu/seed_cuda.py",
+  "line": 78,
+  "description": "GPU.observe references physics_sets, but the import is local to __init__, not in observe globals. Unchanged; B3 will stop on an exception."
+ },
+ "source_sha256": {
+  "a4u_h6.py": "bc81adef4735e806e03c37bef377dbb1841667f6eee34a66038128923c110e31",
+  "a4u_h6_fixtures.py": "9d27a3a937e5a828682ae6f454aa48aef81bcf9cffb181bb78361d189b852632",
+  "a4u_s1_gate1.py": "656ea7754501d6f92a6e0d0f13709f250a19a5d09de256d8cfb5d659fa494cc3"
+ },
+ "rerun_2026-11-06_after_trash_emptied": {
+  "status": "pass",
+  "note": "ゴミ箱を空にして 6 GiB 確保してから通し実行した。",
+  "commands": [
+   {
+    "command": ".venv/bin/python -m pytest tests/ -q",
+    "passed": 1100,
+    "failed": 0,
+    "warnings": 2,
+    "seconds": 300.71,
+    "status": "pass"
+   },
+   {
+    "command": ".venv/bin/python -m pytest prototypes/mv_electron/tests -q",
+    "passed": 1804,
+    "skipped": 17,
+    "failed": 4,
+    "seconds": 1242.63,
+    "status": "pass-after-rerun",
+    "failures": "4 件すべて OSError: [Errno 28] No space left on device（test_p9a.py の roundtrip 3 件と drive_limit 1 件）。空きが 0 GiB になった",
+    "rerun": {
+     "command": "pytest \"prototypes/mv_electron/tests/test_p9a.py::test_export_load_portable_input_roundtrip\" \"prototypes/mv_electron/tests/test_p9a.py::test_drive_limit_on_final_call_seals_completion\" -q",
+     "passed": 4,
+     "seconds": 8.48,
+     "status": "pass"
+    }
+   }
+  ],
+  "disk": {
+   "before_GiB": 6,
+   "after_main_suite_GiB": 2,
+   "after_mv_suite_GiB": 0,
+   "finding": "両スイートの通し実行は一時出力に約 6 GiB を使い、計画の 3 GiB の床を自力で突き抜ける。MV スイート単独で約 3.3 GiB。",
+   "cleanup": "~/.Trash/pytest-temp-2026-11-06b/ へ退避（空にするのはユーザー）"
+  },
+  "code_dependency": {
+   "question": "あふれた容量はコードが使っているのか",
+   "answer": "いいえ。pytest の tmp_path に作られる捨て置きの出力で、内容はテストが作り直す（4 件の再実行が 8.48 秒で合格したのが証拠）。記録の中に同じ経路が引用されているのは、ビルドした場所の由来としてで、生きたデータとしてではない。",
+   "cache": "別物。~/.cache/chatcarlo の 25 GB はほぼ参照されている——p8a 3.2 GiB は検証の記録から 62,429 箇所、archive 5.6 GiB と p9c2 4.3 GiB は計画と docs/jsmp133 の抄録から参照。捨て置きではないので消す候補にしない。"
+  }
+ }
 }

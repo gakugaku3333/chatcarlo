@@ -1,6 +1,6 @@
 ---
 phase: 開発中
-next: G5 A4u の H6。**起動役は実装・手元検証まで完了**（`a4u_h6.py`・`a4u_h6_fixtures.py`、群 A/B/C。CPU の B1〜B5 は全部合格し到達数を封印）。**T4 の 1 セッションは未実施**。先に要るのは**ゴミ箱を空にすること**——pytest の一時出力 2.6 GiB を `~/.Trash/pytest-temp-2026-11-06/` へ退避したが同じ volume なので空きが戻らず（今 3 GiB＝床と同じ）、全テストの通し実行ができない（477＋301 passed・不合格 0 まで進んで停止条件で中断）。範囲外の修正 1 件: `seed_cuda.py` の `GPU.observe()` が必ず `NameError` になる欠陥（CUDA 専用で CPU の試験が到達しないため A2b から残存、B3 が止まる位置）を直した
+next: G5 A4u の H6 の**T4 の 1 セッション**（`a4u_h6.py prepare` → `run` → `judge`）。手元は全部終わった——起動役と fixture の実装・独立検証、CPU の B1〜B5 全合格、**全テスト通し合格**（`tests/` 1100 passed、MV 1804 passed・17 skipped。不合格 4 件は空き容量切れで、再実行して 8.48 秒で合格）。**実行の前に空きを 7 GiB 以上にする**——両スイートの通しは一時出力に約 6 GiB 使い3 GiB の床を自力で突き抜ける。pytest の一時出力は `~/.Trash/pytest-temp-2026-11-06b/` に退避済み（空にするのはユーザー）
 blocker: ELSEPAで作った表の配布の方法（表を置くか、生成スクリプトだけか）とリポジトリのLICENSEはユーザーの判断待ち。急がない
 updated: 2026-11-06
 ---
