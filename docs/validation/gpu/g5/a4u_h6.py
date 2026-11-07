@@ -129,6 +129,33 @@ def prepare(args):
     write(base/'A2/grids.json', grids)
     cfg, _ = load_configs(HERE/'a1_speed_configs.json')
     create_new(base/'diagnostic/new', cfg)
+    # A3's gate2a rebuilds an artificial sub-5-keV fluorescence table through
+    # core.pack, which regenerates the photon tables with xraylib. The VM has no
+    # xraylib on purpose (the runbook: the host generates tables, the VM reads
+    # them), so T4 session 2 stopped there. Pack it HERE, and only trust the
+    # stand-in after checking that the UNEDITED packing reproduces the bundle byte
+    # for byte -- that is what makes this the same bytes the VM would have made.
+    from chatcarlo.gpu import core as gpu_core
+    from chatcarlo.gpu.validation import unpack_tables
+    g4 = base/'diagnostic/new/g4'
+    ab = bundle.load(g4)[0]
+
+    def packing(edit):
+        art = {k: v.copy() for k, v in ab.items()}; at = unpack_tables(art)
+        if edit:
+            at.k_edge[0, 0] = 1.; at.k_omega[0, 0] = 1.; at.k_frac[0, 0, :] = 1.
+            at.n_lines[0, 0] = 1; at.k_line_e[0, 0, :] = 4.
+            at.k_line_p[0, 0, :] = 0.; at.k_line_p[0, 0, 0] = 1.
+        at.material_names = list(range(len(at.n_elem)))
+        return gpu_core.pack(at)
+
+    if not np.array_equal(np.asarray(packing(False)['data']), np.asarray(ab['data'])):
+        raise ValueError('host packing does not reproduce the g4 bundle; it cannot stand in for the VM')
+    artificial = packing(True)
+    changed = int(np.count_nonzero(np.asarray(artificial['data']) != np.asarray(ab['data'])))
+    if not changed: raise ValueError('the artificial fluorescence packing changed nothing')
+    np.savez(base/'A3_artificial.npz', changed_elements=np.array(changed),
+             **{k: np.asarray(v) for k, v in artificial.items()})
     a1_g2gate3.prepare(base/'C1')
     # P7-A input comes from the sealed bundle (private spectrum remains external).
     materials, arrays, fg, _, _ = therapy_inputs.load(args.therapy_bundle, 'mohan10')
@@ -498,8 +525,30 @@ def worker(task, root):
             result = dict(status='pass')
         elif task == 'A3':
             # Same new bundle on both devices; existing integer/paired/reduction gates.
+            from unittest.mock import patch
             path = base/'diagnostic/new/g4'
-            result = validation.gate2(path, 's3', out, dict(gate='a4u-h6', seed=2040))
+            # gate2a's one xraylib-dependent call is served by prepare's packing.
+            stand_in = dict(np.load(base/'A3_artificial.npz', allow_pickle=False))
+            expected_changed = int(stand_in.pop('changed_elements'))
+            bundle_data = np.asarray(bundle.load(path)[0]['data'])
+            if int(np.count_nonzero(stand_in['data'] != bundle_data)) != expected_changed:
+                raise RuntimeError('A3 stand-in packing does not match what prepare recorded')
+            calls = []
+
+            def pack_stand_in(tables):
+                # Only gate2a's artificial table may take this path, and only once.
+                if not (float(tables.k_edge[0, 0]) == 1. and int(tables.n_lines[0, 0]) == 1
+                        and float(tables.k_line_e[0, 0, 0]) == 4. and float(tables.k_line_p[0, 0, 0]) == 1.):
+                    raise RuntimeError('unexpected core.pack call on the VM; no xraylib here')
+                calls.append(1)
+                return {k: v for k, v in stand_in.items()}
+
+            with patch.object(core, 'pack', pack_stand_in):
+                result = validation.gate2(path, 's3', out, dict(gate='a4u-h6', seed=2040))
+            if len(calls) != 1:
+                raise RuntimeError(f'the A3 stand-in was used {len(calls)} times, expected once')
+            result = dict(result, artificial_stand_in=dict(
+                changed_elements=expected_changed, calls=len(calls), source='prepare on the host'))
             if result['gate2a']['status'] != 'pass': result['status'] = 'fail'
             # Registered G4 seed 2040 (gate2 also retains its own probe seeds).
             from chatcarlo.gpu.source_host import sample_source_photons

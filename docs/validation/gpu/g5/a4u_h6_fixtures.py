@@ -27,8 +27,16 @@ def write(path, value):
                               default=lambda x: x.tolist() if hasattr(x, 'tolist') else x.item())+'\n')
 
 
-def diagnostic_arrays():
+# B4 and B5 reach this through chatcarlo.kernel, which imports xraylib at module
+# level. The VM has no xraylib on purpose (the host generates tables, the VM reads
+# them), which stopped B4 on T4 session 3. freeze_inputs now writes the result on
+# the host and this loads it there; `frozen=None` keeps the original generation.
+def diagnostic_arrays(frozen=None):
     import numpy as np
+    path = None if frozen is None else Path(frozen)/'diagnostic.npz'
+    if path is not None and path.exists():
+        return {k: v for k, v in np.load(path, allow_pickle=False).items()
+                if not k.startswith('B4_')}
     from chatcarlo.gpu import core
     from chatcarlo.kernel import bake_scene_materials
     a = core.pack(bake_scene_materials(['air', 'lead']))
@@ -36,6 +44,19 @@ def diagnostic_arrays():
              materials=np.array([1], np.int64), background=np.array(0),
              world=np.array([0., 0., 0., 50., 50., 50.]), detector=np.array([]))
     return a
+
+
+def shell_tables(frozen=None):
+    """B4's lead packing and shell data: frozen on the host, read on the VM."""
+    import numpy as np
+    path = None if frozen is None else Path(frozen)/'diagnostic.npz'
+    if path is not None and path.exists():
+        z = np.load(path, allow_pickle=False)
+        return z['B4_packed'], z['B4_edges'], z['B4_yields'], z['B4_ck']
+    from chatcarlo.gpu.generate_photon_tables import material, element
+    packed, _ = material([82], [1.])
+    edges, yields, ck = element(82)[3:6]
+    return packed, edges, yields, ck
 
 
 # Observation-only builds; existing hits[73:75] are caller-owned global
@@ -117,6 +138,14 @@ def freeze_inputs(path, p8g2):
     materials = [SimpleNamespace(**{k: ensure(m) if k == 'photon' else getattr(m, k)
                                    for k in catalog.P8_DEFINITIONS}) for m in materials]
     path = Path(path); path.mkdir(parents=True, exist_ok=True)
+    # B4/B5 need chatcarlo.kernel (xraylib at module level) and the lead packing.
+    # Freeze both HERE, on the host; the VM reads them. T4 session 3 stopped in B4
+    # because only the therapy/seed inputs were frozen and these were not.
+    diag = diagnostic_arrays()
+    packed, edges, yields, ck = shell_tables()
+    np.savez(path/'diagnostic.npz', B4_packed=packed, B4_edges=np.asarray(edges),
+             B4_yields=np.asarray(yields), B4_ck=np.asarray(ck),
+             **{k: np.asarray(v) for k, v in diag.items()})
     np.savez(path/'therapy.npz', **arrays)
     np.savez_compressed(path/'materials.npz', **{f'{i}_{k}': getattr(m, k) for i, m in enumerate(materials)
                                    for k in catalog.P8_DEFINITIONS}, densities=identity['densities'])
@@ -227,12 +256,10 @@ def relaxation(driver, packed, shell, n, device):
     return out, trace
 
 
-def shells(device, work):
+def shells(device, work, frozen=None):
     import numpy as np
     from chatcarlo.gpu import core
-    from chatcarlo.gpu.generate_photon_tables import material, element
-    a = diagnostic_arrays(); packed, _ = material([82], [1.])
-    edges, yields, ck = element(82)[3:6]
+    a = diagnostic_arrays(frozen); packed, edges, yields, ck = shell_tables(frozen)
     driver = core.Core(a, device, build_dir=Path(work)/'good')
     out, tr = relaxation(driver, packed, 1, 6000, device)
     np.testing.assert_allclose(out[:, 36]+out[:, 0:36:4].sum(axis=1), edges[1], atol=1e-10)
@@ -256,11 +283,11 @@ def shells(device, work):
     return dict(status='pass', reached=reach, faults=faults)
 
 
-def transport_faults(device, work):
+def transport_faults(device, work, frozen=None):
     import copy
     import numpy as np
     from chatcarlo.gpu import core, validation
-    a = diagnostic_arrays(); src = (np.zeros((96, 3)), np.tile([0., 0., 1.], (96, 1)), np.full(96, 100.))
+    a = diagnostic_arrays(frozen); src = (np.zeros((96, 3)), np.tile([0., 0., 1.], (96, 1)), np.full(96, 100.))
     good = core.Core(a, device, build_dir=Path(work)/'good').run(*src, seed=SEEDS['B5'], record=True)
     if good['completed'] != 96 or good['created'] <= 96: raise AssertionError('fluorescence fixture not reached')
     outgoing = good['terminals'][good['terminals'][:, 1] >= -1, 3].sum()
@@ -302,8 +329,8 @@ def run(path, device='cpu', progress=lambda result: None):
     for name, action in [('B1', lambda: low(device, work/'B1', materials, arrays)),
                          ('B2', lambda: high(device, work/'B2', materials, arrays)),
                          ('B3', lambda: seed(device, work/'B3', materials, arrays, densities)),
-                         ('B4', lambda: shells(device, work/'B4')),
-                         ('B5', lambda: transport_faults(device, work/'B5'))]:
+                         ('B4', lambda: shells(device, work/'B4', path)),
+                         ('B5', lambda: transport_faults(device, work/'B5', path))]:
         result['gates'][name] = action(); write(work/'results.json', result); progress(result)
     result['status'] = 'pass'; write(work/'results.json', result)
     if device == 'cpu': write(path/'expected.json', result)
