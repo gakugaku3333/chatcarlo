@@ -2604,3 +2604,21 @@ B4 は CPU の既存 relax probe と同じループを NVRTC の `g5_relax_probe
 指定の `--help` 2 本は成功。全スイートは空き容量が約 3.26 GiB まで減って増加中だったため、
 3 GiB の床を守って中断した。本体は 477 passed、MV 試作は 301 passed・16 skipped までで、
 いずれも失敗は観測していないが、全件通過とは扱わない。削除は行っていない。
+
+### T4 セッション 1（2026-11-07）: A1 のコンパイルで不合格
+
+**実機の NVRTC だけで出る不具合を 1 件捕まえた。** A4u が診断側に入れた `photon_physics.h` の
+`g5_total` は表の上端を超えると `NAN` を返すが、診断の入口 `g1_gpu.cu` には `NAN` の守りが無い
+（治療と seed の入口 `t2_gpu.cu`・`t2_seed_gpu.cu` には元からある）ため、NVRTC が
+`identifier "NAN" is undefined` で拒否した。`chatcarlo/gpu/g5_base.h` の `INFINITY` の守りの隣に
+`NAN` の守りを足して直した。**壊れていたのは local-deposition の組だけ**で、electron-transport と
+seed は元から守られていた（A4u 直前の木を別の worktree に出して前処理し直して確認）。
+
+手元の 1100 件のテスト・`--help`・群 B の CPU fixture では一度も見えず、T4 のセッションを 1 つ使った。
+教訓は 4 回目なので文章を足さずテストに昇格させた——`tests/test_gpu_nvrtc_macros.py`
+（7 件・0.27 秒・GPU 不要。起動役と同じ組み立て関数・同じ `-D` の組から 5 つの組の源を作り、
+前処理して host 専用のマクロ・標準ヘッダー・`std::` が `P5_GPU` の枝に残らないことを見る）。
+
+セッション 1 の実測: `new` 5.8 秒、`upload` 65 断片で約 9 分、総時間 11 分 47 秒、通信の失敗 0、VM は停止済み。
+A2・A3・群 B・C1・C2 は**未実施**なので、**H6 は合格にしない**（停止条件どおり）。
+経過・数値・訂正の全量は [H6 の計画](../../../ai/plans/2026-11-06-chatcarlo-gpu-g5-a4u-h6-t4-launcher.md)。
