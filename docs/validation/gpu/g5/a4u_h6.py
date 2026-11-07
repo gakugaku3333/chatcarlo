@@ -23,6 +23,15 @@ from a3_t4_gates import writable, reserve, no_cache_writes, sha, verify_old_diag
 from a4u_h6_fixtures import write
 
 FORMAT = 'g5-a4u-h6-v1'
+
+
+def ours(path):
+    """Skip macOS metadata. Finder wrote .DS_Store into a prepared output directory
+    between prepare and run (2026-11-07), and prepared()'s identity check refused the
+    run because the digest of a file we never wrote had changed."""
+    name = Path(path).name
+    return not (name == '.DS_Store' or name.startswith('._'))
+
 # Retain the shared client's cadence constant; H6 collects on A3's one-minute polls.
 # A ten-minute cadence put a 6*600 s floor on the T4 session, almost all of it idle
 # (each task sleeps once before its first completion check). User decision 2026-11-07.
@@ -36,7 +45,7 @@ def source_files():
         for p in (ROOT/folder).rglob('*'):
             if (p.is_file() and not p.is_symlink() and '__pycache__' not in p.parts and
                     p.suffix in ('.py', '.h', '.cpp', '.cu', '.json', '.yaml', '.yml', '.csv') and
-                    not p.is_relative_to(HERE/'a4u_h6_run')):
+                    ours(p) and not p.is_relative_to(HERE/'a4u_h6_run')):
                 files['source/'+str(p.relative_to(ROOT))] = p
     # Prototype import-time constants, already frozen; read and transfer only.
     for n in ('estar.npz', 'estar_water.html'):
@@ -186,14 +195,29 @@ def prepare(args):
     arrays = {k: v for k, v in arrays.items() if not k.startswith('_')}
     np.savez(base/'water_A.npz', **arrays, field_geometry=np.frombuffer(bytes(fg), np.uint8),
              half=np.array(2.5), ssd=np.array(100.))
+    # C2's therapy half, exercised on the CPU before any VM. load_water hands the field
+    # geometry back as bytes, and a2_health.ledger needs the structure; T4 session 7 died
+    # there. The ledger branch (fg not None) had never run locally -- the B fixtures all
+    # pass fg=None. Run one small CPU batch through it here.
+    import a2_gates, a2_common
+    from chatcarlo.gpu import therapy as therapy_module
+    a2_gates.WATER = base
+    water = a2_gates.load_water('A')
+    water_fg = therapy_module.FieldGeometry.from_buffer_copy(water['fg'])
+    if bytes(water_fg) != bytes(a2_common.field_geometry()):
+        raise ValueError('water A field geometry disagrees with the shared builder')
+    probe_materials = fixtures.load_inputs(base/'fixtures')[0]
+    probe_driver = therapy_module.CPU(out/'library_cache/therapy_probe', probe_materials, water['arrays'],
+                                      field_geometry=water_fg, half=water['half'], ssd=water['ssd'])
+    a2_gates.batch_health(probe_driver.histories(2000, 20261101), water['arrays'], water_fg)
     # References stay read-only; payload() streams these without staging copies.
     record = dict(format=FORMAT, sources=identity(), poll_seconds=H6_POLL_SECONDS,
                   external={k: str(getattr(args, k).expanduser().resolve()) for k in
                             ('p7', 'old_diagnostic')},
                   fixture_expected_sha256=sha(base/'fixtures/expected.json'),
-                  external_hashes={k: {str(p.relative_to(getattr(args, k))): sha(p) for p in getattr(args, k).rglob('*') if p.is_file()} for k in ('p7', 'old_diagnostic')},
+                  external_hashes={k: {str(p.relative_to(getattr(args, k))): sha(p) for p in getattr(args, k).rglob('*') if p.is_file() and ours(p)} for k in ('p7', 'old_diagnostic')},
                   inputs={str(p.relative_to(base)): sha(p) for p in base.rglob('*')
-                          if p.is_file() and not p.is_relative_to(base/'fixtures/cpu')})
+                          if p.is_file() and ours(p) and not p.is_relative_to(base/'fixtures/cpu')})
     write(out/'prepared.json', record)
     print('CPU baselines and B1--B5 reach counts frozen. run will own one T4; judge stays local.')
 
@@ -214,13 +238,13 @@ def prepared(out):
 def payload(out, record):
     files = source_files()
     for p in (out/'inputs').rglob('*'):
-        if not p.is_file(): continue
+        if not p.is_file() or not ours(p): continue
         if p.is_relative_to(out/'inputs/fixtures/cpu'): continue
         files['inputs/'+str(p.relative_to(out/'inputs'))] = p
     for name, folder in (('bundles/p7', record['external']['p7']),
                          ('diagnostic/old', record['external']['old_diagnostic'])):
         for p in Path(folder).rglob('*'):
-            if p.is_file(): files['inputs/'+name+'/'+str(p.relative_to(folder))] = p
+            if p.is_file() and ours(p): files['inputs/'+name+'/'+str(p.relative_to(folder))] = p
     reserve(out, tar_bytes(files)+64*1024**2)
     archive = out/'payload.tar'
     with tarfile.open(archive, 'w') as t:
@@ -512,6 +536,16 @@ def speed(base, out, cp):
     c = next(c for c in json.loads((HERE/'a0_configs.json').read_text())['configurations'] if c['id'] == 'p7A')
     old_state = a0_speed.construct(cp, c, base/'bundles')
     materials, _, _ = load_inputs(base/'fixtures'); water = a2_gates.load_water('A')
+    # load_water hands back the field geometry as raw bytes, which T4 accepts but
+    # a2_health.ledger does not -- it reads .offsets/.sizes. Every other caller of
+    # batch_health passes a2_common.field_geometry(); T4 session 7 died here with
+    # AttributeError: 'bytes' object has no attribute 'offsets'. Rebuild the structure
+    # from the very bytes the kernel is given, and check it against the shared builder.
+    import a2_common
+    from chatcarlo.gpu import therapy as therapy_module
+    water_fg = therapy_module.FieldGeometry.from_buffer_copy(water['fg'])
+    if bytes(water_fg) != bytes(a2_common.field_geometry()):
+        raise ValueError('water A field geometry disagrees with the shared builder')
     therapy_states = {v: T4(cp, materials, water['arrays'], water['fg'], water['half'], water['ssd'], _test_legacy_physics=(v == 'new')) for v in ('new', 'production')}
     for v, driver in therapy_states.items(): resources['therapy-'+v] = a0_speed.resources(cp, driver.kernel, c)
     resources['therapy-old'] = a0_speed.resources(cp, old_state['kernel'], c)
@@ -521,7 +555,7 @@ def speed(base, out, cp):
             if v == 'old': row = a0_speed.measure(c, old_state, c['production_n'])
             else:
                 r = therapy_states[v].run(c['production_n'], c['seed'])
-                health = a2_gates.batch_health(r, water['arrays'], water['fg'])
+                health = a2_gates.batch_health(r, water['arrays'], water_fg)
                 row = dict(kernel_s=r['kernel_s'], health=health)
             therapy_rows.append(dict(row, version=v, repeat=repeat))
     med = lambda v: statistics.median(r['kernel_s'] for r in therapy_rows if r['version'] == v and r['repeat'] >= 0)

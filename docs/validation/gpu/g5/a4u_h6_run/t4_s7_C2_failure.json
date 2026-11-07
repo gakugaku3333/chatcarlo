@@ -1,0 +1,4 @@
+{
+  "status": "fail",
+  "error": "'bytes' object has no attribute 'offsets'"
+}
