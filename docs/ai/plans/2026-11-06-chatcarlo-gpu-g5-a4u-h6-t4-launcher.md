@@ -293,6 +293,69 @@ host 専用のマクロ 19 個・`#include <...>`・`std::` が `P5_GPU` の枝�
 **テスト自身の検出力も 1 件で守る**（守りを外したら落ちることを確かめる。落ちない検査は、
 本物の不具合を同じだけ静かに通してしまう）。
 
+### コンパイルだけの下見（2026-11-07、ユーザー承認の追加）: **7 つの組すべて合格**
+
+源の tar だけ（**92,764,160 バイト・3,379 ファイル・断片 5 個**）を送り、5 つの組と探査核を
+**最初の失敗で止めずに全部**コンパイルした。結果は [a4u_h6_run/t4_compile_smoke.json](../../validation/gpu/g5/a4u_h6_run/t4_compile_smoke.json)。
+
+| 組 | 核の数 | 結果 | 秒 |
+|---|---:|---|---:|
+| local-deposition legacy=0 | 8 | 合格 | 6.34 |
+| electron-transport legacy=0 | 4 | 合格 | 19.27 |
+| seed legacy=0 | 8 | 合格 | 52.19 |
+| local-deposition legacy=1 | 8 | 合格 | 3.37 |
+| electron-transport legacy=1 | 4 | 合格 | 17.46 |
+| seed legacy=1 | 8 | 合格 | 46.30 |
+| 診断の探査核（`CUDA_OPTIONS` のみ） | 8 | 合格 | 6.64 |
+| **合計** | | **失敗 0** | **151.57** |
+
+これで **`NAN` の修正が実機で確かめられ、残りのコンパイル誤りが無いことも分かった**。
+副産物として**コンパイル時間の実測**が取れた（C4 が分けて記録せよと書いていた量）。
+下見は `-D` の名前が各クラスの源に今もあるかを先に照合する（`drift []`）ので、
+旗が増えたり名前が変わったら下見が落ちる。
+
+**下見の 2 回の失敗は私の使い捨て駆動役の側**だった。`colab exec` は約 1 分で応答待ちを諦めるため、
+長い処理は切り離して poll しなければならない——**この決まりは `.claude/rules/chatcarlo.md` に既に
+書いてあったのに、使い捨てだからと自前の `colab exec` で書いた**。3 回目は `a4u_h6` の
+`upload`/`launch`/`status`（監査済みの転送）をそのまま呼ぶ形にして通った。
+どちらの失敗も VM は `finally` で停止しており、源の tar しか送っていないので損失は各約 2 分。
+
+### T4 セッション 2（2026-11-07）: **A1・A2 合格、A3 は VM に xraylib が無くて停止**
+
+[t4_s2_run.json](../../validation/gpu/g5/a4u_h6_run/t4_s2_run.json)・
+[t4_s2_judged_A1.json](../../validation/gpu/g5/a4u_h6_run/t4_s2_judged_A1.json)・
+[t4_s2_judged_A2.json](../../validation/gpu/g5/a4u_h6_run/t4_s2_judged_A2.json)・
+[t4_s2_timings.json](../../validation/gpu/g5/a4u_h6_run/t4_s2_timings.json)。
+session `g5-a4u-h6-1a6eb6af223d`、総時間 **810.2 秒（13 分 30 秒）**、通信の失敗 0、VM 停止済み。
+
+| 操作 | 件数 | 計 |
+|---|---:|---:|
+| `new` | 1 | **4.3 秒** |
+| `upload` | 65 | **514.8 秒**（1.26 GiB。**総時間の 64%** がここ） |
+| `exec` | 22 | 49.3 秒 |
+| `download` | 6 | 54.7 秒 |
+| `stop` | 1 | 1.6 秒 |
+
+**A1 合格（H6 の中心の主張）**: 同じ束・同じ種で CPU の双子と実機の T4 を `validation.paired_judge` で
+突き合わせ、3 シーンの **61 量すべて合格**（s1 19・s2 23・s3 19）。
+s1 と s3 は丸めの範囲内で全量一致（最大の差は `deposit:water` の **−7.1×10⁻¹⁵**）。
+s2 は 6 量が純粋な丸めの上限を超えるが（`category:2:all` −1.57×10⁻⁴ など）、統計の対照判定では合格。
+**A4u の新しい物理が、実機の GPU で CPU の双子と数値的に一致することを確かめた。**
+核の計算時間は A1 が **56.3 秒**、A2 が **5.9 秒**——計算そのものは 1 分強で、支配するのは転送である（C4）。
+
+**A2 合格**: 体積格子 4 組（water・lead × kerma・H*(10)）すべて `grid_paired_judge` で合格、差 0。
+
+**A3 停止（計画の設計誤り）**: `validation.gate2` → `gate2a` が人工の蛍光の表を作るところで
+`core.pack` を呼び、`generate_photon_tables.element` が `import xraylib` して
+`ModuleNotFoundError` になった。**VM に xraylib を置かず pip もしないのは runbook の前提**で
+（「表の生成・判定は xraylib を備えたホスト側で行い、VM は書き出し済みの表とジョブを読む」）、
+**群 A の A3 を VM 側の `gate2` に載せたのは計画を書いた私の誤り**である。
+`gate2` は 1 つのプロセスで CPU と CUDA の両方の `Core` を作るので、判定だけホストに移すこともできない。
+
+**前回の下見の穴**: 実機前に「xraylib と spekpy を import 不能にして VM 側のモジュールを import する」
+検査は通していた。だが落ちたのは **import 時ではなく呼び出し時**で、`gate2a` の中の分岐にしか無い。
+import が通ることは、その経路が通ることを意味しない。
+
 ## 未了
 
 **T4 のセッション 2**。セッション 1 は A1 のコンパイルで止まり、`STARTED.json` があるので

@@ -1,0 +1,55 @@
+{
+ "session": "g5-a4u-h6-smoke-cf8190d297",
+ "rows": [
+  {
+   "module": "local-deposition legacy=0",
+   "kernels": 8,
+   "status": "pass",
+   "error": null,
+   "seconds": 6.34
+  },
+  {
+   "module": "electron-transport legacy=0",
+   "kernels": 4,
+   "status": "pass",
+   "error": null,
+   "seconds": 19.27
+  },
+  {
+   "module": "seed legacy=0",
+   "kernels": 8,
+   "status": "pass",
+   "error": null,
+   "seconds": 52.19
+  },
+  {
+   "module": "local-deposition legacy=1",
+   "kernels": 8,
+   "status": "pass",
+   "error": null,
+   "seconds": 3.37
+  },
+  {
+   "module": "electron-transport legacy=1",
+   "kernels": 4,
+   "status": "pass",
+   "error": null,
+   "seconds": 17.46
+  },
+  {
+   "module": "seed legacy=1",
+   "kernels": 8,
+   "status": "pass",
+   "error": null,
+   "seconds": 46.3
+  },
+  {
+   "module": "diagnostic probes (CUDA_OPTIONS only)",
+   "kernels": 8,
+   "status": "pass",
+   "error": null,
+   "seconds": 6.64
+  }
+ ],
+ "done": "H6_SMOKE done {\"total\": 7, \"failed\": [], \"seconds\": 151.57}"
+}

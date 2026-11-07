@@ -1,0 +1,19 @@
+{
+  "status": "fail",
+  "session": "g5-a4u-h6-1a6eb6af223d",
+  "tasks": {
+    "A1": {
+      "status": "pass",
+      "worker_total_s": 56.265042385000015,
+      "elapsed_including_communication_s": 70.97766104200855
+    },
+    "A2": {
+      "status": "pass",
+      "worker_total_s": 5.8789579459999,
+      "elapsed_including_communication_s": 65.54838179098442
+    }
+  },
+  "error": "A3 worker failed; collected its log",
+  "vm_stopped": true,
+  "total_s": 810.2180106658489
+}
