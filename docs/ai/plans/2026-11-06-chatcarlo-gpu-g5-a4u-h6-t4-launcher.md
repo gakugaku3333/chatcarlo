@@ -400,6 +400,22 @@ host ライブラリ無しで通ることを確認した。C1 の `legacy.execut
 **前回の「import だけの検査」では足りなかった**——落ちたのは import ではなく呼び出しで、
 しかも手元には xraylib があるので、CPU の試行では host 依存が一度も露呈しない。
 
+### セッション 4 の前に済ませた点検（2026-11-07）
+
+| 見たもの | 結果 |
+|---|---|
+| **B6 の出どころ** | `compile.json` の行ではなく、`gates['B']['B6_production']`（実際に `Core`・`T4` を作った後に立つ）＋ `gates['C2']['B6_flags']`（旧・新の build が走った後）。**空の計装の行に依存していない** |
+| **C1 の経路** | `legacy.execute` は書き出し済みの束と `g2_tables.npz` を読むだけ。生成しない |
+| **C2 の経路（import ではなく呼び出し）** | `a1_speed.construct`・`measure`・`summarize`・`load_configs`、`a0_speed.construct`・`measure`・`resources`、`a2_gates.load_water`・`batch_health`、`bundle.load`、`sample_source_photons` のすべてが clean |
+| **VM に写される旧ローダー** | `g2b/bundle.py` に `xraylib` と `bake_scene_materials` があるが、**どちらも `create()` の中だけ**で、C2 が呼ぶのは `load()`。`g1_physics.h` の該当は注記のみ |
+| **識別の抜け** | 新しい `diagnostic.npz` が B の CPU/T4 の同一性照合に入っていなかったので、`fixtures.run` の digest の一覧に足した |
+
+**計装の行について（C4）**: 上位の `compile.json` には行があるが（`RawKernel.compile` 18.7 秒・19.1 秒など）、
+各関門の写し（`A1_compile.json` 等）は回収の時点で空だった。`RawModule` は計装されていないため、
+**A1 の診断の組のコンパイル時間はこの経路では取れていない**。コンパイル時間の信用できる記録は
+下見の 7 件（計 151.6 秒、組ごとの内訳つき）であり、C4 にはそちらを書く。既存の教訓
+「計装の印はフックの設置しか示さない」のとおりで、印が真でも行が空になりうる。
+
 ## 未了
 
 **T4 のセッション 4**（B4〜B6・C1・C2）。A1・A2・A3 は合格済みだが `TASKS` は固定なので再実行される（約 9 分）。

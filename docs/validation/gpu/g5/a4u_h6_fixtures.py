@@ -324,7 +324,8 @@ def run(path, device='cpu', progress=lambda result: None):
             for block in iter(lambda: f.read(1024*1024), b''): h.update(block)
         return h.hexdigest()
     result = dict(seeds=SEEDS, device=device, gates={},
-                  inputs={n: digest(path/n) for n in ('therapy.npz', 'materials.npz', 'inputs.json')},
+                  inputs={n: digest(path/n) for n in ('therapy.npz', 'materials.npz',
+                                                     'diagnostic.npz', 'inputs.json')},
                   fixture_source_sha256=digest(__file__))
     for name, action in [('B1', lambda: low(device, work/'B1', materials, arrays)),
                          ('B2', lambda: high(device, work/'B2', materials, arrays)),
