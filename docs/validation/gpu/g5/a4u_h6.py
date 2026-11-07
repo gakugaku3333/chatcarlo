@@ -257,17 +257,30 @@ class Owner:
     """Every colab invocation is bounded. Never retry creation or a launcher."""
     def __init__(self, session, out): self.session, self.out, self.rows = session, out, []
     def call(self, action, *args, code=None, idempotent=False):
-        begin = time.perf_counter(); error = None
-        try:
-            result = subprocess.run(['colab', action, '-s', self.session, *map(str, args)], input=code,
-                                    text=True, capture_output=True, check=True,
-                                    timeout={'new': 900, 'upload': 900, 'download': 900, 'stop': 180}.get(action, 300))
-            return result.stdout
-        except Exception as exc:
-            error = str(exc); raise
-        finally:
-            self.rows.append(dict(operation=action, seconds=time.perf_counter()-begin, error=error))
-            write(self.out/'transport_timings.json', self.rows)
+        # Retry only what is safe to replay: transfers, stop, and an exec that the
+        # caller marked as a read/status (never a launcher, which would start a second
+        # worker). Same policy as a3_t4_gates.Owner -- 60 s apart, at most six tries.
+        # Without it, one `colab exec` timing out at 300 s ended T4 session 9 after A1
+        # and A2 had already passed, and the project's standing rule says to retry.
+        retry = (action in ('upload', 'download', 'stop') or
+                 (action == 'exec' and idempotent and 'Popen' not in (code or '')))
+        tries = 6 if retry else 1
+        for attempt in range(1, tries+1):
+            begin = time.perf_counter(); error = detail = None
+            try:
+                result = subprocess.run(['colab', action, '-s', self.session, *map(str, args)], input=code,
+                                        text=True, capture_output=True, check=True,
+                                        timeout={'new': 900, 'upload': 900, 'download': 900, 'stop': 180}.get(action, 300))
+                return result.stdout
+            except (subprocess.TimeoutExpired, subprocess.CalledProcessError) as exc:
+                error = type(exc).__name__
+                detail = (str(getattr(exc, 'stderr', '') or '')+str(getattr(exc, 'stdout', '') or ''))[-1500:]
+                if attempt == tries: raise
+            finally:
+                self.rows.append(dict(operation=action, attempt=attempt, retry=attempt > 1,
+                                      seconds=time.perf_counter()-begin, error=error, detail=detail))
+                write(self.out/'transport_timings.json', self.rows)
+            time.sleep(60)
     def raw(self, code, **kw): return self.call('exec', code=code, **kw)
     def status(self, code):
         for line in self.raw(code, idempotent=True).splitlines():

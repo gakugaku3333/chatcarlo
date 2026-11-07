@@ -1,0 +1,19 @@
+{
+  "status": "fail",
+  "session": "g5-a4u-h6-82b1ab387d05",
+  "tasks": {
+    "A1": {
+      "status": "pass",
+      "worker_total_s": 56.244524156000125,
+      "elapsed_including_communication_s": 104.47416975023225
+    },
+    "A2": {
+      "status": "pass",
+      "worker_total_s": 5.948886663000167,
+      "elapsed_including_communication_s": 158.05849266704172
+    }
+  },
+  "error": "Command '['colab', 'exec', '-s', 'g5-a4u-h6-82b1ab387d05']' timed out after 300 seconds",
+  "vm_stopped": true,
+  "total_s": 1529.4845226248726
+}
