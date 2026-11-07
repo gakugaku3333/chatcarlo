@@ -23,8 +23,10 @@ from a3_t4_gates import writable, reserve, no_cache_writes, sha, verify_old_diag
 from a4u_h6_fixtures import write
 
 FORMAT = 'g5-a4u-h6-v1'
-# Retain the shared client's cadence constant; H6 collects on ten-minute polls.
-H6_POLL_SECONDS = 10*POLL_SECONDS
+# Retain the shared client's cadence constant; H6 collects on A3's one-minute polls.
+# A ten-minute cadence put a 6*600 s floor on the T4 session, almost all of it idle
+# (each task sleeps once before its first completion check). User decision 2026-11-07.
+H6_POLL_SECONDS = POLL_SECONDS
 TASKS = ('A1', 'A2', 'A3', 'B', 'C1', 'C2')
 
 
@@ -32,7 +34,7 @@ def source_files():
     files = {}
     for folder in ('chatcarlo', 'prototypes/mv_electron', 'docs/validation/gpu', 'docs/validation/mv'):
         for p in (ROOT/folder).rglob('*'):
-            if (p.is_file() and '__pycache__' not in p.parts and
+            if (p.is_file() and not p.is_symlink() and '__pycache__' not in p.parts and
                     p.suffix in ('.py', '.h', '.cpp', '.cu', '.json', '.yaml', '.yml', '.csv') and
                     not p.is_relative_to(HERE/'a4u_h6_run')):
                 files['source/'+str(p.relative_to(ROOT))] = p

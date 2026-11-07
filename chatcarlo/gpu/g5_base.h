@@ -8,6 +8,17 @@
 #if defined(P5_GPU) && !defined(INFINITY)
 #define INFINITY (__longlong_as_double(0x7ff0000000000000ULL))
 #endif
+// Nor the NAN macro. t2_gpu.cu and t2_seed_gpu.cu already guard one at their top,
+// so the electron-transport and seed modules were always covered; the diagnostic
+// chain's entry g1_gpu.cu does not, and before A4u nothing in it used NAN. A4u's
+// photon_physics.h g5_total returns NAN above a table's top energy, so on T4
+// 2026-11-07 NVRTC refused only the local-deposition module:
+// `identifier "NAN" is undefined`. Defined here, beside INFINITY, because this is
+// where the diagnostic chain's INFINITY already lives; the two t2 entry guards
+// come first in their own modules, so this one is skipped there.
+#if defined(P5_GPU) && !defined(NAN)
+#define NAN (__longlong_as_double(0x7ff8000000000000ULL))
+#endif
 #define P5_FN __device__ inline
 typedef unsigned int uint32_t;
 typedef unsigned long long uint64_t;
