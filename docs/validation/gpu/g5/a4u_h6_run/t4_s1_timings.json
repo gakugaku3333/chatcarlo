@@ -1,0 +1,412 @@
+[
+  {
+    "operation": "new",
+    "seconds": 5.8328764592297375,
+    "error": null
+  },
+  {
+    "operation": "exec",
+    "seconds": 3.8313724999316037,
+    "error": null
+  },
+  {
+    "operation": "upload",
+    "seconds": 16.035162709187716,
+    "error": null
+  },
+  {
+    "operation": "upload",
+    "seconds": 7.029631166253239,
+    "error": null
+  },
+  {
+    "operation": "upload",
+    "seconds": 20.51276379171759,
+    "error": null
+  },
+  {
+    "operation": "upload",
+    "seconds": 29.902355375234038,
+    "error": null
+  },
+  {
+    "operation": "upload",
+    "seconds": 4.946457041893154,
+    "error": null
+  },
+  {
+    "operation": "upload",
+    "seconds": 4.882943833712488,
+    "error": null
+  },
+  {
+    "operation": "upload",
+    "seconds": 6.215458166785538,
+    "error": null
+  },
+  {
+    "operation": "upload",
+    "seconds": 5.195332332979888,
+    "error": null
+  },
+  {
+    "operation": "upload",
+    "seconds": 6.125074666924775,
+    "error": null
+  },
+  {
+    "operation": "upload",
+    "seconds": 4.636145208030939,
+    "error": null
+  },
+  {
+    "operation": "upload",
+    "seconds": 5.069394040852785,
+    "error": null
+  },
+  {
+    "operation": "upload",
+    "seconds": 9.772454124875367,
+    "error": null
+  },
+  {
+    "operation": "upload",
+    "seconds": 4.654835749883205,
+    "error": null
+  },
+  {
+    "operation": "upload",
+    "seconds": 4.756835124921054,
+    "error": null
+  },
+  {
+    "operation": "upload",
+    "seconds": 8.986550374887884,
+    "error": null
+  },
+  {
+    "operation": "upload",
+    "seconds": 4.855721041094512,
+    "error": null
+  },
+  {
+    "operation": "upload",
+    "seconds": 4.879166333004832,
+    "error": null
+  },
+  {
+    "operation": "upload",
+    "seconds": 4.851150166243315,
+    "error": null
+  },
+  {
+    "operation": "upload",
+    "seconds": 4.944230041932315,
+    "error": null
+  },
+  {
+    "operation": "upload",
+    "seconds": 4.6925891251303256,
+    "error": null
+  },
+  {
+    "operation": "upload",
+    "seconds": 4.710360291879624,
+    "error": null
+  },
+  {
+    "operation": "upload",
+    "seconds": 4.6675350409932435,
+    "error": null
+  },
+  {
+    "operation": "upload",
+    "seconds": 4.734797083772719,
+    "error": null
+  },
+  {
+    "operation": "upload",
+    "seconds": 4.613640291150659,
+    "error": null
+  },
+  {
+    "operation": "upload",
+    "seconds": 4.864935040939599,
+    "error": null
+  },
+  {
+    "operation": "upload",
+    "seconds": 9.483276582788676,
+    "error": null
+  },
+  {
+    "operation": "upload",
+    "seconds": 9.732451875228435,
+    "error": null
+  },
+  {
+    "operation": "upload",
+    "seconds": 10.973021833691746,
+    "error": null
+  },
+  {
+    "operation": "upload",
+    "seconds": 11.026805333327502,
+    "error": null
+  },
+  {
+    "operation": "upload",
+    "seconds": 15.99060820788145,
+    "error": null
+  },
+  {
+    "operation": "upload",
+    "seconds": 20.5563600002788,
+    "error": null
+  },
+  {
+    "operation": "upload",
+    "seconds": 15.17535641696304,
+    "error": null
+  },
+  {
+    "operation": "upload",
+    "seconds": 4.987267791759223,
+    "error": null
+  },
+  {
+    "operation": "upload",
+    "seconds": 5.032400750089437,
+    "error": null
+  },
+  {
+    "operation": "upload",
+    "seconds": 4.802730333060026,
+    "error": null
+  },
+  {
+    "operation": "upload",
+    "seconds": 4.847861584275961,
+    "error": null
+  },
+  {
+    "operation": "upload",
+    "seconds": 11.0945650418289,
+    "error": null
+  },
+  {
+    "operation": "upload",
+    "seconds": 5.0535124582238495,
+    "error": null
+  },
+  {
+    "operation": "upload",
+    "seconds": 10.774184332694858,
+    "error": null
+  },
+  {
+    "operation": "upload",
+    "seconds": 9.083479582797736,
+    "error": null
+  },
+  {
+    "operation": "upload",
+    "seconds": 9.529076499864459,
+    "error": null
+  },
+  {
+    "operation": "upload",
+    "seconds": 8.055003374814987,
+    "error": null
+  },
+  {
+    "operation": "upload",
+    "seconds": 4.835166374687105,
+    "error": null
+  },
+  {
+    "operation": "upload",
+    "seconds": 6.361042042262852,
+    "error": null
+  },
+  {
+    "operation": "upload",
+    "seconds": 9.776584125123918,
+    "error": null
+  },
+  {
+    "operation": "upload",
+    "seconds": 9.237302999943495,
+    "error": null
+  },
+  {
+    "operation": "upload",
+    "seconds": 10.481200249865651,
+    "error": null
+  },
+  {
+    "operation": "upload",
+    "seconds": 9.543454708065838,
+    "error": null
+  },
+  {
+    "operation": "upload",
+    "seconds": 5.0503236670047045,
+    "error": null
+  },
+  {
+    "operation": "upload",
+    "seconds": 4.777797874994576,
+    "error": null
+  },
+  {
+    "operation": "upload",
+    "seconds": 5.188796333037317,
+    "error": null
+  },
+  {
+    "operation": "upload",
+    "seconds": 4.871539041865617,
+    "error": null
+  },
+  {
+    "operation": "upload",
+    "seconds": 4.875235583167523,
+    "error": null
+  },
+  {
+    "operation": "upload",
+    "seconds": 4.901626416947693,
+    "error": null
+  },
+  {
+    "operation": "upload",
+    "seconds": 4.722721207886934,
+    "error": null
+  },
+  {
+    "operation": "upload",
+    "seconds": 4.819432334043086,
+    "error": null
+  },
+  {
+    "operation": "upload",
+    "seconds": 10.117657834198326,
+    "error": null
+  },
+  {
+    "operation": "upload",
+    "seconds": 10.637573500163853,
+    "error": null
+  },
+  {
+    "operation": "upload",
+    "seconds": 10.391225417144597,
+    "error": null
+  },
+  {
+    "operation": "upload",
+    "seconds": 11.039216416887939,
+    "error": null
+  },
+  {
+    "operation": "upload",
+    "seconds": 11.340767667163163,
+    "error": null
+  },
+  {
+    "operation": "upload",
+    "seconds": 9.476933124940842,
+    "error": null
+  },
+  {
+    "operation": "upload",
+    "seconds": 5.089956916868687,
+    "error": null
+  },
+  {
+    "operation": "upload",
+    "seconds": 4.482780541758984,
+    "error": null
+  },
+  {
+    "operation": "upload",
+    "seconds": 3.983507249969989,
+    "error": null
+  },
+  {
+    "operation": "exec",
+    "seconds": 1.9190477090887725,
+    "error": null
+  },
+  {
+    "operation": "exec",
+    "seconds": 1.6296771252527833,
+    "error": null
+  },
+  {
+    "operation": "exec",
+    "seconds": 1.6655147499404848,
+    "error": null
+  },
+  {
+    "operation": "exec",
+    "seconds": 1.3753435001708567,
+    "error": null
+  },
+  {
+    "operation": "exec",
+    "seconds": 1.2314973752945662,
+    "error": null
+  },
+  {
+    "operation": "exec",
+    "seconds": 1.2209355412051082,
+    "error": null
+  },
+  {
+    "operation": "exec",
+    "seconds": 1.30431512510404,
+    "error": null
+  },
+  {
+    "operation": "exec",
+    "seconds": 1.8083100831136107,
+    "error": null
+  },
+  {
+    "operation": "download",
+    "seconds": 1.0059303329326212,
+    "error": null
+  },
+  {
+    "operation": "exec",
+    "seconds": 1.863198583945632,
+    "error": null
+  },
+  {
+    "operation": "exec",
+    "seconds": 1.969587208237499,
+    "error": null
+  },
+  {
+    "operation": "download",
+    "seconds": 0.8238845826126635,
+    "error": null
+  },
+  {
+    "operation": "exec",
+    "seconds": 1.4565332499332726,
+    "error": null
+  },
+  {
+    "operation": "download",
+    "seconds": 0.8296450842171907,
+    "error": null
+  },
+  {
+    "operation": "stop",
+    "seconds": 1.9586862078867853,
+    "error": null
+  }
+]

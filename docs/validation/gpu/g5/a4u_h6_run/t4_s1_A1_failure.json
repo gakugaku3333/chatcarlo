@@ -1,0 +1,4 @@
+{
+  "status": "fail",
+  "error": "/tmp/tmptqsqp9ds/79c07d5dd99cddaa2a01fb3ae5e1537f4121cac8.cubin.cu(136): error: identifier \"NAN\" is undefined\n          if(e>hi && int(tail[0])==0)return NAN;\n                                            ^\n\n1 error detected in the compilation of \"/tmp/tmptqsqp9ds/79c07d5dd99cddaa2a01fb3ae5e1537f4121cac8.cubin.cu\".\n"
+}

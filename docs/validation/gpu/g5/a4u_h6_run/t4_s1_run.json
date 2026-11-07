@@ -1,0 +1,8 @@
+{
+  "status": "fail",
+  "session": "g5-a4u-h6-5d0065fca78c",
+  "tasks": {},
+  "error": "A1 worker failed; collected its log",
+  "vm_stopped": true,
+  "total_s": 673.9201621669345
+}

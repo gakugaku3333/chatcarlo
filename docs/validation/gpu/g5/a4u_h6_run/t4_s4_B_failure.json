@@ -1,0 +1,4 @@
+{
+  "status": "fail",
+  "error": "/tmp/tmpqyvb3aql/2e53ab54ef2a0642e0c920a64ee5a162aafa4fff.cubin.cu(1417): error: function \"g5_relax_probe_kernel\" has already been defined (previous definition at line 1412)\n  extern \"C\" __global__ void g5_relax_probe_kernel(const double *p,int el,int shell,int n,\n                             ^\n\n1 error detected in the compilation of \"/tmp/tmpqyvb3aql/2e53ab54ef2a0642e0c920a64ee5a162aafa4fff.cubin.cu\".\n"
+}
