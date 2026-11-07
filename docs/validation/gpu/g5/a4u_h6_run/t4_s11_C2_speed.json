@@ -1,0 +1,914 @@
+{
+  "status": "pass",
+  "C2": {
+    "diagnostic": {
+      "status": "pass",
+      "ratios": {
+        "g2b:500000": {
+          "medians": {
+            "old": 0.2789078369140625,
+            "new": 0.28121090698242185
+          },
+          "ratio": 1.0082574591443587
+        },
+        "g2b:100000": {
+          "medians": {
+            "old": 0.05829833602905273,
+            "new": 0.05784681701660156
+          },
+          "ratio": 0.992255027446647
+        },
+        "g4:100000": {
+          "medians": {
+            "old": 0.23275161743164063,
+            "new": 0.23560438537597655
+          },
+          "ratio": 1.0122567051340632
+        }
+      }
+    },
+    "therapy": {
+      "ratio": 1.014007684507091,
+      "limit": 1.0571,
+      "status": "pass"
+    }
+  },
+  "C3": {
+    "status": "report-only",
+    "ratios": {
+      "g2b:500000": 2.4668624959679413,
+      "g2b:100000": 2.4494162266934483,
+      "g4:100000": 1.0772161475217998,
+      "p7A": 1.0879081664644996
+    },
+    "stop_for_consultation": true
+  },
+  "rows": [
+    {
+      "kernel_s": 0.44816384887695315,
+      "call_s": 0.7265885609999714,
+      "health": {
+        "status": "pass",
+        "histories": 500000,
+        "max_energy_error_keV": 1.4210854715202004e-14,
+        "method": "untimed same-input record replay"
+      },
+      "task": "old-g2b:500000",
+      "repeat": -1,
+      "config_sha256": "6ae89ac66cc31ff8a513110a596066aa7b7e3593becd0c8983cc166402f6a263"
+    },
+    {
+      "kernel_s": 0.280100341796875,
+      "call_s": 0.42100231999984317,
+      "health": {
+        "status": "pass",
+        "histories": 500000
+      },
+      "task": "new-g2b:500000",
+      "repeat": -1,
+      "config_sha256": "6ae89ac66cc31ff8a513110a596066aa7b7e3593becd0c8983cc166402f6a263"
+    },
+    {
+      "kernel_s": 0.057807777404785154,
+      "call_s": 0.11715990099992268,
+      "health": {
+        "status": "pass",
+        "histories": 100000,
+        "max_energy_error_keV": 1.4210854715202004e-14,
+        "method": "untimed same-input record replay"
+      },
+      "task": "old-g2b:100000",
+      "repeat": -1,
+      "config_sha256": "6ae89ac66cc31ff8a513110a596066aa7b7e3593becd0c8983cc166402f6a263"
+    },
+    {
+      "kernel_s": 0.05765824127197266,
+      "call_s": 0.11608609099994283,
+      "health": {
+        "status": "pass",
+        "histories": 100000
+      },
+      "task": "new-g2b:100000",
+      "repeat": -1,
+      "config_sha256": "6ae89ac66cc31ff8a513110a596066aa7b7e3593becd0c8983cc166402f6a263"
+    },
+    {
+      "kernel_s": 0.23451487731933593,
+      "call_s": 0.2553498829997807,
+      "health": {
+        "status": "pass",
+        "histories": 100000,
+        "max_energy_error_keV": 0.0,
+        "method": "untimed same-input record replay"
+      },
+      "task": "old-g4:100000",
+      "repeat": -1,
+      "config_sha256": "6ae89ac66cc31ff8a513110a596066aa7b7e3593becd0c8983cc166402f6a263"
+    },
+    {
+      "kernel_s": 0.23726182556152345,
+      "call_s": 0.2584492000000864,
+      "health": {
+        "status": "pass",
+        "histories": 100000
+      },
+      "task": "new-g4:100000",
+      "repeat": -1,
+      "config_sha256": "6ae89ac66cc31ff8a513110a596066aa7b7e3593becd0c8983cc166402f6a263"
+    },
+    {
+      "kernel_s": 0.27924227905273435,
+      "call_s": 0.40893026100002317,
+      "health": {
+        "status": "pass",
+        "histories": 500000,
+        "max_energy_error_keV": 1.4210854715202004e-14,
+        "method": "untimed same-input record replay"
+      },
+      "task": "old-g2b:500000",
+      "repeat": 0,
+      "config_sha256": "6ae89ac66cc31ff8a513110a596066aa7b7e3593becd0c8983cc166402f6a263"
+    },
+    {
+      "kernel_s": 0.28121090698242185,
+      "call_s": 0.4136068179996073,
+      "health": {
+        "status": "pass",
+        "histories": 500000
+      },
+      "task": "new-g2b:500000",
+      "repeat": 0,
+      "config_sha256": "6ae89ac66cc31ff8a513110a596066aa7b7e3593becd0c8983cc166402f6a263"
+    },
+    {
+      "kernel_s": 0.05829833602905273,
+      "call_s": 0.1169017399997756,
+      "health": {
+        "status": "pass",
+        "histories": 100000,
+        "max_energy_error_keV": 1.4210854715202004e-14,
+        "method": "untimed same-input record replay"
+      },
+      "task": "old-g2b:100000",
+      "repeat": 0,
+      "config_sha256": "6ae89ac66cc31ff8a513110a596066aa7b7e3593becd0c8983cc166402f6a263"
+    },
+    {
+      "kernel_s": 0.05784681701660156,
+      "call_s": 0.1204316549997202,
+      "health": {
+        "status": "pass",
+        "histories": 100000
+      },
+      "task": "new-g2b:100000",
+      "repeat": 0,
+      "config_sha256": "6ae89ac66cc31ff8a513110a596066aa7b7e3593becd0c8983cc166402f6a263"
+    },
+    {
+      "kernel_s": 0.23351708984375,
+      "call_s": 0.2667360350001218,
+      "health": {
+        "status": "pass",
+        "histories": 100000,
+        "max_energy_error_keV": 0.0,
+        "method": "untimed same-input record replay"
+      },
+      "task": "old-g4:100000",
+      "repeat": 0,
+      "config_sha256": "6ae89ac66cc31ff8a513110a596066aa7b7e3593becd0c8983cc166402f6a263"
+    },
+    {
+      "kernel_s": 0.24256243896484375,
+      "call_s": 0.27634899399981805,
+      "health": {
+        "status": "pass",
+        "histories": 100000
+      },
+      "task": "new-g4:100000",
+      "repeat": 0,
+      "config_sha256": "6ae89ac66cc31ff8a513110a596066aa7b7e3593becd0c8983cc166402f6a263"
+    },
+    {
+      "kernel_s": 0.0585005111694336,
+      "call_s": 0.13399341500007722,
+      "health": {
+        "status": "pass",
+        "histories": 100000
+      },
+      "task": "new-g2b:100000",
+      "repeat": 1,
+      "config_sha256": "6ae89ac66cc31ff8a513110a596066aa7b7e3593becd0c8983cc166402f6a263"
+    },
+    {
+      "kernel_s": 0.05825929641723633,
+      "call_s": 0.12354146999996374,
+      "health": {
+        "status": "pass",
+        "histories": 100000,
+        "max_energy_error_keV": 1.4210854715202004e-14,
+        "method": "untimed same-input record replay"
+      },
+      "task": "old-g2b:100000",
+      "repeat": 1,
+      "config_sha256": "6ae89ac66cc31ff8a513110a596066aa7b7e3593becd0c8983cc166402f6a263"
+    },
+    {
+      "kernel_s": 0.23530467224121093,
+      "call_s": 0.25711178499977905,
+      "health": {
+        "status": "pass",
+        "histories": 100000
+      },
+      "task": "new-g4:100000",
+      "repeat": 1,
+      "config_sha256": "6ae89ac66cc31ff8a513110a596066aa7b7e3593becd0c8983cc166402f6a263"
+    },
+    {
+      "kernel_s": 0.22744441223144532,
+      "call_s": 0.24686462799991205,
+      "health": {
+        "status": "pass",
+        "histories": 100000,
+        "max_energy_error_keV": 0.0,
+        "method": "untimed same-input record replay"
+      },
+      "task": "old-g4:100000",
+      "repeat": 1,
+      "config_sha256": "6ae89ac66cc31ff8a513110a596066aa7b7e3593becd0c8983cc166402f6a263"
+    },
+    {
+      "kernel_s": 0.28125003051757813,
+      "call_s": 0.41131994499983193,
+      "health": {
+        "status": "pass",
+        "histories": 500000
+      },
+      "task": "new-g2b:500000",
+      "repeat": 1,
+      "config_sha256": "6ae89ac66cc31ff8a513110a596066aa7b7e3593becd0c8983cc166402f6a263"
+    },
+    {
+      "kernel_s": 0.2789078369140625,
+      "call_s": 0.41900290300009146,
+      "health": {
+        "status": "pass",
+        "histories": 500000,
+        "max_energy_error_keV": 1.4210854715202004e-14,
+        "method": "untimed same-input record replay"
+      },
+      "task": "old-g2b:500000",
+      "repeat": 1,
+      "config_sha256": "6ae89ac66cc31ff8a513110a596066aa7b7e3593becd0c8983cc166402f6a263"
+    },
+    {
+      "kernel_s": 0.23275161743164063,
+      "call_s": 0.254440539999905,
+      "health": {
+        "status": "pass",
+        "histories": 100000,
+        "max_energy_error_keV": 0.0,
+        "method": "untimed same-input record replay"
+      },
+      "task": "old-g4:100000",
+      "repeat": 2,
+      "config_sha256": "6ae89ac66cc31ff8a513110a596066aa7b7e3593becd0c8983cc166402f6a263"
+    },
+    {
+      "kernel_s": 0.23560438537597655,
+      "call_s": 0.2560574260000976,
+      "health": {
+        "status": "pass",
+        "histories": 100000
+      },
+      "task": "new-g4:100000",
+      "repeat": 2,
+      "config_sha256": "6ae89ac66cc31ff8a513110a596066aa7b7e3593becd0c8983cc166402f6a263"
+    },
+    {
+      "kernel_s": 0.2778095397949219,
+      "call_s": 0.40582939900014026,
+      "health": {
+        "status": "pass",
+        "histories": 500000,
+        "max_energy_error_keV": 1.4210854715202004e-14,
+        "method": "untimed same-input record replay"
+      },
+      "task": "old-g2b:500000",
+      "repeat": 2,
+      "config_sha256": "6ae89ac66cc31ff8a513110a596066aa7b7e3593becd0c8983cc166402f6a263"
+    },
+    {
+      "kernel_s": 0.2776956787109375,
+      "call_s": 0.41481767799996305,
+      "health": {
+        "status": "pass",
+        "histories": 500000
+      },
+      "task": "new-g2b:500000",
+      "repeat": 2,
+      "config_sha256": "6ae89ac66cc31ff8a513110a596066aa7b7e3593becd0c8983cc166402f6a263"
+    },
+    {
+      "kernel_s": 0.058583839416503906,
+      "call_s": 0.13003346400000737,
+      "health": {
+        "status": "pass",
+        "histories": 100000,
+        "max_energy_error_keV": 1.4210854715202004e-14,
+        "method": "untimed same-input record replay"
+      },
+      "task": "old-g2b:100000",
+      "repeat": 2,
+      "config_sha256": "6ae89ac66cc31ff8a513110a596066aa7b7e3593becd0c8983cc166402f6a263"
+    },
+    {
+      "kernel_s": 0.05743385696411133,
+      "call_s": 0.13365658900011113,
+      "health": {
+        "status": "pass",
+        "histories": 100000
+      },
+      "task": "new-g2b:100000",
+      "repeat": 2,
+      "config_sha256": "6ae89ac66cc31ff8a513110a596066aa7b7e3593becd0c8983cc166402f6a263"
+    }
+  ],
+  "production_rows": [
+    {
+      "kernel_s": 0.6934337768554687,
+      "call_s": 0.82658771899969,
+      "health": {
+        "status": "pass",
+        "histories": 500000
+      },
+      "task": "new-g2b:500000",
+      "repeat": -1
+    },
+    {
+      "kernel_s": 0.14308563232421875,
+      "call_s": 0.21082734599985997,
+      "health": {
+        "status": "pass",
+        "histories": 100000
+      },
+      "task": "new-g2b:100000",
+      "repeat": -1
+    },
+    {
+      "kernel_s": 0.2520642547607422,
+      "call_s": 0.2724911830000565,
+      "health": {
+        "status": "pass",
+        "histories": 100000
+      },
+      "task": "new-g4:100000",
+      "repeat": -1
+    },
+    {
+      "kernel_s": 0.69053515625,
+      "call_s": 0.8215242060000492,
+      "health": {
+        "status": "pass",
+        "histories": 500000
+      },
+      "task": "new-g2b:500000",
+      "repeat": 0
+    },
+    {
+      "kernel_s": 0.14430146789550782,
+      "call_s": 0.21582278300002145,
+      "health": {
+        "status": "pass",
+        "histories": 100000
+      },
+      "task": "new-g2b:100000",
+      "repeat": 0
+    },
+    {
+      "kernel_s": 0.24370982360839843,
+      "call_s": 0.28152029200009565,
+      "health": {
+        "status": "pass",
+        "histories": 100000
+      },
+      "task": "new-g4:100000",
+      "repeat": 0
+    },
+    {
+      "kernel_s": 0.14279689025878906,
+      "call_s": 0.2349930560003486,
+      "health": {
+        "status": "pass",
+        "histories": 100000
+      },
+      "task": "new-g2b:100000",
+      "repeat": 1
+    },
+    {
+      "kernel_s": 0.2515851593017578,
+      "call_s": 0.27335347600001114,
+      "health": {
+        "status": "pass",
+        "histories": 100000
+      },
+      "task": "new-g4:100000",
+      "repeat": 1
+    },
+    {
+      "kernel_s": 0.6880272827148437,
+      "call_s": 0.8413070300002801,
+      "health": {
+        "status": "pass",
+        "histories": 500000
+      },
+      "task": "new-g2b:500000",
+      "repeat": 1
+    },
+    {
+      "kernel_s": 0.2507238006591797,
+      "call_s": 0.2706230509998022,
+      "health": {
+        "status": "pass",
+        "histories": 100000
+      },
+      "task": "new-g4:100000",
+      "repeat": 2
+    },
+    {
+      "kernel_s": 0.6878732299804687,
+      "call_s": 0.8206478679999236,
+      "health": {
+        "status": "pass",
+        "histories": 500000
+      },
+      "task": "new-g2b:500000",
+      "repeat": 2
+    },
+    {
+      "kernel_s": 0.14259695434570313,
+      "call_s": 0.22250123100002384,
+      "health": {
+        "status": "pass",
+        "histories": 100000
+      },
+      "task": "new-g2b:100000",
+      "repeat": 2
+    }
+  ],
+  "therapy_rows": [
+    {
+      "kernel_s": 5.26332421875,
+      "call_s": 5.266679754000052,
+      "us_per_history": 26.31662109375,
+      "health": {
+        "status": "pass",
+        "report": {
+          "status": "pass"
+        }
+      },
+      "version": "old",
+      "repeat": -1
+    },
+    {
+      "kernel_s": 5.18500244140625,
+      "health": {
+        "status": "pass",
+        "histories": 200000,
+        "max_balance": 6.936310900452687e-15,
+        "source_MeV": 560751.3677109437
+      },
+      "version": "new",
+      "repeat": -1
+    },
+    {
+      "kernel_s": 5.8076552734375,
+      "health": {
+        "status": "pass",
+        "histories": 200000,
+        "max_balance": 7.25645383607415e-15,
+        "source_MeV": 560751.3677109437
+      },
+      "version": "production",
+      "repeat": -1
+    },
+    {
+      "kernel_s": 5.41826904296875,
+      "health": {
+        "status": "pass",
+        "histories": 200000,
+        "max_balance": 6.936310900452687e-15,
+        "source_MeV": 560751.3677109437
+      },
+      "version": "new",
+      "repeat": 0
+    },
+    {
+      "kernel_s": 5.45309228515625,
+      "call_s": 5.455474605999825,
+      "us_per_history": 27.26546142578125,
+      "health": {
+        "status": "pass",
+        "report": {
+          "status": "pass"
+        }
+      },
+      "version": "old",
+      "repeat": 0
+    },
+    {
+      "kernel_s": 6.14191357421875,
+      "health": {
+        "status": "pass",
+        "histories": 200000,
+        "max_balance": 7.25645383607415e-15,
+        "source_MeV": 560751.3677109437
+      },
+      "version": "production",
+      "repeat": 0
+    },
+    {
+      "kernel_s": 5.64561767578125,
+      "call_s": 5.647999329999948,
+      "us_per_history": 28.22808837890625,
+      "health": {
+        "status": "pass",
+        "report": {
+          "status": "pass"
+        }
+      },
+      "version": "old",
+      "repeat": 1
+    },
+    {
+      "kernel_s": 5.74137353515625,
+      "health": {
+        "status": "pass",
+        "histories": 200000,
+        "max_balance": 6.936310900452687e-15,
+        "source_MeV": 560751.3677109437
+      },
+      "version": "new",
+      "repeat": 1
+    },
+    {
+      "kernel_s": 6.3898935546875,
+      "health": {
+        "status": "pass",
+        "histories": 200000,
+        "max_balance": 7.25645383607415e-15,
+        "source_MeV": 560751.3677109437
+      },
+      "version": "production",
+      "repeat": 1
+    },
+    {
+      "kernel_s": 5.72469970703125,
+      "health": {
+        "status": "pass",
+        "histories": 200000,
+        "max_balance": 6.936310900452687e-15,
+        "source_MeV": 560751.3677109437
+      },
+      "version": "new",
+      "repeat": 2
+    },
+    {
+      "kernel_s": 5.65500927734375,
+      "call_s": 5.657056171000022,
+      "us_per_history": 28.27504638671875,
+      "health": {
+        "status": "pass",
+        "report": {
+          "status": "pass"
+        }
+      },
+      "version": "old",
+      "repeat": 2
+    },
+    {
+      "kernel_s": 6.04179638671875,
+      "health": {
+        "status": "pass",
+        "histories": 200000,
+        "max_balance": 7.25645383607415e-15,
+        "source_MeV": 560751.3677109437
+      },
+      "version": "production",
+      "repeat": 2
+    }
+  ],
+  "resources": {
+    "old-g2b": {
+      "attributes": {
+        "max_threads_per_block": 512,
+        "shared_size_bytes": 0,
+        "const_size_bytes": 0,
+        "local_size_bytes": 1984,
+        "num_regs": 120,
+        "ptx_version": 75,
+        "binary_version": 75,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_size_bytes": 49152,
+        "preferred_shared_memory_carveout": -1
+      },
+      "launch": {
+        "blocks": "ceil(n/128)",
+        "threads": 128,
+        "capacity": null
+      },
+      "manual": {
+        "blocks_per_sm": 4,
+        "registers_per_block": 15360,
+        "shared_bytes_per_block": 0,
+        "limits": {
+          "blocks": 16,
+          "threads": 8,
+          "registers": 4
+        }
+      },
+      "occupancy_api_blocks_per_sm": 4
+    },
+    "new-g2b": {
+      "attributes": {
+        "max_threads_per_block": 512,
+        "shared_size_bytes": 0,
+        "const_size_bytes": 0,
+        "local_size_bytes": 1984,
+        "num_regs": 120,
+        "ptx_version": 75,
+        "binary_version": 75,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_size_bytes": 49152,
+        "preferred_shared_memory_carveout": -1
+      },
+      "launch": {
+        "blocks": "ceil(n/128)",
+        "threads": 128,
+        "capacity": null
+      },
+      "manual": {
+        "blocks_per_sm": 4,
+        "registers_per_block": 15360,
+        "shared_bytes_per_block": 0,
+        "limits": {
+          "blocks": 16,
+          "threads": 8,
+          "registers": 4
+        }
+      },
+      "occupancy_api_blocks_per_sm": 4
+    },
+    "production-g2b": {
+      "attributes": {
+        "max_threads_per_block": 512,
+        "shared_size_bytes": 0,
+        "const_size_bytes": 0,
+        "local_size_bytes": 4976,
+        "num_regs": 126,
+        "ptx_version": 75,
+        "binary_version": 75,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_size_bytes": 49152,
+        "preferred_shared_memory_carveout": -1
+      },
+      "launch": {
+        "blocks": "ceil(n/128)",
+        "threads": 128,
+        "capacity": null
+      },
+      "manual": {
+        "blocks_per_sm": 4,
+        "registers_per_block": 16384,
+        "shared_bytes_per_block": 0,
+        "limits": {
+          "blocks": 16,
+          "threads": 8,
+          "registers": 4
+        }
+      },
+      "occupancy_api_blocks_per_sm": 4
+    },
+    "old-g4": {
+      "attributes": {
+        "max_threads_per_block": 512,
+        "shared_size_bytes": 0,
+        "const_size_bytes": 0,
+        "local_size_bytes": 1472,
+        "num_regs": 98,
+        "ptx_version": 75,
+        "binary_version": 75,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_size_bytes": 49152,
+        "preferred_shared_memory_carveout": -1
+      },
+      "launch": {
+        "blocks": "ceil(n/128)",
+        "threads": 128,
+        "capacity": null
+      },
+      "manual": {
+        "blocks_per_sm": 4,
+        "registers_per_block": 13312,
+        "shared_bytes_per_block": 0,
+        "limits": {
+          "blocks": 16,
+          "threads": 8,
+          "registers": 4
+        }
+      },
+      "occupancy_api_blocks_per_sm": 4
+    },
+    "new-g4": {
+      "attributes": {
+        "max_threads_per_block": 512,
+        "shared_size_bytes": 0,
+        "const_size_bytes": 0,
+        "local_size_bytes": 1472,
+        "num_regs": 98,
+        "ptx_version": 75,
+        "binary_version": 75,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_size_bytes": 49152,
+        "preferred_shared_memory_carveout": -1
+      },
+      "launch": {
+        "blocks": "ceil(n/128)",
+        "threads": 128,
+        "capacity": null
+      },
+      "manual": {
+        "blocks_per_sm": 4,
+        "registers_per_block": 13312,
+        "shared_bytes_per_block": 0,
+        "limits": {
+          "blocks": 16,
+          "threads": 8,
+          "registers": 4
+        }
+      },
+      "occupancy_api_blocks_per_sm": 4
+    },
+    "production-g4": {
+      "attributes": {
+        "max_threads_per_block": 512,
+        "shared_size_bytes": 0,
+        "const_size_bytes": 0,
+        "local_size_bytes": 4464,
+        "num_regs": 120,
+        "ptx_version": 75,
+        "binary_version": 75,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_size_bytes": 49152,
+        "preferred_shared_memory_carveout": -1
+      },
+      "launch": {
+        "blocks": "ceil(n/128)",
+        "threads": 128,
+        "capacity": null
+      },
+      "manual": {
+        "blocks_per_sm": 4,
+        "registers_per_block": 15360,
+        "shared_bytes_per_block": 0,
+        "limits": {
+          "blocks": 16,
+          "threads": 8,
+          "registers": 4
+        }
+      },
+      "occupancy_api_blocks_per_sm": 4
+    },
+    "therapy-new": {
+      "attributes": {
+        "max_threads_per_block": 384,
+        "shared_size_bytes": 0,
+        "const_size_bytes": 0,
+        "local_size_bytes": 37328,
+        "num_regs": 158,
+        "ptx_version": 75,
+        "binary_version": 75,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_size_bytes": 49152,
+        "preferred_shared_memory_carveout": -1
+      },
+      "launch": {
+        "blocks": 40,
+        "threads": 256,
+        "capacity": 64
+      },
+      "manual": {
+        "blocks_per_sm": 1,
+        "registers_per_block": 40960,
+        "shared_bytes_per_block": 0,
+        "limits": {
+          "blocks": 16,
+          "threads": 4,
+          "registers": 1
+        }
+      },
+      "occupancy_api_blocks_per_sm": 1
+    },
+    "therapy-production": {
+      "attributes": {
+        "max_threads_per_block": 384,
+        "shared_size_bytes": 0,
+        "const_size_bytes": 0,
+        "local_size_bytes": 36416,
+        "num_regs": 150,
+        "ptx_version": 75,
+        "binary_version": 75,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_size_bytes": 49152,
+        "preferred_shared_memory_carveout": -1
+      },
+      "launch": {
+        "blocks": 40,
+        "threads": 256,
+        "capacity": 64
+      },
+      "manual": {
+        "blocks_per_sm": 1,
+        "registers_per_block": 38912,
+        "shared_bytes_per_block": 0,
+        "limits": {
+          "blocks": 16,
+          "threads": 4,
+          "registers": 1
+        }
+      },
+      "occupancy_api_blocks_per_sm": 1
+    },
+    "therapy-old": {
+      "attributes": {
+        "max_threads_per_block": 256,
+        "shared_size_bytes": 0,
+        "const_size_bytes": 0,
+        "local_size_bytes": 58320,
+        "num_regs": 255,
+        "ptx_version": 75,
+        "binary_version": 75,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_size_bytes": 49152,
+        "preferred_shared_memory_carveout": -1
+      },
+      "launch": {
+        "blocks": 40,
+        "threads": 256,
+        "capacity": 64
+      },
+      "manual": {
+        "blocks_per_sm": 1,
+        "registers_per_block": 65536,
+        "shared_bytes_per_block": 0,
+        "limits": {
+          "blocks": 16,
+          "threads": 4,
+          "registers": 1
+        }
+      },
+      "occupancy_api_blocks_per_sm": 1
+    }
+  },
+  "module_initialization": [
+    {
+      "module": "old-g2b",
+      "initialization_s": 3.449025000000347,
+      "backend": "nvrtc"
+    },
+    {
+      "module": "new-g2b",
+      "initialization_s": 4.071192472999883,
+      "backend": "nvrtc"
+    },
+    {
+      "module": "production-g2b",
+      "initialization_s": 0.0945864770001208,
+      "backend": "nvrtc"
+    },
+    {
+      "module": "old-g4",
+      "initialization_s": 0.024313329000051453,
+      "backend": "nvrtc"
+    },
+    {
+      "module": "new-g4",
+      "initialization_s": 0.06264990800036685,
+      "backend": "nvrtc"
+    },
+    {
+      "module": "production-g4",
+      "initialization_s": 0.06349836800018238,
+      "backend": "nvrtc"
+    }
+  ],
+  "B6_flags": {
+    "local": {
+      "backend": "nvrtc",
+      "status": "pass"
+    },
+    "electron": {
+      "backend": "nvrtc",
+      "status": "pass"
+    }
+  }
+}

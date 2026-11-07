@@ -3062,3 +3062,57 @@ p7 は C2 が使うのは A だけ（144 MB）だが `verify_files` が manifest
 `payload.tar` は転送後は不要だが、**起動役の中で消すことはしない**（「起動スクリプトの中にも
 `rm` を入れない」という決まり）。空きで解決する。
 
+
+## H6 の T4 実施（2026-11-08）: **セッション 11 で全関門合格。H6 は合格**
+
+計画は [2026-11-06-...-h6-t4-launcher.md](../../ai/plans/2026-11-06-chatcarlo-gpu-g5-a4u-h6-t4-launcher.md)。
+生データと判定の原本は [a4u_h6_run/](a4u_h6_run/) の `t4_s11_*`。
+
+| 項目 | 値 |
+|---|---|
+| session | `g5-a4u-h6-7b435e9422bd` |
+| `run.json` | `status: complete`・`error: null`・`vm_stopped: true`・`total_s: 1900.76`（**31 分 41 秒**） |
+| `judgement.json` | **`status: pass`** |
+| 入力 | `--therapy-bundle ~/.cache/chatcarlo/g5/a3/therapy_bundle`（manifest `20f3e76…`、`a4u_entry60_run/generation.json` の `files["bundle/manifest.json"]` と一致）・`--p7 ~/.cache/chatcarlo/p7/work/export`・`--p8g2 ~/.cache/chatcarlo/p8g2/export`・`--old-diagnostic ~/.cache/chatcarlo/g5/a1/old_bundles` |
+| 作業ディレクトリ | `/Users/oishifamily/chatcarlo_h6_2026-11-08a`（リポジトリと `~/.cache` の外） |
+
+### 関門の結果（報告専用の C1・C3・C4 を除く全部が合格）
+
+| 関門 | 結果 | 代表的な数値 |
+|---|---|---|
+| A1（51/61 量、`paired_judge`） | **pass** | s1 最大差 7.82×10⁻¹⁵（19 量）・s2 1.57×10⁻⁴（23 量）・s3 3.55×10⁻¹⁶（19 量）。いずれも SEM 以内 |
+| A2（ボクセル格子、`grid_paired_judge`） | **pass** | `water:kerma` の収支が成立、合計差 6.52×10⁻⁹（丸めの範囲） |
+| A3（G4 検出器、`gate2a`・`gate2c`・`seed2040`） | **pass** | 7 つの物理の組すべて `integer_match: true`、`float_match` は physics1〜6 が 1.0、physics0 が 0.9746（最大相対差 1.70×10⁻¹⁵、許容 10⁻¹²）。人工蛍光の差し替えも合格 |
+| B1〜B5（機械経路の到達数） | **全部 pass** | 封印した CPU 記録（`expected_cpu: pass`）と全桁一致。fixture の源 SHA256 `818e02a6…` |
+| B6（NVRTC の 5 モジュール） | **pass** | `local`・`electron`・`seed`・`local_legacy`・`electron_legacy` すべて `backend: nvrtc` で合格 |
+| C2（D10(1) の速さの上限 1.0571） | **pass** | 診断 `g2b:500000` **1.00826**・`g2b:100000` **0.99226**・`g4:100000` **1.01226**、治療 **1.01401** |
+| C1 | report-only | 歴史的 2σ 基準で 37 pass / 6 fail / 4 統計不足、Bonferroni 補助で 42 pass / 1 fail / 4。平均相対差 0.234%、最大 3.21% |
+| C3 | report-only | `g2b:500000` **2.4669**・`g2b:100000` **2.4494**・`g4:100000` 1.0772・`p7A` 1.0879。`stop_for_consultation: true` |
+| C4（時間の記録） | 記録済み | A1 76.2 / A2 160.5 / A3 355.9 / B 223.5 / C1 89.4 / C2 361.4 秒（通信を含む）。核だけは A1 55.1 / A2 6.0 / A3 288.6 / B 173.7 / C1 7.8 / C2 282.8 秒 |
+
+**停止条件の確認**: 「報告専用（C1・C3・C4）を除く関門が fail または未実施なら H6 を合格にしない」に対し、
+A1・A2・A3・B（B1〜B5）・B6・C2 がすべて `pass` で未実施なし。`run.json.status == 'complete'` も満たしている。
+
+### C3 の 2.47 倍は再現した（機構は依然として切り分けていない）
+
+ボクセル格子の経路の 2.4669・2.4494 は、2026-11-07 の 2.48 倍と同じ水準で再現した。
+**原因は特定できていない**——仮説と反証の基準は
+[親計画の「未解決として持ち越す」](../../ai/plans/2026-11-03-chatcarlo-gpu-g5-a4u-unified-physics-set.md)に登録済みで、
+待ち条件は H7。C3 は報告専用なので H6 の合否には入らない（`speed()` から閾値を外した 2026-11-07 の修正が効いている）。
+
+**C2 の診断の比が前回より 1 に近い**: セッション 8 は 1.00010・1.00851・0.98560 で、今回は
+1.00826・0.99226・1.01226。どちらも上限 1.0571 に対して余裕があり、ばらつきの範囲として扱う
+（同じ条件の 2 点だけなので、速さの変化として読まない）。
+
+### 容量: **見立てを 2 回続けて外した**
+
+| 時点 | 私の見立て | 実測 |
+|---|---|---|
+| 2026-11-07 | ゴミ箱を空ければ約 9.2 GiB | **6.82 GiB**（ゴミ箱は既に空だった） |
+| 2026-11-08 開始時 | — | 7.20 GiB |
+| `prepare` 後 | — | 6.82 GiB（出力 495 MB） |
+| 1.3 GB を退避し空けた後 | 8.1 GiB | **7.91 GiB** |
+| `run` 中の最小 | — | 6.74 GiB（床 5.8 GiB を割らず） |
+
+**How to apply**: 空き容量を予告するときは、`du` で測った退避の大きさだけを言い、
+**空いた後の数字を予告しない**（`df` で確かめてから言う）。2 回続けて外した。
