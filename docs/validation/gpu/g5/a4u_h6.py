@@ -566,7 +566,13 @@ def speed(base, out, cp):
         after = statistics.median(r['kernel_s'] for r in production if r['task'] == 'new-'+task and r['repeat'] >= 0)
         changes[task] = after/before
     changes['p7A'] = med('production')/med('old')
-    result = dict(status='pass' if diagnostic['status'] == therapy_ratio['status'] == 'pass' and max(changes.values()) <= 1.3 else 'fail',
+    # C2 is the gate (D10(1), limit 1.0571); C3 is REPORT-ONLY and its 1.3 is a
+    # consultation trigger, not a pass criterion -- the plan's stop condition names
+    # C1/C3/C4 as report-only. Folding 1.3 into this status made C2 fail on T4 session 8
+    # although every D10(1) criterion was met, and judge then refused H6. The user saw
+    # the 2.48x production ratio and accepted it (2026-11-07); the trigger stays recorded
+    # in C3.stop_for_consultation and no threshold was moved.
+    result = dict(status='pass' if diagnostic['status'] == therapy_ratio['status'] == 'pass' else 'fail',
                   C2=dict(diagnostic=diagnostic, therapy=therapy_ratio), C3=dict(status='report-only', ratios=changes, stop_for_consultation=max(changes.values()) > 1.3),
                   rows=rows, production_rows=production, therapy_rows=therapy_rows, resources=resources, module_initialization=compile_rows,
                   B6_flags=dict(local=dict(backend='nvrtc', status='pass'), electron=dict(backend='nvrtc', status='pass')))
