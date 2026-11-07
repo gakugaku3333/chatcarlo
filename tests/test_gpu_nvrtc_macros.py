@@ -94,3 +94,41 @@ def test_check_detects_a_missing_guard():
     assert source.count(guard) >= 1, 'g5_base.h NAN guard not found in the assembled source'
     assert re.search(r'\bNAN\b', preprocess(source.replace(guard, ''), options)), \
         'removing the guard did not make NAN undefined; the check has no power'
+
+
+# ---------------------------------------------------------------------------
+# A kernel defined twice in one module. T4 session 4 (2026-11-07) was spent on
+# this: a4u_h6_fixtures appended its own copy of g5_relax_probe_kernel to a
+# production source that already defined it, and NVRTC refused the module with
+# "function ... has already been defined". The preprocessor pass above cannot see
+# it, and the CPU twin compiles a different file, so nothing local caught it.
+# The smoke only built the production sources, not the ones the fixtures assemble.
+
+KERNEL = re.compile(r'extern\s+"C"\s+__global__\s+void\s+(\w+)')
+
+
+def fixture_sources():
+    """Every source a4u_h6_fixtures hands to NVRTC, assembled as it assembles them."""
+    import tempfile
+    from pathlib import Path as P
+    from unittest.mock import patch
+    sys.path.insert(0, str(ROOT/'docs/validation/gpu/g5'))
+    import a4u_h6_fixtures as fixtures
+    from chatcarlo.gpu import core, therapy
+    out = [('fixtures B4 relax probe', core.cuda_source())]
+    work = P(tempfile.mkdtemp())/'observe'
+    work.mkdir(parents=True)
+    for p in therapy.HERE.iterdir():
+        if p.suffix in ('.h', '.cpp', '.cu'):
+            (work/p.name).write_text(fixtures.observe_text(p.read_text(), p.name))
+    with patch.object(therapy, 'HERE', work):
+        out.append(('fixtures B1 observe build', therapy.cuda_source()))
+    return out
+
+
+@pytest.mark.parametrize('label,source', [(m[0], m[1]) for m in modules()] + fixture_sources(),
+                         ids=lambda v: v if isinstance(v, str) and ' ' in v or isinstance(v, str) else '')
+def test_no_kernel_is_defined_twice(label, source):
+    names = KERNEL.findall(source)
+    twice = sorted({n for n in names if names.count(n) > 1})
+    assert not twice, f'{label}: kernel(s) defined more than once: {twice}'

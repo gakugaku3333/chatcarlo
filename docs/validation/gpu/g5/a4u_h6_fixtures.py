@@ -226,6 +226,8 @@ def seed(device, work, materials, arrays, densities):
                 deposition_MeV=float(r['histories']['dep'].sum()), field=0)
 
 
+# Kept as the reference text of what B4 exercises; the production source carries an
+# identical copy, so it is NOT appended (see relaxation()).
 RELAX_KERNEL = '''
 extern "C" __global__ void g5_relax_probe_kernel(const double *p,int el,int shell,int n,
  unsigned long long seed,double *out,long long *trace){
@@ -247,7 +249,15 @@ def relaxation(driver, packed, shell, n, device):
     else:
         from chatcarlo.gpu import core
         cp = driver.cp
-        fn = cp.RawKernel(core.cuda_source()+RELAX_KERNEL, 'g5_relax_probe_kernel',
+        # The production source already defines g5_relax_probe_kernel, byte-equivalent
+        # to RELAX_KERNEL below (same body; uint64_t vs unsigned long long). Appending
+        # it made NVRTC refuse the module -- "already been defined" -- on T4 session 4.
+        # Compile the production source as it is, and fail loudly if the kernel ever
+        # leaves it rather than silently losing B4's coverage.
+        source = core.cuda_source()
+        if 'g5_relax_probe_kernel' not in source:
+            raise AssertionError('the production source no longer defines g5_relax_probe_kernel')
+        fn = cp.RawKernel(source, 'g5_relax_probe_kernel',
                           options=driver.cuda_options, backend='nvrtc')
         o = cp.zeros_like(cp.asarray(out)); t = cp.zeros_like(cp.asarray(trace))
         fn((1,), (1,), (cp.asarray(packed), np.int32(0), np.int32(shell), np.int32(n),

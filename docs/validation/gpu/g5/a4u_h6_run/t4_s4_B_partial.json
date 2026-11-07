@@ -1,0 +1,77 @@
+{
+  "seeds": {
+    "B1": 9504005,
+    "B2": 20301831,
+    "B3": 9502101,
+    "B4": 9504002,
+    "B5": 9504003
+  },
+  "device": "cuda",
+  "gates": {
+    "B1": {
+      "status": "pass",
+      "energies": {
+        "0.02": {
+          "status": "pass",
+          "reached": {
+            "rayleigh": 37,
+            "bound_rejection": 11,
+            "cutoff_local": 1
+          }
+        },
+        "0.06": {
+          "status": "pass",
+          "reached": {
+            "rayleigh": 124,
+            "bound_rejection": 38,
+            "cutoff_local": 1
+          }
+        }
+      }
+    },
+    "B2": {
+      "status": "pass",
+      "reached": {
+        "pair_creation": 238
+      },
+      "cases": {
+        "photon-layers": {
+          "photon_layers": 6685
+        },
+        "rest": {
+          "annihilation_rest": 1
+        },
+        "flight": {
+          "annihilation_flight": 1
+        },
+        "brems": {
+          "brems_suspend": 10,
+          "brems_repop": 6
+        }
+      }
+    },
+    "B3": {
+      "status": "pass",
+      "reached": {
+        "completed": 2000
+      },
+      "boundary": {
+        "status": "pass",
+        "seeds": 58,
+        "needles": 19,
+        "lines": 5,
+        "crossings": 18,
+        "radius_protruding": 6
+      },
+      "deposition_MeV": 77.55213016890511,
+      "field": 0
+    }
+  },
+  "inputs": {
+    "therapy.npz": "8260d694ad1e678682a61ddcbfd849b6889aab238ad3d357a545580352a4e3a5",
+    "materials.npz": "1b741238a26fe29b459d6677663a622aa1fed648b5bc9d951779d11cefbaf0de",
+    "diagnostic.npz": "dd5a88c3bd0356d926e90d1e7d21eb540739eae8fd1ac8e001759b55bcdbf68f",
+    "inputs.json": "717fd299f5fc8eac29b058e7359cccc2b6a33df7dcc63dd2d1880476b7d17a2e"
+  },
+  "fixture_source_sha256": "6411fae10968a8c41c5933b9dd6b88bd872aa0ed820b2d46c0a80681637a8c5c"
+}
