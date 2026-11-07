@@ -1,0 +1,171 @@
+{
+  "format": "ivr-room-box-batch-compaction-v1",
+  "job": {
+    "batch_size": 5000000,
+    "device": "cuda",
+    "grid": {
+      "layout_version": "g2-grid-v1",
+      "origin_cm": [
+        -300.0,
+        -300.0,
+        -65.0
+      ],
+      "shape": [
+        120,
+        120,
+        79
+      ],
+      "voxel_size_cm": 5.0
+    },
+    "mode": "batches",
+    "n_histories": 100000000,
+    "seed": 20261024,
+    "source_seed": 8445128585256307250
+  },
+  "bundle_manifest_sha256": "1cd6c651283c5b3784a42d6d9b0c989d6f26e0a091a9433a3a7e3cc7b6c280e9",
+  "source_directory": "/Users/oishifamily/Projects/viveMonte/runs/ivr_room_box_gpu/colab/results",
+  "source_files": [
+    {
+      "name": "batch_000000.npz",
+      "bytes": 12996539,
+      "sha256": "5cfcafb794dddb8a1b7c260b823d3256cf6a88a91cfa0b3e4dda97c116192348",
+      "receipt_sha256": "591c9cb878e71011fe281d9a2725533b5ac7efa0ddd3e58dee74493e1ad5aeb5"
+    },
+    {
+      "name": "batch_000001.npz",
+      "bytes": 13011769,
+      "sha256": "4f05daefbaf5996cd683322984ea5262033c732694e904a530fa5744df087765",
+      "receipt_sha256": "2a2ae1fb83ca68617e45d60318d69e66b2a107479ff8ec9eee6b11a7207c7a01"
+    },
+    {
+      "name": "batch_000002.npz",
+      "bytes": 13008793,
+      "sha256": "7d59d6891bc7fa709c0a9b195c1794c20e1433651e57ea5b4af8b2bdf60f5c15",
+      "receipt_sha256": "617b52b1b0f7e1b78289402f2b48ac7eec68f4a62bd349f15ee3cdacd0d2b68e"
+    },
+    {
+      "name": "batch_000003.npz",
+      "bytes": 13004254,
+      "sha256": "4d9a4c2a058cb5b6add9aa1b0c9c816c1ab9d1d84ebd45c8b6a452bcdb21f194",
+      "receipt_sha256": "127e81888d6d0b0978d83295023b2e3d4ca4c3436e814219ec09fa844e4659ee"
+    },
+    {
+      "name": "batch_000004.npz",
+      "bytes": 13036515,
+      "sha256": "fefe57161f7bbb491d1f4694002ca18af45993d060a397a636273ec623adda9a",
+      "receipt_sha256": "617600231beccd9107ff7de0e70bb6750318098e832e8bcaf2bfe4ffddf9a9ae"
+    },
+    {
+      "name": "batch_000005.npz",
+      "bytes": 13014881,
+      "sha256": "069e02b3038fe6634bb067fd7f2fed0a81cd686988138f44da38f67a8195ed27",
+      "receipt_sha256": "69b465a6512df17b9d5a8365721c7d8effd099834f7ae5f94cc955d142a9cc59"
+    },
+    {
+      "name": "batch_000006.npz",
+      "bytes": 13012347,
+      "sha256": "32e5ae19cae21dca38f5cafad0a77ccfc62e94ca0ad4b16d7368efb924d4febf",
+      "receipt_sha256": "10d5a0da3941feb78c9eb9d1059e007c3b9d75f5a4a716b39800ea4a156e584b"
+    },
+    {
+      "name": "batch_000007.npz",
+      "bytes": 13007627,
+      "sha256": "61a35f1e211c387c48e60a661f6380487e94b63d0f9aea36cbaa9303d228b962",
+      "receipt_sha256": "595eda7e8f14b0af8c436237b494d8a106ba47fe5b794cdcce64235f3920218c"
+    },
+    {
+      "name": "batch_000008.npz",
+      "bytes": 12996813,
+      "sha256": "f016fd29c3f1b9953f943da2779d6e2cad3d8cb29c4004caecefee9699d55326",
+      "receipt_sha256": "582c26e3e60e4eb4b6c986c60f95020eaa9ee249439ab7e6d3cfe6d7cd428ec6"
+    },
+    {
+      "name": "batch_000009.npz",
+      "bytes": 12993553,
+      "sha256": "76497d7c37474da8f9d90e4c55fc90414df9718d39e374e442dd2c8440560de6",
+      "receipt_sha256": "72298c4aa7bedc788cab44de64b2973a76b920ae0b611b3cdfc9aff09eb13a12"
+    },
+    {
+      "name": "batch_000010.npz",
+      "bytes": 13026202,
+      "sha256": "a91e945abd6f8aef0bd7cec8393c828c145956edc105953fa03363331d43bc0a",
+      "receipt_sha256": "8342fdc8a15f53aa7ef49aefe739951b601c876f8b55719ce73b9d4c2b35f6fe"
+    },
+    {
+      "name": "batch_000011.npz",
+      "bytes": 13024874,
+      "sha256": "6b00489cd5502ddacd4f2bf65de78d1dddad379e3613befefe05263cf563d009",
+      "receipt_sha256": "5249fc06a9c29d27b8d49078b25e3c2394213eed7638fbe12bddcccbc742fe51"
+    },
+    {
+      "name": "batch_000012.npz",
+      "bytes": 13032702,
+      "sha256": "95ce71e01caa49f25ed164e49b7eec1207f16e42232e92b5f40f1d7860294d61",
+      "receipt_sha256": "90fbbafbbefa2ef6067c3efd2bdcc790b26fffef9f1cde1dc99abc890354188c"
+    },
+    {
+      "name": "batch_000013.npz",
+      "bytes": 13016251,
+      "sha256": "c4734baa156fcf1ae29efd01ee2d048f522081fd0306debd4f3de4cf2f499c50",
+      "receipt_sha256": "eebe6dfafcf91f666aed96975ad9b2404a36a8123863a04f5feef86fead2e6e8"
+    },
+    {
+      "name": "batch_000014.npz",
+      "bytes": 13012483,
+      "sha256": "d9cbd4acea2a6a740e3ac5085228516cf8ac14077a692f0695c51324f89bbad0",
+      "receipt_sha256": "afc7de42e9903bae313bbf225eacec0850507f62f6da0fa616912bf069e26e0c"
+    },
+    {
+      "name": "batch_000015.npz",
+      "bytes": 13013607,
+      "sha256": "166f487c07db92d735fd722303e7e77e66c00e5eb08a76b4689f9984efeae096",
+      "receipt_sha256": "8d00b6ef706ac9b193bf404490d7c165b6f3a7380136b5c7f47379367260b296"
+    },
+    {
+      "name": "batch_000016.npz",
+      "bytes": 13011532,
+      "sha256": "c7ae84a4cf6a1aa936751b6a0ed5dda0e071d1c7851f59bbcbe2607e7ce9fc4d",
+      "receipt_sha256": "a7774449542871187f225778667f1559b827f5c97b2c41c00185d2a72f662aee"
+    },
+    {
+      "name": "batch_000017.npz",
+      "bytes": 13028370,
+      "sha256": "c6af131aa7fc046f1b8183bae8613fba122937e8dea498c6c0ed5cda83035af5",
+      "receipt_sha256": "da06f1bdde816abc92edba5ada51c319edd2ffe2c6b82ef56fbbc250ce3e590b"
+    },
+    {
+      "name": "batch_000018.npz",
+      "bytes": 13028944,
+      "sha256": "92bcd3ced158b4f7d52d89f90c9670d3bb2a5f87d57c1ae5e59963173250bc09",
+      "receipt_sha256": "0aa7cb04e1937ec4d5a08976eabf142b47b1d66300225ebd68929a9c1b2883be"
+    },
+    {
+      "name": "batch_000019.npz",
+      "bytes": 13008434,
+      "sha256": "18e34ba946aefd5d89f638ba3d06ead09af1f5c4ab237a5e73be8281cd6eaa55",
+      "receipt_sha256": "2f95d623687e45a47d4e6b66df4660515c5b9c549227e7ac661718df2f23d50e"
+    }
+  ],
+  "source_bytes": 260286490,
+  "archive_bytes": 3387,
+  "archive_sha256": "aa909889d0932dd00d4654f3eb0931c4f73d6b16abd076758119c35347b1b14b",
+  "receipts_sha256": "6822a4fcb7b0440d533f44aab988e604121e037c5e524d367d7887d3ec7ddc9d",
+  "kept": [
+    "deposits",
+    "endings",
+    "grid_h10_total",
+    "grid_kerma_total",
+    "histories",
+    "n_fluorescence",
+    "scatter_sum",
+    "starts"
+  ],
+  "preserved_npz": {
+    "/Users/oishifamily/Projects/viveMonte/runs/ivr_room_box_gpu/dose.npz": "5463d47f64891f7820e9ed880d0f0fd120a4679ecffef5ff219cef043e9eddb8"
+  },
+  "verification": "Every batch read through expected_identity/read_result (identity + SHA256) and its receipt SHA256 recomputed from the file; kerma/h10 finite and non-negative; the raw per-voxel sums and the hit counts reproduce dose.npz exactly (assert_array_equal); dose.npz n_batches == 20.",
+  "limitations": "Per-voxel batch values and cross-voxel batch covariance are not kept: with 83% of the 1137600 voxels hit, a per-voxel table would be larger than the raw files and would duplicate data. dose.npz retains the per-voxel batch sums (kerma_keV, h10_track_pSv_cm3), mean, SEM, relative error and n_batches_hit for the full grid, so per-voxel first and second moments stay recoverable; what is lost is the per-voxel batch time series, hence any re-analysis over a subset of batches. Voxel size 5.0 cm. No Drive copy.",
+  "deletion_status": "moved to ~/.Trash/jsmp133_raw_batches_2026-11-08/ivr_room_box_colab_results",
+  "moved_at_local": "2026-11-08",
+  "deletion_method": "mv of the listed raw NPZ directory to ~/.Trash after build+verify passed (compact table, receipts and retained-NPZ hashes checked). Emptying the Trash is the user step; until then the raw files are still recoverable. Nothing was unlinked by this script."
+}

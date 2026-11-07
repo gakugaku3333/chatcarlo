@@ -23,3 +23,22 @@ GPU はどれも Google Colab の T4、EGS5 は手元の Mac の 1 プロセス�
 - 前立腺シードの 1 バッチの秒数: 1 回目 52.9 s（バッチ 4→17）、2 回目 63.5 s（4→94）、3 回目 50.9 s（3→17）。
   終了の時刻は 10 分おきの確認で見たもので、遅れを含みうる（1 回目の 4→終了は 61.1 s、3 回目は 69.7 s）。
 - GPU の 1 履歴あたり（記録から）: 10 MV 水 26.1 µs（10-21）、積層 P8f 276 µs、P8g-3 44.8 µs。
+
+## バッチごとの生データの扱い（2026-11-08、使用者決定）
+
+`runs/ivr_room_box_gpu/colab/results/`（20 バッチ・260 MB）を
+`~/.Trash/jsmp133_raw_batches_2026-11-08/ivr_room_box_colab_results` へ退避した。
+退避の前に [ivr_room_box_compaction/](ivr_room_box_compaction/) を作り、`raw_compaction.json` に
+元のハッシュ・受領票のハッシュ・検証の内容・失われるものを記録した
+（方法は [compact_run_batches.py](compact_run_batches.py)、water60 と同じ形）。260 MB → **3.4 KB**。
+
+**Why**: `dose.npz` が**全格子のボクセルごとのバッチ合計**（`kerma_keV`・`h10_track_pSv_cm3`）・
+平均・SEM・相対誤差・`n_batches_hit` を持ち、`build` が生の合計と当たり数の一致を
+`assert_array_equal` で確かめた。ボクセルごとの表は作っていない——
+**1,137,600 ボクセルの 83.3% が当たっているので、表は生データより大きくなり、
+公開リポジトリに約 36 MB の二重の写しを置くことになる**。
+残したのはバッチごとのスカラー（格子の合計・`deposits` 7・`endings` 3・`scatter_sum`・`n_fluorescence`）。
+
+**How to apply**: 失われたのは**ボクセルごとのバッチの値**（画素間の共分散、バッチの一部での再集計）。
+ボクセルごとの 1 次・2 次モーメントは `dose.npz` から復元できる。
+退避先を空にするのは使用者の作業で、それまでは元のファイルが戻せる。

@@ -56,3 +56,27 @@
   Colab の GPU で 5 段階の検出器画像を計算し、照合を通した。
 - CLI の外: 共通の濃淡の並べ図とノイズの表は `make_frames.py` の後処理（要件どおり）。動画は作っていない。
 - 手順書の更新: 通しを始めた時点で、vive-interview の対応表は「検出器面の画像は入口から出せない」と古いままだった。待ち時間に直した（使用者の指示）。
+
+## バッチごとの生データの扱い（2026-11-08、使用者決定）
+
+**結論**: `runs/xray_portrait_noise_20261024/n1e8/results/`（500 バッチ・112 MB）を
+`~/.Trash/jsmp133_raw_batches_2026-11-08/xray_portrait_n1e8_results` へ退避した。
+退避の前に [n1e8_compaction/](n1e8_compaction/) を作り、`raw_compaction.json` に
+**500 本の元のハッシュ・受領票のハッシュ・検証の内容・失われるもの**を記録した。
+方法は [compact_run_batches.py](../compact_run_batches.py)（`build` と `verify`）で、
+[water60 の compact_batches.py](../../validation/gpu/water60_100M/compact_batches.py) と同じ形。
+112 MB → **632 KB**。
+
+**Why**: `detector.npz` は **7 つの `images` チャネルすべての合計を持っている**
+（`images[0..3]` = `category_fluence`、`[4]` = `photon_count`、`[5]` = `energy_sum_keV`、
+`[6]` = `energy_sum2_keV2`。`build` が `assert_array_equal` で確かめた）。
+一方で `total_rel_err` はカテゴリーを合算した 1 つの値だけなので、
+**チャネルごとのバッチ間の 2 次モーメントは `detector.npz` から復元できない**。
+そこを `images_sum2`・`category_count_sum2` として残した（7×100×120、1 MB 未満）。
+`make_frames.py` は `detector.npz` だけを読むので、図の作り直しには影響しない。
+
+**How to apply**: 失われたのは**画素ごとのバッチの値**で、したがって画素間のバッチ共分散と
+「バッチの一部だけで再集計する」ことができない。画素ごとの平均と SEM は
+全チャネルについて復元できる。同じ判断を他の生データでするときは、
+**先に「残す側の要約がどのチャネルまで覆っているか」を `assert_array_equal` で確かめる**——
+覆っていないチャネルがあれば、その生データは退避してはいけない。
