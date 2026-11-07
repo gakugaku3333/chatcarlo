@@ -1,0 +1,730 @@
+[
+  {
+    "operation": "new",
+    "attempt": 1,
+    "retry": false,
+    "seconds": 4.487832624930888,
+    "error": null,
+    "detail": null
+  },
+  {
+    "operation": "exec",
+    "attempt": 1,
+    "retry": false,
+    "seconds": 3.795650292187929,
+    "error": null,
+    "detail": null
+  },
+  {
+    "operation": "upload",
+    "attempt": 1,
+    "retry": false,
+    "seconds": 8.549364000093192,
+    "error": null,
+    "detail": null
+  },
+  {
+    "operation": "upload",
+    "attempt": 1,
+    "retry": false,
+    "seconds": 49.61241816682741,
+    "error": null,
+    "detail": null
+  },
+  {
+    "operation": "upload",
+    "attempt": 1,
+    "retry": false,
+    "seconds": 18.398043458350003,
+    "error": null,
+    "detail": null
+  },
+  {
+    "operation": "upload",
+    "attempt": 1,
+    "retry": false,
+    "seconds": 3.823021958116442,
+    "error": null,
+    "detail": null
+  },
+  {
+    "operation": "upload",
+    "attempt": 1,
+    "retry": false,
+    "seconds": 4.505802874919027,
+    "error": null,
+    "detail": null
+  },
+  {
+    "operation": "upload",
+    "attempt": 1,
+    "retry": false,
+    "seconds": 8.997643500100821,
+    "error": null,
+    "detail": null
+  },
+  {
+    "operation": "upload",
+    "attempt": 1,
+    "retry": false,
+    "seconds": 8.994285083841532,
+    "error": null,
+    "detail": null
+  },
+  {
+    "operation": "upload",
+    "attempt": 1,
+    "retry": false,
+    "seconds": 8.433578040916473,
+    "error": null,
+    "detail": null
+  },
+  {
+    "operation": "upload",
+    "attempt": 1,
+    "retry": false,
+    "seconds": 4.1747329998761415,
+    "error": null,
+    "detail": null
+  },
+  {
+    "operation": "upload",
+    "attempt": 1,
+    "retry": false,
+    "seconds": 4.163250499870628,
+    "error": null,
+    "detail": null
+  },
+  {
+    "operation": "upload",
+    "attempt": 1,
+    "retry": false,
+    "seconds": 3.968007499817759,
+    "error": null,
+    "detail": null
+  },
+  {
+    "operation": "upload",
+    "attempt": 1,
+    "retry": false,
+    "seconds": 3.8840772500261664,
+    "error": null,
+    "detail": null
+  },
+  {
+    "operation": "upload",
+    "attempt": 1,
+    "retry": false,
+    "seconds": 3.6879442906938493,
+    "error": null,
+    "detail": null
+  },
+  {
+    "operation": "upload",
+    "attempt": 1,
+    "retry": false,
+    "seconds": 3.7121346252970397,
+    "error": null,
+    "detail": null
+  },
+  {
+    "operation": "upload",
+    "attempt": 1,
+    "retry": false,
+    "seconds": 3.979376166127622,
+    "error": null,
+    "detail": null
+  },
+  {
+    "operation": "upload",
+    "attempt": 1,
+    "retry": false,
+    "seconds": 3.7306606671772897,
+    "error": null,
+    "detail": null
+  },
+  {
+    "operation": "upload",
+    "attempt": 1,
+    "retry": false,
+    "seconds": 6.757489459123462,
+    "error": null,
+    "detail": null
+  },
+  {
+    "operation": "upload",
+    "attempt": 1,
+    "retry": false,
+    "seconds": 6.398507500067353,
+    "error": null,
+    "detail": null
+  },
+  {
+    "operation": "upload",
+    "attempt": 1,
+    "retry": false,
+    "seconds": 3.798786582890898,
+    "error": null,
+    "detail": null
+  },
+  {
+    "operation": "upload",
+    "attempt": 1,
+    "retry": false,
+    "seconds": 3.721380750183016,
+    "error": null,
+    "detail": null
+  },
+  {
+    "operation": "upload",
+    "attempt": 1,
+    "retry": false,
+    "seconds": 3.810331291053444,
+    "error": null,
+    "detail": null
+  },
+  {
+    "operation": "upload",
+    "attempt": 1,
+    "retry": false,
+    "seconds": 3.8244505412876606,
+    "error": null,
+    "detail": null
+  },
+  {
+    "operation": "upload",
+    "attempt": 1,
+    "retry": false,
+    "seconds": 3.72146674990654,
+    "error": null,
+    "detail": null
+  },
+  {
+    "operation": "upload",
+    "attempt": 1,
+    "retry": false,
+    "seconds": 3.936152999754995,
+    "error": null,
+    "detail": null
+  },
+  {
+    "operation": "upload",
+    "attempt": 1,
+    "retry": false,
+    "seconds": 14.484120042063296,
+    "error": null,
+    "detail": null
+  },
+  {
+    "operation": "upload",
+    "attempt": 1,
+    "retry": false,
+    "seconds": 7.963412791956216,
+    "error": null,
+    "detail": null
+  },
+  {
+    "operation": "upload",
+    "attempt": 1,
+    "retry": false,
+    "seconds": 7.473055750131607,
+    "error": null,
+    "detail": null
+  },
+  {
+    "operation": "upload",
+    "attempt": 1,
+    "retry": false,
+    "seconds": 10.435291375033557,
+    "error": null,
+    "detail": null
+  },
+  {
+    "operation": "upload",
+    "attempt": 1,
+    "retry": false,
+    "seconds": 12.192835625261068,
+    "error": null,
+    "detail": null
+  },
+  {
+    "operation": "upload",
+    "attempt": 1,
+    "retry": false,
+    "seconds": 14.121651249937713,
+    "error": null,
+    "detail": null
+  },
+  {
+    "operation": "upload",
+    "attempt": 1,
+    "retry": false,
+    "seconds": 4.004794999957085,
+    "error": null,
+    "detail": null
+  },
+  {
+    "operation": "upload",
+    "attempt": 1,
+    "retry": false,
+    "seconds": 3.9235616251826286,
+    "error": null,
+    "detail": null
+  },
+  {
+    "operation": "upload",
+    "attempt": 1,
+    "retry": false,
+    "seconds": 4.545487708412111,
+    "error": null,
+    "detail": null
+  },
+  {
+    "operation": "upload",
+    "attempt": 1,
+    "retry": false,
+    "seconds": 4.1959381671622396,
+    "error": null,
+    "detail": null
+  },
+  {
+    "operation": "upload",
+    "attempt": 1,
+    "retry": false,
+    "seconds": 34.6246916661039,
+    "error": null,
+    "detail": null
+  },
+  {
+    "operation": "upload",
+    "attempt": 1,
+    "retry": false,
+    "seconds": 4.187822832725942,
+    "error": null,
+    "detail": null
+  },
+  {
+    "operation": "upload",
+    "attempt": 1,
+    "retry": false,
+    "seconds": 4.206853457726538,
+    "error": null,
+    "detail": null
+  },
+  {
+    "operation": "upload",
+    "attempt": 1,
+    "retry": false,
+    "seconds": 8.111684250179678,
+    "error": null,
+    "detail": null
+  },
+  {
+    "operation": "upload",
+    "attempt": 1,
+    "retry": false,
+    "seconds": 12.387399916071445,
+    "error": null,
+    "detail": null
+  },
+  {
+    "operation": "upload",
+    "attempt": 1,
+    "retry": false,
+    "seconds": 41.0981565839611,
+    "error": null,
+    "detail": null
+  },
+  {
+    "operation": "upload",
+    "attempt": 1,
+    "retry": false,
+    "seconds": 5.566888874862343,
+    "error": null,
+    "detail": null
+  },
+  {
+    "operation": "upload",
+    "attempt": 1,
+    "retry": false,
+    "seconds": 4.489472291897982,
+    "error": null,
+    "detail": null
+  },
+  {
+    "operation": "upload",
+    "attempt": 1,
+    "retry": false,
+    "seconds": 34.959764041006565,
+    "error": null,
+    "detail": null
+  },
+  {
+    "operation": "upload",
+    "attempt": 1,
+    "retry": false,
+    "seconds": 50.56730437511578,
+    "error": null,
+    "detail": null
+  },
+  {
+    "operation": "upload",
+    "attempt": 1,
+    "retry": false,
+    "seconds": 3.948210791684687,
+    "error": null,
+    "detail": null
+  },
+  {
+    "operation": "upload",
+    "attempt": 1,
+    "retry": false,
+    "seconds": 3.799113499931991,
+    "error": null,
+    "detail": null
+  },
+  {
+    "operation": "upload",
+    "attempt": 1,
+    "retry": false,
+    "seconds": 4.0766185419633985,
+    "error": null,
+    "detail": null
+  },
+  {
+    "operation": "upload",
+    "attempt": 1,
+    "retry": false,
+    "seconds": 4.956576625350863,
+    "error": null,
+    "detail": null
+  },
+  {
+    "operation": "upload",
+    "attempt": 1,
+    "retry": false,
+    "seconds": 36.661176374647766,
+    "error": null,
+    "detail": null
+  },
+  {
+    "operation": "upload",
+    "attempt": 1,
+    "retry": false,
+    "seconds": 4.666322249919176,
+    "error": null,
+    "detail": null
+  },
+  {
+    "operation": "upload",
+    "attempt": 1,
+    "retry": false,
+    "seconds": 28.962700416799635,
+    "error": null,
+    "detail": null
+  },
+  {
+    "operation": "upload",
+    "attempt": 1,
+    "retry": false,
+    "seconds": 29.24764720769599,
+    "error": null,
+    "detail": null
+  },
+  {
+    "operation": "upload",
+    "attempt": 1,
+    "retry": false,
+    "seconds": 66.26924370834604,
+    "error": null,
+    "detail": null
+  },
+  {
+    "operation": "upload",
+    "attempt": 1,
+    "retry": false,
+    "seconds": 3.8938892078585923,
+    "error": null,
+    "detail": null
+  },
+  {
+    "operation": "upload",
+    "attempt": 1,
+    "retry": false,
+    "seconds": 4.461795582901686,
+    "error": null,
+    "detail": null
+  },
+  {
+    "operation": "upload",
+    "attempt": 1,
+    "retry": false,
+    "seconds": 16.28802837524563,
+    "error": null,
+    "detail": null
+  },
+  {
+    "operation": "upload",
+    "attempt": 1,
+    "retry": false,
+    "seconds": 6.621843541972339,
+    "error": null,
+    "detail": null
+  },
+  {
+    "operation": "upload",
+    "attempt": 1,
+    "retry": false,
+    "seconds": 46.14017870789394,
+    "error": null,
+    "detail": null
+  },
+  {
+    "operation": "upload",
+    "attempt": 1,
+    "retry": false,
+    "seconds": 4.584473249968141,
+    "error": null,
+    "detail": null
+  },
+  {
+    "operation": "upload",
+    "attempt": 1,
+    "retry": false,
+    "seconds": 4.133939458988607,
+    "error": null,
+    "detail": null
+  },
+  {
+    "operation": "upload",
+    "attempt": 1,
+    "retry": false,
+    "seconds": 5.078934291843325,
+    "error": null,
+    "detail": null
+  },
+  {
+    "operation": "upload",
+    "attempt": 1,
+    "retry": false,
+    "seconds": 3.8834318751469254,
+    "error": null,
+    "detail": null
+  },
+  {
+    "operation": "upload",
+    "attempt": 1,
+    "retry": false,
+    "seconds": 29.1979596670717,
+    "error": null,
+    "detail": null
+  },
+  {
+    "operation": "upload",
+    "attempt": 1,
+    "retry": false,
+    "seconds": 110.79461116576567,
+    "error": null,
+    "detail": null
+  },
+  {
+    "operation": "upload",
+    "attempt": 1,
+    "retry": false,
+    "seconds": 4.076137332711369,
+    "error": null,
+    "detail": null
+  },
+  {
+    "operation": "exec",
+    "attempt": 1,
+    "retry": false,
+    "seconds": 1.7512631248682737,
+    "error": null,
+    "detail": null
+  },
+  {
+    "operation": "exec",
+    "attempt": 1,
+    "retry": false,
+    "seconds": 14.605625875294209,
+    "error": null,
+    "detail": null
+  },
+  {
+    "operation": "exec",
+    "attempt": 1,
+    "retry": false,
+    "seconds": 2.0850752503611147,
+    "error": null,
+    "detail": null
+  },
+  {
+    "operation": "exec",
+    "attempt": 1,
+    "retry": false,
+    "seconds": 3.1326733748428524,
+    "error": null,
+    "detail": null
+  },
+  {
+    "operation": "exec",
+    "attempt": 1,
+    "retry": false,
+    "seconds": 4.724348000250757,
+    "error": null,
+    "detail": null
+  },
+  {
+    "operation": "exec",
+    "attempt": 1,
+    "retry": false,
+    "seconds": 4.8033257918432355,
+    "error": null,
+    "detail": null
+  },
+  {
+    "operation": "exec",
+    "attempt": 1,
+    "retry": false,
+    "seconds": 3.2599907079711556,
+    "error": null,
+    "detail": null
+  },
+  {
+    "operation": "exec",
+    "attempt": 1,
+    "retry": false,
+    "seconds": 3.6985929580405354,
+    "error": null,
+    "detail": null
+  },
+  {
+    "operation": "download",
+    "attempt": 1,
+    "retry": false,
+    "seconds": 1.9164720000699162,
+    "error": null,
+    "detail": null
+  },
+  {
+    "operation": "exec",
+    "attempt": 1,
+    "retry": false,
+    "seconds": 300.0199626251124,
+    "error": "TimeoutExpired",
+    "detail": "(\"Connection was lost.\")        \\xe2\\x94\\x82\\n\\xe2\\x94\\x82   1074 \\xe2\\x94\\x82   \\xe2\\x94\\x82   \\xe2\\x94\\x82   \\xe2\\x94\\x82                                                         \\xe2\\x94\\x82\\n\\xe2\\x94\\x82   1075 \\xe2\\x94\\x82   \\xe2\\x94\\x82   \\xe2\\x94\\x82   \\xe2\\x94\\x82   if timeout is not None:                               \\xe2\\x94\\x82\\n\\xe2\\x94\\x82   1076 \\xe2\\x94\\x82   \\xe2\\x94\\x82   \\xe2\\x94\\x82   \\xe2\\x94\\x82   \\xe2\\x94\\x82   timeout = max(0, deadline - time.monotonic())     \\xe2\\x94\\x82\\n\\xe2\\x95\\xb0\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x95\\xaf\\nRuntimeError: Connection was lost.\\n'"
+  },
+  {
+    "operation": "exec",
+    "attempt": 2,
+    "retry": true,
+    "seconds": 300.0177624160424,
+    "error": "TimeoutExpired",
+    "detail": "(\"Connection was lost.\")        \\xe2\\x94\\x82\\n\\xe2\\x94\\x82   1074 \\xe2\\x94\\x82   \\xe2\\x94\\x82   \\xe2\\x94\\x82   \\xe2\\x94\\x82                                                         \\xe2\\x94\\x82\\n\\xe2\\x94\\x82   1075 \\xe2\\x94\\x82   \\xe2\\x94\\x82   \\xe2\\x94\\x82   \\xe2\\x94\\x82   if timeout is not None:                               \\xe2\\x94\\x82\\n\\xe2\\x94\\x82   1076 \\xe2\\x94\\x82   \\xe2\\x94\\x82   \\xe2\\x94\\x82   \\xe2\\x94\\x82   \\xe2\\x94\\x82   timeout = max(0, deadline - time.monotonic())     \\xe2\\x94\\x82\\n\\xe2\\x95\\xb0\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x95\\xaf\\nRuntimeError: Connection was lost.\\n'"
+  },
+  {
+    "operation": "exec",
+    "attempt": 3,
+    "retry": true,
+    "seconds": 300.02254783315584,
+    "error": "TimeoutExpired",
+    "detail": "(\"Connection was lost.\")        \\xe2\\x94\\x82\\n\\xe2\\x94\\x82   1074 \\xe2\\x94\\x82   \\xe2\\x94\\x82   \\xe2\\x94\\x82   \\xe2\\x94\\x82                                                         \\xe2\\x94\\x82\\n\\xe2\\x94\\x82   1075 \\xe2\\x94\\x82   \\xe2\\x94\\x82   \\xe2\\x94\\x82   \\xe2\\x94\\x82   if timeout is not None:                               \\xe2\\x94\\x82\\n\\xe2\\x94\\x82   1076 \\xe2\\x94\\x82   \\xe2\\x94\\x82   \\xe2\\x94\\x82   \\xe2\\x94\\x82   \\xe2\\x94\\x82   timeout = max(0, deadline - time.monotonic())     \\xe2\\x94\\x82\\n\\xe2\\x95\\xb0\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x94\\x80\\xe2\\x95\\xaf\\nRuntimeError: Connection was lost.\\n'"
+  },
+  {
+    "operation": "exec",
+    "attempt": 4,
+    "retry": true,
+    "seconds": 1.517773374915123,
+    "error": null,
+    "detail": null
+  },
+  {
+    "operation": "exec",
+    "attempt": 1,
+    "retry": false,
+    "seconds": 6.4871076247654855,
+    "error": null,
+    "detail": null
+  },
+  {
+    "operation": "download",
+    "attempt": 1,
+    "retry": false,
+    "seconds": 0.9875905830413103,
+    "error": null,
+    "detail": null
+  },
+  {
+    "operation": "exec",
+    "attempt": 1,
+    "retry": false,
+    "seconds": 1.2691245842725039,
+    "error": null,
+    "detail": null
+  },
+  {
+    "operation": "exec",
+    "attempt": 1,
+    "retry": false,
+    "seconds": 1.6335160830058157,
+    "error": null,
+    "detail": null
+  },
+  {
+    "operation": "exec",
+    "attempt": 1,
+    "retry": false,
+    "seconds": 2.095853209029883,
+    "error": null,
+    "detail": null
+  },
+  {
+    "operation": "exec",
+    "attempt": 1,
+    "retry": false,
+    "seconds": 1.9619704997166991,
+    "error": null,
+    "detail": null
+  },
+  {
+    "operation": "download",
+    "attempt": 1,
+    "retry": false,
+    "seconds": 13.639630666933954,
+    "error": null,
+    "detail": null
+  },
+  {
+    "operation": "exec",
+    "attempt": 1,
+    "retry": false,
+    "seconds": 14.712019249796867,
+    "error": null,
+    "detail": null
+  },
+  {
+    "operation": "exec",
+    "attempt": 1,
+    "retry": false,
+    "seconds": 1.67762520769611,
+    "error": null,
+    "detail": null
+  },
+  {
+    "operation": "exec",
+    "attempt": 1,
+    "retry": false,
+    "seconds": 13.724809332750738,
+    "error": null,
+    "detail": null
+  },
+  {
+    "operation": "stop",
+    "attempt": 1,
+    "retry": false,
+    "seconds": 1.5603501251898706,
+    "error": null,
+    "detail": null
+  }
+]

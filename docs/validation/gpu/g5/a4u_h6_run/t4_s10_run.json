@@ -1,0 +1,15 @@
+{
+  "status": "fail",
+  "session": "g5-a4u-h6-df9c39a0d996",
+  "tasks": {
+    "A1": {
+      "status": "pass",
+      "worker_total_s": 56.774964254,
+      "elapsed_including_communication_s": 1167.5223698327318
+    }
+  },
+  "error": "estimated allocations would cross the 3 GiB free-space floor",
+  "collection_error": "estimated allocations would cross the 3 GiB free-space floor",
+  "vm_stopped": true,
+  "total_s": 2259.283617665991
+}
