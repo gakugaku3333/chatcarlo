@@ -447,10 +447,47 @@ fixture が継ぎ足して組み立てる源は別物で、そこに誤りがあ
 対象は本番の 7 組に加え、**fixture が組み立てる 2 つの源**（B4 の relax、B1 の observe build）。
 継ぎ足しを戻すと実際に落ちることも確かめた。
 
+### T4 セッション 5（2026-11-07）: **A1・A2・A3・B（B1〜B6 全部）・C1 合格、C2 で停止**
+
+[t4_s5_run.json](../../validation/gpu/g5/a4u_h6_run/t4_s5_run.json)・
+[t4_s5_B_verdict.json](../../validation/gpu/g5/a4u_h6_run/t4_s5_B_verdict.json)・
+[t4_s5_A3_verdict.json](../../validation/gpu/g5/a4u_h6_run/t4_s5_A3_verdict.json)・
+[t4_s5_C2_failure.json](../../validation/gpu/g5/a4u_h6_run/t4_s5_C2_failure.json)。
+総時間 **1,521.9 秒（25 分 22 秒）**、通信の失敗 0、VM 停止済み。
+
+| 関門 | 結果 | 秒 |
+|---|---|---:|
+| A1 | 合格（61 量） | 70.3 |
+| A2 | 合格（格子 4 組） | 90.0 |
+| A3 | 合格 | 331.6 |
+| **B** | **合格（B1〜B6 すべて）** | 204.5 |
+| C1 | 報告専用（設計どおり） | 70.2 |
+| C2 | **停止** | — |
+
+**群 B が全部通った**。到達数は 5 関門すべて封印済みの CPU と一致（B4 757/427/3704、
+B5 96/223/2、故障は CK の 1・2 と輸送の 3・4・5・容量すべて `detected`）。
+CPU/T4 の同一性（`seeds`・`inputs`・`fixture_source_sha256`）も照合済み。
+B6 は `local`・`electron`・`seed` の 3 組が `nvrtc` で立った。
+
+**C2 の停止**: `diagnostic_measure` が `validation.reconstruction_bounds` を呼ぶが、
+これは `r['category_count']` を無条件に読む。**`g2b` の構成は格子だけで検出器が無く**、
+`record_reduce` は検出器のあるシーンでしか `images`/`category_count` を作らないため
+`KeyError: 'category_count'`。測る順序の最初が `old-g2b` → `new-g2b` なので即座に当たった。
+
+直し方は**本番の式を一切変えない**: 検出器が無い場合だけ `category_count` の
+置き場（ゼロ）を渡す。画像の上限は `rebuilt` が実際に持つ鍵にしか使われないので、
+置き場は返る上限に影響し得ない——**それを仮定せず、`rebuilt` に `images`/`category_count` が
+無いことを確かめて落ちるようにした**。g2b と g4 の両方で CPU の再構成が通ることを手元で確認。
+
+**これは手元で捕まえられた不具合だった。** C2 の測定経路は実機まで一度も走っていなかった。
+そこで **`prepare` が VM を作る前に、各速度構成について C2 の測定経路を CPU で検査する**
+ようにした（タイミングだけが GPU を要る。記録の再構成と履歴数は要らず、不具合はそちら側にあった）。
+
 ## 未了
 
-**T4 のセッション 5**（B4〜B6・C1・C2）。A1・A2・A3 と B1〜B3 は 2 回ずつ合格しているが
-`TASKS` は固定なので再実行される（約 11 分）。空きは 4.7 GiB あり、容量の問題は無い。
+**T4 のセッション 6**（C2 のみ残り。`TASKS` 固定なので A1〜C1 も再実行され、約 22 分）。
+C2 が通れば、報告専用（C1・C3・C4）を除く関門がすべて合格し、`judge` に進める。
 
-**証拠は消さない**: `~/chatcarlo_h6_2026-11-07c`（セッション 1）・`d`（2）・`e`（3）・`f`（4）。
-`payload.tar` は再生成できるので退避してよい。
+**証拠はすべて [a4u_h6_run/](../../validation/gpu/g5/a4u_h6_run/) に入っている**（セッション 1〜5）。
+作業ディレクトリ `~/chatcarlo_h6_2026-11-07*` は再生成できるので退避してよい。
+1 周あたり約 1.9 GiB 使うので、周回の前に空きを確かめる。

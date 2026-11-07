@@ -100,6 +100,7 @@ def prepare(args):
     from a1_speed import load_configs
     from a0_bootstrap import verify_files
     from chatcarlo.gpu import bundle, therapy_inputs
+    from chatcarlo.gpu import core as core_module
     from chatcarlo.scene import load_scene
     from chatcarlo.tally import VoxelGrid
     out = writable(args.output)
@@ -129,6 +130,29 @@ def prepare(args):
     write(base/'A2/grids.json', grids)
     cfg, _ = load_configs(HERE/'a1_speed_configs.json')
     create_new(base/'diagnostic/new', cfg)
+    # C2's measurement path, exercised on the CPU before any VM exists. T4 session 5
+    # died in it with KeyError: 'category_count' -- the detector-less g2b config -- and
+    # nothing local had ever run it. The timing itself needs a GPU; the record
+    # reconstruction and the history count do not, and that is where the bug was.
+    from chatcarlo.gpu import g2_core, validation
+    from chatcarlo.gpu.source_host import sample_source_photons
+    for c in cfg['configurations']:
+        ca, csrc, cspec, _, _ = bundle.load(base/'diagnostic/new'/c['id'])
+        cls = g2_core.Core if c['grid'] else core_module.Core
+        obj = cls(ca, 'cpu', **(dict(grid=g2_core.grid_from(c['grid'])) if c['grid'] else {}))
+        probe = 2000
+        got = obj.run(*sample_source_photons(csrc, probe, np.random.default_rng(c['source_seed']), cspec),
+                      seed=c['seed'], start=c['start'], **dict(c['flags'], record=True, observe=False))
+        if isinstance(got, tuple): got = got[0]
+        rebuilt = validation.record_reduce(got, obj.a)
+        if 'category_count' in got: limits = validation.reconstruction_bounds(got, rebuilt, probe)
+        else:
+            if 'images' in rebuilt or 'category_count' in rebuilt:
+                raise ValueError('detector-less run produced image records: '+c['id'])
+            limits = validation.reconstruction_bounds(dict(got, category_count=np.zeros((4, 1, 1))), rebuilt, probe)
+        if any(np.any(np.abs(rebuilt[k]-got[k]) > limits[k]) for k in rebuilt):
+            raise ValueError('CPU record reconstruction fails for speed config '+c['id'])
+        if got['completed'] != probe: raise ValueError('CPU history count for speed config '+c['id'])
     # A3's gate2a rebuilds an artificial sub-5-keV fluorescence table through
     # core.pack, which regenerates the photon tables with xraylib. The VM has no
     # xraylib on purpose (the runbook: the host generates tables, the VM reads
@@ -418,7 +442,18 @@ def diagnostic_measure(c, state, n):
     kernel_s = state['timer'].seconds[0]
     replay = state['obj'].run(*inputs, seed=c['seed'], start=c['start'], **dict(c['flags'], record=True, observe=False))
     rebuilt = validation.record_reduce(replay, state['obj'].a)
-    bounds = validation.reconstruction_bounds(replay, rebuilt, n)
+    # record_reduce only produces images/category_count for a scene WITH a detector,
+    # while reconstruction_bounds reads r['category_count'] unconditionally to size the
+    # image bound. The g2b speed configuration has a grid and no detector, so C2 died
+    # there on T4 session 5 with KeyError: 'category_count'. The image bound is used
+    # only for the keys rebuilt actually has, so a placeholder cannot change any bound
+    # that is returned -- asserted below rather than assumed.
+    if 'category_count' in replay:
+        bounds = validation.reconstruction_bounds(replay, rebuilt, n)
+    else:
+        if 'images' in rebuilt or 'category_count' in rebuilt:
+            raise ValueError('detector-less run produced image records; the placeholder would matter')
+        bounds = validation.reconstruction_bounds(dict(replay, category_count=np.zeros((4, 1, 1))), rebuilt, n)
     if any(np.any(np.abs(rebuilt[k]-replay[k]) > bounds[k]) for k in rebuilt): raise ValueError('timing reconstruction')
     if replay['completed'] != n: raise ValueError('timing history count')
     return dict(kernel_s=kernel_s, call_s=call_s, health=dict(status='pass', histories=n))
