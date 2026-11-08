@@ -169,6 +169,13 @@ overwritten by later diagnostics.
     fixture, and `run_p7.py:269,328` reads `p7/work/export`. Some `gsdist.dat`/`pgs5job.GSlst` under
     `p8a/fluorescence/` are hashed in `docs/validation/mv/p9a/protected_start.json` — grep the absolute paths in
     `docs/validation/mv/**/*.json` before moving anything.
+  - **Batch raw data a summary NPZ already summarises**: write a compaction record first. Full pattern:
+    water60's `compact_batches.py` -- `build` asserts the raw sums (`assert_array_equal`) **and** the per-element
+    SEM (`assert_allclose`), then writes `raw_compaction.json` (source hashes, `verification`, `limitations`,
+    `deletion_status`). `docs/jsmp133/compact_run_batches.py` follows it but its `build` checks sums and hits
+    only -- the ivr SEM needed a one-off script after the raw data was moved aside. Put that check inside
+    `build`: it gets skipped and cannot be redone once the raw data is gone. Which channels a summary covers is
+    not obvious -- `detector.npz` holds all seven `images` channels but one category-summed `total_rel_err`.
   - Record every removed export's per-file SHA256 under `~/.cache/chatcarlo/archive/removed_exports_<date>/`
     (precedent: `removed_exports_20261025`), so the folder can be regenerated and checked.
   - Measure the space gained with `df` after the Trash is emptied, not with `du`: APFS clones share blocks.

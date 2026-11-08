@@ -73,7 +73,7 @@
 一方で `total_rel_err` はカテゴリーを合算した 1 つの値だけなので、
 **チャネルごとのバッチ間の 2 次モーメントは `detector.npz` から復元できない**。
 そこを `images_sum2`・`category_count_sum2` として残した（7×100×120、1 MB 未満）。
-`make_frames.py` は `detector.npz` だけを読むので、図の作り直しには影響しない。
+`make_frames.py` は `detector.npz` だけを読む。退避後に実際に走らせたところ、`frames_common_scale.png` と `frames_summary.json` を**バイト一致で再生成できた**（上書きしたうえで `git diff` が空。2026-11-08 に確認）。
 
 **How to apply**: 失われたのは**画素ごとのバッチの値**で、したがって画素間のバッチ共分散と
 「バッチの一部だけで再集計する」ことができない。画素ごとの平均と SEM は
