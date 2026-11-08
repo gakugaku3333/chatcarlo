@@ -330,3 +330,24 @@ BATCH_TABLES_REQUIRE_RAW=1 .venv/bin/python -m pytest prototypes/mv_electron/tes
 - float32 への変換（使わない。表は float64 のままでも小さい）。
 - 圧縮した形での写し（Codex の提案どおり、フォルダのまま写す。新しい形式を増やさない）。
 - 平均・SEM は、`q` から計算できるので重複だが、使用者の希望で派生ファイルに入れる。再計算のスクリプトは `q` から計算し直す（保存した平均・SEM は読まない）。
+
+## 運用の決まり（三つの分類。2026-11-08 に `.claude/rules/mv.md` から移設）
+
+この計画は 2026-10-26 の段階 1 の記録として `implemented` のまま変えていない。以下は、その後も毎回の段階の閉じ方に使っている分類の正典で、`.claude/rules/mv.md` の Stage-close data review がここを指している（mv.md が 200 行に達したため本文をこちらへ移した）。
+
+1. **Keep local**:
+   - hashed by `protected_paths()` or a manifest
+   - read by a stage that is still open
+   - small (under about 50 MB)
+2. **Tables in the repo, raw to Drive**: results whose regeneration costs GPU or long CPU time, or that would not reproduce
+   the recorded hashes (GPU output is not bit-reproducible).
+   - Keep in the repo:
+     - the outer-batch tables the stage's analysis actually uses (100 rows × bins, float64), plus mean and SEM, N, seed
+       and the source SHA256
+     - a script that reproduces the RESULTS output byte for byte from them
+   - Copy the raw data to the gmail Drive `viveMonte/cache_cold/`, check every SHA256 from Colab, then move the original
+     to the Trash.
+3. **Delete without Drive** (move to the Trash): regenerable and named in no seal (`complete.json`, `identity.json`)
+   or manifest, e.g.:
+   - EGS5 `gsdist.dat` / `pgs5job.GSlst`
+   - Colab export bundles and their split transfer parts

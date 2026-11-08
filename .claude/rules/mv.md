@@ -146,22 +146,8 @@ overwritten by later diagnostics.
   the stage into one of three classes. Write the table in the stage's RESULTS, and add one line to STATUS.md.
   Worked example and checks: `docs/ai/plans/2026-10-26-cache-batch-tables-to-drive.md`; how to check the Drive copy from Colab
   (`colab drivemount` needs the user's consent each session): `docs/validation/mv/cold_storage/README.md`.
-  1. **Keep local**:
-     - hashed by `protected_paths()` or a manifest
-     - read by a stage that is still open
-     - small (under about 50 MB)
-  2. **Tables in the repo, raw to Drive**: results whose regeneration costs GPU or long CPU time, or that would not reproduce
-     the recorded hashes (GPU output is not bit-reproducible).
-     - Keep in the repo:
-       - the outer-batch tables the stage's analysis actually uses (100 rows × bins, float64), plus mean and SEM, N, seed
-         and the source SHA256
-       - a script that reproduces the RESULTS output byte for byte from them
-     - Copy the raw data to the gmail Drive `viveMonte/cache_cold/`, check every SHA256 from Colab, then move the original
-       to the Trash.
-  3. **Delete without Drive** (move to the Trash): regenerable and named in no seal (`complete.json`, `identity.json`)
-     or manifest, e.g.:
-     - EGS5 `gsdist.dat` / `pgs5job.GSlst`
-     - Colab export bundles and their split transfer parts
+  The three classes, and what qualifies for each, are defined in that plan under
+  "運用の決まり（三つの分類）" -- read it before sorting a stage's outputs.
   - **Order (2026-11-03, learned the hard way): move aside → run the FULL suites AND the CLI paths that read
     those folders (`run_p7 analyse`, `p8f analyse`, `p6 analyse`, pilot-lock checks) → only then let the Trash be
     emptied.** Class membership is not enough: `p8g2/export` is in the "delete without Drive" class but
