@@ -74,6 +74,13 @@ module without stopping at the first failure (pattern: `a4u_h6_run/t4_compile_sm
 
 **Colab CLI runs (all GPU stages, not only MV)**: the operating rules in [mv.md](mv.md) "Which code to use" apply here too — poll the VM with `colab exec` **every 10 minutes** (user decision 2026-10-21), collect finished results at every poll, always `colab stop`. A new launcher must reuse `chatcarlo.gpu.colab_driver` (bundle split, `_bootstrap`, `verify`) and bound every `colab` call with a timeout; run an independent watchdog on the launcher's heartbeat/log so a stuck launcher is noticed; start child tools (ncu, workers) with `start_new_session=True` and kill the whole process group on timeout, because a plain `subprocess.run(timeout=)` kills only a `/bin/sh` wrapper and leaves the tool running. A local `run --engine gpu` of a scene with a detector writes `chatcarlo_out/<condition hash>/detector.npz` in the current directory unless `--detector-out` is given (`gpu/cli_run.py:62`); for trial/timing runs pass `--detector-out` into the scratchpad. Incidents behind these rules: [docs/history/2026-11.md](../../docs/history/2026-11.md).
 
+**`run --workers N` leaves orphans when the parent dies**: 9 `multiprocessing` children were found alive on
+2026-11-09 with `PPID 1`, CPU 0%, the oldest **15 days** old (an 8-worker pool from 10-24 plus one from 10-31).
+They hold no work and show up in no disk or test check, so nothing notices them. The pool's cleanup on an
+abnormal parent exit (`close`/`join`, child reaping on a signal) has **not** been verified -- check it before
+trusting `--workers` in a long unattended run, and look for leftovers afterwards
+(`ps -axo pid,ppid,lstart,etime,%cpu,command | grep multiprocessing-fork`). `/shime` now checks this every time.
+
 ## Physics
 
 Photoelectric / Compton / Rayleigh. **Bound Compton**: free-electron Klein-Nishina via Kahn rejection, then an extra
